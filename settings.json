@@ -1,0 +1,56 @@
+{
+    "editor.formatOnSave": true,
+    "C_Cpp.updateChannel": "Insiders",
+    "workbench.colorTheme": "Predawn",
+    "workbench.settings.editor": "json",
+    "code-runner.defaultLanguage": "cpp",
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "python": "cd $dir && python3 $fileName",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -std=c++17 -Wall -Wextra -Wshadow -Wunused -Wconversion -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && ./$fileNameWithoutExt < $fileNameWithoutExt.in > $fileNameWithoutExt.out"
+    },
+    "python.formatting.provider": "autopep8",
+    "workbench.iconTheme": "material-icon-theme",
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "editor.minimap.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "workbench.editor.enablePreview": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "editor.largeFileOptimizations": false,
+    "prettier.tabWidth": 4,
+    "prettier.useTabs": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": false
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.jsxBracketSameLine": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "python.showStartPage": false,
+    "tabnine.experimentalAutoImports": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<esc>"]
+        }
+    ],
+    "vim.handleKeys": {
+        "<C-c>": false,
+        "<C-v>": false
+    },
+    "terminal.integrated.fontFamily": "DejaVu Sans Mono for Powerline, Consolas",
+    "remote.SSH.remotePlatform": {
+        "192.168.0.24": "linux"
+    }
+}
