@@ -12,6 +12,9 @@
 ## Install nvm
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
+## Install powerline font
+    https://github.com/powerline/fonts
+
 ## Install omf plugins
     omf install budspencer nvm grc bang-bang fuck expand
 
