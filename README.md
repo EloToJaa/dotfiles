@@ -4,7 +4,7 @@
     sudo apt update && sudo apt full-upgrade -y && sudo apt install -y gcc g++ make python3 python3-dev python3-pip python3-setuptools curl git fish neovim thefuck grc
 
 ## Install Oh My fish
-    curl -L https://get.oh-my.fish | fish
+    curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 
 ## Change default shell to fish
     sudo usermod -s /usr/bin/fish username
