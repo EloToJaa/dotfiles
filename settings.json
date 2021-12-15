@@ -57,9 +57,6 @@
     "[css]": {
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
-    "[xml]": {
-        "editor.defaultFormatter": null
-    },
     "editor.wordWrap": "on",
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs":"active"
