@@ -1,13 +1,12 @@
 {
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "C_Cpp.updateChannel": "Insiders",
-    "workbench.colorTheme": "Predawn",
     "workbench.settings.editor": "json",
     "code-runner.defaultLanguage": "cpp",
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
         "python": "cd $dir && python3 $fileName",
-        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -std=c++17 -Wall -Wextra -Wshadow -Wunused -Wconversion -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && ./$fileNameWithoutExt < $fileNameWithoutExt.in > $fileNameWithoutExt.out"
+        "cpp": "cls && cd $dir && g++ $fileName -o $fileNameWithoutExt -std=c++17 -Wall -Wextra -Wshadow -Wunused -Wconversion -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && ./$fileNameWithoutExt < $fileNameWithoutExt.in > $fileNameWithoutExt.out"
     },
     "python.formatting.provider": "autopep8",
     "workbench.iconTheme": "material-icon-theme",
@@ -20,13 +19,13 @@
     "git.confirmSync": false,
     "workbench.editor.enablePreview": false,
     "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
+        "*.ipynb": "jupyter-notebook"
     },
     "editor.largeFileOptimizations": false,
     "prettier.tabWidth": 4,
     "prettier.useTabs": true,
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools",
@@ -37,20 +36,31 @@
     },
     "prettier.jsxBracketSameLine": true,
     "security.workspace.trust.untrustedFiles": "open",
-    "python.showStartPage": false,
     "tabnine.experimentalAutoImports": true,
-    "vim.insertModeKeyBindings": [
-        {
-            "before": ["j", "k"],
-            "after": ["<esc>"]
-        }
-    ],
-    "vim.handleKeys": {
-        "<C-c>": false,
-        "<C-v>": false
-    },
     "terminal.integrated.fontFamily": "DejaVu Sans Mono for Powerline, Consolas",
     "remote.SSH.remotePlatform": {
         "192.168.0.24": "linux"
-    }
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.linkedEditing": true,
+    "[css]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": null
+    },
+    "editor.wordWrap": "on",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active"
 }
