@@ -53,9 +53,9 @@ read -p "Do you want to install Fish (Y/N)? " ans
 result "$ans"
 if [ $? -eq 1 ]; then
     sudo apt install -y fish thefuck grc
-    curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | bash
-    omf install budspencer nvm grc bang-bang fuck expand
-    set budspencer_colors 000000 333333 666666 ffffff 2ea4c9 ff0000 ff0000 ff66ff 3300ff ffffff 00ffff 00ff00
+    curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+    chmod +x install
+    fish install --yes --noninteractive
     echo "" >> ~/.config/fish/conf.d/omf.fish
     echo "# Custom" >> ~/.config/fish/conf.d/omf.fish
     echo "set fish_prompt_pwd_dir_length 0" >> ~/.config/fish/conf.d/omf.fish
@@ -63,4 +63,5 @@ if [ $? -eq 1 ]; then
     echo "alias cls='clear'" >> ~/.config/fish/conf.d/omf.fish
     echo "alias ll='ls -la'" >> ~/.config/fish/conf.d/omf.fish
     sudo usermod -s /usr/bin/fish $(whoami)
+    echo "omf install budspencer nvm grc bang-bang fuck expand && set budspencer_colors 000000 333333 666666 ffffff 2ea4c9 ff0000 ff0000 ff66ff 3300ff ffffff 00ffff 00ff00" | fish
 fi
