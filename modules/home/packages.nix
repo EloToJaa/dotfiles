@@ -62,7 +62,6 @@
     pavucontrol                       # pulseaudio volume controle (GUI)
     qalculate-gtk                     # calculator
     soundwireserver                   # pass audio to android phone
-    thunderbird
     vlc
     winetricks
     wineWowPackages.wayland

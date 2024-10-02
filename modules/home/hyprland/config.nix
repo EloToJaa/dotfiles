@@ -39,8 +39,8 @@
       general = {
         "$mainMod" = "SUPER";
         layout = "dwindle";
-        gaps_in = 5;
-        gaps_out = 10;
+        gaps_in = 0;
+        gaps_out = 0;
         border_size = 2;
         "col.active_border" = "rgb(98971a) rgb(cc241d) 45deg";
         "col.inactive_border" = "0x00000000";
@@ -61,7 +61,7 @@
       };
 
       dwindle = {
-        no_gaps_when_only = false;
+        no_gaps_when_only = true;
         force_split = 0;
         special_scale_factor = 1.0;
         split_width_multiplier = 1.0;
@@ -147,11 +147,9 @@
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
-        "$mainMod, Space, togglefloating,"
-        "$mainMod, Space, centerwindow,"
-        "$mainMod, Space, resizeactive, exact 950 600"
+        "$mainMod, Space, exec, toggle_float"
         "$mainMod, S, exec, rofi -show drun || pkill rofi"
-        "$mainMod SHIFT, D, exec, hyprctl dispatch exec '[workspace 4 silent] discord --enable-features=UseOzonePlatform --ozone-platform=wayland'"
+        "$mainMod SHIFT, D, exec, webcord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
         "$mainMod, L, exec, hyprlock"
         "$mainMod, Escape, exec, power-menu"
@@ -290,12 +288,9 @@
         "workspace 3, class:^(evince)$"
         "workspace 4, class:^(discord)$"
         "workspace 4, class:^(Gimp-2.10)$"
-        "workspace 4, class:^(Aseprite)$"
         "workspace 5, class:^(Audacious)$"
         "workspace 5, class:^(Spotify)$"
         "workspace 8, class:^(com.obsproject.Studio)$"
-        "workspace 10, class:^(discord)$"
-        "workspace 10, class:^(WebCord)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,class:^(zenity)$"
