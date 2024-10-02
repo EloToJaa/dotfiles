@@ -2,7 +2,6 @@
 {
   home.packages = (with pkgs; [
     ## CLI utility
-    ani-cli
     binsider
     bitwise                           # cli tool for bit / hex manipulation
     caligula                          # User-friendly, lightweight TUI for disk imaging
@@ -13,8 +12,6 @@
     fd                                # find replacement
     ffmpeg
     file                              # Show file information 
-    gtt                               # google translate TUI
-    gifsicle                          # gif utility
     gtrash                            # rm replacement, put deleted files in system trash
     hexdump
     imv                               # image viewer
@@ -22,7 +19,6 @@
     lazygit
     libnotify
 	  man-pages					            	  # extra man pages
-    mimeo
     mpv                               # video player
     ncdu                              # disk space
     openssl
@@ -46,10 +42,6 @@
     xxd
 
     ## CLI 
-    cbonsai                           # terminal screensaver
-    cmatrix
-    pipes                             # terminal screensaver
-    sl
     tty-clock                         # cli clock
 
     ## GUI Apps
