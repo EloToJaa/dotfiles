@@ -1,9 +1,9 @@
 { inputs, nixpkgs, self, username, host, ...}:
 {
   imports = [
+    ./gnome
     ./bootloader.nix
     ./hardware.nix
-    ./xserver.nix
     ./network.nix
     ./nh.nix
     ./pipewire.nix
@@ -12,8 +12,8 @@
     ./services.nix
     ./system.nix
     ./user.nix
-    ./wayland.nix
     ./virtualization.nix
-    ./gnome
+    ./wayland.nix
+    ./xserver.nix
   ];
 }
