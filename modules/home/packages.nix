@@ -66,7 +66,6 @@
 
     # Python
     python3
-    python312Packages.ipython
 
     inputs.alejandra.defaultPackage.${system}
   ]);
