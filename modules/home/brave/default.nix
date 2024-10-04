@@ -1,4 +1,7 @@
 { pkgs, ... }: 
 {
-  home.packages = (with pkgs; [ brave ]);
+  # home.packages = (with pkgs; [ brave ]);
+  services.flatpak.packages = [
+    { appId = "com.brave.Browser"; origin = "flathub" }
+  ];
 }

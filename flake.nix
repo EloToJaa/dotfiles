@@ -1,5 +1,5 @@
 {
-  description = "FrostPhoenix's nixos configuration";
+  description = "EloToJa's nixos configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -29,6 +29,8 @@
     };
 
     hyprmag.url = "github:SIMULATAN/hyprmag";
+
+    nix-flatpak.url = "github:/gmodena/nix-flatpak";
   };
 
   outputs = { nixpkgs, self, ...} @ inputs:
