@@ -20,6 +20,7 @@
     libnotify
 	  man-pages					            	  # extra man pages
     mpv                               # video player
+    nurl                              # generate fetch for nix config
     ncdu                              # disk space
     openssl
     onefetch                          # fetch utility for git repo
