@@ -33,7 +33,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   };
 
-  outputs = { nixpkgs, self, nix-flatpak, ...} @ inputs:
+  outputs = { nixpkgs, self, ...} @ inputs:
   let
     username = "elotoja";
     system = "x86_64-linux";
@@ -47,10 +47,7 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/desktop
-          nix-flatpak.nixosModules.nix-flatpak
-        ];
+        modules = [ ./hosts/desktop ];
         specialArgs = { host="desktop"; inherit self inputs username ; };
       };
       laptop = nixpkgs.lib.nixosSystem {
