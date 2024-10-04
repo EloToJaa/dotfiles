@@ -25,6 +25,7 @@
     ./spicetify.nix                   # spotify client
     ./starship.nix                    # shell prompt
     ./swayosd.nix                     # brightness / volume wiget
+    ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
     ./xdg-mimes.nix                   # xdg config
   ];
