@@ -17,10 +17,6 @@
         "swaync &"
         "wl-paste --watch cliphist store &"
         "hyprlock"
-
-        ## App auto start
-        "[workspace 1 silent] brave"
-        "[workspace 2 silent] kitty"
       ];
 
       input = {
@@ -149,7 +145,7 @@
         "$mainMod SHIFT, F, fullscreen, 1"
         "$mainMod, Space, exec, toggle_float"
         "$mainMod, S, exec, rofi -show drun || pkill rofi"
-        "$mainMod SHIFT, D, exec, webcord"
+        "$mainMod, D, exec, webcord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
         "$mainMod, L, exec, hyprlock"
         "$mainMod, Escape, exec, power-menu"
@@ -186,7 +182,7 @@
         "$mainMod, 0, workspace, 10"
 
         # same as above, but switch to the workspace
-        "$mainMod SHIFT, 1, movetoworkspacesilent, 1" # movetoworkspacesilent
+        "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
         "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
         "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
         "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
@@ -267,10 +263,7 @@
         "tile, neovide"
         "idleinhibit focus,mpv"
         "float,udiskie"
-        "float,title:^(Transmission)$"
         "float,title:^(Volume Control)$"
-        "float,title:^(Firefox — Sharing Indicator)$"
-        "move 0 0,title:^(Firefox — Sharing Indicator)$"
         "size 700 450,title:^(Volume Control)$"
         "move 40 55%,title:^(Volume Control)$"
       ];
