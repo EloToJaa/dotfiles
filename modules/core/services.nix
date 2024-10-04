@@ -8,7 +8,7 @@
     tailscale.enable = true;
     flatpak = {
       enable = true;
-      services.flatpak.packages = [
+      packages = [
         { appId = "com.brave.Browser"; origin = "flathub"; }
       ];
     };

@@ -30,7 +30,7 @@
 
     hyprmag.url = "github:SIMULATAN/hyprmag";
 
-    nix-flatpak.url = "github:/gmodena/nix-flatpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = { nixpkgs, self, ...} @ inputs:
