@@ -30,10 +30,10 @@
 
     hyprmag.url = "github:SIMULATAN/hyprmag";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   };
 
-  outputs = { nixpkgs, self, ...} @ inputs:
+  outputs = { nixpkgs, self, nix-flatpak, ...} @ inputs:
   let
     username = "elotoja";
     system = "x86_64-linux";
@@ -47,7 +47,10 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/desktop ];
+        modules = [
+          ./hosts/desktop
+          nix-flatpak.nixosModules.nix-flatpak
+        ];
         specialArgs = { host="desktop"; inherit self inputs username ; };
       };
       laptop = nixpkgs.lib.nixosSystem {
