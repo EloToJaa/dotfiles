@@ -4,6 +4,7 @@
     enable = true;
     powerOnBoot = true;
   };
+  services.blueman.enable = true;
   systemd.user.services.mpris-proxy = {
     description = "Mpris proxy";
     after = [ "network.target" "sound.target" ];
