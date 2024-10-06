@@ -4,6 +4,7 @@
     ## CLI utility
     binsider
     bitwise                           # cli tool for bit / hex manipulation
+    bluetuith                         # bluetooth device manager
     caligula                          # User-friendly, lightweight TUI for disk imaging
     cliphist                          # clipboard manager
     docfd                             # TUI multiline fuzzy document finder
