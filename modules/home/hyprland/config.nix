@@ -253,7 +253,6 @@
         "size 1200 725,imv"
         "float,mpv"
         "center,mpv"
-        "tile,Aseprite"
         "size 1200 725,mpv"
         "float,title:^(float_kitty)$"
         "center,title:^(float_kitty)$"
