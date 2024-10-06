@@ -1,6 +1,5 @@
 {inputs, username, host, ...}: {
   imports = [
-    ./brave                           # browser
     ./discord                         # discord
     ./hyprland                        # window manager
     ./p10k/p10k.nix
