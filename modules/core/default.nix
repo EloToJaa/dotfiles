@@ -2,6 +2,7 @@
 {
   imports = [
     ./gnome
+    ./bluetooth.nix
     ./bootloader.nix
     ./hardware.nix
     ./network.nix
