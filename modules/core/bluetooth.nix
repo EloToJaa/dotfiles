@@ -21,4 +21,8 @@
     # load-module module-bluez5-device
     # load-module module-bluez5-discover
   '';
+
+  environment.systemPackages = with pkgs; [
+    bluez
+  ];
 }
