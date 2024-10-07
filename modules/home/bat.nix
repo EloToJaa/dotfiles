@@ -2,10 +2,16 @@
 {
   programs.bat = {
     enable = true;
+
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
+
     config = {
       pager = "less -FR";
-      theme = "Catppuccin Mocha";
     };
+
     extraPackages = with pkgs.bat-extras; [
       batman
       batpipe

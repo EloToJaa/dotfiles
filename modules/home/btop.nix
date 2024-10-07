@@ -2,6 +2,11 @@
 {
   programs.btop = {
     enable = true;
+
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
     
     settings = {
       color_theme = "TTY";

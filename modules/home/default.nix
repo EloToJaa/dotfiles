@@ -10,6 +10,7 @@
     ./audacious.nix                   # music player
     ./bat.nix                         # better cat command
     ./btop.nix                        # resouces monitor 
+    ./catppuccin.nix
     ./cava.nix                        # audio visualizer
     ./fastfetch.nix                   # fetch tool
     ./flatpak.nix
@@ -18,6 +19,7 @@
     ./gnome.nix                       # gnome apps
     ./gtk.nix                         # gtk theme
     ./kitty.nix                       # terminal
+    ./lazygit.nix
     ./nvim.nix                        # neovim editor
     ./packages.nix                    # other packages
     ./rofi.nix                        # launcher

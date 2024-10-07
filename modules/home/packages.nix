@@ -15,8 +15,8 @@
     gtrash                            # rm replacement, put deleted files in system trash
     hexdump
     imv                               # image viewer
+    jq
     killall
-    lazygit
     libnotify
 	  man-pages					            	  # extra man pages
     mpv                               # video player

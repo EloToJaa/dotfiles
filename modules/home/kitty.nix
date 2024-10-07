@@ -4,7 +4,10 @@
   programs.kitty = {
     enable = true;
 
-    themeFile = "Catppuccin-Mocha";
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
     
     font = {
       name = "CaskaydiaCove Nerd Font";
@@ -24,10 +27,10 @@
       inactive_tab_font_style = "normal";
       tab_bar_style = "powerline";
       tab_powerline_style = "angled";
-      active_tab_foreground = "#11111B";
-      active_tab_background = "#CBA6F7";
-      inactive_tab_foreground = "#CDD6F4";
-      inactive_tab_background = "#181825";
+      # active_tab_foreground = "#11111B";
+      # active_tab_background = "#CBA6F7";
+      # inactive_tab_foreground = "#CDD6F4";
+      # inactive_tab_background = "#181825";
     };
 
     keybindings = {  

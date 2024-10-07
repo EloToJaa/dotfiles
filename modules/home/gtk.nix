@@ -24,17 +24,12 @@ in
       name = "CaskaydiaCove Nerd Font";
       size = 12;
     };
-    theme = {
-      name = "Gruvbox-Dark";
-      package = pkgs.gruvbox-gtk-theme.override {
-        colorVariants = [ "dark" ];
-      };
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme.override {
-        color = "black";
-      };
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+      accent = "lavender";
+      size = "standard";
+      tweaks = [ "normal" ];
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
