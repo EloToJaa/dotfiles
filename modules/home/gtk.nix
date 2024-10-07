@@ -39,13 +39,13 @@ in
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
-      size = 24;
+      size = 22;
     };
   };
   
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
-    size = 24;
+    size = 22;
   };
 }

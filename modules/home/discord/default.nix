@@ -7,5 +7,5 @@
     # })
     webcord-vencord
   ];
-  xdg.configFile."Vencord/themes/gruvbox.theme.css".source = ./gruvbox.css;
+  xdg.configFile."Vencord/themes/catppuccin.theme.css".source = ./catppuccin.css;
 }

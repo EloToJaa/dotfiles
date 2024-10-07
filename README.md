@@ -492,7 +492,6 @@ Other dotfiles that I learned / copy from:
 [nautilus]: https://apps.gnome.org/Nautilus/
 [yazi]: https://github.com/sxyazi/yazi
 [zsh]: https://ohmyz.sh/
-[oh-my-zsh]: https://ohmyz.sh/
 [Swaylock-effects]: https://github.com/mortie/swaylock-effects
 [Hyprlock]: https://github.com/hyprwm/hyprlock
 [audacious]: https://audacious-media-player.org/
@@ -508,7 +507,6 @@ Other dotfiles that I learned / copy from:
 [wl-clip-persist]: https://github.com/Linus789/wl-clip-persist
 [wf-recorder]: https://github.com/ammen99/wf-recorder
 [hyprpicker]: https://github.com/hyprwm/hyprpicker
-[Gruvbox]: https://github.com/morhetz/gruvbox
 [Papirus-Dark]: https://github.com/PapirusDevelopmentTeam/papirus-icon-theme
 [Bibata-Modern-Ice]: https://www.gnome-look.org/p/1197198
 [maxfetch]: https://github.com/jobcmax/maxfetch
