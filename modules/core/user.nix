@@ -1,4 +1,4 @@
-{ pkgs, inputs, variables, host, system, ...}:
+{ pkgs, inputs, variables, host, ...}:
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {

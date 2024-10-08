@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, self, variables, host, system, ...}:
+{ inputs, nixpkgs, self, variables, host, ...}:
 {
   imports = [
     ./gnome
