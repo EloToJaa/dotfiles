@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: 
+{ pkgs, variables, ... }: 
 {
   services = {
     xserver = {
@@ -9,7 +9,7 @@
 
     displayManager.autoLogin = {
       enable = true;
-      user = "${username}";
+      user = "${variables.username}";
     };
     libinput = {
       enable = true;

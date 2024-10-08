@@ -1,10 +1,10 @@
-{ username, ... }: 
+{ variables, ... }: 
 {
   security.rtkit.enable = true;
   security.sudo = {
     enable = true;
     extraRules = [{
-      users = [ "${username}" ];
+      users = [ "${variables.username}" ];
       commands = [{
         command = "ALL";
         options = [ "NOPASSWD" ];

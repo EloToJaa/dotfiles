@@ -1,4 +1,4 @@
-{inputs, username, host, ...}: {
+{inputs, variables, host, ...}: {
   imports = [
     ./discord                         # discord
     ./hyprland                        # window manager

@@ -37,30 +37,43 @@
 
   outputs = { nixpkgs, self, ...} @ inputs:
   let
-    username = "elotoja";
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
     lib = nixpkgs.lib;
+    variables = {
+      username = "elotoja";
+      git = {
+        userName = "EloToJaa";
+        userEmail = "elotoja@protonmail.com";
+      };
+      catppuccin = {
+        flavor = "mocha";
+        accent = "lavender";
+      };
+      timezone = "Europe/Warsaw";
+      locale = "en_GB.UTF-8";
+      keyboardLayout = "pl,pl";
+    };
   in
   {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/desktop ];
-        specialArgs = { host="desktop"; inherit self inputs username ; };
+        specialArgs = { host="desktop"; inherit self inputs variables ; };
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/laptop ];
-        specialArgs = { host="laptop"; inherit self inputs username ; };
+        specialArgs = { host="laptop"; inherit self inputs variables ; };
       };
        vm = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/vm ];
-        specialArgs = { host="vm"; inherit self inputs username ; };
+        specialArgs = { host="vm"; inherit self inputs variables ; };
       };
     };
   };
