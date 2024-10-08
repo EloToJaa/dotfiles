@@ -21,26 +21,30 @@ in
   gtk = {
     enable = true;
     font = {
-      name = "CaskaydiaCove Nerd Font";
-      size = 12;
+      name = "JetBrainsMono Nerd Font";
+      size = 11;
     };
-    catppuccin = {
-      enable = true;
-      flavor = "mocha";
-      accent = "lavender";
-      size = "standard";
-      tweaks = [ "normal" ];
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders.override {
+        flavor = "mocha";
+        accent = "lavender";
+      };
+    };
+    theme = {
+      name = "Dracula";
+      package = pkgs.dracula-theme;
     };
     cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
+      name = "Nordzy-cursors";
+      package = pkgs.nordzy-cursor-theme;
       size = 22;
     };
   };
   
   home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
+    name = "Nordzy-cursors";
+    package = pkgs.nordzy-cursor-theme;
     size = 22;
   };
 }
