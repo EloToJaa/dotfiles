@@ -6,10 +6,7 @@
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs variables host; };
     users.${variables.username} = {
-      imports = 
-        if (host == "desktop") then 
-          [ ./../home/default.desktop.nix ] 
-        else [ ./../home ];
+      imports = [ ./../home ];
       home.username = "${variables.username}";
       home.homeDirectory = "/home/${variables.username}";
       home.stateVersion = "24.05";

@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
-    inputs.zen-browser.packages."${system}".specific
   ];
   services.flatpak = {
     enable = true;
