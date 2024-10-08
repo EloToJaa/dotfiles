@@ -51,7 +51,7 @@
       };
       catppuccin = {
         flavor = "mocha";
-        accent = "lavender";
+        accent = "blue";
       };
       timezone = "Europe/Warsaw";
       locale = "en_GB.UTF-8";
