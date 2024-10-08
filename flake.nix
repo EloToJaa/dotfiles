@@ -31,6 +31,8 @@
     hyprmag.url = "github:SIMULATAN/hyprmag";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
     
     catppuccin.url = "github:catppuccin/nix";
   };

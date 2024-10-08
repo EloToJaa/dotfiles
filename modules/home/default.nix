@@ -1,4 +1,4 @@
-{inputs, variables, host, ...}: {
+{inputs, variables, host, system, ...}: {
   imports = [
     ./discord                         # discord
     ./hyprland                        # window manager
@@ -13,7 +13,6 @@
     ./catppuccin.nix
     ./cava.nix                        # audio visualizer
     ./fastfetch.nix                   # fetch tool
-    ./flatpak.nix
     ./fzf.nix                         # fuzzy finder
     ./git.nix                         # version control
     ./gnome.nix                       # gnome apps
@@ -29,5 +28,6 @@
     ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
     ./xdg-mimes.nix                   # xdg config
+    ./zen.nix
   ];
 }

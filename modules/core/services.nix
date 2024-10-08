@@ -6,7 +6,6 @@
     dbus.enable = true;
     fstrim.enable = true;
     tailscale.enable = true;
-    flatpak.enable = true;
     blueman.enable = true;
   };
   services.logind.extraConfig = ''
