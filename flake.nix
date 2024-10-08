@@ -58,6 +58,7 @@
       timezone = "Europe/Warsaw";
       locale = "en_GB.UTF-8";
       keyboardLayout = "pl,pl";
+      stateVersion = "24.05";
     };
   in
   {

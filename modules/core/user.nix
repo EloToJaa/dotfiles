@@ -9,7 +9,7 @@
       imports = [ ./../home ];
       home.username = "${variables.username}";
       home.homeDirectory = "/home/${variables.username}";
-      home.stateVersion = "24.05";
+      home.stateVersion = "${variables.stateVersion}";
       programs.home-manager.enable = true;
     };
   };

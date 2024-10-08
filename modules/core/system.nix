@@ -23,5 +23,5 @@
   time.timeZone = "${variables.timezone}";
   i18n.defaultLocale = "${variables.locale}";
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "${variables.stateVersion}";
 }
