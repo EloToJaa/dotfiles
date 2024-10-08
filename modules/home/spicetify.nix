@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ...}: 
+{ pkgs, lib, inputs, variables, ...}: 
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in 
@@ -18,6 +18,6 @@ in
        shuffle # shuffle+ (special characters are sanitized out of extension names)
      ];
      theme = spicePkgs.themes.dribbblish;
-     colorScheme = "catppuccin-mocha";
+     colorScheme = "catppuccin-${variables.catppuccin.flavor}";
   };
 }

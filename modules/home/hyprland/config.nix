@@ -1,4 +1,4 @@
-{ ... }: 
+{ variables, ... }: 
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -20,7 +20,7 @@
       ];
 
       input = {
-        kb_layout = "pl,pl";
+        kb_layout = "${variables.keyboardLayout}";
         kb_options ="grp:alt_caps_toggle";
         numlock_by_default = true;
         follow_mouse = 0;

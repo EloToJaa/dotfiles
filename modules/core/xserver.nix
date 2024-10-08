@@ -4,7 +4,7 @@
     xserver = {
       enable = true;
       videoDrivers = [ "amdgpu" ];
-      xkb.layout = "pl,pl";
+      xkb.layout = "${variables.keyboardLayout}";
     };
 
     displayManager.autoLogin = {

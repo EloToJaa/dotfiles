@@ -1,10 +1,10 @@
-{ pkgs, ... }: 
+{ pkgs, variables, ... }: 
 {
   programs.git = {
     enable = true;
     
-    userName = "EloToJaa";
-    userEmail = "elotoja@protonmail.com";
+    userName = "${variables.git.userName}";
+    userEmail = "${variables.git.userEmail}";
     
     extraConfig = { 
       init.defaultBranch = "main";
