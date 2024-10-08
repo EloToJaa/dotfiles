@@ -1,12 +1,12 @@
 
-{ pkgs, host, ... }:
+{ pkgs, host, variables, ... }:
 {
   programs.kitty = {
     enable = true;
 
     catppuccin = {
       enable = true;
-      flavor = "mocha";
+      flavor = "${variables.catppuccin.flavor}";
     };
     
     font = {

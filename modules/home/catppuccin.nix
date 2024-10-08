@@ -1,9 +1,9 @@
-{ inputs, ... }:
+{ inputs, variables, ... }:
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
   catppuccin = {
     enable = true;
-    flavor = "mocha";
-    accent = "lavender";
+    flavor = "${variables.catppuccin.flavor}";
+    accent = "${variables.catppuccin.accent}";
   };
 }

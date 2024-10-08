@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, variables, ... }:
 let 
   monolisa = pkgs.callPackage ../../pkgs/monolisa/monolisa.nix {}; 
   monolisa-nerd = pkgs.callPackage ../../pkgs/monolisa/monolisa-nerd.nix { inherit monolisa; }; 
@@ -27,8 +27,8 @@ in
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "mocha";
-        accent = "lavender";
+        flavor = "${variables.catppuccin.flavor}";
+        accent = "${variables.catppuccin.accent}";
       };
     };
     theme = {

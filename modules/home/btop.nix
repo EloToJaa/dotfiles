@@ -1,11 +1,11 @@
-{ pkgs, ... }: 
+{ pkgs, variables, ... }: 
 {
   programs.btop = {
     enable = true;
 
     catppuccin = {
       enable = true;
-      flavor = "mocha";
+      flavor = "${variables.catppuccin.flavor}";
     };
     
     settings = {

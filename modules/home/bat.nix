@@ -1,11 +1,11 @@
-{ pkgs, ... }: 
+{ pkgs, variables, ... }: 
 {
   programs.bat = {
     enable = true;
 
     catppuccin = {
       enable = true;
-      flavor = "mocha";
+      flavor = "${variables.catppuccin.flavor}";
     };
 
     config = {
