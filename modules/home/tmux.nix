@@ -53,6 +53,11 @@ in
     set-option -sa terminal-overrides ",xterm*:Tc"
     set -g mouse on
 
+    set -g base-index 1
+    set -g pane-base-index 1
+    set-window-option -g pane-base-index 1
+    set-option -g renumber-windows on
+
     unbind C-b
     set-option -g prefix C-a
     bind-key C-a send-prefix
