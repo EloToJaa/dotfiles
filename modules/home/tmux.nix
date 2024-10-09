@@ -32,6 +32,8 @@ in
         set -g @catppuccin_date_time "%H:%M"
         '';
       }
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.yank
       {
         plugin = tmuxPlugins.resurrect;
         extraConfig = ''
