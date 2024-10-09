@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, variables, ... }:
 let
   tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
     {
