@@ -2,7 +2,6 @@
 {
   programs.fzf = {
     enable = true;
-    
     enableZshIntegration = true;
     
     defaultCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
@@ -11,10 +10,10 @@
     changeDirWidgetOptions = [ "--preview 'eza --tree --color=always {} | head -200'" ];
 
     catppuccin = {
-    enable = true;
-    flavor = "${variables.catppuccin.flavor}";
-    accent = "${variables.catppuccin.accent}";
-  };
+      enable = true;
+      flavor = "${variables.catppuccin.flavor}";
+      accent = "${variables.catppuccin.accent}";
+    };
 
     ## Theme
     # defaultOptions = [
