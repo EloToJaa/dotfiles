@@ -26,8 +26,8 @@ in
       tmuxPlugins.better-mouse-mode
       {
         plugin = tmuxPlugins.catppuccin;
-        extraConfig = '' 
-        set -g @catppuccin_flavour 'frappe'
+        extraConfig = ''
+        set -g @catppuccin_flavour '${variables.catppuccin.flavor}'
         set -g @catppuccin_window_tabs_enabled on
         set -g @catppuccin_date_time "%H:%M"
         '';
