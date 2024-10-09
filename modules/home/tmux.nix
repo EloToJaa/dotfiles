@@ -51,6 +51,7 @@ in
     ];
     extraConfig = ''
     set-option -sa terminal-overrides ",xterm*:Tc"
+    set -g mouse on
 
     unbind C-b
     set-option -g prefix C-a
