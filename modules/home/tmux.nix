@@ -50,6 +50,14 @@ in
       }
     ];
     extraConfig = ''
+    set-option -sa terminal-overrides ",xterm*:Tc"
+
+    unbind C-b
+    set-option -g prefix C-a
+    bind-key C-a send-prefix
+
+    bind v split-window -v
+    bind h split-window -h
     '';
   };
 }
