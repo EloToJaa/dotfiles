@@ -1,6 +1,5 @@
 {inputs, variables, host, ...}: {
   imports = [
-    ./discord                         # discord
     ./hyprland                        # window manager
     ./p10k/p10k.nix
     ./scripts/scripts.nix             # personal scripts
@@ -12,6 +11,7 @@
     ./btop.nix                        # resouces monitor 
     ./catppuccin.nix
     ./cava.nix                        # audio visualizer
+    ./discord.nix                     # discord
     ./fastfetch.nix                   # fetch tool
     ./fzf.nix                         # fuzzy finder
     ./git.nix                         # version control
