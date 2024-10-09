@@ -6,8 +6,8 @@
       c = "clear";
       cd = "z";
       tt = "gtrash put";
+      s = "sudo";
       cat = "bat";
-      nano = "micro";
       code = "codium";
       diff = "delta";
       less = "bat";
