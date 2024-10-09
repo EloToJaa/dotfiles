@@ -7,8 +7,8 @@
     # })
     webcord-vencord
   ];
-  xdg.configFile."Vencord/themes/catppuccin.theme.css".source = ./catppuccin.css;
-    xdg.configFile."Vencord/themes/custom.css".text = '' 
+  
+  xdg.configFile."Vencord/themes/custom.css".text = '' 
 /**
  * @name Catppuccin
  * @author winston#0001
