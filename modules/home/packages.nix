@@ -30,6 +30,7 @@
     programmer-calculator
     # qview                             # minimal image viewer
     ripgrep                           # grep replacement
+    swappy                            # snapshot editing tool
     tdf                               # cli pdf viewer
     tldr
     todo                              # cli todo list
