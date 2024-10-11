@@ -70,6 +70,8 @@
     # Python
     python3
 
+    nodejs
+
     inputs.alejandra.defaultPackage.${system}
   ]);
 }
