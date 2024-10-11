@@ -1,6 +1,7 @@
 {inputs, variables, host, ...}: {
   imports = [
     ./hyprland                        # window manager
+    ./ohmyposh                        # shell prompt
     ./scripts                         # personal scripts
     ./swaync                          # notification deamon
     ./waybar                          # status bar
@@ -20,7 +21,6 @@
     ./lazygit.nix
     ./nemo.nix                        # file manager
     ./nvim.nix                        # neovim editor
-    ./ohmyposh.nix                    # shell prompt
     ./packages.nix                    # other packages
     ./rofi.nix                        # launcher
     ./spicetify.nix                   # spotify client
