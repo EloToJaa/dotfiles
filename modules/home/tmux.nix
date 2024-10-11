@@ -30,6 +30,10 @@ in
         set -g @catppuccin_flavour '${variables.catppuccin.flavor}'
         set -g @catppuccin_window_tabs_enabled on
         set -g @catppuccin_date_time "%H:%M"
+        set -g @catppuccin_window_status_style "rounded"
+        set -g @catppuccin_window_default_text "#W"
+        set -g @catppuccin_window_current_text "#W"
+        set -g @catppuccin_window_status "icon"
         '';
       }
       tmuxPlugins.vim-tmux-navigator
