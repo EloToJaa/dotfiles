@@ -19,6 +19,8 @@
         "swaybg -m fill -i $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) &"
         
         "hyprlock"
+
+        "webcord --start-minimized &"
       ];
 
       input = {
