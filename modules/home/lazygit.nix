@@ -1,4 +1,3 @@
-
 { pkgs, variables, ... }:
 {
   programs.lazygit = {

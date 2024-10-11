@@ -1,9 +1,8 @@
 {inputs, variables, host, ...}: {
   imports = [
     ./hyprland                        # window manager
-    ./p10k/p10k.nix
-    ./scripts/scripts.nix             # personal scripts
-    ./swaync/swaync.nix               # notification deamon
+    ./scripts                         # personal scripts
+    ./swaync                          # notification deamon
     ./waybar                          # status bar
     ./zsh                             # shell
     ./audacious.nix                   # music player
@@ -21,10 +20,10 @@
     ./lazygit.nix
     ./nemo.nix                        # file manager
     ./nvim.nix                        # neovim editor
+    ./ohmyposh.nix                    # shell prompt
     ./packages.nix                    # other packages
     ./rofi.nix                        # launcher
     ./spicetify.nix                   # spotify client
-    ./starship.nix                    # shell prompt
     ./swayosd.nix                     # brightness / volume wiget
     ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
