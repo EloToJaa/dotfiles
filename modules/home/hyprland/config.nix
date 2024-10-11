@@ -197,6 +197,10 @@
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
         "$mainMod CTRL, c, movetoworkspace, empty"
 
+        # move workspace to another monitor
+        "$mainMod CTRL, left, movecurrentworkspacetomonitor, l"
+        "$mainMod CTRL, right, movecurrentworkspacetomonitor, r"
+
         # window control
         "$mainMod SHIFT, left, movewindow, l"
         "$mainMod SHIFT, right, movewindow, r"
