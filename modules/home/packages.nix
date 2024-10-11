@@ -5,7 +5,7 @@
     binsider
     bitwise                           # cli tool for bit / hex manipulation
     caligula                          # User-friendly, lightweight TUI for disk imaging
-    cliphist                          # clipboard manager
+    dconf-editor
     docfd                             # TUI multiline fuzzy document finder
     eza                               # ls replacement
     entr                              # perform action when file change
@@ -34,6 +34,7 @@
     tdf                               # cli pdf viewer
     tldr
     todo                              # cli todo list
+    usbutils
     unzip
     valgrind                          # c memory analyzer
     wl-clipboard                      # clipboard utils for wayland (wl-copy, wl-paste)
