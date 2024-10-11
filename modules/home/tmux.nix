@@ -54,8 +54,10 @@
     bind-key C-a send-prefix
 
     # window splitting
-    bind v split-window -v -c "#{pane_current_path}"
-    bind h split-window -h -c "#{pane_current_path}"
+    unbind %
+    bind-key v split-window -v -c "#{pane_current_path}"
+    unbind "
+    bind-key h split-window -h -c "#{pane_current_path}"
 
     # yank
     bind-key -T copy-mode-vi v send-keys -X begin-selection
