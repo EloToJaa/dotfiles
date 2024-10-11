@@ -71,6 +71,7 @@
     python3
 
     nodejs
+    npm-check-updates
 
     inputs.alejandra.defaultPackage.${system}
   ]);
