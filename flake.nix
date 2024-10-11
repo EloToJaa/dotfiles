@@ -35,7 +35,7 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { nixpkgs, self, ...} @ inputs:
+  outputs = { nixpkgs, self, ...}@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -57,6 +57,7 @@
       locale = "en_GB.UTF-8";
       keyboardLayout = "pl,pl";
       stateVersion = "24.05";
+      nfs = "truenas.eagle-perch.ts.net";
     };
   in
   {

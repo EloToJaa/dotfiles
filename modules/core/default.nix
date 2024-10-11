@@ -6,6 +6,7 @@
     ./bootloader.nix
     ./hardware.nix
     ./network.nix
+    ./nfs.nix
     ./nh.nix
     ./pipewire.nix
     ./program.nix
