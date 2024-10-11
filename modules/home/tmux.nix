@@ -75,7 +75,13 @@ in
     bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
     bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
+    # kill
     bind-key x kill-pane
+    bind-key q kill-window
+
+    # rename
+    bind-key r command-prompt "rename-window '%%'"
+    bind-key R command-prompt "rename-session '%%'"
     '';
   };
 }
