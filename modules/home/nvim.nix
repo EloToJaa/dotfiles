@@ -61,6 +61,7 @@
       oil.enable = true;
       treesitter.enable = true;
       luasnip.enable = true;
+      web-devicons.enable = true;
     };
   };
 }
