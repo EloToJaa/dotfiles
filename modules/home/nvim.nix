@@ -15,6 +15,7 @@
       servers = {
         ts_ls.enable = true;
         lua_ls.enable = true;
+        nixd.enable = true;
         rust_analyzer = {
           enable = true;
           installCargo = true;
