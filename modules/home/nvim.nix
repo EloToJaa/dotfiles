@@ -10,6 +10,14 @@
     vimdiffAlias = true;
     # colorscheme = "";
 
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 8;
+    };
+
+    globals.mapleader = " ";
+
     plugins.lsp = {
       enable = true;
       servers = {
