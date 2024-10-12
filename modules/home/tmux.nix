@@ -5,19 +5,16 @@
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     historyLimit = 100000;
+    catppuccin = {
+      enable = true;
+      flavor = "${variables.catppuccin.flavor}";
+      extraConfig = ''
+      set -g @catppuccin_window_default_text "#W"
+      set -g @catppuccin_window_current_text "#W"
+      '';
+    };
     plugins = with pkgs; [
       tmuxPlugins.better-mouse-mode
-      {
-        plugin = tmuxPlugins.catppuccin;
-        extraConfig = ''
-        set -g @catppuccin_flavour '${variables.catppuccin.flavor}'
-        set -g @catppuccin_window_tabs_enabled on
-        set -g @catppuccin_date_time "%H:%M"
-        set -g @catppuccin_window_status_style "rounded"
-        set -g @catppuccin_window_default_text "#W"
-        set -g @catppuccin_window_current_text "#W"
-        '';
-      }
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.yank
       {
@@ -38,7 +35,7 @@
       }
     ];
     extraConfig = ''
-    #base options
+    # base options
     set-option -sa terminal-overrides ",xterm*:Tc"
     set -g mouse on
 
