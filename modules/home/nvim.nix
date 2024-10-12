@@ -13,9 +13,13 @@
     plugins.lsp = {
       enable = true;
       servers = {
-        tsserver.enable = true;
+        ts_ls.enable = true;
         lua-ls.enable = true;
-        rust-analyzer.enable = true;
+        rust_analyzer = {
+          enable = true;
+          installCargo = true;
+          installRustc = true;
+        };
       };
     };
 
