@@ -4,19 +4,19 @@
 
   programs.nixvim = {
     enable = true;
-    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    # colorscheme = "";
 
     options = {
+      defaultEditor = true;
       number = true;
       relativenumber = true;
       shiftwidth = 8;
     };
 
     globals.mapleader = " ";
+    colorschemes.catppuccin.enable = true;
 
     plugins.lsp = {
       enable = true;
