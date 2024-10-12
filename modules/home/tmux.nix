@@ -54,9 +54,7 @@
     bind-key C-a send-prefix
 
     # window splitting
-    unbind %
     bind-key v split-window -v -c "#{pane_current_path}"
-    unbind "
     bind-key h split-window -h -c "#{pane_current_path}"
 
     # yank
