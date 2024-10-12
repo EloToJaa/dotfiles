@@ -4,18 +4,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-  
-    hypr-contrib.url = "github:hyprwm/contrib";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-  
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-  
-    nix-gaming.url = "github:fufexan/nix-gaming";
-  
+
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   
     home-manager = {
@@ -28,10 +26,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hypr-contrib.url = "github:hyprwm/contrib";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
-    
     zen-browser.url = "github:MarceColl/zen-browser-flake";
-    
     catppuccin.url = "github:catppuccin/nix";
   };
 
