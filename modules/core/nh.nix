@@ -6,7 +6,7 @@
       enable = true;
       extraArgs = "--keep-since 7d --keep 5";
     };
-    flake = "/home/${variables.username}/nixos-config";
+    flake = "/home/${variables.username}/dotfiles";
   };
 
   environment.systemPackages = with pkgs; [
