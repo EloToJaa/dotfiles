@@ -8,15 +8,15 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    options = {
-      defaultEditor = true;
-      number = true;
-      relativenumber = true;
-      shiftwidth = 8;
-    };
+    # options = {
+    #   defaultEditor = true;
+    #   number = true;
+    #   relativenumber = true;
+    #   shiftwidth = 8;
+    # };
 
-    globals.mapleader = " ";
-    colorschemes.catppuccin.enable = true;
+    # globals.mapleader = " ";
+    # colorschemes.catppuccin.enable = true;
 
     plugins.lsp = {
       enable = true;
