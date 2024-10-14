@@ -28,8 +28,9 @@
       {
         plugin = tmuxPlugins.continuum;
         extraConfig = ''
-        set -g @continuum-restore 'on'
         set -g @continuum-boot 'on'
+        set -g @continuum-boot-options 'kitty'
+        set -g @continuum-restore 'on'
         set -g @continuum-save-interval '10'
         '';
       }
@@ -68,7 +69,7 @@
     bind-key R command-prompt "rename-session '%%'"
 
     # reload config
-    bind-key f source-file ~/.config/tmux/tmux.conf
+    bind-key F source-file ~/.config/tmux/tmux.conf
     '';
   };
 }
