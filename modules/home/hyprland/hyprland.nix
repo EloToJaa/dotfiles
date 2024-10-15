@@ -9,7 +9,7 @@
     grim
     slurp
     wl-clip-persist
-    cliphist
+    (cliphist.overrideAttrs (old: { doCheck = false; }))
     wf-recorder
     glib
     wayland
