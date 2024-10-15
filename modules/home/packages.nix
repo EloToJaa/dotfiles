@@ -5,6 +5,7 @@
     binsider
     bitwise                           # cli tool for bit / hex manipulation
     caligula                          # User-friendly, lightweight TUI for disk imaging
+    chromium
     dconf-editor
     docfd                             # TUI multiline fuzzy document finder
     eza                               # ls replacement
