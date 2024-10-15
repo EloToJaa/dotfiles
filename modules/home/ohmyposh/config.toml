@@ -34,9 +34,9 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = 'nix-shell'
     style = 'plain'
-    foreground = 'blue'
+    foreground = 'p:blue'
     background = 'transparent'
-    template = '(nix-{{ .Type }})'
+    template = ' '
 
 [[blocks]]
   type = 'rprompt'
