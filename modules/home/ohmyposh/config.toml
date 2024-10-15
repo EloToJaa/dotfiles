@@ -30,6 +30,13 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
       branch_icon = ''
       commit_icon = '@'
       fetch_status = true
+  
+  [[blocks.segments]]
+    type = 'nix-shell'
+    style = 'plain'
+    foreground = 'blue'
+    background = 'transparent'
+    template = '(nix-{{ .Type }})'
 
 [[blocks]]
   type = 'rprompt'
@@ -54,16 +61,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     type = 'text'
     style = 'plain'
     foreground_templates = [
-      "{{if gt .Code 0}}red{{end}}",
-      "{{if eq .Code 0}}magenta{{end}}",
+      '{{if gt .Code 0}}red{{end}}',
+      '{{if eq .Code 0}}magenta{{end}}',
     ]
     background = 'transparent'
     template = '❯'
 
 [transient_prompt]
   foreground_templates = [
-    "{{if gt .Code 0}}red{{end}}",
-    "{{if eq .Code 0}}magenta{{end}}",
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}magenta{{end}}',
   ]
   background = 'transparent'
   template = '❯ '
