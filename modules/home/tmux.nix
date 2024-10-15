@@ -14,9 +14,7 @@
       '';
     };
     plugins = with pkgs; [
-      tmuxPlugins.better-mouse-mode
       tmuxPlugins.vim-tmux-navigator
-      tmuxPlugins.yank
       {
         plugin = tmuxPlugins.resurrect;
         extraConfig = ''
@@ -34,6 +32,8 @@
         set -g @continuum-save-interval '10'
         '';
       }
+      tmuxPlugins.better-mouse-mode
+      tmuxPlugins.yank
     ];
     extraConfig = ''
     # base options
