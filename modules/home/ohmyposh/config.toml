@@ -36,7 +36,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'p:blue'
     background = 'transparent'
-    template = ' '
+    template = '{{ if ne .Type unknown }} 󱄅{{ end }}'
 
 [[blocks]]
   type = 'rprompt'
