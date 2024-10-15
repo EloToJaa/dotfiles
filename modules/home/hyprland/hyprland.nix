@@ -9,7 +9,7 @@
     grim
     slurp
     wl-clip-persist
-    # cliphist
+    cliphist
     wf-recorder
     glib
     wayland
