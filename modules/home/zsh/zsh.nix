@@ -3,6 +3,7 @@
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
+    enableZshIntegration = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
