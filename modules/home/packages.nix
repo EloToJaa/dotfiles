@@ -62,6 +62,7 @@
     winetricks
     wineWowPackages.wayland
     zenity
+    qbittorrent
 
     # C / C++
     gcc
