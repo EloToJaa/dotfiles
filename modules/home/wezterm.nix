@@ -19,7 +19,7 @@
       config.automatically_reload_config = false
 
       config.font = wezterm.font("CaskaydiaCove Nerd Font")
-      config.font_size = ${if (host == "laptop") then "15" else "17"}
+      config.font_size = ${if (host == "laptop") then "14" else "16"}
       config.cell_width = 1
       config.underline_thickness = 2
 
