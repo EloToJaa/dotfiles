@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
 
     hyprland = {
@@ -26,9 +27,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    wezterm = {
+      url = "github:wez/wezterm/main?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -65,17 +70,17 @@
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/desktop ];
-        specialArgs = { host="desktop"; inherit self inputs variables ; };
+        specialArgs = { host="desktop"; inherit self inputs variables; };
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/laptop ];
-        specialArgs = { host="laptop"; inherit self inputs variables ; };
+        specialArgs = { host="laptop"; inherit self inputs variables; };
       };
        vm = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/vm ];
-        specialArgs = { host="vm"; inherit self inputs variables ; };
+        specialArgs = { host="vm"; inherit self inputs variables; };
       };
     };
   };

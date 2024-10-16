@@ -1,8 +1,7 @@
 { inputs, pkgs, ...}: 
 {
   home.packages = with pkgs; [
-    # swww
-    swaybg
+    sww
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     hyprpicker
     inputs.hyprmag.packages.${pkgs.system}.hyprmag
@@ -10,6 +9,7 @@
     slurp
     wl-clip-persist
     (cliphist.overrideAttrs (old: { doCheck = false; }))
+    # inputs.nixpkgs-master.packages.${pkgs.system}.cliphist
     wf-recorder
     glib
     wayland
