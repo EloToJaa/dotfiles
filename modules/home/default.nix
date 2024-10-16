@@ -27,7 +27,7 @@
     ./swayosd.nix                     # brightness / volume wiget
     ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
-    ./wezterm.nix
+    # ./wezterm.nix
     ./xdg-mimes.nix                   # xdg config
     ./zen.nix
   ];
