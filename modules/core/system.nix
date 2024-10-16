@@ -9,11 +9,9 @@
       trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
     };
   };
-  nixpkgs = {
-    overlays = [
-      inputs.nur.overlay
-    ];
-  };
+  nixpkgs.overlays = [
+    inputs.nur.overlay
+  ];
 
   environment.systemPackages = with pkgs; [
     wget
