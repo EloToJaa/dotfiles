@@ -1,7 +1,7 @@
 { inputs, pkgs, ...}: 
 {
   home.packages = with pkgs; [
-    sww
+    swww
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     hyprpicker
     inputs.hyprmag.packages.${pkgs.system}.hyprmag
