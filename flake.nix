@@ -27,12 +27,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm/main?dir=nix";
-    };
-
+    wezterm.url = "github:wez/wezterm/main?dir=nix";
     hypr-contrib.url = "github:hyprwm/contrib";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
