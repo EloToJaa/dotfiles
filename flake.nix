@@ -29,7 +29,6 @@
 
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hypr-contrib.url = "github:hyprwm/contrib";
