@@ -140,9 +140,9 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Return, exec, kitty"
-        "ALT, Return, exec, kitty --title float_kitty"
-        "$mainMod SHIFT, Return, exec, kitty --start-as=fullscreen -o 'font_size=16'"
+        "$mainMod, Return, exec, wezterm start --always-new-process"
+        "ALT, Return, exec, [float; center] wezterm start --always-new-process"
+        "$mainMod SHIFT, Return, exec, [fullscreen] wezterm start --always-new-process"
         "$mainMod, B, exec, hyprctl dispatch exec '[workspace 1 silent] zen'"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
@@ -285,9 +285,6 @@
         "float,mpv"
         "center,mpv"
         "size 1200 725,mpv"
-        "float,title:^(float_kitty)$"
-        "center,title:^(float_kitty)$"
-        "size 950 600,title:^(float_kitty)$"
         "float,audacious"
         "pin,rofi"
         "tile, neovide"
