@@ -175,9 +175,9 @@
         "$mainMod, down, movefocus, d"
         
         "$mainMod, h, movefocus, l"
-        "$mainMod, j, movefocus, r"
+        "$mainMod, j, movefocus, d"
         "$mainMod, k, movefocus, u"
-        "$mainMod, l, movefocus, d"
+        "$mainMod, l, movefocus, r"
 
         # switch workspace
         "$mainMod, 1, workspace, 1"
@@ -205,8 +205,10 @@
         "$mainMod CTRL, c, movetoworkspace, empty"
 
         # move workspace to another monitor
-        "$mainMod CTRL, left, movecurrentworkspacetomonitor, l"
-        "$mainMod CTRL, right, movecurrentworkspacetomonitor, r"
+        # "$mainMod SHIFT, left, movecurrentworkspacetomonitor, l"
+        # "$mainMod SHIFT, right, movecurrentworkspacetomonitor, r"
+        # "$mainMod SHIFT, up, movecurrentworkspacetomonitor, l"
+        # "$mainMod SHIFT, down, movecurrentworkspacetomonitor, r"
 
         # window control
         "$mainMod SHIFT, left, movewindow, l"
@@ -215,9 +217,9 @@
         "$mainMod SHIFT, down, movewindow, d"
 
         "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, j, movewindow, r"
+        "$mainMod SHIFT, j, movewindow, d"
         "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, l, movewindow, d"
+        "$mainMod SHIFT, l, movewindow, r"
 
         "$mainMod CTRL, left, resizeactive, -80 0"
         "$mainMod CTRL, right, resizeactive, 80 0"
@@ -225,9 +227,9 @@
         "$mainMod CTRL, down, resizeactive, 0 80"
 
         "$mainMod CTRL, h, resizeactive, -80 0"
-        "$mainMod CTRL, j, resizeactive, 80 0"
+        "$mainMod CTRL, j, resizeactive, 0 80"
         "$mainMod CTRL, k, resizeactive, 0 -80"
-        "$mainMod CTRL, l, resizeactive, 0 80"
+        "$mainMod CTRL, l, resizeactive, 80 0"
 
         "$mainMod ALT, left, moveactive,  -80 0"
         "$mainMod ALT, right, moveactive, 80 0"
@@ -235,9 +237,9 @@
         "$mainMod ALT, down, moveactive, 0 80"
 
         "$mainMod ALT, h, moveactive,  -80 0"
-        "$mainMod ALT, j, moveactive, 80 0"
+        "$mainMod ALT, j, moveactive, 0 80"
         "$mainMod ALT, k, moveactive, 0 -80"
-        "$mainMod ALT, l, moveactive, 0 80"
+        "$mainMod ALT, l, moveactive, 80 0"
 
         # media and volume controls
         # ",XF86AudioMute,exec, pamixer -t"
