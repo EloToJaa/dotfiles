@@ -8,8 +8,7 @@
     grim
     slurp
     wl-clip-persist
-    (cliphist.overrideAttrs (old: { doCheck = false; }))
-    # inputs.nixpkgs-master.packages.${pkgs.system}.cliphist
+    cliphist
     wf-recorder
     glib
     wayland
