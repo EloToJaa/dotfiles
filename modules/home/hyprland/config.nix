@@ -173,7 +173,6 @@
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
         "$mainMod, down, movefocus, d"
-        
         "$mainMod, h, movefocus, l"
         "$mainMod, j, movefocus, d"
         "$mainMod, k, movefocus, u"
@@ -205,17 +204,20 @@
         "$mainMod CTRL, c, movetoworkspace, empty"
 
         # move workspace to another monitor
-        # "$mainMod SHIFT, left, movecurrentworkspacetomonitor, l"
-        # "$mainMod SHIFT, right, movecurrentworkspacetomonitor, r"
-        # "$mainMod SHIFT, up, movecurrentworkspacetomonitor, l"
-        # "$mainMod SHIFT, down, movecurrentworkspacetomonitor, r"
+        "$mainMod TAB, left, movecurrentworkspacetomonitor, l"
+        "$mainMod TAB, right, movecurrentworkspacetomonitor, r"
+        "$mainMod TAB, up, movecurrentworkspacetomonitor, l"
+        "$mainMod TAB, down, movecurrentworkspacetomonitor, r"
+        "$mainMod TAB, h, movecurrentworkspacetomonitor, l"
+        "$mainMod TAB, j, movecurrentworkspacetomonitor, r"
+        "$mainMod TAB, k, movecurrentworkspacetomonitor, l"
+        "$mainMod TAB, l, movecurrentworkspacetomonitor, r"
 
         # window control
         "$mainMod SHIFT, left, movewindow, l"
         "$mainMod SHIFT, right, movewindow, r"
         "$mainMod SHIFT, up, movewindow, u"
         "$mainMod SHIFT, down, movewindow, d"
-
         "$mainMod SHIFT, h, movewindow, l"
         "$mainMod SHIFT, j, movewindow, d"
         "$mainMod SHIFT, k, movewindow, u"
@@ -225,7 +227,6 @@
         "$mainMod CTRL, right, resizeactive, 80 0"
         "$mainMod CTRL, up, resizeactive, 0 -80"
         "$mainMod CTRL, down, resizeactive, 0 80"
-
         "$mainMod CTRL, h, resizeactive, -80 0"
         "$mainMod CTRL, j, resizeactive, 0 80"
         "$mainMod CTRL, k, resizeactive, 0 -80"
@@ -235,7 +236,6 @@
         "$mainMod ALT, right, moveactive, 80 0"
         "$mainMod ALT, up, moveactive, 0 -80"
         "$mainMod ALT, down, moveactive, 0 80"
-
         "$mainMod ALT, h, moveactive,  -80 0"
         "$mainMod ALT, j, moveactive, 0 80"
         "$mainMod ALT, k, moveactive, 0 -80"
