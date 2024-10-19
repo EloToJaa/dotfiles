@@ -22,31 +22,39 @@ local keys = {
   { key = 'q',          mods = 'LEADER',      action = act.CloseCurrentTab { confirm = false } },
   { key = 'z',          mods = 'LEADER',      action = act.TogglePaneZoomState },
   { key = 'o',          mods = 'LEADER',      action = act.RotatePanes 'Clockwise' },
+  {
+    key = 'u',
+    mods = 'LEADER',
+    action = act.QuickSelectArgs({
+      label = 'open url',
+      patterns = {
+        '\\((https?://\\S+)\\)',
+        '\\[(https?://\\S+)\\]',
+        '\\{(https?://\\S+)\\}',
+        '<(https?://\\S+)>',
+        '\\bhttps?://\\S+[)/a-zA-Z0-9-]+'
+      },
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.log_info('opening: ' .. url)
+        wezterm.open_with(url)
+      end),
+    }),
+  },
   -- We can make separate keybindings for resizing panes
   -- But Wezterm offers custom 'mode' in the name of 'KeyTable'
-  { key = 'r',          mods = 'LEADER',      action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+  { key = 'r', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
 
   -- Tab keybindings
-  { key = 't',          mods = 'LEADER',      action = act.SpawnTab('CurrentPaneDomain') },
-  { key = '[',          mods = 'LEADER',      action = act.ActivateTabRelative(-1) },
-  { key = ']',          mods = 'LEADER',      action = act.ActivateTabRelative(1) },
-  { key = 'n',          mods = 'LEADER',      action = act.ShowTabNavigator },
-  {
-    key = 'e',
-    mods = 'LEADER',
-    action = act.PromptInputLine {
-      description = wezterm.format {
-        { Attribute = { Intensity = 'Bold' } },
-        { Foreground = { AnsiColor = 'Fuchsia' } },
-        { Text = 'Renaming Tab Title...:' },
-      },
-      action = wezterm.action_callback(function(window, pane, line)
-        if line then
-          window:active_tab():set_title(line)
-        end
-      end)
-    }
-  },
+  { key = 't', mods = 'LEADER',       action = act.SpawnTab('CurrentPaneDomain') },
+  { key = '[', mods = 'LEADER',       action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'LEADER',       action = act.ActivateTabRelative(1) },
+  { key = 'n', mods = 'LEADER',       action = act.ShowTabNavigator },
+
+  -- rename tab
+  { key = 'e', mods = 'LEADER',       action = act.EmitEvent('tabs.manual-update-tab-title') },
+  -- { key = 'e', mods = 'LEADER',       action = act.EmitEvent('tabs.reset-tab-title') },
+
   -- Key table for moving tabs around
   { key = 'm', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'move_tab', one_shot = false } },
   -- Or shortcuts to move tab w/o move_tab table. SHIFT is for when caps lock is on
