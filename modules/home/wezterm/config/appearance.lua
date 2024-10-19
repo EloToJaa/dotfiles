@@ -13,20 +13,20 @@ return {
   colors = colors,
 
   -- background
-  background = {
-    {
-      source = { File = wezterm.GLOBAL.background },
-      horizontal_align = 'Center',
-    },
-    {
-      source = { Color = colors.background },
-      height = '120%',
-      width = '120%',
-      vertical_offset = '-10%',
-      horizontal_offset = '-10%',
-      opacity = 0.96,
-    },
-  },
+  -- background = {
+  --   {
+  --     source = { File = wezterm.GLOBAL.background },
+  --     horizontal_align = 'Center',
+  --   },
+  --   {
+  --     source = { Color = colors.background },
+  --     height = '120%',
+  --     width = '120%',
+  --     vertical_offset = '-10%',
+  --     horizontal_offset = '-10%',
+  --     opacity = 0.96,
+  --   },
+  -- },
 
   -- scrollbar
   enable_scroll_bar = true,
