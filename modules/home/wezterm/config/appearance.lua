@@ -43,9 +43,10 @@ return {
   window_padding = {
     left = 0,
     right = 0,
-    top = 10,
-    bottom = 7.5,
+    top = 5,
+    bottom = 5,
   },
+  window_background_opacity = 0.45,
   window_close_confirmation = 'NeverPrompt',
   window_frame = {
     active_titlebar_bg = '#090909',
