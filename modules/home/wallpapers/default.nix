@@ -1,4 +1,7 @@
 { ... }:
 {
-  home.file."Pictures/wallpapers".source = ./wallpapers;
+  home.file."Pictures/wallpapers" = {
+    source = ./wallpapers;
+    recursive = true;
+  }
 }
