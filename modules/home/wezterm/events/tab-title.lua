@@ -64,7 +64,7 @@ local function create_title(process_name, base_title, max_width, inset)
   local title
 
   if process_name:len() > 0 then
-    title = process_name .. ' ~ ' .. base_title
+    title = process_name
   else
     title = base_title
   end
