@@ -26,14 +26,6 @@ local function get_cwd(pane)
   return cwd
 end
 
-local function get_stat(window)
-  local stat = window:active_workspace()
-  if window:active_key_table() then
-    stat = window:active_key_table()
-  end
-  return stat
-end
-
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
@@ -53,7 +45,7 @@ cells
 
 M.setup = function()
   wezterm.on('update-right-status', function(window, pane)
-    local stat = get_stat(window)
+    local stat = window:active_workspace()
     local cwd = get_cwd(pane)
     cells
         :update_segment_text('stat_text', stat)
