@@ -17,12 +17,14 @@
         :append(require('config.domains'))
         :append(require('config.fonts'))
         :append(require('config.general'))
+        :append(require('config.launch')).options
     '';
   };
 
   xdg.configFile."wezterm/colors/custom.lua".source = ./colors/custom.lua;
 
   xdg.configFile."wezterm/config/appearance.lua".source = ./config/appearance.lua;
+  xdg.configFile."wezterm/config/domains.lua".source = ./config/domains.lua;
   xdg.configFile."wezterm/config/fonts.lua".source = ./config/fonts.lua;
   xdg.configFile."wezterm/config/general.lua".source = ./config/general.lua;
   xdg.configFile."wezterm/config/init.lua".source = ./config/init.lua;
