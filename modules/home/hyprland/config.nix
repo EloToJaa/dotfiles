@@ -204,14 +204,8 @@
         "$mainMod CTRL, c, movetoworkspace, empty"
 
         # move workspace to another monitor
-        "$mainMod TAB, left, movecurrentworkspacetomonitor, l"
-        "$mainMod TAB, right, movecurrentworkspacetomonitor, r"
-        "$mainMod TAB, up, movecurrentworkspacetomonitor, l"
-        "$mainMod TAB, down, movecurrentworkspacetomonitor, r"
-        "$mainMod TAB, h, movecurrentworkspacetomonitor, l"
-        "$mainMod TAB, j, movecurrentworkspacetomonitor, r"
-        "$mainMod TAB, k, movecurrentworkspacetomonitor, l"
-        "$mainMod TAB, l, movecurrentworkspacetomonitor, r"
+        "$mainMod, comma, movecurrentworkspacetomonitor, l"
+        "$mainMod, period, movecurrentworkspacetomonitor, r"
 
         # window control
         "$mainMod SHIFT, left, movewindow, l"
