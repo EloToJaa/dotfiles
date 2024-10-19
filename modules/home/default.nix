@@ -25,7 +25,6 @@
     ./rofi.nix                        # launcher
     ./spicetify.nix                   # spotify client
     ./swayosd.nix                     # brightness / volume wiget
-    ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
     ./xdg-mimes.nix                   # xdg config
     ./zen.nix
