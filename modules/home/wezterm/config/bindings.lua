@@ -2,10 +2,6 @@ local wezterm = require "wezterm"
 local act = wezterm.action
 
 local keys = {
-  { key = 'UpArrow',    mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment, },
-  { key = 'DownArrow',  mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment, },
-  { key = 'LeftArrow',  mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment, },
-  { key = 'RightArrow', mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment, },
   -- Send C-a when pressing C-a twice
   { key = "a",          mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
   { key = "c",          mods = "LEADER",      action = act.ActivateCopyMode },
@@ -18,7 +14,8 @@ local keys = {
   { key = "j",          mods = "LEADER",      action = act.ActivatePaneDirection("Down") },
   { key = "k",          mods = "LEADER",      action = act.ActivatePaneDirection("Up") },
   { key = "l",          mods = "LEADER",      action = act.ActivatePaneDirection("Right") },
-  { key = "q",          mods = "LEADER",      action = act.CloseCurrentPane { confirm = true } },
+  { key = "x",          mods = "LEADER",      action = act.CloseCurrentPane { confirm = false } },
+  { key = "q",          mods = "LEADER",      action = act.CloseCurrentTab { confirm = false } },
   { key = "z",          mods = "LEADER",      action = act.TogglePaneZoomState },
   { key = "o",          mods = "LEADER",      action = act.RotatePanes "Clockwise" },
   -- We can make separate keybindings for resizing panes
@@ -63,6 +60,11 @@ for i = 1, 9 do
     action = act.ActivateTab(i - 1)
   })
 end
+table.insert(keys, {
+  key = "0",
+  mods = "LEADER",
+  action = act.ActivateTab(9)
+})
 
 local key_tables = {
   resize_pane = {
@@ -88,6 +90,11 @@ local mouse_bindings = {
     event = { Up = { streak = 1, button = "Left" } },
     mods = "NONE",
     action = wezterm.action.Nop,
+  },
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CTRL',
+    action = act.OpenLinkAtMouseCursor,
   },
 }
 
