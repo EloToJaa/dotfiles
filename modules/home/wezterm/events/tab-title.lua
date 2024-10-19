@@ -243,12 +243,12 @@ M.setup = function()
   wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, hover, max_width)
     if not tab_list[tab.tab_id] then
       tab_list[tab.tab_id] = Tab:new()
-      tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_id)
+      tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
       tab_list[tab.tab_id]:set_cells()
       return tab_list[tab.tab_id]:render()
     end
 
-    tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_id)
+    tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
     tab_list[tab.tab_id]:update_cells(tab.is_active, hover)
     return tab_list[tab.tab_id]:render()
   end)
