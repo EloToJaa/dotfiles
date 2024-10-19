@@ -141,7 +141,7 @@
 
         # keybindings
         "$mainMod, Return, exec, wezterm start --always-new-process"
-        "ALT, Return, exec, [float; center] wezterm start --always-new-process"
+        "ALT, Return, exec, wezterm start --always-new-process --class org.wezfurlong.wezterm_floating"
         "$mainMod SHIFT, Return, exec, [fullscreen] wezterm start --always-new-process"
         "$mainMod, B, exec, hyprctl dispatch exec '[workspace 1 silent] zen'"
         "$mainMod, Q, killactive,"
@@ -272,9 +272,9 @@
 
       # windowrule
       windowrule = [
-        "float,qView"
-        "center,qView"
-        "size 1200 725,qView"
+        # "float,qView"
+        # "center,qView"
+        # "size 1200 725,qView"
         "float,imv"
         "center,imv"
         "size 1200 725,imv"
@@ -308,6 +308,9 @@
         "workspace 8, class:^(com.obsproject.Studio)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
+        "float,class:^(org.wezfurlong.wezterm_floating)$"
+        "center,class:^(org.wezfurlong.wezterm_floating)$"
+        "size 950 600,class:^(org.wezfurlong.wezterm_floating)$"
         "float,class:^(zenity)$"
         "center,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
