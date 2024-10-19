@@ -17,7 +17,6 @@
     ./git.nix                         # version control
     ./gnome.nix                       # gnome apps
     ./gtk.nix                         # gtk theme
-    ./kitty.nix                       # terminal
     ./lazygit.nix
     ./nemo.nix                        # file manager
     ./nvim.nix                        # neovim editor
