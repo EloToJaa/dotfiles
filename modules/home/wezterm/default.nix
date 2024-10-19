@@ -22,5 +22,5 @@
   #   '';
   # };
 
-  xdg.configFile."wezterm".source = ./src;
+  xdg.configFile."wezterm".source = ./wezterm;
 }
