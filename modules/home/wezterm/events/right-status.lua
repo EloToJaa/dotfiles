@@ -8,11 +8,14 @@ local M = {}
 
 local ICON_STAT = nf.oct_table
 local ICON_DIR = nf.oct_file_directory_fill
+local ICON_USER = nf.oct_person_fill
 
 local function get_username()
   return os.getenv('USER') or os.getenv('LOGNAME') or os.getenv('USERNAME')
 end
 
+---@param cwd any
+---@return string
 local function convert_cwd(cwd)
   if cwd then
     local new_cwd = string.gsub(cwd.file_path, "^/home/" .. get_username(), "~")
@@ -42,6 +45,8 @@ cells
     :add_segment('separator', ' ', colors.separator)
     :add_segment('dir_icon', ICON_DIR .. ' ', colors.dir, attr(attr.intensity('Bold')))
     :add_segment('dir_text', '', colors.dir, attr(attr.intensity('Bold')))
+    :add_segment('user_icon', ICON_USER .. ' ', colors.dir, attr(attr.intensity('Bold')))
+    :add_segment('user_text', '', colors.dir, attr(attr.intensity('Bold')))
 
 M.setup = function()
   wezterm.on('update-right-status', function(window, pane)
@@ -50,10 +55,12 @@ M.setup = function()
     cells
         :update_segment_text('stat_text', stat)
         :update_segment_text('dir_text', cwd)
+        :update_segment_text('user_text', get_username())
 
     window:set_right_status(
       wezterm.format(
-        cells:render({ 'stat_icon', 'stat_text', 'separator', 'dir_icon', 'dir_text' })
+        cells:render({ 'dir_icon', 'dir_text', 'separator', 'user_icon', 'user_text', 'separator', 'stat_icon',
+          'stat_text' })
       )
     )
   end)
