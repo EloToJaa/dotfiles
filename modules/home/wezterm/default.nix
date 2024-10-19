@@ -27,6 +27,7 @@
   xdg.configFile."wezterm/config/general.lua".source = ./config/general.lua;
   xdg.configFile."wezterm/config/init.lua".source = ./config/init.lua;
   xdg.configFile."wezterm/config/keybinds.lua".source = ./config/keybinds.lua;
+  xdg.configFile."wezterm/config/launch.lua".source = ./config/launch.lua;
 
   xdg.configFile."wezterm/events/left-status.lua".source = ./events/left-status.lua;
   xdg.configFile."wezterm/events/new-tab-button.lua".source = ./events/new-tab-button.lua;
