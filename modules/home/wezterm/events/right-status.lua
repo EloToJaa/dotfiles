@@ -34,6 +34,7 @@ end
 local colors = {
   stat      = { fg = '#f7768e', bg = 'rgba(0, 0, 0, 0.4)' },
   dir       = { fg = '#fab387', bg = 'rgba(0, 0, 0, 0.4)' },
+  user      = { fg = '#89dceb', bg = 'rgba(0, 0, 0, 0.4)' },
   separator = { fg = '#74c7ec', bg = 'rgba(0, 0, 0, 0.4)' }
 }
 
@@ -45,8 +46,8 @@ cells
     :add_segment('separator', ' ', colors.separator)
     :add_segment('dir_icon', ICON_DIR .. ' ', colors.dir, attr(attr.intensity('Bold')))
     :add_segment('dir_text', '', colors.dir, attr(attr.intensity('Bold')))
-    :add_segment('user_icon', ICON_USER .. ' ', colors.dir, attr(attr.intensity('Bold')))
-    :add_segment('user_text', '', colors.dir, attr(attr.intensity('Bold')))
+    :add_segment('user_icon', ICON_USER .. ' ', colors.user, attr(attr.intensity('Bold')))
+    :add_segment('user_text', '', colors.user, attr(attr.intensity('Bold')))
 
 M.setup = function()
   wezterm.on('update-right-status', function(window, pane)
