@@ -6,24 +6,24 @@ local attr = Cells.attr
 
 local M = {}
 
-local ICON_SEPARATOR = nf.oct_dash
 local ICON_STAT = nf.oct_table
 local ICON_DIR = nf.oct_file_directory_fill
 
--- TODO: add windows path support
-local function basename(s)
-  -- Nothing a little regex can't fix
-  return string.match(s, '([^/]+)/?$')
+local function get_username()
+  return os.getenv('USER') or os.getenv('LOGNAME') or os.getenv('USERNAME')
 end
 
-local function get_cwd(pane)
-  local cwd = pane:get_current_working_dir()
+local function convert_cwd(cwd)
   if cwd then
-    cwd = basename(cwd.file_path)
+    local new_cwd = string.gsub(cwd.file_path, "^/home/" .. get_username(), "~")
+    if new_cwd == '~/' then
+      return '~'
+    else
+      return new_cwd
+    end
   else
-    cwd = ''
+    return ''
   end
-  return cwd
 end
 
 ---@type table<string, Cells.SegmentColors>
@@ -39,14 +39,14 @@ local cells = Cells:new()
 cells
     :add_segment('stat_icon', ICON_STAT .. '  ', colors.date, attr(attr.intensity('Bold')))
     :add_segment('stat_text', '', colors.date, attr(attr.intensity('Bold')))
-    :add_segment('separator', ' ' .. ICON_SEPARATOR .. '  ', colors.separator)
+    :add_segment('separator', ' ', colors.separator)
     :add_segment('dir_icon', ICON_DIR .. ' ', colors.dir, attr(attr.intensity('Bold')))
     :add_segment('dir_text', '', colors.dir, attr(attr.intensity('Bold')))
 
 M.setup = function()
   wezterm.on('update-right-status', function(window, pane)
     local stat = window:active_workspace()
-    local cwd = get_cwd(pane)
+    local cwd = convert_cwd(pane:get_current_working_dir())
     cells
         :update_segment_text('stat_text', stat)
         :update_segment_text('dir_text', cwd)
