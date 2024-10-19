@@ -13,7 +13,7 @@ local ICON_DIR = nf.oct_file_directory_fill
 -- TODO: add windows path support
 local function basename(s)
   -- Nothing a little regex can't fix
-  return string.match(s, "([^/]+)/?$")
+  return string.match(s, '([^/]+)/?$')
 end
 
 local function get_cwd(pane)
@@ -21,7 +21,7 @@ local function get_cwd(pane)
   if cwd then
     cwd = basename(cwd.file_path)
   else
-    cwd = ""
+    cwd = ''
   end
   return cwd
 end
