@@ -153,7 +153,7 @@ function Tab:update_cells(is_active, hover)
   end
 
   self.cells:update_segment_text('title', ' ' .. self.title)
-  self.cells:update_segment_text('index', self.index .. ' ')
+  self.cells:update_segment_text('index', (self.index + 1) .. ' ')
   self.cells
       :update_segment_colors('scircle_left', colors['scircle_left_' .. tab_state])
       :update_segment_colors('index', colors['index_' .. tab_state])

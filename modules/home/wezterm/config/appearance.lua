@@ -23,6 +23,7 @@ return {
   tab_bar_at_bottom = true,
   show_tab_index_in_tab_bar = false,
   switch_to_last_active_tab_when_closing_tab = true,
+  tab_and_split_indices_are_zero_based = false,
 
   -- window
   window_padding = {
