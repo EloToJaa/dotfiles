@@ -4,6 +4,7 @@
     ./ohmyposh                        # shell prompt
     ./scripts                         # personal scripts
     ./swaync                          # notification deamon
+    ./wallpapers
     ./waybar                          # status bar
     ./wezterm
     ./zsh                             # shell
