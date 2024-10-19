@@ -1,9 +1,6 @@
 { pkgs, ... }: 
 {
-  programs.oh-my-posh = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  home.packages = [ pkgs.oh-my-posh ];
 
   xdg.configFile."oh-my-posh/config.toml".source = ./config.toml;
 }
