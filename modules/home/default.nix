@@ -5,6 +5,7 @@
     ./scripts                         # personal scripts
     ./swaync                          # notification deamon
     ./waybar                          # status bar
+    ./wezterm
     ./zsh                             # shell
     ./audacious.nix                   # music player
     ./bat.nix                         # better cat command
@@ -26,7 +27,6 @@
     ./swayosd.nix                     # brightness / volume wiget
     ./tmux.nix                        # terminal multiplexer
     ./vscodium.nix                    # vscode fork
-    ./wezterm.nix
     ./xdg-mimes.nix                   # xdg config
     ./zen.nix
   ];
