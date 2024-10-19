@@ -19,8 +19,8 @@ end
 local function convert_cwd(cwd)
   if cwd then
     local new_cwd = string.gsub(cwd.file_path, "^/home/" .. get_username(), "~")
-    if new_cwd == '~/' then
-      return '~'
+    if string.sub(new_cwd, -1) == "/" then
+      return string.sub(new_cwd, 1, -2)
     else
       return new_cwd
     end
