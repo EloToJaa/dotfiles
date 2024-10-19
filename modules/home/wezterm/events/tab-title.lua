@@ -56,15 +56,36 @@ local function clean_process_name(proc)
   return a:gsub('%.exe$', '')
 end
 
+-- TODO: add windows path support
+local function basename(s)
+  -- Nothing a little regex can't fix
+  return string.match(s, '([^/]+)/?$')
+end
+
+local function get_dir_name(cwd)
+  local dir_name = cwd
+  if dir_name then
+    dir_name = basename(dir_name.file_path)
+  else
+    dir_name = ''
+  end
+  return dir_name
+end
+
 ---@param process_name string
+---@param dir_name string
 ---@param base_title string
 ---@param max_width number
 ---@param inset number
-local function create_title(process_name, base_title, max_width, inset)
+local function create_title(process_name, dir_name, base_title, max_width, inset)
   local title
 
   if process_name:len() > 0 then
-    title = process_name
+    if dir_name == '' then
+      title = process_name
+    else
+      title = process_name .. ' in ' .. dir_name
+    end
   else
     title = base_title
   end
@@ -113,6 +134,7 @@ end
 ---@param pane any WezTerm https://wezfurlong.org/wezterm/config/lua/pane/index.html
 function Tab:set_info(pane, max_width, tab_id)
   local process_name = clean_process_name(pane.foreground_process_name)
+  local dir_name = get_dir_name(pane.current_working_dir)
   self.unseen_output = pane.has_unseen_output
 
   if self.title_locked then
@@ -122,7 +144,7 @@ function Tab:set_info(pane, max_width, tab_id)
   if self.unseen_output then
     inset = inset + 2
   end
-  self.title = create_title(process_name, pane.title, max_width, inset)
+  self.title = create_title(process_name, dir_name, pane.title, max_width, inset)
   self.index = tab_id
 end
 
