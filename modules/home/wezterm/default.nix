@@ -19,4 +19,22 @@
         :append(require('config.general'))
     '';
   };
+
+  xdg.configFile."wezterm/colors/custom.lua".source = ./colors/custom.lua;
+
+  xdg.configFile."wezterm/config/appearance.lua".source = ./config/appearance.lua;
+  xdg.configFile."wezterm/config/fonts.lua".source = ./config/fonts.lua;
+  xdg.configFile."wezterm/config/general.lua".source = ./config/general.lua;
+  xdg.configFile."wezterm/config/init.lua".source = ./config/init.lua;
+  xdg.configFile."wezterm/config/keybinds.lua".source = ./config/keybinds.lua;
+
+  xdg.configFile."wezterm/events/left-status.lua".source = ./events/left-status.lua;
+  xdg.configFile."wezterm/events/new-tab-button.lua".source = ./events/new-tab-button.lua;
+  xdg.configFile."wezterm/events/right-status.lua".source = ./events/right-status.lua;
+  xdg.configFile."wezterm/events/tab-title.lua".source = ./events/tab-title.lua;
+
+  xdg.configFile."wezterm/utils/cells.lua".source = ./utils/cells.lua;
+  xdg.configFile."wezterm/utils/gpu_adapter.lua".source = ./utils/gpu_adapter.lua;
+  xdg.configFile."wezterm/utils/math.lua".source = ./utils/math.lua;
+  xdg.configFile."wezterm/utils/platform.lua".source = ./utils/platform.lua;
 }
