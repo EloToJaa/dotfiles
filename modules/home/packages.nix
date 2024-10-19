@@ -58,7 +58,6 @@
     pavucontrol                       # pulseaudio volume controle (GUI)
     pitivi                            # video editing
     qalculate-gtk                     # calculator
-    vlc
     winetricks
     wineWowPackages.wayland
     zenity
