@@ -22,8 +22,8 @@ local TITLE_INSET = {
 local M = {}
 
 local RENDER_VARIANTS = {
-  { 'scircle_left', 'number', 'title', 'padding',       'scircle_right' },
-  { 'scircle_left', 'number', 'title', 'unseen_output', 'padding',      'scircle_right' },
+  { 'scircle_left', 'index', 'title', 'padding',       'scircle_right' },
+  { 'scircle_left', 'index', 'title', 'unseen_output', 'padding',      'scircle_right' },
 }
 
 ---@type table<string, Cells.SegmentColors>
@@ -37,9 +37,17 @@ local colors = {
   unseen_output_hover   = { bg = '#587D8C', fg = '#FFA066' },
   unseen_output_active  = { bg = '#7FB4CA', fg = '#FFA066' },
 
-  scircle_default       = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#45475A' },
-  scircle_hover         = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#587D8C' },
-  scircle_active        = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#7FB4CA' },
+  index_default         = { bg = '#FFA066', fg = '#1C1B19' },
+  index_hover           = { bg = '#FFA066', fg = '#1C1B19' },
+  index_active          = { bg = '#FFA066', fg = '#11111B' },
+
+  scircle_left_default  = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
+  scircle_left_hover    = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
+  scircle_left_active   = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
+
+  scircle_right_default = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#45475A' },
+  scircle_right_hover   = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#587D8C' },
+  scircle_right_active  = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#7FB4CA' },
 }
 
 ---@param proc string
@@ -84,6 +92,7 @@ end
 
 ---@class Tab
 ---@field title string
+---@field index number
 ---@field cells Cells
 ---@field title_locked boolean
 ---@field unseen_output boolean
@@ -102,7 +111,7 @@ function Tab:new()
 end
 
 ---@param pane any WezTerm https://wezfurlong.org/wezterm/config/lua/pane/index.html
-function Tab:set_info(pane, max_width)
+function Tab:set_info(pane, max_width, tab_id)
   local process_name = clean_process_name(pane.foreground_process_name)
   self.unseen_output = pane.has_unseen_output
 
@@ -114,11 +123,13 @@ function Tab:set_info(pane, max_width)
     inset = inset + 2
   end
   self.title = create_title(process_name, pane.title, max_width, inset)
+  self.index = tab_id
 end
 
 function Tab:set_cells()
   self.cells
       :add_segment('scircle_left', GLYPH_SCIRCLE_LEFT)
+      :add_segment('index', ' ', nil, attr(attr.intensity('Bold')))
       :add_segment('title', ' ', nil, attr(attr.intensity('Bold')))
       :add_segment('unseen_output', ' ' .. GLYPH_CIRCLE)
       :add_segment('padding', ' ')
@@ -142,12 +153,14 @@ function Tab:update_cells(is_active, hover)
   end
 
   self.cells:update_segment_text('title', ' ' .. self.title)
+  self.cells:update_segment_text('index', self.index .. ' ')
   self.cells
-      :update_segment_colors('scircle_left', colors['scircle_' .. tab_state])
+      :update_segment_colors('scircle_left', colors['scircle_left_' .. tab_state])
+      :update_segment_colors('index', colors['index_' .. tab_state])
       :update_segment_colors('title', colors['text_' .. tab_state])
       :update_segment_colors('unseen_output', colors['unseen_output_' .. tab_state])
       :update_segment_colors('padding', colors['text_' .. tab_state])
-      :update_segment_colors('scircle_right', colors['scircle_' .. tab_state])
+      :update_segment_colors('scircle_right', colors['scircle_right_' .. tab_state])
 end
 
 ---@return FormatItem[] (ref: https://wezfurlong.org/wezterm/config/lua/wezterm/format.html)
@@ -208,12 +221,12 @@ M.setup = function()
   wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, hover, max_width)
     if not tab_list[tab.tab_id] then
       tab_list[tab.tab_id] = Tab:new()
-      tab_list[tab.tab_id]:set_info(tab.active_pane, max_width)
+      tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_id)
       tab_list[tab.tab_id]:set_cells()
       return tab_list[tab.tab_id]:render()
     end
 
-    tab_list[tab.tab_id]:set_info(tab.active_pane, max_width)
+    tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_id)
     tab_list[tab.tab_id]:update_cells(tab.is_active, hover)
     return tab_list[tab.tab_id]:render()
   end)
