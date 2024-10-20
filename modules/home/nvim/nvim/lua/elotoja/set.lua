@@ -22,7 +22,7 @@ opt.incsearch = true
 
 opt.termguicolors = true
 
-opt.scrollof = 8
+opt.scrolloff = 8
 opt.signcolumn = "yes"
 opt.isfname:append("@-@")
 
