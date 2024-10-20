@@ -1,2 +1,3 @@
-require("set")
-require("lazy")
+require("elotoja.set")
+require("elotoja.lazy")
+require("elotoja.remap")
