@@ -5,8 +5,9 @@ return {
     local configs = require("nvim-treesitter.configs")
 
     configs.setup({
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html" },
+      ensure_installed = { "help", "c", "lua", "javascript", "typescript", "html" },
       sync_install = false,
+      auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
     })
