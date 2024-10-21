@@ -1,3 +1,2 @@
-require('elotoja.config.set')
-require('elotoja.config.remap')
-require('elotoja.config.lazy')
+require('elotoja.core')
+require('elotoja.lazy')
