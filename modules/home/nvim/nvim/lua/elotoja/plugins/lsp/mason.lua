@@ -33,6 +33,7 @@ return {
         "tailwindcss",
         "svelte",
         "lua_ls",
+        "emmet_ls",
         "pyright",
       },
     })
