@@ -30,7 +30,7 @@ return {
     left = 3,
     right = 3,
     top = 5,
-    bottom = 5,
+    bottom = 0,
   },
   window_background_opacity = 0.45,
   window_close_confirmation = 'NeverPrompt',
