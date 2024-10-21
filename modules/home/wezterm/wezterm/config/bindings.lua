@@ -43,7 +43,7 @@ local keys = {
   },
   -- We can make separate keybindings for resizing panes
   -- But Wezterm offers custom 'mode' in the name of 'KeyTable'
-  { key = 'r', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+  { key = 'e', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
 
   -- Tab keybindings
   { key = 't', mods = 'LEADER',       action = act.SpawnTab('CurrentPaneDomain') },
@@ -52,7 +52,7 @@ local keys = {
   { key = 'n', mods = 'LEADER',       action = act.ShowTabNavigator },
 
   -- rename tab
-  { key = 'e', mods = 'LEADER',       action = act.EmitEvent('tabs.manual-update-tab-title') },
+  { key = 'r', mods = 'LEADER',       action = act.EmitEvent('tabs.manual-update-tab-title') },
   -- { key = 'e', mods = 'LEADER',       action = act.EmitEvent('tabs.reset-tab-title') },
 
   -- Key table for moving tabs around
