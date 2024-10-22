@@ -63,6 +63,9 @@ local keys = {
 
   -- Lastly, workspace
   { key = 'w', mods = 'LEADER',       action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+
+  { key = 'c', mods = 'CTRL|SHIFT',   action = act.CopyTo('Clipboard') },
+  { key = 'v', mods = 'CTRL|SHIFT',   action = act.PasteFrom('Clipboard') },
 }
 
 for i = 1, 9 do
