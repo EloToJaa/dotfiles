@@ -16,7 +16,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    # bzip2
+    bzip2
   ];
 
   time.timeZone = "${variables.timezone}";
