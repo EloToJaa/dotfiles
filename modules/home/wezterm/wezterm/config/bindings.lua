@@ -53,7 +53,7 @@ local keys = {
 
   -- rename tab
   { key = 'r', mods = 'LEADER',       action = act.EmitEvent('tabs.manual-update-tab-title') },
-  -- { key = 'e', mods = 'LEADER',       action = act.EmitEvent('tabs.reset-tab-title') },
+  { key = 'r', mods = 'LEADER|SHIFT', action = act.EmitEvent('tabs.reset-tab-title') },
 
   -- Key table for moving tabs around
   { key = 'm', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'move_tab', one_shot = false } },
