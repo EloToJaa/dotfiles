@@ -44,6 +44,15 @@ local keys = {
   -- We can make separate keybindings for resizing panes
   -- But Wezterm offers custom 'mode' in the name of 'KeyTable'
   { key = 'e', mods = 'LEADER',       action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+  {
+    key = 'f',
+    mods = 'LEADER',
+    action = act.ActivateKeyTable({
+      name = 'resize_font',
+      one_shot = false,
+      timemout_miliseconds = 1000,
+    }),
+  },
 
   -- Tab keybindings
   { key = 't', mods = 'LEADER',       action = act.SpawnTab('CurrentPaneDomain') },
@@ -82,6 +91,15 @@ table.insert(keys, {
 })
 
 local key_tables = {
+  resize_font = {
+    { key = 'k',         action = act.IncreaseFontSize },
+    { key = 'j',         action = act.DecreaseFontSize },
+    { key = 'UpArrow',   action = act.IncreaseFontSize },
+    { key = 'DownArrow', action = act.DecreaseFontSize },
+    { key = 'r',         action = act.ResetFontSize },
+    { key = 'Escape',    action = 'PopKeyTable' },
+    { key = 'q',         action = 'PopKeyTable' },
+  },
   resize_pane = {
     { key = 'h',          action = act.AdjustPaneSize { 'Left', 1 } },
     { key = 'j',          action = act.AdjustPaneSize { 'Down', 1 } },
@@ -92,7 +110,7 @@ local key_tables = {
     { key = 'UpArrow',    action = act.AdjustPaneSize { 'Up', 1 } },
     { key = 'RightArrow', action = act.AdjustPaneSize { 'Right', 1 } },
     { key = 'Escape',     action = 'PopKeyTable' },
-    { key = 'Enter',      action = 'PopKeyTable' },
+    { key = 'q',          action = 'PopKeyTable' },
   },
   move_tab = {
     { key = 'h',          action = act.MoveTabRelative(-1) },
@@ -104,7 +122,7 @@ local key_tables = {
     { key = 'UpArrow',    action = act.MoveTabRelative(1) },
     { key = 'RightArrow', action = act.MoveTabRelative(1) },
     { key = 'Escape',     action = 'PopKeyTable' },
-    { key = 'Enter',      action = 'PopKeyTable' },
+    { key = 'q',          action = 'PopKeyTable' },
   }
 }
 -- remove copy on highlight
