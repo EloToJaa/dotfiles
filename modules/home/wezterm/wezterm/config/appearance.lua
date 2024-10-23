@@ -32,7 +32,7 @@ return {
     top = 5,
     bottom = 0,
   },
-  window_background_opacity = 0.45,
+  window_background_opacity = 0.6,
   window_close_confirmation = 'NeverPrompt',
   window_frame = {
     active_titlebar_bg = '#090909',
