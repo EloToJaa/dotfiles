@@ -74,6 +74,8 @@
     nodejs
     npm-check-updates
 
+    go
+
     alejandra
   ]);
 }
