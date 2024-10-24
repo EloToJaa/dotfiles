@@ -1,6 +1,5 @@
-local wezterm = require('wezterm')
 local gpu_adapters = require('utils.gpu_adapter')
-local colors = require('colors.custom')
+-- local colors = require('colors.custom')
 
 return {
   animation_fps = 60,
@@ -10,7 +9,8 @@ return {
   webgpu_preferred_adapter = gpu_adapters:pick_best(),
 
   -- color scheme
-  colors = colors,
+  -- colors = colors,
+  color_scheme = 'Catppuccin Mocha',
 
   -- scrollbar
   enable_scroll_bar = false,
