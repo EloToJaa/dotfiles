@@ -6,8 +6,8 @@ let custom = {
   text_color = "#cdd6f4";
   background = "#181825";
   border_color = "#fab387";
-  workspace = "#eba0ac";
-  active_workspace = "#f38ba8";
+  workspace = "#f38ba8";
+  active_workspace = "#fab387";
   opacity = "1";
   indicator_height = "2px";
 };
