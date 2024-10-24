@@ -50,7 +50,7 @@ in
     ];
     clock= {
         calendar = {
-          format = { today = "<span color='#98971A'><b>{}</b></span>"; };
+          format = { today = "<span color='${green}'><b>{}</b></span>"; };
         };
         format = "  {:%H:%M %d/%m}";
         tooltip= "true";
