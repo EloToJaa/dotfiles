@@ -6,8 +6,8 @@ let custom = {
   text_color = "#cdd6f4";
   background = "#181825";
   border_color = "#fab387";
-  yellow = "#f9e2af";
-  orange_bright = "#fab387";
+  workspace = "#eba0ac";
+  active_workspace = "#f38ba8";
   opacity = "1";
   indicator_height = "2px";
 };
@@ -43,7 +43,7 @@ in
       padding-left: 15px;
     }
     #workspaces button {
-      color: ${yellow};
+      color: ${workspace};
       padding-left:  5px;
       padding-right: 5px;
       margin-right: 10px;
@@ -52,7 +52,7 @@ in
       color: ${text_color};
     }
     #workspaces button.active {
-      color: ${orange_bright};
+      color: ${active_workspace};
     }
 
     #clock {
