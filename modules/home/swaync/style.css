@@ -1,18 +1,18 @@
 @define-color shadow rgba(0, 0, 0, 0.25);
 
-@define-color base #3C3836;
-@define-color mantle #282828;
-@define-color crust #1D2021;
+@define-color base #1E1D2E;
+@define-color mantle #181825;
+@define-color crust #11111b;
 
-@define-color text #FBF1C7;
-@define-color subtext0 #CBDBB2;
-@define-color subtext1 #D5C4A1;
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
 
-@define-color surface0 #3C3836;
-@define-color surface1 #665C54;
-@define-color surface2 #7C6F64;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
 
-@define-color green #98971A;
+@define-color green #a6e3a1;
 
 * {
     font-family: "NotoSansMono Nerd Font";
