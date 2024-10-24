@@ -4,15 +4,15 @@
 
   xdg.configFile."rofi/theme.rasi".text = ''
     * {
-      bg-col: #1D2021;
-      bg-col-light: #282828;
-      border-col: #928374;
-      selected-col: #3C3836;
-      green: #98971A;
-      fg-col: #FBF1C7;
-      fg-col2: #EBDBB2;
-      grey: #BDAE93;
-      highlight: @green;
+      bg-col: #1e1e2e;
+      bg-col-light: #313244;
+      border-col: #9399b2;
+      selected-col: #6c7086;
+      blue: #89b4fa;
+      fg-col: #cdd6f4;
+      fg-col2: #74c7ec;
+      text: #cdd6f4;
+      highlight: @blue;
     }
   '';
 
@@ -64,7 +64,7 @@
     }
 
     prompt {
-      background-color: @green;
+      background-color: @blue;
       padding: 4px;
       text-color: @bg-col-light;
       border-radius: 3px;
@@ -116,14 +116,14 @@
     button {
       padding: 10px;
       background-color: @bg-col-light;
-      text-color: @grey;
+      text-color: @text;
       vertical-align: 0.5; 
       horizontal-align: 0.5;
     }
 
     button selected {
       background-color: @bg-col;
-      text-color: @green;
+      text-color: @blue;
     }
   '';  
 }
