@@ -4,13 +4,6 @@ version = 2
 final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
 
-[palette]
-blue = "#89b4fa"
-text = "#cdd6f4"
-yellow = "#f9e2af"
-red = "#f38ba8"
-mauve = "#cba6f7"
-
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
@@ -20,7 +13,7 @@ mauve = "#cba6f7"
     type = 'path'
     style = 'plain'
     background = 'transparent'
-    foreground = 'p:blue'
+    foreground = 'blue'
     template = '{{ .Path }}'
 
     [blocks.segments.properties]
@@ -29,7 +22,7 @@ mauve = "#cba6f7"
   [[blocks.segments]]
     type = 'git'
     style = 'plain'
-    foreground = 'p:text'
+    foreground = 'text'
     background = 'transparent'
     template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
 
@@ -41,7 +34,7 @@ mauve = "#cba6f7"
   [[blocks.segments]]
     type = 'nix-shell'
     style = 'plain'
-    foreground = 'p:blue'
+    foreground = 'blue'
     background = 'transparent'
     template = '{{ if ne .Type "unknown" }} <b>󱄅</b>{{ end }}'
 
@@ -52,7 +45,7 @@ mauve = "#cba6f7"
   [[blocks.segments]]
     type = 'executiontime'
     style = 'plain'
-    foreground = 'p:yellow'
+    foreground = 'yellow'
     background = 'transparent'
     template = '{{ .FormattedMs }}'
 
@@ -68,21 +61,21 @@ mauve = "#cba6f7"
     type = 'text'
     style = 'plain'
     foreground_templates = [
-      '{{if gt .Code 0}}p:red{{end}}',
-      '{{if eq .Code 0}}p:mauve{{end}}',
+      '{{if gt .Code 0}}red{{end}}',
+      '{{if eq .Code 0}}mauve{{end}}',
     ]
     background = 'transparent'
     template = '❯'
 
 [transient_prompt]
   foreground_templates = [
-    '{{if gt .Code 0}}p:red{{end}}',
-    '{{if eq .Code 0}}p:mauve{{end}}',
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}mauve{{end}}',
   ]
   background = 'transparent'
   template = '❯ '
 
 [secondary_prompt]
-  foreground = 'p:mauve'
+  foreground = 'mauve'
   background = 'transparent'
   template = '❯❯ '
