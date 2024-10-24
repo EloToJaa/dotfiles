@@ -3,18 +3,11 @@ let custom = {
   font = "JetBrainsMono Nerd Font";
   font_size = "18px";
   font_weight = "bold";
-  text_color = "#FBF1C7";
-  background_0 = "#1D2021";
-  background_1 = "#282828";
-  border_color = "#928374";
-  red = "#CC241D";
-  green = "#98971A";
-  yellow = "#FABD2F";
-  blue = "#458588";
-  magenta = "#B16286";
-  cyant = "#689D6A";
-  orange = "#D65D0E";
-  orange_bright = "#FE8019";
+  text_color = "#cdd6f4";
+  background = "#181825";
+  border_color = "#fab387";
+  yellow = "#f9e2af";
+  orange_bright = "#fab387";
   opacity = "1";
   indicator_height = "2px";
 };
@@ -38,7 +31,7 @@ in
     }
 
     tooltip {
-      background: ${background_1};
+      background: ${background};
       border: 1px solid ${border_color};
     }
     tooltip label {
@@ -71,7 +64,7 @@ in
       color: ${text_color};
     }
     #tray menu {
-      background: ${background_1};
+      background: ${background};
       border: 1px solid ${border_color};
       padding: 8px;
     }
