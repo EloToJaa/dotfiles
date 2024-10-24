@@ -4,7 +4,8 @@ let custom = {
   font_size = "18px";
   font_weight = "bold";
   text_color = "#cdd6f4";
-  background = "#181825";
+  background_0 = "#181825";
+  background_1 = "#11111B";
   border_color = "#fab387";
   workspace = "#f38ba8";
   active_workspace = "#fab387";
@@ -26,12 +27,12 @@ in
     }
 
     window#waybar {
-      background: #282828;
+      background: ${background_1};
       border-top: 1px solid #928374;
     }
 
     tooltip {
-      background: ${background};
+      background: ${background_0};
       border: 1px solid ${border_color};
     }
     tooltip label {
@@ -64,7 +65,7 @@ in
       color: ${text_color};
     }
     #tray menu {
-      background: ${background};
+      background: ${background_1};
       border: 1px solid ${border_color};
       padding: 8px;
     }
