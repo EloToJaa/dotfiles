@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     neovim
 
@@ -19,7 +23,12 @@
 
     # Formatters
     alejandra
+
+    # LSP
+    nixd
   ];
+
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   xdg.configFile."nvim" = {
     source = ./nvim;
