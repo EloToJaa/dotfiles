@@ -64,6 +64,5 @@
     winetricks
     wineWowPackages.wayland
     zenity
-    qbittorrent
   ];
 }
