@@ -88,6 +88,14 @@ return {
 					formatting = {
 						command = { "alejandra" },
 					},
+					options = {
+						nixos = {
+							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfiguration.CONFIGNAME.options',
+						},
+						home_manager = {
+							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfiguration.CONFIGNAME.options',
+						},
+					},
 				},
 			},
 		})
