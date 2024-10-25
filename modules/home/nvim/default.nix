@@ -1,6 +1,21 @@
-{ pkgs, ... }:
-{
-  home.packages = (with pkgs; [ neovim ]);
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    neovim
+
+    # C / C++
+    gcc
+    gdb
+    gnumake
+
+    # Programming languages
+    python3
+    nodejs
+    npm-check-updates
+    go
+
+    # Formatters
+    alejandra
+  ];
 
   xdg.configFile."nvim" = {
     source = ./nvim;
