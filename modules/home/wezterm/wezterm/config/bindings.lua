@@ -73,7 +73,7 @@ local keys = {
 	-- Lastly, workspace
 	{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 
-	{ key = "c", mods = "LEADER", action = act.ReloadConfiguration },
+	{ key = "c", mods = "LEADER|SHIFT", action = act.ReloadConfiguration },
 
 	{ key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
