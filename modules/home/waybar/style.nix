@@ -1,19 +1,18 @@
-{ ... }:
-let custom = {
-  font = "JetBrainsMono Nerd Font";
-  font_size = "18px";
-  font_weight = "bold";
-  text_color = "#cdd6f4";
-  background_0 = "#181825";
-  background_1 = "#11111B";
-  border_color = "#fab387";
-  workspace = "#f38ba8";
-  active_workspace = "#fab387";
-  opacity = "1";
-  indicator_height = "2px";
-};
-in 
-{
+{...}: let
+  custom = {
+    font = "JetBrainsMono Nerd Font";
+    font_size = "18px";
+    font_weight = "bold";
+    text_color = "#cdd6f4";
+    background_0 = "#181825";
+    background_1 = "#11111B";
+    border_color = "#fab387";
+    workspace = "#f38ba8";
+    active_workspace = "#fab387";
+    opacity = "1";
+    indicator_height = "2px";
+  };
+in {
   programs.waybar.style = with custom; ''
     * {
       border: none;
@@ -79,11 +78,11 @@ in
       margin-right: 10px;
       color: ${text_color};
     }
-    
+
     #pulseaudio {
       margin-left: 15px;
     }
-    
+
     #custom-notification {
       margin-left: 15px;
       padding-right: 2px;

@@ -1,5 +1,8 @@
-{ pkgs, variables, ... }: 
 {
+  pkgs,
+  variables,
+  ...
+}: {
   programs.btop = {
     enable = true;
 
@@ -7,12 +10,12 @@
       enable = true;
       flavor = "${variables.catppuccin.flavor}";
     };
-    
+
     settings = {
       theme_background = false;
       update_ms = 500;
     };
   };
 
-  home.packages = (with pkgs; [ nvtopPackages.amd ]);
+  home.packages = with pkgs; [nvtopPackages.amd];
 }

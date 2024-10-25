@@ -1,13 +1,18 @@
-{ config, pkgs, variables, ... }:
 {
+  config,
+  pkgs,
+  variables,
+  ...
+}: {
   # Add user to libvirtd group
-  users.users.${variables.username}.extraGroups = [ "libvirtd" ];
+  users.users.${variables.username}.extraGroups = ["libvirtd"];
 
   # Install necessary packages
   environment.systemPackages = with pkgs; [
     virt-manager
     virt-viewer
-    spice spice-gtk
+    spice
+    spice-gtk
     spice-protocol
     win-virtio
     win-spice
@@ -21,7 +26,7 @@
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
+        ovmf.packages = [pkgs.OVMFFull.fd];
       };
     };
     docker.rootless = {

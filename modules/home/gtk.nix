@@ -1,17 +1,22 @@
-{ pkgs, config, variables, ... }:
-let 
-  monolisa = pkgs.callPackage ../../pkgs/monolisa/monolisa.nix {}; 
-  monolisa-nerd = pkgs.callPackage ../../pkgs/monolisa/monolisa-nerd.nix { inherit monolisa; }; 
-in
 {
+  pkgs,
+  config,
+  variables,
+  ...
+}: let
+  monolisa = pkgs.callPackage ../../pkgs/monolisa/monolisa.nix {};
+  monolisa-nerd = pkgs.callPackage ../../pkgs/monolisa/monolisa-nerd.nix {inherit monolisa;};
+in {
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [
-      "JetBrainsMono"
-      "FiraCode"
-      "CascadiaCode"
-      "NerdFontsSymbolsOnly"
-    ]; })
+    (nerdfonts.override {
+      fonts = [
+        "JetBrainsMono"
+        "FiraCode"
+        "CascadiaCode"
+        "NerdFontsSymbolsOnly"
+      ];
+    })
     twemoji-color-font
     noto-fonts-emoji
     # monolisa
@@ -41,7 +46,7 @@ in
       size = 22;
     };
   };
-  
+
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;

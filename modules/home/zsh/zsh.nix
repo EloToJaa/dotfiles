@@ -1,5 +1,4 @@
-{ pkgs, ...}: 
-{
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
@@ -104,7 +103,7 @@
       setopt hist_find_no_dups
       setopt hist_expire_dups_first
       setopt hist_verify
-      
+
       # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
       # - The first argument to the function ($1) is the base path to start traversal
       # - See the source code (completion.{bash,zsh}) for the details.

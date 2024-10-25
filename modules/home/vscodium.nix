@@ -1,5 +1,4 @@
-{ pkgs, ... }: 
-let 
+{pkgs, ...}: let
   jonathanharty.gruvbox-material-icon-theme = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
       name = "gruvbox-material-icon-theme";
@@ -16,15 +15,14 @@ let
   #     hash = "sha256-D+SZEQQwjZeuyENOYBJGn8tqS3cJiWbEkmEqhNRY/i4=";
   #   };
   # };
-in
-{
+in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       # nix language
       bbenoist.nix
-      # nix-shell suport 
+      # nix-shell suport
       arrterian.nix-env-selector
       # python
       ms-python.python

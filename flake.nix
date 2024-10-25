@@ -11,12 +11,12 @@
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
     };
-  
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,8 +30,11 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { nixpkgs, self, ...}@inputs:
-  let
+  outputs = {
+    nixpkgs,
+    self,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -54,23 +57,31 @@
       stateVersion = "24.05";
       nfs = "truenas.eagle-perch.ts.net";
     };
-  in
-  {
+  in {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/desktop ];
-        specialArgs = { host="desktop"; inherit self inputs variables; };
+        modules = [./hosts/desktop];
+        specialArgs = {
+          host = "desktop";
+          inherit self inputs variables;
+        };
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/laptop ];
-        specialArgs = { host="laptop"; inherit self inputs variables; };
+        modules = [./hosts/laptop];
+        specialArgs = {
+          host = "laptop";
+          inherit self inputs variables;
+        };
       };
-       vm = nixpkgs.lib.nixosSystem {
+      vm = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/vm ];
-        specialArgs = { host="vm"; inherit self inputs variables; };
+        modules = [./hosts/vm];
+        specialArgs = {
+          host = "vm";
+          inherit self inputs variables;
+        };
       };
     };
   };

@@ -1,5 +1,8 @@
-{ pkgs, variables, ... }: 
 {
+  pkgs,
+  variables,
+  ...
+}: {
   programs.nh = {
     enable = true;
     clean = {

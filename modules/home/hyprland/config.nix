@@ -1,8 +1,6 @@
-{ variables, ... }: 
-{
+{variables, ...}: {
   wayland.windowManager.hyprland = {
     settings = {
-      
       # autostart
       exec-once = [
         "systemctl --user import-environment &"
@@ -17,7 +15,7 @@
         "swaync &"
         "hyprctl setcursor Bibata-Modern-Ice 22 &"
         "swww init && swww img $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) --transition-type none &"
-        
+
         "hyprlock"
 
         "webcord --start-minimized &"
@@ -25,7 +23,7 @@
 
       input = {
         kb_layout = "${variables.keyboardLayout}";
-        kb_options ="grp:alt_caps_toggle";
+        kb_options = "grp:alt_caps_toggle";
         numlock_by_default = true;
         follow_mouse = 0;
         float_switch_override_focus = 0;
@@ -117,19 +115,19 @@
 
         animation = [
           # name, enable, speed, curve, style
-        
+
           # Windows
           "windowsIn,   0, 4, easeOutCubic,  popin 20%" # window open
           "windowsOut,  0, 4, fluent_decel,  popin 80%" # window close.
-          "windowsMove, 1, 2, fluent_decel, slide"     # everything in between, moving, dragging, resizing.
+          "windowsMove, 1, 2, fluent_decel, slide" # everything in between, moving, dragging, resizing.
 
           # Fade
-          "fadeIn,      1, 4,   fade_curve"   # fade in (open) -> layers and windows
-          "fadeOut,     1, 4,   fade_curve"   # fade out (close) -> layers and windows
-          "fadeSwitch,  0, 1,   easeOutCirc"  # fade on changing activewindow and its opacity
-          "fadeShadow,  1, 10,  easeOutCirc"  # fade on changing activewindow for shadows
+          "fadeIn,      1, 4,   fade_curve" # fade in (open) -> layers and windows
+          "fadeOut,     1, 4,   fade_curve" # fade out (close) -> layers and windows
+          "fadeSwitch,  0, 1,   easeOutCirc" # fade on changing activewindow and its opacity
+          "fadeShadow,  1, 10,  easeOutCirc" # fade on changing activewindow for shadows
           "fadeDim,     1, 4,   fluent_decel" # the easing of the dimming of inactive windows
-          "border,      1, 2.7, easeOutCirc"  # for animating the border's color switch speed
+          "border,      1, 2.7, easeOutCirc" # for animating the border's color switch speed
           "borderangle, 1, 30,  fluent_decel, once" # for animating the border's gradient angle - styles: once (default), loop
           "workspaces,  1, 3,   easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
         ];

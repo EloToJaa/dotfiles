@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   boot = {
     loader = {
       systemd-boot = {
@@ -8,7 +7,7 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    initrd.kernelModules = [ "amdgpu" ];
+    initrd.kernelModules = ["amdgpu"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 }

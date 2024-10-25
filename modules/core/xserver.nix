@@ -1,9 +1,12 @@
-{ pkgs, variables, ... }: 
 {
+  pkgs,
+  variables,
+  ...
+}: {
   services = {
     xserver = {
       enable = true;
-      videoDrivers = [ "amdgpu" ];
+      videoDrivers = ["amdgpu"];
       xkb.layout = "${variables.keyboardLayout}";
     };
 
