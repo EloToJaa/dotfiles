@@ -12,6 +12,10 @@
     nodejs
     npm-check-updates
     go
+    rustc
+
+    # Package managers
+    cargo
 
     # Formatters
     alejandra
