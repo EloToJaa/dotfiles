@@ -1,9 +1,4 @@
-{
-  inputs,
-  variables,
-  host,
-  ...
-}: {
+{...}: {
   imports = [
     ./hyprland # window manager
     ./nvim # neovim editor
@@ -33,6 +28,7 @@
     ./swayosd.nix # brightness / volume wiget
     ./vscodium.nix # vscode fork
     ./xdg-mimes.nix # xdg config
+    ./yazi.nix
     ./zen.nix
     ./qbittorrent.nix
   ];
