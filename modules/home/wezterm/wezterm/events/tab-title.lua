@@ -35,6 +35,7 @@ local palette = {
 	text_default_fg = "#89B4FA",
 	text_hover_fg = "#181825",
 	text_active_fg = "#181825",
+	index_text = "#181825",
 }
 
 ---@type table<string, Cells.SegmentColors>
@@ -48,9 +49,9 @@ local colors = {
   unseen_output_hover   = { bg = palette.text_hover_bg, fg = palette.index_bg },
   unseen_output_active  = { bg = palette.text_active_bg, fg = palette.index_bg },
 
-  index_default         = { bg = palette.index_bg, fg = palette.text_default_fg },
-  index_hover           = { bg = palette.index_bg, fg = palette.text_hover_fg },
-  index_active          = { bg = palette.index_bg, fg = palette.text_active_fg },
+  index_default         = { bg = palette.index_bg, fg = palette.index_text },
+  index_hover           = { bg = palette.index_bg, fg = palette.index_text },
+  index_active          = { bg = palette.index_bg, fg = palette.index_text },
 
   scircle_left_default  = { bg = palette.circle_bg, fg = palette.index_bg },
   scircle_left_hover    = { bg = palette.circle_bg, fg = palette.index_bg },
