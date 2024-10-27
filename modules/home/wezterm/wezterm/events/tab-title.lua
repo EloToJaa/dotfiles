@@ -26,28 +26,39 @@ local RENDER_VARIANTS = {
 	{ "scircle_left", "index", "title", "unseen_output", "padding", "scircle_right" },
 }
 
+local palette = {
+	circle_bg = "rgba(0, 0, 0, 0.4)",
+	index_bg = "#FFA066",
+	text_default_bg = "#45475A",
+	text_hover_bg = "#587D8C",
+	text_active_bg = "#7FB4CA",
+	text_default_fg = "#1C1B19",
+	text_hover_fg = "#1C1B19",
+	text_active_fg = "#11111B",
+}
+
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
-  text_default          = { bg = '#45475A', fg = '#1C1B19' },
-  text_hover            = { bg = '#587D8C', fg = '#1C1B19' },
-  text_active           = { bg = '#7FB4CA', fg = '#11111B' },
+  text_default          = { bg = palette.text_default_bg, fg = palette.text_default_fg },
+  text_hover            = { bg = palette.text_hover_bg, fg = palette.text_hover_fg },
+  text_active           = { bg = palette.text_active_bg, fg = palette.text_active_fg },
 
-  unseen_output_default = { bg = '#45475A', fg = '#FFA066' },
-  unseen_output_hover   = { bg = '#587D8C', fg = '#FFA066' },
-  unseen_output_active  = { bg = '#7FB4CA', fg = '#FFA066' },
+  unseen_output_default = { bg = palette.text_default_bg, fg = palette.index_bg },
+  unseen_output_hover   = { bg = palette.text_hover_bg, fg = palette.index_bg },
+  unseen_output_active  = { bg = palette.text_active_bg, fg = palette.index_bg },
 
-  index_default         = { bg = '#FFA066', fg = '#1C1B19' },
-  index_hover           = { bg = '#FFA066', fg = '#1C1B19' },
-  index_active          = { bg = '#FFA066', fg = '#11111B' },
+  index_default         = { bg = palette.index_bg, fg = palette.text_default_fg },
+  index_hover           = { bg = palette.index_bg, fg = palette.text_hover_fg },
+  index_active          = { bg = palette.index_bg, fg = palette.text_active_fg },
 
-  scircle_left_default  = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
-  scircle_left_hover    = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
-  scircle_left_active   = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#FFA066' },
+  scircle_left_default  = { bg = palette.circle_bg, fg = palette.index_bg },
+  scircle_left_hover    = { bg = palette.circle_bg, fg = palette.index_bg },
+  scircle_left_active   = { bg = palette.circle_bg, fg = palette.index_bg },
 
-  scircle_right_default = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#45475A' },
-  scircle_right_hover   = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#587D8C' },
-  scircle_right_active  = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#7FB4CA' },
+  scircle_right_default = { bg = palette.circle_bg, fg = palette.text_default_bg },
+  scircle_right_hover   = { bg = palette.circle_bg, fg = palette.text_hover_bg },
+  scircle_right_active  = { bg = palette.circle_bg, fg = palette.text_active_bg },
 }
 
 ---@param proc string
