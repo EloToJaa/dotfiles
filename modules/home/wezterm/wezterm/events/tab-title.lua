@@ -29,12 +29,12 @@ local RENDER_VARIANTS = {
 local palette = {
 	circle_bg = "rgba(0, 0, 0, 0.4)",
 	index_bg = "#FFA066",
-	text_default_bg = "#45475A",
-	text_hover_bg = "#587D8C",
-	text_active_bg = "#7FB4CA",
-	text_default_fg = "#1C1B19",
-	text_hover_fg = "#1C1B19",
-	text_active_fg = "#11111B",
+	text_default_bg = "#313244",
+	text_hover_bg = "#74c7ec",
+	text_active_bg = "#89b4fa",
+	text_default_fg = "#89B4FA",
+	text_hover_fg = "#181825",
+	text_active_fg = "#181825",
 }
 
 ---@type table<string, Cells.SegmentColors>
