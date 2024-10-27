@@ -4,48 +4,36 @@ return {
 	config = function()
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
+		local C = require("elotoja.core.palette")
 
-		local colors = {
-			blue = "#89b4fa",
-			green = "#a6e3a1",
-			mauve = "#cba6f7",
-			yellow = "#f9e2af",
-			red = "#f38ba8",
-			fg = "#1e1e2e",
-			bg = "#112638", --change
-			inactive_bg = "#313244",
-		}
+		local transparent_bg = true and "NONE" or C.mantle
 
 		local my_lualine_theme = {
 			normal = {
-				a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.fg },
-				c = { bg = colors.bg, fg = colors.fg },
+				a = { bg = C.blue, fg = C.mantle, gui = "bold" },
+				b = { bg = C.surface0, fg = C.blue },
+				c = { bg = transparent_bg, fg = C.text },
 			},
 			insert = {
-				a = { bg = colors.green, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.fg },
-				c = { bg = colors.bg, fg = colors.fg },
+				a = { bg = C.green, fg = C.base, gui = "bold" },
+				b = { bg = C.surface0, fg = C.green },
 			},
 			visual = {
-				a = { bg = colors.violet, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.fg },
-				c = { bg = colors.bg, fg = colors.fg },
+				a = { bg = C.mauve, fg = C.base, gui = "bold" },
+				b = { bg = C.surface0, fg = C.mauve },
 			},
 			command = {
-				a = { bg = colors.yellow, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.fg },
-				c = { bg = colors.bg, fg = colors.fg },
+				a = { bg = C.peach, fg = C.base, gui = "bold" },
+				b = { bg = C.surface0, fg = C.peach },
 			},
 			replace = {
-				a = { bg = colors.red, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.fg },
-				c = { bg = colors.bg, fg = colors.fg },
+				a = { bg = C.red, fg = C.base, gui = "bold" },
+				b = { bg = C.surface0, fg = C.red },
 			},
 			inactive = {
-				a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = "bold" },
-				b = { bg = colors.inactive_bg, fg = colors.semilightgray },
-				c = { bg = colors.inactive_bg, fg = colors.semilightgray },
+				a = { bg = transparent_bg, fg = C.blue },
+				b = { bg = transparent_bg, fg = C.surface1, gui = "bold" },
+				c = { bg = transparent_bg, fg = C.overlay0 },
 			},
 		}
 
@@ -59,7 +47,7 @@ return {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
-						color = { fg = "#ff9e64" },
+						color = { fg = C.peach },
 					},
 					{ "encoding" },
 					{ "fileformat" },
