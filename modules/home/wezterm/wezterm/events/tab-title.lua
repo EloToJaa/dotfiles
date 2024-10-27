@@ -9,7 +9,7 @@ local nf = wezterm.nerdfonts
 local attr = Cells.attr
 
 local GLYPH_SCIRCLE_LEFT = nf.ple_left_half_circle_thick --[[  ]]
-local GLYPH_SCIRCLE_RIGHT = nf.ple_right_half_circle_thick --[[  ]]
+local GLYPH_SCIRCLE_RIGHT = nf.ple_right_half_circle_thick .. " " --[[  ]]
 local GLYPH_CIRCLE = nf.fa_circle --[[  ]]
 local GLYPH_DEBUG = nf.fa_bug --[[  ]]
 local GLYPH_SEARCH = nf.fa_search --[[  ]]

@@ -13,6 +13,7 @@ return {
 				a = { bg = C.blue, fg = C.mantle, gui = "bold" },
 				b = { bg = C.surface0, fg = C.blue },
 				c = { bg = transparent_bg, fg = C.text },
+				x = { bg = C.mantle, fg = C.text },
 			},
 			insert = {
 				a = { bg = C.green, fg = C.base, gui = "bold" },
