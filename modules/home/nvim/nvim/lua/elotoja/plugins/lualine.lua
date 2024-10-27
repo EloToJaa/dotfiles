@@ -6,14 +6,13 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 		local C = require("elotoja.core.palette")
 
-		local transparent_bg = true and "NONE" or C.mantle
+		local transparent_bg = false and "NONE" or C.mantle
 
 		local my_lualine_theme = {
 			normal = {
 				a = { bg = C.blue, fg = C.mantle, gui = "bold" },
 				b = { bg = C.surface0, fg = C.blue },
 				c = { bg = transparent_bg, fg = C.text },
-				x = { bg = C.mantle, fg = C.text },
 			},
 			insert = {
 				a = { bg = C.green, fg = C.base, gui = "bold" },
