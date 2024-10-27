@@ -6,7 +6,7 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 		local C = require("elotoja.core.palette")
 
-		local transparent_bg = false and "NONE" or C.mantle
+		local transparent_bg = true and "NONE" or C.mantle
 
 		local my_lualine_theme = {
 			normal = {
@@ -45,6 +45,12 @@ return {
 				component_separators = { left = "", right = "" },
 			},
 			sections = {
+				lualine_a = {
+					{
+						"mode",
+						separator = { left = "", right = "" },
+					},
+				},
 				lualine_x = {
 					{
 						lazy_status.updates,
@@ -54,6 +60,12 @@ return {
 					{ "encoding" },
 					{ "fileformat" },
 					{ "filetype" },
+				},
+				lualine_z = {
+					{
+						"location",
+						separator = { left = "", right = "" },
+					},
 				},
 			},
 		})
