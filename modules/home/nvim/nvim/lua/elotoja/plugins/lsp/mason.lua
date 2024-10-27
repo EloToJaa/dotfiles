@@ -39,6 +39,7 @@ return {
 				"gopls",
 				"clangd",
 				"taplo",
+				"astro-language-server",
 			},
 		})
 
