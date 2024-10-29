@@ -1,9 +1,19 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  variables,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      catppuccin = {
+        enable = true;
+        flavor = "${variables.catppuccin.flavor}";
+      };
+    };
 
     plugins = [
       {
