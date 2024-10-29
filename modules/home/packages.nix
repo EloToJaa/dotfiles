@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     ## CLI utility
     binsider
@@ -11,7 +7,6 @@
     chromium
     dconf-editor
     docfd # TUI multiline fuzzy document finder
-    eza # ls replacement
     entr # perform action when file change
     fd # find replacement
     ffmpeg
