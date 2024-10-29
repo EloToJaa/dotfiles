@@ -42,6 +42,10 @@
     xdg-utils
     xxd
 
+    ## SQL
+    pgcli
+    litecli
+
     ## CLI
     tty-clock # cli clock
 
