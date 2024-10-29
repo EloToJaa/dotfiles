@@ -24,6 +24,7 @@
     ./nemo.nix # file manager
     ./packages.nix # other packages
     ./rofi.nix # launcher
+    ./shell.nix # shell programs
     ./spicetify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
     ./vscodium.nix # vscode fork

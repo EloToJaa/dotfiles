@@ -1,8 +1,4 @@
-{
-  pkgs,
-  variables,
-  ...
-}: {
+{variables, ...}: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
