@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: {
   home.packages = with pkgs; [
@@ -27,6 +28,11 @@
     # LSP
     nixd
   ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    PATH = "${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.local/share/nvim/mason/bin"]}:$PATH";
+  };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
