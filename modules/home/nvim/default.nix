@@ -31,7 +31,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    PATH = "${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.local/share/nvim/mason/bin"]}:$PATH";
+    PATH = "${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.local/share/nvim/mason"]}:$PATH";
   };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
