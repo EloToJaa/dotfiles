@@ -33,6 +33,7 @@
       nix-clean = "nh clean all --keep 5";
       nix-search = "nh search";
       nix-test = "nh os test";
+      nix-dev = "nix develop --command zsh";
 
       # python
       piv = "python -m venv .venv";
