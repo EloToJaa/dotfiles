@@ -10,7 +10,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 
 ## TODO
 
-- [ ] Add atuin for shell history
+- [x] Add atuin for shell history
 - [ ] Try nushell (remove eza?)
 - [ ] Move shell aliases outside of zsh dir to use in zsh and nushell
-
