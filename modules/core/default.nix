@@ -1,11 +1,4 @@
-{
-  inputs,
-  nixpkgs,
-  self,
-  variables,
-  host,
-  ...
-}: {
+{...}: {
   imports = [
     ./gnome
     ./bluetooth.nix
