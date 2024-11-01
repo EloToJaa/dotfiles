@@ -8,6 +8,5 @@
     };
     nix-ld.enable = true;
     zsh.enable = true;
-    nushell.enable = true;
   };
 }
