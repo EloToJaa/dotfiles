@@ -23,7 +23,7 @@
     };
 
     wezterm.url = "github:wez/wezterm/main?dir=nix";
-    yazi.url = "github:sxyazi/yazi";
+    #yazi.url = "github:sxyazi/yazi";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
