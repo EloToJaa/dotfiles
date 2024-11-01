@@ -12,7 +12,6 @@
       less = "bat";
       py = "python";
       ipy = "ipython";
-      dsize = "du -hs";
       pdf = "tdf";
       open = "xdg-open";
       space = "ncdu";
@@ -36,7 +35,6 @@
 
       # python
       piv = "python -m venv .venv";
-      psv = "source .venv/bin/activate";
     };
   };
 }
