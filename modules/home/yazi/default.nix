@@ -8,7 +8,11 @@
     jq
     ffmpeg
     ffmpegthumbnailer
+    imagemagick
+    poppler
+    p7zip
   ];
+
   programs.yazi = {
     enable = true;
     #package = inputs.yazi.packages.${pkgs.system}.default;
@@ -18,6 +22,9 @@
       flavor = "${variables.catppuccin.flavor}";
     };
 
-    enableZshIntegration = true;
+    #enableZshIntegration = true;
   };
+
+  xdg.configFile."yazi/yazi.toml".source = ./yazi.toml;
+  xdg.configFile."yazi/keymap.toml".source = ./keymap.toml;
 }

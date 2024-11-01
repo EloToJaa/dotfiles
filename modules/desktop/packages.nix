@@ -2,7 +2,6 @@
   home.packages = with pkgs; [
     ## CLI utility
     libnotify
-    ffmpeg
     pamixer # pulseaudio command line mixer
     playerctl # controller for media players
     poweralertd
