@@ -1,22 +1,25 @@
 {...}: {
-  programs.atuin = {
-    enable = true;
+  programs = {
+    atuin = {
+      enable = true;
 
-    enableZshIntegration = true;
-  };
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
+    };
+    zoxide = {
+      enable = true;
 
-  programs.zoxide = {
-    enable = true;
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
+    };
+    eza = {
+      enable = true;
 
-    enableZshIntegration = true;
-  };
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
 
-  programs.eza = {
-    enable = true;
-
-    enableZshIntegration = true;
-
-    git = true;
-    icons = "auto";
+      git = true;
+      icons = "auto";
+    };
   };
 }
