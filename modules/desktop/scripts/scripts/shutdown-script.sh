@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 respond="$(echo " Shutdown\n Restart\n Cancel" | rofi -dmenu)"
 

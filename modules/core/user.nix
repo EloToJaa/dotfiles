@@ -15,9 +15,11 @@
         ./../home
         ./../desktop
       ];
-      home.username = "${variables.username}";
-      home.homeDirectory = "/home/${variables.username}";
-      home.stateVersion = "${variables.stateVersion}";
+      home = {
+        username = "${variables.username}";
+        homeDirectory = "/home/${variables.username}";
+        stateVersion = "${variables.stateVersion}";
+      };
       programs.home-manager.enable = true;
     };
   };
