@@ -1,0 +1,15 @@
+[manager]
+layout = [1, 4, 3]
+linemode = "mtime"
+scrolloff = 8
+show_hidden = true
+show_symlink = true
+sort_by = "alphabetical"
+sort_dir_first = true
+sort_reverse = false
+sort_sensitive = false
+
+[preview]
+max_height = 900
+max_width = 600
+tab_size = 2

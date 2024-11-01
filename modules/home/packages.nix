@@ -9,7 +9,6 @@
     file # Show file information
     gtrash # rm replacement, put deleted files in system trash
     hexdump
-    jq
     killall
     man-pages # extra man pages
     nurl # generate fetch for nix config
