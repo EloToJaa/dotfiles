@@ -3,7 +3,12 @@
   inputs,
   config,
   ...
-}: {
+}: let
+  shellAliases = {
+    vim = "nvim";
+    vi = "nvim";
+  };
+in {
   home.packages = with pkgs; [
     neovim
 
@@ -41,8 +46,8 @@
     recursive = true;
   };
 
-  programs.zsh.shellAliases = {
-    vim = "nvim";
-    vi = "nvim";
+  programs = {
+    zsh.shellAliases = shellAliases;
+    nushell.shellAliases = shellAliases;
   };
 }
