@@ -80,7 +80,7 @@ local keys = {
 	{ key = "e", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
 	{
 		key = "f",
-		mods = "LEADER",
+		mods = "LEADER|SHIFT",
 		action = act.ActivateKeyTable({
 			name = "resize_font",
 			one_shot = false,
@@ -111,6 +111,9 @@ local keys = {
 
 	{ key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
+
+	{ key = "p", mods = "CTRL|SHIFT", action = act.ShowLauncher },
+	{ key = "f", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
 
 	-- move between split panes
 	split_nav("move", "h"),

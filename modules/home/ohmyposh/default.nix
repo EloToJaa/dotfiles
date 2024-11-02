@@ -7,7 +7,7 @@
     '';
     nushell = {
       extraEnv = ''
-        oh-my-posh init nu --print | save ~/.config/nushell/oh-my-posh.nu
+        oh-my-posh init nu --print | save ~/.config/nushell/oh-my-posh.nu --force
       '';
       extraConfig = ''
         source ~/.config/nushell/oh-my-posh.nu
