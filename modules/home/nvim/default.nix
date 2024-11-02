@@ -36,6 +36,7 @@ in {
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    VISUAL = "nvim";
     PATH = "${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.local/share/nvim/mason"]}:$PATH";
   };
 
