@@ -21,5 +21,11 @@
       git = true;
       icons = "auto";
     };
+    carapace = {
+      enable = true;
+
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
+    };
   };
 }
