@@ -152,8 +152,6 @@
         zle -N zle-line-init
         zle -N zle-line-finish
       fi
-
-      eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.toml)"
     '';
   };
 }
