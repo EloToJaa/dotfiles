@@ -16,7 +16,7 @@
       enable = true;
 
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableNushellIntegration = false;
 
       git = true;
       icons = "auto";
