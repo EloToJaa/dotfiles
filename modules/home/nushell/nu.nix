@@ -6,8 +6,8 @@
   programs.nushell = {
     enable = true;
     environmentVariables = {
-      PROMPT_INDICATOR_VI_INSERT = "\"  \"";
-      PROMPT_INDICATOR_VI_NORMAL = "\". \"";
+      PROMPT_INDICATOR_VI_INSERT = "";
+      PROMPT_INDICATOR_VI_NORMAL = "";
       PROMPT_COMMAND = ''""'';
       PROMPT_COMMAND_RIGHT = ''""'';
       NIXPKGS_ALLOW_UNFREE = "1";
