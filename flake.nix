@@ -3,12 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
     };
 

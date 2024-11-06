@@ -253,11 +253,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1730915401,
-        "narHash": "sha256-JAv0nagRKf1SJxrLyN/uHm37ES+MM4dWeTHlqgBVRTk=",
+        "lastModified": 1730931106,
+        "narHash": "sha256-CxRCIN/wqctMr1RKaU4vREu6ul/RngaW8zOmI1rKscU=",
         "ref": "refs/heads/main",
-        "rev": "083a5cf3c1127dd2f638c3e9a665a88dd54a59a4",
-        "revCount": 5421,
+        "rev": "0ec128e5ed5e15aaebff6c4b5983326ab524d690",
+        "revCount": 5422,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -455,22 +455,6 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/cc2f28000298e1269cea6612cd06ec9979dd5d7f.tar.gz"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1730929750,
-        "narHash": "sha256-FgeiAe35uFSjdP/Lt0+gp5kQmJr704yBDvtRfikFhcE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0a436289e14b7798fce67eacef0a9fc01d5a865b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1720386169,
@@ -631,7 +615,6 @@
         "hyprmag": "hyprmag",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
         "wezterm": "wezterm",
