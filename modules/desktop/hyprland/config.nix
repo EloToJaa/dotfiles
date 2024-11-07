@@ -206,6 +206,10 @@
         "$mainMod, comma, movecurrentworkspacetomonitor, l"
         "$mainMod, period, movecurrentworkspacetomonitor, r"
 
+        # change monitor focus
+        "$mainMod, Tab, focusmonitor, +1"
+        "$mainMod SHIFT, Tab, focusmonitor, -1"
+
         # window control
         "$mainMod SHIFT, left, movewindow, l"
         "$mainMod SHIFT, right, movewindow, r"
