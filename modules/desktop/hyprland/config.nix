@@ -100,10 +100,8 @@
           render_power = 3;
           ignore_window = true;
           offset = "0 2";
+          color = "rgba(00000055)";
         };
-
-        #shadow_offset = "0 2";
-        #"col.shadow" = "rgba(00000055)";
       };
 
       animations = {
