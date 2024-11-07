@@ -99,7 +99,7 @@
           range = 20;
           render_power = 3;
           ignore_window = true;
-          offset = [0 2];
+          offset = "0 2";
         };
 
         #shadow_offset = "0 2";
