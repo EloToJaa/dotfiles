@@ -3,20 +3,6 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
 	opts = {
 		focus = true,
-		auto_open = true,
-		auto_close = true,
-		use_diagnostic_signs = true,
-		-- Set up autocommand for wrapping in Trouble buffers
-		setup = function()
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "Trouble",
-				callback = function()
-					vim.opt_local.wrap = true
-					vim.opt_local.linebreak = true -- Avoid breaking words in the middle
-					vim.opt_local.breakindent = true
-				end,
-			})
-		end,
 	},
 	cmd = "Trouble",
 	keys = {
