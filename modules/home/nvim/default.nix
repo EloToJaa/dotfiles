@@ -7,6 +7,7 @@
   shellAliases = {
     vim = "nvim";
     vi = "nvim";
+    v = "nvim";
   };
 in {
   home.packages = with pkgs; [
