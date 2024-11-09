@@ -31,3 +31,5 @@ opt.updatetime = 50
 opt.colorcolumn = "80"
 
 opt.wrap = true
+opt.linebreak = true
+opt.breakindent = true
