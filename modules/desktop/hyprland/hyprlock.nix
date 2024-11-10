@@ -88,7 +88,7 @@
           color = "rgba(235, 219, 178, .9)";
           fontColor = "rgba(235, 219, 178, .9)";
           fadeOnEmpty = false;
-          placeholderText = "<i><span foreground=\"##ebdbb2e5\">Enter Password</span></i>";
+          placeholderText = ''<i><span foreground="##ebdbb2e5">Enter Password</span></i>'';
           hideInput = false;
           position = "0, -300";
           halign = "center";
