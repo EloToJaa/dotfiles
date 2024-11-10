@@ -347,6 +347,10 @@
         "noinitialfocus,class:^(xwaylandvideobridge)$"
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
+
+        "opaque,class:(),title:()"
+        "noshadow,class:(),title:()"
+        "noblur,class:(),title:()"
       ];
 
       workspace = [
