@@ -358,13 +358,15 @@
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
       ];
+
+      monitor = [
+        "HDMI-A-1, 1920x1080@60, 0x0, 1"
+        "DP-2, 1920x1080@165, 1920x0, 1"
+        "DP-1, 1920x1080@60, 3840x0, 1"
+      ];
     };
 
     extraConfig = "
-      monitor=HDMI-A-1, 1920x1080@60, 0x0, 1
-      monitor=DP-2, 1920x1080@165, 1920x0, 1
-      monitor=DP-1, 1920x1080@60, 3840x0, 1
-
       xwayland {
         force_zero_scaling = true
       }
