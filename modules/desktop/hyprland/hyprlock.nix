@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  home.packages = [pkgs.hyprlock];
+{...}: {
+  #home.packages = [pkgs.hyprlock];
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -13,7 +13,7 @@
       background = [
         {
           monitor = "";
-          path = "${pkgs.wallpapers}/wallpapers/others/forest.jpg";
+          path = "${../wallpapers/wallpapers/others/forest.jpg}";
           blurPasses = 1;
           contrast = 0.8916;
           brightness = 0.8172;
