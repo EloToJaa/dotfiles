@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.hyprland.enable = true;
   xdg.portal = {
     enable = true;
@@ -15,6 +11,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # xwaylandvideobridge
+    xwaylandvideobridge
   ];
 }
