@@ -27,7 +27,7 @@
           # Time
           monitor = "";
           text = ''cmd[update:1000] echo "$(date +"%k:%M")"'';
-          color = "rgba(235, 219, 178, .9)";
+          color = "rgba(235, 219, 178, 0.9)";
           fontSize = 111;
           fontFamily = "JetBrainsMono NF Bold";
           position = "0, 270";
@@ -38,7 +38,7 @@
           # Day
           monitor = "";
           text = ''cmd[update:1000] echo "- $(date +"%A, %B %d") -"'';
-          color = "rgba(235, 219, 178, .9)";
+          color = "rgba(235, 219, 178, 0.9)";
           fontSize = 20;
           fontFamily = "Maple Mono";
           position = "0, 160";
@@ -49,7 +49,7 @@
           # User
           monitor = "";
           text = "  $USER";
-          color = "rgba(235, 219, 178, .9)";
+          color = "rgba(235, 219, 178, 0.9)";
           fontSize = 16;
           fontFamily = "Maple Mono";
           position = "0, -230";
@@ -59,11 +59,11 @@
       ];
 
       shape = [
-        # User-box
         {
+          # User-box
           monitor = "";
           size = "350, 50";
-          color = "rgba(225, 225, 225, .2)";
+          color = "rgba(225, 225, 225, 0.2)";
           rounding = 15;
           borderSize = 0;
           borderColor = "rgba(255, 255, 255, 0)";
@@ -85,8 +85,8 @@
           dotsCenter = true;
           outerColor = "rgba(255, 255, 255, 0.2)";
           innerColor = "rgba(225, 225, 225, 0.2)";
-          color = "rgba(235, 219, 178, .9)";
-          fontColor = "rgba(235, 219, 178, .9)";
+          color = "rgba(235, 219, 178, 0.9)";
+          fontColor = "rgba(235, 219, 178, 0.9)";
           fadeOnEmpty = false;
           placeholderText = ''<i><span foreground="##ebdbb2e5">Enter Password</span></i>'';
           hideInput = false;
