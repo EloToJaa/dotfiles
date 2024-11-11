@@ -44,7 +44,6 @@
       valign = center
     }
 
-
     # USER-BOX
     shape {
       monitor =
