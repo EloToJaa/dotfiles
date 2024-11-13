@@ -14,6 +14,7 @@
     ./git.nix # version control
     ./lazygit.nix
     ./packages.nix # other packages
+    ./pgadmin.nix
     ./shell.nix # shell programs
   ];
 }
