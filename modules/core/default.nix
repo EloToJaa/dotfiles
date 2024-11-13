@@ -7,6 +7,7 @@
     ./network.nix
     ./nfs.nix
     ./nh.nix
+    ./pgadmin.nix
     ./pipewire.nix
     ./program.nix
     ./security.nix
