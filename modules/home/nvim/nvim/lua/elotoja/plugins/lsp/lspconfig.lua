@@ -85,7 +85,7 @@ return {
 					capabilities = capabilities,
 				})
 			end,
-			["rust-analyzer"] = function()
+			["rust_analyzer"] = function()
 				lspconfig["rust_analyzer"].setup({
 					on_attach = function(client, bufnr)
 						require("completion").on_attach(client)
