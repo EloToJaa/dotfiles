@@ -87,6 +87,7 @@ return {
 			end,
 			["rust_analyzer"] = function()
 				lspconfig.rust_analyzer.setup({
+					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end,
@@ -112,6 +113,7 @@ return {
 			end,
 			["nixd"] = function()
 				lspconfig.nixd.setup({
+					capabilities = capabilities,
 					cmd = { "nixd" },
 					settings = {
 						nixd = {
