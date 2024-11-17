@@ -86,13 +86,13 @@ return {
 				})
 			end,
 			["rust_analyzer"] = function()
-				lspconfig["rust_analyzer"].setup({
+				lspconfig.rust_analyzer.setup({
 					on_attach = function(client, bufnr)
 						require("completion").on_attach(client)
 						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end,
 					settings = {
-						["rust_analyzer"] = {
+						["rust-analyzer"] = {
 							imports = {
 								granularity = {
 									group = "module",
@@ -112,7 +112,7 @@ return {
 				})
 			end,
 			["nixd"] = function()
-				lspconfig["nixd"].setup({
+				lspconfig.nixd.setup({
 					cmd = { "nixd" },
 					settings = {
 						nixd = {
