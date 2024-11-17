@@ -92,7 +92,7 @@ return {
 						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end,
 					settings = {
-						["rust-analyzer"] = {
+						["rust_analyzer"] = {
 							imports = {
 								granularity = {
 									group = "module",
