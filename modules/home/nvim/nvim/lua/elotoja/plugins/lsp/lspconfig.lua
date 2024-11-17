@@ -78,33 +78,60 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		lspconfig.nixd.setup({
-			cmd = { "nixd" },
-			settings = {
-				nixd = {
-					nixpkgs = {
-						expr = "import <nixpkgs> { }",
-					},
-					formatting = {
-						command = { "alejandra" },
-					},
-					options = {
-						nixos = {
-							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfiguration.CONFIGNAME.options',
-						},
-						home_manager = {
-							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfiguration.CONFIGNAME.options',
-						},
-					},
-				},
-			},
-		})
-
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
 			function(server_name)
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
+				})
+			end,
+			["rust-analyzer"] = function()
+				lspconfig["rust_analyzer"].setup({
+					on_attach = function(client, bufnr)
+						require("completion").on_attach(client)
+						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+					end,
+					settings = {
+						["rust-analyzer"] = {
+							imports = {
+								granularity = {
+									group = "module",
+								},
+								prefix = "self",
+							},
+							cargo = {
+								buildScripts = {
+									enable = true,
+								},
+							},
+							procMacro = {
+								enable = true,
+							},
+						},
+					},
+				})
+			end,
+			["nixd"] = function()
+				lspconfig["nixd"].setup({
+					cmd = { "nixd" },
+					settings = {
+						nixd = {
+							nixpkgs = {
+								expr = "import <nixpkgs> { }",
+							},
+							formatting = {
+								command = { "alejandra" },
+							},
+							options = {
+								nixos = {
+									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfiguration.CONFIGNAME.options',
+								},
+								home_manager = {
+									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfiguration.CONFIGNAME.options',
+								},
+							},
+						},
+					},
 				})
 			end,
 			["svelte"] = function()
