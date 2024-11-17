@@ -7,7 +7,7 @@
     ./waybar # status bar
     ./wezterm
     ./audacious.nix # music player
-    ./cava.nix # audio visualizer
+    #./cava.nix # audio visualizer
     ./discord.nix # discord
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
