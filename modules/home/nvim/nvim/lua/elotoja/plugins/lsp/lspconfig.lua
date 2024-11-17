@@ -88,11 +88,9 @@ return {
 			["rust_analyzer"] = function()
 				lspconfig.rust_analyzer.setup({
 					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-					end,
-					filetypes = { "rust" },
-					root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+					-- on_attach = function(client, bufnr)
+					-- 	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+					-- end,
 					settings = {
 						["rust-analyzer"] = {
 							imports = {
@@ -103,6 +101,12 @@ return {
 							},
 							cargo = {
 								allFeatures = true,
+								buildScripts = {
+									enable = true,
+								},
+							},
+							checkOnSave = {
+								command = "clippy",
 							},
 							procMacro = {
 								enable = true,
