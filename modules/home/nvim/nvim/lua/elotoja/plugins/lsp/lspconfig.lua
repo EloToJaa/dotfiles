@@ -91,6 +91,8 @@ return {
 					on_attach = function(client, bufnr)
 						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end,
+					filetypes = { "rust" },
+					root_dir = lspconfig.util.root_pattern("Cargo.toml"),
 					settings = {
 						["rust-analyzer"] = {
 							imports = {
@@ -100,9 +102,7 @@ return {
 								prefix = "self",
 							},
 							cargo = {
-								buildScripts = {
-									enable = true,
-								},
+								allFeatures = true,
 							},
 							procMacro = {
 								enable = true,
