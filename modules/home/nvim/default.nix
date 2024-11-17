@@ -34,6 +34,9 @@ in {
 
     # LSP
     nixd
+
+    # Linters
+    clippy
   ];
 
   home.sessionVariables = {
