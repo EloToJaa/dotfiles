@@ -19,6 +19,7 @@
     ./spicetify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
     ./vscodium.nix # vscode fork
+    ./waypaper.nix # wallpaper picker
     ./xdg-mimes.nix # xdg config
     ./zen.nix
   ];

@@ -14,7 +14,7 @@
         "waybar &"
         "swaync &"
         "hyprctl setcursor Bibata-Modern-Ice 22 &"
-        "swww init && swww img $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) --transition-type none &"
+        "swww-daemon &"
 
         "hyprlock"
 
@@ -82,10 +82,8 @@
 
         blur = {
           enabled = true;
-          size = 2;
+          size = 3;
           passes = 2;
-          # size = 4;
-          # passes = 2;
           brightness = 1;
           contrast = 1.400;
           ignore_opacity = true;
@@ -159,6 +157,7 @@
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, c, exec, hyprpicker -a"
         "$mainMod, w, exec, wallpaper-picker"
+        "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; center; size 925 615] waypaper'"
         "$mainMod, n, exec, swaync-client -t -sw"
         "$mainMod SHIFT, w, exec, vm-start"
 
@@ -286,6 +285,7 @@
         "size 1200 725,mpv"
         "float,audacious"
         "pin,rofi"
+        "pin,waypaper"
         "tile, neovide"
         "idleinhibit focus,mpv"
         "float,udiskie"
