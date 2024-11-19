@@ -40,7 +40,7 @@ return {
 				"clangd",
 				"taplo",
 				"astro",
-				"rust_analyzer",
+				-- "rust_analyzer",
 			},
 		})
 
