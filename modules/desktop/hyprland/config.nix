@@ -159,7 +159,7 @@
         "$mainMod, w, exec, wallpaper-picker"
         "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; center; size 925 615] waypaper'"
         "$mainMod, n, exec, swaync-client -t -sw"
-        "$mainMod SHIFT, w, exec, vm-start"
+        "$mainMod SHIFT, e, exec, vm-start"
 
         # screenshot
         ",Print, exec, screenshot --copy"
