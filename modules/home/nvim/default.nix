@@ -13,6 +13,8 @@ in {
   home.packages = with pkgs; [
     neovim
 
+    rustup
+
     # C / C++
     gcc
     gdb
@@ -23,10 +25,6 @@ in {
     nodejs
     npm-check-updates
     go
-    rustc
-
-    # Package managers
-    cargo
 
     # Formatters
     alejandra
@@ -34,9 +32,6 @@ in {
 
     # LSP
     nixd
-
-    # Linters
-    clippy
   ];
 
   home.sessionVariables = {
