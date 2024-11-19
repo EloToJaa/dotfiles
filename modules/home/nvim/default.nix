@@ -28,7 +28,6 @@ in {
 
     # Formatters
     alejandra
-    rustfmt
 
     # LSP
     nixd
