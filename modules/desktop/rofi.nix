@@ -44,9 +44,9 @@
     }
 
     window {
-      height: 480px;
-      width: 400px;
-      border: 3px;
+      height: 600px;
+      width: 900px;
+      border: 2px;
       border-color: @border-col;
       background-color: @bg-col;
     }
