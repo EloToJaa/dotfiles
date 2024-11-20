@@ -123,16 +123,17 @@ return {
 						nixd = {
 							nixpkgs = {
 								expr = "import <nixpkgs> { }",
+								-- expr = 'import (builtins.getFlake "/home/elotoja/Projects/dotfiles").inputs.nixpkgs { }',
 							},
 							formatting = {
 								command = { "alejandra" },
 							},
 							options = {
 								nixos = {
-									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfiguration.desktop.options',
+									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfigurations.desktop.options',
 								},
 								home_manager = {
-									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfiguration.desktop.options',
+									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfigurations.desktop.options',
 								},
 							},
 						},
