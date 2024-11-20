@@ -78,19 +78,34 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
+		local flake = os.getenv("FLAKE")
+		local handle = io.popen("hostname")
+
+		local hostname
+		if handle then
+			hostname = handle:read("*a")
+			handle:close()
+		else
+			hostname = "desktop"
+		end
+
 		lspconfig.nixd.setup({
 			cmd = { "nixd" },
 			settings = {
 				nixd = {
 					nixpkgs = {
-						expr = "import <nixpkgs> { }",
+						expr = 'import (builtins.getFlake "' .. flake .. '").inputs.nixpkgs { }',
 					},
 					formatting = {
 						command = { "alejandra" },
 					},
 					options = {
 						nixos = {
-							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfigurations.desktop.options',
+							expr = '(builtins.getFlake "'
+								.. flake
+								.. '").nixosConfigurations.'
+								.. hostname
+								.. ".options",
 						},
 					},
 				},
