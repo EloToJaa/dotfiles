@@ -79,13 +79,11 @@ return {
 		end
 
 		lspconfig.nixd.setup({
-			capabilities = capabilities,
 			cmd = { "nixd" },
 			settings = {
 				nixd = {
 					nixpkgs = {
 						expr = "import <nixpkgs> { }",
-						-- expr = 'import (builtins.getFlake "/home/elotoja/Projects/dotfiles").inputs.nixpkgs { }',
 					},
 					formatting = {
 						command = { "alejandra" },
