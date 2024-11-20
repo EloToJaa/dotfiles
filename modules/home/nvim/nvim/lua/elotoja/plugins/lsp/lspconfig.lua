@@ -117,7 +117,7 @@ return {
 			end,
 			["nixd"] = function()
 				lspconfig.nixd.setup({
-					capabilities = capabilities,
+					-- capabilities = capabilities,
 					cmd = { "nixd" },
 					settings = {
 						nixd = {
