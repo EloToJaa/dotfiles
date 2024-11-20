@@ -16,7 +16,7 @@
     };
 
     extraPackages = with pkgs.bat-extras; [
-      batman
+      # batman
       batpipe
       batgrep
       # batdiff
