@@ -15,7 +15,7 @@
       pdf = "tdf";
       open = "xdg-open";
       space = "ncdu";
-      man = "BAT_THEME='default' batman";
+      #man = "BAT_THEME='default' batman";
       icat = "wezterm imgcat";
       ssh = "wezterm ssh";
       y = "yy";
