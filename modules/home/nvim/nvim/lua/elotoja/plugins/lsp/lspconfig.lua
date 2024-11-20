@@ -78,6 +78,30 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
+		lspconfig.nixd.setup({
+			capabilities = capabilities,
+			cmd = { "nixd" },
+			settings = {
+				nixd = {
+					nixpkgs = {
+						expr = "import <nixpkgs> { }",
+						-- expr = 'import (builtins.getFlake "/home/elotoja/Projects/dotfiles").inputs.nixpkgs { }',
+					},
+					formatting = {
+						command = { "alejandra" },
+					},
+					options = {
+						nixos = {
+							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfigurations.desktop.options',
+						},
+						home_manager = {
+							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfigurations.desktop.options',
+						},
+					},
+				},
+			},
+		})
+
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
 			function(server_name)
@@ -110,32 +134,6 @@ return {
 							},
 							procMacro = {
 								enable = true,
-							},
-						},
-					},
-				})
-			end,
-			["nixd"] = function()
-				lspconfig.nixd.setup({
-					capabilities = capabilities,
-					cmd = { "nixd" },
-					filetypes = { "nix" },
-					settings = {
-						nixd = {
-							nixpkgs = {
-								expr = "import <nixpkgs> { }",
-								-- expr = 'import (builtins.getFlake "/home/elotoja/Projects/dotfiles").inputs.nixpkgs { }',
-							},
-							formatting = {
-								command = { "alejandra" },
-							},
-							options = {
-								nixos = {
-									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfigurations.desktop.options',
-								},
-								home_manager = {
-									expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfigurations.desktop.options',
-								},
 							},
 						},
 					},
