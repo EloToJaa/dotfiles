@@ -119,6 +119,7 @@ return {
 				lspconfig.nixd.setup({
 					-- capabilities = capabilities,
 					cmd = { "nixd" },
+					filetypes = { "nix" },
 					settings = {
 						nixd = {
 							nixpkgs = {
