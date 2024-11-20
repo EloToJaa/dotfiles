@@ -92,9 +92,6 @@ return {
 						nixos = {
 							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").nixosConfigurations.desktop.options',
 						},
-						home_manager = {
-							expr = '(builtins.getFlake "/home/elotoja/Projects/dotfiles").homeConfigurations.desktop.options',
-						},
 					},
 				},
 			},
