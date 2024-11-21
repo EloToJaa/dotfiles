@@ -5,30 +5,30 @@ time=$(date +'%Y_%m_%d_at_%Hh%Mm%Ss')
 file="${dir}/Screenshot_${time}.png"
 
 copy() {
-    grimblast --notify --freeze copy area
+	grimblast --notify --freeze copy area
 }
 
 save() {
-    grimblast --notify --freeze save area "$file"
+	grimblast --notify --freeze save area "$file"
 }
 
 swappy_() {
-   grimblast --notify --freeze save area "$file"
-   swappy -f "$file"
+	grimblast --notify --freeze save area "$file"
+	swappy -f "$file"
 }
 
 if [[ ! -d "$dir" ]]; then
-    mkdir -p "$dir"
+	mkdir -p "$dir"
 fi
 
 if [[ "$1" == "--copy" ]]; then
-    copy
+	copy
 elif [[ "$1" == "--save" ]]; then
-    save
+	save
 elif [[ "$1" == "--swappy" ]]; then
-    swappy_
+	swappy_
 else
-    echo -e "Available Options: --copy --save --swappy"
+	echo -e "Available Options: --copy --save --swappy"
 fi
 
 exit 0
