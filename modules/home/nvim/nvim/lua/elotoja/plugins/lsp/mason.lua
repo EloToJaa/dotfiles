@@ -42,6 +42,7 @@ return {
 				"astro",
 				"rust_analyzer",
 				"bashls",
+				"docker_compose_language_service",
 			},
 		})
 
