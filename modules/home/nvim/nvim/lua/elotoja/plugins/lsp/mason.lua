@@ -41,6 +41,7 @@ return {
 				"taplo",
 				"astro",
 				"rust_analyzer",
+				"bashls",
 			},
 		})
 
@@ -52,6 +53,7 @@ return {
 				"isort", -- python formatter
 				"black", -- python formatter
 				"clang-format",
+				"shfmt",
 				"pylint",
 				"eslint_d",
 				"cpplint",
