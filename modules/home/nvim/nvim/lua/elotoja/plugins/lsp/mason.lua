@@ -44,6 +44,7 @@ return {
 				"bashls",
 				"docker_compose_language_service",
 				"htmx",
+				"sqls",
 			},
 		})
 
@@ -59,6 +60,8 @@ return {
 				"pylint",
 				"eslint_d",
 				"cpplint",
+				"sqlfluff",
+				"sqlfmt",
 			},
 		})
 	end,
