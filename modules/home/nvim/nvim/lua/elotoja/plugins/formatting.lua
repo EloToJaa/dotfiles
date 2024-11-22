@@ -23,6 +23,10 @@ return {
 				python = { "isort", "black" },
 				nix = { "alejandra" },
 				rust = { "rustfmt" },
+				sql = { "sqlfmt" },
+				c = { "clang-format" },
+				cpp = { "clang-format" },
+				go = { "gofumpt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,

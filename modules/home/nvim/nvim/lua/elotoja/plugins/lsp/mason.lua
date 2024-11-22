@@ -62,6 +62,7 @@ return {
 				"cpplint",
 				"sqlfluff",
 				"sqlfmt",
+				"gofumpt",
 			},
 		})
 	end,
