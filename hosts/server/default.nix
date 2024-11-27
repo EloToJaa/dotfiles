@@ -5,7 +5,7 @@
   ];
 
   home-manager.users.${variables.username}.imports = [
-    ./../home
+    ./../../modules/home
   ];
 
   powerManagement.cpuFreqGovernor = "performance";

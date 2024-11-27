@@ -11,8 +11,8 @@
   ];
 
   home-manager.users.${variables.username}.imports = [
-    ./../home
-    ./../desktop
+    ./../../modules/home
+    ./../../modules/desktop
   ];
 
   environment.systemPackages = with pkgs; [

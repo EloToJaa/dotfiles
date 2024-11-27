@@ -10,8 +10,8 @@
   ];
 
   home-manager.users.${variables.username}.imports = [
-    ./../home
-    ./../desktop
+    ./../../modules/home
+    ./../../modules/desktop
   ];
 
   # kvm/qemu doesn't use UEFI firmware mode by default.
