@@ -54,6 +54,9 @@
       keyboardLayout = "pl,pl";
       stateVersion = "25.05";
       nfs = "truenas.eagle-perch.ts.net";
+      ssh.keys = {
+        user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtWaehMf7X23uUZDY5J4fG4/exqj5jWQVaLLXloaO/g elotoja@protonmail.com";
+      };
     };
   in {
     nixosConfigurations = {
