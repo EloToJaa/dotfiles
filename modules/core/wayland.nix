@@ -10,6 +10,8 @@
     ];
   };
 
+  boot.initrd.kernelModules = ["amdgpu"];
+
   environment.systemPackages = with pkgs; [
     xwaylandvideobridge
   ];

@@ -1,6 +1,7 @@
 {
   programs = {
     seahorse.enable = true;
+    dconf.enable = true;
   };
 
   services = {

@@ -1,6 +1,5 @@
 {...}: {
   programs = {
-    dconf.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -9,4 +8,6 @@
     nix-ld.enable = true;
     zsh.enable = true;
   };
+
+  security.rtkit.enable = true;
 }
