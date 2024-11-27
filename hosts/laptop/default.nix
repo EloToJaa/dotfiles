@@ -1,12 +1,18 @@
 {
   pkgs,
   config,
+  variables,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
+  ];
+
+  home-manager.users.${variables.username}.imports = [
+    ./../home
+    ./../desktop
   ];
 
   environment.systemPackages = with pkgs; [

@@ -11,10 +11,6 @@
     useGlobalPkgs = true;
     extraSpecialArgs = {inherit inputs variables host;};
     users.${variables.username} = {
-      imports = [
-        ./../home
-        ./../desktop
-      ];
       home = {
         username = "${variables.username}";
         homeDirectory = "/home/${variables.username}";

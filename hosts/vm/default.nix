@@ -1,8 +1,17 @@
-{lib, ...}: {
+{
+  lib,
+  variables,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
+  ];
+
+  home-manager.users.${variables.username}.imports = [
+    ./../home
+    ./../desktop
   ];
 
   # kvm/qemu doesn't use UEFI firmware mode by default.
