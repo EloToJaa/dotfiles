@@ -10,15 +10,17 @@
     ./../../modules/desktop
   ];
 
-  networking.interfaces.eno1 = {
-    ipv4.addresses = [
+  networking = {
+    interfaces.eno1.ipv4.addresses = [
       {
         address = "192.168.0.20";
         prefixLength = 24;
       }
     ];
-    gateway = "192.168.0.1";
-    useDHCP = false;
+    defaultGateway = {
+      address = "192.168.0.1";
+      interface = "eno1";
+    };
   };
 
   powerManagement.cpuFreqGovernor = "performance";
