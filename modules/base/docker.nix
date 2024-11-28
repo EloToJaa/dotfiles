@@ -16,7 +16,7 @@
     after = ["docker.service"];
     wantedBy = ["multi-user.target"];
     serviceConfig = {
-      ExecStart = "${pkgs.setcap}/bin/setcap cap_net_bind_service=ep ${pkgs.rootlesskit}/bin/rootlesskit";
+      ExecStart = "${pkgs.libcap}/bin/setcap cap_net_bind_service=ep ${pkgs.rootlesskit}/bin/rootlesskit";
       Type = "oneshot";
       RemainAfterExit = true;
     };
