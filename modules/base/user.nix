@@ -28,6 +28,7 @@
   };
 
   users.groups.${variables.username} = {
+    gid = 1000;
     members = ["${variables.username}"];
   };
   nix.settings.allowed-users = ["${variables.username}"];
