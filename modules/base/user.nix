@@ -26,5 +26,9 @@
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
   };
+
+  users.groups.${variables.username} = {
+    members = ["${variables.username}"];
+  };
   nix.settings.allowed-users = ["${variables.username}"];
 }
