@@ -1,28 +1,8 @@
 {
   pkgs,
-  config,
   variables,
   ...
-}: let
-  monolisa = pkgs.callPackage ../../pkgs/monolisa/monolisa.nix {};
-  monolisa-nerd = pkgs.callPackage ../../pkgs/monolisa/monolisa-nerd.nix {inherit monolisa;};
-in {
-  fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "FiraCode"
-        "CascadiaCode"
-        "NerdFontsSymbolsOnly"
-      ];
-    })
-    twemoji-color-font
-    noto-fonts-emoji
-    # monolisa
-    # monolisa-nerd
-  ];
-
+}: {
   gtk = {
     enable = true;
     font = {

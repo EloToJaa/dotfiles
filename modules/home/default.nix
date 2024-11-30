@@ -13,6 +13,7 @@
     ./fzf.nix # fuzzy finder
     ./git.nix # version control
     ./lazygit.nix
+    ./nerdfonts.nix # fonts
     ./packages.nix # other packages
     ./shell.nix # shell programs
   ];
