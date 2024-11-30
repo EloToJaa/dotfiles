@@ -1,5 +1,5 @@
 {
-  # pkgs,
+  pkgs,
   variables,
   ...
 }: {
@@ -29,4 +29,7 @@
     isNormalUser = true;
     extraGroups = ["podman"];
   };
+  environment.systemPackages = with pkgs; [
+    podman-compose
+  ];
 }
