@@ -9,14 +9,12 @@
   #   setSocketVariable = true;
   # };
   # users.users.${variables.username}.extraGroups = ["docker"];
-  # security.wrappers = {
-  #   docker-rootlesskit = {
-  #     owner = "root";
-  #     group = "root";
-  #     capabilities = "cap_net_bind_service+ep";
-  #     source = "${pkgs.rootlesskit}/bin/rootlesskit";
-  #   };
-  # };
+  security.wrappers.podman = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_bind_service+ep";
+    source = "${pkgs.rootlesskit}/bin/rootlesskit";
+  };
   virtualisation = {
     containers.enable = true;
     podman = {
