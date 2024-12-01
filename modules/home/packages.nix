@@ -26,6 +26,8 @@
     wget
     xxd
 
+    lazydocker
+
     ## SQL
     pgcli
     litecli
