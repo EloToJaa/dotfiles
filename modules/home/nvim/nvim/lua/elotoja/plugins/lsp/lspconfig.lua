@@ -114,6 +114,12 @@ return {
 					capabilities = capabilities,
 				})
 			end,
+			["elixirls"] = function()
+				lspconfig.elixirls.setup({
+					capabilities = capabilities,
+					cmd = { "elixir-ls" },
+				})
+			end,
 			["rust_analyzer"] = function()
 				lspconfig.rust_analyzer.setup({
 					capabilities = capabilities,
@@ -144,7 +150,7 @@ return {
 					},
 				})
 			end,
-			["go"] = function()
+			["gopls"] = function()
 				lspconfig.gopls.setup({
 					capabilities = capabilities,
 					settings = {

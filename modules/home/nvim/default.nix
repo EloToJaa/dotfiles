@@ -25,6 +25,8 @@ in {
     nodejs
     npm-check-updates
     go
+    elixir
+    erlang_27
 
     # Formatters
     alejandra
