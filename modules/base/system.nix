@@ -1,7 +1,5 @@
 {
-  self,
   pkgs,
-  lib,
   inputs,
   variables,
   ...
@@ -16,7 +14,7 @@
     };
   };
   nixpkgs.overlays = [
-    inputs.nur.overlay
+    inputs.nur.overlays.default
   ];
 
   environment.systemPackages = with pkgs; [
