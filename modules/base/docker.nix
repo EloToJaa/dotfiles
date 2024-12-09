@@ -8,7 +8,10 @@
     enable = true;
     setSocketVariable = true;
   };
-  users.users.${variables.username}.extraGroups = ["docker"];
+  users.users.${variables.username} = {
+    extraGroups = ["docker"];
+    linger = true;
+  };
   security.wrappers = {
     docker-rootlesskit = {
       owner = "root";
