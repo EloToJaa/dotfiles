@@ -20,6 +20,7 @@
     catppuccin = {
       enable = true;
       flavor = "${variables.catppuccin.flavor}";
+      accent = "${variables.catppuccin.accent}";
     };
 
     #enableZshIntegration = true;
