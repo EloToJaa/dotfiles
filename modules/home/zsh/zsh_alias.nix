@@ -16,13 +16,12 @@
       pdf = "tdf";
       open = "xdg-open";
       space = "ncdu";
-      #man = "BAT_THEME='default' batman";
       icat = "wezterm imgcat";
       ssh = "wezterm ssh";
       y = "yy";
 
-      l = "eza --icons  -a --group-directories-first -1"; #EZA_ICON_SPACING=2
-      ll = "eza --icons  -a --group-directories-first -1 --long -g";
+      l = "eza --icons -a --group-directories-first -1"; #EZA_ICON_SPACING=2
+      ll = "eza --icons -a --group-directories-first -1 --long -g";
       tree = "eza --icons --tree --group-directories-first";
 
       # Nixos
