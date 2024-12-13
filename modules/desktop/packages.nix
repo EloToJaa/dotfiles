@@ -29,6 +29,7 @@
     winetricks
     wineWowPackages.wayland
     zenity
+    remmina
 
     xdg-utils
   ];
