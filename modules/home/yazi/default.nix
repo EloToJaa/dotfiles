@@ -26,5 +26,6 @@
     "yazi/keymap.toml".source = ./keymap.toml;
     "yazi/theme.toml".source = ./theme.toml;
     "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
+    "yazi/init.lua".source = ./init.lua;
   };
 }
