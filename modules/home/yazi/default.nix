@@ -1,8 +1,4 @@
-{
-  pkgs,
-  variables,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     exiftool
     jq
@@ -11,23 +7,13 @@
     imagemagick
     poppler
     p7zip
+    yazi
   ];
-
-  programs.yazi = {
-    enable = true;
-    #package = inputs.yazi.packages.${pkgs.system}.default;
-
-    catppuccin = {
-      enable = true;
-      flavor = "${variables.catppuccin.flavor}";
-      accent = "${variables.catppuccin.accent}";
-    };
-
-    #enableZshIntegration = true;
-  };
 
   xdg.configFile = {
     "yazi/yazi.toml".source = ./yazi.toml;
     "yazi/keymap.toml".source = ./keymap.toml;
+    "yazi/theme.toml".source = ./theme.toml;
+    "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
   };
 }
