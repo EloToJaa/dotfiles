@@ -1,10 +1,4 @@
-{
-  hostname,
-  config,
-  pkgs,
-  host,
-  ...
-}: {
+{...}: {
   programs.zsh = {
     initExtra = ''
       # Use emacs key bindings

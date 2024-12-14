@@ -18,7 +18,6 @@
       space = "ncdu";
       icat = "wezterm imgcat";
       ssh = "wezterm ssh";
-      y = "yy";
 
       l = "eza --icons -a --group-directories-first -1"; #EZA_ICON_SPACING=2
       ll = "eza --icons -a --group-directories-first -1 --long -g";

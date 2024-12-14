@@ -7,13 +7,19 @@
     imagemagick
     poppler
     p7zip
+    yazi
   ];
 
-  programs.yazi = {
-    enable = true;
-
-    enableZshIntegration = true;
-  };
+  programs.zsh.initExtra = ''
+    function y() {
+    	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    	yazi "$@" --cwd-file="$tmp"
+    	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    		builtin cd -- "$cwd"
+    	fi
+    	rm -f -- "$tmp"
+    }
+  '';
 
   xdg.configFile = {
     "yazi/yazi.toml".source = ./yazi.toml;
