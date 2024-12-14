@@ -5,6 +5,12 @@
 
       enableZshIntegration = true;
       enableNushellIntegration = true;
+
+      settings = {
+        auto_sync = true;
+        sync_frequency = "10m";
+        sync_address = "https://atuin.local.elotoja.com";
+      };
     };
     zoxide = {
       enable = true;
