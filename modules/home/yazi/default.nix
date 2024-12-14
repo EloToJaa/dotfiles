@@ -7,8 +7,13 @@
     imagemagick
     poppler
     p7zip
-    yazi
   ];
+
+  programs.yazi = {
+    enable = true;
+
+    enableZshIntegration = true;
+  };
 
   xdg.configFile = {
     "yazi/yazi.toml".source = ./yazi.toml;
