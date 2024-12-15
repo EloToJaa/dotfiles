@@ -1,0 +1,7 @@
+[manager]
+prepend_keymap = [
+  { on = [
+    "g",
+    "l",
+  ], run = "plugin symlink", desc = "Follow symlink" },
+]

@@ -27,5 +27,6 @@
     "yazi/theme.toml".source = ./theme.toml;
     "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
     "yazi/init.lua".source = ./init.lua;
+    "yazi/plugins/symlink.yazi/init.lua".source = ./plugins/symlink.lua;
   };
 }
