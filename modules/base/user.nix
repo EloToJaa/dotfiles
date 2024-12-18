@@ -24,6 +24,7 @@
   users.users.${variables.username} = {
     isNormalUser = true;
     description = "${variables.username}";
+    group = "${variables.username}";
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
   };
