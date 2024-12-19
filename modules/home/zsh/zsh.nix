@@ -9,10 +9,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
-      catppuccin = {
-        enable = true;
-        flavor = "${variables.catppuccin.flavor}";
-      };
     };
 
     plugins = [
@@ -153,5 +149,9 @@
         zle -N zle-line-finish
       fi
     '';
+  };
+  catppuccin.zsh-syntax-highlighting = {
+    enable = true;
+    flavor = "${variables.catppuccin.flavor}";
   };
 }

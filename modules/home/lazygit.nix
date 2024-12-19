@@ -3,7 +3,7 @@
     enable = true;
   };
   catppuccin.lazygit = {
-    # enable = true;
+    enable = true;
     flavor = "${variables.catppuccin.flavor}";
     accent = "${variables.catppuccin.accent}";
   };

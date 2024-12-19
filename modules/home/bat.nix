@@ -6,11 +6,6 @@
   programs.bat = {
     enable = true;
 
-    catppuccin = {
-      enable = true;
-      flavor = "${variables.catppuccin.flavor}";
-    };
-
     config = {
       pager = "less -FR";
     };
@@ -21,5 +16,9 @@
       batgrep
       # batdiff
     ];
+  };
+  catppuccin.bat = {
+    enable = true;
+    flavor = "${variables.catppuccin.flavor}";
   };
 }
