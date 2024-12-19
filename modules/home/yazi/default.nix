@@ -1,8 +1,4 @@
-{
-  pkgs,
-  variables,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     exiftool
     jq
