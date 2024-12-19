@@ -25,17 +25,17 @@
     }
   '';
 
-  catppuccin.yazi = {
-    enable = true;
-    flavor = "${variables.catppuccin.flavor}";
-    accent = "${variables.catppuccin.accent}";
-  };
+  # catppuccin.yazi = {
+  #   enable = true;
+  #   flavor = "${variables.catppuccin.flavor}";
+  #   accent = "${variables.catppuccin.accent}";
+  # };
 
   xdg.configFile = {
     "yazi/yazi.toml".source = ./yazi.toml;
     "yazi/keymap.toml".source = ./keymap.toml;
-    # "yazi/theme.toml".source = ./theme.toml;
-    # "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
+    "yazi/theme.toml".source = ./theme.toml;
+    "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
     "yazi/init.lua".source = ./init.lua;
   };
 }
