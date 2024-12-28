@@ -7,7 +7,6 @@
       tt = "gtrash put";
       s = "sudo";
       cat = "bat";
-      code = "codium";
       diff = "delta --diff-so-fancy --side-by-side";
       less = "bat";
       py = "python";
