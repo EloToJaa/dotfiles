@@ -122,9 +122,6 @@ return {
 			end,
 			["clangd"] = function()
 				lspconfig.clangd.setup({
-					on_attach = function(client, bufnr)
-						client.server_capabilities.signatureHelpProvider = false
-					end,
 					capabilities = capabilities,
 					cmd = { "clangd" },
 				})
