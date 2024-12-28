@@ -120,6 +120,15 @@ return {
 					cmd = { "elixir-ls" },
 				})
 			end,
+			["clangd"] = function()
+				lspconfig.clangd.setup({
+					on_attach = function(client, bufnr)
+						client.server_capabilities.signatureHelpProvider = false
+					end,
+					capabilities = capabilities,
+					cmd = { "clangd" },
+				})
+			end,
 			["rust_analyzer"] = function()
 				lspconfig.rust_analyzer.setup({
 					capabilities = capabilities,
