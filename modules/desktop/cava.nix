@@ -1,6 +1,6 @@
 {...}: {
   programs.cava = {
-    enable = false;
+    enable = true;
   };
 
   xdg.configFile."cava/config".text = ''
