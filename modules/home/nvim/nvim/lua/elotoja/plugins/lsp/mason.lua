@@ -55,7 +55,7 @@ return {
 				"shfmt",
 				"pylint",
 				"eslint_d",
-				"cpplint",
+				-- "cpplint",
 				"sqlfluff",
 				"sqlfmt",
 				"gofumpt",
