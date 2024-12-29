@@ -8,6 +8,7 @@
     vim = "nvim";
     vi = "nvim";
     v = "nvim";
+    crun = "c++ -std=c++23 -Wall -Wextra -g -o $1.bin $1.cpp && ./$1.bin";
   };
 in {
   home.packages = with pkgs; [
