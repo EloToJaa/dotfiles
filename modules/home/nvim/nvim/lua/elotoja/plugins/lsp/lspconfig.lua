@@ -106,6 +106,9 @@ return {
 				},
 			},
 		})
+		lspconfig.clangd.setup({
+			capabilities = capabilities,
+		})
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
@@ -118,11 +121,6 @@ return {
 				lspconfig.elixirls.setup({
 					capabilities = capabilities,
 					cmd = { "elixir-ls" },
-				})
-			end,
-			["clangd"] = function()
-				lspconfig.clangd.setup({
-					capabilities = capabilities,
 				})
 			end,
 			["rust_analyzer"] = function()
