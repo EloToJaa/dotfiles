@@ -31,7 +31,7 @@ return {
 				"pyright",
 				"zls",
 				"gopls",
-				"clangd",
+				-- "clangd", -- replaced by clang-tools from nixpkgs
 				"taplo",
 				"astro",
 				"rust_analyzer",

@@ -32,6 +32,7 @@ in {
 
     # LSP
     nixd
+    clang-tools
   ];
 
   home.sessionVariables = {
