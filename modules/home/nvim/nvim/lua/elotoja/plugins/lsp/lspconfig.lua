@@ -84,9 +84,6 @@ return {
 			hostname = "desktop"
 		end
 
-		local base = require("")
-		local on_attach = base.on_attach
-
 		lspconfig.nixd.setup({
 			cmd = { "nixd" },
 			settings = {
