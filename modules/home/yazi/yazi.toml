@@ -10,6 +10,16 @@ sort_reverse = false
 sort_sensitive = false
 
 [preview]
-max_height = 900
-max_width = 600
+max_height = 1000
+max_width = 1000
 tab_size = 2
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*"
+run = "git"
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*/"
+run = "git"
