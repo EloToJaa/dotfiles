@@ -6,6 +6,7 @@
     ./scripts # personal scripts
     ./yazi
     ./zsh # shell
+    ./aliases.nix # shell aliases
     ./bat.nix # better cat command
     ./btop.nix # resouces monitor
     ./catppuccin.nix
