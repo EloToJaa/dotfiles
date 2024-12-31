@@ -21,7 +21,7 @@
     gcl = "git clone";
     gc = "git commit";
     gcm = "git commit -m";
-    gcma = "git add --all; git commit -m";
+    gcma = "git commit -am";
     gtag = "git tag -ma";
     gch = "git checkout";
     gchb = "git checkout -b";
