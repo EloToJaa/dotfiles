@@ -2,7 +2,15 @@
   pkgs,
   variables,
   ...
-}: {
+}: let
+  shellAliases = {
+    d = "docker";
+    ld = "lazydocker";
+    dc = "docker compose";
+    dcu = "docker compose up -d --force-recreate --remove-orphans";
+    dcd = "docker compose down --remove-orphans";
+  };
+in {
   virtualisation.docker = {
     enable = true;
     rootless = {
@@ -22,13 +30,8 @@
       source = "${pkgs.rootlesskit}/bin/rootlesskit";
     };
   };
-  programs.zsh = {
-    shellAliases = {
-      d = "docker";
-      ld = "lazydocker";
-      dc = "docker compose";
-      dcu = "docker compose up -d --force-recreate --remove-orphans";
-      dcd = "docker compose down --remove-orphans";
-    };
+  programs = {
+    zsh.shellAliases = shellAliases;
+    nushell.shellAliases = shellAliases;
   };
 }

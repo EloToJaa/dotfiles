@@ -4,7 +4,8 @@
   ...
 }: let
   shellAliases = {
-    g = "lazygit";
+    g = "git";
+    lg = "lazygit";
     gf = "onefetch --number-of-file-churns 0 --no-color-palette";
     ga = "git add";
     gaa = "git add --all";
@@ -20,7 +21,7 @@
     gcl = "git clone";
     gc = "git commit";
     gcm = "git commit -m";
-    gcma = "git add --all && git commit -m";
+    gcma = "git add --all; git commit -m";
     gtag = "git tag -ma";
     gch = "git checkout";
     gchb = "git checkout -b";
