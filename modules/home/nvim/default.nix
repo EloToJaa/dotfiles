@@ -9,6 +9,8 @@
     vi = "nvim";
     v = "nvim";
   };
+  makeBinPath = pkgs.lib.makeBinPath;
+  homeDirectory = config.home.homeDirectory;
 in {
   home.packages = with pkgs; [
     neovim
@@ -39,7 +41,7 @@ in {
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
-    PATH = "${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.local/share/nvim/mason"]}:${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/go"]}:${pkgs.lib.makeBinPath ["${config.home.homeDirectory}/.cargo"]}:$PATH";
+    PATH = "${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}:${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:$PATH";
   };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -51,6 +53,11 @@ in {
 
   programs = {
     zsh.shellAliases = shellAliases;
-    nushell.shellAliases = shellAliases;
+    nushell = {
+      shellAliases = shellAliases;
+      extraEnv = ''
+        $env.PATH = ($env.PATH | prepend ["${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}" "${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}"]);
+      '';
+    };
   };
 }
