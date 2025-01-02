@@ -1,6 +1,7 @@
 {
   pkgs,
   variables,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -8,7 +9,8 @@
     # (discord.override {
     #  withVencord = true;
     # })
-    webcord-vencord
+    # webcord-vencord
+    inputs.webcord.legacyPackages.${pkgs.system}.webcord-vencord
   ];
 
   xdg.configFile."Vencord/themes/custom.css".text = ''

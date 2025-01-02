@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    webcord.url = "github:NixOS/nixpkgs/bf446f08bff6814b569265bef8374cfdd3d8f0e0";
     nur.url = "github:nix-community/NUR";
 
     hyprland = {
