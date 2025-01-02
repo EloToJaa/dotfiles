@@ -8,8 +8,8 @@
     # (discord.override {
     #  withVencord = true;
     # })
-    webcord-vencord
-    # inputs.webcord.legacyPackages.${pkgs.system}.webcord-vencord
+    # webcord-vencord
+    inputs.webcord.legacyPackages.${pkgs.system}.webcord-vencord
   ];
 
   xdg.configFile."Vencord/themes/custom.css".text = ''
