@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     webcord.url = "github:NixOS/nixpkgs/dd1290b0f857782a60b251f89651c831cd3eef9d";
     pitivi.url = "github:NixOS/nixpkgs/ce35e61c3cc608d0f7c4a5ed96f7fb3c19211884";
+    nushell.url = "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d";
     nur.url = "github:nix-community/NUR";
 
     hyprland = {

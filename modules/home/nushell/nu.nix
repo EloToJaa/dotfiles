@@ -1,10 +1,12 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   programs.nushell = {
     enable = true;
+    package = inputs.nushell.legacyPackages.${pkgs.system}.nushell;
     environmentVariables = {
       PROMPT_INDICATOR_VI_INSERT = "";
       PROMPT_INDICATOR_VI_NORMAL = "";
