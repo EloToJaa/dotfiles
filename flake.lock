@@ -902,6 +902,7 @@
         "nur": "nur",
         "pitivi": "pitivi",
         "spicetify-nix": "spicetify-nix",
+        "webcord": "webcord",
         "wezterm": "wezterm",
         "zen-browser": "zen-browser"
       }
@@ -1037,6 +1038,22 @@
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
+      }
+    },
+    "webcord": {
+      "locked": {
+        "lastModified": 1714976857,
+        "narHash": "sha256-iWmutlbe3L8USKVFhyHNEMyGr387rahbujhrmXjlCuI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dd1290b0f857782a60b251f89651c831cd3eef9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dd1290b0f857782a60b251f89651c831cd3eef9d",
+        "type": "github"
       }
     },
     "wezterm": {
