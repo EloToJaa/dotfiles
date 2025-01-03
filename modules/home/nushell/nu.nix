@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  nu_scripts = pkgs.callPackage ../../pkgs/nu_scripts.nix {};
+  nu_scripts = pkgs.callPackage ../../../pkgs/nu_scripts.nix {};
 in {
   programs.nushell = {
     enable = true;
