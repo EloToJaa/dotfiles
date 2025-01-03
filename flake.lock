@@ -850,22 +850,6 @@
         "type": "github"
       }
     },
-    "pitivi": {
-      "locked": {
-        "lastModified": 1680607706,
-        "narHash": "sha256-xMJG0EnsRlIEUdQuq+uKqiI5jY0FdSjVRdo0E4LcDhk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ce35e61c3cc608d0f7c4a5ed96f7fb3c19211884",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ce35e61c3cc608d0f7c4a5ed96f7fb3c19211884",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -900,7 +884,6 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_5",
         "nur": "nur",
-        "pitivi": "pitivi",
         "spicetify-nix": "spicetify-nix",
         "webcord": "webcord",
         "wezterm": "wezterm",
