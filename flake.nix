@@ -22,6 +22,7 @@
     };
 
     wezterm.url = "github:wez/wezterm/main?dir=nix";
+    ghostty.url = "github:ghostty-org/ghostty";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";

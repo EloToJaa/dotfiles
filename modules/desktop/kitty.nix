@@ -2,8 +2,6 @@
   programs.kitty = {
     enable = true;
 
-    #themeFile = "gruvbox-dark-hard";
-
     font = {
       name = "Maple Mono";
       size =
