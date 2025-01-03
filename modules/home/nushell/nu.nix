@@ -1,12 +1,13 @@
 {
   config,
   pkgs,
-  inputs,
   ...
-}: {
+}: let
+  nu_scripts = pkgs.callPackage ../../pkgs/nu_scripts.nix {};
+in {
   programs.nushell = {
     enable = true;
-    package = inputs.nushell.legacyPackages.${pkgs.system}.nushell;
+    package = pkgs.nushell;
     environmentVariables = {
       PROMPT_INDICATOR_VI_INSERT = "";
       PROMPT_INDICATOR_VI_NORMAL = "";
@@ -61,7 +62,7 @@
 
       alias pueue = ${pkgs.pueue}/bin/pueue
       alias pueued = ${pkgs.pueue}/bin/pueued
-      use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
+      use ${nu_scripts}/share/nu_scripts/modules/background_task/task.nu
     '';
   };
 }
