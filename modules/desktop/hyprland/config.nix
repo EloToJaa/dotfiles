@@ -160,7 +160,6 @@
         "$mainMod, w, exec, wallpaper-picker"
         "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "$mainMod, n, exec, swaync-client -t -sw"
-        "CTRL SHIFT, Escape, exec, hyprctl dispatch exec '[workspace 11] resources'"
         "$mainMod, equal, exec, woomer"
         "$mainMod SHIFT, e, exec, vm-start"
 
