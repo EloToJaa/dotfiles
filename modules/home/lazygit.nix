@@ -1,4 +1,4 @@
-{variables, ...}: {
+{...}: {
   # https://github.com/catppuccin/lazygit/blob/main/themes/mocha/blue.yml
   programs.lazygit = {
     enable = true;
@@ -8,6 +8,9 @@
           colorArgs = "always";
           pager = "delta --dark --paging=never";
         };
+      };
+      gui = {
+        border = "single";
       };
       theme = {
         activeBorderColor = [

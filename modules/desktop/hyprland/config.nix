@@ -3,9 +3,9 @@
     settings = {
       # autostart
       exec-once = [
-        "systemctl --user import-environment &"
-        "hash dbus-update-activation-environment 2>/dev/null &"
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
+        # "hash dbus-update-activation-environment 2>/dev/null &"
+        "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
         "nm-applet &"
         "poweralertd &"
@@ -138,7 +138,7 @@
 
         # keybindings
         "$mainMod, Return, exec, wezterm start --always-new-process"
-        "ALT, Return, exec, wezterm start --always-new-process --class org.wezfurlong.wezterm_floating"
+        "ALT, Return, exec, [float; size 1111 700] wezterm start --always-new-process"
         "$mainMod SHIFT, Return, exec, [fullscreen] wezterm start --always-new-process"
         "$mainMod, b, exec, hyprctl dispatch exec '[workspace 1 silent] zen'"
         "$mainMod, q, killactive,"
@@ -154,11 +154,14 @@
         "$mainMod, x, togglesplit,"
         "$mainMod, t, exec, toggle_oppacity"
         "$mainMod, e, exec, nemo"
+        "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, c, exec, hyprpicker -a"
         "$mainMod, w, exec, wallpaper-picker"
-        "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; center; size 925 615] waypaper'"
+        "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "$mainMod, n, exec, swaync-client -t -sw"
+        "CTRL SHIFT, Escape, exec, hyprctl dispatch exec '[workspace 11] resources'"
+        "$mainMod, equal, exec, woomer"
         "$mainMod SHIFT, e, exec, vm-start"
 
         # screenshot
@@ -318,12 +321,8 @@
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,class:^(zenity)$"
-        "center,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
         "float,class:^(org.gnome.FileRoller)$"
-        "center,class:^(org.gnome.FileRoller)$"
-        "size 850 500,class:^(org.gnome.FileRoller)$"
-        "size 850 500,title:^(File Upload)$"
         "float,class:^(pavucontrol)$"
         "float,class:^(.sameboy-wrapped)$"
         "float,class:^(file_progress)$"
@@ -344,6 +343,9 @@
         "noinitialfocus,class:^(xwaylandvideobridge)$"
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
+
+        "maxsize 1111 700, floating: 1"
+        "center, floating: 1"
 
         "opaque,class:^()$,title:^()$"
         "noshadow,class:^()$,title:^()$"
