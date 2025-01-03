@@ -1,8 +1,4 @@
-{
-  pkgs,
-  variables,
-  ...
-}: {
+{variables, ...}: {
   services = {
     xserver = {
       enable = true;
@@ -16,9 +12,6 @@
     };
     libinput = {
       enable = true;
-      # mouse = {
-      #   accelProfile = "flat";
-      # };
     };
   };
   # To prevent getting stuck at shutdown

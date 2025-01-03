@@ -1,11 +1,21 @@
 {pkgs, ...}: {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = pkgs.hyprland;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
+  };
   xdg.portal = {
     enable = true;
     wlr.enable = true;
     xdgOpenUsePortal = true;
+    config = {
+      common.default = ["gtk"];
+      hyprland.default = [
+        "gtk"
+        "hyprland"
+      ];
+    };
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
     ];
   };

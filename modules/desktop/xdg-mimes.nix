@@ -1,13 +1,9 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; let
   defaultApps = {
     browser = ["zen.desktop"];
     text = ["org.gnome.TextEditor.desktop"];
-    image = ["imv.desktop"];
+    image = ["imv-dir.desktop"];
     audio = ["mpv.desktop"];
     video = ["mpv.desktop"];
     directory = ["nemo.desktop"];
@@ -94,8 +90,6 @@ in {
       defaultApplications = associations;
     };
   };
-
-  home.packages = with pkgs; [junction];
 
   home.sessionVariables = {
     # prevent wine from creating file associations
