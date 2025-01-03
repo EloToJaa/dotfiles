@@ -56,7 +56,7 @@ in {
     keybind = shift+enter=text:\n
   '';
 
-  xdg.confiFile."ghostty/themes/catppuccin".text = ''
+  xdg.configFile."ghostty/themes/catppuccin".text = ''
     palette = 0=#45475a
     palette = 1=#f38ba8
     palette = 2=#a6e3a1
