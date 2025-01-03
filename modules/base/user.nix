@@ -26,7 +26,7 @@
     description = "${variables.username}";
     group = "${variables.username}";
     extraGroups = ["networkmanager" "wheel"];
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
   };
 
   users.groups.${variables.username} = {

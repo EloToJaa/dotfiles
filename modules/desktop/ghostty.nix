@@ -10,7 +10,7 @@ in {
   xdg.configFile."ghostty/config".text = ''
     # Font
     font-family = "Maple Mono"
-    font-size = 17
+    font-size = 14
     font-thicken = true
     font-feature = ss01
     font-feature = ss04
