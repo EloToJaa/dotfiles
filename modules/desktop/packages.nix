@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     ## CLI utility
     libnotify
@@ -27,8 +23,6 @@
     nix-prefetch-github
     obs-studio
     pavucontrol # pulseaudio volume controle (GUI)
-    # pitivi # video editing
-    inputs.pitivi.legacyPackages.${pkgs.system}.pitivi
     qalculate-gtk # calculator
     # qview                             # minimal image viewer
     winetricks
