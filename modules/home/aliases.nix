@@ -21,8 +21,6 @@
     icat = "wezterm imgcat";
     ssh = "wezterm ssh";
 
-    l = "eza --icons -a --group-directories-first -1"; #EZA_ICON_SPACING=2
-    ll = "eza --icons -a --group-directories-first -1 --long -g";
     tree = "eza --icons --tree --group-directories-first";
 
     # Nixos
@@ -45,7 +43,14 @@ in {
         dsize = "du -hs";
         open = "xdg-open";
         psv = "source .venv/bin/activate";
+        l = "eza --icons -a --group-directories-first -1";
+        ll = "eza --icons -a --group-directories-first -1 --long -g";
       };
-    nushell.shellAliases = shellAliases;
+    nushell.shellAliases =
+      shellAliases
+      // {
+        l = "ls";
+        ll = "ls -la";
+      };
   };
 }

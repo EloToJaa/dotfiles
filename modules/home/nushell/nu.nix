@@ -60,12 +60,12 @@ in {
         ];
       };
     in ''
-      $env.config = ${conf};
-
       alias pueue = ${pkgs.pueue}/bin/pueue
       alias pueued = ${pkgs.pueue}/bin/pueued
       use ${nu_scripts}/share/nu_scripts/modules/background_task/task.nu
       #use ${nu_catppuccin}/share/catppuccin-nushell/themes/catppuccin_${variables.catppuccin.flavor}.nu
+
+      $env.config = ${conf};
     '';
   };
 }
