@@ -5,7 +5,7 @@
     settings = {
       PasswordAuthentication = false;
       AllowUsers = null;
-      PermitRootLogin = "no";
+      PermitRootLogin = "yes";
     };
   };
   users.users.${variables.username}.openssh.authorizedKeys.keys = [
