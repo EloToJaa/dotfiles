@@ -24,13 +24,11 @@
     tree = "eza --icons --tree --group-directories-first";
 
     # Nixos
-    ns = "nom-shell --run zsh";
     nix-switch = "nh os switch";
     nix-update = "nh os switch --update";
     nix-clean = "nh clean all --keep 5";
     nix-search = "nh search";
     nix-test = "nh os test";
-    nix-dev = "nix develop --command zsh";
 
     # python
     piv = "python -m venv .venv";
@@ -45,12 +43,16 @@ in {
         psv = "source .venv/bin/activate";
         l = "eza --icons -a --group-directories-first -1";
         ll = "eza --icons -a --group-directories-first -1 --long -g";
+        ns = "nom-shell --run zsh";
+        nix-dev = "nix develop --command zsh";
       };
     nushell.shellAliases =
       shellAliases
       // {
         l = "ls";
         ll = "ls -la";
+        ns = "nom-shell --run nu";
+        nix-dev = "nix develop --command nu";
       };
   };
 }
