@@ -12,6 +12,10 @@ in {
       "spotify"
     ];
 
+  home.packages = with pkgs; [
+    spotify
+  ];
+
   imports = [inputs.spicetify-nix.homeManagerModules.default];
 
   programs.spicetify = {
