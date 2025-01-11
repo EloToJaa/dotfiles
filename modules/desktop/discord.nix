@@ -6,9 +6,9 @@
 }: {
   home.packages = with pkgs; [
     # discord
-    # (discord.override {
-    #  withVencord = true;
-    # })
+    (discord.override {
+      withVencord = true;
+    })
     webcord-vencord
     # inputs.webcord.legacyPackages.${pkgs.system}.webcord-vencord
   ];
