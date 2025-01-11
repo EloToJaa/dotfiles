@@ -2,7 +2,7 @@
   networking = {
     hostName = "${host}";
     networkmanager.enable = true;
-    nameservers = ["192.168.0.31" "1.1.1.1"];
+    nameservers = ["1.1.1.1" "8.8.8.8"];
   };
   services.tailscale.enable = true;
 }
