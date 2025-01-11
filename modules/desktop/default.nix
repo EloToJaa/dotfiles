@@ -9,7 +9,6 @@
     ./audacious.nix # music player
     ./cava.nix # audio visualizer
     ./discord.nix # discord
-    # ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
     ./kitty.nix
