@@ -17,8 +17,6 @@
         "swww-daemon &"
 
         "hyprlock"
-
-        "webcord --start-minimized &"
       ];
 
       input = {
@@ -146,7 +144,7 @@
         "$mainMod SHIFT, f, fullscreen, 1"
         "$mainMod, Space, exec, toggle_float"
         "$mainMod, s, exec, rofi -show drun || pkill rofi"
-        "$mainMod, d, exec, webcord"
+        "$mainMod, d, exec, discord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 4 silent] spotify'"
         "$mainMod, g, exec, hyprlock"
         "$mainMod, Escape, exec, power-menu"
@@ -314,7 +312,7 @@
         "workspace 4, class:^(evince)$"
         "workspace 4, class:^(Gimp-2.10)$"
         "workspace 5, class:^(Audacious)$"
-        "workspace 5, class:^(WebCord)$"
+        "workspace 5, class:^(discord)$"
         "workspace 6, class:^(Spotify)$"
         "workspace 8, class:^(com.obsproject.Studio)$"
         "idleinhibit focus, class:^(mpv)$"
