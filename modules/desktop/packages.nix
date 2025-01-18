@@ -31,6 +31,8 @@
     zenity
     remmina
 
+    android-studio
+
     xdg-utils
   ];
 }

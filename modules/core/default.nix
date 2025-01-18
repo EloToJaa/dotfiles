@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./gnome
-    ./android.nix
+    ./adb.nix
     ./bluetooth.nix
     ./network.nix
     ./pipewire.nix
