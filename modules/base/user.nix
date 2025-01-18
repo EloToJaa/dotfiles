@@ -25,7 +25,7 @@
     isNormalUser = true;
     description = "${variables.username}";
     group = "${variables.username}";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "kvm"];
     shell = pkgs.nushell;
   };
 
