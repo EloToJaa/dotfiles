@@ -341,8 +341,8 @@
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
 
-        "maxsize 1111 700, floating: 1"
-        "center, floating: 1"
+        # "maxsize 1111 700, floating: 1"
+        # "center, floating: 1"
 
         "opaque,class:^()$,title:^()$"
         "noshadow,class:^()$,title:^()$"
