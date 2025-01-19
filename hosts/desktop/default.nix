@@ -1,4 +1,6 @@
 {variables, ...}: {
+  variables.nfs = "192.168.0.42";
+
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
