@@ -54,7 +54,7 @@
       keyboardLayout = "pl,pl";
       stateVersion = "25.05";
       nfs = {
-        local = "192.168.0.42";
+        local = "192.168.0.41";
         remote = "truenas.eagle-perch.ts.net";
       };
       ssh.keys = {
