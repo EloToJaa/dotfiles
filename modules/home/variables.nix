@@ -5,5 +5,6 @@
     NIXPKGS_ALLOW_INSECURE = "1";
     DOCKER_HOST = "unix:///run/user/1000/docker.sock";
     FLAKE = "/home/${variables.username}/Projects/dotfiles";
+    ANDROID_HOME = "/home/${variables.username}/Android/Sdk";
   };
 }
