@@ -23,6 +23,7 @@ in {
       MANPAGER = config.home.sessionVariables.MANPAGER;
       DOCKER_HOST = config.home.sessionVariables.DOCKER_HOST;
       FLAKE = config.home.sessionVariables.FLAKE;
+      ANDROID_HOME = config.home.sessionVariables.ANDROID_HOME;
     };
     extraConfig = let
       conf = builtins.toJSON {
