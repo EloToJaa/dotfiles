@@ -7,7 +7,7 @@
     enable = true;
     rootless = {
       enable = true;
-      setSocketVariable = true;
+      setSocketVariable = false;
     };
   };
   users.users.${variables.username} = {
