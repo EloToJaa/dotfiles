@@ -19,7 +19,7 @@
     pdf = "tdf";
     space = "ncdu";
     icat = "wezterm imgcat";
-    ssh = "wezterm ssh";
+    wssh = "wezterm ssh";
 
     tree = "eza --icons --tree --group-directories-first";
 
