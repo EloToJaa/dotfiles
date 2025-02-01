@@ -21,7 +21,6 @@ in {
       EDITOR = config.home.sessionVariables.EDITOR;
       VISUAL = config.home.sessionVariables.VISUAL;
       MANPAGER = config.home.sessionVariables.MANPAGER;
-      DOCKER_HOST = config.home.sessionVariables.DOCKER_HOST;
       FLAKE = config.home.sessionVariables.FLAKE;
       ANDROID_HOME = config.home.sessionVariables.ANDROID_HOME;
     };
