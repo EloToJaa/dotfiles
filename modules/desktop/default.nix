@@ -16,7 +16,7 @@
     ./packages.nix # other packages
     ./qbittorrent.nix
     ./rofi.nix # launcher
-    ./spicetify.nix # spotify client
+    ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
     ./waypaper.nix # wallpaper picker
     ./xdg-mimes.nix # xdg config
