@@ -2,13 +2,14 @@
   config,
   pkgs,
   variables,
+  lib,
   ...
 }: let
   nu_scripts = pkgs.callPackage ../../../pkgs/nu_scripts.nix {};
   nu_catppuccin = pkgs.callPackage ../../../pkgs/nu_catppuccin.nix {};
 in {
   programs.nushell = {
-    enable = true;
+    enable = lib.mkForce true;
     package = pkgs.nushell;
     environmentVariables = {
       PROMPT_INDICATOR_VI_INSERT = "";
