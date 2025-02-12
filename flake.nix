@@ -55,6 +55,10 @@
       ssh.keys = {
         user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtWaehMf7X23uUZDY5J4fG4/exqj5jWQVaLLXloaO/g elotoja@protonmail.com";
       };
+      atuin = {
+        local = "https://atuin.local.elotoja.com";
+        remote = "https://atuin.server.elotoja.com";
+      };
     };
   in {
     nixosConfigurations = {
