@@ -12,6 +12,7 @@
 
   home-manager.users.${variables.username}.imports = [
     ./../../modules/home
+    ./../../modules/dev
     ./../../modules/desktop
   ];
 
