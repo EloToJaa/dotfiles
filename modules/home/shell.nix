@@ -4,7 +4,6 @@
       enable = true;
 
       enableZshIntegration = true;
-      enableNushellIntegration = true;
 
       settings = {
         auto_sync = true;
@@ -21,13 +20,11 @@
       enable = true;
 
       enableZshIntegration = true;
-      enableNushellIntegration = true;
     };
     eza = {
       enable = true;
 
       enableZshIntegration = true;
-      enableNushellIntegration = false;
 
       git = true;
       icons = "auto";
@@ -36,7 +33,6 @@
       enable = true;
 
       enableZshIntegration = true;
-      enableNushellIntegration = true;
     };
   };
 }

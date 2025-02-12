@@ -4,6 +4,5 @@
     NIXPKGS_ALLOW_UNFREE = "1";
     NIXPKGS_ALLOW_INSECURE = "1";
     FLAKE = "/home/${variables.username}/Projects/dotfiles";
-    ANDROID_HOME = "/home/${variables.username}/Android/Sdk";
   };
 }

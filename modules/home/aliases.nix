@@ -16,10 +16,6 @@
     less = "bat";
     py = "python";
     ipy = "ipython";
-    pdf = "tdf";
-    space = "ncdu";
-    icat = "wezterm imgcat";
-    wssh = "wezterm ssh";
 
     tree = "eza --icons --tree --group-directories-first";
 
