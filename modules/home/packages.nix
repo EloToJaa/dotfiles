@@ -14,5 +14,7 @@
     wget
 
     lazydocker
+
+    neovim
   ];
 }
