@@ -2,6 +2,7 @@
   pkgs,
   config,
   variables,
+  lib,
   ...
 }: {
   imports = [
@@ -17,7 +18,7 @@
   ];
 
   networking = {
-    useDHCP = true;
+    useDHCP = lib.mkForce true;
     nameservers = ["192.168.0.31" "1.1.1.1" "1.0.0.1"];
   };
 
