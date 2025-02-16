@@ -53,6 +53,10 @@ in {
         navigate = true;
       };
     };
+
+    signing = {
+      signByDefault = false;
+    };
   };
 
   home.packages = [pkgs.gh]; # pkgs.git-lfs
