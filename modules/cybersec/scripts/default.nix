@@ -1,9 +1,10 @@
 {pkgs, ...}: let
-  ghidra-auto = (pkgs.python3.withPackages (ps:
-    with ps; [
-      click
-    ]))
-  (pkgs.writePython3Bin "ghidra-auto" (builtins.readFile ./scripts/ghidra-auto.py));
+  pypkgs = pkgs.python313Packages;
+  ghidra-auto = pkgs.writers.writePython3Bin "ghidra-auto" {
+    libraries = [
+      pypkgs.click
+    ];
+  } (builtins.readFile ./scripts/ghidra-auto.py);
 in {
   home.packages = [
     ghidra-auto

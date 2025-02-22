@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import itertools as IT
 import os
 import select

@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  pypkgs = pkgs.python313Packages;
+in {
   home.packages = with pkgs; [
     # Recon
     nmap
@@ -16,14 +18,8 @@
 
     # Reverse Engineering
     ghidra-bin
-    #pwntools
 
-    (pkgs.python3.withPackages (pypkgs:
-      with pypkgs; [
-        click
-        requests
-        pwntools
-        ropper
-      ]))
+    pypkgs.pwntools
+    pypkgs.ropper
   ];
 }
