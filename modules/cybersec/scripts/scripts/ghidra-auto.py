@@ -24,14 +24,18 @@ def uniquify(path, sep=""):
         path = os.path.normpath(path)
         dirname, basename = os.path.split(path)
         filename, ext = os.path.splitext(basename)
-        _, filename = tempfile.mkstemp(dir=dirname, prefix=filename, suffix=ext)
+        _, filename = tempfile.mkstemp(
+            dir=dirname, prefix=filename, suffix=ext
+        )
         os.remove(filename)
         tempfile._name_sequence = orig
     return filename
 
 
 def shouldRun():
-    click.secho("Will run analysis in 3 seconds, press any key to cancel", fg="green")
+    click.secho(
+        "Will run analysis in 3 seconds, press any key to cancel", fg="green"
+    )
     i, _, _ = select.select([sys.stdin], [], [], 3)
 
     if i:
@@ -50,7 +54,9 @@ def main(filename, temp):
         return
     if temp:
         proj_file = uniquify(
-            os.path.join(PROJECT_DIRECTORY, os.path.basename(filename) + ".gpr")
+            os.path.join(
+                PROJECT_DIRECTORY, os.path.basename(filename) + ".gpr"
+            )
         )
         out_dir = PROJECT_DIRECTORY
     else:
@@ -58,9 +64,9 @@ def main(filename, temp):
         out_dir = os.path.dirname(filename)
         out_dir = out_dir if out_dir != "" else "."
     proj_name = os.path.splitext(os.path.basename(proj_file))[0]
-    file_output = subprocess.check_output(f'file "{filename}"', shell=True).decode(
-        "utf8"
-    )
+    file_output = subprocess.check_output(
+        f'file "{filename}"', shell=True
+    ).decode("utf8")
     click.secho(file_output, fg="yellow")
     r = shouldRun()
     if r:
