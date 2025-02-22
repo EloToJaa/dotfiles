@@ -18,6 +18,7 @@ in {
 
     # Reverse Engineering
     ghidra-bin
+    pwndbg
 
     pypkgs.pwntools
     pypkgs.ropper
