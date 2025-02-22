@@ -21,6 +21,7 @@
     hyprmag.url = "github:SIMULATAN/hyprmag";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
+    pwndbg.url = "github:pwndbg/pwndbg";
   };
 
   outputs = {

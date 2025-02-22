@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   pypkgs = pkgs.python313Packages;
 in {
   home.packages = with pkgs; [
@@ -18,7 +22,7 @@ in {
 
     # Reverse Engineering
     ghidra-bin
-    pwndbg
+    inputs.pwndbg.packages.${pkgs.system}.pwndbg
 
     pypkgs.pwntools
     pypkgs.ropper
