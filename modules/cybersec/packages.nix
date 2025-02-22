@@ -17,5 +17,13 @@
     # Reverse Engineering
     ghidra-bin
     #pwntools
+
+    (pkgs.python3.withPackages (pypkgs:
+      with pypkgs; [
+        click
+        requests
+        pwntools
+        ropper
+      ]))
   ];
 }

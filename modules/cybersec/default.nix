@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./scripts
     ./packages.nix
   ];
 }

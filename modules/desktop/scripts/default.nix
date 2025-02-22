@@ -25,6 +25,7 @@ in {
   home.packages = [
     wall-change
     wallpaper-picker
+    random-wallpaper
 
     music
     lofi
