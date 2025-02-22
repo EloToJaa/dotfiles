@@ -9,6 +9,7 @@
     ./../../modules/home
     ./../../modules/dev
     ./../../modules/desktop
+    ./../../modules/cybersec
   ];
 
   networking = {
