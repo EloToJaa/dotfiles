@@ -59,6 +59,10 @@
         local = "https://atuin.local.elotoja.com";
         remote = "https://atuin.server.elotoja.com";
       };
+      loki = {
+        local = "https://loki.local.elotoja.com";
+        remote = "https://loki.server.elotoja.com";
+      };
     };
   in {
     nixosConfigurations = {

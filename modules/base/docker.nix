@@ -1,8 +1,14 @@
 {
   pkgs,
   variables,
+  host,
   ...
-}: {
+}: let
+  loki =
+    if (host == "desktop" || host == "server")
+    then variables.loki.local
+    else variables.loki.remote;
+in {
   virtualisation.docker = {
     enable = true;
     rootless = {
@@ -12,7 +18,7 @@
         debug = true;
         "log-driver" = "loki";
         "log-opts" = {
-          "loki-url" = "https://loki.local.elotoja.com/loki/api/v1/push";
+          "loki-url" = "${loki}/loki/api/v1/push";
           "loki-batch-size" = "400";
           "loki-external-labels" = "container_name={{.Name}},hostname={{.Node.Hostname}}";
           "loki-retries" = "2";
