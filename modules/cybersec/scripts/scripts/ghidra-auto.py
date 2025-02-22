@@ -38,8 +38,7 @@ def shouldRun():
 
     if i:
         return False
-    else:
-        return True
+    return True
 
 
 @click.command()
