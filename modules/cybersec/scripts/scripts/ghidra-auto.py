@@ -71,7 +71,8 @@ def main(filename, temp):
     r = shouldRun()
     if r:
         os.system(
-            f'ghidra-analyzeHeadless {out_dir} "{proj_name}" -import "{filename}"'
+            f"ghidra-analyzeHeadless {out_dir}"
+            f'"{proj_name}" -import "{filename}"'
         )
         os.system(f'ghidra "{proj_file}"')
 
