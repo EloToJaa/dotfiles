@@ -33,6 +33,11 @@ return {
 				async = false,
 				timeout_ms = 1000,
 			},
+			formatters = {
+				black = {
+					prepended_args = { "-l", "79" },
+				},
+			},
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
