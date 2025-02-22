@@ -12,16 +12,17 @@ import click
 PROJECT_DIRECTORY = "/tmp"
 
 
-def uniquify(path, sep=""):
-    def name_sequence():
-        count = IT.count()
-        yield ""
-        while True:
-            yield "{s}_{n:d}".format(s=sep, n=next(count))
+def name_sequence(sep):
+    count = IT.count()
+    yield ""
+    while True:
+        yield "{s}_{n:d}".format(s=sep, n=next(count))
 
+
+def uniquify(path, sep=""):
     orig = tempfile._name_sequence
     with tempfile._once_lock:
-        tempfile._name_sequence = name_sequence()
+        tempfile._name_sequence = name_sequence(sep)
         path = os.path.normpath(path)
         dirname, basename = os.path.split(path)
         filename, ext = os.path.splitext(basename)
