@@ -21,7 +21,7 @@ in {
     metasploit
 
     # Reverse Engineering
-    ghidra-bin
+    ghidra
     inputs.pwndbg.packages.${pkgs.system}.pwndbg
 
     pypkgs.pwntools
