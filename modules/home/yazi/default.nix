@@ -7,6 +7,7 @@
     imagemagick
     poppler
     p7zip
+    mediainfo
     yazi
   ];
 
