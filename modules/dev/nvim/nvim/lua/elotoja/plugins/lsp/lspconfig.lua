@@ -105,6 +105,9 @@ return {
 		lspconfig.clangd.setup {
 			capabilities = capabilities,
 		}
+		lspconfig.zls.setup {
+			capabilities = capabilities,
+		}
 
 		mason_lspconfig.setup_handlers {
 			-- default handler for installed servers
