@@ -32,7 +32,7 @@ in {
     npm-check-updates
     go
     elixir
-    inputs.zig.packages.master
+    inputs.zig.packages.${pkgs.system}.master
 
     # Formatters
     alejandra
