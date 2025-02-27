@@ -51,7 +51,7 @@ return {
 				"stylua",
 				"isort",
 				"black",
-				"clang-format",
+				-- "clang-format", -- replaced by clang-tools from nixpkgs
 				"shfmt",
 				"pylint",
 				"eslint_d",
