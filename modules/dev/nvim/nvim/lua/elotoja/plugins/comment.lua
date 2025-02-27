@@ -17,6 +17,6 @@ return {
 		}
 
 		local comment_ft = require("Comment.ft")
-		comment_ft.set({ "c", "cpp" }, { "// %s", "/* %s */" })
+		comment_ft.set("c", { "//%s" })
 	end,
 }
