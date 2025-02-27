@@ -2,8 +2,8 @@
 -- Inspired by https://github.com/wez/wezterm/discussions/628#discussioncomment-1874614 --
 ------------------------------------------------------------------------------------------
 
-local wezterm = require("wezterm")
 local Cells = require("utils.cells")
+local wezterm = require("wezterm")
 
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
@@ -218,12 +218,12 @@ M.setup = function()
 	-- Tab name will remain locked until the `reset-tab-title` is triggered
 	wezterm.on("tabs.manual-update-tab-title", function(window, pane)
 		window:perform_action(
-			wezterm.action.PromptInputLine({
-				description = wezterm.format({
+			wezterm.action.PromptInputLine {
+				description = wezterm.format {
 					{ Foreground = { Color = "#FFFFFF" } },
 					{ Attribute = { Intensity = "Bold" } },
 					{ Text = "Enter new name for tab" },
-				}),
+				},
 				action = wezterm.action_callback(function(_window, _pane, line)
 					if line ~= nil then
 						local tab = window:active_tab()
@@ -231,7 +231,7 @@ M.setup = function()
 						tab_list[id]:update_and_lock_title(line)
 					end
 				end),
-			}),
+			},
 			pane
 		)
 	end)
@@ -248,7 +248,7 @@ M.setup = function()
 	-- Event listener to manually update the tab name
 	wezterm.on("tabs.toggle-tab-bar", function(window, _pane)
 		enable_tab_bar = not enable_tab_bar
-		window:set_config_overrides({ enable_tab_bar = enable_tab_bar })
+		window:set_config_overrides { enable_tab_bar = enable_tab_bar }
 	end)
 
 	-- BUILTIN EVENT

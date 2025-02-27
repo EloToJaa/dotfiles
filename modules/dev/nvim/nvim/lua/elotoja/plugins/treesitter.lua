@@ -8,7 +8,7 @@ return {
 	config = function()
 		local configs = require("nvim-treesitter.configs")
 
-		configs.setup({
+		configs.setup {
 			ensure_installed = {
 				"vim",
 				"vimdoc",
@@ -44,6 +44,6 @@ return {
 					node_decremental = "<bs>",
 				},
 			},
-		})
+		}
 	end,
 }

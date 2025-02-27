@@ -10,7 +10,7 @@ return {
 		local actions = require("telescope.actions")
 		local telescope = require("telescope")
 
-		telescope.setup({
+		telescope.setup {
 			defaults = {
 				mappings = {
 					i = {
@@ -28,7 +28,7 @@ return {
 					case_mode = "smart_case", -- or 'ignore_case' or 'respect_case'
 				},
 			},
-		})
+		}
 		-- To get fzf loaded and working with telescope, you need to call
 		-- load_extension, somewhere after setup function:
 		telescope.load_extension("fzf")

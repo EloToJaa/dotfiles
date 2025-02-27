@@ -1,2 +1,2 @@
-require('elotoja.core')
-require('elotoja.lazy')
+require("elotoja.core")
+require("elotoja.lazy")

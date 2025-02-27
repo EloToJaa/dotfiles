@@ -1,5 +1,5 @@
-local wezterm = require("wezterm")
 local Cells = require("utils.cells")
+local wezterm = require("wezterm")
 
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
@@ -9,9 +9,7 @@ local M = {}
 local ICON_STAT = nf.oct_table
 local ICON_USER = nf.oct_person_fill
 
-local function get_username()
-	return os.getenv("USER") or os.getenv("LOGNAME") or os.getenv("USERNAME")
-end
+local function get_username() return os.getenv("USER") or os.getenv("LOGNAME") or os.getenv("USERNAME") end
 
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
@@ -35,13 +33,13 @@ M.setup = function()
 		local stat = window:active_workspace()
 		cells:update_segment_text("stat_text", stat):update_segment_text("user_text", get_username())
 
-		window:set_right_status(wezterm.format(cells:render({
+		window:set_right_status(wezterm.format(cells:render {
 			"user_icon",
 			"user_text",
 			"separator",
 			"stat_icon",
 			"stat_text",
-		})))
+		}))
 	end)
 end
 
