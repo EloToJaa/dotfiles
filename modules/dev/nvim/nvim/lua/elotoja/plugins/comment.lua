@@ -15,5 +15,8 @@ return {
 			-- for commenting tsx, jsx, svelte, html files
 			pre_hook = ts_context_commentstring.create_pre_hook(),
 		}
+
+		local comment_ft = require("Comment.ft")
+		comment_ft.set({ "c", "cpp" }, { "// %s", "/* %s */" })
 	end,
 }
