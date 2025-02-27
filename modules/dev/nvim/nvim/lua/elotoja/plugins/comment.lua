@@ -8,15 +8,20 @@ return {
 		-- import comment plugin safely
 		local comment = require("Comment")
 
-		local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
+		-- fix https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/82#issuecomment-2213944325
+		require("ts_context_commentstring").setup {
+			languages = {
+				c = { __default = "// %s", __multiline = "/* %s */" },
+			},
+		}
 
 		-- enable comment
 		comment.setup {
 			-- for commenting tsx, jsx, svelte, html files
-			-- pre_hook = ts_context_commentstring.create_pre_hook(),
+			pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 		}
 
-		local comment_ft = require("Comment.ft")
-		comment_ft.set("c", { "//%s" })
+		-- local comment_ft = require("Comment.ft")
+		-- comment_ft.set("c", { "//%s" })
 	end,
 }
