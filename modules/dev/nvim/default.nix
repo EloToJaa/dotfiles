@@ -32,6 +32,7 @@ in {
     npm-check-updates
     go
     elixir
+    inputs.zig.packages.master
 
     # Formatters
     alejandra
