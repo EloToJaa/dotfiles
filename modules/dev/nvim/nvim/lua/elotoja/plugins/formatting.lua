@@ -4,7 +4,7 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		conform.setup {
+		conform.setup({
 			formatters_by_ft = {
 				javascript = { "prettierd", "prettier" },
 				typescript = { "prettierd", "prettier" },
@@ -38,17 +38,17 @@ return {
 					prepended_args = { "-l", "79" },
 				},
 			},
-		}
+		})
 
 		vim.keymap.set(
 			{ "n", "v" },
 			"<leader>mp",
 			function()
-				conform.format {
+				conform.format({
 					lsp_fallback = true,
 					async = false,
 					timeout_ms = 4000,
-				}
+				})
 			end,
 			{ desc = "Format file or range (in visual mode)" }
 		)

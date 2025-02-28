@@ -33,13 +33,13 @@ M.setup = function()
 		local stat = window:active_workspace()
 		cells:update_segment_text("stat_text", stat):update_segment_text("user_text", get_username())
 
-		window:set_right_status(wezterm.format(cells:render {
+		window:set_right_status(wezterm.format(cells:render({
 			"user_icon",
 			"user_text",
 			"separator",
 			"stat_icon",
 			"stat_text",
-		}))
+		})))
 	end)
 end
 

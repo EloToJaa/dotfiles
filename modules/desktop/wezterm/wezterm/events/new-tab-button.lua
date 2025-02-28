@@ -37,7 +37,7 @@ local function build_choices()
 
 		table.insert(choices, {
 			id = tostring(idx),
-			label = wezterm.format(cells:render { "icon_default", "label_text" }),
+			label = wezterm.format(cells:render({ "icon_default", "label_text" })),
 		})
 		table.insert(choices_data, {
 			args = v.args,
@@ -52,7 +52,7 @@ local function build_choices()
 
 		table.insert(choices, {
 			id = tostring(idx),
-			label = wezterm.format(cells:render { "icon_wsl", "label_text" }),
+			label = wezterm.format(cells:render({ "icon_wsl", "label_text" })),
 		})
 		table.insert(choices_data, {
 			domain = { DomainName = v.name },
@@ -65,7 +65,7 @@ local function build_choices()
 		cells:update_segment_text("label_text", v.name)
 		table.insert(choices, {
 			id = tostring(idx),
-			label = wezterm.format(cells:render { "icon_ssh", "label_text" }),
+			label = wezterm.format(cells:render({ "icon_ssh", "label_text" })),
 		})
 		table.insert(choices_data, {
 			domain = { DomainName = v.name },
@@ -78,7 +78,7 @@ local function build_choices()
 		cells:update_segment_text("label_text", v.name)
 		table.insert(choices, {
 			id = tostring(idx),
-			label = wezterm.format(cells:render { "icon_unix", "label_text" }),
+			label = wezterm.format(cells:render({ "icon_unix", "label_text" })),
 		})
 		table.insert(choices_data, {
 			domain = { DomainName = v.name },
@@ -99,7 +99,7 @@ M.setup = function()
 
 		if default_action and button == "Right" then
 			window:perform_action(
-				act.InputSelector {
+				act.InputSelector({
 					title = "InputSelector: Launch Menu",
 					choices = choices,
 					fuzzy = true,
@@ -113,7 +113,7 @@ M.setup = function()
 							window:perform_action(act.SpawnCommandInNewTab(choices_data[tonumber(id)]), pane)
 						end
 					end),
-				},
+				}),
 				pane
 			)
 		end

@@ -37,13 +37,13 @@ end
 
 local keys = {
 	-- Send C-a when pressing C-a twice
-	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
+	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
 	{ key = "c", mods = "LEADER", action = act.ActivateCopyMode },
 	{ key = "phys:Space", mods = "LEADER", action = act.ActivateCommandPalette },
 
 	-- Pane keybindings
-	{ key = "v", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
-	{ key = "s", mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+	{ key = "v", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "s", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
 	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
@@ -52,14 +52,14 @@ local keys = {
 	{ key = "DownArrow", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
 	{ key = "UpArrow", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
 	{ key = "RightArrow", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane { confirm = false } },
-	{ key = "q", mods = "LEADER", action = act.CloseCurrentTab { confirm = false } },
+	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
+	{ key = "q", mods = "LEADER", action = act.CloseCurrentTab({ confirm = false }) },
 	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
 	{ key = "o", mods = "LEADER", action = act.RotatePanes("Clockwise") },
 	{
 		key = "u",
 		mods = "LEADER",
-		action = act.QuickSelectArgs {
+		action = act.QuickSelectArgs({
 			label = "open url",
 			patterns = {
 				"\\((https?://\\S+)\\)",
@@ -73,19 +73,19 @@ local keys = {
 				wezterm.log_info("opening: " .. url)
 				wezterm.open_with(url)
 			end),
-		},
+		}),
 	},
 	-- We can make separate keybindings for resizing panes
 	-- But Wezterm offers custom 'mode' in the name of 'KeyTable'
-	{ key = "e", mods = "LEADER", action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
+	{ key = "e", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
 	{
 		key = "f",
 		mods = "LEADER|SHIFT",
-		action = act.ActivateKeyTable {
+		action = act.ActivateKeyTable({
 			name = "resize_font",
 			one_shot = false,
 			timemout_miliseconds = 1000,
-		},
+		}),
 	},
 
 	-- Tab keybindings
@@ -99,13 +99,13 @@ local keys = {
 	{ key = "r", mods = "LEADER|SHIFT", action = act.EmitEvent("tabs.reset-tab-title") },
 
 	-- Key table for moving tabs around
-	{ key = "m", mods = "LEADER", action = act.ActivateKeyTable { name = "move_tab", one_shot = false } },
+	{ key = "m", mods = "LEADER", action = act.ActivateKeyTable({ name = "move_tab", one_shot = false }) },
 	-- Or shortcuts to move tab w/o move_tab table. SHIFT is for when caps lock is on
 	{ key = "{", mods = "LEADER|SHIFT", action = act.MoveTabRelative(-1) },
 	{ key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
 
 	-- Lastly, workspace
-	{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+	{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 
 	{ key = "c", mods = "LEADER|SHIFT", action = act.ReloadConfiguration },
 
@@ -113,7 +113,7 @@ local keys = {
 	{ key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
 
 	{ key = "p", mods = "CTRL|SHIFT", action = act.ShowLauncher },
-	{ key = "f", mods = "LEADER", action = act.Search { CaseInSensitiveString = "" } },
+	{ key = "f", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
 
 	-- move between split panes
 	split_nav("move", "h"),
@@ -152,14 +152,14 @@ local key_tables = {
 		{ key = "q", action = "PopKeyTable" },
 	},
 	resize_pane = {
-		{ key = "h", action = act.AdjustPaneSize { "Left", 1 } },
-		{ key = "j", action = act.AdjustPaneSize { "Down", 1 } },
-		{ key = "k", action = act.AdjustPaneSize { "Up", 1 } },
-		{ key = "l", action = act.AdjustPaneSize { "Right", 1 } },
-		{ key = "LeftArrow", action = act.AdjustPaneSize { "Left", 1 } },
-		{ key = "DownArrow", action = act.AdjustPaneSize { "Down", 1 } },
-		{ key = "UpArrow", action = act.AdjustPaneSize { "Up", 1 } },
-		{ key = "RightArrow", action = act.AdjustPaneSize { "Right", 1 } },
+		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
+		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
+		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
+		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
+		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
+		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
 		{ key = "Escape", action = "PopKeyTable" },
 		{ key = "q", action = "PopKeyTable" },
 	},

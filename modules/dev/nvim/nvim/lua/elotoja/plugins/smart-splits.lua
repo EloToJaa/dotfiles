@@ -3,7 +3,7 @@ return {
 	config = function()
 		local smart_splits = require("smart-splits")
 
-		smart_splits.setup {
+		smart_splits.setup({
 			-- Ignored buffer types (only while resizing)
 			ignored_buftypes = {
 				"nofile",
@@ -96,7 +96,7 @@ return {
 			kitty_password = nil,
 			-- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
 			log_level = "info",
-		}
+		})
 
 		-- resizing splits
 		-- these keymaps will also accept a range,
