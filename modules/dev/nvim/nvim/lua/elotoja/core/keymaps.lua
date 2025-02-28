@@ -15,7 +15,7 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 keymap.set("n", "<leader>v", "<C-w>s", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>s", "<C-w>v", { desc = "Split window horizontally" }) -- split window horizontally
 keymap.set("n", "<leader>e", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
-keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+keymap.set("n", "<leader>x", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 keymap.set("n", "<leader>t", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 keymap.set("n", "<leader>q", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
