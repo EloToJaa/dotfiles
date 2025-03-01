@@ -8,6 +8,7 @@
     ./wezterm
     ./audacious.nix # music player
     ./cava.nix # audio visualizer
+    ./clipboard.nix
     ./discord.nix # discord
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme

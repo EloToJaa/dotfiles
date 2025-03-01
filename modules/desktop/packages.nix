@@ -6,7 +6,6 @@
     playerctl # controller for media players
     poweralertd
     swappy # snapshot editing tool
-    wl-clipboard # clipboard utils for wayland (wl-copy, wl-paste)
     woomer # zoomer for wayland
     caligula # User-friendly, lightweight TUI for disk imaging
     tty-clock # cli clock
