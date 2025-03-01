@@ -4,8 +4,4 @@
     wl-clip-persist # persist clipboard between wayland sessions
     cliphist # clipboard history
   ];
-
-  xdg.configFile."cliphist/config".text = ''
-    max-items = 100
-  '';
 }

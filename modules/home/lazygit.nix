@@ -9,6 +9,9 @@
           pager = "delta --dark --paging=never";
         };
       };
+      update = {
+        method = "never";
+      };
       gui = {
         border = "single";
 
