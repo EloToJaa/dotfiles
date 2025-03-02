@@ -116,7 +116,7 @@ local keys = {
 	{ key = "f", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
 
 	{ key = "s", mods = "LEADER|SHIFT", action = act.EmitEvent("save-session") },
-	{ key = "r", mods = "LEADER|SHIFT", action = act.EmitEvent("restore-session") },
+	{ key = "e", mods = "LEADER|SHIFT", action = act.EmitEvent("restore-session") },
 	{ key = "l", mods = "LEADER|SHIFT", action = act.EmitEvent("load-session") },
 
 	-- move between split panes
