@@ -12,10 +12,6 @@ if platform.is_win then
 		{ label = "PowerShell Desktop", args = { "powershell" } },
 		{ label = "Command Prompt", args = { "cmd" } },
 		{ label = "Nushell", args = { "nu" } },
-		{
-			label = "Git Bash",
-			args = { "C:\\Users\\kevin\\scoop\\apps\\git\\current\\bin\\bash.exe" },
-		},
 	}
 elseif platform.is_mac then
 	options.default_prog = { "/opt/homebrew/bin/fish", "-l" }
