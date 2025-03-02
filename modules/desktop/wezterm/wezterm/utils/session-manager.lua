@@ -4,6 +4,14 @@ local wezterm = require("wezterm")
 local session_manager = {}
 local os = wezterm.target_triple
 
+local function get_path(workspace_name)
+	local file_path = wezterm.home_dir
+		.. "/.local/state/wezterm/session-manager/wezterm_state_"
+		.. workspace_name
+		.. ".json"
+	return file_path
+end
+
 --- Retrieves the current workspace data from the active window.
 -- @return table or nil: The workspace data table or nil if no active window is found.
 local function retrieve_workspace_data(window)
@@ -188,10 +196,7 @@ end
 --- Loads the saved json file matching the current workspace.
 function session_manager.restore_state(window)
 	local workspace_name = window:active_workspace()
-	local file_path = wezterm.home_dir
-		.. "/.config/wezterm/wezterm-session-manager/wezterm_state_"
-		.. workspace_name
-		.. ".json"
+	local file_path = get_path(workspace_name)
 
 	local workspace_data = load_from_json_file(file_path)
 	if not workspace_data then
@@ -221,10 +226,7 @@ function session_manager.save_state(window)
 	local data = retrieve_workspace_data(window)
 
 	-- Construct the file path based on the workspace name
-	local file_path = wezterm.home_dir
-		.. "/.config/wezterm/wezterm-session-manager/wezterm_state_"
-		.. data.name
-		.. ".json"
+	local file_path = get_path(data.name)
 
 	-- Save the workspace data to a JSON file and display the appropriate notification
 	if save_to_json_file(data, file_path) then
