@@ -4,6 +4,7 @@ require("events.right-status").setup()
 require("events.left-status").setup()
 require("events.tab-title").setup()
 require("events.new-tab-button").setup()
+require("events.session").setup()
 
 return Config:init()
 	:append(require("config.appearance"))

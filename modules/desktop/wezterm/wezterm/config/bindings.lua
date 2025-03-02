@@ -105,7 +105,7 @@ local keys = {
 	{ key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
 
 	-- Lastly, workspace
-	{ key = "wf", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+	{ key = "f", mods = "LEADER|SHIFT", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 
 	{ key = "c", mods = "LEADER|SHIFT", action = act.ReloadConfiguration },
 
@@ -115,9 +115,9 @@ local keys = {
 	{ key = "p", mods = "CTRL|SHIFT", action = act.ShowLauncher },
 	{ key = "f", mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
 
-	{ key = "ws", mods = "LEADER", action = act.EmitEvent("save-session") },
-	{ key = "wr", mods = "LEADER", action = act.EmitEvent("restore-session") },
-	{ key = "wl", mods = "LEADER", action = act.EmitEvent("load-session") },
+	{ key = "s", mods = "LEADER|SHIFT", action = act.EmitEvent("save-session") },
+	{ key = "r", mods = "LEADER|SHIFT", action = act.EmitEvent("restore-session") },
+	{ key = "l", mods = "LEADER|SHIFT", action = act.EmitEvent("load-session") },
 
 	-- move between split panes
 	split_nav("move", "h"),
