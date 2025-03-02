@@ -208,7 +208,7 @@ function Tab:render()
 end
 
 ---@type Tab[]
-local tab_list = {}
+M.tab_list = {}
 
 M.setup = function()
 	local enable_tab_bar = true
@@ -228,7 +228,7 @@ M.setup = function()
 					if line ~= nil then
 						local tab = window:active_tab()
 						local id = tab:tab_id()
-						tab_list[id]:update_and_lock_title(line)
+						M.tab_list[id]:update_and_lock_title(line)
 					end
 				end),
 			}),
@@ -241,7 +241,7 @@ M.setup = function()
 	wezterm.on("tabs.reset-tab-title", function(window, _pane)
 		local tab = window:active_tab()
 		local id = tab:tab_id()
-		tab_list[id].title_locked = false
+		M.tab_list[id].title_locked = false
 	end)
 
 	-- CUSTOM EVENT
@@ -253,16 +253,16 @@ M.setup = function()
 
 	-- BUILTIN EVENT
 	wezterm.on("format-tab-title", function(tab, _tabs, _panes, _config, hover, max_width)
-		if not tab_list[tab.tab_id] then
-			tab_list[tab.tab_id] = Tab:new()
-			tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
-			tab_list[tab.tab_id]:set_cells()
-			return tab_list[tab.tab_id]:render()
+		if not M.tab_list[tab.tab_id] then
+			M.tab_list[tab.tab_id] = Tab:new()
+			M.tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
+			M.tab_list[tab.tab_id]:set_cells()
+			return M.tab_list[tab.tab_id]:render()
 		end
 
-		tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
-		tab_list[tab.tab_id]:update_cells(tab.is_active, hover)
-		return tab_list[tab.tab_id]:render()
+		M.tab_list[tab.tab_id]:set_info(tab.active_pane, max_width, tab.tab_index)
+		M.tab_list[tab.tab_id]:update_cells(tab.is_active, hover)
+		return M.tab_list[tab.tab_id]:render()
 	end)
 end
 

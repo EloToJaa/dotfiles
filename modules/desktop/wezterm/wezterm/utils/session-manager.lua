@@ -1,6 +1,7 @@
 -- Modified from https://github.com/danielcopper/wezterm-session-manager/blob/main/session-manager.lua
 
 local wezterm = require("wezterm")
+local tab_list = require("events.tab-title").tab_list
 local session_manager = {}
 local os = wezterm.target_triple
 
@@ -23,8 +24,10 @@ local function retrieve_workspace_data(window)
 
 	-- Iterate over tabs in the current window
 	for _, tab in ipairs(window:mux_window():tabs()) do
+		local tab_id = tostring(tab:tab_id())
 		local tab_data = {
-			tab_id = tostring(tab:tab_id()),
+			tab_id = tab_id,
+			title = tab_list[tab_id].title,
 			panes = {},
 		}
 
@@ -132,6 +135,8 @@ local function recreate_workspace(window, workspace_data)
 
 		-- Activate the new tab before creating panes
 		new_tab:activate()
+
+		tab_list[tab_data.tab_id]:update_and_lock_title(tab_data.title)
 
 		-- Recreate panes within this tab
 		for j, pane_data in ipairs(tab_data.panes) do
