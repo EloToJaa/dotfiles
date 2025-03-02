@@ -320,7 +320,7 @@
         "float,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
         "float,class:^(org.gnome.FileRoller)$"
-        "float,class:^(pavucontrol)$"
+        "float,class:^(org.pulseaudio.pavucontrol)$"
         "float,class:^(.sameboy-wrapped)$"
         "float,class:^(file_progress)$"
         "float,class:^(confirm)$"
