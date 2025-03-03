@@ -33,6 +33,7 @@ in {
     go
     elixir
 
+    lua5_4
     lua54Packages.luarocks
 
     # Zig
