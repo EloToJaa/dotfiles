@@ -49,6 +49,7 @@ return {
 				"prettier",
 				"prettierd",
 				"stylua",
+				"luacheck",
 				"isort",
 				"black",
 				-- "clang-format", -- replaced by clang-tools from nixpkgs

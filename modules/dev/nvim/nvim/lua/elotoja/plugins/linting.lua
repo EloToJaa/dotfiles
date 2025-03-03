@@ -24,8 +24,9 @@ return {
 			svelte = { "eslint_d" },
 			astro = { "eslint_d" },
 			python = { "pylint" },
-			-- cpp = { "cpplint" },
+			cpp = { "cpplint" },
 			sql = { "sqlfluff" },
+			lua = { "luacheck" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
