@@ -24,7 +24,7 @@ return {
 			svelte = { "eslint_d" },
 			astro = { "eslint_d" },
 			python = { "pylint" },
-			cpp = { "cpplint" },
+			-- cpp = { "cpplint" },
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },
 		}
