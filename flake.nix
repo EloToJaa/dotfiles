@@ -23,7 +23,7 @@
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
     zig.url = "github:mitchellh/zig-overlay";
-    zls.url = "github:zigtools/zls";
+    zls.url = "github:zigtools/zls?ref=main&rev=336f468";
   };
 
   outputs = {
