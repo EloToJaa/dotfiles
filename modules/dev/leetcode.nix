@@ -1,9 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
     leetcode-cli
   ];
 
-  home.file.".leetcode/leetcode.toml".text = ''
+  sops.templates.".leetcode/leetcode.toml".content = ''
     [code]
     editor = "nvim"
     lang = "cpp"
@@ -14,8 +18,8 @@
     inject_after = ["int main() {\n  Solution solution;\n\n}"]
 
     [cookies]
-    csrf = ""
-    session = ""
+    csrf = "${config.sops.secrets."cookies/csrftoken"}"
+    session = "${config.sops.secrets."cookies/session"}"
 
     [storage]
     cache = "Problems"
