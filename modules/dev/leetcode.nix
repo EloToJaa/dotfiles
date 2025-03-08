@@ -15,7 +15,7 @@
       comment_leading = "//"
       comment_problem_desc = true
       test = true
-      inject_before = ["#include<bits/stdc++.h>", "using namespace std;"]
+      inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
       inject_after = ["int main() {\n  Solution solution;\n\n}"]
 
       [cookies]
@@ -25,7 +25,7 @@
 
       [storage]
       cache = "Problems"
-      code = "code"
+      code = "${config.home.homeDirectory}/Projects/leetcode"
       root = "~/.leetcode"
       scripts = "scripts"
     '';
