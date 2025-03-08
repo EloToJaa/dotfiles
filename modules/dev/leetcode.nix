@@ -2,10 +2,19 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  shellAliases = {
+    lc = "leetcode";
+  };
+in {
   home.packages = with pkgs; [
     leetcode-cli
   ];
+
+  programs = {
+    zsh.shellAliases = shellAliases;
+    nushell.shellAliases = shellAliases;
+  };
 
   sops.templates."leetcode.toml" = {
     content = ''
@@ -16,7 +25,7 @@
       comment_problem_desc = true
       test = true
       inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
-      inject_after = ["int main() {\n  Solution solution;\n\n}"]
+      inject_after = [""]
 
       [cookies]
       csrf = "${config.sops.placeholder."cookies/csrftoken"}"
