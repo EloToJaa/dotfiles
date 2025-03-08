@@ -18,8 +18,8 @@
     inject_after = ["int main() {\n  Solution solution;\n\n}"]
 
     [cookies]
-    csrf = "${config.sops.secrets."cookies/csrftoken"}"
-    session = "${config.sops.secrets."cookies/session"}"
+    csrf = "${config.sops.placeholder."cookies/csrftoken"}"
+    session = "${config.sops.placeholder."cookies/session"}"
 
     [storage]
     cache = "Problems"
