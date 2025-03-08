@@ -13,6 +13,9 @@
     inject_before = ["#include<bits/stdc++.h>", "using namespace std;"]
     inject_after = ["int main() {\n  Solution solution;\n\n}"]
 
+    [cookies]
+    csrf = '${}'
+
     [storage]
     cache = 'Problems'
     code = 'code'

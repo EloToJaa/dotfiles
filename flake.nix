@@ -74,10 +74,7 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/desktop
-          sops-nix.nixosModules.sops
-        ];
+        modules = [./hosts/desktop];
         specialArgs = {
           host = "desktop";
           inherit self inputs variables;
@@ -85,10 +82,7 @@
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/laptop
-          sops-nix.nixosModules.sops
-        ];
+        modules = [./hosts/laptop];
         specialArgs = {
           host = "laptop";
           inherit self inputs variables;
@@ -96,10 +90,7 @@
       };
       server = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/server
-          sops-nix.nixosModules.sops
-        ];
+        modules = [./hosts/server];
         specialArgs = {
           host = "server";
           inherit self inputs variables;
@@ -107,10 +98,7 @@
       };
       vm = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/vm
-          sops-nix.nixosModules.sops
-        ];
+        modules = [./hosts/vm];
         specialArgs = {
           host = "vm";
           inherit self inputs variables;

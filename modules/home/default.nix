@@ -14,6 +14,7 @@
     ./nerdfonts.nix # fonts
     ./packages.nix # other packages
     ./shell.nix # shell programs
+    ./sops.nix # secrets
     ./variables.nix # environment variables
   ];
 }
