@@ -13,7 +13,7 @@
   sops.age.keyFile = "/home/${variables.username}/.config/sops/age/keys.txt";
 
   sops.secrets = {
-    "cookies/csrf" = {};
+    "cookies/csrftoken" = {};
     "cookies/session" = {};
   };
 
