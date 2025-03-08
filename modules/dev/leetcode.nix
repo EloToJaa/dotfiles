@@ -14,12 +14,13 @@
     inject_after = ["int main() {\n  Solution solution;\n\n}"]
 
     [cookies]
-    csrf = '${}'
+    csrf = ""
+    session = ""
 
     [storage]
-    cache = 'Problems'
-    code = 'code'
-    root = '~/.leetcode'
-    scripts = 'scripts'
+    cache = "Problems"
+    code = "code"
+    root = "~/.leetcode"
+    scripts = "scripts"
   '';
 }
