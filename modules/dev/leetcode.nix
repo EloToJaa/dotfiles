@@ -21,6 +21,7 @@
       [cookies]
       csrf = "${config.sops.placeholder."cookies/csrftoken"}"
       session = "${config.sops.placeholder."cookies/session"}"
+      site = "leetcode.com"
 
       [storage]
       cache = "Problems"
