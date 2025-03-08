@@ -20,7 +20,7 @@
       modi: "run,drun,window";
       lines: 5;
       cycle: false;
-      font: "Maple Mono Bold 16";
+      font: "JetBrainsMono NF Bold 15";
       show-icons: true;
       icon-theme: "Papirus-dark";
       terminal: "wezterm";
@@ -44,8 +44,8 @@
     }
 
     window {
-      height: 530px;
-      width: 400px;
+      height: 600px;
+      width: 900px;
       border: 2px;
       border-color: @border-col;
       background-color: @bg-col;
@@ -87,7 +87,7 @@
       border: 0px 0px 0px;
       padding: 6px 0px 0px;
       margin: 10px 0px 0px 6px;
-      columns: 1;
+      columns: 3;
       background-color: @bg-col;
     }
 
