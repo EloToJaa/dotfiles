@@ -7,6 +7,7 @@
     [code]
     editor = "nvim"
     lang = "cpp"
+    comment_leading = "//"
     comment_problem_desc = true
     test = true
     inject_before = ["#include<bits/stdc++.h>", "using namespace std;"]

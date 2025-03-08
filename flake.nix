@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix.url = "github:Mic92/sops-nix";
+
     wezterm.url = "github:wez/wezterm/main?dir=nix";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -29,6 +31,7 @@
   outputs = {
     nixpkgs,
     self,
+    sops-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -71,7 +74,10 @@
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/desktop];
+        modules = [
+          ./hosts/desktop
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "desktop";
           inherit self inputs variables;
@@ -79,7 +85,10 @@
       };
       laptop = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/laptop];
+        modules = [
+          ./hosts/laptop
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "laptop";
           inherit self inputs variables;
@@ -87,7 +96,10 @@
       };
       server = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/server];
+        modules = [
+          ./hosts/server
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "server";
           inherit self inputs variables;
@@ -95,7 +107,10 @@
       };
       vm = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [./hosts/vm];
+        modules = [
+          ./hosts/vm
+          sops-nix.nixosModules.sops
+        ];
         specialArgs = {
           host = "vm";
           inherit self inputs variables;
