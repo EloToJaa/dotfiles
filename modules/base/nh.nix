@@ -1,6 +1,6 @@
 {
   pkgs,
-  config,
+  variables,
   ...
 }: {
   programs.nh = {
@@ -9,7 +9,7 @@
       enable = true;
       extraArgs = "--keep-since 7d --keep 5";
     };
-    flake = "${config.home.homeDirectory}/Projects/dotfiles";
+    flake = "/home/${variables.username}/Projects/dotfiles";
   };
 
   environment.systemPackages = with pkgs; [

@@ -31,7 +31,6 @@
   outputs = {
     nixpkgs,
     self,
-    sops-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
