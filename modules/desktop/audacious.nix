@@ -1,6 +1,6 @@
 {
   pkgs,
-  variables,
+  config,
   ...
 }: {
   home.packages = with pkgs; [audacious];
@@ -11,7 +11,7 @@
     soft_clipping=TRUE
 
     [audgui]
-    filesel_path=/home/${variables.username}/Music
+    filesel_path=${config.home.homeDirectory}/Music
 
     [audqt]
     icon_theme=audacious-flat-dark

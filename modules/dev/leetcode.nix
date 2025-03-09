@@ -28,15 +28,15 @@ in {
       inject_after = [""]
 
       [cookies]
-      csrf = "${config.sops.placeholder."cookies/csrftoken"}"
-      session = "${config.sops.placeholder."cookies/session"}"
+      csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
+      session = "${config.sops.placeholder."leetcode/session"}"
       site = "leetcode.com"
 
       [storage]
-      cache = "Problems"
+      cache = "problems.db"
       code = "${config.home.homeDirectory}/Projects/leetcode"
       root = "~/.leetcode"
-      scripts = "scripts"
+      scripts = "${config.home.homeDirectory}/Projects/leetcode/scripts"
     '';
     path = "${config.home.homeDirectory}/.leetcode/leetcode.toml";
   };

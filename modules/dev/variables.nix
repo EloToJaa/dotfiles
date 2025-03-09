@@ -1,5 +1,5 @@
-{variables, ...}: {
+{config, ...}: {
   home.sessionVariables = {
-    ANDROID_HOME = "/home/${variables.username}/Android/Sdk";
+    ANDROID_HOME = "${config.home.homeDirectory}/Android/Sdk";
   };
 }
