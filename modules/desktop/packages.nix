@@ -22,6 +22,7 @@
     mpv # video player
     nix-prefetch-github
     obs-studio
+    thunderbird
     pavucontrol # pulseaudio volume controle (GUI)
     qalculate-gtk # calculator
     # qview                             # minimal image viewer
