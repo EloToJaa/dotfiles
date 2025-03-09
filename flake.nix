@@ -24,8 +24,8 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
-    zig.url = "github:mitchellh/zig-overlay";
-    zls.url = "github:zigtools/zls";
+    # zig.url = "github:mitchellh/zig-overlay";
+    # zls.url = "github:zigtools/zls";
   };
 
   outputs = {

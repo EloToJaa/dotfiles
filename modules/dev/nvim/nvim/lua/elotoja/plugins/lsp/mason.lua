@@ -29,7 +29,7 @@ return {
 				"lua_ls",
 				"emmet_ls",
 				"pyright",
-				-- "zls",
+				"zls",
 				"gopls",
 				-- "clangd", -- replaced by clang-tools from nixpkgs
 				"taplo",

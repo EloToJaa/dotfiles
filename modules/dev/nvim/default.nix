@@ -37,8 +37,9 @@ in {
     lua54Packages.luarocks
 
     # Zig
-    inputs.zig.packages.${pkgs.system}.master
-    inputs.zls.packages.${pkgs.system}.zls
+    # inputs.zig.packages.${pkgs.system}.master
+    zig
+    # inputs.zls.packages.${pkgs.system}.zls
 
     # Formatters
     alejandra
