@@ -188,6 +188,9 @@
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
 
+        "$mainMod, bracketleft, workspace, -1"
+        "$mainMod, bracketright, workspace, +1"
+
         # same as above, but switch to the workspace
         "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
         "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
@@ -200,6 +203,9 @@
         "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
         "$mainMod CTRL, c, movetoworkspace, empty"
+
+        "$mainMod SHIFT, bracketleft, movetoworkspacesilent, -1"
+        "$mainMod SHIFT, bracketright, movetoworkspacesilent, +1"
 
         # move workspace to another monitor
         "$mainMod, comma, movecurrentworkspacetomonitor, l"
