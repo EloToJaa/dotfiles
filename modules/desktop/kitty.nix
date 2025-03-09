@@ -3,11 +3,11 @@
     enable = true;
 
     font = {
-      name = "Maple Mono";
+      name = "JetBrainsMono Nerd Font";
       size =
         if (host == "laptop")
-        then 15
-        else 16;
+        then 14
+        else 15;
     };
 
     settings = {
