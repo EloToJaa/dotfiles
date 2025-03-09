@@ -15,6 +15,7 @@
   sops.secrets = {
     "leetcode/csrftoken" = {};
     "leetcode/session" = {};
+    "aoc/session" = {};
   };
 
   home.packages = with pkgs; [
