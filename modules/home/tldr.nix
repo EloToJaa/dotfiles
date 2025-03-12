@@ -10,7 +10,7 @@
     ''
       [display]
       use_pager = false
-      compact = true
+      compact = false
 
       [updates]
       auto_update = true
