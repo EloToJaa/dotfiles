@@ -9,7 +9,7 @@
     */
     ''
       [display]
-      use_pager = true
+      use_pager = false
       compact = true
 
       [updates]
