@@ -11,28 +11,36 @@
     yazi
   ];
 
-  programs.zsh.initExtra = ''
-    function y() {
-    	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    	yazi "$@" --cwd-file="$tmp"
-    	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    		builtin cd -- "$cwd"
-    	fi
-    	rm -f -- "$tmp"
-    }
-  '';
+  programs.zsh.initExtra =
+    /*
+    sh
+    */
+    ''
+      function y() {
+      	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      	yazi "$@" --cwd-file="$tmp"
+      	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      		builtin cd -- "$cwd"
+      	fi
+      	rm -f -- "$tmp"
+      }
+    '';
 
-  programs.nushell.extraEnv = ''
-    def --env y [...args] {
-     let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-     yazi ...$args --cwd-file $tmp
-     let cwd = (open $tmp)
-     if $cwd != "" and $cwd != $env.PWD {
-      cd $cwd
-     }
-     rm -fp $tmp
-    }
-  '';
+  programs.nushell.extraEnv =
+    /*
+    nu
+    */
+    ''
+      def --env y [...args] {
+       let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+       yazi ...$args --cwd-file $tmp
+       let cwd = (open $tmp)
+       if $cwd != "" and $cwd != $env.PWD {
+        cd $cwd
+       }
+       rm -fp $tmp
+      }
+    '';
 
   # catppuccin.yazi = {
   #   enable = true;

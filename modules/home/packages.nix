@@ -8,7 +8,6 @@
     man-pages # extra man pages
     openssl
     ripgrep # grep replacement
-    tealdeer # tldr replacement
     usbutils
     unzip
     wget
