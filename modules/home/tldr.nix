@@ -3,7 +3,7 @@
     tealdeer # tldr replacement
   ];
 
-  xdg.configFile."tldr/config.toml".text =
+  xdg.configFile."tealdeer/config.toml".text =
     /*
     toml
     */
