@@ -28,6 +28,7 @@ in {
     #     click
     #     requests
     #   ]))
+    python313
     uv
     nodejs
     npm-check-updates
