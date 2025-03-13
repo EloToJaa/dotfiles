@@ -5,6 +5,7 @@ return {
 	exit_behavior_messaging = "Verbose",
 	status_update_interval = 1000,
 	default_workspace = "main",
+	check_for_updates = false,
 
 	scrollback_lines = 10000,
 
