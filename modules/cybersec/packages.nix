@@ -2,9 +2,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  pypkgs = pkgs.python313Packages;
-in {
+}: {
   home.packages = with pkgs; [
     # Recon
     nmap
@@ -24,7 +22,7 @@ in {
     ghidra
     inputs.pwndbg.packages.${pkgs.system}.pwndbg
 
-    pypkgs.pwntools
-    pypkgs.ropper
+    # pypkgs.pwntools
+    # pypkgs.ropper
   ];
 }

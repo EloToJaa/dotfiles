@@ -20,7 +20,6 @@ return {
 				graphql = { "prettierd", "prettier" },
 				liquid = { "prettierd", "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
 				nix = { "alejandra" },
 				rust = { "rustfmt" },
 				sql = { "sqlfmt" },

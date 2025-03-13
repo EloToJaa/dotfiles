@@ -11,7 +11,7 @@ return {
 				"--stdin-filename",
 				"%filepath",
 				"--ext",
-				".js,.ts,.svelte,.astro", -- specify file extensions here
+				".js,.ts,.svelte,.astro,.jsx,.tsx,.vue", -- specify file extensions here
 			},
 			stdin = true,
 		}
@@ -23,7 +23,6 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			astro = { "eslint_d" },
-			python = { "pylint" },
 			-- cpp = { "cpplint" },
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },

@@ -213,6 +213,26 @@ return {
 					},
 				})
 			end,
+			["pyright"] = function()
+				lspconfig.pyright.setup({
+					capabilities = capabilities,
+					settings = {
+						pyright = {
+							disableOrganizeImports = true,
+						},
+						python = {
+							analysis = {
+								ignore = { "*" },
+							},
+						},
+					},
+				})
+			end,
+			["ruff"] = function()
+				lspconfig.ruff.setup({
+					capabilities = capabilities,
+				})
+			end,
 		})
 	end,
 }

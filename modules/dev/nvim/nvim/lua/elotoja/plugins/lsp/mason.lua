@@ -29,6 +29,7 @@ return {
 				"lua_ls",
 				"emmet_ls",
 				"pyright",
+				"ruff",
 				"zls",
 				"gopls",
 				-- "clangd", -- replaced by clang-tools from nixpkgs
@@ -50,11 +51,8 @@ return {
 				"prettierd",
 				"stylua",
 				"luacheck",
-				"isort",
-				"black",
 				-- "clang-format", -- replaced by clang-tools from nixpkgs
 				"shfmt",
-				"pylint",
 				"eslint_d",
 				-- "cpplint",
 				"sqlfluff",
