@@ -58,6 +58,7 @@ return {
 				"sqlfluff",
 				"sqlfmt",
 				"gofumpt",
+				"mypy",
 			},
 		})
 	end,

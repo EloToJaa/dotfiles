@@ -26,6 +26,7 @@ return {
 			-- cpp = { "cpplint" },
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },
+			python = { "mypy" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
