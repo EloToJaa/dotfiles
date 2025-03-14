@@ -222,7 +222,8 @@ return {
 						},
 						python = {
 							analysis = {
-								ignore = { "*" },
+								-- ignore = { "*" },
+								typeCheckingMode = "basic",
 							},
 						},
 					},
