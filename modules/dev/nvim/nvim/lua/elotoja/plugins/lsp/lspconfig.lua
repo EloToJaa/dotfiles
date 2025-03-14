@@ -216,8 +216,10 @@ return {
 			["ruff"] = function()
 				lspconfig.ruff.setup({
 					capabilities = capabilities,
-					settings = {
-						organizeImports = true,
+					init_options = {
+						settings = {
+							organizeImports = true,
+						},
 					},
 				})
 			end,
