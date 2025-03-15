@@ -106,6 +106,15 @@ return {
 			capabilities = capabilities,
 		})
 
+		lspconfig.ruff.setup({
+			capabilities = capabilities,
+			init_options = {
+				settings = {
+					organizeImports = true,
+				},
+			},
+		})
+
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
 			function(server_name)
@@ -209,16 +218,6 @@ return {
 							completion = {
 								callSnippet = "Replace",
 							},
-						},
-					},
-				})
-			end,
-			["ruff"] = function()
-				lspconfig.ruff.setup({
-					capabilities = capabilities,
-					init_options = {
-						settings = {
-							organizeImports = true,
 						},
 					},
 				})
