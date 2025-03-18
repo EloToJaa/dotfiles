@@ -40,7 +40,7 @@ in {
         l = "eza --icons -a --group-directories-first -1";
         ll = "eza --icons -a --group-directories-first -1 --long -g";
         ns = "nom-shell --run zsh";
-        nix-dev = "nix develop --command zsh";
+        nix-dev = "nom develop --command zsh";
       };
     nushell.shellAliases =
       shellAliases
@@ -48,7 +48,7 @@ in {
         l = "ls";
         ll = "ls -la";
         ns = "nom-shell --run nu";
-        nix-dev = "nix develop --command nu";
+        nix-dev = "nom develop --command nu";
       };
   };
 }
