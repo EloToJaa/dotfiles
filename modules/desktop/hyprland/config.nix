@@ -1,5 +1,10 @@
-{variables, ...}: {
+{
+  variables,
+  pkgs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
+    package = pkgs.hyprland;
     settings = {
       # autostart
       exec-once = [
