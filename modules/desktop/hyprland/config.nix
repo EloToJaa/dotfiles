@@ -280,28 +280,20 @@
 
       # windowrule
       windowrule = [
-        # "float,qView"
-        # "center,qView"
-        # "size 1200 725,qView"
-        "float,imv"
-        "center,imv"
-        "size 1200 725,imv"
-        "float,mpv"
-        "center,mpv"
-        "size 1200 725,mpv"
-        "float,audacious"
-        "pin,rofi"
-        "pin,waypaper"
-        "tile, neovide"
-        "idleinhibit focus,mpv"
-        "float,udiskie"
+        "float,class:^(imv)$"
+        "center,class:^(imv)$"
+        "size 1200 725,class:^(imv)$"
+        "float,class:^(mpv)$"
+        "center,class:^(mpv)$"
+        "size 1200 725,class:^(mpv)$"
+        "float,class:^(audacious)$"
+        "pin,class:^(rofi)$"
+        "pin,class:^(waypaper)$"
+        "idleinhibit focus,class:^(mpv)$"
         "float,title:^(Volume Control)$"
-        "size 700 450,title:^(Volume Control)$"
-        "move 40 55%,title:^(Volume Control)$"
-      ];
+        "size 1200 725,title:^(Volume Control)$"
+        "center,title:^(Volume Control)$"
 
-      # windowrulev2
-      windowrulev2 = [
         "bordersize 0, floating:0, onworkspace:w[t1]"
         "rounding 0, floating:0, onworkspace:w[t1]"
         "bordersize 0, floating:0, onworkspace:w[tg1]"
