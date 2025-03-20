@@ -33,8 +33,24 @@ return {
 				timeout_ms = 1000,
 			},
 			formatters = {
-				black = {
-					prepended_args = { "-l", "79" },
+				ruff_organize_imports = {
+					command = "ruff",
+					args = {
+						"check",
+						"--force-exclude",
+						"--select=I001",
+						"--fix",
+						"--exit-zero",
+						"--stdin-filename",
+						"$FILENAME",
+						"-",
+					},
+					stdin = true,
+					cwd = require("conform.util").root_file({
+						"pyproject.toml",
+						"ruff.toml",
+						".ruff.toml",
+					}),
 				},
 			},
 		})
