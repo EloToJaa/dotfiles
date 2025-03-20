@@ -290,16 +290,18 @@
         "pin,class:^(rofi)$"
         "pin,class:^(waypaper)$"
         "idleinhibit focus,class:^(mpv)$"
-        "float,title:^(Volume Control)$"
-        "size 1200 725,title:^(Volume Control)$"
-        "center,title:^(Volume Control)$"
+        "float,class:^(org.pulseaudio.pavucontrol)$"
+        "size 1200 725,class:^(org.pulseaudio.pavucontrol)$"
+        "center,class:^(org.pulseaudio.pavucontrol)$"
 
+        # No gaps when only
         "bordersize 0, floating:0, onworkspace:w[t1]"
         "rounding 0, floating:0, onworkspace:w[t1]"
         "bordersize 0, floating:0, onworkspace:w[tg1]"
         "rounding 0, floating:0, onworkspace:w[tg1]"
         "bordersize 0, floating:0, onworkspace:f[1]"
         "rounding 0, floating:0, onworkspace:f[1]"
+
         "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
@@ -315,8 +317,6 @@
         "workspace 8, class:^(com.obsproject.Studio)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
-        "float,class:^(zenity)$"
-        "size 850 500,class:^(zenity)$"
         "float,class:^(org.gnome.FileRoller)$"
         "float,class:^(org.pulseaudio.pavucontrol)$"
         "float,class:^(.sameboy-wrapped)$"
@@ -342,11 +342,13 @@
         # "maxsize 1111 700, floating: 1"
         # "center, floating: 1"
 
+        # Remove context menu transparancy in chromium based apps
         "opaque,class:^()$,title:^()$"
         "noshadow,class:^()$,title:^()$"
         "noblur,class:^()$,title:^()$"
       ];
 
+      # No gaps when only
       workspace = [
         "w[t1], gapsout:0, gapsin:0"
         "w[tg1], gapsout:0, gapsin:0"
