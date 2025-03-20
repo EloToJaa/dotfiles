@@ -23,11 +23,6 @@ in {
     gnumake
 
     # Programming languages
-    # (python313.withPackages (pypkgs:
-    #   with pypkgs; [
-    #     click
-    #     requests
-    #   ]))
     python313
     uv
     nodejs
@@ -70,7 +65,7 @@ in {
     nushell = {
       shellAliases = shellAliases;
       extraEnv = ''
-        $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}" "${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}"]);
+        $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}" "${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}" "${makeBinPath ["${homeDirectory}/.local"]}"]);
       '';
     };
   };
