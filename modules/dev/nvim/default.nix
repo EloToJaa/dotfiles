@@ -55,7 +55,7 @@ in {
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
-    PATH = "${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}:${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:$PATH";
+    PATH = "${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}:${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:${makeBinPath ["${homeDirectory}/.local"]}:$PATH";
   };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
