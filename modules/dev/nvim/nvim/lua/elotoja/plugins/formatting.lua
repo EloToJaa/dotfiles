@@ -26,6 +26,7 @@ return {
 				c = { "clang-format" },
 				cpp = { "clang-format" },
 				go = { "gofumpt" },
+				python = { "ruff_organize_imports" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
