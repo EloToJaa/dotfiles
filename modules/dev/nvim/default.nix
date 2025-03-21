@@ -23,7 +23,11 @@ in {
     gnumake
 
     # Programming languages
-    python313
+    (python313.withPackages (pypkgs:
+      with pypkgs; [
+        click
+        requests
+      ]))
     uv
     nodejs
     npm-check-updates
