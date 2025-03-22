@@ -23,7 +23,7 @@ in {
     gnumake
 
     # Programming languages
-    (python313.withPackages (pypkgs:
+    (python3.withPackages (pypkgs:
       with pypkgs; [
         click
         requests

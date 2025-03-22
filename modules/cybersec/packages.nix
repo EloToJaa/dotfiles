@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  pypkgs = pkgs.python313.pkgs;
+  pypkgs = pkgs.python3.pkgs;
 in {
   home.packages = with pkgs; [
     # Recon
