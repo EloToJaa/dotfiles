@@ -2,7 +2,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  pypkgs = pkgs.python313.pkgs;
+in {
   home.packages = with pkgs; [
     # Recon
     nmap
