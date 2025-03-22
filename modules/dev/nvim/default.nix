@@ -32,7 +32,7 @@ in {
         pipx
         pwntools
         ropper
-        angr
+        # angr
         pycryptodome
       ]))
     # uv
