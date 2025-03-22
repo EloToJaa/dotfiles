@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  pypkgs = pkgs.python3.pkgs;
+  pypkgs = pkgs.python312.pkgs;
 in {
   home.packages = with pkgs; [
     # Recon
@@ -26,7 +26,7 @@ in {
 
     pypkgs.pwntools
     pypkgs.ropper
-    pkgs.python312.pkgs.angr
+    pypkgs.angr
     pypkgs.pycryptodome
   ];
 }
