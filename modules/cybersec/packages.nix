@@ -22,7 +22,7 @@
     ghidra
     inputs.pwndbg.packages.${pkgs.system}.pwndbg
 
-    # pypkgs.pwntools
-    # pypkgs.ropper
+    pypkgs.pwntools
+    pypkgs.ropper
   ];
 }
