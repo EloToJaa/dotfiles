@@ -35,7 +35,7 @@ in {
         # angr
         pycryptodome
       ]))
-    # uv
+    uv
     nodejs
     npm-check-updates
     go
