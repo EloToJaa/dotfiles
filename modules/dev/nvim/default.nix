@@ -27,6 +27,7 @@ in {
       with pypkgs; [
         click
         requests
+        flask
       ]))
     # uv
     nodejs
