@@ -28,6 +28,8 @@ in {
         click
         requests
         flask
+        pip
+        pipx
       ]))
     # uv
     nodejs
