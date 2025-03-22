@@ -24,5 +24,7 @@
 
     pypkgs.pwntools
     pypkgs.ropper
+    pypkgs.angr
+    pypkgs.pycryptodome
   ];
 }
