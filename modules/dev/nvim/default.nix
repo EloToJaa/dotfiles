@@ -28,7 +28,7 @@ in {
         click
         requests
       ]))
-    uv
+    # uv
     nodejs
     npm-check-updates
     go
