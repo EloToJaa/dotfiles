@@ -222,6 +222,18 @@ return {
 					},
 				})
 			end,
+			["pyright"] = function()
+				lspconfig.pyright.setup({
+					pyright = {
+						disableOrganizeImports = true,
+					},
+					python = {
+						analysis = {
+							ignore = { "*" },
+						},
+					},
+				})
+			end,
 		})
 	end,
 }

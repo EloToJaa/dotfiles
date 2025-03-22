@@ -28,7 +28,7 @@ return {
 				"svelte",
 				"lua_ls",
 				"emmet_ls",
-				-- "pyright",
+				"pyright",
 				"ruff",
 				"zls",
 				"gopls",
