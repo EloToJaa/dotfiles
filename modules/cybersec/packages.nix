@@ -26,7 +26,7 @@ in {
 
     pypkgs.pwntools
     pypkgs.ropper
-    pypkgs.angr
+    pkgs.python312.pkgs.angr
     pypkgs.pycryptodome
   ];
 }
