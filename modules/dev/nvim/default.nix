@@ -30,6 +30,10 @@ in {
         flask
         pip
         pipx
+        pwntools
+        ropper
+        angr
+        pycryptodome
       ]))
     # uv
     nodejs

@@ -24,9 +24,9 @@ in {
     ghidra
     inputs.pwndbg.packages.${pkgs.system}.pwndbg
 
-    pypkgs.pwntools
-    pypkgs.ropper
-    pypkgs.angr
-    pypkgs.pycryptodome
+    # pypkgs.pwntools
+    # pypkgs.ropper
+    # pypkgs.angr
+    # pypkgs.pycryptodome
   ];
 }
