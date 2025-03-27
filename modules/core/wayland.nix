@@ -25,5 +25,4 @@
   };
 
   boot.initrd.kernelModules = ["amdgpu"];
-  boot.kernelModules = ["v4l2loopback"];
 }
