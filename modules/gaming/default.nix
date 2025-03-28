@@ -1,6 +1,9 @@
-{...}: {
+{variables, ...}: {
+  home-manager.users.${variables.username}.imports = [
+    ./packages.nix
+  ];
+
   imports = [
-    ./packages.nix # other packages
     ./steam.nix
   ];
 }

@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
+    ./../../modules/gaming
   ];
 
   home-manager.users.${variables.username}.imports = [
@@ -10,7 +11,6 @@
     ./../../modules/dev
     ./../../modules/desktop
     ./../../modules/cybersec
-    ./../../modules/gaming
   ];
 
   networking = {

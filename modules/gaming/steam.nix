@@ -1,10 +1,12 @@
 {pkgs, ...}: {
+  # https://nixos.wiki/wiki/Steam
   programs = {
     steam = {
       enable = true;
 
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = false;
+      localNetworkGameTransfers.openFirewall = false;
 
       gamescopeSession.enable = true;
 
@@ -20,4 +22,5 @@
       ];
     };
   };
+  hardware.xone.enable = false; # support for the xbox controller USB dongle
 }
