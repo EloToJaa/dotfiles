@@ -10,6 +10,7 @@
     ./../../modules/dev
     ./../../modules/desktop
     ./../../modules/cybersec
+    ./../../modules/gaming
   ];
 
   networking = {
