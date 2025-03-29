@@ -4,5 +4,5 @@
   lib,
   ...
 }: {
-  users.users.${variables.username}.shell = lib.mkForce pkgs.nushell;
+  # users.users.${variables.username}.shell = lib.mkForce pkgs.nushell;
 }
