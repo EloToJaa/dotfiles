@@ -30,6 +30,7 @@
     wineWowPackages.wayland
     zenity
     remmina
+    jetbrains.idea-community
 
     android-studio
 
