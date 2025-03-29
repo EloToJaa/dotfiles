@@ -17,7 +17,7 @@
     chromium
     dconf-editor
     gimp
-    imv # image viewer
+    # imv # image viewer
     libreoffice
     mpv # video player
     nix-prefetch-github
@@ -25,7 +25,7 @@
     thunderbird
     pavucontrol # pulseaudio volume controle (GUI)
     qalculate-gtk # calculator
-    # qview                             # minimal image viewer
+    qview # minimal image viewer
     winetricks
     wineWowPackages.wayland
     zenity
