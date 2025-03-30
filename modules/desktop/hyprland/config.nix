@@ -282,9 +282,9 @@
 
       # windowrule
       windowrule = [
-        "float,class:^(imv)$"
-        "center,class:^(imv)$"
-        "size 1200 725,class:^(imv)$"
+        "float,class:^(com.interversehq.qView)$"
+        "center,class:^(com.interversehq.qView)$"
+        "size 1200 725,class:^(com.interversehq.qView)$"
         "float,class:^(mpv)$"
         "center,class:^(mpv)$"
         "size 1200 725,class:^(mpv)$"

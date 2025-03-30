@@ -3,7 +3,7 @@ with lib; let
   defaultApps = {
     browser = ["zen.desktop"];
     text = ["org.gnome.TextEditor.desktop"];
-    image = ["imv-dir.desktop"];
+    image = ["com.interversehq.qView.desktop"];
     audio = ["mpv.desktop"];
     video = ["mpv.desktop"];
     directory = ["nemo.desktop"];
