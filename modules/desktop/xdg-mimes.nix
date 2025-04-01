@@ -24,6 +24,7 @@ with lib; let
       "swappy.desktop"
       "chromium-browser.desktop"
     ];
+    video = ["umpv.desktop"];
   };
 
   mimeMap = {
