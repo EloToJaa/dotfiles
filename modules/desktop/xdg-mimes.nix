@@ -92,7 +92,7 @@ with lib; let
 
   removedAssociations = with lists;
     listToAttrs (
-      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type removedApps."${key}") mimeMap))
+      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type removedApps."${key}")) mimeMap)
     );
 in {
   xdg = {
