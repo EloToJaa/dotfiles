@@ -18,6 +18,10 @@ with lib; let
     discord = ["discord.desktop"];
   };
 
+  removedApps = {
+    image = ["org.gimp.GIMP.desktop"];
+  };
+
   mimeMap = {
     text = ["text/plain"];
     image = [
@@ -85,12 +89,18 @@ with lib; let
     listToAttrs (
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
+
+  removedAssociations = with lists;
+    listToAttrs (
+      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type removedApps."${key}") mimeMap))
+    );
 in {
   xdg = {
     configFile."mimeapps.list".force = true;
     mimeApps = {
       enable = true;
       associations.added = associations;
+      associations.removed = removedAssociations;
       defaultApplications = associations;
     };
   };
@@ -98,6 +108,6 @@ in {
   home.sessionVariables = {
     # prevent wine from creating file associations
     WINEDLLOVERRIDES = "winemenubuilder.exe=d";
-    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config/";
+    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
   };
 }
