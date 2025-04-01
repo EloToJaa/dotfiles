@@ -19,7 +19,11 @@ with lib; let
   };
 
   removedApps = {
-    image = ["org.gimp.GIMP.desktop"];
+    image = [
+      "gimp.desktop"
+      "swappy.desktop"
+      "chromium-browser.desktop"
+    ];
   };
 
   mimeMap = {
@@ -90,10 +94,16 @@ with lib; let
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 
-  removedAssociations = with lists;
-    listToAttrs (
-      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type removedApps."${key}")) mimeMap)
-    );
+  removedAssociations = with lists; let
+    generateRemoved = category: let
+      mimeTypeList = mimeMap."${category}" or []; # Handle missing categories
+      removeList = removedApps."${category}" or []; # Handle missing categories
+    in
+      map (mimeType: attrsets.nameValuePair mimeType removeList) mimeTypeList;
+
+    allRemoved = flatten (mapAttrsToList (cat: val: generateRemoved cat) removedApps);
+  in
+    listToAttrs allRemoved;
 in {
   xdg = {
     configFile."mimeapps.list".force = true;
