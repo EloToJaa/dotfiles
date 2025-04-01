@@ -1,6 +1,4 @@
-{pkgs, ...}: let
-  vuetorrent = pkgs.callPackage ../../pkgs/vuetorrent.nix {};
-in {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     qbittorrent
     vuetorrent

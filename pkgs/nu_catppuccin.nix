@@ -3,14 +3,14 @@
   lib,
 }:
 pkgs.stdenvNoCC.mkDerivation rec {
-  pname = "catppuccin-nushell";
-  version = "0-unstable-2025-01-03";
+  pname = "nushell";
+  version = "0-unstable-2025-04-01";
 
   src = pkgs.fetchFromGitHub {
-    owner = "NikitaRevenco";
+    owner = "catppuccin";
     repo = pname;
-    rev = "10a429db05e74787b12766652dc2f5478da43b6f";
-    hash = "sha256-7XfoWsrMRGefc3ygxixUqAOfkg2ssj7o60Gi74S2lXw=";
+    rev = "82c31124b39294c722f5853cf94edc01ad5ddf34";
+    hash = "sha256-O95OrdF9UA5xid1UlXzqrgZqw3fBpTChUDmyExmD2i4=";
   };
 
   installPhase = ''
