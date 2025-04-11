@@ -3,6 +3,10 @@
   variables,
   ...
 }: {
+  home.packages = with pkgs; [
+    lxappearance
+  ];
+
   gtk = {
     enable = true;
     font = {
@@ -14,6 +18,15 @@
       package = pkgs.catppuccin-papirus-folders.override {
         flavor = "${variables.catppuccin.flavor}";
         accent = "${variables.catppuccin.accent}";
+      };
+    };
+    theme = {
+      name = "Orchis";
+      package = pkgs.orchis-theme.override {
+        tweaks = [
+          "black"
+          "primary"
+        ];
       };
     };
     cursorTheme = {
