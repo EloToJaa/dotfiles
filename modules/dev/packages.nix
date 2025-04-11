@@ -14,6 +14,7 @@
     todo # cli todo list
     valgrind # c memory analyzer
     xxd
+    hyperfine
 
     ## SQL
     pgcli

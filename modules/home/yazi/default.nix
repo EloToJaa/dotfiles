@@ -7,7 +7,8 @@
     imagemagick
     poppler
     resvg
-    p7zip
+    ouch
+    glow
     mediainfo
     yazi
   ];
