@@ -16,10 +16,10 @@
         accent = "${variables.catppuccin.accent}";
       };
     };
-    theme = {
-      name = "Dracula";
-      package = pkgs.dracula-theme;
-    };
+    # theme = {
+    #   name = "Dracula";
+    #   package = pkgs.dracula-theme;
+    # };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
