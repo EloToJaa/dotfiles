@@ -6,6 +6,7 @@
     ffmpegthumbnailer
     imagemagick
     poppler
+    resvg
     p7zip
     mediainfo
     yazi
