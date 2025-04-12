@@ -2,11 +2,9 @@
   pkgs,
   inputs,
   lib,
-  variables,
+  system,
   ...
-}: let
-  system = "x86_64-linux";
-in {
+}: {
   home.packages = with pkgs; [
     exiftool
     jq
