@@ -53,21 +53,47 @@
     (inputs.nix-yazi-plugins.legacyPackages.x86_64-linux.homeManagerModules.default)
   ];
 
-  # catppuccin.yazi = {
-  #   enable = true;
-  #   flavor = "${variables.catppuccin.flavor}";
-  #   accent = "${variables.catppuccin.accent}";
-  # };
-
   programs.yazi = {
     enable = true;
-  };
-
-  programs.yazi.yaziPlugins = {
-    enable = true;
-    plugins = {
-      relative-motions = {
-        enable = true;
+    yaziPlugins = {
+      enable = true;
+      plugins = {
+        jump-to-char = {
+          enable = true;
+          keys.toggle.on = ["F"];
+        };
+        relative-motions = {
+          enable = true;
+          show-numbers = "relative_absolute";
+          show-motion = true;
+        };
+        chmod = {
+          enable = true;
+        };
+        git = {
+          enable = true;
+        };
+        glow = {
+          enable = true;
+        };
+        exifaudio = {
+          enable = true;
+        };
+        max-preview = {
+          enable = true;
+        };
+        hide-preview = {
+          enable = true;
+        };
+        ouch = {
+          enable = true;
+        };
+        smart-filter = {
+          enable = true;
+        };
+        system-clipboard = {
+          enable = true;
+        };
       };
     };
   };
