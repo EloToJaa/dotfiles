@@ -1,6 +1,10 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [nemo];
 
+  home.sessionVariables = {
+    GTK_FILE_CHOOSER = "nemo";
+  };
+
   dconf.settings = {
     "org/nemo/preferences" = {
       always-use-browser = true;
