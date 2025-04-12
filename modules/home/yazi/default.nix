@@ -51,12 +51,12 @@
     '';
 
   imports = [
-    (inputs.nix-yazi-plugins.legacyPackages.${pkgs.system}.homeManagerModules.default)
+    (inputs.nix-yazi-plugins.legacyPackages."${pkgs.system}".homeManagerModules.default)
   ];
 
   programs.yazi = {
     enable = true;
-    package = lib.mkForce inputs.yazi.packages.${pkgs.system}.default;
+    package = lib.mkForce inputs.yazi.packages."${pkgs.system}".default;
     yaziPlugins = {
       enable = true;
       plugins = {
