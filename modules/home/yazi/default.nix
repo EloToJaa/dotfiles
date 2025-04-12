@@ -51,7 +51,7 @@
     '';
 
   imports = [
-    (inputs.nix-yazi-plugins.legacyPackages.x86_64-linux.homeManagerModules.default)
+    (inputs.nix-yazi-plugins.legacyPackages.${pkgs.system}.homeManagerModules.default)
   ];
 
   programs.yazi = {
