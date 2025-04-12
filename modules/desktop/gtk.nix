@@ -21,13 +21,8 @@
       };
     };
     theme = {
-      name = "Orchis";
-      package = pkgs.orchis-theme.override {
-        tweaks = [
-          "black"
-          "primary"
-        ];
-      };
+      name = "Orchis-Dark-Compact";
+      package = pkgs.orchis-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
