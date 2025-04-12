@@ -4,7 +4,9 @@
   lib,
   variables,
   ...
-}: {
+}: let
+  system = "${pkgs.system}";
+in {
   home.packages = with pkgs; [
     exiftool
     jq
@@ -51,12 +53,12 @@
     '';
 
   imports = [
-    (inputs.nix-yazi-plugins.legacyPackages.${pkgs.system}.homeManagerModules.default)
+    (inputs.nix-yazi-plugins.legacyPackages.${system}.homeManagerModules.default)
   ];
 
   programs.yazi = {
     enable = true;
-    package = lib.mkForce inputs.yazi.packages."${pkgs.system}".default;
+    package = lib.mkForce inputs.yazi.packages."${system}".default;
     yaziPlugins = {
       enable = true;
       plugins = {
