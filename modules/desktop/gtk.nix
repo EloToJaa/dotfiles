@@ -27,9 +27,7 @@
     theme = {
       name = "Orchis-Dark-Compact";
       package = pkgs.orchis-theme.override {
-        tweaks = [
-          "primary"
-        ];
+        tweaks = ["primary"];
       };
     };
     cursorTheme = {

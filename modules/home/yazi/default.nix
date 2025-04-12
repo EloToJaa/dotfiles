@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     exiftool
     jq
@@ -44,10 +48,17 @@
       }
     '';
 
-  # catppuccin.yazi = {
+  # imports = [
+  #   (inputs.nix-yazi-plugins.packages.${pkgs.system}.homeManagerModules.default)
+  # ];
+
+  # programs.yazi.yaziPlugins = {
   #   enable = true;
-  #   flavor = "${variables.catppuccin.flavor}";
-  #   accent = "${variables.catppuccin.accent}";
+  #   plugins = {
+  #     relative-motions = {
+  #       enable = true;
+  #     };
+  #   };
   # };
 
   xdg.configFile = {

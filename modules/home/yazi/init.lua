@@ -1,4 +1,4 @@
-require("git"):setup()
+-- require("git"):setup()
 
 Status:children_add(function()
 	local h = cx.active.current.hovered
