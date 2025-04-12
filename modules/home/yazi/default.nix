@@ -25,42 +25,31 @@
   programs.yazi = {
     enable = true;
     package = lib.mkForce inputs.yazi.packages."${pkgs.system}".default;
+    plugins = {
+      custom = ./custom.nix;
+    };
     yaziPlugins = {
       enable = true;
       plugins = {
-        jump-to-char = {
-          enable = true;
-          keys.toggle.on = ["F"];
-        };
         relative-motions = {
           enable = true;
           show_numbers = "relative_absolute";
           show_motion = true;
         };
-        chmod = {
-          enable = true;
-        };
-        git = {
-          enable = true;
-        };
+        jump-to-char.enable = true;
+        chmod.enable = true;
+        copy-file-contents.enable = true;
+        git.enable = true;
+        smart-filter.enable = true;
         # glow = {
         #   enable = true;
         # };
         # exifaudio = {
         #   enable = true;
         # };
-        max-preview = {
-          enable = true;
-        };
-        hide-preview = {
-          enable = true;
-        };
         # ouch = {
         #   enable = true;
         # };
-        smart-filter = {
-          enable = true;
-        };
         # system-clipboard = {
         #   enable = true;
         # };
