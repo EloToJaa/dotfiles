@@ -65,8 +65,8 @@
         };
         relative-motions = {
           enable = true;
-          show-numbers = "relative_absolute";
-          show-motion = true;
+          show_numbers = "relative_absolute";
+          show_motion = true;
         };
         chmod = {
           enable = true;
