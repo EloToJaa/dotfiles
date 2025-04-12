@@ -76,9 +76,9 @@
         glow = {
           enable = true;
         };
-        exifaudio = {
-          enable = true;
-        };
+        # exifaudio = {
+        #   enable = true;
+        # };
         max-preview = {
           enable = true;
         };
