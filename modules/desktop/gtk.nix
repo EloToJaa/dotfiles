@@ -28,7 +28,6 @@
       name = "Orchis-Dark-Compact";
       package = pkgs.orchis-theme.override {
         tweaks = [
-          "black"
           "primary"
         ];
       };
