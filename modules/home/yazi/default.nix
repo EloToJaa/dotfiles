@@ -26,7 +26,7 @@
     enable = true;
     package = lib.mkForce inputs.yazi.packages."${pkgs.system}".default;
     plugins = {
-      custom = ./custom.nix;
+      # custom = ./custom.nix;
     };
     yaziPlugins = {
       enable = true;
