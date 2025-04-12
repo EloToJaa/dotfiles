@@ -7,6 +7,10 @@
     lxappearance
   ];
 
+  home.sessionVariables = {
+    GDK_BACKEND = "x11";
+  };
+
   gtk = {
     enable = true;
     font = {
