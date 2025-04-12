@@ -74,9 +74,9 @@
         git = {
           enable = true;
         };
-        glow = {
-          enable = true;
-        };
+        # glow = {
+        #   enable = true;
+        # };
         # exifaudio = {
         #   enable = true;
         # };
