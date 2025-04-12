@@ -4,12 +4,8 @@
   ...
 }: {
   home.packages = with pkgs; [
-    lxappearance
+    nwg-look
   ];
-
-  home.sessionVariables = {
-    GDK_BACKEND = "x11";
-  };
 
   gtk = {
     enable = true;
