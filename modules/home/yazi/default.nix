@@ -5,7 +5,7 @@
   variables,
   ...
 }: let
-  system = "${pkgs.system}";
+  system = "x86_64-linux";
 in {
   home.packages = with pkgs; [
     exiftool
@@ -53,7 +53,7 @@ in {
     '';
 
   imports = [
-    (inputs.nix-yazi-plugins.legacyPackages.${system}.homeManagerModules.default)
+    (inputs.nix-yazi-plugins.legacyPackages."${system}".homeManagerModules.default)
   ];
 
   programs.yazi = {
