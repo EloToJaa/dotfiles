@@ -39,7 +39,7 @@
         jump-to-char.enable = true;
         chmod.enable = true;
         copy-file-contents.enable = true;
-        git.enable = true;
+        # git.enable = true;
         smart-filter.enable = true;
         # glow = {
         #   enable = true;
