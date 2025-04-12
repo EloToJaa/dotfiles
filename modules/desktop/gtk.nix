@@ -7,6 +7,10 @@
     nwg-look
   ];
 
+  home.sessionVariables = {
+    GTK_THEME = "Orchis-Dark-Compact";
+  };
+
   gtk = {
     enable = true;
     font = {
@@ -21,8 +25,13 @@
       };
     };
     theme = {
-      name = "Orchis-Dark-Compact";
-      package = pkgs.orchis-theme;
+      # name = "Orchis-Dark-Compact";
+      package = pkgs.orchis-theme.override {
+        tweaks = [
+          "black"
+          "primary"
+        ];
+      };
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
