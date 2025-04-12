@@ -52,7 +52,7 @@ in {
     '';
 
   imports = [
-    (inputs.nix-yazi-plugins.legacyPackages."${system}".homeManagerModules.default)
+    inputs.nix-yazi-plugins.legacyPackages."${system}".homeManagerModules.default
   ];
 
   programs.yazi = {
