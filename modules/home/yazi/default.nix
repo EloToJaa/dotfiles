@@ -86,9 +86,9 @@
         hide-preview = {
           enable = true;
         };
-        ouch = {
-          enable = true;
-        };
+        # ouch = {
+        #   enable = true;
+        # };
         smart-filter = {
           enable = true;
         };
