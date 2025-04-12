@@ -92,9 +92,9 @@
         smart-filter = {
           enable = true;
         };
-        system-clipboard = {
-          enable = true;
-        };
+        # system-clipboard = {
+        #   enable = true;
+        # };
       };
     };
   };
