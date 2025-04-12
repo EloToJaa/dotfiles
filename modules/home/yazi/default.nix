@@ -31,12 +31,12 @@
     yaziPlugins = {
       enable = true;
       plugins = {
-        relative-motions = {
-          enable = true;
-          show_numbers = "relative_absolute";
-          show_motion = true;
-        };
-        jump-to-char.enable = true;
+        # relative-motions = {
+        #   enable = true;
+        #   show_numbers = "relative_absolute";
+        #   show_motion = true;
+        # };
+        # jump-to-char.enable = true;
         chmod.enable = true;
         copy-file-contents.enable = true;
         # git.enable = true;
