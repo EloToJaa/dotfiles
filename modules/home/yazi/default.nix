@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   variables,
   ...
 }: {
@@ -55,7 +56,7 @@
 
   programs.yazi = {
     enable = true;
-    package = inputs.yazi.packages.${pkgs.system}.default;
+    package = lib.mkForce inputs.yazi.packages.${pkgs.system}.default;
     yaziPlugins = {
       enable = true;
       plugins = {
