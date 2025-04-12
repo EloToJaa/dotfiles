@@ -49,13 +49,13 @@
       }
     '';
 
-  nixpkgs.overlays = [inputs.yazi.overlays.default];
   imports = [
     (inputs.nix-yazi-plugins.legacyPackages.x86_64-linux.homeManagerModules.default)
   ];
 
   programs.yazi = {
     enable = true;
+    package = inputs.yazi.packages.${pkgs.system}.default;
     yaziPlugins = {
       enable = true;
       plugins = {
