@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     exiftool
     jq
@@ -15,46 +10,15 @@
     ouch
     glow
     mediainfo
-    # yazi
+    inputs.yazi.packages."${pkgs.system}".default
   ];
 
-  imports = [
-    inputs.nix-yazi-plugins.legacyPackages.x86_64-linux.homeManagerModules.default
-  ];
-
-  programs.yazi = {
-    enable = true;
-    package = lib.mkForce inputs.yazi.packages."${pkgs.system}".default;
-    plugins = {
-      # custom = ./custom.nix;
-    };
-    yaziPlugins = {
-      enable = true;
-      plugins = {
-        # relative-motions = {
-        #   enable = true;
-        #   show_numbers = "relative_absolute";
-        #   show_motion = true;
-        # };
-        # jump-to-char.enable = true;
-        chmod.enable = true;
-        copy-file-contents.enable = true;
-        # git.enable = true;
-        smart-filter.enable = true;
-        # glow = {
-        #   enable = true;
-        # };
-        # exifaudio = {
-        #   enable = true;
-        # };
-        # ouch = {
-        #   enable = true;
-        # };
-        # system-clipboard = {
-        #   enable = true;
-        # };
-      };
-    };
+  xdg.configFile = {
+    "yazi/yazi.toml".source = ./yazi.toml;
+    "yazi/keymap.toml".source = ./keymap.toml;
+    "yazi/theme.toml".source = ./theme.toml;
+    "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
+    "yazi/init.lua".source = ./init.lua;
   };
 
   programs.zsh.initExtra =

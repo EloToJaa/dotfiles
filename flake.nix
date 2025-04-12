@@ -16,7 +16,6 @@
     };
 
     yazi.url = "github:sxyazi/yazi";
-    nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
 
     sops-nix.url = "github:Mic92/sops-nix";
 
