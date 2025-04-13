@@ -39,11 +39,6 @@ on = ["g", "t"]
 run = "cd ~/.local/share/Trash/files"
 desc = "Go ~/.local/share/Trash/files"
 
-[[manager.keymap]]
-on = ["g", "f"]
-run = "follow"
-desc = "Follow hovered symlink"
-
 # Search
 [[manager.keymap]]
 on = "Z"
