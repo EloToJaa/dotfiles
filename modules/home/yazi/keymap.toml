@@ -54,8 +54,10 @@ prepend_keymap = [
   ], run = "plugin chmod", desc = "Chmod on selected files" },
   { on = "<C-d>", run = "plugin diff", desc = "Diff the selected with the hovered file" },
   { on = "F", run = "plugin smart-filter", desc = "Smart filter" },
-  { on = "<A-y>", run = "plugin copy-file-contents", desc = "Copy contents of file" },
   { on = "C", run = "plugin ouch", desc = "Compress with ouch" },
   { on = "<C-e>", run = "seek 5", desc = "Seek forward 5" },
-  { on = "<C-y>", run = "seek -5", desc = "Seek backward 5" },
+  { on = "<C-q>", run = "seek -5", desc = "Seek backward 5" },
+  { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+  { on = "<C-y>", run = "plugin system-clipboard" },
+  { on = "<A-y>", run = "plugin copy-file-contents", desc = "Copy contents of file" },
 ]
