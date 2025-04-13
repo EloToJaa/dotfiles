@@ -5,6 +5,11 @@
     gnome-text-editor # gedit
   ];
 
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
+  };
+
   dconf.settings = {
     "org/gnome/TextEditor" = {
       custom-font = "CaskaydiaCove Nerd Font 15";
