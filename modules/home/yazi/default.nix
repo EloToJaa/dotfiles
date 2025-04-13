@@ -10,6 +10,10 @@
     ffmpegthumbnailer
     imagemagick
     poppler
+    ripgrep # grep replacement
+    ripgrep-all # rg for more file types
+    fd # find replacement
+    file # Show file information
     resvg
     ouch
     glow
@@ -25,7 +29,7 @@
     "yazi/Catppuccin-mocha.tmTheme".source = ./theme.tmTheme;
     "yazi/init.lua".source = ./init.lua;
 
-    #plugins
+    # Plugins
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./plugins/git.nix {};
     "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./plugins/smart-filter.nix {};
     "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./plugins/smart-enter.nix {};
@@ -37,6 +41,7 @@
     "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
     "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./plugins/hexyl.nix {};
+    "yazi/plugins/fr.yazi".source = pkgs.callPackage ./plugins/fr.nix {};
   };
 
   programs.zsh.initExtra =

@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 stdenv.mkDerivation {
-  pname = "yaziPlugins-glow";
+  pname = "yaziPlugins-hexyl";
   version = "unstable-2025-04-13";
 
   src = fetchFromGitHub {
