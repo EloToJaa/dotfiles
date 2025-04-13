@@ -14,17 +14,6 @@ max_height = 1000
 max_width = 1000
 tab_size = 2
 
-[[plugin.prepend_fetchers]]
-id = "git"
-name = "*"
-run = "git"
-
-[[plugin.prepend_fetchers]]
-id = "git"
-name = "*/"
-run = "git"
-
-
 [plugin]
 prepend_previewers = [
   { mime = "audio/*", run = "exifaudio" },
@@ -36,6 +25,13 @@ prepend_previewers = [
   { mime = "application/x-rar", run = "ouch" },
   { mime = "application/x-xz", run = "ouch" },
   { mime = "application/xz", run = "ouch" },
+]
+
+append_previewers = [{ name = "*", run = "hexyl" }]
+
+prepend_fetchers = [
+  { id = "git", name = "*", run = "git" },
+  { id = "git", name = "*/", run = "git" },
 ]
 
 [opener]

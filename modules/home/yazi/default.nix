@@ -14,6 +14,7 @@
     ouch
     glow
     mediainfo
+    hexyl
     inputs.yazi.packages."${pkgs.system}".default
   ];
 
@@ -33,6 +34,7 @@
     "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./plugins/exifaudio.nix {};
     "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
+    "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./plugins/hexyl.nix {};
   };
 
   programs.zsh.initExtra =
