@@ -21,6 +21,14 @@ prepend_keymap = [
   { on = [
     "g",
     "m",
+  ], run = "cd /mnt", desc = "Go /mnt" },
+  { on = [
+    "g",
+    "o",
+  ], run = "cd /opt", desc = "Go /opt" },
+  { on = [
+    "g",
+    "M",
   ], run = "cd ~/Music", desc = "Go ~/Music" },
   { on = [
     "g",
