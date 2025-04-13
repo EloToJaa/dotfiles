@@ -17,6 +17,8 @@
         "swww-daemon &"
 
         "hyprlock"
+
+        "kdeconnect-indicator &"
       ];
 
       input = {
