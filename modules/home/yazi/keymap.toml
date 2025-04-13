@@ -36,7 +36,7 @@ keymap = [
   ], run = "cd ~/Music", desc = "Go ~/Music" },
   { on = [
     "g",
-    "p",
+    "P",
   ], run = "cd ~/Pictures", desc = "Go ~/Pictures" },
   { on = [
     "g",
