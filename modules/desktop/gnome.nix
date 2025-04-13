@@ -5,9 +5,19 @@
     gnome-text-editor # gedit
   ];
 
-  programs.kdeconnect = {
+  programs.gnome-shell = {
     enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
+    extensions = [{package = pkgs.gnomeExtensions.gsconnect;}];
+  };
+
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
   dconf.settings = {
