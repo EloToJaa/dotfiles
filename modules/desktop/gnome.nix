@@ -5,10 +5,6 @@
     gnome-text-editor # gedit
   ];
 
-  # programs.gnome-shell = {
-  #   enable = true;
-  #   extensions = [{package = pkgs.gnomeExtensions.gsconnect;}];
-  # };
   services.kdeconnect.enable = true;
 
   dconf.settings = {
