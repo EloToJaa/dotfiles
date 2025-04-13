@@ -11,7 +11,7 @@
     imagemagick
     poppler
     ripgrep # grep replacement
-    ripgrep-all # rg for more file types
+    ripgrep-all # rg for more file types, optional
     fd # find replacement
     file # Show file information
     resvg
@@ -41,7 +41,6 @@
     "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
     "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./plugins/hexyl.nix {};
-    "yazi/plugins/fr.yazi".source = pkgs.callPackage ./plugins/fr.nix {};
   };
 
   programs.zsh.initExtra =
