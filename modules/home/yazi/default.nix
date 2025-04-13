@@ -31,6 +31,7 @@
 
     # Plugins
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./plugins/git.nix {};
+    "yazi/plugins/lazygit.yazi".source = pkgs.callPackage ./plugins/lazygit.nix {};
     "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./plugins/smart-filter.nix {};
     "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./plugins/smart-enter.nix {};
     "yazi/plugins/chmod.yazi".source = pkgs.callPackage ./plugins/chmod.nix {};
