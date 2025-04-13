@@ -28,9 +28,11 @@
     #plugins
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./plugins/git.nix {};
     "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./plugins/smart-filter.nix {};
+    "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./plugins/smart-enter.nix {};
     "yazi/plugins/chmod.yazi".source = pkgs.callPackage ./plugins/chmod.nix {};
     "yazi/plugins/diff.yazi".source = pkgs.callPackage ./plugins/diff.nix {};
     "yazi/plugins/copy-file-contents.yazi".source = pkgs.callPackage ./plugins/copy-file-contents.nix {};
+    "yazi/plugins/system-clipboard.yazi".source = pkgs.callPackage ./plugins/system-clipboard.nix {};
     "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./plugins/exifaudio.nix {};
     "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
