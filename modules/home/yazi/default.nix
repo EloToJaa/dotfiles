@@ -31,6 +31,8 @@
     "yazi/plugins/diff.yazi".source = pkgs.callPackage ./plugins/diff.nix {};
     "yazi/plugins/copy-file-contents.yazi".source = pkgs.callPackage ./plugins/copy-file-contents.nix {};
     "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./plugins/exifaudio.nix {};
+    "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
+    "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
   };
 
   programs.zsh.initExtra =

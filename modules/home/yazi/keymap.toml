@@ -17,3 +17,18 @@ desc = "Smart filter"
 on = "<A-y>"
 run = ["plugin copy-file-contents"]
 desc = "Copy contents of file"
+
+[[manager.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch"
+desc = "Compress with ouch"
+
+[[manager.prepend_keymap]]
+on = ["<C-e>"]
+run = "seek 5"
+desc = "Seek forward 5"
+
+[[manager.prepend_keymap]]
+on = ["<C-y>"]
+run = "seek -5"
+desc = "Seek backward 5"
