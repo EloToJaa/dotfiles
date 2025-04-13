@@ -1,87 +1,53 @@
-# Goto
-[[manager.keymap]]
-on = ["g", "D"]
-run = "cd ~/Documents"
-desc = "Go ~/Documents"
+[manager]
 
-[[manager.keymap]]
-on = ["g", "p"]
-run = "cd ~/Projects"
-desc = "Go ~/Projects"
+prepend_keymap = [
+  # Goto
+  { on = [
+    "g",
+    "D",
+  ], run = "cd ~/Documents", desc = "Go ~/Documents" },
+  { on = [
+    "g",
+    "p",
+  ], run = "cd ~/Projects", desc = "Go ~/Projects" },
+  { on = [
+    "g",
+    "l",
+  ], run = "cd ~/.local", desc = "Go ~/.local" },
+  { on = [
+    "g",
+    "s",
+  ], run = "cd ~/.ssh", desc = "Go ~/.ssh" },
+  { on = [
+    "g",
+    "m",
+  ], run = "cd ~/Music", desc = "Go ~/Music" },
+  { on = [
+    "g",
+    "P",
+  ], run = "cd ~/Pictures", desc = "Go ~/Pictures" },
+  { on = [
+    "g",
+    "v",
+  ], run = "cd ~/Videos", desc = "Go ~/Videos" },
+  { on = [
+    "g",
+    "t",
+  ], run = "cd ~/.local/share/Trash/files", desc = "Go ~/.local/share/Trash/files" },
 
-[[manager.keymap]]
-on = ["g", "l"]
-run = "cd ~/.local"
-desc = "Go ~/.local"
+  # Search
+  { on = "Z", run = "plugin fzf", desc = "Jump to a file/directory via fzf" },
+  { on = "z", run = "plugin zoxide", desc = "Jump to a directory via zoxide" },
 
-[[manager.keymap]]
-on = ["g", "s"]
-run = "cd ~/.ssh"
-desc = "Go ~/.ssh"
-
-[[manager.keymap]]
-on = ["g", "m"]
-run = "cd ~/Music"
-desc = "Go ~/Music"
-
-[[manager.keymap]]
-on = ["g", "P"]
-run = "cd ~/Pictures"
-desc = "Go ~/Pictures"
-
-[[manager.keymap]]
-on = ["g", "v"]
-run = "cd ~/Videos"
-desc = "Go ~/Videos"
-
-[[manager.keymap]]
-on = ["g", "t"]
-run = "cd ~/.local/share/Trash/files"
-desc = "Go ~/.local/share/Trash/files"
-
-# Search
-[[manager.keymap]]
-on = "Z"
-run = "plugin fzf"
-desc = "Jump to a file/directory via fzf"
-
-[[manager.keymap]]
-on = "z"
-run = "plugin zoxide"
-desc = "Jump to a directory via zoxide"
-
-# Plugins
-[[manager.keymap]]
-on = ["c", "m"]
-run = "plugin chmod"
-desc = "Chmod on selected files"
-
-[[manager.keymap]]
-on = "<C-d>"
-run = "plugin diff"
-desc = "Diff the selected with the hovered file"
-
-[[manager.keymap]]
-on = "F"
-run = "plugin smart-filter"
-desc = "Smart filter"
-
-[[manager.keymap]]
-on = "<A-y>"
-run = "plugin copy-file-contents"
-desc = "Copy contents of file"
-
-[[manager.keymap]]
-on = "C"
-run = "plugin ouch"
-desc = "Compress with ouch"
-
-[[manager.keymap]]
-on = "<C-e>"
-run = "seek 5"
-desc = "Seek forward 5"
-
-[[manager.keymap]]
-on = "<C-y>"
-run = "seek -5"
-desc = "Seek backward 5"
+  # Plugins
+  { on = [
+    "c",
+    "m",
+  ], run = "plugin chmod", desc = "Chmod on selected files" },
+  { on = "<C-d>", run = "plugin diff", desc = "Diff the selected with the hovered file" },
+  { on = "F", run = "plugin smart-filter", desc = "Smart filter" },
+  { on = "<A-y>", run = "plugin copy-file-contents", desc = "Copy contents of file" },
+  { on = "C", run = "plugin ouch", desc = "Compress with ouch" },
+  { on = "<C-e>", run = "seek 5", desc = "Seek forward 5" },
+  { on = "<C-y>", run = "seek -5", desc = "Seek backward 5" },
+]
