@@ -10,16 +10,6 @@
     extensions = [{package = pkgs.gnomeExtensions.gsconnect;}];
   };
 
-  networking.firewall = rec {
-    allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
-    allowedUDPPortRanges = allowedTCPPortRanges;
-  };
-
   dconf.settings = {
     "org/gnome/TextEditor" = {
       custom-font = "CaskaydiaCove Nerd Font 15";
