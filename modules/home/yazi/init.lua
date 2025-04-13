@@ -1,5 +1,10 @@
 require("git"):setup()
 
+require("copy-file-contents"):setup({
+	append_char = "\n",
+	notification = true,
+})
+
 Status:children_add(function()
 	local h = cx.active.current.hovered
 	if h == nil or ya.target_family() ~= "unix" then

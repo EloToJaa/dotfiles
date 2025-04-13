@@ -12,3 +12,8 @@ desc = "Diff the selected with the hovered file"
 on = "F"
 run = "plugin smart-filter"
 desc = "Smart filter"
+
+[[manager.prepend_keymap]]
+on = "<A-y>"
+run = ["plugin copy-file-contents"]
+desc = "Copy contents of file"
