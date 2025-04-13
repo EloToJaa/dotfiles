@@ -28,6 +28,7 @@
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./plugins/git.nix {};
     "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./plugins/smart-filter.nix {};
     "yazi/plugins/chmod.yazi".source = pkgs.callPackage ./plugins/chmod.nix {};
+    "yazi/plugins/diff.yazi".source = pkgs.callPackage ./plugins/diff.nix {};
     "yazi/plugins/copy-file-contents.yazi".source = pkgs.callPackage ./plugins/copy-file-contents.nix {};
     "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./plugins/exifaudio.nix {};
   };
