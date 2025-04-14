@@ -173,14 +173,14 @@ return {
 					},
 				})
 			end,
-			["templ"] = function()
-				lspconfig.templ.setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
-					end,
-				})
-			end,
+			-- ["templ"] = function()
+			-- 	lspconfig.templ.setup({
+			-- 		capabilities = capabilities,
+			-- 		on_attach = function(client, bufnr)
+			-- 			vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
+			-- 		end,
+			-- 	})
+			-- end,
 			["svelte"] = function()
 				lspconfig.svelte.setup({
 					capabilities = capabilities,
