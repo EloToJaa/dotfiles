@@ -38,6 +38,7 @@ in {
     uv
 
     nodejs
+    bun
     npm-check-updates
 
     go
