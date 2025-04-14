@@ -36,9 +36,13 @@ in {
         pycryptodome
       ]))
     uv
+
     nodejs
     npm-check-updates
+
     go
+    sqlc
+
     elixir
 
     lua5_4
