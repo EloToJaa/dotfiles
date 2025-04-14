@@ -42,6 +42,7 @@ in {
 
     go
     sqlc
+    goose
 
     elixir
 
