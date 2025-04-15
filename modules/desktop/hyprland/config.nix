@@ -18,7 +18,7 @@
 
         "hyprlock"
 
-        "kdeconnect-indicator &"
+        # "kdeconnect-indicator &"
       ];
 
       input = {
