@@ -14,7 +14,6 @@
       };
       gui = {
         border = "single";
-        returnImmediately = true;
 
         theme = {
           activeBorderColor = [
