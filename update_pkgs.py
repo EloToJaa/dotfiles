@@ -58,6 +58,8 @@ def write_to_file(file_path: str, hash: str, rev: str, version: str):
         f.write(content)
 
 def process_file(file_path: str):
+    print(f"Processing {file_path}")
+
     owner, repo = get_owner_and_repo(file_path)
     if owner is None or repo is None:
         print(f"{file_path}: Could not find owner or repo")
