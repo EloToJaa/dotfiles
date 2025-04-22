@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 import re
 import subprocess
 
@@ -51,12 +52,51 @@ def get_version() -> str:
     print(f"Version: {version}")
     return version
 
-if __name__ == "__main__":
-    file_path = "modules/home/yazi/plugins/git.nix"
+def write_to_file(file_path: str, hash: str, rev: str, version: str):
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    content = re.sub(r"rev = \".*?\";", f"rev = \"{rev}\";", content)
+    content = re.sub(r"hash = \".*?\";", f"hash = \"{hash}\";", content)
+    content = re.sub(r"version = \".*?\";", f"version = \"{version}\";", content)
+
+    print(content)
+
+    with open(file_path, "w") as f:
+        f.write(content)
+
+def process_file(file_path: str):
     owner, repo = get_owner_and_repo(file_path)
     if owner is None or repo is None:
-        print("Could not find owner or repo")
-        exit(1)
+        print(f"{file_path}: Could not find owner or repo")
+        return
+
     version = get_version()
 
-    get_hash_and_rev(owner, repo)
+    hash, rev = get_hash_and_rev(owner, repo)
+    if hash is None or rev is None:
+        print(f"{file_path}: Could not get hash or rev")
+        return
+
+    write_to_file(file_path, hash, rev, version)
+
+def get_all_files(directory: str) -> list[str]:
+    files: list[str] = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            file_path = os.path.join(root, file)
+            extension = os.path.splitext(file_path)[1]
+            print(f"Checking {file_path} with extension {extension}")
+            if extension == ".nix":
+                files.append(file_path)
+            
+    return files
+
+def process_directory(directory: str):
+    files = get_all_files(directory)
+    for file in files:
+        process_file(file)
+
+if __name__ == "__main__":
+    process_directory("modules/home/yazi/plugins")
+    process_directory("pkgs")
