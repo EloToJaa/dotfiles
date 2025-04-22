@@ -42,6 +42,7 @@
     "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./plugins/ouch.nix {};
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./plugins/glow.nix {};
     "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./plugins/hexyl.nix {};
+    "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ./plugins/relative-motions.nix {};
   };
 
   programs.zsh.initExtra =
