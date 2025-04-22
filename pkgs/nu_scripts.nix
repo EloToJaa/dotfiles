@@ -3,11 +3,12 @@
   lib,
 }:
 pkgs.stdenvNoCC.mkDerivation rec {
+  pname = "nu_scripts";
   version = "0-unstable-2025-04-01";
 
   src = pkgs.fetchFromGitHub {
     owner = "nushell";
-    repo = "nu_scripts";
+    repo = pname;
     rev = "a19339cdaa94db45206d0656ccad57020b4830c9";
     hash = "sha256-l96wciWs4HVIMpbAWUr5fbcdKcGFOzkmBDGtad7/xd4=";
   };
