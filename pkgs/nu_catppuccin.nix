@@ -3,7 +3,7 @@
   lib,
 }:
 pkgs.stdenvNoCC.mkDerivation rec {
-  version = "unstable-2025-04-22";
+  version = "0-unstable-2025-04-01";
 
   src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
