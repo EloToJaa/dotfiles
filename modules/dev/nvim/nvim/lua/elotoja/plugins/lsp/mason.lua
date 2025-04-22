@@ -33,7 +33,6 @@ return {
 				"zls",
 				"gopls",
 				-- "clangd", -- replaced by clang-tools from nixpkgs
-				"taplo",
 				"astro",
 				"rust_analyzer",
 				"bashls",
@@ -42,6 +41,10 @@ return {
 				"sqls",
 				-- "templ",
 				"elixirls",
+
+				"taplo", --toml
+				"yamlls", --yml
+				"jsonls", --json
 			},
 		})
 
