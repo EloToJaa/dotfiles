@@ -1,0 +1,13 @@
+gui:
+  border: single
+  returnImmediately: true
+  theme:
+    activeBorderColor:
+      - "#89b4fa"
+      - bold
+    inactiveBorderColor:
+      - "#a6adc8"
+    optionsTextColor:
+      - "#89b4fa"
+logs:
+  timestamps: true

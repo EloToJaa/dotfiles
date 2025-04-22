@@ -9,8 +9,6 @@
     unzip
     wget
 
-    lazydocker
-
     neovim
   ];
 }

@@ -5,7 +5,6 @@
 }: let
   shellAliases = {
     g = "git";
-    lg = "lazygit";
     gf = "onefetch --number-of-file-churns 0 --no-color-palette";
     ga = "git add";
     gaa = "git add --all";
