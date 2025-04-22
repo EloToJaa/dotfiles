@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-hexyl";
-  version = "unstable-2025-04-13";
+  version = "unstable-2025-04-22";
 
   src = fetchFromGitHub {
     owner = "Reledia";
     repo = "hexyl.yazi";
-    rev = "228a9ef2c509f43d8da1847463535adc5fd88794";
-    hash = "sha256-Xv1rfrwMNNDTgAuFLzpVrxytA2yX/CCexFt5QngaYDg=";
+    rev = "016a09bcc249dd3ce06267d54cc039e73de9c647";
+    hash = "sha256-ly/cLKl2y3npoT2nX8ioGOFcRXI4UXbD9Es/5veUhOU=";
   };
 
   buildPhase = ''
