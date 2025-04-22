@@ -9,5 +9,7 @@ gui:
       - "#a6adc8"
     optionsTextColor:
       - "#89b4fa"
+    selectedLineBgColor:
+      - "#313244"
 logs:
   timestamps: true
