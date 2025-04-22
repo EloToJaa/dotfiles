@@ -7,6 +7,7 @@ update:
   method: never
 gui:
   border: single
+  parseEmoji: true
   theme:
     activeBorderColor:
       - "#89b4fa"
@@ -29,3 +30,4 @@ gui:
       - "#f9e2af"
   authorColors:
     "*": "#b4befe"
+disableStartupPopups: true
