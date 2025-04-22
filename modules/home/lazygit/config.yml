@@ -2,6 +2,7 @@ git:
   paging:
     colorArgs: always
     pager: delta --dark --paging=never
+    externalDiffCommand: difft --color=always
 update:
   method: never
 gui:

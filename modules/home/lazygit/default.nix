@@ -3,7 +3,10 @@
     lg = "lazygit";
   };
 in {
-  home.packages = with pkgs; [lazygit];
+  home.packages = with pkgs; [
+    lazygit
+    difftastic
+  ];
 
   # https://github.com/catppuccin/lazygit/blob/main/themes/mocha/blue.yml
   xdg.configFile = {
