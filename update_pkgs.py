@@ -54,8 +54,6 @@ def write_to_file(file_path: str, hash: str, rev: str, version: str):
     content = re.sub(r"hash = \".*?\";", f"hash = \"{hash}\";", content)
     content = re.sub(r"version = \".*?\";", f"version = \"{version}\";", content)
 
-    print(content)
-
     with open(file_path, "w") as f:
         f.write(content)
 
