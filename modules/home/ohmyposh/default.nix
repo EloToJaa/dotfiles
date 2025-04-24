@@ -2,7 +2,7 @@
   home.packages = with pkgs; [oh-my-posh];
 
   programs = {
-    zsh.initExtra =
+    zsh.initContent =
       /*
       sh
       */

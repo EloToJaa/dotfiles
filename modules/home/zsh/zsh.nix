@@ -1,6 +1,7 @@
 {
   pkgs,
   variables,
+  lib,
   ...
 }: {
   programs.zsh = {
@@ -102,7 +103,8 @@
         zstyle ':fzf-tab:*' switch-group ',' '.'
       '';
 
-    initExtraFirst =
+    initContent =
+      lib.mkBefore
       /*
       sh
       */

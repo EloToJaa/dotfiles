@@ -1,6 +1,6 @@
 {...}: {
   programs.zsh = {
-    initExtra =
+    initContent =
       /*
       sh
       */

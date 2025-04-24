@@ -45,7 +45,7 @@
     "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ./plugins/relative-motions.nix {};
   };
 
-  programs.zsh.initExtra =
+  programs.zsh.initContent =
     /*
     sh
     */
