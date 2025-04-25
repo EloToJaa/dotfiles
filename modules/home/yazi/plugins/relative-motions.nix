@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 stdenv.mkDerivation {
-  pname = "relative-motions";
+  pname = "yaziPlugins-relative-motions";
   version = "unstable-2025-04-25";
 
   src = fetchFromGitHub {
