@@ -14,7 +14,7 @@ with lib; let
 
   extra-lib = with pkgs; [
     # Personal development stuff
-    # xorg.libX11
+    xorg.libX11
 
     # Rider Unity debugging
     xorg.libXcursor
