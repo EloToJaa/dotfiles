@@ -22,7 +22,7 @@ in {
       EDITOR = config.home.sessionVariables.EDITOR;
       VISUAL = config.home.sessionVariables.VISUAL;
       MANPAGER = config.home.sessionVariables.MANPAGER;
-      FLAKE = config.home.sessionVariables.FLAKE;
+      NH_FLAKE = config.home.sessionVariables.NH_FLAKE;
       ANDROID_HOME = config.home.sessionVariables.ANDROID_HOME;
     };
     extraConfig = let
