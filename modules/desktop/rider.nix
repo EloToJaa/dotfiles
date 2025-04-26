@@ -5,9 +5,9 @@
 }:
 with lib; let
   extra-path = with pkgs; [
-    # dotnetCorePackages.sdk_9_0-bin
+    dotnetCorePackages.sdk_9_0-bin
     # dotnetCorePackages.sdk_8_0-bin
-    # dotnetPackages.Nuget
+    dotnetPackages.Nuget
     # mono
     msbuild
   ];
@@ -46,7 +46,7 @@ in {
   home.packages = with pkgs; [
     _rider
     icu
-    # dotnet-sdk_9
+    dotnet-sdk_9
     # dotnet-sdk
   ];
 
