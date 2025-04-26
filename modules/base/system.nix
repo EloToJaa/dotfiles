@@ -36,6 +36,9 @@
 
   time.timeZone = "${variables.timezone}";
   i18n.defaultLocale = "${variables.locale}";
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowInsecurePredicate = x: true;
+  };
   system.stateVersion = "${variables.stateVersion}";
 }
