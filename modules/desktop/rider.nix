@@ -5,7 +5,8 @@
 }:
 with lib; let
   extra-path = with pkgs; [
-    dotnetCorePackages.sdk_7_0
+    dotnetCorePackages.sdk_9_0-bin
+    dotnetCorePackages.sdk_8_0-bin
     dotnetPackages.Nuget
     mono
     msbuild
