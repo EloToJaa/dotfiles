@@ -43,7 +43,7 @@ with lib; let
       + attrs.postInstall or "";
   });
 in {
-  home.packages = [
+  home.packages = with pkgs; [
     _rider
     icu
     # dotnet-sdk_9
