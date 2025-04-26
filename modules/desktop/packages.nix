@@ -32,7 +32,6 @@
     remmina
     rnote
     jetbrains.idea-community
-    jetbrains.rider
 
     android-studio
 
