@@ -16,6 +16,7 @@
     ./nemo.nix # file manager
     ./packages.nix # other packages
     ./qbittorrent.nix
+    ./rider.nix # jetbrains rider
     ./rofi.nix # launcher
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
