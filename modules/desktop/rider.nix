@@ -8,13 +8,13 @@ with lib; let
     dotnetCorePackages.sdk_9_0-bin
     dotnetCorePackages.sdk_8_0-bin
     dotnetPackages.Nuget
-    mono
+    # mono
     msbuild
   ];
 
   extra-lib = with pkgs; [
     # Personal development stuff
-    xorg.libX11
+    # xorg.libX11
 
     # Rider Unity debugging
     xorg.libXcursor
