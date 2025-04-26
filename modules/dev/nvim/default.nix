@@ -82,7 +82,7 @@ in {
     nushell = {
       shellAliases = shellAliases;
       extraEnv = ''
-        $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}" "${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}" "${makeBinPath ["${homeDirectory}/.local"]}"]);
+        $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/.local/share/nvim/mason"]}" "${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}" "${makeBinPath ["${homeDirectory}/.local"]}" "${makeBinPath ["${homeDirectory}/.dotnet"]}"]);
       '';
     };
   };
