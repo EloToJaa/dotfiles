@@ -45,6 +45,7 @@ with lib; let
 in {
   home.packages = [
     _rider
+    icu
     # dotnet-sdk_9
     # dotnet-sdk
   ];
