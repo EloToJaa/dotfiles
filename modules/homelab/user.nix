@@ -1,5 +1,9 @@
-{variables, ...}: {
+{variables, ...}: let
+  homelab = variables.homelab;
+in {
   users.users.${variables.username} = {
-    extraGroups = ["${variables.homelab.group}"];
+    extraGroups = ["${homelab.group}"];
   };
+
+  users.groups.${homelab.group} = {};
 }
