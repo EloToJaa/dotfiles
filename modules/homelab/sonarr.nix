@@ -10,7 +10,7 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 740 ${name} ${homelab.group} - -"
+    "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
   ];
 
   users.users.${name} = {
