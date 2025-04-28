@@ -12,6 +12,6 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
-    group = "${name}";
+    group = "homelab";
   };
 }
