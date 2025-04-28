@@ -10,7 +10,7 @@
 
   networking = {
     useDHCP = false;
-    nameservers = ["192.168.0.31" "1.1.1.1" "1.0.0.1"];
+    nameservers = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
     interfaces."enp1s0".ipv4.addresses = [
       {
         address = "192.168.0.32";
