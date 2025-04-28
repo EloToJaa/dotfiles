@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./lazydocker
+    ./sonarr
   ];
 }
