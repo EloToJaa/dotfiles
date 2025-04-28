@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
+    ./../../modules/homelab
   ];
 
   home-manager.users.${variables.username}.imports = [
