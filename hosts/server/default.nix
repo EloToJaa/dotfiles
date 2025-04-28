@@ -1,4 +1,8 @@
-{variables, ...}: {
+{
+  variables,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
@@ -13,7 +17,7 @@
     useDHCP = false;
     nameservers = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
     firewall = {
-      enable = true;
+      enable = lib.mkForce true;
       allowedTCPPorts = [
         22
         53
