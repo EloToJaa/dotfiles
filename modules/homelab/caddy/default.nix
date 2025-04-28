@@ -25,8 +25,31 @@ in {
     };
   };
 
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "elotoja@protonmail.com";
+    certs.${homelab.baseDomain} = {
+      webroot = "${homelab.dataDir}acme";
+      reloadServices = ["caddy.service"];
+      domain = "${homelab.baseDomain}";
+      extraDomainNames = ["*.${homelab.baseDomain}"];
+      dnsProvider = "cloudflare";
+      dnsResolver = "1.1.1.1:53";
+      dnsPropagationCheck = true;
+      user = "${name}";
+      group = "${homelab.group}";
+      environmentFile = homelab.cloudflare.dnsCredentialsFile;
+    };
+  };
+
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
+    "d ${homelab.dataDir}acme 750 ${name} ${homelab.group} - -"
   ];
 
   users.users.${name} = {
