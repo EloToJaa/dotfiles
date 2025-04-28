@@ -5,13 +5,13 @@ in {
   services.${name} = {
     enable = true;
     user = "${name}";
-    group = "${name}";
+    group = "${homelab.group}";
     dataDir = "${homelab.dataDir}${name}";
   };
 
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
-    group = "homelab";
+    group = "${homelab.group}";
   };
 }

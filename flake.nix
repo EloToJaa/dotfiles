@@ -72,6 +72,7 @@
       };
       homelab = {
         dataDir = "/opt/";
+        group = "homelab";
       };
     };
   in {

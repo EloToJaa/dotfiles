@@ -1,5 +1,5 @@
 {variables, ...}: {
   users.users.${variables.username} = {
-    extraGroups = ["homelab"];
+    extraGroups = ["${variables.homelab.group}"];
   };
 }
