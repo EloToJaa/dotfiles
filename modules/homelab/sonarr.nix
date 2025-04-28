@@ -6,7 +6,7 @@
   };
 
   users.users.sonarr = {
-    isNormalUser = true;
+    isSystemUser = true;
     description = "Sonarr";
     group = "sonarr";
   };
