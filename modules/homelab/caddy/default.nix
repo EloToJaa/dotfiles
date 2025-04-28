@@ -34,7 +34,6 @@ in {
     acceptTerms = true;
     defaults.email = "elotoja@protonmail.com";
     certs.${homelab.baseDomain} = {
-      webroot = "${homelab.dataDir}acme";
       reloadServices = ["caddy.service"];
       domain = "${homelab.baseDomain}";
       extraDomainNames = ["*.${homelab.baseDomain}"];
@@ -48,7 +47,7 @@ in {
 
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
-    "d ${homelab.dataDir}acme 750 ${name} ${homelab.group} - -"
+    # "d ${homelab.dataDir}acme 750 ${name} ${homelab.group} - -"
   ];
 
   users.users.${name} = {
