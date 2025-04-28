@@ -35,3 +35,4 @@ gui:
 disableStartupPopups: true
 os:
   open: "xdg-open {{filename}}"
+  openLink: "xdg-open {{url}}"
