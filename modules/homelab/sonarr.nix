@@ -1,13 +1,17 @@
-{...}: {
-  services.sonarr = {
+{variables, ...}: let
+  name = "sonarr";
+  homelab = variables.homelab;
+in {
+  services.${name} = {
     enable = true;
-    user = "sonarr";
-    group = "sonarr";
+    user = "${name}";
+    group = "${name}";
+    dataDir = "${homelab.dataDir}${name}";
   };
 
-  users.users.sonarr = {
+  users.users.${name} = {
     isSystemUser = true;
-    description = "Sonarr";
-    group = "sonarr";
+    description = "${name}";
+    group = "${name}";
   };
 }

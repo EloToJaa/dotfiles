@@ -70,6 +70,9 @@
         local = "https://loki.local.elotoja.com";
         remote = "https://loki.server.elotoja.com";
       };
+      homelab = {
+        dataDir = "/opt/";
+      };
     };
   in {
     nixosConfigurations = {
