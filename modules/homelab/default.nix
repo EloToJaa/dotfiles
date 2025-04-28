@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./user.nix
-    ./sonarr.nix
+    ./sonarr
+    ./caddy
   ];
 }

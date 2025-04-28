@@ -9,6 +9,13 @@ in {
     dataDir = "${homelab.dataDir}${name}";
   };
 
+  services.caddy.virtualHosts."${name}${homelab.baseDomain}" = {
+    useACMEHost = homelab.baseDomain;
+    extraConfig = ''
+      reverse_proxy http://127.0.0.1:8989
+    '';
+  };
+
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
   ];
