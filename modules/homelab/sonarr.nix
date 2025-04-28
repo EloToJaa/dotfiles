@@ -9,6 +9,10 @@ in {
     dataDir = "${homelab.dataDir}${name}";
   };
 
+  systemd.tmpfiles.rules = [
+    "d ${homelab.dataDir}${name} 740 ${name} ${homelab.group} - -"
+  ];
+
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
