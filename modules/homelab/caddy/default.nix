@@ -41,7 +41,6 @@ in {
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
       dnsPropagationCheck = true;
-      user = "${name}";
       group = "${homelab.group}";
       environmentFile = homelab.cloudflare.dnsCredentialsFile;
     };
