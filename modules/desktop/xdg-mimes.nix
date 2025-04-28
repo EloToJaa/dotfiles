@@ -25,6 +25,7 @@ with lib; let
       "chromium-browser.desktop"
     ];
     video = ["umpv.desktop"];
+    browser = ["chromium-browser.desktop"];
   };
 
   mimeMap = {
