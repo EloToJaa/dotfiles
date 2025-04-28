@@ -1,8 +1,4 @@
 {...}: {
-  home-manager.users.sonarr.imports = [
-    ./service.nix
-  ];
-
   services.sonarr = {
     enable = true;
     user = "sonarr";
