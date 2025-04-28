@@ -2,12 +2,12 @@
   name = "sonarr";
   homelab = variables.homelab;
 in {
-  services.${name} = {
-    enable = true;
-    user = "${name}";
-    group = "${homelab.group}";
-    dataDir = "${homelab.dataDir}${name}";
-  };
+  # services.${name} = {
+  #   enable = true;
+  #   user = "${name}";
+  #   group = "${homelab.group}";
+  #   dataDir = "${homelab.dataDir}${name}";
+  # };
 
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 740 ${name} ${homelab.group} - -"
