@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-lazygit";
-  version = "unstable-2025-04-28";
+  version = "unstable-2025-04-30";
 
   src = fetchFromGitHub {
     owner = "Lil-Dank";
