@@ -73,7 +73,7 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		local flake = os.getenv("FLAKE")
+		local flake = os.getenv("NH_FLAKE")
 		local handle = io.popen("hostname")
 
 		local hostname
