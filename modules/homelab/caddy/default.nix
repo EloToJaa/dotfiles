@@ -7,7 +7,7 @@
   homelab = variables.homelab;
 in {
   services.${name} = {
-    enable = true;
+    enable = false;
     user = "${name}";
     group = "${homelab.group}";
     dataDir = "${homelab.dataDir}${name}";
