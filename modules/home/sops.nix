@@ -12,12 +12,6 @@
 
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
-  sops.secrets = {
-    "leetcode/csrftoken" = {};
-    "leetcode/session" = {};
-    "aoc/session" = {};
-  };
-
   home.packages = with pkgs; [
     sops
   ];

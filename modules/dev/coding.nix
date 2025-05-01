@@ -17,6 +17,12 @@ in {
     nushell.shellAliases = shellAliases;
   };
 
+  sops.secrets = {
+    "leetcode/csrftoken" = {};
+    "leetcode/session" = {};
+    "aoc/session" = {};
+  };
+
   sops.templates = {
     "leetcode.toml" = {
       content =
