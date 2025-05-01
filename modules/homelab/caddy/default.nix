@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  config,
+  ...
+}: let
   name = "caddy";
   homelab = variables.homelab;
 in {
@@ -41,18 +45,25 @@ in {
       dnsResolver = "1.1.1.1:53";
       dnsPropagationCheck = true;
       group = "${homelab.group}";
-      environmentFile = homelab.cloudflare.dnsCredentialsFile;
+      credentialFiles = {
+        CF_DNS_API_TOKEN_FILE = "${config.sops.secrets."cloudflare/apitoken".path}";
+      };
     };
   };
 
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
-    # "d ${homelab.dataDir}acme 750 ${name} ${homelab.group} - -"
   ];
 
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
     group = "${homelab.group}";
+  };
+
+  sops.secrets = {
+    "cloudflare/apitoken" = {
+      owner = "acme";
+    };
   };
 }
