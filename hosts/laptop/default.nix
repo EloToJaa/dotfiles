@@ -19,7 +19,7 @@
 
   networking = {
     useDHCP = lib.mkForce true;
-    nameservers = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
+    nameservers = variables.dns;
   };
 
   environment.systemPackages = with pkgs; [

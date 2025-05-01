@@ -1,8 +1,4 @@
-{
-  variables,
-  lib,
-  ...
-}: {
+{variables, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
@@ -15,17 +11,7 @@
 
   networking = {
     useDHCP = false;
-    nameservers = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
-    firewall = {
-      enable = lib.mkForce true;
-      allowedTCPPorts = [
-        22
-        53
-      ];
-      allowedUDPPorts = [
-        53
-      ];
-    };
+    nameservers = variables.dns;
     interfaces."enp1s0".ipv4.addresses = [
       {
         address = "192.168.0.32";

@@ -55,6 +55,7 @@
       locale = "en_GB.UTF-8";
       keyboardLayout = "pl,pl";
       stateVersion = "25.05";
+      dns = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
       nfs = {
         local = "192.168.0.41";
         remote = "truenas.eagle-perch.ts.net";
