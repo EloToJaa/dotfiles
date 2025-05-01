@@ -1,45 +1,34 @@
 {
-  pkgs,
   variables,
-  host,
+  pkgs,
   ...
-}: let
-  loki =
-    if (host == "desktop" || host == "server")
-    then variables.loki.local
-    else variables.loki.remote;
-in {
-  virtualisation.docker = {
+}: {
+  virtualisation.podman = {
     enable = true;
-    rootless = {
+
+    dockerCompat = true;
+
+    # Required for containers under podman-compose to be able to talk to each other.
+    defaultNetwork.settings.dns_enabled = true;
+
+    autoPrune = {
       enable = true;
-      setSocketVariable = false;
-      daemon.settings = {
-        debug = true;
-        #   "log-driver" = "loki";
-        #   "log-opts" = {
-        #     "loki-url" = "${loki}/loki/api/v1/push";
-        #     "loki-batch-size" = "400";
-        #     "loki-external-labels" = "container_name={{.Name}},hostname={{.Node.Hostname}}";
-        #     "loki-retries" = "2";
-        #     "loki-max-backoff" = "800ms";
-        #     "loki-timeout" = "1s";
-        #     "keep-file" = "true";
-        #     "mode" = "non-blocking";
-        #   };
-      };
+      dates = "weekly";
+      flags = [
+        "--filter=until=24h"
+        "--filter=label!=important"
+      ];
     };
   };
   users.users.${variables.username} = {
     extraGroups = ["docker"];
     linger = true;
   };
-  security.wrappers = {
-    docker-rootlesskit = {
-      owner = "root";
-      group = "root";
-      capabilities = "cap_net_bind_service+ep";
-      source = "${pkgs.rootlesskit}/bin/rootlesskit";
-    };
-  };
+
+  environment.systemPackages = with pkgs; [
+    dive # look into docker image layers
+    podman-tui # status of containers in the terminal
+    docker-compose # start group of containers for dev
+    #podman-compose # start group of containers for dev
+  ];
 }
