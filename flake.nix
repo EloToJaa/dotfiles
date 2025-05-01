@@ -103,6 +103,14 @@
           inherit self inputs variables;
         };
       };
+      tester = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [./hosts/tester];
+        specialArgs = {
+          host = "tester";
+          inherit self inputs variables;
+        };
+      };
       vm = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [./hosts/vm];
