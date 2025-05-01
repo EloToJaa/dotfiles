@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    inputs.sops-nix.homeManagerModules.sops
+    inputs.sops-nix.nixosModules.sops
   ];
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";

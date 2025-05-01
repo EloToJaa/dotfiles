@@ -7,6 +7,7 @@
     ./nfs.nix
     ./nh.nix
     ./program.nix
+    ./sops.nix
     ./ssh.nix
     ./system.nix
     ./user.nix
