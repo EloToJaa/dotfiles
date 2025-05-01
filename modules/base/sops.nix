@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  variables,
   ...
 }: {
   imports = [
@@ -13,9 +14,15 @@
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   sops.secrets = {
-    "leetcode/csrftoken" = {};
-    "leetcode/session" = {};
-    "aoc/session" = {};
+    "leetcode/csrftoken" = {
+      owner = "${variables.username}";
+    };
+    "leetcode/session" = {
+      owner = "${variables.username}";
+    };
+    "aoc/session" = {
+      owner = "${variables.username}";
+    };
   };
 
   environment.systemPackages = with pkgs; [
