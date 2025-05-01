@@ -20,6 +20,8 @@
       ];
     };
   };
+  virtualisation.oci-containers.backend = "podman";
+
   users.users.${variables.username} = {
     extraGroups = ["docker"];
     linger = true;
