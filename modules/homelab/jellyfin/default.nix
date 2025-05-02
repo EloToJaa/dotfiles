@@ -1,8 +1,8 @@
 {variables, ...}: let
-  name = "sonarr";
-  domainName = "sonarr";
+  name = "jellyfin";
+  domainName = "watch";
   homelab = variables.homelab;
-  port = 8989;
+  port = 8096;
 in {
   services.${name} = {
     enable = true;
