@@ -43,12 +43,7 @@ M = {
 	},
 }
 
-local host = os.getenv("HOST")
-if host == nil then
-	local wezterm = require("wezterm")
-	wezterm.log_warn("No host set, using default config")
-end
-
+local host = require("utils.variables").host
 if host == "laptop" then
 	M.front_end = "OpenGL"
 
