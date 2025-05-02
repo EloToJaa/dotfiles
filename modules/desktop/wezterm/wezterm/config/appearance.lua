@@ -44,6 +44,11 @@ M = {
 }
 
 local host = os.getenv("HOST")
+if host == nil then
+	local wezterm = require("wezterm")
+	wezterm.log_warn("No host set, using default config")
+end
+
 if host == "laptop" then
 	M.front_end = "OpenGL"
 
@@ -57,8 +62,5 @@ else
 	M.animation_fps = 200
 	M.max_fps = 200
 end
-
-local wezterm = require("wezterm")
-wezterm.log_info("Appearance config loaded for " .. host)
 
 return M
