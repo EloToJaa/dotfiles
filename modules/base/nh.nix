@@ -1,6 +1,8 @@
 {
   pkgs,
   variables,
+  config,
+  host,
   ...
 }: {
   programs.nh = {
@@ -10,6 +12,11 @@
       extraArgs = "--keep-since 7d --keep 5";
     };
     flake = "/home/${variables.username}/Projects/dotfiles";
+  };
+
+  home.sessionVariables = {
+    NH_FLAKE = "${config.home.homeDirectory}/Projects/dotfiles";
+    HOST = host;
   };
 
   environment.systemPackages = with pkgs; [
