@@ -58,4 +58,7 @@ else
 	M.max_fps = 200
 end
 
+local wezterm = require("wezterm")
+wezterm.log_info("Appearance config loaded for " .. host)
+
 return M
