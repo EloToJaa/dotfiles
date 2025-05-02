@@ -11,13 +11,9 @@
     source = ./wezterm;
   };
 
-  xdg.configFile."wezterm/utils/variables.lua".text =
-    /*
-    lua
-    */
-    ''
-      local M = {}
-      M.host = "${host}"
-      return M
-    '';
+  xdg.configFile."wezterm/utils/variables.lua".text = ''
+    local M = {}
+    M.host = "${host}"
+    return M
+  '';
 }
