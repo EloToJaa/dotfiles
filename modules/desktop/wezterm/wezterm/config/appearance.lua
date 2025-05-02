@@ -1,9 +1,7 @@
 local gpu_adapters = require("utils.gpu_adapter")
--- local colors = require('colors.custom')
 
 M = {
 	-- color scheme
-	-- colors = colors,
 	color_scheme = "Catppuccin Mocha",
 
 	-- scrollbar
