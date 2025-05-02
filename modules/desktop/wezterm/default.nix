@@ -16,8 +16,8 @@
     lua
     */
     ''
-      M = {}
-      M.host = ${host}
+      local M = {}
+      M.host = "${host}"
       return M
     '';
 }
