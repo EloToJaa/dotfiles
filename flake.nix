@@ -74,7 +74,7 @@
       homelab = {
         dataDir = "/opt/";
         group = "homelab";
-        baseDomain = "local.elotoja.com";
+        baseDomain = "server.elotoja.com";
       };
     };
   in {
