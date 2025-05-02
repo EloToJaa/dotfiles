@@ -23,6 +23,7 @@ in {
       VISUAL = config.home.sessionVariables.VISUAL;
       MANPAGER = config.home.sessionVariables.MANPAGER;
       NH_FLAKE = config.home.sessionVariables.NH_FLAKE;
+      HOST = config.home.sessionVariables.HOST;
       ANDROID_HOME = config.home.sessionVariables.ANDROID_HOME;
     };
     extraConfig = let
