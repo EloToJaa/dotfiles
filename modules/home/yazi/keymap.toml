@@ -61,7 +61,7 @@ prepend_keymap = [
   { on = [
     "c",
     "i",
-  ], run = "plugin system-clipboard" },
+  ], run = "plugin system-clipboard", desc = "Copy the file to system clipboard" },
   { on = [
     "c",
     "o",
