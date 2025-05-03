@@ -16,7 +16,7 @@ in {
     dataDir = "${homelab.dataDir}${name}";
     logDir = "${homelab.logDir}${name}";
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce "027";
+  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
@@ -24,11 +24,6 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
-
-  systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
-    "d ${homelab.logDir}${name} 750 ${name} ${group} - -"
-  ];
 
   users.users.${name} = {
     isSystemUser = true;

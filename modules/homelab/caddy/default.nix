@@ -1,6 +1,7 @@
 {
   variables,
   config,
+  lib,
   ...
 }: let
   name = "caddy";
@@ -30,6 +31,7 @@ in {
       };
     };
   };
+  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
 
   networking.firewall.allowedTCPPorts = [
     80
@@ -52,11 +54,6 @@ in {
       };
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
-    "d ${homelab.logDir}${name} 750 ${name} ${group} - -"
-  ];
 
   users.users.${name} = {
     isSystemUser = true;

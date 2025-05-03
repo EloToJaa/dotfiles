@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  lib,
+  ...
+}: let
   name = "sonarr";
   domainName = "sonarr";
   homelab = variables.homelab;
@@ -11,6 +15,7 @@ in {
     group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
   };
+  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
@@ -18,10 +23,6 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
-
-  systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
-  ];
 
   users.users.${name} = {
     isSystemUser = true;
