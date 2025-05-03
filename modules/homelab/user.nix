@@ -10,10 +10,10 @@ in {
 
   users.groups = {
     "${homelab.groups.main}" = {
-      gid = 1101;
+      gid = 1100;
     };
     ${homelab.groups.media} = {
-      gid = 1102;
+      gid = 1101;
     };
   };
 }
