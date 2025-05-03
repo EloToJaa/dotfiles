@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  lib,
+  ...
+}: let
   name = "jellyfin";
   domainName = "watch";
   homelab = variables.homelab;
@@ -11,7 +15,7 @@ in {
     group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
   };
-  systemd.services.${name}.serviceConfig.UMask = "027";
+  systemd.services.${name}.serviceConfig.UMask = lib.mkForce "027";
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
