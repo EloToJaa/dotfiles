@@ -43,9 +43,10 @@
     lib = nixpkgs.lib;
     variables = {
       username = "elotoja";
+      email = "elotoja@protonmail.com";
       git = {
         userName = "EloToJaa";
-        userEmail = "elotoja@protonmail.com";
+        userEmail = variables.email;
       };
       catppuccin = {
         flavor = "mocha";
