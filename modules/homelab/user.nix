@@ -9,11 +9,7 @@ in {
   };
 
   users.groups = {
-    "${homelab.groups.main}" = {
-      gid = 1100;
-    };
-    ${homelab.groups.media} = {
-      gid = 1101;
-    };
+    ${homelab.groups.main}.gid = 1100;
+    ${homelab.groups.media}.gid = 1101;
   };
 }
