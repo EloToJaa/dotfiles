@@ -12,7 +12,7 @@ in {
     enable = true;
     port = port;
     initialEmail = variables.email;
-    initialPasswordFile = config.sops.secrets."cloudflare/apitoken".path;
+    initialPasswordFile = config.sops.secrets."pgadmin/password".path;
   };
 
   sops.secrets = {
