@@ -24,9 +24,28 @@ in {
     '';
   };
 
+  services.postgresql.ensureUsers = [
+    {
+      name = name;
+      ensureDBOwnership = false;
+    }
+  ];
+  services.postgresql.ensureDatabases = [
+    "sonarr-main"
+    "sonarr-log"
+  ];
+
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
     group = "${group}";
+  };
+
+  sops.templates = {
+    "config.xml" = {
+      content = ''
+      '';
+      path = "${homelab.dataDir}${name}/config.xml";
+    };
   };
 }
