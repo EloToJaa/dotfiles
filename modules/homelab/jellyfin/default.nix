@@ -11,6 +11,7 @@ in {
     group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
   };
+  systemd.services.${name}.serviceConfig.UMask = "027";
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
