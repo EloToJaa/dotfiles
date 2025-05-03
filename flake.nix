@@ -72,9 +72,12 @@
         remote = "https://loki.server.elotoja.com";
       };
       homelab = {
-        dataDir = "/opt/";
-        group = "homelab";
         baseDomain = "server.elotoja.com";
+        dataDir = "/opt/";
+        groups = {
+          main = "homelab";
+          media = "media";
+        };
       };
     };
   in {

@@ -2,8 +2,14 @@
   homelab = variables.homelab;
 in {
   users.users.${variables.username} = {
-    extraGroups = ["${homelab.group}"];
+    extraGroups = [
+      "${homelab.groups.main}"
+      "${homelab.groups.media}"
+    ];
   };
 
-  users.groups.${homelab.group} = {};
+  users.groups = {
+    ${homelab.groups.main}.gid = 1101;
+    ${homelab.groups.media}.gid = 1102;
+  };
 }

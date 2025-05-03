@@ -2,12 +2,13 @@
   name = "jellyfin";
   domainName = "watch";
   homelab = variables.homelab;
+  group = variables.homelab.groups.media;
   port = 8096;
 in {
   services.${name} = {
     enable = true;
     user = "${name}";
-    group = "${homelab.group}";
+    group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
   };
 
@@ -19,12 +20,12 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
+    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
   ];
 
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
-    group = "${homelab.group}";
+    group = "${group}";
   };
 }

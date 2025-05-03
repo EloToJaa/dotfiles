@@ -5,11 +5,12 @@
 }: let
   name = "caddy";
   homelab = variables.homelab;
+  group = variables.homelab.groups.main;
 in {
   services.${name} = {
     enable = true;
     user = "${name}";
-    group = "${homelab.group}";
+    group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
 
     globalConfig = ''
@@ -44,21 +45,21 @@ in {
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
       dnsPropagationCheck = true;
-      group = "${homelab.group}";
+      group = "${group}";
       credentialFiles = {
-        CF_DNS_API_TOKEN_FILE = "${config.sops.secrets."cloudflare/apitoken".path}";
+        CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
       };
     };
   };
 
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${homelab.group} - -"
+    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
   ];
 
   users.users.${name} = {
     isSystemUser = true;
     description = "${name}";
-    group = "${homelab.group}";
+    group = "${group}";
   };
 
   sops.secrets = {
