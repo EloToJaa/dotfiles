@@ -17,7 +17,7 @@ in {
 
   sops.secrets = {
     "pgadmin/password" = {
-      owner = "pgadmin";
+      owner = name;
     };
   };
 
