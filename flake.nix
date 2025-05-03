@@ -79,6 +79,9 @@
         groups = {
           main = "homelab";
           media = "media";
+          photos = "photos";
+          docs = "documents";
+          database = "database";
         };
       };
     };
