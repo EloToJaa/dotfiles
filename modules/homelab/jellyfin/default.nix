@@ -27,6 +27,7 @@ in {
 
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${homelab.logDir}${name} 750 ${name} ${group} - -"
   ];
 
   users.users.${name} = {
