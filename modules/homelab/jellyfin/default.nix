@@ -14,6 +14,7 @@ in {
     user = "${name}";
     group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
+    logDir = "${homelab.logDir}${name}";
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce "027";
 

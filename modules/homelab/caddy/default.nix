@@ -12,6 +12,7 @@ in {
     user = "${name}";
     group = "${group}";
     dataDir = "${homelab.dataDir}${name}";
+    logDir = "${homelab.logDir}${name}";
 
     globalConfig = ''
       auto_https off

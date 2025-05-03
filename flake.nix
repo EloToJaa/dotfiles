@@ -74,6 +74,7 @@
       homelab = {
         baseDomain = "server.elotoja.com";
         dataDir = "/opt/";
+        logDir = "/var/log/";
         groups = {
           main = "homelab";
           media = "media";
