@@ -4,6 +4,7 @@
     ./jellyfin
     ./postgres
     ./prowlarr
+    ./qbittorrent
     ./radarr
     ./sonarr
     ./firewall.nix
