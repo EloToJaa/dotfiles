@@ -8,7 +8,7 @@
   domainName = "radarr";
   homelab = variables.homelab;
   group = variables.homelab.groups.media;
-  port = 8989;
+  port = 7878;
 in {
   services.${name} = {
     enable = true;
@@ -57,7 +57,7 @@ in {
           <LogLevel>info</LogLevel>
           <EnableSsl>False</EnableSsl>
           <Port>${toString port}</Port>
-          <SslPort>9898</SslPort>
+          <SslPort>8787</SslPort>
           <UrlBase></UrlBase>
           <BindAddress>*</BindAddress>
           <ApiKey>${config.sops.placeholder."${name}/apikey"}</ApiKey>

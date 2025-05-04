@@ -3,7 +3,7 @@
     ./caddy
     ./jellyfin
     ./postgres
-    # ./radarr
+    ./radarr
     ./sonarr
     ./firewall.nix
     ./user.nix
