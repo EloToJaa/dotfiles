@@ -35,14 +35,14 @@ in {
     "${name}-log"
   ];
 
-  sops.secrets = {
-    "${name}/apikey" = {
-      owner = name;
-    };
-    "${name}/pgpassword" = {
-      owner = name;
-    };
-  };
+  # sops.secrets = {
+  #   "${name}/apikey" = {
+  #     owner = name;
+  #   };
+  #   "${name}/pgpassword" = {
+  #     owner = name;
+  #   };
+  # };
   # sops.templates = {
   #   "config-${name}.xml" = {
   #     content = ''
