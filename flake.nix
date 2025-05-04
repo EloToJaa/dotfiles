@@ -75,7 +75,7 @@
       homelab = {
         baseDomain = "server.elotoja.com";
         dataDir = "/opt/";
-        varDataDir = "/var/lib/";
+        varDataDir = "/var/lib/private/";
         logDir = "/var/log/";
         defaultUMask = "027";
         groups = {

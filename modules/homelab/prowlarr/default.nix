@@ -2,19 +2,28 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "prowlarr";
   domainName = "prowlarr";
   homelab = variables.homelab;
+  group = variables.homelab.groups.main;
   port = 9696;
 in {
   services.${name} = {
     enable = true;
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.${name}.serviceConfig = {
+    User = name;
+    Group = name;
+    StateDirectory = lib.mkForce null;
+    DynamicUser = lib.mkForce null;
+    UMask = lib.mkForce homelab.defaultUMask;
+    ExecStart = lib.mkForce "${pkgs.zsh}/bin/Prowlarr -nobrowser -data ${homelab.dataDir}${name}";
+  };
   systemd.tmpfiles.rules = [
-    "d ${homelab.varDataDir}${name} 750 ${name} ${name} - -"
+    "d ${homelab.dataDir}${name} 750 ${name} ${name} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -34,6 +43,12 @@ in {
     "${name}-main"
     "${name}-log"
   ];
+
+  users.users.${name} = {
+    isSystemUser = true;
+    description = "${name}";
+    group = "${group}";
+  };
 
   # sops.secrets = {
   #   "${name}/apikey" = {
@@ -69,7 +84,7 @@ in {
   #         <Theme>auto</Theme>
   #       </Config>
   #     '';
-  #     path = "${homelab.varDataDir}${name}/config.xml";
+  #     path = "${homelab.dataDir}${name}/config.xml";
   #     owner = name;
   #   };
   # };
