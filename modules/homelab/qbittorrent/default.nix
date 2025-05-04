@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "qbittorrent";
@@ -10,6 +11,7 @@
   port = 8181;
 in {
   imports = [./service.nix];
+  environment.systemPackages = [pkgs.vuetorrent];
   services.${name} = {
     enable = true;
     port = port;
