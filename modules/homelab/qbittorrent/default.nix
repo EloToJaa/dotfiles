@@ -27,6 +27,8 @@ in {
     "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
   ];
 
+  services.vuetorrent.enable = true;
+
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
