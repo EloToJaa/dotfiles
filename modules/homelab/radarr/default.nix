@@ -4,8 +4,8 @@
   config,
   ...
 }: let
-  name = "sonarr";
-  domainName = "sonarr";
+  name = "radarr";
+  domainName = "radarr";
   homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8989;

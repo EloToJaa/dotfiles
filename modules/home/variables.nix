@@ -9,5 +9,8 @@
     NIXPKGS_ALLOW_INSECURE = "1";
     NH_FLAKE = "${config.home.homeDirectory}/Projects/dotfiles";
     HOST = host;
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    MANPAGER = "nvim +Man!";
   };
 }
