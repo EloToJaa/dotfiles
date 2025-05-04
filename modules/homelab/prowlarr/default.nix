@@ -16,14 +16,14 @@ in {
   };
   systemd.services.${name}.serviceConfig = {
     User = name;
-    Group = name;
+    Group = group;
     StateDirectory = lib.mkForce null;
     DynamicUser = lib.mkForce false;
     UMask = lib.mkForce homelab.defaultUMask;
     ExecStart = lib.mkForce ''"${pkgs.prowlarr}/bin/Prowlarr" "-nobrowser" "-data=${homelab.dataDir}${name}"'';
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${name} - -"
+    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
