@@ -67,7 +67,7 @@ in {
           <AuthenticationMethod>Forms</AuthenticationMethod>
           <LaunchBrowser>True</LaunchBrowser>
           <Branch>master</Branch>
-          <InstanceName>Sonarr</InstanceName>
+          <InstanceName>Radarr</InstanceName>
           <AuthenticationRequired>Enabled</AuthenticationRequired>
           <SslCertPath></SslCertPath>
           <SslCertPassword></SslCertPassword>

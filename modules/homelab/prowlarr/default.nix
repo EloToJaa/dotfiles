@@ -7,17 +7,14 @@
   name = "prowlarr";
   domainName = "prowlarr";
   homelab = variables.homelab;
-  group = variables.homelab.groups.media;
   port = 9696;
 in {
   services.${name} = {
     enable = true;
-    user = "${name}";
-    group = "${group}";
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
-    "d ${homelab.varDataDir}${name} 750 ${name} ${group} - -"
+    "d ${homelab.varDataDir}${name} 750 ${name} ${name} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -37,12 +34,6 @@ in {
     "${name}-main"
     "${name}-log"
   ];
-
-  users.users.${name} = {
-    isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
-  };
 
   sops.secrets = {
     "${name}/apikey" = {
@@ -66,7 +57,7 @@ in {
           <AuthenticationMethod>Forms</AuthenticationMethod>
           <LaunchBrowser>True</LaunchBrowser>
           <Branch>master</Branch>
-          <InstanceName>Sonarr</InstanceName>
+          <InstanceName>Prowlarr</InstanceName>
           <AuthenticationRequired>Enabled</AuthenticationRequired>
           <SslCertPath></SslCertPath>
           <SslCertPassword></SslCertPassword>
