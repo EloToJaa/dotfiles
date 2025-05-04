@@ -30,9 +30,4 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
-
-  users.users.${name} = {
-    isSystemUser = true;
-    group = "${group}";
-  };
 }
