@@ -7,7 +7,7 @@
   name = "qbittorrent";
   domainName = "download";
   homelab = variables.homelab;
-  group = variables.homelab.groups.main;
+  group = variables.homelab.groups.media;
   port = 8181;
 in {
   imports = [./service.nix];
