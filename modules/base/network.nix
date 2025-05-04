@@ -4,5 +4,8 @@
     networkmanager.enable = true;
     firewall.enable = false;
   };
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    overrideLocalDns = false;
+  };
 }
