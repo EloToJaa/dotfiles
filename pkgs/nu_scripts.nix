@@ -4,13 +4,13 @@
 }:
 pkgs.stdenvNoCC.mkDerivation rec {
   pname = "nu_scripts";
-  version = "unstable-2025-05-02";
+  version = "unstable-2025-05-04";
 
   src = pkgs.fetchFromGitHub {
     owner = "nushell";
     repo = "nu_scripts";
-    rev = "16e22d07daad26a544c8e523b6fa01a16e18df91";
-    hash = "sha256-mCqiF/iXqk51J23d/LDtgUVjmiABNLIDPo3nbSRvYt0=";
+    rev = "54f10ee7ee8a462849ca0471b41abcf8eab73155";
+    hash = "sha256-QjJSkQbun1GbrPC2Q+Kx/Ql1t+Xjt/ubyTGw1/yosB4=";
   };
 
   installPhase = ''
