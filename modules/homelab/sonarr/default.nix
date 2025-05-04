@@ -51,7 +51,7 @@ in {
     };
   };
   sops.templates = {
-    "config.xml" = {
+    "config-${name}.xml" = {
       content = ''
         <Config>
           <LogLevel>info</LogLevel>
