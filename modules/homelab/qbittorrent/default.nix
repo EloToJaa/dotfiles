@@ -10,7 +10,10 @@
   group = variables.homelab.groups.media;
   port = 8181;
 in {
-  imports = [./service.nix];
+  imports = [
+    ./service.nix
+    ./vuetorrent.nix
+  ];
   environment.systemPackages = [pkgs.vuetorrent];
   services.${name} = {
     enable = true;
