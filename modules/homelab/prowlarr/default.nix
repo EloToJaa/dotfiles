@@ -88,4 +88,6 @@ in {
       owner = name;
     };
   };
+
+  imports = [./flaresolverr.nix];
 }
