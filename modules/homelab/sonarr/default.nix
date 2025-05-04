@@ -17,6 +17,9 @@ in {
     dataDir = "${homelab.dataDir}${name}";
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.tmpfiles.rules = [
+    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+  ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;

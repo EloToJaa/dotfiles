@@ -32,6 +32,10 @@ in {
     };
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.tmpfiles.rules = [
+    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${homelab.logDir}${name} 750 ${name} ${group} - -"
+  ];
 
   networking.firewall.allowedTCPPorts = [
     80
