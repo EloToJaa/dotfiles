@@ -32,6 +32,7 @@ in {
       Group = group;
       StateDirectory = lib.mkForce null;
       DynamicUser = lib.mkForce false;
+      ProtectSystem = lib.mkForce "off";
       UMask = lib.mkForce homelab.defaultUMask;
     };
   };
