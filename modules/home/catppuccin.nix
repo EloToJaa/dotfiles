@@ -8,5 +8,7 @@
     enable = true;
     flavor = "${variables.catppuccin.flavor}";
     accent = "${variables.catppuccin.accent}";
+
+    mako.enable = false;
   };
 }
