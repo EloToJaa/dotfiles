@@ -10,6 +10,7 @@
     ./radarr
     ./sonarr
     ./vaultwarden
+    ./wireguard
     ./firewall.nix
     ./user.nix
   ];
