@@ -4,35 +4,29 @@
   config,
   ...
 }: let
-  name = "jellyseerr";
-  domainName = "request";
+  name = "bazarr";
+  domainName = "bazarr";
   homelab = variables.homelab;
-  group = variables.homelab.groups.main;
-  port = 5055;
+  group = variables.homelab.groups.media;
+  port = 6767;
 in {
   services.${name} = {
     enable = true;
-    port = port;
-    configDir = "${homelab.dataDir}${name}";
+    user = name;
+    group = group;
+    listenPort = port;
+    # dataDir = "${homelab.dataDir}${name}";
   };
   systemd.services.${name} = {
     environment = {
-      LOG_LEVEL = "info";
-      DB_TYPE = "postgres";
-      DB_HOST = "127.0.0.1";
-      DB_PORT = "5432";
-      DB_USER = name;
-      DB_NAME = name;
-      DB_USE_SSL = "false";
-      DB_LOG_QUERIES = "false";
+      POSTGRES_ENABLED = "true";
+      POSTGRES_HOST = "127.0.0.1";
+      POSTGRES_PORT = "5432";
+      POSTGRES_USERNAME = name;
+      POSTGRES_DATABASE = name;
     };
     serviceConfig = {
-      User = name;
-      Group = group;
       EnvironmentFile = config.sops.templates."${name}.env".path;
-      StateDirectory = lib.mkForce null;
-      DynamicUser = lib.mkForce false;
-      ProtectSystem = lib.mkForce "off";
       UMask = lib.mkForce homelab.defaultUMask;
     };
   };
@@ -59,8 +53,8 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
+    description = name;
+    group = group;
   };
 
   sops.secrets = {
@@ -69,6 +63,6 @@ in {
     };
   };
   sops.templates."${name}.env".content = ''
-    DB_PASS=${config.sops.placeholder."${name}/pgpassword"}
+    POSTGRES_PASSWORD=${config.sops.placeholder."${name}/pgpassword"}
   '';
 }

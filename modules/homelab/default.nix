@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./bazarr
     ./caddy
     ./jellyfin
     ./jellyseerr
