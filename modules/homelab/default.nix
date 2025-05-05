@@ -2,6 +2,7 @@
   imports = [
     ./caddy
     ./jellyfin
+    ./jellyseerr
     ./postgres
     ./prowlarr
     ./qbittorrent
