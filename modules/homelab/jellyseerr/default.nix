@@ -20,12 +20,12 @@ in {
       LOG_LEVEL = "info";
       DB_TYPE = "postgres";
       DB_HOST = "127.0.0.1";
-      DB_PORT = 5432;
+      DB_PORT = "5432";
       DB_USER = name;
       DB_PASS = config.sops.placeholder."${name}/pgpassword";
       DB_NAME = name;
-      DB_USE_SSL = false;
-      DB_LOG_QUERIES = false;
+      DB_USE_SSL = "false";
+      DB_LOG_QUERIES = "false";
     };
     serviceConfig = {
       User = name;
