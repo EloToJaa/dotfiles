@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "bazarr";
@@ -15,7 +16,6 @@ in {
     user = name;
     group = group;
     listenPort = port;
-    # dataDir = "${homelab.dataDir}${name}";
   };
   systemd.services.${name} = {
     environment = {
@@ -28,6 +28,7 @@ in {
     serviceConfig = {
       EnvironmentFile = config.sops.templates."${name}.env".path;
       UMask = lib.mkForce homelab.defaultUMask;
+      ExecStart = lib.mkForce "${pkgs.bazarr}/bin/bazarr --config '${homelab.dataDir}${name}' --port ${toString port} --no-update True";
     };
   };
   systemd.tmpfiles.rules = [
