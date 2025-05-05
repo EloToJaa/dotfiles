@@ -6,7 +6,7 @@
   name = "jellyseerr";
   domainName = "request";
   homelab = variables.homelab;
-  group = variables.homelab.groups.homelab;
+  group = variables.homelab.groups.main;
   port = 5055;
 in {
   services.${name} = {
