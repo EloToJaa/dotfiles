@@ -9,6 +9,7 @@
     ./qbittorrent
     ./radarr
     ./sonarr
+    ./vaultwarden
     ./firewall.nix
     ./user.nix
   ];
