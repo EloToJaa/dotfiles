@@ -30,6 +30,7 @@ in {
     serviceConfig = {
       User = name;
       Group = group;
+      EnvironmentFile = config.sops.secrets."${name}.env".path;
       StateDirectory = lib.mkForce null;
       DynamicUser = lib.mkForce false;
       ProtectSystem = lib.mkForce "off";
@@ -68,4 +69,7 @@ in {
       owner = name;
     };
   };
+  sops.templates."${name}.env".content = ''
+    DB_PASS=${config.sops.placeholder."${name}/pgpassword"}
+  '';
 }
