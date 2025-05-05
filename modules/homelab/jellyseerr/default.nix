@@ -11,10 +11,16 @@
 in {
   services.${name} = {
     enable = true;
-    user = "${name}";
-    group = "${group}";
+    port = port;
     configDir = "${homelab.dataDir}${name}";
   };
+  # systemd.services.${name}.serviceConfig = {
+  #     User = name;
+  #     Group = group;
+  #     StateDirectory = lib.mkForce null;
+  #     DynamicUser = lib.mkForce false;
+  #     UMask = lib.mkForce homelab.defaultUMask;
+  #   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
