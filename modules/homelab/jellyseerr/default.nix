@@ -61,4 +61,10 @@ in {
     description = "${name}";
     group = "${group}";
   };
+
+  sops.secrets = {
+    "${name}/pgpassword" = {
+      owner = name;
+    };
+  };
 }
