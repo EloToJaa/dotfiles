@@ -22,6 +22,7 @@ in {
     };
   };
   systemd.services.${name}.serviceConfig = {
+    Group = lib.mkForce group;
     UMask = lib.mkForce homelab.defaultUMask;
   };
   systemd.tmpfiles.rules = [
@@ -48,7 +49,7 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = name;
-    group = group;
+    group = lib.mkForce group;
   };
 
   sops.secrets = {
