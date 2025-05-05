@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  config,
   ...
 }: let
   name = "jellyseerr";
@@ -14,13 +15,26 @@ in {
     port = port;
     configDir = "${homelab.dataDir}${name}";
   };
-  # systemd.services.${name}.serviceConfig = {
-  #     User = name;
-  #     Group = group;
-  #     StateDirectory = lib.mkForce null;
-  #     DynamicUser = lib.mkForce false;
-  #     UMask = lib.mkForce homelab.defaultUMask;
-  #   };
+  systemd.services.${name} = {
+    environment = {
+      LOG_LEVEL = "info";
+      DB_TYPE = "postgres";
+      DB_HOST = "127.0.0.1";
+      DB_PORT = 5432;
+      DB_USER = name;
+      DB_PASS = config.sops.placeholder."${name}/pgpassword";
+      DB_NAME = name;
+      DB_USE_SSL = false;
+      DB_LOG_QUERIES = false;
+    };
+    serviceConfig = {
+      User = name;
+      Group = group;
+      StateDirectory = lib.mkForce null;
+      DynamicUser = lib.mkForce false;
+      UMask = lib.mkForce homelab.defaultUMask;
+    };
+  };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
