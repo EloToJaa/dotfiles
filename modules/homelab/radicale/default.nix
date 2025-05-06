@@ -17,7 +17,7 @@ in {
       storage.filesystem_folder = "${homelab.dataDir}${name}";
       auth = {
         type = "htpasswd";
-        htpasswd_filename = config.sops.secrets."${name}/password".path;
+        htpasswd_filename = config.sops.secrets."${name}/htpasswd".path;
         htpasswd_encryption = "plain";
       };
     };
@@ -45,7 +45,7 @@ in {
   };
 
   sops.secrets = {
-    "${name}/password" = {
+    "${name}/htpasswd" = {
       owner = name;
     };
   };
