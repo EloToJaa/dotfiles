@@ -7,7 +7,7 @@
   name = "paperless";
   domainName = "docs";
   homelab = variables.homelab;
-  group = variables.homelab.groups.main;
+  group = variables.homelab.groups.docs;
   port = 28981;
 in {
   services.${name} = {
