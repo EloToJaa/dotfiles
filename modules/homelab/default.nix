@@ -4,13 +4,15 @@
     ./caddy
     ./jellyfin
     ./jellyseerr
+    ./paperless
     ./postgres
     ./prowlarr
     ./qbittorrent
     ./radarr
+    ./redis
     ./sonarr
     ./vaultwarden
-    ./wireguard
+    # ./wireguard
     ./firewall.nix
     ./user.nix
   ];
