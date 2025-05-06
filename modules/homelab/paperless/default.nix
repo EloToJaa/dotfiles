@@ -21,7 +21,7 @@ in {
     passwordFile = config.sops.secrets."${name}/superpassword".path;
     settings = {
       PAPERLESS_DBENGINE = "postgresql";
-      PAPERLESS_DBHOST = "postgres";
+      PAPERLESS_DBHOST = "127.0.0.1";
       PAPERLESS_DBNAME = "paperless";
       PAPERLESS_DBUSER = name;
       # PAPERLESS_TIKA_ENABLED = "1";
