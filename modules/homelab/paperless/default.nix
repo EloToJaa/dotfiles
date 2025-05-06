@@ -18,7 +18,6 @@ in {
     consumptionDir = "/mnt/Documents/";
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
-    passwordFile = config.sops.secrets."${name}/superpassword".path;
     settings = {
       PAPERLESS_DBENGINE = "postgresql";
       PAPERLESS_DBHOST = "127.0.0.1";
@@ -72,9 +71,6 @@ in {
 
   sops.secrets = {
     "${name}/pgpassword" = {
-      owner = name;
-    };
-    "${name}/superpassword" = {
       owner = name;
     };
   };
