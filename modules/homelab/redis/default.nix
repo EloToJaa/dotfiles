@@ -4,18 +4,23 @@
   ...
 }: let
   name = "redis";
-  homelab = variables.homelab;
-  group = variables.homelab.groups.main;
+  group = variables.homelab.groups.database;
   port = 6379;
 in {
   services.${name}.servers.main = {
     enable = true;
-    dataDir = "${homelab.dataDir}${name}";
+    # dataDir = "${homelab.dataDir}${name}";
     port = port;
     openFirewall = true;
     user = name;
     group = group;
     requirePassFile = config.sops.secrets."${name}/password".path;
+  };
+
+  users.users.${name} = {
+    isSystemUser = true;
+    description = "${name}";
+    group = "${group}";
   };
 
   sops.secrets = {
