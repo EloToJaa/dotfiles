@@ -39,4 +39,9 @@ in {
     fsType = "nfs";
     options = defaultOptions;
   };
+  fileSystems."/mnt/Documents" = {
+    device = "${nfs}:/mnt/Main/Documents";
+    fsType = "nfs";
+    options = defaultOptions;
+  };
 }

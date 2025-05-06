@@ -15,7 +15,7 @@ in {
     port = port;
     dataDir = "${homelab.dataDir}${name}";
     mediaDir = "${homelab.dataDir}docs";
-    consumptionDir = "/mnt/Data/Documents/";
+    consumptionDir = "/mnt/Documents/";
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
     passwordFile = config.sops.secrets."${name}/superpassword".path;
