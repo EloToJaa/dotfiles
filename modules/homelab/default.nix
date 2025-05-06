@@ -9,6 +9,7 @@
     ./prowlarr
     ./qbittorrent
     ./radarr
+    ./radicale
     ./redis
     ./sonarr
     ./vaultwarden
