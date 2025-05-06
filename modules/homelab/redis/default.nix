@@ -8,7 +8,7 @@
   port = 6379;
 in {
   services.${name}.servers.main = {
-    enable = true;
+    enable = false;
     # dataDir = "${homelab.dataDir}${name}";
     port = port;
     openFirewall = true;

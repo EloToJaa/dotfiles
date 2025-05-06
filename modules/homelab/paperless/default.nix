@@ -71,6 +71,5 @@ in {
   };
   sops.templates."${name}.env".content = ''
     PAPERLESS_DBPASS=${config.sops.placeholder."${name}/pgpassword"}
-    PAPERLESS_REDIS: redis://:${config.sops.placeholder."redis/password"}@127.0.0.1:6379
   '';
 }
