@@ -23,9 +23,9 @@ in {
       PAPERLESS_DBHOST = "postgres";
       PAPERLESS_DBNAME = "paperless";
       PAPERLESS_DBUSER = name;
-      PAPERLESS_TIKA_ENABLED = "1";
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://gotenberg:3000";
-      PAPERLESS_TIKA_ENDPOINT = "http://tika:9998";
+      # PAPERLESS_TIKA_ENABLED = "1";
+      # PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://127.0.0.1:3000";
+      # PAPERLESS_TIKA_ENDPOINT = "http://127.0.0.1:9998";
       PAPERLESS_URL = "https://${domainName}.${homelab.baseDomain}";
     };
   };
