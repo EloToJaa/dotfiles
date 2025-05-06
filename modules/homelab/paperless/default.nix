@@ -28,6 +28,15 @@ in {
       # PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://127.0.0.1:3000";
       # PAPERLESS_TIKA_ENDPOINT = "http://127.0.0.1:9998";
       PAPERLESS_URL = "https://${domainName}.${homelab.baseDomain}";
+      PAPERLESS_CONSUMER_IGNORE_PATTERN = [
+        ".DS_STORE/*"
+        "desktop.ini"
+      ];
+      PAPERLESS_OCR_LANGUAGE = "pol+eng";
+      PAPERLESS_OCR_USER_ARGS = {
+        optimize = 1;
+        pdfa_image_compression = "lossless";
+      };
     };
   };
   systemd.services.${name}.serviceConfig = {
