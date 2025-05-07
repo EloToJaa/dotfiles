@@ -14,6 +14,9 @@ in {
     initialEmail = variables.email;
     initialPasswordFile = config.sops.secrets."pgadmin/password".path;
   };
+  systemd.services.${name}.serviceConfig = {
+    EnvironmentFile = config.sops.templates."${name}.env".path;
+  };
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
@@ -22,9 +25,25 @@ in {
     '';
   };
 
+  services.postgresql.ensureUsers = [
+    {
+      name = name;
+      ensureDBOwnership = false;
+    }
+  ];
+  services.postgresql.ensureDatabases = [
+    name
+  ];
+
   sops.secrets = {
     "pgadmin/password" = {
       owner = name;
     };
+    "${name}/pgpassword" = {
+      owner = name;
+    };
   };
+  sops.templates."${name}.env".content = ''
+    CONFIG_DATABASE_URI=${config.sops.placeholder."${name}/pgpassword"}
+  '';
 }
