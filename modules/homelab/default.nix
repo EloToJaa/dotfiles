@@ -15,6 +15,5 @@
     ./vaultwarden
     # ./wireguard
     ./firewall.nix
-    ./user.nix
   ];
 }
