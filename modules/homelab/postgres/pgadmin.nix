@@ -44,6 +44,6 @@ in {
     };
   };
   sops.templates."${name}.env".content = ''
-    CONFIG_DATABASE_URI=${config.sops.placeholder."${name}/pgpassword"}
+    CONFIG_DATABASE_URI=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
   '';
 }
