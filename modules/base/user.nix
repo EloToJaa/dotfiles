@@ -27,27 +27,26 @@ in {
     isNormalUser = true;
     description = "${variables.username}";
     group = "${variables.username}";
-    extraGroups = ["networkmanager" "wheel" "kvm"];
-    shell = pkgs.zsh;
-  };
-
-  users.groups.${variables.username} = {
-    gid = 1000;
-    members = ["${variables.username}"];
-  };
-  nix.settings.allowed-users = ["${variables.username}"];
-
-  users.users.${variables.username} = {
     extraGroups = [
+      "networkmanager"
+      "wheel"
+      "kvm"
       "${homelab.groups.main}"
       "${homelab.groups.media}"
       "${homelab.groups.photos}"
       "${homelab.groups.docs}"
       "${homelab.groups.database}"
     ];
+    shell = pkgs.zsh;
   };
 
+  nix.settings.allowed-users = ["${variables.username}"];
+
   users.groups = {
+    ${variables.username} = {
+      gid = 1000;
+      members = ["${variables.username}"];
+    };
     ${homelab.groups.main}.gid = 1100;
     ${homelab.groups.media}.gid = 1101;
     ${homelab.groups.photos}.gid = 1102;
