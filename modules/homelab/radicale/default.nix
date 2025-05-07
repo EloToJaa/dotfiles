@@ -5,7 +5,7 @@
   ...
 }: let
   name = "radicale";
-  domainName = "calendar";
+  domainName = "dav";
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 5232;
