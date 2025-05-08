@@ -87,6 +87,7 @@ in {
     sqls
     taplo
     yaml-language-server
+    beamMinimal27Packages.elixir-ls
   ];
 
   home.sessionVariables = {
