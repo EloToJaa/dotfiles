@@ -234,5 +234,7 @@ return {
 		vim.lsp.enable("taplo")
 		vim.lsp.enable("yamlls")
 		vim.lsp.enable("jsonls")
+		-- vim.lsp.enable("html")
+		-- vim.lsp.enable("cssls")
 	end,
 }
