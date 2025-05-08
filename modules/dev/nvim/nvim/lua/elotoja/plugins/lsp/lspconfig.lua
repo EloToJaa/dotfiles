@@ -209,11 +209,11 @@ return {
 			},
 		})
 
-		vim.lsp.confg("templ", {
-			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
-			end,
-		})
+		-- vim.lsp.confg("templ", {
+		-- 	capabilities = capabilities,
+		-- 	on_attach = function(client, bufnr)
+		-- 		vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
+		-- 	end,
+		-- })
 	end,
 }
