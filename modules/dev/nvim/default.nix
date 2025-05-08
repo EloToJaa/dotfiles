@@ -53,8 +53,18 @@ in {
     # Zig
     zig
 
+    # Linters
+    eslint_d
+    sqlfluff
+    mypy
+    cpplint
+
     # Formatters
     alejandra
+    prettierd
+    stylua
+    shfmt
+    gofumpt
 
     # LSP
     ruff

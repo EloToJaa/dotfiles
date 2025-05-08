@@ -23,7 +23,7 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			astro = { "eslint_d" },
-			-- cpp = { "cpplint" },
+			cpp = { "cpplint" },
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },
 			python = { "mypy" },

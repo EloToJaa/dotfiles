@@ -51,18 +51,18 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier",
-				"prettierd",
-				"stylua",
+				-- "prettier",
+				-- "prettierd",
+				-- "stylua",
 				"luacheck",
 				-- "clang-format", -- replaced by clang-tools from nixpkgs
-				"shfmt",
-				"eslint_d",
+				-- "shfmt",
+				-- "eslint_d",
 				-- "cpplint",
-				"sqlfluff",
+				-- "sqlfluff",
 				"sqlfmt",
-				"gofumpt",
-				"mypy",
+				-- "gofumpt",
+				-- "mypy",
 			},
 		})
 	end,
