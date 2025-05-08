@@ -15,7 +15,7 @@ in {
   home.packages = with pkgs; [
     neovim
 
-    rustup
+    # rustup
 
     # C / C++
     gcc
