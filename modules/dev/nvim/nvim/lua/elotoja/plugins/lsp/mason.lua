@@ -39,7 +39,7 @@ return {
 				-- "htmx",
 				-- "sqls",
 				-- "templ",
-				"elixirls",
+				-- "elixirls",
 
 				-- "taplo", --toml
 				-- "yamlls", --yml
