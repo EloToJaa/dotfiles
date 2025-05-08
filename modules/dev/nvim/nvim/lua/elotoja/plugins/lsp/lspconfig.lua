@@ -107,6 +107,7 @@ return {
 			capabilities = capabilities,
 		})
 
+		vim.lsp.enable("ruff")
 		vim.lsp.config("ruff", {
 			capabilities = capabilities,
 			init_options = {
@@ -121,6 +122,7 @@ return {
 			cmd = { "elixir-ls" },
 		})
 
+		vim.lsp.enable("rust_analyzer")
 		vim.lsp.config("rust_analyzer", {
 			capabilities = capabilities,
 			on_attach = function(client, bufnr) vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
@@ -148,6 +150,7 @@ return {
 			},
 		})
 
+		vim.lsp.enable("gopls")
 		vim.lsp.config("gopls", {
 			capabilities = capabilities,
 			settings = {
@@ -159,6 +162,7 @@ return {
 			},
 		})
 
+		vim.lsp.enable("svelte")
 		vim.lsp.config("svelte", {
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
@@ -169,6 +173,7 @@ return {
 			end,
 		})
 
+		vim.lsp.enable("emmet_ls")
 		vim.lsp.config("emmet_ls", {
 			capabilities = capabilities,
 			filetypes = {
@@ -197,6 +202,7 @@ return {
 			},
 		})
 
+		vim.lsp.enable("pyright")
 		vim.lsp.config("pyright", {
 			capabilities = capabilities,
 			pyright = {
@@ -215,5 +221,16 @@ return {
 		-- 		vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 		-- 	end,
 		-- })
+
+		vim.lsp.enable("zls")
+		vim.lsp.enable("astro")
+		vim.lsp.enable("tailwindcss")
+		vim.lsp.enable("ts_ls")
+		vim.lsp.enable("lua_ls")
+		vim.lsp.enable("bash_ls")
+		vim.lsp.enable("docker_compose_language_service")
+		vim.lsp.enable("sqls")
+		vim.lsp.enable("taplo")
+		vim.lsp.enable("yamlls")
 	end,
 }

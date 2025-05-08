@@ -22,29 +22,29 @@ return {
 		mason_lspconfig.setup({
 			automatic_enable = true,
 			ensure_installed = {
-				"ts_ls",
+				-- "ts_ls",
 				"html",
 				"cssls",
-				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"emmet_ls",
-				"pyright",
-				"ruff",
-				"zls",
-				"gopls",
+				-- "tailwindcss",
+				-- "svelte",
+				-- "lua_ls",
+				-- "emmet_ls",
+				-- "pyright",
+				-- "ruff",
+				-- "zls",
+				-- "gopls",
 				-- "clangd", -- replaced by clang-tools from nixpkgs
-				"astro",
-				"rust_analyzer",
-				"bashls",
-				"docker_compose_language_service",
+				-- "astro",
+				-- "rust_analyzer",
+				-- "bashls",
+				-- "docker_compose_language_service",
 				-- "htmx",
-				"sqls",
+				-- "sqls",
 				-- "templ",
 				"elixirls",
 
-				"taplo", --toml
-				"yamlls", --yml
+				-- "taplo", --toml
+				-- "yamlls", --yml
 				"jsonls", --json
 			},
 		})
