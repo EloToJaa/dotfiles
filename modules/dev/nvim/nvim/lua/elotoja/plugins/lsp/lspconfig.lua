@@ -117,6 +117,7 @@ return {
 			},
 		})
 
+		vim.lsp.enable("elixirls")
 		vim.lsp.config("elixirls", {
 			capabilities = capabilities,
 			cmd = { "elixir-ls" },
