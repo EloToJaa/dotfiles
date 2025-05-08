@@ -58,6 +58,7 @@ in {
     sqlfluff
     mypy
     cpplint
+    lua54Packages.luacheck
 
     # Formatters
     alejandra
@@ -65,6 +66,7 @@ in {
     stylua
     shfmt
     gofumpt
+    python312Packages.sqlfmt
 
     # LSP
     ruff
