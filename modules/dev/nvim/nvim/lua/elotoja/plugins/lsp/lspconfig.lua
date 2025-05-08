@@ -84,7 +84,8 @@ return {
 			hostname = "desktop"
 		end
 
-		lspconfig.nixd.setup({
+		vim.lsp.enable("nixd")
+		vim.lsp.config("nixd", {
 			cmd = { "nixd" },
 			settings = {
 				nixd = {
@@ -102,11 +103,13 @@ return {
 				},
 			},
 		})
-		lspconfig.clangd.setup({
+
+		vim.lsp.enable("clangd")
+		vim.lsp.config("clangd", {
 			capabilities = capabilities,
 		})
 
-		lspconfig.ruff.setup({
+		vim.lsp.config("ruff", {
 			capabilities = capabilities,
 			init_options = {
 				settings = {
@@ -115,124 +118,103 @@ return {
 			},
 		})
 
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-			["zls"] = function()
-				lspconfig.zls.setup({
-					capabilities = capabilities,
-				})
-			end,
-			["elixirls"] = function()
-				lspconfig.elixirls.setup({
-					capabilities = capabilities,
-					cmd = { "elixir-ls" },
-				})
-			end,
-			["rust_analyzer"] = function()
-				lspconfig.rust_analyzer.setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr) vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
-					settings = {
-						["rust-analyzer"] = {
-							imports = {
-								granularity = {
-									group = "module",
-								},
-								prefix = "self",
-							},
-							cargo = {
-								allFeatures = true,
-								buildScripts = {
-									enable = true,
-								},
-							},
-							checkOnSave = {
-								command = "clippy",
-							},
-							procMacro = {
-								enable = true,
-							},
+		vim.lsp.config("elixirls", {
+			capabilities = capabilities,
+			cmd = { "elixir-ls" },
+		})
+
+		vim.lsp.config("rust_analyzer", {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr) vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
+			settings = {
+				["rust-analyzer"] = {
+					imports = {
+						granularity = {
+							group = "module",
+						},
+						prefix = "self",
+					},
+					cargo = {
+						allFeatures = true,
+						buildScripts = {
+							enable = true,
 						},
 					},
+					checkOnSave = {
+						command = "clippy",
+					},
+					procMacro = {
+						enable = true,
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+			settings = {
+				analyses = {
+					unusedparams = true,
+				},
+				staticcheck = true,
+				gofumpt = true,
+			},
+		})
+
+		vim.lsp.config("svelte", {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				vim.api.nvim_create_autocmd("BufWritePost", {
+					pattern = { "*.js", "*.ts" },
+					callback = function(ctx) client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match }) end,
 				})
 			end,
-			["gopls"] = function()
-				lspconfig.gopls.setup({
-					capabilities = capabilities,
-					settings = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-						gofumpt = true,
+		})
+
+		vim.lsp.config("emmet_ls", {
+			capabilities = capabilities,
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+			},
+		})
+
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
 					},
-				})
-			end,
-			-- ["templ"] = function()
-			-- 	lspconfig.templ.setup({
-			-- 		capabilities = capabilities,
-			-- 		on_attach = function(client, bufnr)
-			-- 			vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
-			-- 		end,
-			-- 	})
-			-- end,
-			["svelte"] = function()
-				lspconfig.svelte.setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							pattern = { "*.js", "*.ts" },
-							callback = function(ctx) client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match }) end,
-						})
-					end,
-				})
-			end,
-			["emmet_ls"] = function()
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
+					completion = {
+						callSnippet = "Replace",
 					},
-				})
-			end,
-			["lua_ls"] = function()
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
-			end,
-			["pyright"] = function()
-				lspconfig.pyright.setup({
-					pyright = {
-						disableOrganizeImports = true,
-					},
-					python = {
-						analysis = {
-							ignore = { "*" },
-						},
-					},
-				})
+				},
+			},
+		})
+
+		vim.lsp.config("pyright", {
+			capabilities = capabilities,
+			pyright = {
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					ignore = { "*" },
+				},
+			},
+		})
+
+		vim.lsp.confg("templ", {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 			end,
 		})
 	end,
