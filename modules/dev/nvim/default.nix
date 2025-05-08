@@ -88,6 +88,7 @@ in {
     taplo
     yaml-language-server
     beamMinimal27Packages.elixir-ls
+    nodePackages.vscode-json-languageserver
   ];
 
   home.sessionVariables = {

@@ -233,5 +233,6 @@ return {
 		vim.lsp.enable("sqls")
 		vim.lsp.enable("taplo")
 		vim.lsp.enable("yamlls")
+		vim.lsp.enable("jsonls")
 	end,
 }

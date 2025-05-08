@@ -43,7 +43,7 @@ return {
 
 				-- "taplo", --toml
 				-- "yamlls", --yml
-				"jsonls", --json
+				-- "jsonls", --json
 			},
 		})
 
