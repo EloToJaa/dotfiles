@@ -1,6 +1,5 @@
 {variables, ...}: {
   security.sudo-rs = {
-    enable = true;
     extraRules = [
       {
         users = ["${variables.username}"];
