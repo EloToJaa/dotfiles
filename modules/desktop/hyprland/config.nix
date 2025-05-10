@@ -100,6 +100,10 @@
           offset = "0 2";
           color = "rgba(00000055)";
         };
+
+        ecosystem = {
+          no_update_news = true;
+        };
       };
 
       animations = {
