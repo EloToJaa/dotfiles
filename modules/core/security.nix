@@ -1,5 +1,5 @@
 {variables, ...}: {
-  security.sudo = {
+  security.sudo-rs = {
     enable = true;
     extraRules = [
       {
