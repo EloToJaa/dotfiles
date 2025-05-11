@@ -88,7 +88,7 @@ in {
       }
     ];
     bindMounts.mediaLocation = {
-      readOnly = false;
+      isReadOnly = false;
       hostPath = mediaDir;
       mountPoint = "/data";
     };
