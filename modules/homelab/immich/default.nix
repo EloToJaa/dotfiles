@@ -13,17 +13,13 @@
 in {
   containers.${name} = {
     autoStart = true;
-    privateNetwork = true;
-    hostAddress = "192.168.100.10";
-    localAddress = "192.168.100.11";
-    hostAddress6 = "fc00::1";
-    localAddress6 = "fc00::2";
+    privateNetwork = false;
     config = {...}: {
       services.${name} = {
         enable = true;
         user = name;
         group = group;
-        host = "192.168.100.11";
+        host = "127.0.0.1";
         port = port;
         openFirewall = true;
         accelerationDevices = ["/dev/dri/renderD128"];
@@ -52,15 +48,9 @@ in {
 
       networking = {
         firewall = {
-          enable = true;
           allowedTCPPorts = [5433];
         };
-        # Use systemd-resolved inside the container
-        # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-        useHostResolvConf = lib.mkForce false;
       };
-
-      services.resolved.enable = true;
 
       users.users.${name} = {
         isSystemUser = true;
@@ -75,18 +65,6 @@ in {
         ${homelab.groups.photos}.gid = 1102;
       };
     };
-    forwardPorts = [
-      {
-        containerPort = dbPort;
-        hostPort = dbPort;
-        protocol = "tcp";
-      }
-      {
-        containerPort = port;
-        hostPort = port;
-        protocol = "tcp";
-      }
-    ];
     bindMounts.mediaLocation = {
       isReadOnly = false;
       hostPath = mediaDir;
