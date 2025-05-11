@@ -7,7 +7,6 @@
   domainName = "photos";
   homelab = variables.homelab;
   group = variables.homelab.groups.photos;
-  host = "127.0.0.1";
   port = 2283;
   mediaDir = "/mnt/Data/${name}";
 in {
@@ -15,21 +14,19 @@ in {
     enable = true;
     user = name;
     group = group;
-    host = host;
+    host = "127.0.0.1";
     port = port;
     accelerationDevices = ["/dev/dri/renderD128"];
     mediaLocation = mediaDir;
     database = {
       enable = true;
       createDB = true;
-      host = host;
       port = port + 1;
       name = name;
       user = name;
     };
     redis = {
       enable = true;
-      host = host;
       port = 0; # disable tcp
     };
     machine-learning = {
@@ -58,5 +55,9 @@ in {
     isSystemUser = true;
     description = name;
     group = lib.mkForce group;
+    extraGroups = [
+      "video"
+      "render"
+    ];
   };
 }
