@@ -63,7 +63,7 @@ in {
     };
     ports = [
       "${toString port}:${toString port}"
-      "${toString port + 1}:5432"
+      "5433:5432"
     ];
   };
   # systemd.services.${name}.serviceConfig = {
