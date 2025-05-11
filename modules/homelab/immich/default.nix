@@ -89,8 +89,8 @@ in {
     ];
     bindMounts.mediaLocation = {
       isReadOnly = false;
-      hostPath = mediaDir;
-      mountPoint = "/data";
+      hostPath = "/data";
+      mountPoint = mediaDir;
     };
   };
   # systemd.services.${name}.serviceConfig = {
