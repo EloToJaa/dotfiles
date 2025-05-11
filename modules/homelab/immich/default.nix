@@ -18,13 +18,9 @@ in {
     port = port;
     accelerationDevices = ["/dev/dri/renderD128"];
     mediaLocation = mediaDir;
-    environment = {
-      DB_HOST = "/run/postgresql-immich";
-    };
     database = {
       enable = true;
-      createDB = true;
-      host = "/run/postgresql-immich";
+      createDB = false;
       port = port + 1;
       name = name;
       user = name;
