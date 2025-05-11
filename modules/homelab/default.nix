@@ -2,6 +2,7 @@
   imports = [
     ./bazarr
     ./caddy
+    ./immich
     ./jellyfin
     ./jellyseerr
     ./paperless
