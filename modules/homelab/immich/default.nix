@@ -8,6 +8,7 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.photos;
   port = 2283;
+  dbPort = 5433;
   mediaDir = "/mnt/Data/${name}";
 in {
   containers.${name} = {
@@ -26,11 +27,11 @@ in {
         port = port;
         openFirewall = true;
         accelerationDevices = ["/dev/dri/renderD128"];
-        mediaLocation = mediaDir;
+        mediaLocation = "/data";
         database = {
           enable = true;
           createDB = true;
-          port = 5433;
+          port = dbPort;
           name = name;
           user = name;
         };
@@ -74,6 +75,23 @@ in {
         ${homelab.groups.photos}.gid = 1102;
       };
     };
+    forwardedPorts = [
+      {
+        containerPort = dbPort;
+        hostPort = dbPort;
+        protocol = "tcp";
+      }
+      {
+        containerPort = port;
+        hostPort = port;
+        protocol = "tcp";
+      }
+    ];
+    bindMounts.mediaLocation = {
+      readOnly = false;
+      hostPath = mediaDir;
+      mountPoint = "/data";
+    };
   };
   # systemd.services.${name}.serviceConfig = {
   #   UMask = lib.mkForce homelab.defaultUMask;
@@ -88,5 +106,5 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
-  networking.firewall.allowedTCPPorts = [5433];
+  networking.firewall.allowedTCPPorts = [dbPort];
 }
