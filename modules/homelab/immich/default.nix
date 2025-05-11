@@ -29,7 +29,7 @@ in {
         mediaLocation = mediaDir;
         database = {
           enable = true;
-          createDB = false;
+          createDB = true;
           port = 5433;
           name = name;
           # user = name;
