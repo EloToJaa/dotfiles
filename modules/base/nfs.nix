@@ -24,8 +24,8 @@ in {
     fsType = "nfs";
     options = defaultOptions;
   };
-  fileSystems."/mnt/Config" = {
-    device = "${nfs}:/mnt/Main/Config";
+  fileSystems."/mnt/Photos" = {
+    device = "${nfs}:/mnt/Main/Photos";
     fsType = "nfs";
     options = defaultOptions;
   };
