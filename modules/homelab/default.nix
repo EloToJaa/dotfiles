@@ -16,5 +16,6 @@
     ./vaultwarden
     # ./wireguard
     ./firewall.nix
+    ./nat.nix
   ];
 }

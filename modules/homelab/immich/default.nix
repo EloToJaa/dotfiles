@@ -10,38 +10,68 @@
   port = 2283;
   mediaDir = "/mnt/Data/${name}";
 in {
-  services.${name} = {
-    enable = true;
-    user = name;
-    group = group;
-    host = "127.0.0.1";
-    port = port;
-    accelerationDevices = ["/dev/dri/renderD128"];
-    mediaLocation = mediaDir;
-    database = {
-      enable = true;
-      createDB = false;
-      name = name;
-      user = name;
+  containers.${name} = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "192.168.100.10";
+    localAddress = "127.0.0.1";
+    hostAddress6 = "::1";
+    localAddress6 = "fc00::2";
+    config = {...}: {
+      services.${name} = {
+        enable = true;
+        user = name;
+        group = group;
+        host = "127.0.0.1";
+        port = port;
+        openFirewall = true;
+        accelerationDevices = ["/dev/dri/renderD128"];
+        mediaLocation = mediaDir;
+        database = {
+          enable = true;
+          createDB = false;
+          port = 5432;
+          name = name;
+          user = name;
+        };
+        redis = {
+          enable = true;
+          port = 0; # disable tcp
+        };
+        machine-learning = {
+          enable = true;
+        };
+        settings = {
+          newVersionCheck.enabled = true;
+          server.externalDomain = "https://${domainName}.${homelab.baseDomain}";
+        };
+      };
+
+      system.stateVersion = variables.stateVersion;
+
+      networking = {
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [5432];
+        };
+        # Use systemd-resolved inside the container
+        # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+        useHostResolvConf = lib.mkForce false;
+      };
+
+      services.resolved.enable = true;
     };
-    redis = {
-      enable = true;
-      port = 0; # disable tcp
-    };
-    machine-learning = {
-      enable = true;
-    };
-    settings = {
-      newVersionCheck.enabled = true;
-      server.externalDomain = "https://${domainName}.${homelab.baseDomain}";
-    };
+    ports = [
+      "${toString port}:${toString port}"
+      "${toString port + 1}:5432"
+    ];
   };
   # systemd.services.${name}.serviceConfig = {
   #   UMask = lib.mkForce homelab.defaultUMask;
   # };
-  systemd.tmpfiles.rules = [
-    "d ${mediaDir} 750 ${name} ${group} - -"
-  ];
+  # systemd.tmpfiles.rules = [
+  #   "d ${mediaDir} 750 ${name} ${group} - -"
+  # ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
