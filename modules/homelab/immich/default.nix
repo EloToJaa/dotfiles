@@ -32,7 +32,6 @@ in {
         database = {
           enable = true;
           createDB = true;
-          host = host;
           port = dbPort;
           name = name;
           user = name;
