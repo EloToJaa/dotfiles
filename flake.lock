@@ -771,11 +771,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1746933035,
-        "narHash": "sha256-FGwvfCo0GZNLbe+Aceu7dyWXa+EiFEZ04LuXqL9vOQs=",
+        "lastModified": 1746935061,
+        "narHash": "sha256-0BDuu4RVu/l/xDc/Fx6cz/MI3qDEmg+n5I6VWMPYH7s=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "d79a0296ad73b0e2859ff39e3e92db8763977991",
+        "rev": "b57b25de6ad12b544bbf80a3d72085590da1b877",
         "type": "github"
       },
       "original": {
@@ -1058,18 +1058,18 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1746925098,
-        "narHash": "sha256-G5Xxn3YlEXE+IaWJNXKfQLCykfd9ynz248JLqMKUgVw=",
+        "lastModified": 1746914841,
+        "narHash": "sha256-SQGgVOAHRiKZn2cUNeboKNBeZ+BbXcA0BH7Q+L8Gj1w=",
         "owner": "wez",
         "repo": "wezterm",
-        "rev": "7ee60e2d9bb3b5da8c849389f576d0dfcb630ac0",
+        "rev": "2b15e46421cb89054a6f2fdfae7e19aa07a5498d",
         "type": "github"
       },
       "original": {
         "dir": "nix",
         "owner": "wez",
-        "ref": "main",
         "repo": "wezterm",
+        "rev": "2b15e46421cb89054a6f2fdfae7e19aa07a5498d",
         "type": "github"
       }
     },
