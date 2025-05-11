@@ -20,8 +20,7 @@ in {
     mediaLocation = mediaDir;
     database = {
       enable = true;
-      createDB = false;
-      port = port + 1;
+      createDB = true;
       name = name;
       user = name;
     };
@@ -37,9 +36,9 @@ in {
       server.externalDomain = "https://${domainName}.${homelab.baseDomain}";
     };
   };
-  systemd.services.${name}.serviceConfig = {
-    UMask = lib.mkForce homelab.defaultUMask;
-  };
+  # systemd.services.${name}.serviceConfig = {
+  #   UMask = lib.mkForce homelab.defaultUMask;
+  # };
   systemd.tmpfiles.rules = [
     "d ${mediaDir} 750 ${name} ${group} - -"
   ];
