@@ -20,7 +20,7 @@ in {
     mediaLocation = mediaDir;
     database = {
       enable = true;
-      createDB = true;
+      createDB = false;
       name = name;
       user = name;
     };
