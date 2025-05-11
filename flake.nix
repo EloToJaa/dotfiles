@@ -19,7 +19,7 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
-    wezterm.url = "github:wez/wezterm/main/2b15e46421cb89054a6f2fdfae7e19aa07a5498d?dir=nix";
+    wezterm.url = "github:wez/wezterm/2b15e46421cb89054a6f2fdfae7e19aa07a5498d?dir=nix";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
