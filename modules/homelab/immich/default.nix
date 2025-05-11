@@ -23,7 +23,7 @@ in {
         enable = true;
         user = name;
         group = group;
-        host = "127.0.0.1";
+        host = "192.168.100.11";
         port = port;
         openFirewall = true;
         accelerationDevices = ["/dev/dri/renderD128"];
