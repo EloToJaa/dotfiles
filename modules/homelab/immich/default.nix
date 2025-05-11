@@ -30,7 +30,7 @@ in {
         database = {
           enable = true;
           createDB = false;
-          port = 5432;
+          port = 5433;
           name = name;
           user = name;
         };
@@ -52,7 +52,7 @@ in {
       networking = {
         firewall = {
           enable = true;
-          allowedTCPPorts = [5432];
+          allowedTCPPorts = [5433];
         };
         # Use systemd-resolved inside the container
         # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
@@ -71,10 +71,6 @@ in {
         ];
       };
     };
-    ports = [
-      "${toString port}:${toString port}"
-      "5433:5432"
-    ];
   };
   # systemd.services.${name}.serviceConfig = {
   #   UMask = lib.mkForce homelab.defaultUMask;
@@ -89,4 +85,5 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
+  networking.firewall.allowedTCPPorts = [5433];
 }
