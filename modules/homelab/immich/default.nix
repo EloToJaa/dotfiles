@@ -9,7 +9,7 @@
   group = variables.homelab.groups.photos;
   port = 2283;
   dbPort = 5433;
-  mediaDir = "/mnt/Data/${name}";
+  mediaDir = "/mnt/Photos";
 in {
   containers.${name} = {
     autoStart = true;
