@@ -20,8 +20,8 @@ in {
     config = {...}: {
       services.${name} = {
         enable = true;
-        # user = name;
-        # group = group;
+        user = name;
+        group = group;
         host = "127.0.0.1";
         port = port;
         openFirewall = true;
@@ -32,7 +32,7 @@ in {
           createDB = true;
           port = 5433;
           name = name;
-          # user = name;
+          user = name;
         };
         redis = {
           enable = true;
@@ -61,15 +61,18 @@ in {
 
       services.resolved.enable = true;
 
-      # users.users.${name} = {
-      #   isSystemUser = true;
-      #   description = name;
-      #   group = lib.mkForce group;
-      #   extraGroups = [
-      #     "video"
-      #     "render"
-      #   ];
-      # };
+      users.users.${name} = {
+        isSystemUser = true;
+        description = name;
+        group = lib.mkForce group;
+        extraGroups = [
+          "video"
+          "render"
+        ];
+      };
+      users.groups = {
+        ${homelab.groups.photos}.gid = 1102;
+      };
     };
   };
   # systemd.services.${name}.serviceConfig = {
