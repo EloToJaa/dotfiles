@@ -75,7 +75,7 @@ in {
         ${homelab.groups.photos}.gid = 1102;
       };
     };
-    forwardedPorts = [
+    forwardPorts = [
       {
         containerPort = dbPort;
         hostPort = dbPort;
