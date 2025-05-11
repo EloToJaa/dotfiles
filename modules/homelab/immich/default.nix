@@ -13,10 +13,10 @@ in {
   containers.${name} = {
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.100.10";
-    localAddress = "127.0.0.1";
-    hostAddress6 = "::1";
-    localAddress6 = "fc00::2";
+    localAddress = "192.168.100.10";
+    hostAddress = "127.0.0.1";
+    localAddress6 = "::1";
+    hostAddress6 = "fc00::2";
     config = {...}: {
       services.${name} = {
         enable = true;
