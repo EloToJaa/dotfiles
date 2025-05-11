@@ -60,6 +60,16 @@ in {
       };
 
       services.resolved.enable = true;
+
+      users.users.${name} = {
+        isSystemUser = true;
+        description = name;
+        group = lib.mkForce group;
+        extraGroups = [
+          "video"
+          "render"
+        ];
+      };
     };
     ports = [
       "${toString port}:${toString port}"
@@ -78,15 +88,5 @@ in {
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${toString port}
     '';
-  };
-
-  users.users.${name} = {
-    isSystemUser = true;
-    description = name;
-    group = lib.mkForce group;
-    extraGroups = [
-      "video"
-      "render"
-    ];
   };
 }
