@@ -18,7 +18,7 @@ in {
     extraEnvironment = {
       NEXTAUTH_URL = "https://${domainName}.${homelab.baseDomain}";
       DOMAIN = homelab.baseDomain;
-      DATA_DIR = "${homelab.dataDir}${name}";
+      DATA_DIR = lib.mkForce "${homelab.dataDir}${name}";
       DISABLE_NEW_RELEASE_CHECK = "true";
       PORT = toString port;
     };
