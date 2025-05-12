@@ -5,6 +5,7 @@
     ./immich
     ./jellyfin
     ./jellyseerr
+    ./karakeep
     ./paperless
     ./postgres
     ./prowlarr
