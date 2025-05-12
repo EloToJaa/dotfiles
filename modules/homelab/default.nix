@@ -2,6 +2,7 @@
   imports = [
     ./bazarr
     ./caddy
+    ./glance
     ./immich
     ./jellyfin
     ./jellyseerr
