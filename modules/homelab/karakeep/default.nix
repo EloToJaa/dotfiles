@@ -38,7 +38,7 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    group = group;
+    group = lib.mkForce group;
   };
 
   sops.secrets = {
