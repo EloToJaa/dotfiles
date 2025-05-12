@@ -10,23 +10,24 @@
   group = variables.homelab.groups.main;
   port = 3000;
 in {
-  imports = [
-    ./service.nix
-    ./meilisearch.nix
-  ];
   services.${name} = {
     enable = true;
-    webPort = port;
-    user = name;
-    group = group;
-    dataDir = "${homelab.dataDir}${name}";
-    settings = {
-      MEILI_ADDR = "127.0.0.1:7700";
+    environmentFile = config.sops.templates."${name}.env".path;
+    browser.enable = true;
+    meilisearch.enable = true;
+    extraEnvironment = {
       NEXTAUTH_URL = "https://${domainName}.${homelab.baseDomain}";
       DOMAIN = homelab.baseDomain;
+      DATA_DIR = "${homelab.dataDir}${name}";
+      DISABLE_NEW_RELEASE_CHECK = "true";
+      PORT = toString port;
     };
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.${name}.serviceConfig = {
+    User = lib.mkForce name;
+    Group = lib.mkForce group;
+    UMask = lib.mkForce homelab.defaultUMask;
+  };
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
@@ -44,12 +45,8 @@ in {
     "${name}/openaiapikey" = {
       owner = name;
     };
-    "${name}/secret" = {
-      owner = name;
-    };
   };
   sops.templates."${name}.env".content = ''
     OPENAI_API_KEY=${config.sops.placeholder."${name}/openaiapikey"}
-    NEXTAUTH_SECRET=${config.sops.placeholder."${name}/secret"}
   '';
 }
