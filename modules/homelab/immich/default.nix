@@ -27,7 +27,7 @@ in {
         host = host;
         port = port;
         openFirewall = true;
-        accelerationDevices = ["/dev/dri/renderD128"];
+        # accelerationDevices = ["/dev/dri/renderD128"];
         mediaLocation = "/data";
         database = {
           enable = true;
@@ -67,10 +67,10 @@ in {
         isSystemUser = true;
         description = name;
         group = lib.mkForce group;
-        extraGroups = [
-          "video"
-          "render"
-        ];
+        # extraGroups = [
+        #   "video"
+        #   "render"
+        # ];
       };
       users.groups = {
         ${homelab.groups.photos}.gid = 1102;
