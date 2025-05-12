@@ -13,6 +13,21 @@ in {
     enable = true;
     settings = {
       server.port = port;
+      pages = [
+        {
+          name = "Home";
+          columns = [
+            {
+              size = "full";
+              widgets = [{type = "calendar";}];
+            }
+            {
+              size = "full";
+              widgets = [{type = "rss";}];
+            }
+          ];
+        }
+      ];
     };
   };
 
