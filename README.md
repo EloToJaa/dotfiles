@@ -12,11 +12,12 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 
 - [x] Add paperless
 - [x] Add radicale
+- [x] Add immich
+- [x] Add hoarder
 - [ ] Setup wireguard namespace tunnelling for qbittorrent, prowlarr & bazarr
 - [ ] Setup postgres backups
 - [ ] Setup opt backups
 - [ ] Add skip intro plugin to jellyfin
-- [ ] Add immich
 - [ ] Hash ADMIN_TOKEN in vaultwarden
 - [ ] Move vaultwarden dir to /opt/vaultwarden
 - [ ] Add dnsmasq; setup DNS server & ad blocker
@@ -30,7 +31,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [ ] Setup logs in /var/log with loki and promtail
 - [ ] Setup discord notifications (maybe notifiarr?)
 - [ ] Setup home page (homarr/homepage)
-- [ ] Add hoarder
 - [ ] Add url shortner (shlink?)
 - [ ] Add microbin (pastebin alternative)
 - [ ] Setup music navidrome & lidarr
