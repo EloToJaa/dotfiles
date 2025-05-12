@@ -14,6 +14,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add radicale
 - [x] Add immich
 - [x] Add hoarder
+- [x] Setup home page (glance)
 - [ ] Setup wireguard namespace tunnelling for qbittorrent, prowlarr & bazarr
 - [ ] Setup postgres backups
 - [ ] Setup opt backups
@@ -34,6 +35,5 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [ ] Add url shortner (shlink?)
 - [ ] Add microbin (pastebin alternative)
 - [ ] Setup music navidrome & lidarr
-- [ ] Setup a RSS feed reader (miniflux/glance)
 - [ ] Add homeassistant
 - [ ] Add siyuan?
