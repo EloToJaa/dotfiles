@@ -4,7 +4,7 @@
   ...
 }: let
   name = "glance";
-  domainName = "feed";
+  domainName = "home";
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 8081;

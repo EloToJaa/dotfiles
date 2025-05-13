@@ -31,7 +31,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup logs in /var/log with loki and promtail
 - [ ] Setup discord notifications (maybe notifiarr?)
-- [ ] Setup home page (homarr/homepage)
 - [ ] Add url shortner (shlink?)
 - [ ] Add microbin (pastebin alternative)
 - [ ] Setup music navidrome & lidarr
