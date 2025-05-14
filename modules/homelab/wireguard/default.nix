@@ -12,11 +12,7 @@ in {
     configFile = config.sops.templates."wg0.conf".path;
     privateIP = privateIP;
     dnsIP = dnsIP;
-  };
-
-  users.users.${name} = {
-    isSystemUser = true;
-    description = name;
+    user = name;
     group = name;
   };
 
