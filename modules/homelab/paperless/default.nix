@@ -49,6 +49,9 @@ in {
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
+      request_body {
+        max_size 10MB
+      }
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
