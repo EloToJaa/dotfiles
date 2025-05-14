@@ -12,20 +12,12 @@ in {
     configFile = config.sops.templates."wg0.conf".path;
     privateIP = privateIP;
     dnsIP = dnsIP;
-    user = name;
-    group = name;
   };
 
   sops.secrets = {
-    "${name}/privatekey" = {
-      owner = name;
-    };
-    "${name}/publickey" = {
-      owner = name;
-    };
-    "${name}/endpoint" = {
-      owner = name;
-    };
+    "${name}/privatekey" = {};
+    "${name}/publickey" = {};
+    "${name}/endpoint" = {};
   };
   sops.templates = {
     "wg0.conf" = {
@@ -40,7 +32,6 @@ in {
         AllowedIPs = 0.0.0.0/0,::0/0
         Endpoint = ${config.sops.placeholder."${name}/endpoint"}
       '';
-      owner = name;
     };
   };
 }

@@ -37,21 +37,21 @@ in {
     dnsIP = lib.mkOption {
       type = lib.types.str;
     };
-    user = lib.mkOption {
-      type = lib.types.str;
-      default = "wireguard";
-      description = ''
-        User account under which Wireguard runs.
-      '';
-    };
-
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = "wireguard";
-      description = ''
-        Group under which Wireguard runs.
-      '';
-    };
+    # user = lib.mkOption {
+    #   type = lib.types.str;
+    #   default = "wireguard";
+    #   description = ''
+    #     User account under which Wireguard runs.
+    #   '';
+    # };
+    #
+    # group = lib.mkOption {
+    #   type = lib.types.str;
+    #   default = "wireguard";
+    #   description = ''
+    #     Group under which Wireguard runs.
+    #   '';
+    # };
   };
   config = lib.mkIf cfg.enable {
     systemd.services."netns@" = {
@@ -75,8 +75,8 @@ in {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        User = cfg.user;
-        Group = cfg.group;
+        # User = cfg.user;
+        # Group = cfg.group;
         ExecStart = with pkgs;
           writers.writeBash "wg-up" ''
             see -e
@@ -98,15 +98,15 @@ in {
       };
     };
 
-    users.users = lib.mkIf (cfg.user == "wireguard") {
-      wireguard = {
-        isSystemUser = true;
-        group = cfg.group;
-        description = "Wireguard VPN user";
-      };
-    };
-
-    users.groups =
-      lib.mkIf (cfg.group == "wireguard") {wireguard = {gid = null;};};
+    # users.users = lib.mkIf (cfg.user == "wireguard") {
+    #   wireguard = {
+    #     isSystemUser = true;
+    #     group = cfg.group;
+    #     description = "Wireguard VPN user";
+    #   };
+    # };
+    #
+    # users.groups =
+    #   lib.mkIf (cfg.group == "wireguard") {wireguard = {gid = null;};};
   };
 }
