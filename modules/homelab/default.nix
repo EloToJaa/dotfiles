@@ -16,7 +16,7 @@
     ./redis
     ./sonarr
     ./vaultwarden
-    # ./wireguard
+    ./wireguard
     ./firewall.nix
     ./nat.nix
   ];
