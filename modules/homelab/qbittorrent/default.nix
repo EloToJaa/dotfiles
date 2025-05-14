@@ -30,7 +30,7 @@ in {
         "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
       ];
     }
-    ++ (lib.mkIf config.services.wireguard-netns.enable {
+    // (lib.mkIf config.services.wireguard-netns.enable {
       services.${name} = {
         bindsTo = ["netns@${ns}.service"];
         requires = [
