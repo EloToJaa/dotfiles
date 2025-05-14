@@ -14,6 +14,12 @@ in {
     dnsIP = dnsIP;
   };
 
+  users.users.${name} = {
+    isSystemUser = true;
+    description = name;
+    group = name;
+  };
+
   sops.secrets = {
     "${name}/privatekey" = {
       owner = name;
