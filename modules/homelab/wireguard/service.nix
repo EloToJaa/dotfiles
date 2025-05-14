@@ -102,7 +102,6 @@ in {
       wireguard = {
         isSystemUser = true;
         group = cfg.group;
-        home = cfg.dataDir;
         description = "Wireguard VPN user";
       };
     };
