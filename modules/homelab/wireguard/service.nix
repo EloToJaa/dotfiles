@@ -100,9 +100,9 @@ in {
 
     users.users = lib.mkIf (cfg.user == "wireguard") {
       wireguard = {
+        isSystemUser = true;
         group = cfg.group;
         home = cfg.dataDir;
-        createHome = true;
         description = "Wireguard VPN user";
       };
     };
