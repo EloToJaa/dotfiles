@@ -9,7 +9,7 @@ in {
 
   services."${name}-netns" = {
     enable = true;
-    configFile = config.age.secrets.wireguardCredentials.path;
+    configFile = config.sops.templates."wg0.conf".path;
     privateIP = privateIP;
     dnsIP = dnsIP;
   };
@@ -26,7 +26,7 @@ in {
     };
   };
   sops.templates = {
-    "config-${name}.xml" = {
+    "wg0.conf" = {
       content = ''
         [Interface]
         PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
