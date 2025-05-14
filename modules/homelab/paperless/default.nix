@@ -50,7 +50,7 @@ in {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
       request_body {
-        max_size 10MB
+        max_size 1000MB
       }
       reverse_proxy http://127.0.0.1:${toString port}
     '';
