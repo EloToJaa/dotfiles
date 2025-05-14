@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  config,
   pkgs,
   ...
 }: let
@@ -9,23 +10,63 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8181;
+  ns = config.services.wireguard-netns.namespace;
 in {
   imports = [
     ./service.nix
     ./vuetorrent.nix
   ];
-  environment.systemPackages = [pkgs.vuetorrent];
   services.${name} = {
     enable = true;
     port = port;
-    user = "${name}";
-    group = "${group}";
+    user = name;
+    group = group;
     dataDir = "${homelab.dataDir}${name}";
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
-  systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
-  ];
+  systemd =
+    {
+      services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+      tmpfiles.rules = [
+        "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+      ];
+    }
+    ++ (lib.mkIf config.services.wireguard-netns.enable {
+      services.${name} = {
+        bindsTo = ["netns@${ns}.service"];
+        requires = [
+          "network-online.target"
+          "netns@${ns}.service"
+        ];
+        serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
+      };
+      sockets."${name}-proxy" = {
+        enable = true;
+        description = "Socket for Proxy to ${name}";
+        listenStreams = ["58846"];
+        wantedBy = ["sockets.target"];
+      };
+      services."${name}-proxy" = {
+        enable = true;
+        description = "Proxy to ${name} in Network Namespace";
+        requires = [
+          "${name}.service"
+          "${name}-proxy.socket"
+        ];
+        after = [
+          "${name}.service"
+          "${name}-proxy.socket"
+        ];
+        unitConfig = {
+          JoinsNamespaceOf = "${name}.service";
+        };
+        serviceConfig = {
+          User = config.services.deluge.user;
+          Group = config.services.deluge.group;
+          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
+          PrivateNetwork = "yes";
+        };
+      };
+    });
 
   services.vuetorrent.enable = true;
 
@@ -38,6 +79,6 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    group = "${group}";
+    group = group;
   };
 }
