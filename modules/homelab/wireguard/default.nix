@@ -8,7 +8,7 @@ in {
   ];
 
   services."${name}-netns" = {
-    enable = false;
+    enable = true;
     configFile = config.sops.templates."wg0.conf".path;
     privateIP = privateIP;
     dnsIP = dnsIP;
