@@ -24,7 +24,6 @@ in {
       content = ''
         [Interface]
         PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
-        Address = ${privateIP}
         ListenPort = 21841
 
         [Peer]
