@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-diff";
-  version = "unstable-2025-05-10";
+  version = "unstable-2025-05-15";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "864a0210d9ba1e8eb925160c2e2a25342031d8d3";
-    hash = "sha256-m3709h7/AHJAtoJ3ebDA40c77D+5dCycpecprjVqj/k=";
+    rev = "55bf6996ada3df4cbad331ce3be0c1090769fc7c";
+    hash = "sha256-v/C+ZBrF1ghDt1SXpZcDELmHMVAqfr44iWxzUWynyRk=";
   };
 
   buildPhase = ''
