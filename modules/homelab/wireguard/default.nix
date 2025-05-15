@@ -24,13 +24,12 @@ in {
       content = ''
         [Interface]
         PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
-        Address = ${privateIP}/32
-        DNS = ${dnsIP}
+        Address = ${privateIP}
+        ListenPort = 21841
 
         [Peer]
         PublicKey = ${config.sops.placeholder."${name}/publickey"}
-        AllowedIPs = 0.0.0.0/0,::0/0
-        Endpoint = ${config.sops.placeholder."${name}/endpoint"}
+        Endpoint = ${config.sops.placeholder."${name}/endpoint"}:51820
       '';
     };
   };
