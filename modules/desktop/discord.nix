@@ -4,10 +4,10 @@
   ...
 }: {
   home.packages = with pkgs; [
-    (discord.override {
-      withVencord = true;
-    })
-    # webcord-vencord
+    # (discord.override {
+    #   withVencord = true;
+    # })
+    webcord-vencord
   ];
 
   xdg.configFile."Vencord/themes/custom.css".text =
