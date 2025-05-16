@@ -7,7 +7,7 @@
     (discord.override {
       withVencord = false;
     })
-    webcord-vencord
+    # webcord-vencord
   ];
 
   xdg.configFile."Vencord/themes/custom.css".text =
