@@ -27,6 +27,10 @@
     "yazi/keymap.toml".source = ./keymap.toml;
     "yazi/init.lua".source = ./init.lua;
 
+    # Theme
+    "yazi/Catppuccin-mocha.tmTheme".source = ./pkgs/theme-bat.nix;
+    "yazi/theme.toml".source = ./pkgs/theme-yazi.nix;
+
     # Plugins
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./pkgs/git.nix {};
     "yazi/plugins/lazygit.yazi".source = pkgs.callPackage ./pkgs/lazygit.nix {};
