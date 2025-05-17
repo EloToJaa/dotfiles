@@ -15,7 +15,7 @@ stdenv.mkDerivation {
   };
 
   buildPhase = ''
-    ln -sf $src/themes/mocha/catppuccin-mocha-blue.toml $out
+    cp $src/themes/mocha/catppuccin-mocha-blue.toml $out
   '';
 
   meta = with lib; {

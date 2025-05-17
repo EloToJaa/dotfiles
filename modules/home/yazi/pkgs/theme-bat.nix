@@ -15,7 +15,7 @@ stdenv.mkDerivation {
   };
 
   buildPhase = ''
-    ln -sf "$src/themes/Catppuccin Mocha.tmTheme" $out
+    cp "$src/themes/Catppuccin Mocha.tmTheme" $out
   '';
 
   meta = with lib; {
