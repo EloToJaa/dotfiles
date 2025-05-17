@@ -45,6 +45,7 @@
     "yazi/plugins/glow.yazi".source = pkgs.callPackage ./pkgs/glow.nix {};
     "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./pkgs/hexyl.nix {};
     "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ./pkgs/relative-motions.nix {};
+    "yazi/plugins/toggle-pane.yazi".source = pkgs.callPackage ./pkgs/toggle-pane.nix {};
   };
 
   programs.zsh.initContent =
