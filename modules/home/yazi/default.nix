@@ -28,8 +28,8 @@
     "yazi/init.lua".source = ./init.lua;
 
     # Theme
-    "yazi/Catppuccin-mocha.tmTheme".source = ./pkgs/theme-bat.nix;
-    "yazi/theme.toml".source = ./pkgs/theme-yazi.nix;
+    "yazi/Catppuccin-mocha.tmTheme".source = pkgs.callPackage ./pkgs/theme-bat.nix {};
+    "yazi/theme.toml".source = pkgs.callPackage ./pkgs/theme-yazi.nix {};
 
     # Plugins
     "yazi/plugins/git.yazi".source = pkgs.callPackage ./pkgs/git.nix {};
