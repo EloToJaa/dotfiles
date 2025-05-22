@@ -1,6 +1,6 @@
 {config, ...}: let
   name = "wireguard";
-  privateIP = "10.74.89.98/32";
+  privateIP = "10.74.89.98";
   dnsIP = "10.64.0.1";
 in {
   imports = [
