@@ -4,7 +4,7 @@
 }:
 pkgs.stdenvNoCC.mkDerivation rec {
   pname = "nu_scripts";
-  version = "unstable-2025-05-17";
+  version = "unstable-2025-05-22";
 
   src = pkgs.fetchFromGitHub {
     owner = "nushell";

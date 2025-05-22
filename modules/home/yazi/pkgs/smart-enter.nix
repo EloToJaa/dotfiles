@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-smart-enter";
-  version = "unstable-2025-05-17";
+  version = "unstable-2025-05-22";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
