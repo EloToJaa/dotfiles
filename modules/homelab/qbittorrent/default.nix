@@ -42,7 +42,7 @@ in {
       sockets."${name}-proxy" = {
         enable = true;
         description = "Socket for Proxy to ${name}";
-        listenStreams = ["${toString port}"];
+        listenStreams = [(toString port)];
         wantedBy = ["sockets.target"];
       };
       services."${name}-proxy" = {
