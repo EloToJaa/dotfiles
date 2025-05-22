@@ -13,10 +13,10 @@
 in {
   services.${name} = {
     enable = true;
+    user = name;
+    group = group;
   };
   systemd.services.${name}.serviceConfig = {
-    User = name;
-    Group = group;
     StateDirectory = lib.mkForce null;
     DynamicUser = lib.mkForce false;
     UMask = lib.mkForce homelab.defaultUMask;
@@ -46,8 +46,8 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
+    description = name;
+    group = lib.mkForce group;
   };
 
   sops.secrets = {
