@@ -42,7 +42,7 @@ in {
       sockets."${name}-proxy" = {
         enable = true;
         description = "Socket for Proxy to ${name}";
-        listenStreams = ["58846"];
+        listenStreams = ["${toString port}"];
         wantedBy = ["sockets.target"];
       };
       services."${name}-proxy" = {
@@ -62,7 +62,7 @@ in {
         serviceConfig = {
           User = name;
           Group = group;
-          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
+          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString port}";
           PrivateNetwork = "yes";
         };
       };
