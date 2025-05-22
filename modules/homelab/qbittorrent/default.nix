@@ -35,7 +35,7 @@ in {
         bindsTo = ["netns@${ns}.service"];
         requires = [
           "network-online.target"
-          "netns@${ns}.service"
+          "${ns}.service"
         ];
         serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
       };
@@ -60,8 +60,8 @@ in {
           JoinsNamespaceOf = "${name}.service";
         };
         serviceConfig = {
-          User = config.services.deluge.user;
-          Group = config.services.deluge.group;
+          User = name;
+          Group = group;
           ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
           PrivateNetwork = "yes";
         };
