@@ -59,8 +59,6 @@ in {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        # User = cfg.user;
-        # Group = cfg.group;
         ExecStart = with pkgs;
           writers.writeBash "wg-up" ''
             set -e
