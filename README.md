@@ -15,10 +15,10 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add immich
 - [x] Add hoarder
 - [x] Setup home page (glance)
+- [x] Add skip intro plugin to jellyfin
 - [ ] Setup wireguard namespace tunnelling for qbittorrent, prowlarr & bazarr
 - [ ] Setup postgres backups
 - [ ] Setup opt backups
-- [ ] Add skip intro plugin to jellyfin
 - [ ] Hash ADMIN_TOKEN in vaultwarden
 - [ ] Move vaultwarden dir to /opt/vaultwarden
 - [ ] Add dnsmasq; setup DNS server & ad blocker
