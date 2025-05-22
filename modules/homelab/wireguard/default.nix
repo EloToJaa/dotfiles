@@ -1,6 +1,6 @@
 {config, ...}: let
   name = "wireguard";
-  privateIP = "192.168.2.2";
+  privateIP = "192.168.2.2/24";
   dnsIP = "10.64.0.1";
 in {
   imports = [
@@ -24,8 +24,6 @@ in {
       content = ''
         [Interface]
         PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
-        Address = ${privateIP}/24
-        ListenPort = 21841
 
         [Peer]
         PublicKey = ${config.sops.placeholder."${name}/publickey"}
