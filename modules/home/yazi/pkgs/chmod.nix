@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-chmod";
-  version = "unstable-2025-05-22";
+  version = "unstable-2025-05-24";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
