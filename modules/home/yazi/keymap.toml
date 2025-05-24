@@ -133,3 +133,18 @@ prepend_keymap = [
     "0",
   ], run = "tab_switch 9", desc = "Switch to tenth tab" },
 ]
+
+[spot]
+prepend_keymap = [{ on = "q", run = "close", desc = "Close the spot" }]
+
+[pick]
+prepend_keymap = [{ on = "q", run = "close", desc = "Cancel pick" }]
+
+[tasks]
+prepend_keymap = [{ on = "q", run = "close", desc = "Close task manager" }]
+
+[confirm]
+prepend_keymap = [{ on = "q", run = "close", desc = "Cancel the confirm" }]
+
+[help]
+prepend_keymap = [{ on = "q", run = "close", desc = "Hide the help" }]
