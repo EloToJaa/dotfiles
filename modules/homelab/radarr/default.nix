@@ -12,8 +12,8 @@
 in {
   services.${name} = {
     enable = true;
-    user = "${name}";
-    group = "${group}";
+    user = name;
+    group = group;
     dataDir = "${homelab.dataDir}${name}";
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
@@ -41,8 +41,8 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
+    description = name;
+    group = group;
   };
 
   sops.secrets = {

@@ -59,8 +59,8 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
+    description = name;
+    group = group;
   };
 
   sops.secrets = {

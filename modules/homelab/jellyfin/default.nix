@@ -11,8 +11,8 @@
 in {
   services.${name} = {
     enable = true;
-    user = "${name}";
-    group = "${group}";
+    user = name;
+    group = group;
     dataDir = "${homelab.dataDir}${name}";
     logDir = "${homelab.logDir}${name}";
   };
@@ -31,8 +31,8 @@ in {
 
   users.users.${name} = {
     isSystemUser = true;
-    description = "${name}";
-    group = "${group}";
+    description = name;
+    group = group;
   };
 
   nixpkgs.overlays = [

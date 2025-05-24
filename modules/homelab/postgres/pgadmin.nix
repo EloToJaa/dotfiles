@@ -36,7 +36,7 @@ in {
   ];
 
   sops.secrets = {
-    "pgadmin/password" = {
+    "${name}/password" = {
       owner = name;
     };
     "${name}/pgpassword" = {
