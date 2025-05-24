@@ -315,7 +315,7 @@
         "pin, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
         "opacity 1.0 override 1.0 override, class:(evince)"
-        "workspace 1, class:^(zen)$"
+        "workspace 1, class:^(zen-beta)$"
         "workspace 4, class:^(evince)$"
         "workspace 4, class:^(Gimp-2.10)$"
         "workspace 5, class:^(Audacious)$"
