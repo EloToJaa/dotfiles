@@ -71,6 +71,11 @@ prepend_keymap = [
     "i",
   ], run = "plugin lazygit", desc = "Open lazygit" },
 
+  # Toggle pane
+  { on = "e", run = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },
+  { on = "E", run = "plugin toggle-pane min-preview", desc = "Show or hide the preview pane" },
+  { on = "T", run = "plugin toggle-pane min-parent", desc = "Show or hide the parent pane" },
+
   # Relative motions
   { on = "1", run = "plugin relative-motions 1", desc = "Move in relative steps" },
   { on = "2", run = "plugin relative-motions 2", desc = "Move in relative steps" },
