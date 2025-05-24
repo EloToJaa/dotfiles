@@ -19,6 +19,7 @@
     glow
     mediainfo
     hexyl
+    udisks
     inputs.yazi.packages.${pkgs.system}.default
   ];
 
