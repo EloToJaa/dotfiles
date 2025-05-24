@@ -66,7 +66,7 @@ in {
             ${iproute2}/bin/ip link set wg0 netns ${cfg.namespace}
             ${iproute2}/bin/ip -n ${cfg.namespace} address add ${cfg.privateIP} dev wg0
             ${iproute2}/bin/ip netns exec ${cfg.namespace} \
-            ${pkgs.wireguard-tools}/bin/wg setconf wg0 ${cfg.configFile}
+            ${wireguard-tools}/bin/wg setconf wg0 ${cfg.configFile}
             ${iproute2}/bin/ip -n ${cfg.namespace} link set wg0 up
             ${iproute2}/bin/ip -n ${cfg.namespace} link set lo up
             ${iproute2}/bin/ip -n ${cfg.namespace} route add default dev wg0
