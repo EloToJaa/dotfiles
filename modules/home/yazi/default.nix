@@ -19,7 +19,7 @@
     glow
     mediainfo
     hexyl
-    inputs.yazi.packages."${pkgs.system}".default
+    inputs.yazi.packages.${pkgs.system}.default
   ];
 
   xdg.configFile = {
