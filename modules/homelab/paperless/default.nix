@@ -9,13 +9,16 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.docs;
   port = 28981;
+  dataDir = "${homelab.dataDir}${name}";
+  mediaDir = "${homelab.dataDir}docs";
+  consumptionDir = "/mnt/Documents/";
 in {
   services.${name} = {
     enable = true;
     port = port;
-    dataDir = "${homelab.dataDir}${name}";
-    mediaDir = "${homelab.dataDir}docs";
-    consumptionDir = "/mnt/Documents/";
+    dataDir = dataDir;
+    mediaDir = mediaDir;
+    consumptionDir = consumptionDir;
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {
@@ -43,7 +46,7 @@ in {
     UMask = lib.mkForce homelab.defaultUMask;
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -64,6 +67,13 @@ in {
   ];
   services.postgresql.ensureDatabases = [
     name
+  ];
+  services.postgresqlBackup.databases = [
+    name
+  ];
+  services.restic.backups.appdata-local.paths = [
+    dataDir
+    mediaDir
   ];
 
   users.users.${name} = {

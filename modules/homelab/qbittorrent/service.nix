@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.services.qbittorrent;
-  configDir = "${cfg.dataDir}";
+  configDir = cfg.dataDir;
   openFilesLimit = 4096;
 in {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix

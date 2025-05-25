@@ -9,11 +9,12 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 5055;
+  configDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
     enable = true;
     port = port;
-    configDir = "${homelab.dataDir}${name}";
+    configDir = configDir;
   };
   systemd.services.${name} = {
     environment = {
@@ -37,7 +38,7 @@ in {
     };
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${configDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -58,6 +59,9 @@ in {
   ];
   services.postgresqlBackup.databases = [
     name
+  ];
+  services.restic.backups.appdata-local.paths = [
+    configDir
   ];
 
   users.users.${name} = {

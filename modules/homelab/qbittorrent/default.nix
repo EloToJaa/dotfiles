@@ -11,6 +11,7 @@
   group = variables.homelab.groups.media;
   port = 8181;
   ns = config.services.wireguard-netns.namespace;
+  dataDir = "${homelab.dataDir}${name}";
 in {
   imports = [
     ./service.nix
@@ -21,7 +22,7 @@ in {
     port = port;
     user = name;
     group = group;
-    dataDir = "${homelab.dataDir}${name}";
+    dataDir = dataDir;
   };
   systemd =
     {

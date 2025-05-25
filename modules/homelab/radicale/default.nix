@@ -9,12 +9,13 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 5232;
+  dataDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
     enable = true;
     settings = {
       server.hosts = ["127.0.0.1:${toString port}"];
-      storage.filesystem_folder = "${homelab.dataDir}${name}";
+      storage.filesystem_folder = dataDir;
       auth = {
         type = "htpasswd";
         htpasswd_filename = config.sops.secrets."${name}/htpasswd".path;
@@ -28,7 +29,7 @@ in {
     UMask = lib.mkForce homelab.defaultUMask;
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {

@@ -2,7 +2,6 @@
   variables,
   lib,
   config,
-  pkgs,
   ...
 }: let
   name = "prowlarr";
@@ -10,20 +9,19 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 9696;
+  dataDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
     enable = true;
     user = name;
     group = group;
+    dataDir = dataDir;
   };
   systemd.services.${name}.serviceConfig = {
-    StateDirectory = lib.mkForce null;
-    DynamicUser = lib.mkForce false;
     UMask = lib.mkForce homelab.defaultUMask;
-    ExecStart = lib.mkForce ''"${pkgs.prowlarr}/bin/Prowlarr" "-nobrowser" "-data=${homelab.dataDir}${name}"'';
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -42,6 +40,9 @@ in {
   services.postgresql.ensureDatabases = [
     "${name}-main"
     "${name}-log"
+  ];
+  services.postgresqlBackup.databases = [
+    "${name}-main"
   ];
 
   users.users.${name} = {
@@ -84,7 +85,7 @@ in {
           <Theme>auto</Theme>
         </Config>
       '';
-      path = "${homelab.dataDir}${name}/config.xml";
+      path = "${dataDir}/config.xml";
       owner = name;
     };
   };

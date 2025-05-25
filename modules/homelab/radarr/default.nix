@@ -9,16 +9,17 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 7878;
+  dataDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
     enable = true;
     user = name;
     group = group;
-    dataDir = "${homelab.dataDir}${name}";
+    dataDir = dataDir;
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -82,7 +83,7 @@ in {
           <Theme>auto</Theme>
         </Config>
       '';
-      path = "${homelab.dataDir}${name}/config.xml";
+      path = "${dataDir}/config.xml";
       owner = name;
     };
   };
