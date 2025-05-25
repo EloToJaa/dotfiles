@@ -10,6 +10,7 @@
   port = 2283;
   dbPort = 5433;
   mediaDir = "/mnt/Photos";
+  dataDir = "${homelab.varDataDir}nixos-containers/${name}${homelab.varDataDir}";
   host = "192.168.100.11";
 in {
   containers.${name} = {
@@ -48,6 +49,12 @@ in {
           server.externalDomain = "https://${domainName}.${homelab.baseDomain}";
         };
       };
+      systemd.services.${name}.serviceConfig = {
+        UMask = lib.mkForce homelab.defaultUMask;
+      };
+      systemd.tmpfiles.rules = [
+        "d ${homelab.varDataDir}${name} 750 ${name} ${group} - -"
+      ];
 
       system.stateVersion = variables.stateVersion;
 
@@ -94,12 +101,6 @@ in {
       mountPoint = "/data";
     };
   };
-  # systemd.services.${name}.serviceConfig = {
-  #   UMask = lib.mkForce homelab.defaultUMask;
-  # };
-  # systemd.tmpfiles.rules = [
-  #   "d ${mediaDir} 750 ${name} ${group} - -"
-  # ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
@@ -107,5 +108,9 @@ in {
       reverse_proxy http://${host}:${toString port}
     '';
   };
+  services.restic.backups.appdata-local.paths = [
+    dataDir
+    mediaDir
+  ];
   networking.firewall.allowedTCPPorts = [dbPort];
 }
