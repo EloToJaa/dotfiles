@@ -56,6 +56,9 @@ in {
   services.postgresql.ensureDatabases = [
     name
   ];
+  services.postgresqlBackup.databases = [
+    name
+  ];
 
   users.users.${name} = {
     isSystemUser = true;

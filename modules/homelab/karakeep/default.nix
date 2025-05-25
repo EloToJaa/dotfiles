@@ -9,6 +9,7 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 3000;
+  dataDir = "${homelab.varDataDir}${name}";
 in {
   services.${name} = {
     enable = true;
@@ -34,6 +35,10 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
+
+  services.restic.backups.appdata-local.paths = [
+    dataDir
+  ];
 
   users.users.${name} = {
     isSystemUser = true;

@@ -8,18 +8,23 @@
   homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8096;
+  dataDir = "${homelab.dataDir}${name}";
+  logDir = "${homelab.logDir}${name}";
 in {
   services.${name} = {
     enable = true;
     user = name;
     group = group;
-    dataDir = "${homelab.dataDir}${name}";
-    logDir = "${homelab.logDir}${name}";
+    dataDir = dataDir;
+    logDir = logDir;
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
-    "d ${homelab.logDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
+    "d ${logDir} 750 ${name} ${group} - -"
+  ];
+  services.restic.backups.appdata-local.paths = [
+    dataDir
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {

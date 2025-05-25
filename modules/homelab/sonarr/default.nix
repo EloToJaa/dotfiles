@@ -38,6 +38,9 @@ in {
     "${name}-main"
     "${name}-log"
   ];
+  services.postgresqlBackup.databases = [
+    "${name}-main"
+  ];
 
   users.users.${name} = {
     isSystemUser = true;
