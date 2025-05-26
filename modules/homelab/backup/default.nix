@@ -7,14 +7,14 @@
 }: let
   name = "restic";
   group = variables.homelab.groups.backups;
-  backupDir = "/mnt/Backups/restic/";
+  backupDir = "/mnt/Backups/${name}/";
   postgresBackupDir = "/var/backup/postgresql/";
   port = 9999;
 in {
   services.${name} = {
     server = {
       enable = true;
-      dataDir = "${backupDir}${name}";
+      dataDir = backupDir;
       # htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
       listenAddress = toString port;
       extraFlags = ["--no-auth"];
