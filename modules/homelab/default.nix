@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./backup
     ./bazarr
     ./caddy
     ./glance

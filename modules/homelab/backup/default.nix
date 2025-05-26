@@ -1,6 +1,5 @@
 {
   host,
-  pkgs,
   config,
   ...
 }: let
