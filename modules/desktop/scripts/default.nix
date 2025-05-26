@@ -6,10 +6,10 @@
   music = pkgs.writeShellScriptBin "music" (builtins.readFile ./scripts/music.sh);
   lofi = pkgs.writeScriptBin "lofi" (builtins.readFile ./scripts/lofi.sh);
 
-  toggle_blur = pkgs.writeScriptBin "toggle_blur" (builtins.readFile ./scripts/toggle_blur.sh);
-  toggle_oppacity = pkgs.writeScriptBin "toggle_oppacity" (builtins.readFile ./scripts/toggle_oppacity.sh);
-  toggle_waybar = pkgs.writeScriptBin "toggle_waybar" (builtins.readFile ./scripts/toggle_waybar.sh);
-  toggle_float = pkgs.writeScriptBin "toggle_float" (builtins.readFile ./scripts/toggle_float.sh);
+  toggle-blur = pkgs.writeScriptBin "toggle-blur" (builtins.readFile ./scripts/toggle-blur.sh);
+  toggle-oppacity = pkgs.writeScriptBin "toggle-opacity" (builtins.readFile ./scripts/toggle-oppacity.sh);
+  toggle-waybar = pkgs.writeScriptBin "toggle-waybar" (builtins.readFile ./scripts/toggle-waybar.sh);
+  toggle-float = pkgs.writeScriptBin "toggle-float" (builtins.readFile ./scripts/toggle-float.sh);
 
   show-keybinds = pkgs.writeScriptBin "show-keybinds" (builtins.readFile ./scripts/keybinds.sh);
 
@@ -30,10 +30,10 @@ in {
     music
     lofi
 
-    toggle_blur
-    toggle_oppacity
-    toggle_waybar
-    toggle_float
+    toggle-blur
+    toggle-oppacity
+    toggle-waybar
+    toggle-float
 
     show-keybinds
 
