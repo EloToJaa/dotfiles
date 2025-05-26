@@ -40,7 +40,6 @@ in {
   };
 
   users.users.${name} = {
-    isSystemUser = true;
     description = name;
     group = lib.mkForce group;
   };
