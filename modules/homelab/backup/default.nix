@@ -2,6 +2,7 @@
   host,
   config,
   variables,
+  lib,
   ...
 }: let
   name = "restic";
@@ -41,7 +42,7 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = name;
-    group = group;
+    group = lib.mkForce group;
   };
 
   sops.secrets = {
