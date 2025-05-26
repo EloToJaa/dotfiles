@@ -10,7 +10,7 @@ in {
     server = {
       enable = true;
       dataDir = "${backupDir}${name}";
-      extraFlags = ["--no-auth"];
+      htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
     };
     backups.appdata-local = {
       timerConfig = {
@@ -35,6 +35,9 @@ in {
 
   sops.secrets = {
     "${name}/password" = {
+      owner = name;
+    };
+    "${name}/htpasswd" = {
       owner = name;
     };
   };
