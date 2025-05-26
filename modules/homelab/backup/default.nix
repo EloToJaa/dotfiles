@@ -34,6 +34,10 @@ in {
       exclude = [];
     };
   };
+  systemd.services."${name}-rest-server".serviceConfig = {
+    User = lib.mkForce name;
+    Group = lib.mkForce group;
+  };
   services.postgresqlBackup = {
     enable = true;
     location = "${backupDir}postgresql";
