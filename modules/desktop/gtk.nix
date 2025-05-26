@@ -2,13 +2,16 @@
   pkgs,
   variables,
   ...
-}: {
+}: let
+  # theme = "Orchis-Dark-Compact";
+  theme = "Adwaita-dark";
+in {
   home.packages = with pkgs; [
     nwg-look
   ];
 
   home.sessionVariables = {
-    GTK_THEME = "Orchis-Dark-Compact";
+    GTK_THEME = theme;
   };
 
   gtk = {
@@ -25,7 +28,7 @@
       };
     };
     theme = {
-      name = "Orchis-Dark-Compact";
+      name = theme;
       package = pkgs.orchis-theme.override {
         tweaks = ["primary"];
       };
