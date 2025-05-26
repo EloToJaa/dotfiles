@@ -10,7 +10,8 @@ in {
     server = {
       enable = true;
       dataDir = "${backupDir}${name}";
-      htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
+      # htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
+      extraFlags = ["--no-auth"];
     };
     backups.appdata-local = {
       timerConfig = {
