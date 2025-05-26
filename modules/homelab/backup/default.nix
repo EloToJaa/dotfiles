@@ -23,7 +23,7 @@ in {
         OnCalendar = "Mon..Sat *-*-* 05:00:00";
         Persistent = true;
       };
-      repository = "rest:http://localhost:8000/appdata-local-${host}";
+      repository = "rest:http://localhost:${toString port}/appdata-local-${host}";
       initialize = true;
       passwordFile = config.sops.secrets."${name}/password".path;
       pruneOpts = [
