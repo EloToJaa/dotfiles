@@ -1,9 +1,11 @@
 {
   host,
   config,
+  variables,
   ...
 }: let
   name = "restic";
+  group = variables.homelab.groups.main;
   backupDir = "/mnt/Backups/";
   port = 9999;
 in {
@@ -34,6 +36,12 @@ in {
   services.postgresqlBackup = {
     enable = true;
     location = "${backupDir}postgresql";
+  };
+
+  users.users.${name} = {
+    isSystemUser = true;
+    description = name;
+    group = group;
   };
 
   sops.secrets = {
