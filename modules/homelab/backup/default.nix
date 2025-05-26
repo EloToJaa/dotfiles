@@ -7,7 +7,8 @@
 }: let
   name = "restic";
   group = variables.homelab.groups.backups;
-  backupDir = "/mnt/Backups/";
+  backupDir = "/mnt/Backups/restic/";
+  postgresBackupDir = "/var/backup/postgresql/";
   port = 9999;
 in {
   services.${name} = {
@@ -32,6 +33,7 @@ in {
         "--keep-monthly 1"
       ];
       exclude = [];
+      paths = [postgresBackupDir];
     };
   };
   systemd.services."${name}-rest-server".serviceConfig = {
@@ -39,7 +41,7 @@ in {
   };
   services.postgresqlBackup = {
     enable = true;
-    location = "${backupDir}postgresql";
+    location = postgresBackupDir;
     startAt = "*-*-* 02:00:00";
   };
 
