@@ -20,7 +20,7 @@ in {
     };
     backups.appdata-local = {
       timerConfig = {
-        OnCalendar = "Mon..Sat *-*-* 05:00:00";
+        OnCalendar = "*-*-* 03:00:00";
         Persistent = true;
       };
       repository = "rest:http://localhost:${toString port}/appdata-local-${host}";
@@ -40,6 +40,7 @@ in {
   services.postgresqlBackup = {
     enable = true;
     location = "${backupDir}postgresql";
+    startAt = "*-*-* 02:00:00";
   };
 
   users.users.${name} = {
