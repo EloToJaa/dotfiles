@@ -6,7 +6,7 @@
   ...
 }: let
   name = "restic";
-  group = variables.homelab.groups.main;
+  group = variables.homelab.groups.backups;
   backupDir = "/mnt/Backups/";
   port = 9999;
 in {

@@ -15,9 +15,9 @@ in {
     extraSpecialArgs = {inherit inputs variables host;};
     users.${variables.username} = {
       home = {
-        username = "${variables.username}";
+        username = variables.username;
         homeDirectory = "/home/${variables.username}";
-        stateVersion = "${variables.stateVersion}";
+        stateVersion = variables.stateVersion;
       };
       programs.home-manager.enable = true;
     };
@@ -25,17 +25,18 @@ in {
 
   users.users.${variables.username} = {
     isNormalUser = true;
-    description = "${variables.username}";
-    group = "${variables.username}";
+    description = variables.username;
+    group = variables.username;
     extraGroups = [
       "networkmanager"
       "wheel"
       "kvm"
-      "${homelab.groups.main}"
-      "${homelab.groups.media}"
-      "${homelab.groups.photos}"
-      "${homelab.groups.docs}"
-      "${homelab.groups.database}"
+      homelab.groups.main
+      homelab.groups.media
+      homelab.groups.photos
+      homelab.groups.docs
+      homelab.groups.database
+      homelab.groups.backups
     ];
     shell = pkgs.zsh;
   };
@@ -52,5 +53,6 @@ in {
     ${homelab.groups.photos}.gid = 1102;
     ${homelab.groups.docs}.gid = 1103;
     ${homelab.groups.database}.gid = 1104;
+    ${homelab.groups.backups}.gid = 1105;
   };
 }

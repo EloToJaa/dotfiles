@@ -82,6 +82,7 @@
           photos = "photos";
           docs = "documents";
           database = "database";
+          backups = "backups";
         };
       };
     };
