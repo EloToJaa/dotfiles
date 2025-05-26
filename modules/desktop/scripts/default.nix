@@ -7,7 +7,7 @@
   lofi = pkgs.writeScriptBin "lofi" (builtins.readFile ./scripts/lofi.sh);
 
   toggle-blur = pkgs.writeScriptBin "toggle-blur" (builtins.readFile ./scripts/toggle-blur.sh);
-  toggle-oppacity = pkgs.writeScriptBin "toggle-opacity" (builtins.readFile ./scripts/toggle-oppacity.sh);
+  toggle-opacity = pkgs.writeScriptBin "toggle-opacity" (builtins.readFile ./scripts/toggle-opacity.sh);
   toggle-waybar = pkgs.writeScriptBin "toggle-waybar" (builtins.readFile ./scripts/toggle-waybar.sh);
   toggle-float = pkgs.writeScriptBin "toggle-float" (builtins.readFile ./scripts/toggle-float.sh);
 
@@ -31,7 +31,7 @@ in {
     lofi
 
     toggle-blur
-    toggle-oppacity
+    toggle-opacity
     toggle-waybar
     toggle-float
 
