@@ -34,19 +34,17 @@ in {
       exclude = [];
     };
   };
-  # systemd.services."${name}-rest-server".serviceConfig = {
-  #   User = lib.mkForce name;
-  #   Group = lib.mkForce group;
-  # };
+  systemd.services."${name}-rest-server".serviceConfig = {
+    Group = lib.mkForce group;
+  };
   services.postgresqlBackup = {
     enable = true;
     location = "${backupDir}postgresql";
   };
 
-  # users.users.${name} = {
-  #   description = name;
-  #   group = lib.mkForce group;
-  # };
+  users.users.${name} = {
+    group = lib.mkForce group;
+  };
 
   sops.secrets = {
     "${name}/password" = {
