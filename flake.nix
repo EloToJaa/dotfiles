@@ -9,24 +9,25 @@
       url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    yazi.url = "github:sxyazi/yazi";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     sops-nix.url = "github:Mic92/sops-nix";
-
-    wezterm.url = "github:wez/wezterm/4a210168e159fef35db77ad28cda14eea9652790?dir=nix";
+    deploy-rs.url = "github:serokell/deploy-rs";
+    yazi.url = "github:sxyazi/yazi";
+    wezterm.url = "github:wez/wezterm?dir=nix";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
-    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = {
