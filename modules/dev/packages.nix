@@ -15,6 +15,7 @@
     valgrind # c memory analyzer
     xxd
     hyperfine
+    deploy-rs
 
     ## SQL
     pgcli
