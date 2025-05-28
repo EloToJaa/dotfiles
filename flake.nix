@@ -26,11 +26,13 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs = {
     nixpkgs,
     self,
+    deploy-rs,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -129,5 +131,17 @@
         };
       };
     };
+    deploy.nodes = let
+      configs = self.nixosConfigurations;
+    in {
+      server = {
+        hostname = "server";
+        profiles.system = {
+          user = "elotoja";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
+        };
+      };
+    };
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
