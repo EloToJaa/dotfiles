@@ -133,9 +133,10 @@
     };
     deploy.nodes = let
       configs = self.nixosConfigurations;
+      domain = "eagle-perch.ts.net";
     in {
       server = {
-        hostname = "server";
+        hostname = "server.${domain}";
         profiles.system = {
           user = "elotoja";
           path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
