@@ -135,12 +135,21 @@
     deploy.nodes = let
       configs = self.nixosConfigurations;
       domain = "eagle-perch.ts.net";
+      user = "elotoja";
     in {
       server = {
         hostname = "server.${domain}";
         profiles.system = {
-          user = "elotoja";
+          user = user;
           path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
+          interactiveSudo = true;
+        };
+      };
+      laptop = {
+        hostname = "laptop.${domain}";
+        profiles.system = {
+          user = user;
+          path = deploy-rs.lib.x86_64-linux.activate.nixos configs.laptop;
           interactiveSudo = true;
         };
       };
