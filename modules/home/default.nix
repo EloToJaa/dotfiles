@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./lazydocker
+    # ./lazydocker
     ./lazygit
     ./ohmyposh # shell prompt
     ./yazi

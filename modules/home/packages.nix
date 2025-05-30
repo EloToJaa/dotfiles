@@ -8,6 +8,7 @@
     usbutils
     unzip
     wget
+    systemctl-tui
 
     neovim
   ];
