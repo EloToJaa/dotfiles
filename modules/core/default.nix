@@ -3,7 +3,7 @@
     ./gnome
     ./adb.nix
     ./bluetooth.nix
-    # ./camera.nix
+    ./camera.nix
     ./network.nix
     ./pipewire.nix
     ./security.nix
