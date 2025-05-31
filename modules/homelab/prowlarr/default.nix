@@ -2,7 +2,6 @@
   variables,
   lib,
   config,
-  pkgs,
   ...
 }: let
   name = "prowlarr";
@@ -13,19 +12,16 @@
   ns = config.services.wireguard-netns.namespace;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services."${name}-custom" = {
     enable = true;
-    # user = name;
-    # group = group;
+    user = name;
+    group = group;
     dataDir = dataDir;
   };
 
   systemd = {
     services.${name}.serviceConfig = {
       UMask = lib.mkForce homelab.defaultUMask;
-      User = lib.mkForce name;
-      Group = lib.mkForce group;
-      DynamicUser = lib.mkForce false;
     };
     tmpfiles.rules = [
       "d ${dataDir} 750 ${name} ${group} - -"
