@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-hexyl";
-  version = "unstable-2025-05-26";
+  version = "unstable-2025-05-31";
 
   src = fetchFromGitHub {
     owner = "Reledia";
