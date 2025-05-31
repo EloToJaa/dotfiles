@@ -17,7 +17,7 @@ in {
     ./service.nix
   ];
 
-  services."${name}-custom" = {
+  services.${name} = {
     enable = true;
     user = name;
     group = group;
