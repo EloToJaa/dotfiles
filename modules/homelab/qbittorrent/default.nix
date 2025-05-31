@@ -28,7 +28,7 @@ in {
     {
       services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
       tmpfiles.rules = [
-        "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+        "d ${dataDir} 750 ${name} ${group} - -"
       ];
     }
     // (lib.mkIf config.services.wireguard-netns.enable {
