@@ -18,7 +18,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add skip intro plugin to jellyfin
 - [x] Setup postgres backups
 - [x] Setup opt backups
-- [ ] Setup wireguard namespace tunnelling for qbittorrent, prowlarr & bazarr
+- [x] Setup wireguard namespace tunnelling for qbittorrent
+- [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Hash ADMIN_TOKEN in vaultwarden
 - [ ] Update nvim config to use nvf for package management
 - [ ] Add dnsmasq; setup DNS server & ad blocker
