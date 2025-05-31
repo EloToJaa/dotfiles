@@ -15,7 +15,7 @@
 in {
   services.${name} = {
     enable = true;
-    user = name;
+    # user = name;
     # group = group;
     dataDir = dataDir;
   };
@@ -24,6 +24,7 @@ in {
     {
       services.${name}.serviceConfig = {
         UMask = lib.mkForce homelab.defaultUMask;
+        User = lib.mkForce name;
         Group = lib.mkForce group;
         DynamicUser = lib.mkForce false;
       };
