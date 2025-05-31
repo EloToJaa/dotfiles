@@ -8,6 +8,7 @@
   domainName = "pwd";
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
+  dataDir = "${homelab.varDataDir}${name}";
   port = 8222;
 in {
   services.${name} = {
@@ -26,7 +27,7 @@ in {
     UMask = lib.mkForce homelab.defaultUMask;
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -35,6 +36,10 @@ in {
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
+
+  services.restic.backups.appdata-local.paths = [
+    dataDir
+  ];
 
   services.postgresql.ensureUsers = [
     {
