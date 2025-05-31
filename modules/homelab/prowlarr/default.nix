@@ -12,6 +12,10 @@
   ns = config.services.wireguard-netns.namespace;
   dataDir = "${homelab.dataDir}${name}";
 in {
+  disabledModules = [
+    "services/misc/servarr/prowlarr.nix"
+  ];
+
   imports = [
     ./flaresolverr.nix
     ./service.nix
