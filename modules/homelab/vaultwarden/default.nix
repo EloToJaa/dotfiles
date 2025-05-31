@@ -16,7 +16,7 @@ in {
     environmentFile = config.sops.templates."${name}.env".path;
     config = {
       ROCKET_PORT = toString port;
-      SIGNUPS_ALLOWED = "false";
+      SIGNUPS_ALLOWED = "true";
       INVITATIONS_ALLOWED = "false";
       WEBSOCKET_ENABLED = "true";
     };
