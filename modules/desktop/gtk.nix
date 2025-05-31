@@ -23,8 +23,8 @@ in {
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "${variables.catppuccin.flavor}";
-        accent = "${variables.catppuccin.accent}";
+        flavor = variables.catppuccin.flavor;
+        accent = variables.catppuccin.accent;
       };
     };
     theme = {
