@@ -131,5 +131,8 @@ in {
     };
   };
 
-  imports = [./flaresolverr.nix];
+  imports = [
+    ./flaresolverr.nix
+    ./service.nix
+  ];
 }
