@@ -16,13 +16,17 @@ in {
   services.${name} = {
     enable = true;
     user = name;
-    group = group;
+    # group = group;
     dataDir = dataDir;
   };
 
   systemd =
     {
-      services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+      services.${name}.serviceConfig = {
+        UMask = lib.mkForce homelab.defaultUMask;
+        Group = lib.mkForce group;
+        DynamicUser = lib.mkForce false;
+      };
       tmpfiles.rules = [
         "d ${dataDir} 750 ${name} ${group} - -"
       ];
