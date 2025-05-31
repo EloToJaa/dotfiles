@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 layout = [1, 4, 3]
 linemode = "mtime"
 scrolloff = 8
