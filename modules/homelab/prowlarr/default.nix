@@ -12,6 +12,11 @@
   ns = config.services.wireguard-netns.namespace;
   dataDir = "${homelab.dataDir}${name}";
 in {
+  imports = [
+    ./flaresolverr.nix
+    ./service.nix
+  ];
+
   services."${name}-custom" = {
     enable = true;
     user = name;
@@ -130,9 +135,4 @@ in {
       owner = name;
     };
   };
-
-  imports = [
-    ./flaresolverr.nix
-    ./service.nix
-  ];
 }
