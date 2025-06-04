@@ -13,6 +13,9 @@ in {
         "2620:fe::fe"
         "2620:fe::9"
       ];
+      address = [
+        "/${homelab.baseDomain}/192.168.0.32"
+      ];
     };
   };
 }

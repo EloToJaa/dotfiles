@@ -3,6 +3,7 @@
     ./backup
     ./bazarr
     ./caddy
+    ./dnsmasq
     ./glance
     ./immich
     ./jellyfin
