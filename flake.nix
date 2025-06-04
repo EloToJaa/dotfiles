@@ -20,7 +20,7 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     deploy-rs.url = "github:serokell/deploy-rs";
-    yazi.url = "github:sxyazi/yazi";
+    yazi.url = "github:sxyazi/yazi/b65a88075a824e4304dca5428ba05de1404fa635";
     wezterm.url = "github:wez/wezterm?dir=nix";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
