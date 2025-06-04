@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./nix-search
     ./nushell
     ./nvim # neovim editor
     ./scripts # personal scripts
