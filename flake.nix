@@ -6,7 +6,7 @@
     nur.url = "github:nix-community/NUR";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/9bf1b491440eac6f9c0d6853013ad5666c12d1d9?submodules=true";
+      url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
