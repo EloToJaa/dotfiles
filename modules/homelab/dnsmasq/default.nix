@@ -15,6 +15,7 @@ in {
       ];
       address = [
         "/${homelab.baseDomain}/192.168.0.32"
+        "/.${homelab.baseDomain}/192.168.0.32"
       ];
     };
   };
