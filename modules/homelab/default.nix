@@ -2,8 +2,8 @@
   imports = [
     ./backup
     ./bazarr
+    ./bind
     ./caddy
-    ./dnsmasq
     ./glance
     ./immich
     ./jellyfin
