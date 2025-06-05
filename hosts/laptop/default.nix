@@ -19,7 +19,6 @@
 
   networking = {
     useDHCP = lib.mkForce true;
-    nameservers = variables.dns;
   };
 
   environment.systemPackages = with pkgs; [
