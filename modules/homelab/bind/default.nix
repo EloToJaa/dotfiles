@@ -27,7 +27,6 @@ in {
           $ORIGIN ${baseDomain}.
           @       IN      SOA     ns.${baseDomain}. elotoja.protonmail.com. (2025050600 12h 15m 3w 2h)
           @       IN      NS      ns.${baseDomain}.
-          @       IN      A       192.168.0.32
           ns      IN      A       192.168.0.32
 
           server   IN      A       192.168.0.32
