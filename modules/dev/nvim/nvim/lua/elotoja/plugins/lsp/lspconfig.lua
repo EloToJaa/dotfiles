@@ -81,6 +81,7 @@ return {
 		else
 			hostname = "desktop"
 		end
+		hostname = hostname:gsub("^%s*(.-)%s*$", "%1")
 
 		vim.lsp.enable("nixd")
 		vim.lsp.config("nixd", {
