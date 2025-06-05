@@ -216,6 +216,12 @@ return {
 			},
 		})
 
+		vim.lsp.enable("bash_ls")
+		vim.lsp.config("bash_ls", {
+			cmd = { "bash-language-server", "start" },
+			filetypes = { "bash", "sh" },
+		})
+
 		-- vim.lsp.confg("templ", {
 		-- 	capabilities = capabilities,
 		-- 	on_attach = function(client, bufnr)
@@ -228,7 +234,6 @@ return {
 		vim.lsp.enable("tailwindcss")
 		vim.lsp.enable("ts_ls")
 		vim.lsp.enable("lua_ls")
-		vim.lsp.enable("bash_ls")
 		vim.lsp.enable("docker_compose_language_service")
 		vim.lsp.enable("sqls")
 		vim.lsp.enable("taplo")
