@@ -5,7 +5,7 @@
 }: let
   name = "bind";
   homelab = variables.homelab;
-  baseDomain = homelab.baseDomain;
+  baseDomain = homelab.mainDomain;
 in {
   services.${name} = {
     enable = true;

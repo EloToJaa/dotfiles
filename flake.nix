@@ -74,7 +74,8 @@
         remote = "https://loki.server.elotoja.com";
       };
       homelab = {
-        baseDomain = "server.elotoja.com";
+        mainDomain = "elotoja.com";
+        baseDomain = "server.${variables.homelab.mainDomain}";
         dataDir = "/opt/";
         varDataDir = "/var/lib/";
         logDir = "/var/log/";
