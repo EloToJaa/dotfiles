@@ -28,6 +28,8 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
+
+    paperless-nixpkgs.url = "github:NixOS/nixpkgs/bdac72d387dca7f836f6ef1fe547755fb0e9df61";
   };
 
   outputs = {
@@ -57,7 +59,7 @@
       locale = "en_GB.UTF-8";
       keyboardLayout = "pl,pl";
       stateVersion = "25.05";
-      dns = ["192.168.0.32" "192.168.0.31" "9.9.9.9" "149.112.112.112"];
+      dns = ["192.168.0.31" "9.9.9.9" "149.112.112.112"];
       nfs = {
         local = "192.168.0.41";
         remote = "truenas.eagle-perch.ts.net";

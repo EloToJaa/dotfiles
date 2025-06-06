@@ -8,7 +8,7 @@
   baseDomain = homelab.mainDomain;
 in {
   services.${name} = {
-    enable = true;
+    enable = false;
     ipv4Only = false;
     extraOptions = ''
       dnssec-validation auto;
