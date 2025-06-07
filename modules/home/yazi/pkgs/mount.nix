@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-mount";
-  version = "unstable-2025-06-04";
+  version = "unstable-2025-06-07";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
