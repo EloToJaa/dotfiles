@@ -17,7 +17,7 @@ in {
       PORT = lib.mkForce (toString port);
     };
   };
-  systemd.services.${name}.serviceConfig = {
+  systemd.services.uptime-kuma.serviceConfig = {
     User = lib.mkForce name;
     Group = lib.mkForce group;
     UMask = lib.mkForce homelab.defaultUMask;
