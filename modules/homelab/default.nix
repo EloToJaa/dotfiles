@@ -17,6 +17,7 @@
     ./radicale
     ./redis
     ./sonarr
+    ./uptime
     ./vaultwarden
     ./wireguard
     ./firewall.nix
