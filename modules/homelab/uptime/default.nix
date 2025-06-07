@@ -3,14 +3,14 @@
   lib,
   ...
 }: let
-  name = "uptime-kuma";
+  name = "uptime";
   domainName = "uptime";
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 3001;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.uptime-kuma = {
     enable = true;
     settings = {
       DATA_DIR = lib.mkForce dataDir;
