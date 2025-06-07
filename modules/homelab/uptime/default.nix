@@ -13,8 +13,8 @@ in {
   services.${name} = {
     enable = true;
     settings = {
-      DATA_DIR = dataDir;
-      PORT = toString port;
+      DATA_DIR = lib.mkForce dataDir;
+      PORT = lib.mkForce toString port;
     };
   };
   systemd.services.${name}.serviceConfig = {
