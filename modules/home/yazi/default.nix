@@ -37,7 +37,6 @@
     "yazi/plugins/lazygit.yazi".source = pkgs.callPackage ./pkgs/lazygit.nix {};
     "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./pkgs/smart-filter.nix {};
     "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./pkgs/smart-enter.nix {};
-    "yazi/plugins/smart-paste.yazi".source = pkgs.callPackage ./pkgs/smart-paste.nix {};
     "yazi/plugins/mount.yazi".source = pkgs.callPackage ./pkgs/mount.nix {};
     "yazi/plugins/chmod.yazi".source = pkgs.callPackage ./pkgs/chmod.nix {};
     "yazi/plugins/diff.yazi".source = pkgs.callPackage ./pkgs/diff.nix {};
