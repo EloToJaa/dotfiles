@@ -15,7 +15,6 @@
     ./qbittorrent
     ./radarr
     ./radicale
-    ./redis
     ./sonarr
     ./uptime
     ./vaultwarden
