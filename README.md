@@ -20,18 +20,18 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Setup opt backups
 - [x] Setup wireguard namespace tunnelling for qbittorrent
 - [x] Hash ADMIN_TOKEN in vaultwarden
+- [x] Add uptime kuma
+- [x] Setup discord notifications (maybe notifiarr?)
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Update nvim config to use nvf for package management
 - [ ] Add dnsmasq; setup DNS server & ad blocker
 - [ ] Add redis
 - [ ] Add authelia
-- [ ] Add uptime kuma
 - [ ] Add prometheus
 - [ ] Add grafana
 - [ ] Setup nas host with NixOS
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup logs in /var/log with loki and promtail
-- [ ] Setup discord notifications (maybe notifiarr?)
 - [ ] Add url shortner (shlink?)
 - [ ] Add microbin (pastebin alternative)
 - [ ] Setup music navidrome & lidarr
