@@ -5,12 +5,14 @@
     ./bind
     ./caddy
     ./glance
+    ./grafana
     ./immich
     ./jellyfin
     ./jellyseerr
     ./karakeep
     ./paperless
     ./postgres
+    ./prometheus
     ./prowlarr
     ./qbittorrent
     ./radarr
