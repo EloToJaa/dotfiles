@@ -10,6 +10,7 @@
     ./jellyfin
     ./jellyseerr
     ./karakeep
+    ./loki
     ./paperless
     ./postgres
     ./prometheus

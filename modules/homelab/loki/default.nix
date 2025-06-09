@@ -1,18 +1,19 @@
 {variables, ...}: let
-  name = "prometheus";
-  domainName = "prometheus";
+  name = "loki";
+  domainName = "loki";
   homelab = variables.homelab;
   group = variables.homelab.groups.main;
-  stateDir = "${homelab.varDataDir}${name}";
+  dataDir = "${homelab.dataDir}${name}";
   port = 9090;
 in {
   services.${name} = {
     enable = true;
-    stateDir = name;
-    port = port;
+    dataDir = dataDir;
+    user = name;
+    group = group;
   };
   systemd.tmpfiles.rules = [
-    "d ${stateDir} 750 ${name} ${group} - -"
+    "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
@@ -23,13 +24,6 @@ in {
   };
 
   services.restic.backups.appdata-local.paths = [
-    stateDir
+    dataDir
   ];
-
-  services.prometheus.exporters.node = {
-    enable = true;
-    enabledCollectors = [
-      "systemd"
-    ];
-  };
 }
