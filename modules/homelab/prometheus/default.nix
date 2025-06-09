@@ -26,10 +26,10 @@ in {
     stateDir
   ];
 
-  services.prometheus.exporters.node = {
-    enable = true;
-    enabledCollectors = [
-      "systemd"
-    ];
-  };
+  # services.prometheus.exporters.node = {
+  #   enable = true;
+  #   enabledCollectors = [
+  #     "systemd"
+  #   ];
+  # };
 }
