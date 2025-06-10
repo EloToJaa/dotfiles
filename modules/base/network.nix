@@ -7,7 +7,10 @@
 in {
   networking = {
     hostName = "${host}";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
     firewall.enable = false;
     nameservers = dns;
   };
