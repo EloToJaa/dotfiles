@@ -1,7 +1,6 @@
 {
   host,
   variables,
-  lib,
   ...
 }: let
   dns = variables.dns;
@@ -10,7 +9,7 @@ in {
     hostName = "${host}";
     networkmanager = {
       enable = true;
-      dns = lib.mkForce "none";
+      dns = "systemd-resolved";
     };
     firewall.enable = false;
     nameservers = dns;
