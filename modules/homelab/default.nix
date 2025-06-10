@@ -5,15 +5,15 @@
     ./bind
     ./caddy
     ./glance
-    ./grafana
+    # ./grafana
     ./immich
     ./jellyfin
     ./jellyseerr
     ./karakeep
-    ./loki
+    # ./loki
     ./paperless
     ./postgres
-    ./prometheus
+    # ./prometheus
     ./prowlarr
     ./qbittorrent
     ./radarr
