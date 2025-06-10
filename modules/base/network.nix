@@ -1,6 +1,7 @@
 {
   host,
   variables,
+  lib,
   ...
 }: let
   dns = variables.dns;
@@ -9,7 +10,7 @@ in {
     hostName = "${host}";
     networkmanager = {
       enable = true;
-      dns = "none";
+      dns = lib.mkForce "none";
     };
     firewall.enable = false;
     nameservers = dns;
