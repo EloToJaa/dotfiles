@@ -9,6 +9,6 @@
     };
   };
   users.users.${variables.username}.openssh.authorizedKeys.keys = [
-    "${variables.ssh.keys.user}"
+    variables.ssh.keys.user
   ];
 }

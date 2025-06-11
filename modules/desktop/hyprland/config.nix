@@ -22,7 +22,7 @@
       ];
 
       input = {
-        kb_layout = "${variables.keyboardLayout}";
+        kb_layout = variables.keyboardLayout;
         kb_options = "grp:alt_caps_toggle";
         numlock_by_default = true;
         follow_mouse = 0;
