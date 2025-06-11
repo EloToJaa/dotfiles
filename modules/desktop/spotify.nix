@@ -6,9 +6,7 @@
 }: let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
-  home.packages = with pkgs; [
-    spotube
-  ];
+  # home.packages = with pkgs; [spotube];
 
   imports = [inputs.spicetify-nix.homeManagerModules.default];
 
