@@ -10,6 +10,7 @@ in {
     networkmanager = {
       enable = true;
       dns = "systemd-resolved";
+      settings.connectivity.uri = "http://nmcheck.gnome.org/check_network_status.txt";
     };
     firewall.enable = false;
     nameservers = dns;
