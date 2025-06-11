@@ -41,12 +41,12 @@ in {
     shell = pkgs.zsh;
   };
 
-  nix.settings.allowed-users = ["${variables.username}"];
+  nix.settings.allowed-users = [variables.username];
 
   users.groups = {
     ${variables.username} = {
       gid = 1000;
-      members = ["${variables.username}"];
+      members = [variables.username];
     };
     ${homelab.groups.main}.gid = 1100;
     ${homelab.groups.media}.gid = 1101;

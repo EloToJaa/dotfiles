@@ -10,7 +10,7 @@
   };
   catppuccin.fzf = {
     enable = true;
-    flavor = "${variables.catppuccin.flavor}";
-    accent = "${variables.catppuccin.accent}";
+    flavor = variables.catppuccin.flavor;
+    accent = variables.catppuccin.accent;
   };
 }

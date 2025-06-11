@@ -47,12 +47,12 @@ in {
     defaults.email = "elotoja@protonmail.com";
     certs.${homelab.baseDomain} = {
       reloadServices = ["caddy.service"];
-      domain = "${homelab.baseDomain}";
+      domain = homelab.baseDomain;
       extraDomainNames = ["*.${homelab.baseDomain}"];
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
       dnsPropagationCheck = true;
-      group = "${group}";
+      group = group;
       credentialFiles = {
         CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
       };

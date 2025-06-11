@@ -2,7 +2,7 @@
   security.sudo-rs = {
     extraRules = [
       {
-        users = ["${variables.username}"];
+        users = [variables.username];
         commands = [
           {
             command = "ALL";

@@ -6,7 +6,7 @@
   dns = variables.dns;
 in {
   networking = {
-    hostName = "${host}";
+    hostName = host;
     networkmanager = {
       enable = true;
       dns = "systemd-resolved";

@@ -14,7 +14,7 @@
   };
   catppuccin.btop = {
     enable = true;
-    flavor = "${variables.catppuccin.flavor}";
+    flavor = variables.catppuccin.flavor;
   };
 
   home.packages = with pkgs; [nvtopPackages.amd];

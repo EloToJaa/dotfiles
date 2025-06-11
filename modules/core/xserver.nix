@@ -3,12 +3,12 @@
     xserver = {
       enable = true;
       videoDrivers = ["amdgpu"];
-      xkb.layout = "${variables.keyboardLayout}";
+      xkb.layout = variables.keyboardLayout;
     };
 
     displayManager.autoLogin = {
       enable = true;
-      user = "${variables.username}";
+      user = variables.username;
     };
     libinput = {
       enable = true;

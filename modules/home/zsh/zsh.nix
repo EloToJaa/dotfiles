@@ -163,6 +163,6 @@
   };
   catppuccin.zsh-syntax-highlighting = {
     enable = true;
-    flavor = "${variables.catppuccin.flavor}";
+    flavor = variables.catppuccin.flavor;
   };
 }

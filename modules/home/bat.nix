@@ -19,6 +19,6 @@
   };
   catppuccin.bat = {
     enable = true;
-    flavor = "${variables.catppuccin.flavor}";
+    flavor = variables.catppuccin.flavor;
   };
 }

@@ -2,10 +2,11 @@
   name = "postgresql";
   homelab = variables.homelab;
   port = 5432;
+  dataDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
     enable = true;
-    dataDir = "${homelab.dataDir}${name}";
+    dataDir = dataDir;
     settings.port = port;
     enableTCPIP = true;
   };

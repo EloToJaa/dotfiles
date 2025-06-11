@@ -35,11 +35,11 @@
     git
   ];
 
-  time.timeZone = "${variables.timezone}";
-  i18n.defaultLocale = "${variables.locale}";
+  time.timeZone = variables.timezone;
+  i18n.defaultLocale = variables.locale;
   nixpkgs.config = {
     allowUnfree = true;
     allowInsecurePredicate = x: true;
   };
-  system.stateVersion = "${variables.stateVersion}";
+  system.stateVersion = variables.stateVersion;
 }

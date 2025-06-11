@@ -33,8 +33,8 @@ in {
   programs.git = {
     enable = true;
 
-    userName = "${variables.git.userName}";
-    userEmail = "${variables.git.userEmail}";
+    userName = variables.git.userName;
+    userEmail = variables.git.userEmail;
 
     extraConfig = {
       init.defaultBranch = "main";
