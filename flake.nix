@@ -18,6 +18,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +37,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
-    nvf.url = "github:notashelf/nvf";
 
     paperless-nixpkgs.url = "github:NixOS/nixpkgs/bdac72d387dca7f836f6ef1fe547755fb0e9df61";
   };
