@@ -1,7 +1,7 @@
 {variables, ...}: {
   programs.nvf = {
     enable = true;
-    defaultEditor = "nvim";
+    defaultEditor = true;
     enableManpages = true;
 
     settings.vim = {
