@@ -51,43 +51,6 @@ in {
     lua54Packages.luarocks
 
     zig
-
-    # # Linters
-    # eslint_d
-    # sqlfluff
-    # mypy
-    # cpplint
-    # lua54Packages.luacheck
-    #
-    # # Formatters
-    # alejandra
-    # prettierd
-    # stylua
-    # shfmt
-    # gofumpt
-    # python312Packages.sqlfmt
-    #
-    # # LSP
-    # ruff
-    # nixd
-    # clang-tools
-    # rust-analyzer
-    # gopls
-    # svelte-language-server
-    # emmet-ls
-    # pyright
-    # zls
-    # astro-language-server
-    # tailwindcss-language-server
-    # typescript-language-server
-    # lua-language-server
-    # bash-language-server
-    # docker-compose-language-service
-    # sqls
-    # taplo
-    # yaml-language-server
-    # beamMinimal27Packages.elixir-ls
-    # vscode-langservers-extracted
   ];
 
   home.sessionVariables = {
