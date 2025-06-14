@@ -58,7 +58,7 @@
         };
         lspSignature.enable = true;
         lspconfig.enable = true;
-        null-ls.enable = false;
+        # null-ls.enable = false;
         inlayHints.enable = true;
       };
 
