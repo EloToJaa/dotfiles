@@ -152,14 +152,19 @@
         enable = true;
         name = "catppuccin";
         style = variables.catppuccin.flavor;
-        transparent = false;
+        transparent = true;
       };
 
       autopairs.nvim-autopairs.enable = true;
       autocomplete.nvim-cmp.enable = true;
       snippets.luasnip.enable = true;
-      filetree.neo-tree.enable = true;
-      tabline.nvimBufferline.enable = true;
+      tabline.nvimBufferline = {
+        enable = true;
+        options = {
+          mode = "tabs";
+          numbers = "ordinal";
+        };
+      };
       treesitter.context.enable = true;
 
       binds = {
@@ -244,9 +249,7 @@
         };
       };
 
-      comments = {
-        comment-nvim.enable = true;
-      };
+      comments.comment-nvim.enable = true;
 
       keymaps = [
         {
@@ -254,6 +257,24 @@
           key = "<leader>rp";
           action = ":lua require('precognition').peek()<CR>";
           desc = "Peek recognition";
+        }
+        {
+          mode = "n";
+          key = "<leader>nh";
+          action = ":nohl<CR>";
+          desc = "Clear search highlights";
+        }
+        {
+          mode = "n";
+          key = "<leader>+";
+          action = "<C-a>";
+          desc = "Increment number";
+        }
+        {
+          mode = "n";
+          key = "<leader>-";
+          action = "<C-x>";
+          desc = "Decrement number";
         }
       ];
     };
