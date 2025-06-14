@@ -1,5 +1,7 @@
 {
   imports = [
+    ./autocomplete.nix
+    ./binds.nix
     ./git.nix
     ./languages.nix
     ./lsp.nix
@@ -9,6 +11,7 @@
     ./telescope.nix
     ./terminal.nix
     ./theme.nix
+    ./treesitter.nix
     ./ui.nix
     ./utility.nix
     ./visuals.nix
