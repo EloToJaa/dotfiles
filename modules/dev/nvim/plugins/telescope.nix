@@ -5,6 +5,13 @@
     mappings = {
       findFiles = "<C-p>";
       liveGrep = "<leader>fs";
+      treesitter = "<leader>ff";
+
+      gitCommits = "<leader>fgc";
+      gitBufferCommits = "<leader>fgf";
+      gitBranches = "<leader>fgb";
+      gitStatus = "<leader>fgs";
+      gitStash = "<leader>fgx";
     };
 
     extensions = [
