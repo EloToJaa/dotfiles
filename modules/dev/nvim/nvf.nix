@@ -104,6 +104,7 @@
       utility = {
         surround.enable = true;
         diffview-nvim.enable = true;
+        yazi-nvim.enable = true;
         motion = {
           hop.enable = true;
           leap.enable = true;
@@ -142,6 +143,11 @@
           key = "<leader>rp";
           action = ":lua require('precognition').peek()<CR>";
           desc = "Peek recognition";
+        }
+        {
+          mode = "n";
+          key = "<leader>fv";
+          desc = "Open yazi at the current file";
         }
       ];
     };
