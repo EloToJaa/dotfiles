@@ -178,7 +178,7 @@
       snippets.luasnip.enable = true;
       tabline.nvimBufferline = {
         enable = true;
-        options = {
+        setupOpts.options = {
           mode = "tabs";
           numbers = "ordinal";
         };
