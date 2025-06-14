@@ -36,8 +36,8 @@
       breakindent = true;
     };
 
-    luaConfigPre = ''
-      isfname:append("@-@")
-    '';
+    # luaConfigPre = ''
+    #   isfname:append("@-@")
+    # '';
   };
 }
