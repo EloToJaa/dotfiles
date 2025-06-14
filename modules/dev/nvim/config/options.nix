@@ -33,12 +33,8 @@
       breakindent = true;
     };
 
-luaConfigPre = ''
+    luaConfigPre = ''
       undodir = { "${config.home.homeDirectory}/.vim/undodir" }
-    '';
-
-    luaConfigPost = ''
-      isfname:append("@-@")
     '';
   };
 }

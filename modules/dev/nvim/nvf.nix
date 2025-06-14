@@ -18,49 +18,12 @@
         trouble = {
           enable = true;
 
-          setupOpts = {
-            focus = true;
-          };
+          setupOpts.focus = true;
         };
         lspSignature.enable = true;
         lspconfig.enable = true;
         # null-ls.enable = false;
         inlayHints.enable = true;
-      };
-
-      languages = {
-        enableFormat = true;
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
-
-        astro.enable = true;
-        svelte.enable = true;
-        ts.enable = true;
-        tailwind.enable = true;
-
-        nix = {
-          enable = true;
-          lsp.server = "nixd";
-          format.type = "alejandra";
-        };
-        python = {
-          enable = true;
-          lsp.server = "pyright";
-          format.type = "ruff";
-        };
-        go = {
-          enable = true;
-          lsp.server = "gopls";
-          format.type = "gofumpt";
-        };
-        clang.enable = true;
-        zig.enable = true;
-        bash.enable = true;
-        rust.enable = true;
-        nu.enable = true;
-
-        markdown.enable = true;
-        yaml.enable = true;
       };
 
       visuals = {
@@ -71,47 +34,6 @@
         highlight-undo.enable = true;
         indent-blankline.enable = true;
         cinnamon-nvim.enable = true;
-      };
-
-      statusline.lualine = {
-        enable = true;
-        theme = "catppuccin";
-
-        sectionSeparator = {
-          left = "";
-          right = "";
-        };
-        componentSeparator = {
-          left = "";
-          right = "";
-        };
-
-        activeSection = {
-          a = [
-            ''
-              {
-              	"mode",
-              	separator = { left = "", right = "" },
-              }
-            ''
-          ];
-          b = [];
-          c = [];
-          x = [
-            ''{ "encoding" }''
-            ''{ "fileformat" }''
-            ''{ "filetype" }''
-          ];
-          y = [];
-          z = [
-            ''
-              {
-              	"location",
-              	separator = { left = "", right = "" },
-              }
-            ''
-          ];
-        };
       };
 
       theme = {
@@ -195,13 +117,6 @@
 
       notes = {
         todo-comments.enable = true;
-      };
-
-      terminal = {
-        toggleterm = {
-          enable = true;
-          lazygit.enable = true;
-        };
       };
 
       ui = {
