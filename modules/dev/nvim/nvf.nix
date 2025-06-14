@@ -124,10 +124,10 @@
         noice.enable = true;
         colorizer.enable = true;
         illuminate.enable = true;
-        breadcrumbs = {
-          enable = true;
-          navbuddy.enable = true;
-        };
+        # breadcrumbs = {
+        #   enable = true;
+        #   navbuddy.enable = true;
+        # };
       };
 
       comments.comment-nvim.enable = true;
