@@ -1,4 +1,8 @@
-{variables, ...}: {
+{
+  variables,
+  pkgs,
+  ...
+}: {
   programs.nvf = {
     enable = true;
     defaultEditor = true;
@@ -45,9 +49,17 @@
       lsp = {
         enable = true;
         formatOnSave = true;
-        trouble.enable = true;
+        trouble = {
+          enable = true;
+
+          setupOpts = {
+            focus = true;
+          };
+        };
         lspSignature.enable = true;
         lspconfig.enable = true;
+        null-ls.enable = false;
+        inlayHints.enable = true;
       };
 
       languages = {
@@ -95,10 +107,44 @@
         cinnamon-nvim.enable = true;
       };
 
-      statusline = {
-        lualine = {
-          enable = true;
-          theme = "catppuccin";
+      statusline.lualine = {
+        enable = true;
+        theme = "catppuccin";
+
+        sectionSeparator = {
+          left = "";
+          right = "";
+        };
+        componentSeparator = {
+          left = "";
+          right = "";
+        };
+
+        activeSection = {
+          a = [
+            ''
+              {
+              	"mode",
+              	separator = { left = "", right = "" },
+              }
+            ''
+          ];
+          b = [];
+          c = [];
+          x = [
+            ''{ "encoding" }''
+            ''{ "fileformat" }''
+            ''{ "filetype" }''
+          ];
+          y = [];
+          z = [
+            ''
+              {
+              	"location",
+              	separator = { left = "", right = "" },
+              }
+            ''
+          ];
         };
       };
 
@@ -121,7 +167,29 @@
         cheatsheet.enable = true;
       };
 
-      telescope.enable = true;
+      telescope = {
+        enable = true;
+
+        mappings = {
+          findFiles = "<C-p>";
+          liveGrep = "<leader>fs";
+        };
+
+        extensions = [
+          {
+            name = "fzf";
+            packages = [pkgs.vimPlugins.telescope-fzf-native-nvim];
+            setup = {
+              fzf = {
+                fuzzy = true;
+                override_generic_sorter = true;
+                override_file_sorter = true;
+                case_mode = "smart_case";
+              };
+            };
+          }
+        ];
+      };
 
       git = {
         enable = true;
