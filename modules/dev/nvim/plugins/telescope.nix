@@ -1,10 +1,8 @@
 {
   pkgs,
-  lib,
+  config,
   ...
-}: let
-  pushDownForce = attr: lib.mapAttrs (_: lib.mkForce) attr;
-in {
+}: {
   programs.nvf.settings.vim = {
     telescope = {
       enable = true;
@@ -36,10 +34,14 @@ in {
         }
       ];
     };
-    binds.whichKey.register = pushDownForce {
-      "<leader>fv" = "Yazi";
-      "<leader>fg" = "Telescope Git";
-      "<leader>fgc" = "Commits";
-    };
+    binds.whichKey.register =
+      builtins.removeAttrs config.programs.nvf.settings.vim.binds.whichKey.register [
+        "<leader>fv"
+        "<leader>fvc"
+      ]
+      // {
+        "<leader>fg" = "Telescope Git";
+        "<leader>fgc" = "Commits";
+      };
   };
 }
