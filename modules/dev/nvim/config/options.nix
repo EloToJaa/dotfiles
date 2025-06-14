@@ -14,9 +14,6 @@
       swapfile = false;
       backup = false;
       # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
-      undodir = [
-        "${config.home.homeDirectory}/.vim/undodir"
-      ];
       undofile = true;
 
       hlsearch = false;
@@ -36,8 +33,12 @@
       breakindent = true;
     };
 
-    # luaConfigPre = ''
-    #   isfname:append("@-@")
-    # '';
+luaConfigPost = ''
+      undodir = { "${config.home.homeDirectory}/.vim/undodir" }
+    '';
+
+    luaConfigPost = ''
+      isfname:append("@-@")
+    '';
   };
 }
