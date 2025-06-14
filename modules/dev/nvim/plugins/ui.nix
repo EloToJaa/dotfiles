@@ -5,8 +5,8 @@
     colorizer.enable = true;
     illuminate.enable = true;
     breadcrumbs = {
-      enable = true;
-      navbuddy.enable = true;
+      enable = false;
+      navbuddy.enable = false;
     };
   };
 }
