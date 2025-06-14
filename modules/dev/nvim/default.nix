@@ -3,7 +3,7 @@
     ./languages.nix
     ./nvf.nix
     ./setup.nix
-    ./supermaven.nix
+    # ./plugins
     inputs.nvf.homeManagerModules.default
   ];
 }
