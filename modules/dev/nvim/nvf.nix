@@ -147,6 +147,7 @@
         {
           mode = "n";
           key = "<leader>fv";
+          action = "<cmd>Yazi<CR>";
           desc = "Open yazi at the current file";
         }
       ];
