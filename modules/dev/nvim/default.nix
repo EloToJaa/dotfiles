@@ -1,9 +1,10 @@
 {inputs, ...}: {
   imports = [
-    ./languages.nix
+    ./packages.nix
     ./nvf.nix
     ./setup.nix
-    # ./plugins
+    ./plugins
+    ./config
     inputs.nvf.homeManagerModules.default
   ];
 }

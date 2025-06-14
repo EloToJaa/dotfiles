@@ -12,58 +12,6 @@
       viAlias = false;
       vimAlias = false;
 
-      options = {
-        nu = true;
-        relativenumber = true;
-
-        tabstop = 2;
-        softtabstop = 2;
-        shiftwidth = 2;
-        expandtab = true;
-
-        smartindent = true;
-
-        swapfile = false;
-        backup = false;
-        # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
-        # undofile = true;
-
-        hlsearch = false;
-        incsearch = true;
-
-        termguicolors = true;
-
-        scrolloff = 8;
-        signcolumn = "yes";
-        # isfname:append("@-@")
-
-        updatetime = 50;
-
-        colorcolumn = "80";
-
-        wrap = true;
-        linebreak = true;
-        breakindent = true;
-      };
-
-      # supermaven = {
-      #   enable = true;
-      #   setupOpts = {
-      #     keymaps = {
-      #       accept_suggestion = "<Tab>";
-      #       clear_suggestion = "<C-]>";
-      #       accept_word = "<C-j>";
-      #     };
-      #     color = {
-      #       suggestion_color = "#ffffff";
-      #       cterm = 244;
-      #     };
-      #     log_level = "info";
-      #     disable_inline_completion = false;
-      #     disable_keymaps = false;
-      #   };
-      # };
-
       lsp = {
         enable = true;
         formatOnSave = true;
@@ -292,33 +240,6 @@
           '';
         };
       };
-
-      keymaps = [
-        {
-          mode = "n";
-          key = "<leader>rp";
-          action = ":lua require('precognition').peek()<CR>";
-          desc = "Peek recognition";
-        }
-        {
-          mode = "n";
-          key = "<leader>nh";
-          action = ":nohl<CR>";
-          desc = "Clear search highlights";
-        }
-        {
-          mode = "n";
-          key = "<leader>+";
-          action = "<C-a>";
-          desc = "Increment number";
-        }
-        {
-          mode = "n";
-          key = "<leader>-";
-          action = "<C-x>";
-          desc = "Decrement number";
-        }
-      ];
     };
   };
 }

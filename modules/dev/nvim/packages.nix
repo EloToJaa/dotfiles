@@ -1,14 +1,9 @@
 {
   pkgs,
-  inputs,
   config,
+  inputs,
   ...
 }: let
-  shellAliases = {
-    vim = "nvim";
-    vi = "nvim";
-    v = "nvim";
-  };
   makeBinPath = pkgs.lib.makeBinPath;
   homeDirectory = config.home.homeDirectory;
 in {
@@ -54,21 +49,12 @@ in {
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    MANPAGER = "nvim +Man!";
     PATH = "${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:${makeBinPath ["${homeDirectory}/.local"]}:${homeDirectory}/.dotnet:$PATH";
   };
 
-  # nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
-  programs = {
-    zsh.shellAliases = shellAliases;
-    nushell = {
-      shellAliases = shellAliases;
-      extraEnv = ''
-        $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}" "${makeBinPath ["${homeDirectory}/.local"]}" "${homeDirectory}/.dotnet"]);
-      '';
-    };
-  };
+  programs.nushell.extraEnv = ''
+    $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/go"]}" "${makeBinPath ["${homeDirectory}/.cargo"]}" "${makeBinPath ["${homeDirectory}/.local"]}" "${homeDirectory}/.dotnet"]);
+  '';
 }
