@@ -8,6 +8,40 @@
       viAlias = false;
       vimAlias = false;
 
+      options = {
+        nu = true;
+        relativenumber = true;
+
+        tabstop = 2;
+        softtabstop = 2;
+        shiftwidth = 2;
+        expandtab = true;
+
+        smartindent = true;
+
+        swapfile = false;
+        backup = false;
+        # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
+        # undofile = true;
+
+        hlsearch = false;
+        incsearch = true;
+
+        termguicolors = true;
+
+        scrolloff = 8;
+        signcolumn = "yes";
+        # isfname:append("@-@")
+
+        updatetime = 50;
+
+        colorcolumn = "80";
+
+        wrap = true;
+        linebreak = true;
+        breakindent = true;
+      };
+
       lsp = {
         enable = true;
         formatOnSave = true;
@@ -26,7 +60,11 @@
         ts.enable = true;
         tailwind.enable = true;
 
-        nix.enable = true;
+        nix = {
+          enable = true;
+          lsp.server = "nixd";
+          format.type = "alejandra";
+        };
         python = {
           enable = true;
           lsp.server = "pyright";
@@ -104,7 +142,12 @@
       utility = {
         surround.enable = true;
         diffview-nvim.enable = true;
-        yazi-nvim.enable = true;
+        yazi-nvim = {
+          enable = true;
+          mappings = {
+            openYazi = "<leader>fv";
+          };
+        };
         motion = {
           hop.enable = true;
           leap.enable = true;
@@ -143,12 +186,6 @@
           key = "<leader>rp";
           action = ":lua require('precognition').peek()<CR>";
           desc = "Peek recognition";
-        }
-        {
-          mode = "n";
-          key = "<leader>fv";
-          action = "<cmd>Yazi<CR>";
-          desc = "Open yazi at the current file";
         }
       ];
     };
