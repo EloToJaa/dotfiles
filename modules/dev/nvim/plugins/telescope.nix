@@ -37,8 +37,8 @@ in {
       ];
     };
     binds.whichKey.register = pushDownForce {
-      "<leader>fv" = null;
-      "<leader>fvc" = null;
+      "<leader>fv" = "";
+      "<leader>fvc" = "";
       "<leader>fg" = "Telescope git";
       "<leader>fgc" = "Commits";
     };

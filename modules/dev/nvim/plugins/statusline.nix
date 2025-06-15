@@ -21,14 +21,30 @@
           }
         ''
       ];
-      b = [];
-      c = [];
+      b = [
+        ''
+          {
+          	"branch",
+          	separator = { left = "", right = "" },
+          }
+        ''
+      ];
+      c = [
+        ''{ "filename" }''
+      ];
       x = [
         ''{ "encoding" }''
         ''{ "fileformat" }''
         ''{ "filetype" }''
       ];
-      y = [];
+      y = [
+        ''
+          {
+            "progress",
+            separator = { left = "", right = "" },
+          }
+        ''
+      ];
       z = [
         ''
           {

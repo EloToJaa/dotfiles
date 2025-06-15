@@ -1,6 +1,6 @@
 {
   programs.nvf.settings.vim.visuals = {
-    nvim-scrollbar.enable = true;
+    # nvim-scrollbar.enable = true;
     nvim-web-devicons.enable = true;
     nvim-cursorline.enable = true;
     fidget-nvim.enable = true;
