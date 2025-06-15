@@ -36,13 +36,13 @@
         ''{ "encoding" }''
         ''
           {
-            "fileformat"
+            "fileformat",
             separator = { left = "", right = "" }
           }
         ''
         ''
           {
-            "filetype"
+            "filetype",
             separator = { left = "", right = "" }
           }
         ''
