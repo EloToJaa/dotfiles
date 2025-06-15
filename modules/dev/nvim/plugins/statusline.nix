@@ -34,8 +34,18 @@
       ];
       x = [
         ''{ "encoding" }''
-        ''{ "fileformat" }''
-        ''{ "filetype" }''
+        ''
+          {
+            "fileformat"
+            separator = { left = "", right = "" },
+          }
+        ''
+        ''
+          {
+            "filetype"
+            separator = { left = "", right = "" },
+          }
+        ''
       ];
       y = [
         ''
