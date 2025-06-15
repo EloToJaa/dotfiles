@@ -33,7 +33,12 @@
         ''{ "filename" }''
       ];
       x = [
-        ''{ "encoding" }''
+        ''
+          {
+            "encoding",
+            separator = { left = "", right = "" }
+          }
+        ''
         ''
           {
             "fileformat",
