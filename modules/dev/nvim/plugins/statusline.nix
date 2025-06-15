@@ -35,20 +35,17 @@
       x = [
         ''
           {
-            "encoding",
-            separator = { left = "", right = "" }
+            "encoding"
           }
         ''
         ''
           {
-            "fileformat",
-            separator = { left = "", right = "" }
+            "fileformat"
           }
         ''
         ''
           {
-            "filetype",
-            separator = { left = "", right = "" }
+            "filetype"
           }
         ''
       ];
