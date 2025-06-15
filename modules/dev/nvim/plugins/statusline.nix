@@ -17,7 +17,7 @@
         ''
           {
           	"mode",
-          	separator = { left = "", right = "" },
+          	separator = { left = "", right = "" }
           }
         ''
       ];
@@ -25,7 +25,7 @@
         ''
           {
           	"branch",
-          	separator = { left = "", right = "" },
+          	separator = { left = "", right = "" }
           }
         ''
       ];
@@ -37,13 +37,13 @@
         ''
           {
             "fileformat"
-            separator = { left = "", right = "" },
+            separator = { left = "", right = "" }
           }
         ''
         ''
           {
             "filetype"
-            separator = { left = "", right = "" },
+            separator = { left = "", right = "" }
           }
         ''
       ];
@@ -51,7 +51,7 @@
         ''
           {
             "progress",
-            separator = { left = "", right = "" },
+            separator = { left = "", right = "" }
           }
         ''
       ];
@@ -59,7 +59,7 @@
         ''
           {
           	"location",
-          	separator = { left = "", right = "" },
+          	separator = { left = "", right = "" }
           }
         ''
       ];
