@@ -4,7 +4,8 @@
     setupOpts.options = {
       mode = "tabs";
       numbers = "ordinal";
-      style_preset = "minimal";
+      # style_preset = "minimal";
+      show_tab_indicators = true;
     };
   };
 }
