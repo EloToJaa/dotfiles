@@ -1,6 +1,7 @@
 {
   imports = [
     ./autocomplete.nix
+    ./autosession.nix
     ./binds.nix
     ./git.nix
     ./languages.nix
