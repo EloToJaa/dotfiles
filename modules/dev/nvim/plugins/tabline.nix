@@ -5,7 +5,7 @@
       mode = "tabs";
       numbers = "ordinal";
       # style_preset = "minimal";
-      show_tab_indicators = true;
+      show_tab_indicators = false;
     };
   };
 }
