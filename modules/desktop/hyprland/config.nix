@@ -61,8 +61,8 @@
       dwindle = {
         # no_gaps_when_only = 0;
         force_split = 0;
-        special_scale_factor = 1.0;
-        split_width_multiplier = 1.0;
+        special_scale_factor = 1;
+        split_width_multiplier = 1;
         use_active_for_splits = true;
         pseudotile = "yes";
         preserve_split = "yes";
@@ -85,7 +85,7 @@
           size = 3;
           passes = 2;
           brightness = 1;
-          contrast = 1.400;
+          contrast = 1.4;
           ignore_opacity = true;
           noise = 0;
           new_optimizations = true;
