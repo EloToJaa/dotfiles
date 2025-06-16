@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.nvf.settings.vim.extraPlugins = with pkgs.vimPlugins; {
-    supermaven = {
+    auto-session = {
       package = auto-session;
       setup =
         /*
