@@ -29,6 +29,7 @@
     bash.enable = true;
     rust.enable = true;
     nu.enable = true;
+    lua.enable = true;
 
     markdown.enable = true;
     yaml.enable = true;
