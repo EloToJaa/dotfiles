@@ -1,5 +1,20 @@
 {
-  import = [
-    ./snacks
+  imports = [
+    ./autocomplete.nix
+    ./autosession.nix
+    ./binds.nix
+    ./git.nix
+    ./languages.nix
+    ./lsp.nix
+    ./statusline.nix
+    ./supermaven.nix
+    ./tabline.nix
+    ./telescope.nix
+    ./terminal.nix
+    ./theme.nix
+    ./treesitter.nix
+    ./ui.nix
+    ./utility.nix
+    ./visuals.nix
   ];
 }

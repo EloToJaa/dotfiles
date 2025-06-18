@@ -1,9 +1,10 @@
-{...}: {
+{inputs, ...}: {
   imports = [
     ./packages.nix
+    ./nvf.nix
     ./setup.nix
     ./plugins
     ./config
-    ./lazy
+    inputs.nvf.homeManagerModules.default
   ];
 }
