@@ -1,4 +1,5 @@
 return {
+	"snacks.nvim",
 	priority = 1000,
 	after = function()
 		require("snacks").setup({
