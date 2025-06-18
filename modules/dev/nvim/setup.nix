@@ -1,10 +1,12 @@
-{...}: let
+{pkgs, ...}: let
   shellAliases = {
     vim = "nvim";
     vi = "nvim";
     v = "nvim";
   };
 in {
+  home.packages = with pkgs; [neovim];
+
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -15,4 +17,6 @@ in {
     zsh.shellAliases = shellAliases;
     nushell.shellAliases = shellAliases;
   };
+
+  xdg.configFile."nvim/init.lua".source = ./init.lua;
 }
