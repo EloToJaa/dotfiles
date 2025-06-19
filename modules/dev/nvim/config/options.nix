@@ -33,7 +33,7 @@
       breakindent = true;
     };
 
-    extraConfigLua = ''
+    extraConfigLuaPost = ''
       undodir = { "${config.home.homeDirectory}/.vim/undodir" }
     '';
   };
