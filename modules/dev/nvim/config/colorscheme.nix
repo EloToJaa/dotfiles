@@ -1,5 +1,7 @@
 {variables, ...}: {
-  programs.nixvim.colorschemes.catppuccin = {
+  programs.nixvim = {
+    colorscheme = "catppuccin";
+    colorschemes.catppuccin = {
     enable = true;
 
     settings = {
@@ -7,5 +9,6 @@
       disable_underline = true;
       # integrations = {};
     };
+  };
   };
 }
