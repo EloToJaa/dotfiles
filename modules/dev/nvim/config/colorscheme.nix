@@ -5,7 +5,7 @@
       enable = true;
 
       settings = {
-        flavour = variables.catppuccin.flavor;
+        flavour = "mocha";
         disable_underline = true;
         # integrations = {};
       };
