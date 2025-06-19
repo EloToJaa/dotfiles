@@ -1,10 +1,10 @@
 {inputs, ...}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    ./packages.nix
+    # ./packages.nix
     ./nixvim.nix
-    ./setup.nix
-    ./plugins
-    ./config
+    # ./setup.nix
+    # ./plugins
+    # ./config
   ];
 }
