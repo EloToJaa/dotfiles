@@ -1,10 +1,10 @@
 {inputs, ...}: {
   imports = [
     ./packages.nix
-    ./nvf.nix
+    ./nixvim.nix
     ./setup.nix
     ./plugins
     ./config
-    inputs.nvf.homeManagerModules.default
+    inputs.nixvim.homeManagerModules.default
   ];
 }

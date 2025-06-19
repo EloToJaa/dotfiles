@@ -1,7 +1,7 @@
 {config, ...}: {
-  programs.nvf.settings.vim = {
-    options = {
-      nu = true;
+  programs.nixvim = {
+    opts = {
+      number = true;
       relativenumber = true;
 
       tabstop = 2;
@@ -33,7 +33,7 @@
       breakindent = true;
     };
 
-    luaConfigPre = ''
+    extraConfigLua = ''
       undodir = { "${config.home.homeDirectory}/.vim/undodir" }
     '';
   };

@@ -1,5 +1,5 @@
 {
-  programs.nvf = {
+  programs.nixvim = {
     enable = true;
     defaultEditor = true;
     enableManpages = true;
