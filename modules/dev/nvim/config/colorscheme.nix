@@ -3,7 +3,7 @@
     enable = true;
 
     settings = {
-      flavour = variables.catppuccin.flavour;
+      flavour = variables.catppuccin.flavor;
       disable_underline = true;
       # integrations = {};
     };
