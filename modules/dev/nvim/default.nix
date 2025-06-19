@@ -5,6 +5,6 @@
     ./setup.nix
     ./plugins
     ./config
-    inputs.nixvim.homeModules.nixvim
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 }
