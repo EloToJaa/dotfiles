@@ -2,13 +2,13 @@
   programs.nixvim = {
     colorscheme = "catppuccin";
     colorschemes.catppuccin = {
-    enable = true;
+      enable = true;
 
-    settings = {
-      flavour = variables.catppuccin.flavor;
-      disable_underline = true;
-      # integrations = {};
+      settings = {
+        flavour = variables.catppuccin.flavor;
+        disable_underline = true;
+        # integrations = {};
+      };
     };
-  };
   };
 }
