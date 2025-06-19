@@ -1,4 +1,4 @@
-{lib, ...}: {
+{config, ...}: {
   programs.nixvim.plugins.supermaven = {
     enable = true;
     settings = {
@@ -14,7 +14,7 @@
       log_level = "info";
       disable_inline_completion = false;
       disable_keymaps = false;
-      condition = lib.nixvim.mkRaw ''
+      condition = config.lib.nixvim.mkRaw ''
         function() return false end
       '';
     };
