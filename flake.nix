@@ -20,7 +20,7 @@
 
     nixvim = {
       url = "github:nix-community/nixvim/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
