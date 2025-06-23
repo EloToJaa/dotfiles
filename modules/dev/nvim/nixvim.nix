@@ -4,6 +4,6 @@
 
     enableMan = true;
 
-    build.package = pkgs.neovim;
+    package = pkgs.neovim;
   };
 }
