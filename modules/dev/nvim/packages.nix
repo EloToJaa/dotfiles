@@ -42,8 +42,8 @@ in {
 
     elixir
 
-    lua5_4
-    lua54Packages.luarocks
+    # lua5_4
+    # lua54Packages.luarocks
 
     zig
   ];
