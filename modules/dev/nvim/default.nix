@@ -6,5 +6,6 @@
     ./setup.nix
     ./plugins
     ./config
+    ./languages
   ];
 }
