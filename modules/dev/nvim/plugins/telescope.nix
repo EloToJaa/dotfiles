@@ -35,7 +35,7 @@
           action = "find_files";
           options.desc = "Find files";
         };
-        "<leader>fv" = {
+        "<leader>ft" = {
           action = "treesitter";
           options.desc = "Treesitter";
         };
