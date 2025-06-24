@@ -4,6 +4,7 @@
     ./bufferline.nix
     ./conform-nvim.nix
     ./lazygit.nix
+    ./lint.nix
     ./lspconfig.nix
     ./lualine.nix
     ./lz-n.nix
