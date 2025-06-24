@@ -2,6 +2,7 @@
   imports = [
     ./auto-session.nix
     ./bufferline.nix
+    ./conform-nvim.nix
     ./lazygit.nix
     ./lspconfig.nix
     ./lualine.nix
