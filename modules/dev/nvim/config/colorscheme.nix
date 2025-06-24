@@ -8,6 +8,7 @@
       settings = {
         flavour = "mocha";
         disable_underline = true;
+        transparent_background = true;
         # integrations = {};
       };
     };
