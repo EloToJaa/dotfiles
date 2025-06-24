@@ -10,6 +10,6 @@
     wget
     systemctl-tui
 
-    neovim
+    # neovim
   ];
 }
