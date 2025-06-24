@@ -1,5 +1,6 @@
 {
   imports = [
+    ./auto-session.nix
     ./lazygit.nix
     ./lz-n.nix
     ./supermaven.nix
