@@ -1,23 +1,25 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    alejandra
-    deadnix
-    statix
+    lua5_4
+    lua54Packages.luarocks
+    lua54Packages.luacheck
+
+    stylua
   ];
 
   programs.nixvim = {
-    lsp.servers.nixd = {
+    lsp.servers.lua_ls = {
       enable = true;
     };
     plugins = {
       lint.lintersByFt = {
-        nix = ["deadnix" "statix"];
+        lua = ["luacheck"];
       };
       conform-nvim.settings.formatters_by_ft = {
-        nix = ["alejandra"];
+        lua = ["stylua"];
       };
       treesitter.settings.ensure_installed = [
-        "nix"
+        "lua"
       ];
     };
   };
