@@ -7,11 +7,11 @@
       open_for_directories = true;
     };
   };
-    lz-n.keymaps = {
+    lz-n.keymaps = [{
       action = "<cmd>Yazi<CR>";
       key = "<leader>fv";
       options.desc = "Open Yazi";
       plugin = "yazi.nvim";
-      };
+      }];
   };
 }
