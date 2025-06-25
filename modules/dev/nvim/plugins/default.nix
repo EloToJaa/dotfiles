@@ -9,6 +9,7 @@
     ./lsp.nix
     ./lualine.nix
     ./lz-n.nix
+    ./noice.nix
     ./supermaven.nix
     ./telescope.nix
     ./treesitter.nix
