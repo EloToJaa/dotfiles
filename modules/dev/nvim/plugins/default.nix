@@ -2,10 +2,10 @@
   imports = [
     ./auto-session.nix
     ./bufferline.nix
-    ./conform-nvim.nix
+    ./format.nix
     ./lazygit.nix
     ./lint.nix
-    ./lspconfig.nix
+    ./lsp.nix
     ./lualine.nix
     ./lz-n.nix
     ./supermaven.nix
