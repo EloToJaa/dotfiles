@@ -3,7 +3,7 @@
     enable = true;
     settings.format_on_save = {
       lsp_fallback = true;
-      async = true;
+      async = false;
       timeout = 1000;
     };
   };
