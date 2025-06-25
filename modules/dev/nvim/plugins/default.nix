@@ -2,6 +2,7 @@
   imports = [
     ./auto-session.nix
     ./bufferline.nix
+    ./cmp.nix
     ./format.nix
     ./lazygit.nix
     ./lint.nix
