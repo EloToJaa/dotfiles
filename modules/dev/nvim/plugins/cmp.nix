@@ -30,9 +30,9 @@
           #     fallbacks = [];
           #   };
           # };
-          default = {
-            __unkeyed-1 = "supermaven";
-          };
+          default = [
+            "supermaven"
+          ];
           providers = {
             supermaven = {
               name = "supermaven";
