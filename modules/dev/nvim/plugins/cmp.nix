@@ -6,8 +6,13 @@
 
       settings = {
         sources = {
-          default = ["lsp" "path" "snippets" "buffer" "supermaven"];
+          default = ["lazydev" "lsp" "path" "snippets" "buffer" "supermaven"];
           providers = {
+            lazydev = {
+              name = "lazydev";
+              module = "lazydev.integrations.blink";
+              score_offset = 100;
+            };
             lsp = {
               name = "lsp";
               enabled = true;
@@ -183,8 +188,7 @@
         impersonate_nvim_cmp = true;
       };
     };
-    luasnip = {
-      enable = true;
-    };
+    luasnip.enable = true;
+    lazydev.enable = true;
   };
 }
