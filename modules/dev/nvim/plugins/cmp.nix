@@ -30,7 +30,7 @@
           #     fallbacks = [];
           #   };
           # };
-          completion.enabled_providers = {
+          default = {
             __unkeyed-1 = "supermaven";
           };
           providers = {
