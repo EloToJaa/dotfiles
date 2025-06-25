@@ -22,14 +22,6 @@
           documentation.auto_show = true;
         };
         sources = {
-          # providers = {
-          #   buffer = {
-          #     score_offset = -7;
-          #   };
-          #   lsp = {
-          #     fallbacks = [];
-          #   };
-          # };
           default = [
             "supermaven"
           ];
@@ -38,6 +30,12 @@
               name = "supermaven";
               module = "blink.compat.source";
               score_offset = 3;
+            };
+            buffer = {
+              score_offset = -7;
+            };
+            lsp = {
+              fallbacks = [];
             };
           };
         };
