@@ -13,6 +13,7 @@
     ./supermaven.nix
     ./telescope.nix
     ./treesitter.nix
+    ./which-key.nix
     ./yazi.nix
   ];
 }
