@@ -1,9 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     alejandra
     deadnix
     statix
   ];
+
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   programs.nixvim = {
     lsp.servers.nixd = {
