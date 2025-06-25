@@ -35,7 +35,7 @@
                       return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
                     end
                     return vim.fn.getcwd()
-                  end,
+                  end
                 '';
                 show_hidden_files_by_default = true;
               };
@@ -68,17 +68,19 @@
         };
 
         cmdline = {
-          sources = config.lib.nixvim.mkRaw ''
-            function()
-              local type = vim.fn.getcmdtype()
-              if type == "/" or type == "?" then
-                return { "buffer" }
-              elseif type == ":" then
-                return { "cmdline" }
+          sources =
+            config.lib.nixvim.mkRaw
+            ''
+              function()
+                local type = vim.fn.getcmdtype()
+                if type == "/" or type == "?" then
+                  return { "buffer" }
+                elseif type == ":" then
+                  return { "cmdline" }
+                end
+                return {}
               end
-              return {}
-            end,
-          '';
+            '';
         };
 
         completion = {
@@ -126,8 +128,10 @@
               if ok then
                 luasnip.lsp_expand(snippet)
               end
-            end,
-            active = function(filter)
+            end
+          '';
+          active = config.lib.nixvim.mkRaw ''
+            function(filter)
               local ok, luasnip = pcall(require, "luasnip")
               if ok then
                 if filter and filter.direction then
@@ -136,13 +140,15 @@
                 return luasnip.in_snippet()
               end
               return false
-            end,
-            jump = function(direction)
+            end
+          '';
+          jump = config.lib.nixvim.mkRaw ''
+            function(direction)
               local ok, luasnip = pcall(require, "luasnip")
               if ok then
                 luasnip.jump(direction)
               end
-            end,
+            end
           '';
         };
 
@@ -176,6 +182,9 @@
         enable_events = true;
         impersonate_nvim_cmp = true;
       };
+    };
+    luasnip = {
+      enable = true;
     };
   };
 }
