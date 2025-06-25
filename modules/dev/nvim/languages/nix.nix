@@ -1,8 +1,12 @@
 {
   pkgs,
   inputs,
+  config,
+  host,
   ...
-}: {
+}: let
+  flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
+in {
   home.packages = with pkgs; [
     alejandra
     deadnix
@@ -14,6 +18,11 @@
   programs.nixvim = {
     lsp.servers.nixd = {
       enable = true;
+      settings = {
+        formatting.command = "alejandra";
+        nixpkgs.expr = ''import (builtins.getFlake "${flakePath}").inputs.nixpkgs { }'';
+        options.nixos.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options"'';
+      };
     };
     plugins = {
       lint.lintersByFt = {
