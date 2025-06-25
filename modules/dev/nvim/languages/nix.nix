@@ -21,7 +21,10 @@ in {
       settings = {
         formatting.command = "alejandra";
         nixpkgs.expr = ''import (builtins.getFlake "${flakePath}").inputs.nixpkgs { }'';
-        options.nixos.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options"'';
+        options = {
+          nixos.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options"'';
+          home-manager.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options.home-manager.users.type'';
+        };
       };
     };
     plugins = {
