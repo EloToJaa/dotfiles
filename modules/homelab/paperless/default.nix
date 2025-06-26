@@ -22,7 +22,7 @@ in {
     mediaDir = mediaDir;
     consumptionDir = consumptionDir;
     user = name;
-    package = inputs.paperless-nixpkgs.legacyPackages.${pkgs.system}.paperless-ngx;
+    package = pkgs.paperless-ngx;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {
       PAPERLESS_DBENGINE = "postgresql";
