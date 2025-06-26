@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-toggle-pane";
-  version = "unstable-2025-06-23";
+  version = "unstable-2025-06-26";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "42f64c01c49af5ef077672dd581f52867642f02a";
-    hash = "sha256-gPiW/A94wVJWMFgtEtCst9AAxG1JmA0rOcr6lz0HA+4=";
+    rev = "7c174cc0ae1e07876218868e5e0917308201c081";
+    hash = "sha256-RE93ZNlG6CRGZz7YByXtO0mifduh6MMGls6J9IYwaFA=";
   };
 
   buildPhase = ''
