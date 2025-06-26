@@ -39,7 +39,7 @@
     pwndbg.url = "github:pwndbg/pwndbg";
 
     paperless-nixpkgs.url = "github:NixOS/nixpkgs/bdac72d387dca7f836f6ef1fe547755fb0e9df61";
-    nushell-nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb";
+    nushell-nixpkgs.url = "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb";
   };
 
   outputs = {
