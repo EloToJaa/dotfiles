@@ -48,11 +48,6 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    lib = nixpkgs.lib;
     variables = {
       username = "elotoja";
       email = "elotoja@protonmail.com";
