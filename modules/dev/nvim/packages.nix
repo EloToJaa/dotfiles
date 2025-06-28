@@ -7,29 +7,12 @@
   homeDirectory = config.home.homeDirectory;
 in {
   home.packages = with pkgs; [
-    # neovim
-
     # rustup
 
     # C / C++
     gcc
     gdb
     gnumake
-
-    # Programming languages
-    (python312.withPackages (pypkgs:
-      with pypkgs; [
-        click
-        requests
-        flask
-        pip
-        pipx
-        pwntools
-        ropper
-        # angr
-        pycryptodome
-      ]))
-    uv
 
     nodejs
     bun
