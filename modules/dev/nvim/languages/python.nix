@@ -38,7 +38,7 @@
       };
       conform-nvim.settings = {
         formatters_by_ft = {
-          python = ["ruff_organize_imports"];
+          python = ["ruff" "ruff_organize_imports"];
         };
         formatters = {
           ruff_organize_imports = {
