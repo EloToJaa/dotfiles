@@ -5,6 +5,7 @@
     ./go.nix
     ./json.nix
     ./lua.nix
+    ./markdown.nix
     ./nix.nix
     ./python.nix
     ./toml.nix
