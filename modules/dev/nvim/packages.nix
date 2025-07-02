@@ -10,9 +10,6 @@ in {
     # rustup
 
     # C / C++
-    gcc
-    gdb
-    gnumake
 
     nodejs
     bun
