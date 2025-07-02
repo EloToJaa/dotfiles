@@ -6,11 +6,13 @@
   programs.nixvim = {
     lsp.servers.bashls = {
       enable = true;
-      cmd = [
-        "bash-language-server"
-        "start"
-      ];
-      filetypes = ["sh" "zsh" "bash"];
+      settings = {
+        cmd = [
+          "bash-language-server"
+          "start"
+        ];
+        filetypes = ["sh" "zsh" "bash"];
+      };
     };
     plugins = {
       conform-nvim.settings.formatters_by_ft = {
