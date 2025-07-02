@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
-  makeBinPath = pkgs.lib.makeBinPath;
-  homeDirectory = config.home.homeDirectory;
-in {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     go
     gofumpt
@@ -24,12 +17,4 @@ in {
       ];
     };
   };
-
-  home.sessionVariables = {
-    PATH = "${makeBinPath ["${homeDirectory}/go"]}:$PATH";
-  };
-
-  programs.nushell.extraEnv = ''
-    $env.Path = ($env.Path | prepend ["${makeBinPath ["${homeDirectory}/go"]}"]);
-  '';
 }
