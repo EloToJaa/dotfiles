@@ -21,8 +21,6 @@
         zsh = ["shfmt"];
       };
       treesitter.settings.ensure_installed = [
-        "sh"
-        "zsh"
         "bash"
       ];
     };
