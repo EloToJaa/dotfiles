@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bash.nix
     ./c.nix
     ./go.nix
     ./json.nix
