@@ -17,6 +17,7 @@
     ./telescope.nix
     ./treesitter.nix
     ./trouble.nix
+    ./undotree.nix
     ./which-key.nix
     ./yazi.nix
   ];
