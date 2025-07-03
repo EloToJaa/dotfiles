@@ -4,6 +4,7 @@
     ./bufferline.nix
     ./cmp.nix
     ./format.nix
+    ./indent-blankline.nix
     ./lazygit.nix
     ./lint.nix
     ./lsp.nix
@@ -11,6 +12,7 @@
     ./lz-n.nix
     ./noice.nix
     ./smart-splits.nix
+    ./substitute.nix
     ./supermaven.nix
     ./telescope.nix
     ./treesitter.nix

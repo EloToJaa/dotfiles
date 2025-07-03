@@ -3,16 +3,16 @@
     enable = true;
     settings = {
       keymaps = {
-        accept_suggestion = null; #"<C-Tab>";
+        accept_suggestion = "<C-Tab>";
         clear_suggestion = "<C-]>";
-        accept_word = "<C-j>";
+        accept_word = null;
       };
       color = {
         suggestion_color = "#ffffff";
         cterm = 244;
       };
       log_level = "info";
-      disable_inline_completion = true;
+      disable_inline_completion = false;
       disable_keymaps = false;
       condition = config.lib.nixvim.mkRaw ''
         function() return false end
