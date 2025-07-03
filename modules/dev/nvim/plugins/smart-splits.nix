@@ -46,79 +46,79 @@ in {
       {
         mode = "n";
         key = "<A-h>";
-        action = mkRaw "require('smart-splits').resize_left()";
+        action = mkRaw "function() require('smart-splits').resize_left() end";
         options.desc = "Resize left";
       }
       {
         mode = "n";
         key = "<A-j>";
-        action = mkRaw "require('smart-splits').resize_down()";
+        action = mkRaw "function() require('smart-splits').resize_down() end";
         options.desc = "Resize down";
       }
       {
         mode = "n";
         key = "<A-k>";
-        action = mkRaw "require('smart-splits').resize_up()";
+        action = mkRaw "function() require('smart-splits').resize_up() end";
         options.desc = "Resize up";
       }
       {
         mode = "n";
         key = "<A-l>";
-        action = mkRaw "require('smart-splits').resize_right()";
+        action = mkRaw "function() require('smart-splits').resize_right() end";
         options.desc = "Resize right";
       }
       {
         mode = "n";
         key = "<C-h>";
-        action = mkRaw "require('smart-splits').move_cursor_left()";
+        action = mkRaw "function() require('smart-splits').move_cursor_left() end";
         options.desc = "Move cursor left";
       }
       {
         mode = "n";
         key = "<C-j>";
-        action = mkRaw "require('smart-splits').move_cursor_down()";
+        action = mkRaw "function() require('smart-splits').move_cursor_down() end";
         options.desc = "Move cursor down";
       }
       {
         mode = "n";
         key = "<C-k>";
-        action = mkRaw "require('smart-splits').move_cursor_up()";
+        action = mkRaw "function() require('smart-splits').move_cursor_up() end";
         options.desc = "Move cursor up";
       }
       {
         mode = "n";
         key = "<C-l>";
-        action = mkRaw "require('smart-splits').move_cursor_right()";
+        action = mkRaw "function() require('smart-splits').move_cursor_right() end";
         options.desc = "Move cursor right";
       }
       {
         mode = "n";
         key = "<C-\\>";
-        action = mkRaw "require('smart-splits').move_cursor_previous()";
+        action = mkRaw "function() require('smart-splits').move_cursor_previous() end";
         options.desc = "Move cursor previous";
       }
       {
         mode = "n";
         key = "<leader><leader>h";
-        action = mkRaw "require('smart-splits').swap_buf_left()";
+        action = mkRaw "function() require('smart-splits').swap_buf_left() end";
         options.desc = "Swap buffer left";
       }
       {
         mode = "n";
         key = "<leader><leader>j";
-        action = mkRaw "require('smart-splits').swap_buf_down()";
+        action = mkRaw "function() require('smart-splits').swap_buf_down() end";
         options.desc = "Swap buffer down";
       }
       {
         mode = "n";
         key = "<leader><leader>k";
-        action = mkRaw "require('smart-splits').swap_buf_up()";
+        action = mkRaw "function() require('smart-splits').swap_buf_up() end";
         options.desc = "Swap buffer up";
       }
       {
         mode = "n";
         key = "<leader><leader>l";
-        action = mkRaw "require('smart-splits').swap_buf_right()";
+        action = mkRaw "function() require('smart-splits').swap_buf_right() end";
         options.desc = "Swap buffer right";
       }
     ];
