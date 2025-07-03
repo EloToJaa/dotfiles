@@ -1,4 +1,6 @@
-{
+{config, ...}: let
+  mkRaw = config.lib.nixvim.mkRaw;
+in {
   programs.nixvim = {
     plugins.smart-splits = {
       enable = true;
@@ -44,79 +46,79 @@
       {
         mode = "n";
         key = "<A-h>";
-        action = ":lua require('smart-splits').resize_left()<CR>";
+        action = mkRaw "require('smart-splits').resize_left()";
         options.desc = "Resize left";
       }
       {
         mode = "n";
         key = "<A-j>";
-        action = ":lua require('smart-splits').resize_down()<CR>";
+        action = mkRaw "require('smart-splits').resize_down()";
         options.desc = "Resize down";
       }
       {
         mode = "n";
         key = "<A-k>";
-        action = ":lua require('smart-splits').resize_up()<CR>";
+        action = mkRaw "require('smart-splits').resize_up()";
         options.desc = "Resize up";
       }
       {
         mode = "n";
         key = "<A-l>";
-        action = ":lua require('smart-splits').resize_right()<CR>";
+        action = mkRaw "require('smart-splits').resize_right()";
         options.desc = "Resize right";
       }
       {
         mode = "n";
         key = "<C-h>";
-        action = ":lua require('smart-splits').move_cursor_left()<CR>";
+        action = mkRaw "require('smart-splits').move_cursor_left()";
         options.desc = "Move cursor left";
       }
       {
         mode = "n";
         key = "<C-j>";
-        action = ":lua require('smart-splits').move_cursor_down()<CR>";
+        action = mkRaw "require('smart-splits').move_cursor_down()";
         options.desc = "Move cursor down";
       }
       {
         mode = "n";
         key = "<C-k>";
-        action = ":lua require('smart-splits').move_cursor_up()<CR>";
+        action = mkRaw "require('smart-splits').move_cursor_up()";
         options.desc = "Move cursor up";
       }
       {
         mode = "n";
         key = "<C-l>";
-        action = ":lua require('smart-splits').move_cursor_right()<CR>";
+        action = mkRaw "require('smart-splits').move_cursor_right()";
         options.desc = "Move cursor right";
       }
       {
         mode = "n";
         key = "<C-\\>";
-        action = ":lua require('smart-splits').move_cursor_previous()<CR>";
+        action = mkRaw "require('smart-splits').move_cursor_previous()";
         options.desc = "Move cursor previous";
       }
       {
         mode = "n";
         key = "<leader><leader>h";
-        action = ":lua require('smart-splits').swap_buf_left()<CR>";
+        action = mkRaw "require('smart-splits').swap_buf_left()";
         options.desc = "Swap buffer left";
       }
       {
         mode = "n";
         key = "<leader><leader>j";
-        action = ":lua require('smart-splits').swap_buf_down()<CR>";
+        action = mkRaw "require('smart-splits').swap_buf_down()";
         options.desc = "Swap buffer down";
       }
       {
         mode = "n";
         key = "<leader><leader>k";
-        action = ":lua require('smart-splits').swap_buf_up()<CR>";
+        action = mkRaw "require('smart-splits').swap_buf_up()";
         options.desc = "Swap buffer up";
       }
       {
         mode = "n";
         key = "<leader><leader>l";
-        action = ":lua require('smart-splits').swap_buf_right()<CR>";
+        action = mkRaw "require('smart-splits').swap_buf_right()";
         options.desc = "Swap buffer right";
       }
     ];
