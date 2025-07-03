@@ -2,6 +2,9 @@
   home.packages = with pkgs; [
     go
     gofumpt
+
+    sqlc
+    goose
   ];
 
   programs.nixvim = {
