@@ -72,57 +72,48 @@
           };
         };
 
-        cmdline = {
-          sources =
-            config.lib.nixvim.mkRaw
-            ''
-              function()
-                local type = vim.fn.getcmdtype()
-                if type == "/" or type == "?" then
-                  return { "buffer" }
-                elseif type == ":" then
-                  return { "cmdline" }
-                end
-                return {}
+        cmdline.sources =
+          config.lib.nixvim.mkRaw
+          ''
+            function()
+              local type = vim.fn.getcmdtype()
+              if type == "/" or type == "?" then
+                return { "buffer" }
+              elseif type == ":" then
+                return { "cmdline" }
               end
-            '';
-        };
+              return {}
+            end
+          '';
 
         completion = {
-          keyword = {range = "full";};
-          list = {
-            selection = {
-              preselect = true; # ✅ Fixed: Boolean instead of string
-              auto_insert = true; # ✅ Prevents auto-inserting suggestions
-            };
+          keyword.range = "full";
+          list.selection = {
+            preselect = true; # ✅ Fixed: Boolean instead of string
+            auto_insert = true; # ✅ Prevents auto-inserting suggestions
           };
-          accept = {auto_brackets = {enabled = true;};};
+          accept.auto_brackets.enabled = true;
           menu = {
             border = "rounded";
             auto_show = true;
-            draw = {
-              columns = [
-                {
-                  __unkeyed-1 = "label";
-                  __unkeyed-2 = "label_description";
-                  gap = 1;
-                }
-                {
-                  __unkeyed-1 = "kind_icon";
-                  __unkeyed-2 = "kind";
-                }
-              ];
-            };
+            draw.columns = [
+              {
+                __unkeyed-1 = "label";
+                __unkeyed-2 = "label_description";
+                gap = 1;
+              }
+              {
+                __unkeyed-1 = "kind_icon";
+                __unkeyed-2 = "kind";
+              }
+            ];
           };
           documentation = {
             auto_show = true;
-            window = {
-              border = "single";
-            };
+            treesitter_highlighting = true;
+            window.border = "single";
           };
-          ghost_text = {
-            enabled = false;
-          };
+          ghost_text.enabled = false;
         };
 
         snippets = {
@@ -177,7 +168,7 @@
         };
         signature = {
           enabled = true;
-          window = {border = "rounded";};
+          window.border = "rounded";
         };
       };
     };
