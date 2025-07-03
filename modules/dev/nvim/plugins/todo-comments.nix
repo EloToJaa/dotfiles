@@ -7,14 +7,16 @@ in {
     };
     keymaps = [
       {
+        mode = "n";
         key = "]t";
         action = mkRaw "function() require('todo-comments').jump_next() end";
-        desc = "Next todo comment";
+        options.desc = "Next todo comment";
       }
       {
+        mode = "n";
         key = "[t";
         action = mkRaw "function() require('todo-comments').jump_prev() end";
-        desc = "Previous todo comment";
+        options.desc = "Previous todo comment";
       }
     ];
   };
