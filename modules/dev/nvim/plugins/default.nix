@@ -3,6 +3,7 @@
     ./auto-session.nix
     ./bufferline.nix
     ./cmp.nix
+    ./comment.nix
     ./format.nix
     ./indent-blankline.nix
     ./lazygit.nix
@@ -15,6 +16,7 @@
     ./substitute.nix
     ./supermaven.nix
     ./telescope.nix
+    ./todo-comments.nix
     ./treesitter.nix
     ./trouble.nix
     ./undotree.nix
