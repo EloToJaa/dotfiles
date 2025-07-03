@@ -1,5 +1,5 @@
 {config, ...}: let
-  mkRaw = config.lib.nixvim.mkRaw;
+  inherit (config.lib.nixvim) mkRaw;
 in {
   programs.nixvim = {
     plugins.smart-splits = {
