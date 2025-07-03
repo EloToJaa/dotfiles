@@ -98,5 +98,24 @@
       };
     };
     web-devicons.enable = true;
+    which-key.settings.spec = [
+      {
+        __unkeyed-1 = "<leader>f";
+        group = "Telescope";
+        icon = "";
+      }
+      {
+        __unkeyed-1 = "<leader>fl";
+        group = "LSP";
+      }
+      {
+        __unkeyed-1 = "<leader>fls";
+        group = "LSP symbols";
+      }
+      {
+        __unkeyed-1 = "<leader>fg";
+        group = "Git";
+      }
+    ];
   };
 }

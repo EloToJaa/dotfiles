@@ -36,5 +36,12 @@
         plugin = "trouble.nvim";
       }
     ];
+    which-key.settings.spec = [
+      {
+        __unkeyed-1 = "<leader>d";
+        group = "Trouble";
+        icon = "";
+      }
+    ];
   };
 }

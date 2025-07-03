@@ -10,6 +10,7 @@
     ./lualine.nix
     ./lz-n.nix
     ./noice.nix
+    ./smart-splits.nix
     ./supermaven.nix
     ./telescope.nix
     ./treesitter.nix
