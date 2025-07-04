@@ -28,8 +28,14 @@ in {
       {
         mode = "n";
         key = "<leader>la";
-        action = mkRaw "function() vim.lsp.buf.code_action() end";
+        action = mkRaw "vim.lsp.buf.code_action";
         options.desc = "Code action";
+      }
+      {
+        mode = "n";
+        key = "<leader>K";
+        action = mkRaw "vim.lsp.buf.hover";
+        options.desc = "Show documentation";
       }
     ];
   };

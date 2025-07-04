@@ -31,6 +31,7 @@
       wrap = true;
       linebreak = true;
       breakindent = true;
+      winborder = "rounded";
     };
 
     extraConfigLuaPost = ''
