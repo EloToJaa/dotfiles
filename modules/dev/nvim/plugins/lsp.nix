@@ -34,22 +34,22 @@ in {
       {
         mode = "n";
         key = "<leader>K";
-        action = mkRaw "vim.lsp.buf.hover";
+        action = mkRaw "function() vim.lsp.buf.hover({border = 'single'}) end";
         options.desc = "Show documentation";
       }
     ];
-    extraConfigLuaPre =
-      /*
-      lua
-      */
-      ''
-        local _hover = vim.lsp.buf.hover
-
-        vim.lsp.buf.hover = function(opts)
-            opts = opts or {}
-            opts.border = opts.border or 'rounded'
-            return _hover(opts)
-        end
-      '';
+    # extraConfigLuaPre =
+    #   /*
+    #   lua
+    #   */
+    #   ''
+    #     local _hover = vim.lsp.buf.hover
+    #
+    #     vim.lsp.buf.hover = function(opts)
+    #         opts = opts or {}
+    #         opts.border = opts.border or 'rounded'
+    #         return _hover(opts)
+    #     end
+    #   '';
   };
 }
