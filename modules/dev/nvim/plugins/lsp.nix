@@ -38,5 +38,18 @@ in {
         options.desc = "Show documentation";
       }
     ];
+    extraConfigLuaPre =
+      /*
+      lua
+      */
+      ''
+        local _hover = vim.lsp.buf.hover
+
+        vim.lsp.buf.hover = function(opts)
+            opts = opts or {}
+            opts.border = opts.border or 'rounded'
+            return _hover(opts)
+        end
+      '';
   };
 }
