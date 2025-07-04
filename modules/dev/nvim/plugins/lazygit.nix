@@ -2,7 +2,6 @@
   programs.nixvim.plugins = {
     lazygit = {
       enable = true;
-      settings.floating_window_border_chars = [];
     };
     lz-n.keymaps = [
       {

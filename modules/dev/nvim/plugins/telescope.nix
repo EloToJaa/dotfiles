@@ -2,18 +2,15 @@
   programs.nixvim.plugins = {
     telescope = {
       enable = true;
-      settings.defaults = {
-        border = false;
-        mappings.i = {
-          "<C-k>" = {
-            __raw = "require('telescope.actions').move_selection_previous";
-          };
-          "<C-j>" = {
-            __raw = "require('telescope.actions').move_selection_next";
-          };
-          "<C-q>" = {
-            __raw = "require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist";
-          };
+      settings.defaults.mappings.i = {
+        "<C-k>" = {
+          __raw = "require('telescope.actions').move_selection_previous";
+        };
+        "<C-j>" = {
+          __raw = "require('telescope.actions').move_selection_next";
+        };
+        "<C-q>" = {
+          __raw = "require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist";
         };
       };
       extensions.fzf-native = {
