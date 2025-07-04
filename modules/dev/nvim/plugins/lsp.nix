@@ -1,4 +1,6 @@
-{
+{config, ...}: let
+  inherit (config.nixvim.lib) mkRaw;
+in {
   programs.nixvim = {
     plugins.lspconfig = {
       enable = true;
@@ -22,5 +24,13 @@
       #   };
       # };
     };
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>la";
+        action = mkRaw "function() vim.lsp.buf.code_action() end";
+        options.desc = "Code action";
+      }
+    ];
   };
 }
