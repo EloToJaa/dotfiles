@@ -1,5 +1,5 @@
 {config, ...}: let
-  inherit (config.nixvim.lib) mkRaw;
+  inherit (config.lib.nixvim) mkRaw;
 in {
   programs.nixvim = {
     plugins.lspconfig = {
