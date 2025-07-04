@@ -31,12 +31,12 @@ in {
         action = mkRaw "vim.lsp.buf.code_action";
         options.desc = "Code action";
       }
-      {
-        mode = "n";
-        key = "K";
-        action = mkRaw "vim.lsp.buf.hover";
-        options.desc = "Show documentation";
-      }
+      # {
+      #   mode = "n";
+      #   key = "K";
+      #   action = mkRaw "vim.lsp.buf.hover";
+      #   options.desc = "Show documentation";
+      # }
     ];
     # extraConfigLuaPre =
     #   /*
