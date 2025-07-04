@@ -33,8 +33,8 @@ in {
       }
       {
         mode = "n";
-        key = "<leader>K";
-        action = mkRaw "function() vim.lsp.buf.hover({border = 'single'}) end";
+        key = "K";
+        action = mkRaw "vim.lsp.buf.hover";
         options.desc = "Show documentation";
       }
     ];
