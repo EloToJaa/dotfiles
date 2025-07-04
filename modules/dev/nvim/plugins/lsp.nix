@@ -6,7 +6,7 @@ in {
       enable = true;
     };
     lsp = {
-      inlayHints.enable = true;
+      inlayHints.enable = false;
       # servers = {
       #   "*" = {
       #     settings = {
@@ -31,25 +31,6 @@ in {
         action = mkRaw "vim.lsp.buf.code_action";
         options.desc = "Code action";
       }
-      # {
-      #   mode = "n";
-      #   key = "K";
-      #   action = mkRaw "vim.lsp.buf.hover";
-      #   options.desc = "Show documentation";
-      # }
     ];
-    # extraConfigLuaPre =
-    #   /*
-    #   lua
-    #   */
-    #   ''
-    #     local _hover = vim.lsp.buf.hover
-    #
-    #     vim.lsp.buf.hover = function(opts)
-    #         opts = opts or {}
-    #         opts.border = opts.border or 'rounded'
-    #         return _hover(opts)
-    #     end
-    #   '';
   };
 }
