@@ -31,6 +31,11 @@ in {
         action = mkRaw "vim.lsp.buf.code_action";
         options.desc = "Code action";
       }
+      {
+        mode = "n";
+        key = "gD";
+        action = mkRaw "vim.lsp.buf.declaration";
+      }
     ];
     extraConfigLuaPost = ''
       local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }

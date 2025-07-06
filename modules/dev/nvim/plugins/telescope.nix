@@ -67,31 +67,31 @@
           action = "git_bcommits";
           options.desc = "Git buffer commits";
         };
-        "<leader>flsb" = {
+        "<leader>fyb" = {
           action = "lsp_document_symbols";
           options.desc = "LSP document symbols";
         };
-        "<leader>flsw" = {
+        "<leader>fyw" = {
           action = "lsp_workspace_symbols";
           options.desc = "LSP workspace symbols";
         };
-        "<leader>flr" = {
+        "gR" = {
           action = "lsp_references";
           options.desc = "LSP references";
         };
-        "<leader>fli" = {
+        "gi" = {
           action = "lsp_implementations";
           options.desc = "LSP implementations";
         };
-        "<leader>flD" = {
+        "gd" = {
           action = "lsp_definitions";
           options.desc = "LSP definitions";
         };
-        "<leader>flt" = {
+        "gt" = {
           action = "lsp_type_definitions";
           options.desc = "LSP type definitions";
         };
-        "<leader>fld" = {
+        "<leader>fd" = {
           action = "diagnostics";
           options.desc = "LSP document diagnostics";
         };
@@ -105,11 +105,7 @@
         icon = "";
       }
       {
-        __unkeyed-1 = "<leader>fl";
-        group = "LSP";
-      }
-      {
-        __unkeyed-1 = "<leader>fls";
+        __unkeyed-1 = "<leader>fy";
         group = "LSP symbols";
       }
       {
