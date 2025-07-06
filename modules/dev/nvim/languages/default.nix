@@ -9,6 +9,7 @@
     ./markdown.nix
     ./nix.nix
     ./python.nix
+    ./rust.nix
     ./toml.nix
     ./xml.nix
     ./yaml.nix

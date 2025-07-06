@@ -10,6 +10,11 @@
   programs.nixvim = {
     lsp.servers.gopls = {
       enable = true;
+      settings = {
+        analyses.unusedparams = true;
+        staticcheck = true;
+        gofumpt = true;
+      };
     };
     plugins = {
       conform-nvim.settings.formatters_by_ft = {
