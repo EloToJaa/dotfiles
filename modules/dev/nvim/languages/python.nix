@@ -22,18 +22,15 @@
   ];
 
   programs.nixvim = {
-    lsp.servers = {
-      pyright = {
-        enable = true;
+    lsp.servers.pyright = {
+      enable = true;
 
-        settings = {
-          pyright.disableOrganizeImports = true;
-          python.analysis.ignore = {
-            __unkeyed-1 = "*";
-          };
+      settings = {
+        pyright.disableOrganizeImports = true;
+        python.analysis.ignore = {
+          __unkeyed-1 = "*";
         };
       };
-      ruff.enable = true;
     };
     plugins = {
       lint.lintersByFt = {
