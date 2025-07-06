@@ -32,5 +32,8 @@ in {
         options.desc = "Code action";
       }
     ];
+    extraConfigLuaPost = ''
+      vim.diagnostic.config({ virtual_text = true })
+    '';
   };
 }
