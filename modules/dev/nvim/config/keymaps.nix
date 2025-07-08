@@ -158,12 +158,6 @@
       }
       {
         mode = "n";
-        key = "<M-p>";
-        action = "<cmd>cnext<CR>";
-        options.desc = "Next quickfix item";
-      }
-      {
-        mode = "n";
         key = "<M-d>";
         action = "<cmd>cdo del<CR>";
         options.desc = "Delete quickfix item";
