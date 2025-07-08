@@ -4,8 +4,8 @@
     lz-n.keymaps = [
       {
         mode = "n";
-        key = "<leader>U";
-        action = "UndotreeToggle";
+        key = "<leader>u";
+        action = "<cmd>UndotreeToggle<CR>";
         options.desc = "Undotree";
         plugin = "undotree";
       }
