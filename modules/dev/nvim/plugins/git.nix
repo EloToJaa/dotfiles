@@ -8,6 +8,11 @@ in {
       gitsigns = {
         enable = true;
         settings = {
+          watch_gitdir = {
+            enable = true;
+            follow_files = true;
+          };
+          current_line_blame = true;
         };
       };
       lz-n.keymaps = [
@@ -24,18 +29,37 @@ in {
           group = "Git";
           icon = "";
         }
+        {
+          __unkeyed-1 = "<leader>gt";
+          group = "Toggle";
+        }
       ];
     };
     keymaps = [
       {
         key = "<leader>gb";
-        action = "<cmd>Git blame<cr>";
+        action = mkRaw "require('gitsigns').blame_line";
+        options.desc = "Blame line";
+      }
+      {
+        key = "<leader>gB";
+        action = mkRaw "require('gitsigns').blame";
         options.desc = "Blame";
       }
       {
         key = "<leader>gl";
         action = "<cmd>Git log<cr>";
-        options.desc = "Blame";
+        options.desc = "Log";
+      }
+      {
+        key = "<leader>gd";
+        action = "<cmd>Gdiffsplit<cr>";
+        options.desc = "Diff";
+      }
+      {
+        key = "<leader>gD";
+        action = "<cmd>Git difftool<cr>";
+        options.desc = "Difftool";
       }
       {
         key = "<leader>gh";
@@ -43,8 +67,13 @@ in {
         options.desc = "Preview hunk";
       }
       {
-        key = "<leader>gt";
+        key = "<leader>gtb";
         action = mkRaw "require('gitsigns').toggle_current_line_blame";
+        options.desc = "Preview hunk";
+      }
+      {
+        key = "<leader>gtw";
+        action = mkRaw "require('gitsigns').toggle_word_diff";
         options.desc = "Preview hunk";
       }
     ];
