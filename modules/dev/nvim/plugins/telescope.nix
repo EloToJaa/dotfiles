@@ -10,12 +10,7 @@
           __raw = "require('telescope.actions').move_selection_next";
         };
         "<C-q>" = {
-          __raw = ''
-            function()
-              require('telescope.actions').send_selected_to_qflist()
-              require('telescope.actions').open_qflist()
-            end
-          '';
+          __raw = "function() require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist";
         };
       };
       extensions.fzf-native = {
