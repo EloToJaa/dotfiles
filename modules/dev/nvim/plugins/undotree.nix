@@ -1,12 +1,13 @@
 {
-  programs.nixvim = {
-    plugins.undotree.enable = true;
-    keymaps = [
+  programs.nixvim.plugins = {
+    undotree.enable = true;
+    lz-n.keymaps = [
       {
         mode = "n";
-        key = "<leader>u";
+        key = "<leader>U";
         action = "UndotreeToggle";
         options.desc = "Undotree";
+        plugin = "undotree";
       }
     ];
   };
