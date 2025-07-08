@@ -168,6 +168,12 @@
         action = "<cmd>cdo del<CR>";
         options.desc = "Delete quickfix item";
       }
+      {
+        mode = "n";
+        key = "<M-l>";
+        action = "<cmd>copen<CR>";
+        options.desc = "Open quickfix list";
+      }
     ];
   };
 }
