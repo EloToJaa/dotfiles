@@ -5,7 +5,7 @@
     ./cmp.nix
     ./comment.nix
     ./format.nix
-    ./nix
+    ./git.nix
     ./indent-blankline.nix
     ./lint.nix
     ./lsp.nix
