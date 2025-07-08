@@ -45,12 +45,12 @@ in {
     };
     keymaps = [
       {
-        key = "<leader>gb";
+        key = "<leader>gB";
         action = mkRaw "require('gitsigns').blame_line";
         options.desc = "Blame line";
       }
       {
-        key = "<leader>gB";
+        key = "<leader>gb";
         action = mkRaw "require('gitsigns').blame";
         options.desc = "Blame";
       }
