@@ -84,6 +84,16 @@ in {
         action = mkRaw "require('gitsigns').toggle_word_diff";
         options.desc = "Preview hunk";
       }
+      {
+        key = "<leader>gw";
+        action = mkRaw "require('telescope').extensions.git_worktree.git_worktrees";
+        options.desc = "Git worktrees";
+      }
+      {
+        key = "<leader>gW";
+        action = mkRaw "require('telescope').extensions.git_worktree.create_git_worktree";
+        options.desc = "Create git worktree";
+      }
     ];
   };
 }
