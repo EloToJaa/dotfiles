@@ -21,7 +21,7 @@
         mode = "n";
         key = "<leader>ns";
         action = "<cmd>NixShell<CR>";
-        options.desc = "Develop";
+        options.desc = "Shell";
       }
     ];
   };

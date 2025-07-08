@@ -68,7 +68,7 @@
           options.desc = "Git buffer commits";
         };
         "<leader>fgf" = {
-          action = "find_files";
+          action = "git_files";
           options.desc = "Find files";
         };
         "<leader>fyb" = {
