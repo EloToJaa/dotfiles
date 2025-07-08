@@ -15,7 +15,7 @@
     fd # find replacement
     file # Show file information
     resvg
-    ouch
+    (ouch.override {enableUnfree = true;})
     glow
     mediainfo
     hexyl
