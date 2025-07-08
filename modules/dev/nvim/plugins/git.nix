@@ -86,7 +86,7 @@ in {
       }
       {
         key = "<leader>gw";
-        action = mkRaw "require('telescope').extensions.git_worktree.git_worktrees";
+        action = mkRaw "require('telescope').extensions.git_worktree.git_worktree";
         options.desc = "Git worktrees";
       }
       {
