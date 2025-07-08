@@ -158,7 +158,7 @@
       }
       {
         mode = "n";
-        key = "<M-d>";
+        key = "<M-q>";
         action = "<cmd>cdo del<CR>";
         options.desc = "Delete quickfix item";
       }
