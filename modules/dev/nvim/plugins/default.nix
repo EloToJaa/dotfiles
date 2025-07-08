@@ -11,6 +11,7 @@
     ./lsp.nix
     ./lualine.nix
     ./lz-n.nix
+    ./nix.nix
     ./noice.nix
     ./smart-splits.nix
     ./substitute.nix

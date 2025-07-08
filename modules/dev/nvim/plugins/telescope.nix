@@ -24,7 +24,7 @@
       };
       keymaps = {
         "<C-p>" = {
-          action = "git_files";
+          action = "find_files";
           options.desc = "Telescope git files";
         };
         "<leader>fs" = {
@@ -63,9 +63,13 @@
           action = "git_status";
           options.desc = "Git status";
         };
-        "<leader>fgf" = {
+        "<leader>fgd" = {
           action = "git_bcommits";
           options.desc = "Git buffer commits";
+        };
+        "<leader>fgf" = {
+          action = "find_files";
+          options.desc = "Find files";
         };
         "<leader>fyb" = {
           action = "lsp_document_symbols";
