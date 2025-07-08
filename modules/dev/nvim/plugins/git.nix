@@ -15,6 +15,14 @@ in {
           current_line_blame = true;
         };
       };
+      git-worktree = {
+        enable = true;
+        enableTelescope = true;
+        settings = {
+          change_directory_command = "z";
+          clear_jumps_on_change = true;
+        };
+      };
       lz-n.keymaps = [
         {
           key = "<leader>gg";
