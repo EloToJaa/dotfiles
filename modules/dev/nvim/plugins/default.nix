@@ -15,6 +15,7 @@
     ./smart-splits.nix
     ./substitute.nix
     ./supermaven.nix
+    ./surround.nix
     ./telescope.nix
     ./todo-comments.nix
     ./treesitter.nix
