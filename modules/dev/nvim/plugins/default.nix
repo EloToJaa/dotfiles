@@ -5,8 +5,8 @@
     ./cmp.nix
     ./comment.nix
     ./format.nix
+    ./nix
     ./indent-blankline.nix
-    ./lazygit.nix
     ./lint.nix
     ./lsp.nix
     ./lualine.nix
