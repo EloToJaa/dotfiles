@@ -144,6 +144,30 @@
         action = ":tabnext 9<CR>";
         options.desc = "Go to tab 9";
       }
+      {
+        mode = "n";
+        key = "<M-n>";
+        action = "<cmd>cnext<CR>";
+        options.desc = "Next quickfix item";
+      }
+      {
+        mode = "n";
+        key = "<M-p>";
+        action = "<cmd>cprev<CR>";
+        options.desc = "Previous quickfix item";
+      }
+      {
+        mode = "n";
+        key = "<M-p>";
+        action = "<cmd>cnext<CR>";
+        options.desc = "Next quickfix item";
+      }
+      {
+        mode = "n";
+        key = "<M-d>";
+        action = "<cmd>cdo del<CR>";
+        options.desc = "Delete quickfix item";
+      }
     ];
   };
 }
