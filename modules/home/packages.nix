@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     ## CLI utility
     comma
@@ -10,6 +14,8 @@
     unzip
     wget
     systemctl-tui
+
+    inputs.wezterm.packages.${pkgs.system}.default
 
     # neovim
   ];
