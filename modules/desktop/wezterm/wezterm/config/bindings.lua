@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+local M = {}
+
 -- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
 local function is_vim(pane)
 	-- this is set by the plugin, and unset on ExitPre in Neovim
@@ -35,7 +37,7 @@ local function split_nav(resize_or_move, key)
 	}
 end
 
-local keys = {
+M.keys = {
 	-- Send C-a when pressing C-a twice
 	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
 	{ key = "c", mods = "LEADER", action = act.ActivateCopyMode },
@@ -133,19 +135,19 @@ local keys = {
 }
 
 for i = 1, 9 do
-	table.insert(keys, {
+	table.insert(M.keys, {
 		key = tostring(i),
 		mods = "LEADER",
 		action = act.ActivateTab(i - 1),
 	})
 end
-table.insert(keys, {
+table.insert(M.keys, {
 	key = "0",
 	mods = "LEADER",
 	action = act.ActivateTab(9),
 })
 
-local key_tables = {
+M.key_tables = {
 	resize_font = {
 		{ key = "k", action = act.IncreaseFontSize },
 		{ key = "j", action = act.DecreaseFontSize },
@@ -181,7 +183,7 @@ local key_tables = {
 	},
 }
 -- remove copy on highlight
-local mouse_bindings = {
+M.mouse_bindings = {
 	{
 		event = { Up = { streak = 1, button = "Left" } },
 		mods = "NONE",
@@ -194,10 +196,7 @@ local mouse_bindings = {
 	},
 }
 
-return {
-	disable_default_key_bindings = true,
-	leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
-	keys = keys,
-	key_tables = key_tables,
-	mouse_bindings = mouse_bindings,
-}
+M.disable_default_key_bindings = true
+M.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+
+return M

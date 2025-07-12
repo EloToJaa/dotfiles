@@ -1,44 +1,44 @@
 local gpu_adapters = require("utils.gpu_adapter")
 
-M = {
-	-- color scheme
-	color_scheme = "Catppuccin Mocha",
+local M = {}
 
-	-- scrollbar
-	enable_scroll_bar = false,
+-- color scheme
+M.color_scheme = "Catppuccin Mocha"
 
-	-- tab bar
-	enable_tab_bar = true,
-	hide_tab_bar_if_only_one_tab = false,
-	use_fancy_tab_bar = false,
-	tab_max_width = 25,
-	tab_bar_at_bottom = true,
-	show_tab_index_in_tab_bar = false,
-	switch_to_last_active_tab_when_closing_tab = true,
-	tab_and_split_indices_are_zero_based = false,
+-- scrollbar
+M.enable_scroll_bar = false
 
-	-- window
-	window_padding = {
-		left = 3,
-		right = 3,
-		top = 5,
-		bottom = 0,
-	},
-	window_background_opacity = 0.9,
-	window_close_confirmation = "NeverPrompt",
-	window_frame = {
-		active_titlebar_bg = "#090909",
-		-- font = fonts.font,
-		-- font_size = fonts.font_size,
-	},
-	-- inactive_pane_hsb = {
-	--    saturation = 0.9,
-	--    brightness = 0.65,
-	-- },
-	inactive_pane_hsb = {
-		saturation = 1,
-		brightness = 1,
-	},
+-- tab bar
+M.enable_tab_bar = true
+M.hide_tab_bar_if_only_one_tab = false
+M.use_fancy_tab_bar = false
+M.tab_max_width = 25
+M.tab_bar_at_bottom = true
+M.show_tab_index_in_tab_bar = false
+M.switch_to_last_active_tab_when_closing_tab = true
+M.tab_and_split_indices_are_zero_based = false
+
+-- window
+M.window_padding = {
+	left = 3,
+	right = 3,
+	top = 5,
+	bottom = 0,
+}
+M.window_background_opacity = 0.9
+M.window_close_confirmation = "NeverPrompt"
+M.window_frame = {
+	active_titlebar_bg = "#090909",
+	-- font = fonts.font,
+	-- font_size = fonts.font_size,
+}
+-- inactive_pane_hsb = {
+--    saturation = 0.9,
+--    brightness = 0.65,
+-- },
+M.inactive_pane_hsb = {
+	saturation = 1,
+	brightness = 1,
 }
 
 local host = require("utils.variables").host
