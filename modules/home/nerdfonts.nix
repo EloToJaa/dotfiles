@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
+  home.packages = with pkgs.nerd-fonts; [
     # Nerd Fonts
-    nerd-fonts.caskaydia-cove
-    nerd-fonts.noto
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.symbols-only
+    caskaydia-cove
+    noto
+    jetbrains-mono
+    symbols-only
   ];
 }
