@@ -19,15 +19,15 @@
         "display": {
           "separator": "",
           "size": {
-              "binaryPrefix": "si",
+            "binaryPrefix": "si",
             "ndigits": 0
           },
           "percent": {
             "type": 1
           },
           "key":{
-           "Width": 1
-           },
+            "Width": 1
+          },
         },
         "modules": [
           {
