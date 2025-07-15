@@ -16,7 +16,7 @@
     bleachbit # cache cleaner
     chromium
     dconf-editor
-    gimp
+    # gimp
     # imv # image viewer
     libreoffice
     mpv # video player
