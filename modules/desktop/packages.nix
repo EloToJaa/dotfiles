@@ -31,7 +31,7 @@
     zenity
     remmina
     rnote
-    # jetbrains.idea-community
+    jetbrains.idea-community
 
     android-studio
 
