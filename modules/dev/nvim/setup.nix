@@ -1,4 +1,4 @@
-{...}: let
+let
   shellAliases = {
     vim = "nvim";
     vi = "nvim";

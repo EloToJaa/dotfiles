@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./hyprland # window manager
     ./scripts # personal scripts

@@ -1,4 +1,4 @@
-{...}: let
+let
   shellAliases = {
     d = "docker";
     ld = "lazydocker";

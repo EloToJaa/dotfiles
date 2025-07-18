@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./scripts
     ./packages.nix

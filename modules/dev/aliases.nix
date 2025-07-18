@@ -1,4 +1,4 @@
-{...}: let
+let
   shellAliases = {
     pdf = "tdf";
     space = "ncdu";

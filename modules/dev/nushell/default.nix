@@ -1,7 +1,5 @@
-{...}: {
-  imports = [
-    ./nu.nix
-  ];
+{
+  imports = [./nu.nix];
   programs = {
     atuin.enableNushellIntegration = true;
     zoxide.enableNushellIntegration = true;

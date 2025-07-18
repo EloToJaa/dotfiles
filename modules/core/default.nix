@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./gnome
     ./adb.nix
