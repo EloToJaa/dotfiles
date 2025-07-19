@@ -7,7 +7,7 @@
       sh
       */
       ''
-        eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.toml)"
+        eval "$(${pkgs.oh-my-posh} init zsh --config ~/.config/oh-my-posh/config.toml)"
       '';
     nushell = {
       extraEnv =
@@ -15,7 +15,7 @@
         nu
         */
         ''
-          oh-my-posh init nu --config ~/.config/oh-my-posh/config.toml --print | save ~/.config/nushell/oh-my-posh.nu --force
+          ${pkgs.oh-my-posh} init nu --config ~/.config/oh-my-posh/config.toml --print | save ~/.config/nushell/oh-my-posh.nu --force
         '';
       extraConfig =
         /*
