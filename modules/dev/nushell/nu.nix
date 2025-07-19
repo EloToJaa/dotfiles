@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   variables,
   lib,
   ...
@@ -11,7 +10,6 @@
 in {
   programs.nushell = {
     enable = lib.mkForce true;
-    package = inputs.nushell-nixpkgs.legacyPackages.${pkgs.system}.nushell;
     environmentVariables = {
       PROMPT_INDICATOR_VI_INSERT = "";
       PROMPT_INDICATOR_VI_NORMAL = "";

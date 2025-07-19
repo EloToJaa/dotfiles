@@ -37,8 +37,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
-
-    nushell-nixpkgs.url = "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb";
   };
 
   outputs = {
