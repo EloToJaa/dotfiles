@@ -1,6 +1,5 @@
 {pkgs, ...}: {
-  # home.packages = with pkgs; [oh-my-posh];
-  home.packages = with pkgs; [callPackage ../../../pkgs/oh-my-posh.nix {}];
+  home.packages = with pkgs; [oh-my-posh];
 
   programs = {
     zsh.initContent =
