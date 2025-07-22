@@ -21,7 +21,7 @@ elseif platform.is_mac then
 		{ label = "Zsh", args = { "zsh", "-l" } },
 	}
 elseif platform.is_linux then
-	options.default_prog = { "nu", "-l" }
+	options.default_prog = { "zsh", "-l" }
 	options.launch_menu = {
 		{ label = "Bash", args = { "bash", "-l" } },
 		{ label = "Zsh", args = { "zsh", "-l" } },
