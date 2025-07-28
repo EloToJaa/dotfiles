@@ -12,11 +12,11 @@
     yt-dlp-light
 
     ## GUI Apps
-    audacity
+    # audacity
     bleachbit # cache cleaner
     chromium
     dconf-editor
-    # gimp
+    gimp
     # imv # image viewer
     libreoffice
     mpv # video player
@@ -31,7 +31,7 @@
     zenity
     remmina
     rnote
-    # jetbrains.idea-community
+    jetbrains.idea-community
 
     android-studio
 
