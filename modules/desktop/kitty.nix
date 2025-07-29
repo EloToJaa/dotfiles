@@ -6,8 +6,8 @@
       name = "JetBrainsMono Nerd Font";
       size =
         if (host == "laptop")
-        then 14
-        else 15;
+        then 13
+        else 14;
     };
 
     settings = {
