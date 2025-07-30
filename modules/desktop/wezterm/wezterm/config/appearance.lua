@@ -42,15 +42,16 @@ M.inactive_pane_hsb = {
 }
 
 local host = require("utils.variables").host
+M.front_end = "OpenGL"
 if host == "laptop" then
-	M.front_end = "OpenGL"
+	-- M.front_end = "OpenGL"
 
 	M.animation_fps = 80
 	M.max_fps = 80
 else
-	M.front_end = "WebGpu"
-	M.webgpu_power_preference = "HighPerformance"
-	M.webgpu_preferred_adapter = gpu_adapters:pick_best()
+	-- M.front_end = "WebGpu"
+	-- M.webgpu_power_preference = "HighPerformance"
+	-- M.webgpu_preferred_adapter = gpu_adapters:pick_best()
 
 	M.animation_fps = 200
 	M.max_fps = 200
