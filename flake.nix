@@ -45,6 +45,7 @@
     deploy-rs,
     ...
   } @ inputs: let
+    inherit (self) outputs;
     system = "x86_64-linux";
     variables = {
       username = "elotoja";
@@ -101,7 +102,7 @@
         modules = [./hosts/desktop];
         specialArgs = {
           host = "desktop";
-          inherit self inputs variables;
+          inherit self inputs variables outputs;
         };
       };
       laptop = nixpkgs.lib.nixosSystem {
@@ -109,7 +110,7 @@
         modules = [./hosts/laptop];
         specialArgs = {
           host = "laptop";
-          inherit self inputs variables;
+          inherit self inputs variables outputs;
         };
       };
       server = nixpkgs.lib.nixosSystem {
@@ -117,7 +118,7 @@
         modules = [./hosts/server];
         specialArgs = {
           host = "server";
-          inherit self inputs variables;
+          inherit self inputs variables outputs;
         };
       };
       tester = nixpkgs.lib.nixosSystem {
@@ -125,7 +126,7 @@
         modules = [./hosts/tester];
         specialArgs = {
           host = "tester";
-          inherit self inputs variables;
+          inherit self inputs variables outputs;
         };
       };
       vm = nixpkgs.lib.nixosSystem {
@@ -133,7 +134,7 @@
         modules = [./hosts/vm];
         specialArgs = {
           host = "vm";
-          inherit self inputs variables;
+          inherit self inputs variables outputs;
         };
       };
     };

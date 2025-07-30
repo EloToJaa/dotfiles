@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   variables,
+  outputs,
   ...
 }: {
   imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
@@ -26,9 +27,6 @@
       trusted-users = ["elotoja"];
     };
   };
-  nixpkgs.overlays = [
-    inputs.nur.overlays.default
-  ];
 
   environment.systemPackages = with pkgs; [
     wget
@@ -37,9 +35,18 @@
 
   time.timeZone = variables.timezone;
   i18n.defaultLocale = variables.locale;
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowInsecurePredicate = x: true;
-  };
   system.stateVersion = variables.stateVersion;
+
+  nixpkgs = {
+    overlays = [
+      inputs.nur.overlays.default
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+    ];
+    config = {
+      allowUnfree = true;
+      allowInsecurePredicate = _: true;
+    };
+  };
 }
