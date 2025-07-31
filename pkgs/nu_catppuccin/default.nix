@@ -2,8 +2,8 @@
   pkgs,
   lib,
 }:
-pkgs.stdenvNoCC.mkDerivation rec {
-  pname = "nushell";
+pkgs.stdenvNoCC.mkDerivation {
+  pname = "nu_catppuccin";
   version = "unstable-2025-07-31";
 
   src = pkgs.fetchFromGitHub {
