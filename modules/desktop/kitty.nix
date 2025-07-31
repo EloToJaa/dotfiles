@@ -6,8 +6,8 @@
       name = "JetBrainsMono Nerd Font";
       size =
         if (host == "laptop")
-        then 13
-        else 14;
+        then 12
+        else 13;
     };
 
     settings = {
@@ -16,7 +16,8 @@
       scrollback_lines = 10000;
       enable_audio_bell = false;
       mouse_hide_wait = 60;
-      window_padding_width = 10;
+      single_window_padding_width = -1;
+      window_padding_width = 0;
 
       ## Tabs
       tab_title_template = "{index}";
