@@ -25,6 +25,20 @@ def get_hash_and_rev(owner: str, repo: str) -> tuple[str | None, str | None]:
 
     return hash, rev
 
+def nix_update(pname: str | None):
+    if pname is None:
+        return
+
+    output = run_command(f"nix-update {pname} --flake --commit --use-update-script")
+    if output is None:
+        return None, None
+
+    json_data = json.loads(output)["args"]
+    hash = json_data["hash"]
+    rev = json_data["rev"]
+
+    return hash, rev
+
 def get_owner_and_repo(file_path: str) -> tuple[str | None, str | None]:
     with open(file_path, "r") as f:
         content = f.read()
@@ -40,7 +54,33 @@ def get_owner_and_repo(file_path: str) -> tuple[str | None, str | None]:
 
     return owner, repo
 
-def get_version() -> str:
+def get_pname(file_path: str) -> str | None:
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    pname_match = re.search(r"owner = \"(.*?)\";", content)
+
+    if pname_match is None:
+        return None
+
+    pname = pname_match.group(1)
+
+    return pname
+
+def get_current_version(file_path: str) -> str | None:
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    version_match = re.search(r"version = \"(.*?)\";", content)
+
+    if version_match is None:
+        return None
+
+    version = version_match.group(1)
+
+    return version
+
+def get_new_version() -> str:
     date_now = datetime.datetime.now()
     date_string = date_now.strftime("%Y-%m-%d")
     version = f"unstable-{date_string}"
@@ -60,19 +100,31 @@ def write_to_file(file_path: str, hash: str, rev: str, version: str):
 def process_file(file_path: str):
     print(f"Processing {file_path}")
 
+    current_version = get_current_version(file_path)
+    if current_version is None:
+        print(f"{file_path}: Could not get current version")
+        return
+
+    print(f"Current version: {current_version}")
+    if not current_version.startswith("unstable-"):
+        pname = get_pname(file_path)
+        print(f"Updating {pname} using nix-update")
+        nix_update(pname)
+        return
+
     owner, repo = get_owner_and_repo(file_path)
     if owner is None or repo is None:
         print(f"{file_path}: Could not find owner or repo")
         return
-
-    version = get_version()
 
     hash, rev = get_hash_and_rev(owner, repo)
     if hash is None or rev is None:
         print(f"{file_path}: Could not get hash or rev")
         return
 
-    write_to_file(file_path, hash, rev, version)
+    new_version = get_new_version()
+
+    write_to_file(file_path, hash, rev, new_version)
 
 def get_all_files(directory: str) -> list[str]:
     new_files: list[str] = []
