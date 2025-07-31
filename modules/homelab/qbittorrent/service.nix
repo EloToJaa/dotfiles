@@ -10,6 +10,7 @@ with lib; let
   openFilesLimit = 4096;
 in {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/torrent/qbittorrent.nix
   options.services.qbittorrent = {
     enable = mkOption {
       type = types.bool;

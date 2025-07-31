@@ -13,6 +13,10 @@
   ns = config.services.wireguard-netns.namespace;
   dataDir = "${homelab.dataDir}${name}";
 in {
+  disabledModules = [
+    "services/torrent/qbittorrent.nix"
+  ];
+
   imports = [
     ./service.nix
     ./vuetorrent.nix
