@@ -6,7 +6,7 @@
 }:
 buildGoModule rec {
   pname = "oh-my-posh";
-  version = "26.17.3";
+  version = "unstable-2025-07-31";
 
   src = fetchFromGitHub {
     owner = "jandedobbeleer";

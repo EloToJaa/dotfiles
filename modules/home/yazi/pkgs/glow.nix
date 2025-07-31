@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-glow";
-  version = "unstable-2025-07-19";
+  version = "unstable-2025-07-31";
 
   src = fetchFromGitHub {
     owner = "Reledia";

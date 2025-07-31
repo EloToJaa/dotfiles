@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziTheme-yazi";
-  version = "unstable-2025-07-19";
+  version = "unstable-2025-07-31";
 
   src = fetchFromGitHub {
     owner = "catppuccin";
