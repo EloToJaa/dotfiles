@@ -4,10 +4,7 @@
   variables,
   lib,
   ...
-}: let
-  nu_scripts = pkgs.callPackage ../../../pkgs/nu_scripts.nix {};
-  nu_catppuccin = pkgs.callPackage ../../../pkgs/nu_catppuccin.nix {};
-in {
+}: {
   programs.nushell = {
     enable = lib.mkForce true;
     environmentVariables = {
@@ -69,8 +66,8 @@ in {
       ''
         alias pueue = ${pkgs.pueue}/bin/pueue
         alias pueued = ${pkgs.pueue}/bin/pueued
-        use ${nu_scripts}/share/nu_scripts/modules/background_task/task.nu
-        source ${nu_catppuccin}/share/catppuccin-nushell/themes/catppuccin_${variables.catppuccin.flavor}.nu
+        use ${pkgs.nu_scripts}/share/nu_scripts/modules/background_task/task.nu
+        source ${pkgs.nu_catppuccin}/share/catppuccin-nushell/themes/catppuccin_${variables.catppuccin.flavor}.nu
 
         $env.config = ${conf};
       '';
