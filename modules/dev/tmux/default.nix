@@ -7,7 +7,7 @@
   tmux-smart-launch = pkgs.writeShellScriptBin "tmux-smart-launch" (builtins.readFile ./tmux-smart-launch.sh);
   smart-splits = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "smart-splits";
-    rtpFilePath = "smart-splits";
+    rtpFilePath = "smart-splits.tmux";
     version = "unstable-2025-08-02";
     src = pkgs.fetchFromGitHub {
       owner = "mrjones2014";
