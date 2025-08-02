@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    # ./nushell
     ./nvim
     ./scripts # personal scripts
     ./tmux

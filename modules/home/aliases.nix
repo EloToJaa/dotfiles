@@ -42,13 +42,5 @@ in {
         ns = "nom-shell --run zsh";
         nix-dev = "nom develop --command zsh";
       };
-    nushell.shellAliases =
-      shellAliases
-      // {
-        l = "ls";
-        ll = "ls -la";
-        ns = "nom-shell --run nu";
-        nix-dev = "nom develop --command nu";
-      };
   };
 }

@@ -43,6 +43,5 @@ in {
 
       enableZshIntegration = true;
     };
-    nushell.enable = false;
   };
 }

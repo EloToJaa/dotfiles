@@ -68,6 +68,5 @@ in {
 
   programs = {
     zsh.shellAliases = shellAliases;
-    nushell.shellAliases = shellAliases;
   };
 }

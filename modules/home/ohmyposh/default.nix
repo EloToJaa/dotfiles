@@ -9,22 +9,6 @@
       ''
         eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/.config/oh-my-posh/config.toml)"
       '';
-    nushell = {
-      extraEnv =
-        /*
-        nu
-        */
-        ''
-          ${pkgs.oh-my-posh}/bin/oh-my-posh init nu --config ~/.config/oh-my-posh/config.toml
-        '';
-      extraConfig =
-        /*
-        nu
-        */
-        ''
-          source ~/.config/nushell/oh-my-posh.nu
-        '';
-    };
   };
 
   xdg.configFile."oh-my-posh/config.toml".source = ./config.toml;
