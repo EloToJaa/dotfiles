@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./smart-splits.nix
-  ];
-}
