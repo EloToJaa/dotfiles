@@ -141,9 +141,9 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Return, exec, wezterm start --always-new-process"
-        "ALT, Return, exec, [float; size 1111 700] wezterm start --always-new-process"
-        "$mainMod SHIFT, Return, exec, [fullscreen] wezterm start --always-new-process"
+        "$mainMod, Return, exec, ghostty -e tmux-smart-launch"
+        "ALT, Return, exec, [float; size 1111 700] ghostty -e tmux-smart-launch"
+        "$mainMod SHIFT, Return, exec, [fullscreen] ghostty -e tmux-smart-launch"
         "$mainMod, b, exec, hyprctl dispatch exec '[workspace 1 silent] zen-beta'"
         "$mainMod, q, killactive,"
         "$mainMod, f, fullscreen, 0"

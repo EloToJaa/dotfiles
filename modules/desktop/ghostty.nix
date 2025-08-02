@@ -1,4 +1,16 @@
-{
+{pkgs, ...}: let
+  shellAliases = {
+    icat = "kitten icat";
+  };
+in {
+  home.packages = with pkgs; [
+    kitty
+  ];
+
+  programs = {
+    zsh.shellAliases = shellAliases;
+  };
+
   programs.ghostty = {
     enable = true;
 

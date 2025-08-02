@@ -10,9 +10,5 @@
     unzip
     wget
     systemctl-tui
-
-    # inputs.wezterm.packages.${pkgs.system}.default
-
-    # neovim
   ];
 }

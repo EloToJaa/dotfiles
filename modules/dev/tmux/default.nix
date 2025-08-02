@@ -1,15 +1,12 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   tmux-smart-launch = pkgs.writeShellScriptBin "tmux-smart-launch" (builtins.readFile ./tmux-smart-launch.sh);
 in {
+  home.packages = [tmux-smart-launch];
+
   programs.tmux = {
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
-    terminal = "tmux-256color";
+    terminal = "ghostty";
     historyLimit = 10000;
     clock24 = true;
     baseIndex = 1;
@@ -19,5 +16,5 @@ in {
     shortcut = "a";
   };
 
-  programs.ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
+  # programs.ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
 }
