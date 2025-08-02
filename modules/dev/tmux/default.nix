@@ -50,7 +50,7 @@ in {
       }
     ];
 
-    extraConfigBeforePlugins = ''
+    extraConfig = ''
       set-option -sa terminal-overrides ",xterm*:Tc"
       set -g mouse on
 
@@ -59,9 +59,7 @@ in {
 
       bind v split-window -h -c "#{pane_current_path}"
       bind s split-window -v -c "#{pane_current_path}"
-    '';
 
-    extraConfig = ''
       set -g @catppuccin_flavor 'mocha'
 
       bind-key -T copy-mode-vi v send-keys -X begin-selection
