@@ -41,6 +41,7 @@
       ## Unbind
       "ctrl+shift+left" = "no_op";
       "ctrl+shift+right" = "no_op";
+      "ctrl+tab" = "no_op";
     };
   };
 }

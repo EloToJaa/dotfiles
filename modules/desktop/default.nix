@@ -6,7 +6,6 @@
     ./wallpapers
     ./waybar # status bar
     ./wezterm
-    ./alacritty.nix
     ./audacious.nix # music player
     ./cava.nix # audio visualizer
     ./clipboard.nix
