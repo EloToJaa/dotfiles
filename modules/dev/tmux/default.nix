@@ -63,6 +63,13 @@ in {
 
       set -g @catppuccin_flavor 'mocha'
 
+      set -g @catppuccin_window_status_style "rounded"
+      set -g status-right-length 100
+      set -g status-left-length 100
+      set -g status-left ""
+      set -g status-right "#{E:@catppuccin_status_application}"
+      set -agF status-right "#{E:@catppuccin_status_session}"
+
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
