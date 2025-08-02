@@ -29,9 +29,9 @@ in {
     };
     theme = {
       name = theme;
-      package = pkgs.orchis-theme.override {
-        tweaks = ["primary"];
-      };
+      # package = pkgs.orchis-theme.override {
+      #   tweaks = ["primary"];
+      # };
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";

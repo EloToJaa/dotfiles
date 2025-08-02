@@ -6,10 +6,12 @@
     ./wallpapers
     ./waybar # status bar
     ./wezterm
+    ./alacritty.nix
     ./audacious.nix # music player
     ./cava.nix # audio visualizer
     ./clipboard.nix
     ./discord.nix # discord
+    ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
     ./kitty.nix
