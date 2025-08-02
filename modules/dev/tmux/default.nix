@@ -55,11 +55,15 @@ in {
       set-option -sa terminal-overrides ",xterm*:Tc"
       set -g mouse on
 
-      bind -n C-[ previous-window
-      bind -n C-] next-window
+      bind-key -n C-[ previous-window
+      bind-key -n C-] next-window
+      bind-key [ previous-window
+      bind-key ] next-window
 
-      bind v split-window -h -c "#{pane_current_path}"
-      bind s split-window -v -c "#{pane_current_path}"
+      bind-key x kill-pane
+
+      bind-key v split-window -v -c "#{pane_current_path}"
+      bind-key s split-window -h -c "#{pane_current_path}"
 
       set -g @catppuccin_flavor 'mocha'
 
