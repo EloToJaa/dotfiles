@@ -6,6 +6,10 @@
 }: let
   tmux-smart-launch = pkgs.writeShellScriptBin "tmux-smart-launch" (builtins.readFile ./tmux-smart-launch.sh);
 in {
+  imports = [
+    ./plugins
+  ];
+
   programs.tmux = {
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
@@ -17,6 +21,7 @@ in {
     escapeTime = 1000;
     secureSocket = true; # Check if has to be false for tmux-resurrect
     shortcut = "a";
+    newSession = true;
 
     plugins = with pkgs.tmuxPlugins; [
       catppuccin
@@ -42,10 +47,6 @@ in {
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
     '';
   };
-
-  imports = [
-    ./plugins
-  ];
 
   programs.ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
 }
