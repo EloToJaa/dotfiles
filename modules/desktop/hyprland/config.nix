@@ -141,9 +141,9 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Return, exec, ghostty -e tmux-smart-launch"
-        "ALT, Return, exec, [float; size 1111 700] ghostty -e tmux-smart-launch"
-        "$mainMod SHIFT, Return, exec, [fullscreen] ghostty -e tmux-smart-launch"
+        "$mainMod, Return, exec, ghostty"
+        "ALT, Return, exec, [float; size 1111 700] ghostty"
+        "$mainMod SHIFT, Return, exec, [fullscreen] ghostty"
         "$mainMod, b, exec, hyprctl dispatch exec '[workspace 1 silent] zen-beta'"
         "$mainMod, q, killactive,"
         "$mainMod, f, fullscreen, 0"
