@@ -31,6 +31,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     yazi.url = "github:sxyazi/yazi/main";
     wezterm.url = "github:wezterm/wezterm/main?dir=nix";
+    ghostty.url = "github:ghostty-org/ghostty";
     hypr-contrib.url = "github:hyprwm/contrib";
     nix-gaming.url = "github:fufexan/nix-gaming";
     hyprmag.url = "github:SIMULATAN/hyprmag";
