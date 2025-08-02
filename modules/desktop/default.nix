@@ -10,6 +10,7 @@
     ./cava.nix # audio visualizer
     ./clipboard.nix
     ./discord.nix # discord
+    ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
     ./kitty.nix
