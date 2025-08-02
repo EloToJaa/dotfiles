@@ -13,7 +13,6 @@
     ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
-    # ./kitty.nix
     ./nemo.nix # file manager
     ./packages.nix # other packages
     ./qbittorrent.nix
