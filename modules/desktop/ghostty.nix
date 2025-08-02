@@ -50,7 +50,7 @@
       gtk-wide-tabs = false;
 
       auto-update = "off";
-      term = "ghostty";
+      term = "256-color";
       clipboard-paste-protection = false;
 
       keybind = [
