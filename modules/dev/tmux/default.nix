@@ -86,6 +86,9 @@ in {
       set -g status-right "#{E:@catppuccin_status_application}"
       set -agF status-right "#{E:@catppuccin_status_session}"
 
+      set -g status-bg default
+      set -g status-style bg=default
+
       set -g status-interval 5
       setw -g aggressive-resize on
 
