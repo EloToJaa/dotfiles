@@ -18,6 +18,7 @@
     xxd
     hyperfine
     deploy-rs
+    xh
 
     ## SQL
     pgcli
