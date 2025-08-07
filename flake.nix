@@ -8,7 +8,7 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland/43966cc787c4a8844ac1e7affaadeedde8f4cc60?submodules=true";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,11 +21,11 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     sops-nix.url = "github:Mic92/sops-nix";

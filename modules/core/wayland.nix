@@ -19,9 +19,9 @@
         "hyprland"
       ];
     };
-    extraPortals = with pkgs.unstable; [
-      xdg-desktop-portal-gtk
-    ];
+    # extraPortals = with pkgs.unstable; [
+    #   xdg-desktop-portal-gtk
+    # ];
   };
 
   boot.initrd.kernelModules = ["amdgpu"];

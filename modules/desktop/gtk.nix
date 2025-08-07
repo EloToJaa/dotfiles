@@ -1,6 +1,7 @@
 {
   pkgs,
   variables,
+  lib,
   ...
 }: let
   # theme = "Orchis-Dark-Compact";
@@ -22,10 +23,10 @@ in {
     };
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.unstable.catppuccin-papirus-folders.override {
+      package = lib.mkForce (pkgs.unstable.catppuccin-papirus-folders.override {
         flavor = variables.catppuccin.flavor;
         accent = variables.catppuccin.accent;
-      };
+      });
     };
     theme = {
       name = theme;
