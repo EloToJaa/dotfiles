@@ -3,7 +3,7 @@
     lg = "lazygit";
   };
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     lazygit
     difftastic
   ];

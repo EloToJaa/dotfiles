@@ -12,7 +12,7 @@
 
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     sops
   ];
 }

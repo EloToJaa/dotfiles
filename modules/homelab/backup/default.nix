@@ -3,6 +3,7 @@
   config,
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "restic";
@@ -14,12 +15,14 @@ in {
   services.${name} = {
     server = {
       enable = true;
+      package = pkgs.unstable.restic-rest-server;
       dataDir = backupDir;
       # htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
       listenAddress = toString port;
       extraFlags = ["--no-auth"];
     };
     backups.appdata-local = {
+      package = pkgs.unstable.restic;
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00";
         Persistent = true;

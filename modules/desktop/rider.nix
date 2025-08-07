@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  extra-path = with pkgs; [
+  extra-path = with pkgs.unstable; [
     dotnetCorePackages.sdk_9_0-bin
     # dotnetCorePackages.sdk_8_0-bin
     dotnetPackages.Nuget
@@ -22,7 +22,7 @@ with lib; let
     libglvnd
   ];
 
-  _rider = pkgs.jetbrains.rider.overrideAttrs (attrs: {
+  _rider = pkgs.unstable.jetbrains.rider.overrideAttrs (attrs: {
     postInstall =
       ''
         # Wrap rider with extra tools and libraries
@@ -43,7 +43,7 @@ with lib; let
       + attrs.postInstall or "";
   });
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     _rider
     icu
     dotnet-sdk_9

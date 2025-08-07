@@ -6,7 +6,7 @@
   # theme = "Orchis-Dark-Compact";
   theme = "Adwaita-dark";
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     nwg-look
   ];
 
@@ -22,7 +22,7 @@ in {
     };
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
+      package = pkgs.unstable.catppuccin-papirus-folders.override {
         flavor = variables.catppuccin.flavor;
         accent = variables.catppuccin.accent;
       };
@@ -35,14 +35,14 @@ in {
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
+      package = pkgs.unstable.bibata-cursors;
       size = 22;
     };
   };
 
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
+    package = pkgs.unstable.bibata-cursors;
     size = 22;
   };
 }

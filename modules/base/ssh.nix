@@ -1,4 +1,9 @@
-{variables, ...}: {
+{
+  variables,
+  pkgs,
+  ...
+}: {
+  programs.ssh.package = pkgs.unstable.openssh;
   services.openssh = {
     enable = true;
     ports = [22];

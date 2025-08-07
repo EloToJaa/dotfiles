@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   services.mullvad-vpn = {
     enable = true;
-    package = pkgs.mullvad-vpn;
+    package = pkgs.unstable.mullvad-vpn;
   };
   /*
     Required to get DNS working with mullvad.
@@ -9,7 +9,7 @@
   */
   networking.resolvconf.enable = false;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     networkmanagerapplet
   ];
 }

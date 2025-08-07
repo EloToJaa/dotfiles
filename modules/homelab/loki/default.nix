@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  pkgs,
+  ...
+}: let
   name = "loki";
   domainName = "loki";
   homelab = variables.homelab;
@@ -8,6 +12,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.grafana-loki;
     dataDir = dataDir;
     user = name;
     group = group;

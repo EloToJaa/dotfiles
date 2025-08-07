@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "sonarr";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.sonarr;
     user = name;
     group = group;
     dataDir = dataDir;

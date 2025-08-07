@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "radicale";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.radicale;
     settings = {
       server.hosts = ["127.0.0.1:${toString port}"];
       storage.filesystem_folder = dataDir;

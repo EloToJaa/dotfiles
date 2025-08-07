@@ -3,7 +3,7 @@
   variables,
   ...
 }: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     (discord.override {
       withVencord = true;
     })

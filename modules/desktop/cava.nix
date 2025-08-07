@@ -1,6 +1,7 @@
-{
+{pkgs, ...}: {
   programs.cava = {
     enable = false;
+    package = pkgs.unstable.cava;
   };
 
   xdg.configFile."cava/config".text =

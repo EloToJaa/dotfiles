@@ -5,6 +5,7 @@
 }: {
   programs.btop = {
     enable = true;
+    package = pkgs.unstable.btop;
 
     settings = {
       theme_background = false;
@@ -17,5 +18,5 @@
     flavor = variables.catppuccin.flavor;
   };
 
-  home.packages = with pkgs; [nvtopPackages.amd];
+  home.packages = with pkgs.unstable; [nvtopPackages.amd];
 }

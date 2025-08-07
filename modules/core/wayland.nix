@@ -19,8 +19,8 @@
         "hyprland"
       ];
     };
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
+    extraPortals = with pkgs.unstable; [
+      xdg-desktop-portal-gtk
     ];
   };
 

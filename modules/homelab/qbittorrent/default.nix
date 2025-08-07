@@ -23,6 +23,7 @@ in {
   ];
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.qbittorrent;
     port = port;
     user = name;
     group = group;
@@ -73,7 +74,10 @@ in {
       };
     });
 
-  services.vuetorrent.enable = true;
+  services.vuetorrent = {
+    enable = true;
+    package = pkgs.unstable.vuetorrent;
+  };
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;

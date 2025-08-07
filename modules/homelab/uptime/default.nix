@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "uptime";
@@ -12,6 +13,7 @@
 in {
   services.uptime-kuma = {
     enable = true;
+    package = pkgs.unstable.uptime-kuma;
     settings = {
       DATA_DIR = lib.mkForce dataDir;
       PORT = lib.mkForce (toString port);

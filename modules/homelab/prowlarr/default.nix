@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "prowlarr";
@@ -23,6 +24,7 @@ in {
 
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.prowlarr;
     user = name;
     group = group;
     dataDir = dataDir;

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [nemo];
+  home.packages = with pkgs.unstable; [nemo];
 
   home.sessionVariables = {
     GTK_FILE_CHOOSER = "nemo";

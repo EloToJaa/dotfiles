@@ -2,6 +2,7 @@
   variables,
   config,
   lib,
+  pkgs,
   ...
 }: let
   name = "caddy";
@@ -10,6 +11,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.caddy;
     user = name;
     group = group;
     dataDir = "${homelab.dataDir}${name}";

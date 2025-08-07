@@ -1,11 +1,14 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     evince # pdf
     file-roller # archive
     gnome-text-editor # gedit
   ];
 
-  services.kdeconnect.enable = true;
+  services.kdeconnect = {
+    enable = true;
+    package = pkgs.unstable.kdePackages.kdeconnect-kde;
+  };
 
   dconf.settings = {
     "org/gnome/TextEditor" = {

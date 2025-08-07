@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs.nerd-fonts; [
+  home.packages = with pkgs.unstable.nerd-fonts; [
     # Nerd Fonts
     caskaydia-cove
     noto

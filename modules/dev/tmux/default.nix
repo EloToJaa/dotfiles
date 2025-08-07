@@ -20,7 +20,8 @@ in {
   programs = {
     tmux = {
       enable = true;
-      shell = "${pkgs.zsh}/bin/zsh";
+      package = pkgs.unstable.tmux;
+      shell = "${pkgs.unstable.zsh}/bin/zsh";
       terminal = "ghostty";
       historyLimit = 10000;
       clock24 = true;
@@ -31,7 +32,7 @@ in {
       shortcut = "a";
       newSession = true;
 
-      plugins = with pkgs.tmuxPlugins; [
+      plugins = with pkgs.unstable.tmuxPlugins; [
         catppuccin
         yank
         resurrect

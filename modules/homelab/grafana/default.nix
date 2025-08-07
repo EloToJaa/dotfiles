@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  pkgs,
+  ...
+}: let
   name = "grafana";
   domainName = "grafana";
   homelab = variables.homelab;
@@ -8,6 +12,7 @@
 in {
   services.grafana = {
     enable = true;
+    package = pkgs.unstable.grafana;
     dataDir = dataDir;
     settings = {
       server = {

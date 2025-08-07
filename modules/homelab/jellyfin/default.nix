@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "jellyfin";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.jellyfin;
     user = name;
     group = group;
     dataDir = dataDir;

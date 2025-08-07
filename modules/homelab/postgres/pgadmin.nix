@@ -1,6 +1,7 @@
 {
   variables,
   config,
+  pkgs,
   ...
 }: let
   name = "pgadmin";
@@ -10,6 +11,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.pgadmin4;
     port = port;
     initialEmail = variables.email;
     initialPasswordFile = config.sops.secrets."pgadmin/password".path;

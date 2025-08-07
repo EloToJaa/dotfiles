@@ -7,7 +7,7 @@
   users.users.${variables.username}.extraGroups = ["libvirtd"];
 
   # Install necessary packages
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     virt-manager
     virt-viewer
     spice
@@ -22,6 +22,7 @@
   virtualisation = {
     libvirtd = {
       enable = true;
+      package = pkgs.unstable.libvirt;
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;

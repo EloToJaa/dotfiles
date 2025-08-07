@@ -5,6 +5,6 @@
     enableMan = true;
     defaultEditor = true;
 
-    # package = pkgs.neovim;
+    package = pkgs.unstable.neovim-unwrapped;
   };
 }

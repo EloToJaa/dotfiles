@@ -9,6 +9,7 @@
 in {
   services.${name} = {
     enable = false;
+    package = pkgs.unstable.bind;
     ipv4Only = false;
     extraOptions = ''
       dnssec-validation auto;

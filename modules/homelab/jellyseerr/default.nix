@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "jellyseerr";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.jellyseerr;
     port = port;
     configDir = configDir;
   };

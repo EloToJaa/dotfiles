@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  home.packages = with pkgs; [audacious];
+  home.packages = with pkgs.unstable; [audacious];
   xdg.configFile."audacious/config".text =
     /*
     toml

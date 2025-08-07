@@ -5,6 +5,7 @@
 }: {
   virtualisation.podman = {
     enable = true;
+    package = pkgs.unstable.podman;
 
     dockerCompat = true;
 
@@ -27,7 +28,7 @@
     linger = true;
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     dive # look into docker image layers
     podman-tui # status of containers in the terminal
     docker-compose # start group of containers for dev

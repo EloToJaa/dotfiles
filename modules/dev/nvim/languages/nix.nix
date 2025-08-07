@@ -7,7 +7,7 @@
 }: let
   flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     alejandra
     deadnix
     statix

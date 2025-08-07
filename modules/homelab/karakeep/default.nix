@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "karakeep";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.karakeep;
     environmentFile = config.sops.templates."${name}.env".path;
     browser.enable = true;
     meilisearch.enable = true;

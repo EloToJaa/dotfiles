@@ -32,6 +32,7 @@
 in {
   programs.git = {
     enable = true;
+    package = pkgs.unstable.git;
 
     userName = variables.git.userName;
     userEmail = variables.git.userEmail;
@@ -51,6 +52,7 @@ in {
 
     delta = {
       enable = true;
+      package = pkgs.unstable.delta;
       options = {
         line-numbers = true;
         side-by-side = true;

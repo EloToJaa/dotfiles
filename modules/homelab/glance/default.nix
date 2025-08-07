@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "glance";
@@ -11,6 +12,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.glance;
     settings = {
       server.port = port;
       pages = [

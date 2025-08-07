@@ -1,6 +1,7 @@
 {
   variables,
   lib,
+  pkgs,
   ...
 }: let
   name = "immich";
@@ -23,6 +24,7 @@ in {
     config = {...}: {
       services.${name} = {
         enable = true;
+        package = pkgs.unstable.immich;
         user = name;
         group = group;
         host = host;

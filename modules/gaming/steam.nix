@@ -3,6 +3,7 @@
   programs = {
     steam = {
       enable = true;
+      package = pkgs.unstable.steam;
 
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = false;
@@ -10,11 +11,12 @@
 
       gamescopeSession.enable = true;
 
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = with pkgs.unstable; [proton-ge-bin];
     };
 
     gamescope = {
       enable = true;
+      package = pkgs.unstable.gamescope;
       capSysNice = true;
       args = [
         "--rt"

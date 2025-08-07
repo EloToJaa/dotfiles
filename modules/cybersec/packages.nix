@@ -2,10 +2,8 @@
   pkgs,
   inputs,
   ...
-}: let
-  pypkgs = pkgs.python312.pkgs;
-in {
-  home.packages = with pkgs; [
+}: {
+  home.packages = with pkgs.unstable; [
     # Recon
     nmap
     rustscan
@@ -23,10 +21,5 @@ in {
     # Reverse Engineering
     ghidra
     inputs.pwndbg.packages.${pkgs.system}.pwndbg
-
-    # pypkgs.pwntools
-    # pypkgs.ropper
-    # pypkgs.angr
-    # pypkgs.pycryptodome
   ];
 }

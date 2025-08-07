@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     ## CLI utility
     binsider
     bitwise # cli tool for bit / hex manipulation

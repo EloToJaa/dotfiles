@@ -5,12 +5,13 @@
 }: {
   programs.bat = {
     enable = true;
+    package = pkgs.unstable.bat;
 
     config = {
       pager = "less -FR";
     };
 
-    extraPackages = with pkgs.bat-extras; [
+    extraPackages = with pkgs.unstable.bat-extras; [
       # batman
       batpipe
       batgrep

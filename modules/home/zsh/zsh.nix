@@ -6,6 +6,7 @@
 }: {
   programs.zsh = {
     enable = true;
+    package = pkgs.unstable.zsh;
     # enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting = {
@@ -16,7 +17,7 @@
       {
         # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
         name = "fzf-tab";
-        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+        src = "${pkgs.unstable.zsh-fzf-tab}/share/fzf-tab";
       }
     ];
 

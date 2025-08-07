@@ -2,6 +2,7 @@
   variables,
   lib,
   config,
+  pkgs,
   ...
 }: let
   name = "vaultwarden";
@@ -13,6 +14,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.vaultwarden;
     dbBackend = "postgresql";
     environmentFile = config.sops.templates."${name}.env".path;
     config = {

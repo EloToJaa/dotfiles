@@ -3,7 +3,7 @@
     ld = "lazydocker";
   };
 in {
-  home.packages = with pkgs; [lazydocker];
+  home.packages = with pkgs.unstable; [lazydocker];
 
   xdg.configFile = {
     "lazydocker/config.yml".source = ./config.yml;

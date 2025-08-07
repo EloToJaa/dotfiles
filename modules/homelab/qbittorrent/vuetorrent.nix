@@ -8,10 +8,11 @@
 in {
   options.services.vuetorrent = {
     enable = lib.mkEnableOption (lib.mdDoc "vuetorrent");
+    package = lib.mkPackageOption pkgs "vuetorrent" {};
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [pkgs.vuetorrent];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."vuetorrent" = {
       source = pkgs.vuetorrent;

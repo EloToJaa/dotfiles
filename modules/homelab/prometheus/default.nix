@@ -1,4 +1,8 @@
-{variables, ...}: let
+{
+  variables,
+  pkgs,
+  ...
+}: let
   name = "prometheus";
   domainName = "prometheus";
   homelab = variables.homelab;
@@ -8,6 +12,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.prometheus;
     stateDir = name;
     port = port;
   };

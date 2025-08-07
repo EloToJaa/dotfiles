@@ -1,6 +1,7 @@
 {
   host,
   variables,
+  pkgs,
   ...
 }: let
   dns = variables.dns;
@@ -24,5 +25,6 @@ in {
   };
   services.tailscale = {
     enable = true;
+    package = pkgs.unstable.tailscale;
   };
 }

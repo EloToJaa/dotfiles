@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     ## CLI utility
     comma
     gtrash # rm replacement, put deleted files in system trash

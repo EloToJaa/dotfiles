@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     ## CLI utility
     libnotify
     pamixer # pulseaudio command line mixer

@@ -1,9 +1,5 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [swayosd];
+{pkgs, ...}: {
+  home.packages = with pkgs.unstable; [swayosd];
 
   wayland.windowManager.hyprland = {
     settings = {

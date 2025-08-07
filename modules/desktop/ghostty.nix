@@ -3,7 +3,7 @@
     icat = "kitten icat";
   };
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     kitty
   ];
 
@@ -13,6 +13,7 @@ in {
 
   programs.ghostty = {
     enable = true;
+    package = pkgs.unstable.ghostty;
 
     enableBashIntegration = true;
     enableZshIntegration = true;

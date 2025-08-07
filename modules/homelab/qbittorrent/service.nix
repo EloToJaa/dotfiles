@@ -20,6 +20,8 @@ in {
       '';
     };
 
+    package = mkPackageOption pkgs "vuetorrent" {};
+
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/qbittorrent";
@@ -69,7 +71,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [pkgs.qbittorrent];
+    environment.systemPackages = [cfg.package];
 
     nixpkgs.overlays = [
       (final: prev: {
@@ -86,7 +88,7 @@ in {
       after = ["network.target"];
       description = "qBittorrent Daemon";
       wantedBy = ["multi-user.target"];
-      path = [pkgs.qbittorrent];
+      path = [cfg.package];
       serviceConfig = {
         ExecStart = ''
           ${pkgs.qbittorrent}/bin/qbittorrent-nox \

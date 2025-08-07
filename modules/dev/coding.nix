@@ -7,7 +7,7 @@
     lc = "leetcode";
   };
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     leetcode-cli
     aoc-cli
   ];

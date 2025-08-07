@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
     swww
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     inputs.hypr-contrib.packages.${pkgs.system}.hyprprop
@@ -15,6 +15,7 @@
     glib
     wayland
     direnv
+    libinput
   ];
 
   systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];

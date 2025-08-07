@@ -1,6 +1,7 @@
 {
   variables,
   host,
+  pkgs,
   ...
 }: let
   atuin =
@@ -11,6 +12,7 @@ in {
   programs = {
     atuin = {
       enable = true;
+      package = pkgs.unstable.atuin;
 
       enableZshIntegration = true;
 
@@ -27,11 +29,13 @@ in {
     };
     zoxide = {
       enable = true;
+      package = pkgs.unstable.zoxide;
 
       enableZshIntegration = true;
     };
     eza = {
       enable = true;
+      package = pkgs.unstable.eza;
 
       enableZshIntegration = true;
 
@@ -40,6 +44,7 @@ in {
     };
     carapace = {
       enable = true;
+      package = pkgs.unstable.carapace;
 
       enableZshIntegration = true;
     };

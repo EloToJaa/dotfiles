@@ -1,6 +1,11 @@
-{variables, ...}: {
+{
+  variables,
+  pkgs,
+  ...
+}: {
   programs.fzf = {
     enable = true;
+    package = pkgs.unstable.fzf;
     enableZshIntegration = true;
 
     defaultCommand = "fd --hidden --strip-cwd-prefix --exclude .git";

@@ -16,12 +16,12 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.paperless-ngx;
     port = port;
     dataDir = dataDir;
     mediaDir = mediaDir;
     consumptionDir = consumptionDir;
     user = name;
-    package = pkgs.paperless-ngx;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {
       PAPERLESS_DBENGINE = "postgresql";

@@ -13,6 +13,7 @@
 in {
   services.${name} = {
     enable = true;
+    package = pkgs.unstable.bazarr;
     user = name;
     group = group;
     listenPort = port;
