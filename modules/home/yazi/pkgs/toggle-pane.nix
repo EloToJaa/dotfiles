@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-toggle-pane";
-  version = "unstable-2025-07-31";
+  version = "unstable-2025-08-10";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
