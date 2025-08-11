@@ -1,5 +1,6 @@
 {config, ...}: {
   programs.nixvim.plugins = {
+    nvim-autopairs.enable = true;
     blink-cmp = {
       enable = true;
       setupLspCapabilities = true;
@@ -92,7 +93,7 @@
             preselect = true; # ✅ Fixed: Boolean instead of string
             auto_insert = true; # ✅ Prevents auto-inserting suggestions
           };
-          accept.auto_brackets.enabled = true;
+          accept.auto_brackets.enabled = false;
           menu = {
             border = "rounded";
             auto_show = true;
