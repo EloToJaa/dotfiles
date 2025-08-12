@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  variables,
+  ...
+}: {
   home.packages = with pkgs.unstable; [rofi-wayland];
 
   xdg.configFile."rofi/theme.rasi".text = ''
@@ -23,7 +27,7 @@
       font: "JetBrainsMono NF Bold 15";
       show-icons: true;
       icon-theme: "Papirus-dark";
-      terminal: "ghostty";
+      terminal: "${variables.terminal}";
       drun-display-format: "{icon} {name}";
       location: 0;
       disable-history: true;

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  dns = variables.dns;
+  inherit (variables) dns;
 in {
   networking = {
     hostName = host;

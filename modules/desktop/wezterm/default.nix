@@ -3,8 +3,17 @@
   pkgs,
   host,
   ...
-}: {
+}: let
+  shellAliases = {
+    icat = "wezterm imgcat";
+    wssh = "wezterm ssh";
+  };
+in {
   home.packages = [inputs.wezterm.packages.${pkgs.system}.default];
+
+  programs = {
+    zsh.shellAliases = shellAliases;
+  };
 
   xdg.configFile."wezterm" = {
     recursive = true;

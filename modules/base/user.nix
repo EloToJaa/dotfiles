@@ -5,7 +5,7 @@
   host,
   ...
 }: let
-  homelab = variables.homelab;
+  inherit (variables) homelab;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
   home-manager = {
@@ -15,9 +15,9 @@ in {
     extraSpecialArgs = {inherit inputs variables host;};
     users.${variables.username} = {
       home = {
-        username = variables.username;
+        inherit (variables) stateVersion username;
         homeDirectory = "/home/${variables.username}";
-        stateVersion = variables.stateVersion;
+        enableNixpkgsReleaseCheck = false;
       };
       programs.home-manager.enable = true;
     };
@@ -38,7 +38,7 @@ in {
       homelab.groups.database
       homelab.groups.backups
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.unstable.zsh;
   };
 
   nix.settings.allowed-users = [variables.username];

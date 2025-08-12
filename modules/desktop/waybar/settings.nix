@@ -1,4 +1,8 @@
-{host, ...}: let
+{
+  host,
+  variables,
+  ...
+}: let
   custom = {
     font = "JetBrainsMono Nerd Font";
     font_size = "18px";
@@ -21,6 +25,10 @@
     opacity = "1";
     indicator_height = "2px";
   };
+  launchProgram =
+    if (variables.terminal == "wezterm")
+    then "wezterm start --"
+    else "ghostty -e";
 in {
   programs.waybar.settings.mainBar = with custom; {
     position = "bottom";
@@ -81,19 +89,19 @@ in {
       format = "<span foreground='${green}'> </span> {usage}%";
       format-alt = "<span foreground='${green}'> </span> {avg_frequency} GHz";
       interval = 2;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ghostty -e btop'";
+      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ${launchProgram} btop'";
     };
     memory = {
       format = "<span foreground='${cyant}'>󰟜 </span>{}%";
       format-alt = "<span foreground='${cyant}'>󰟜 </span>{used} GiB"; # 
       interval = 2;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ghostty -e btop'";
+      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ${launchProgram} btop'";
     };
     disk = {
       # path = "/";
       format = "<span foreground='${orange}'>󰋊 </span>{percentage_used}%";
       interval = 60;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ghostty -e btop'";
+      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] ${launchProgram} btop'";
     };
     network = {
       format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";

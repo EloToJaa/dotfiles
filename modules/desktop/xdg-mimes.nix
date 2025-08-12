@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  variables,
   ...
 }:
 with lib; let
@@ -13,7 +14,7 @@ with lib; let
     directory = ["nemo.desktop"];
     office = ["libreoffice.desktop"];
     pdf = ["org.gnome.Evince.desktop"];
-    terminal = ["ghostty.desktop"];
+    terminal = ["${variables.terminal}.desktop"];
     archive = ["org.gnome.FileRoller.desktop"];
     discord = ["discord.desktop"];
   };
