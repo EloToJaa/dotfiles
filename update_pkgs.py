@@ -29,7 +29,7 @@ def nix_update(pname: str | None):
     if pname is None:
         return
 
-    output = run_command(f"nix-update {pname} --flake --commit --use-update-script")
+    output = run_command(f"nix-update {pname} --flake --commit") # --use-update-script
     if output is None:
         return None, None
 
