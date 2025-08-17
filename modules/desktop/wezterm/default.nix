@@ -9,9 +9,14 @@
     wssh = "wezterm ssh";
   };
 in {
-  home.packages = [inputs.wezterm.packages.${pkgs.system}.default];
-
+  # home.packages = [inputs.wezterm.packages.${pkgs.system}.default];
   programs = {
+    wezterm = {
+      enable = true;
+      package = inputs.wezterm.packages.${pkgs.system}.default;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
     zsh.shellAliases = shellAliases;
   };
 
