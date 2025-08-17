@@ -24,7 +24,7 @@ in {
           end
         '';
     };
-    extraConfigLuaPre =
+    extraConfigLuaPost =
       /*
       lua
       */
@@ -51,13 +51,13 @@ in {
       {
         mode = "n";
         key = "<leader>ce";
-        action = ":FormatEnable";
+        action = "<cmd>FormatEnable<CR>";
         options.desc = "Enable code formating on save";
       }
       {
         mode = "n";
         key = "<leader>cd";
-        action = ":FormatDisable";
+        action = "<cmd>FormatDisable<CR>";
         options.desc = "Disable code formating on save";
       }
     ];
