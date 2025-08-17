@@ -4,16 +4,16 @@
   lib,
   ...
 }: {
-  programs.zsh = {
+  programs.zsh = with pkgs.unstable; {
     enable = true;
-    package = pkgs.unstable.zsh;
-    # enableCompletion = true;
+    package = zsh;
+    enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
     };
 
-    plugins = with pkgs.unstable; [
+    plugins = [
       {
         # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
         name = "fzf-tab";
@@ -154,16 +154,16 @@
 
         # Make sure that the terminal is in application mode when zle is active, since
         # only then values from $terminfo are valid
-        if (( ''${+terminfo[smkx]} )) && (( ''${+terminfo[rmkx]} )); then
-          function zle-line-init() {
-            echoti smkx
-          }
-          function zle-line-finish() {
-            echoti rmkx
-          }
-          zle -N zle-line-init
-          zle -N zle-line-finish
-        fi
+        # if (( ''${+terminfo[smkx]} )) && (( ''${+terminfo[rmkx]} )); then
+        #   function zle-line-init() {
+        #     echoti smkx
+        #   }
+        #   function zle-line-finish() {
+        #     echoti rmkx
+        #   }
+        #   zle -N zle-line-init
+        #   zle -N zle-line-finish
+        # fi
       '';
   };
   catppuccin.zsh-syntax-highlighting = {
