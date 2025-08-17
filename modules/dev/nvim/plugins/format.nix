@@ -26,7 +26,7 @@ in {
           '';
       };
     };
-    extraConfigLuaPost =
+    extraConfigLuaPre =
       /*
       lua
       */
