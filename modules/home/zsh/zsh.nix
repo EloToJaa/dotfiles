@@ -13,11 +13,15 @@
       enable = true;
     };
 
-    plugins = [
+    plugins = with pkgs.unstable; [
       {
         # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
         name = "fzf-tab";
-        src = "${pkgs.unstable.zsh-fzf-tab}/share/fzf-tab";
+        src = "${zsh-fzf-tab}/share/fzf-tab";
+      }
+      {
+        name = "zsh-vi-mode";
+        src = "${zsh-vi-mode}/share/zsh-vi-mode";
       }
     ];
 
