@@ -6,7 +6,7 @@
   inherit (config.lib.nixvim) mkRaw;
 in {
   programs.nixvim = {
-    extraPlugins = [pkgs.vimPlugins.substitute-nvim];
+    extraPlugins = with pkgs.unstable; [vimPlugins.substitute-nvim];
     extraConfigLua = "require('substitute').setup()";
     keymaps = [
       {
