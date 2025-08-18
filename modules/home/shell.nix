@@ -9,6 +9,12 @@
     then variables.atuin.local
     else variables.atuin.remote;
 in {
+  catppuccin = {
+    atuin = {
+      enable = true;
+      inherit (variables.catppuccin) flavor;
+    };
+  };
   programs = {
     atuin = {
       enable = true;

@@ -19,6 +19,7 @@ in {
     };
     zsh.shellAliases = shellAliases;
   };
+  catppuccin.wezterm.enable = false;
 
   xdg.configFile."wezterm" = {
     recursive = true;

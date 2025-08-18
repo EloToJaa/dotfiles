@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   shellAliases = {
-    icat = "kitten icat";
+    kicat = "kitten icat";
   };
 in {
   home.packages = with pkgs.unstable; [
