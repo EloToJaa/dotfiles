@@ -23,7 +23,6 @@ local function split_nav(resize_or_move, key)
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
 				-- pass the keys through to vim/nvim
-				wezterm.log_info("Passing " .. key .. " to nvim in mode " .. resize_or_move)
 				win:perform_action({
 					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
 				}, pane)
