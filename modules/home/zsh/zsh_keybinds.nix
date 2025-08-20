@@ -4,8 +4,10 @@
     sh
     */
     ''
-      # Use emacs key bindings
+      # Use vi key bindings
+      set -o vi
       bindkey -v
+      bindkey -M vicmd ""
 
       WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
 
