@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "vaultwarden";
   domainName = "pwd";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   dataDir = "${homelab.varDataDir}${name}";
   port = 8222;
