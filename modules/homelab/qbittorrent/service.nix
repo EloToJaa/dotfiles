@@ -20,7 +20,7 @@ in {
       '';
     };
 
-    package = mkPackageOption pkgs "qbittorrent" {};
+    package = mkPackageOption pkgs "qbittorrent-nox" {};
 
     dataDir = mkOption {
       type = types.path;

@@ -23,7 +23,7 @@ in {
   ];
   services.${name} = {
     enable = true;
-    package = pkgs.unstable.qbittorrent;
+    package = pkgs.unstable.qbittorrent-nox;
     port = port;
     user = name;
     group = group;
