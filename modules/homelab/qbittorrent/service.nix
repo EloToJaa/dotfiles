@@ -74,7 +74,7 @@ in {
     environment.systemPackages = [cfg.package];
 
     nixpkgs.overlays = [
-      (final: prev: {
+      (_: prev: {
         qbittorrent = prev.qbittorrent.override {guiSupport = false;};
       })
     ];
@@ -107,7 +107,7 @@ in {
 
     users.users = mkIf (cfg.user == "qbittorrent") {
       qbittorrent = {
-        group = cfg.group;
+        inherit (cfg) group;
         home = cfg.dataDir;
         createHome = true;
         description = "qBittorrent Daemon user";

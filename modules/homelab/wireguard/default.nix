@@ -10,8 +10,7 @@ in {
   services."${name}-netns" = {
     enable = true;
     configFile = config.sops.templates."wg0.conf".path;
-    privateIP = privateIP;
-    dnsIP = dnsIP;
+    inherit privateIP dnsIP;
   };
 
   sops.secrets = {

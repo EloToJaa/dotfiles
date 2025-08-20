@@ -24,10 +24,8 @@ in {
   services.${name} = {
     enable = true;
     package = pkgs.unstable.qbittorrent-nox;
-    port = port;
     user = name;
-    group = group;
-    dataDir = dataDir;
+    inherit port group dataDir;
   };
   systemd =
     {
