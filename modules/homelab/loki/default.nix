@@ -3,19 +3,18 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "loki";
   domainName = "loki";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   dataDir = "${homelab.dataDir}${name}";
   port = 9090;
 in {
   services.${name} = {
+    inherit dataDir group;
     enable = true;
     package = pkgs.unstable.grafana-loki;
-    dataDir = dataDir;
     user = name;
-    group = group;
   };
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"

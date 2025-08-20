@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "uptime";
   domainName = "uptime";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 3001;
   dataDir = "${homelab.dataDir}${name}";

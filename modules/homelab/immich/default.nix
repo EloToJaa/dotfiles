@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "immich";
   domainName = "photos";
-  homelab = variables.homelab;
   group = variables.homelab.groups.photos;
   port = 2283;
   dbPort = 5433;
@@ -23,20 +23,18 @@ in {
     localAddress6 = "fc00::2";
     config = {...}: {
       services.${name} = {
+        inherit group host port;
         enable = true;
         package = pkgs.unstable.immich;
         user = name;
-        group = group;
-        host = host;
-        port = port;
         openFirewall = true;
         # accelerationDevices = ["/dev/dri/renderD128"];
         mediaLocation = "/data";
         database = {
+          inherit name;
           enable = true;
           createDB = true;
           port = dbPort;
-          name = name;
           user = name;
         };
         redis = {

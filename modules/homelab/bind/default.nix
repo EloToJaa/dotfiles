@@ -3,8 +3,8 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "bind";
-  homelab = variables.homelab;
   baseDomain = homelab.mainDomain;
 in {
   services.${name} = {

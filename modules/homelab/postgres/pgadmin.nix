@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "pgadmin";
   domainName = "pgadmin";
-  homelab = variables.homelab;
   port = 5050;
 in {
   services.${name} = {
@@ -29,7 +29,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];

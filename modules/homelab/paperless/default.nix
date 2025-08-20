@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "paperless";
   domainName = "docs";
-  homelab = variables.homelab;
   group = variables.homelab.groups.docs;
   port = 28981;
   dataDir = "${homelab.dataDir}${name}";
@@ -15,12 +15,9 @@
   consumptionDir = "/mnt/Documents/";
 in {
   services.${name} = {
+    inherit port dataDir mediaDir consumptionDir;
     enable = true;
     package = pkgs.unstable.paperless-ngx;
-    port = port;
-    dataDir = dataDir;
-    mediaDir = mediaDir;
-    consumptionDir = consumptionDir;
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {
@@ -63,7 +60,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];

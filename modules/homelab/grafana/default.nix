@@ -3,21 +3,19 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "grafana";
   domainName = "grafana";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   dataDir = "${homelab.dataDir}${name}";
   port = 3002;
 in {
   services.grafana = {
+    inherit dataDir;
     enable = true;
     package = pkgs.unstable.grafana;
-    dataDir = dataDir;
-    settings = {
-      server = {
-        http_port = port;
-      };
+    settings.server = {
+      http_port = port;
     };
   };
   systemd.tmpfiles.rules = [

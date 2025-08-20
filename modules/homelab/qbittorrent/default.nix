@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "qbittorrent";
   domainName = "download";
-  homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8181;
   ns = config.services.wireguard-netns.namespace;

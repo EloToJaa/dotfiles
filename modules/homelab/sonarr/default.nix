@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "sonarr";
   domainName = "sonarr";
-  homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8989;
   dataDir = "${homelab.dataDir}${name}";
@@ -16,8 +16,7 @@ in {
     enable = true;
     package = pkgs.unstable.sonarr;
     user = name;
-    group = group;
-    dataDir = dataDir;
+    inherit group dataDir;
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
@@ -33,7 +32,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];
@@ -48,7 +47,7 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = name;
-    group = group;
+    inherit group;
   };
 
   sops.secrets = {

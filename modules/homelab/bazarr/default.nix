@@ -5,17 +5,17 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "bazarr";
   domainName = "bazarr";
-  homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 6767;
 in {
   services.${name} = {
+    inherit group;
     enable = true;
     package = pkgs.unstable.bazarr;
     user = name;
-    group = group;
     listenPort = port;
   };
   systemd.services.${name} = {
@@ -45,7 +45,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];
@@ -57,9 +57,9 @@ in {
   ];
 
   users.users.${name} = {
+    inherit group;
     isSystemUser = true;
     description = name;
-    group = group;
   };
 
   sops.secrets = {

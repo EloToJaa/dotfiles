@@ -13,8 +13,7 @@ in {
   services.${name} = {
     enable = true;
     package = pkgs.unstable.prometheus;
-    stateDir = name;
-    port = port;
+    inherit port stateDir;
   };
   systemd.tmpfiles.rules = [
     "d ${stateDir} 750 ${name} ${group} - -"

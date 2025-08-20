@@ -5,17 +5,17 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "caddy";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
+  dataDir = "${homelab.dataDir}${name}";
+  logDir = "${homelab.logDir}${name}";
 in {
   services.${name} = {
+    inherit group dataDir logDir;
     enable = true;
     package = pkgs.unstable.caddy;
     user = name;
-    group = group;
-    dataDir = "${homelab.dataDir}${name}";
-    logDir = "${homelab.logDir}${name}";
 
     globalConfig = ''
       auto_https off
@@ -48,13 +48,13 @@ in {
     acceptTerms = true;
     defaults.email = "elotoja@protonmail.com";
     certs.${homelab.baseDomain} = {
+      inherit group;
       reloadServices = ["caddy.service"];
       domain = homelab.baseDomain;
       extraDomainNames = ["*.${homelab.baseDomain}"];
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
       dnsPropagationCheck = true;
-      group = group;
       credentialFiles = {
         CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
       };
@@ -62,9 +62,9 @@ in {
   };
 
   users.users.${name} = {
+    inherit group;
     isSystemUser = true;
     description = name;
-    group = group;
   };
 
   sops.secrets = {

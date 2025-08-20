@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "jellyfin";
   domainName = "watch";
-  homelab = variables.homelab;
   group = variables.homelab.groups.media;
   port = 8096;
   dataDir = "${homelab.dataDir}${name}";
@@ -16,9 +16,7 @@ in {
     enable = true;
     package = pkgs.unstable.jellyfin;
     user = name;
-    group = group;
-    dataDir = dataDir;
-    logDir = logDir;
+    inherit group dataDir logDir;
   };
   systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
@@ -39,13 +37,13 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = name;
-    group = group;
+    inherit group;
   };
 
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       jellyfin-web = prev.jellyfin-web.overrideAttrs (
-        finalAttrs: previousAttrs: {
+        _: _: {
           installPhase = ''
             runHook preInstall
 

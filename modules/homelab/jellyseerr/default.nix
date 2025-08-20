@@ -52,7 +52,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];
@@ -69,7 +69,7 @@ in {
   users.users.${name} = {
     isSystemUser = true;
     description = name;
-    group = group;
+    inherit group;
   };
 
   sops.secrets = {

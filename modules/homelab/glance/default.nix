@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "glance";
   domainName = "home";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 8081;
 in {
