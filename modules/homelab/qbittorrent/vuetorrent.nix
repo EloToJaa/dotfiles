@@ -15,7 +15,7 @@ in {
     environment.systemPackages = [cfg.package];
 
     environment.etc."vuetorrent" = {
-      source = pkgs.vuetorrent;
+      source = cfg.package;
       target = "vuetorrent";
     };
   };

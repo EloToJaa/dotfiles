@@ -20,7 +20,7 @@ in {
       '';
     };
 
-    package = mkPackageOption pkgs "vuetorrent" {};
+    package = mkPackageOption pkgs "qbittorrent" {};
 
     dataDir = mkOption {
       type = types.path;
@@ -91,7 +91,7 @@ in {
       path = [cfg.package];
       serviceConfig = {
         ExecStart = ''
-          ${pkgs.qbittorrent}/bin/qbittorrent-nox \
+          ${cfg.package}/bin/qbittorrent-nox \
             --profile=${configDir} \
             --webui-port=${toString cfg.port}
         '';

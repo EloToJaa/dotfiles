@@ -30,12 +30,11 @@
     glols = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat";
   };
 in {
-  programs.git = {
+  programs.git = with pkgs.unstable; {
     enable = true;
-    package = pkgs.unstable.git;
+    package = git;
 
-    userName = variables.git.userName;
-    userEmail = variables.git.userEmail;
+    inherit (variables.git) userName userEmail;
 
     extraConfig = {
       init.defaultBranch = "main";
@@ -52,7 +51,7 @@ in {
 
     delta = {
       enable = true;
-      package = pkgs.unstable.delta;
+      package = delta;
       options = {
         line-numbers = true;
         side-by-side = true;
@@ -66,7 +65,7 @@ in {
     };
   };
 
-  home.packages = [pkgs.gh]; # pkgs.git-lfs
+  home.packages = with pkgs.unstable; [gh]; # git-lfs
 
   programs = {
     zsh.shellAliases = shellAliases;

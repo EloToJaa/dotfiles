@@ -29,7 +29,7 @@ in {
     serviceConfig = {
       EnvironmentFile = config.sops.templates."${name}.env".path;
       UMask = lib.mkForce homelab.defaultUMask;
-      ExecStart = lib.mkForce "${pkgs.bazarr}/bin/bazarr --config '${homelab.dataDir}${name}' --port ${toString port} --no-update True";
+      ExecStart = lib.mkForce "${pkgs.unstable.bazarr}/bin/bazarr --config '${homelab.dataDir}${name}' --port ${toString port} --no-update True";
     };
   };
   systemd.tmpfiles.rules = [
