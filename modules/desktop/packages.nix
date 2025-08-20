@@ -8,7 +8,6 @@
     swappy # snapshot editing tool
     woomer # zoomer for wayland
     caligula # User-friendly, lightweight TUI for disk imaging
-    tty-clock # cli clock
     yt-dlp-light
 
     ## GUI Apps
@@ -20,7 +19,6 @@
     # imv # image viewer
     libreoffice
     mpv # video player
-    nix-prefetch-github
     obs-studio
     thunderbird
     pavucontrol # pulseaudio volume controle (GUI)
@@ -32,6 +30,8 @@
     remmina
     rnote
     jetbrains.idea-community
+    qbittorrent
+    vaults
 
     android-studio
 

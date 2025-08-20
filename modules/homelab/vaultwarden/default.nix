@@ -45,7 +45,7 @@ in {
 
   services.postgresql.ensureUsers = [
     {
-      name = name;
+      inherit name;
       ensureDBOwnership = false;
     }
   ];
