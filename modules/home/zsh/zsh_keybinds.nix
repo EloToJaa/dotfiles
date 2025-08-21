@@ -1,13 +1,12 @@
-{
+{lib, ...}: {
   programs.zsh.initContent =
+    lib.mkOrder 10010
     /*
     sh
     */
     ''
       # Use vi key bindings
-      set -o vi
       bindkey -v
-      bindkey -M vicmd ""
 
       WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
 

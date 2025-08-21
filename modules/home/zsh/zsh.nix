@@ -109,7 +109,7 @@
       '';
 
     initContent =
-      lib.mkBefore
+      lib.mkOrder 10000
       /*
       sh
       */
