@@ -28,7 +28,7 @@ in {
       baseIndex = 1;
       keyMode = "vi";
       escapeTime = 0;
-      secureSocket = true; # Check if has to be false for tmux-resurrect
+      secureSocket = false; # Check if has to be false for tmux-resurrect
       shortcut = "a";
       newSession = true;
 
@@ -75,9 +75,15 @@ in {
         bind-key s split-window -h -c "#{pane_current_path}"
         bind-key t new-window
 
+        # Pass on Ctrl+Tab and Ctrl+Shift+Tab
+        bind-key -n C-Tab send-keys Escape [27\;5\;9~
+        bind-key -n C-S-Tab send-keys Escape [27\;6\;9~
+
         unbind-key ,
         bind-key r command-prompt -I "#W" { rename-window "%%" }
         bind-key R source-file ~/.config/tmux/tmux.conf
+
+        set -a terminal-features 'foot*:sixel'
 
         set -g @catppuccin_flavor 'mocha'
 

@@ -1,4 +1,4 @@
-{config, ...}: let
+let
   internals = {
     # Pass unicode symbols correctly
     ucode = code: builtins.fromJSON "\"\\u${code}\"";
