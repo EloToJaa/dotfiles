@@ -1,12 +1,17 @@
-{variables, ...}: let
+{
+  variables,
+  pkgs,
+  ...
+}: let
+  inherit (variables) homelab;
   name = "postgresql";
-  homelab = variables.homelab;
   port = 5432;
   dataDir = "${homelab.dataDir}${name}";
 in {
   services.${name} = {
+    inherit dataDir;
     enable = true;
-    dataDir = dataDir;
+    package = pkgs.unstable.postgresql_16;
     settings.port = port;
     enableTCPIP = true;
   };
