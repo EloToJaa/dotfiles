@@ -63,8 +63,8 @@ in {
         bind-key ] next-window
         bind-key -n C-[ previous-window
         bind-key -n C-] next-window
-        bind-key -n M-[ swap-window -t -1
-        bind-key -n M-] next-window -t 1
+        # bind-key -n M-[ swap-window -t -1 # breaks yazi with nvim open
+        # bind-key -n M-] next-window -t 1 # breaks yazi with nvim open
 
         bind-key x kill-pane
         bind-key q kill-window
@@ -79,7 +79,7 @@ in {
         bind-key -n C-Tab send-keys Escape [27\;5\;9~
         bind-key -n C-S-Tab send-keys Escape [27\;6\;9~
 
-        unbind-key ,
+        # unbind-key ,
         bind-key r command-prompt -I "#W" { rename-window "%%" }
         bind-key R source-file ~/.config/tmux/tmux.conf
 
