@@ -83,8 +83,6 @@ in {
         bind-key r command-prompt -I "#W" { rename-window "%%" }
         bind-key R source-file ~/.config/tmux/tmux.conf
 
-        set -a terminal-features 'foot*:sixel'
-
         set -g @catppuccin_flavor 'mocha'
 
         set -g @catppuccin_window_status_style "rounded"

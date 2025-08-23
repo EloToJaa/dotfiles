@@ -5,7 +5,7 @@
   ...
 }: let
   shellAliases = {
-    icat = "wezterm imgcat";
+    wicat = "wezterm imgcat";
     wssh = "wezterm ssh";
   };
 in {
