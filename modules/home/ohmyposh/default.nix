@@ -28,4 +28,8 @@
       };
     };
   };
+  imports = [
+    ./blocks.nix
+    ./snippet.nix
+  ];
 }

@@ -1,6 +1,9 @@
 {
   imports = [
+    ./autoNotifyIgnore.nix
+    ./initContent.nix
+    ./plugins.nix
     ./zsh.nix
-    ./zsh_keybinds.nix
+    ./zshAbbr.nix
   ];
 }
