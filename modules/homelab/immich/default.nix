@@ -49,6 +49,7 @@ in {
           server.externalDomain = "https://${domainName}.${homelab.baseDomain}";
         };
       };
+      services.redis.package = pkgs.unstable.redis;
       systemd.services.${name}.serviceConfig = {
         UMask = lib.mkForce homelab.defaultUMask;
       };
