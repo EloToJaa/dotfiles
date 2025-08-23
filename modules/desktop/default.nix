@@ -5,7 +5,7 @@
     ./swaync # notification deamon
     ./wallpapers
     ./waybar # status bar
-    ./wezterm
+    # ./wezterm
     ./audacious.nix # music player
     ./cava.nix # audio visualizer
     ./clipboard.nix

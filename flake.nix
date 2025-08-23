@@ -59,7 +59,7 @@
         flavor = "mocha";
         accent = "blue";
       };
-      terminal = "wezterm"; # wezterm/ghostty/kitty
+      terminal = "ghostty"; # wezterm/ghostty/kitty
       timezone = "Europe/Warsaw";
       locale = "en_GB.UTF-8";
       keyboardLayout = "pl,pl";
