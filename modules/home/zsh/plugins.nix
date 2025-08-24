@@ -45,11 +45,6 @@
       file = "zsh-autosuggestions-abbreviations-strategy.plugin.zsh";
       src = "${zsh-autosuggestions-abbreviations-strategy}/share/zsh/site-functions";
     }
-    {
-      name = "omz-fancy-ctrl-z";
-      file = "plugins/fancy-ctrl-z/fancy-ctrl-z.plugin.zsh";
-      src = omz;
-    }
 
     # Tmux integration
     (lib.mkIf config.programs.tmux.enable {
