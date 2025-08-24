@@ -1,14 +1,4 @@
 {pkgs, ...}: {
-  # home.packages = with pkgs; [oh-my-posh];
-
-  # programs = {
-  #   zsh.initContent = ''
-  #     eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/.config/oh-my-posh/config.toml)"
-  #   '';
-  # };
-
-  # xdg.configFile."oh-my-posh/config.toml".source = ./config.toml;
-
   # https://github.com/NovaViper/NixConfig/blob/51a5e1c261edb1deffaba6173a44de8d1002bee7/features/home/cli/prompt/oh-my-posh/posh.nix
   programs.oh-my-posh = {
     enable = true;
