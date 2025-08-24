@@ -33,10 +33,45 @@ in {
       newSession = true;
 
       plugins = with pkgs.unstable.tmuxPlugins; [
-        catppuccin
-        yank
+        {
+          plugin = catppuccin;
+          extraConfig = ''
+            set -g status-position top
+            set -g pane-active-border-style 'fg=magenta,bg=default'
+            set -g pane-border-style 'fg=brightblack,bg=default'
+            set -g @catppuccin_flavor 'mocha'
+
+            set -g @catppuccin_window_status_style "rounded"
+            set -g status-right-length 100
+            set -g status-left-length 100
+            set -g status-left ""
+            set -g status-right "#{E:@catppuccin_status_application}"
+            set -agF status-right "#{E:@catppuccin_status_session}"
+
+            set -g status-interval 5
+
+            set -g status-bg default
+            set -g status-style bg=default
+          '';
+        }
+        {
+          plugin = yank;
+          extraConfig = ''
+            bind-key c copy-mode
+            bind-key p paste-buffer -p
+
+            bind-key -T copy-mode-vi v send-keys -X begin-selection
+            bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+            bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+          '';
+        }
         resurrect
-        continuum
+        {
+          plugin = continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+          '';
+        }
         {
           plugin = smart-splits;
           extraConfig = ''
@@ -53,11 +88,23 @@ in {
             set -g @smart-splits_resize_step_size '1' # change the step-size for resizing.
           '';
         }
+        {
+          plugin = fzf-tmux-url;
+          extraConfig = ''
+            set -g @fzf-url-fzf-options '-p 60%,30% --prompt="   " --border-label=" Open URL "'
+            set -g @fzf-url-history-limit '2000'
+          '';
+        }
       ];
 
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
+        set -g detach-on-destroy off
         set -g mouse on
+        set -g renumber-windows on
+        set -g set-clipboard on
+
+        # bind-key -r B run-shell "~/.config/tmux/scripts/sessionizer.sh ~/Projects/dotfiles"
 
         bind-key [ previous-window
         bind-key ] next-window
@@ -68,8 +115,6 @@ in {
 
         bind-key x kill-pane
         bind-key q kill-window
-        bind-key c copy-mode
-        bind-key p paste-buffer -p
 
         bind-key v split-window -v -c "#{pane_current_path}"
         bind-key s split-window -h -c "#{pane_current_path}"
@@ -83,26 +128,7 @@ in {
         bind-key r command-prompt -I "#W" { rename-window "%%" }
         bind-key R source-file ~/.config/tmux/tmux.conf
 
-        set -g @catppuccin_flavor 'mocha'
-
-        set -g @catppuccin_window_status_style "rounded"
-        set -g status-right-length 100
-        set -g status-left-length 100
-        set -g status-left ""
-        set -g status-right "#{E:@catppuccin_status_application}"
-        set -agF status-right "#{E:@catppuccin_status_session}"
-
-        set -g status-bg default
-        set -g status-style bg=default
-
-        set -g status-interval 5
         setw -g aggressive-resize on
-
-        set -g @continuum-restore 'on'
-
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
       '';
     };
 
