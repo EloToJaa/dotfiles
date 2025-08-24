@@ -5,7 +5,6 @@
   config,
   ...
 }: {
-  # The shell itself
   programs.zsh = {
     enable = true;
     package = pkgs.unstable.zsh;
@@ -74,6 +73,6 @@
   };
   catppuccin.zsh-syntax-highlighting = {
     enable = true;
-    flavor = variables.catppuccin.flavor;
+    inherit (variables.catppuccin) flavor;
   };
 }
