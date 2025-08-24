@@ -58,15 +58,25 @@
       src = omz;
     })
     # Make ZLE use system clipboard
+    # {
+    #   name = "zsh-system-clipboard";
+    #   file = "zsh-system-clipboard.zsh";
+    #   src = "${zsh-system-clipboard}/share/zsh/zsh-system-clipboard";
+    # }
     {
       name = "zsh-system-clipboard";
-      file = "zsh-system-clipboard.zsh";
-      src = "${zsh-system-clipboard}/share/zsh/zsh-system-clipboard";
+      #file = "zsh-system-clipboard.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "kutsan";
+        repo = "zsh-system-clipboard";
+        rev = "8b4229000d31e801e6458a3dfa2d60720c110d11";
+        hash = "sha256-phsIdvuqcwtAVE1dtQyXcMgNdRMNY03/mIzsvHWPS1Y=";
+      };
     }
     {
       name = "zhooks";
       file = "zhooks.plugin.zsh";
-      src = "${zsh-hooks}/share/zsh/zhooks";
+      src = "${zsh-zhooks}/share/zsh/zhooks";
     }
   ];
 }
