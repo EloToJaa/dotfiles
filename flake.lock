@@ -727,22 +727,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-paperless": {
-      "locked": {
-        "lastModified": 1755971985,
-        "narHash": "sha256-asS7SGeW5jXoPdxOmuII3njYh5Of7YOijvP8aedYpP8=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d69cda222b6404c7ee78d250cdc905091693a8fb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d69cda222b6404c7ee78d250cdc905091693a8fb",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1756125398,
@@ -1105,7 +1089,6 @@
         "hyprmag": "hyprmag",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-paperless": "nixpkgs-paperless",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "nur": "nur",
