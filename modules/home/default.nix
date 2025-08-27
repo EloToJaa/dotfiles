@@ -1,5 +1,6 @@
-{
+{inputs, ...}: {
   imports = [
+    inputs.nix-index-database.homeModules.nix-index
     # ./lazydocker
     ./lazygit
     ./ohmyposh # shell prompt

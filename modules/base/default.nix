@@ -1,5 +1,6 @@
-{
+{inputs, ...}: {
   imports = [
+    inputs.nix-index-database.nixosModules.nix-index
     ./bootloader.nix
     ./docker.nix
     ./hardware.nix

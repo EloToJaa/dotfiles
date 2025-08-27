@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./nvim
     ./scripts # personal scripts
