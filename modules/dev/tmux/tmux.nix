@@ -1,0 +1,62 @@
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  tmux-smart-launch = pkgs.writeShellScriptBin "tmux-smart-launch" (builtins.readFile ./tmux-smart-launch.sh);
+in {
+  programs = {
+    tmux = {
+      enable = true;
+      package = pkgs.unstable.tmux;
+      shell = "${pkgs.unstable.zsh}/bin/zsh";
+      terminal = "ghostty";
+      historyLimit = 10000;
+      clock24 = true;
+      baseIndex = 1;
+      keyMode = "vi";
+      escapeTime = 0;
+      secureSocket = false; # Check if has to be false for tmux-resurrect
+      shortcut = "a";
+      newSession = true;
+
+      extraConfig = ''
+        set-option -sa terminal-overrides ",xterm*:Tc"
+        set -g detach-on-destroy off
+        set -g mouse on
+        set -g renumber-windows on
+        set -g set-clipboard on
+
+        # bind-key -r B run-shell "~/.config/tmux/scripts/sessionizer.sh ~/Projects/dotfiles"
+
+        bind-key [ previous-window
+        bind-key ] next-window
+        bind-key -n C-[ previous-window
+        bind-key -n C-] next-window
+        # bind-key -n M-[ swap-window -t -1 # breaks yazi with nvim open
+        # bind-key -n M-] next-window -t 1 # breaks yazi with nvim open
+
+        bind-key x kill-pane
+        bind-key q kill-window
+
+        bind-key v split-window -v -c "#{pane_current_path}"
+        bind-key s split-window -h -c "#{pane_current_path}"
+        bind-key t new-window
+
+        # Pass on Ctrl+Tab and Ctrl+Shift+Tab
+        bind-key -n C-Tab send-keys Escape [27\;5\;9~
+        bind-key -n C-S-Tab send-keys Escape [27\;6\;9~
+
+        # unbind-key ,
+        bind-key r command-prompt -I "#W" { rename-window "%%" }
+        bind-key R source-file ~/.config/tmux/tmux.conf
+
+        setw -g aggressive-resize on
+      '';
+    };
+
+    fzf.tmux.enableShellIntegration = true;
+    ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
+  };
+}
