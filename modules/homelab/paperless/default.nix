@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (variables) homelab;
@@ -17,7 +18,8 @@ in {
   services.${name} = {
     inherit port dataDir mediaDir consumptionDir;
     enable = true;
-    package = pkgs.unstable.paperless-ngx;
+    # package = pkgs.unstable.paperless-ngx;
+    package = inputs.nixpkgs-paperless.packages.paperless-ngx;
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {

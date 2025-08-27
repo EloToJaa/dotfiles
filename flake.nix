@@ -7,7 +7,7 @@
     nur.url = "github:nix-community/NUR";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/43966cc787c4a8844ac1e7affaadeedde8f4cc60?submodules=true";
+      url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
@@ -38,6 +38,8 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     catppuccin.url = "github:catppuccin/nix";
     pwndbg.url = "github:pwndbg/pwndbg";
+
+    nixpkgs-paperless.url = "github:nixos/nixpkgs/d69cda222b6404c7ee78d250cdc905091693a8fb";
   };
 
   outputs = {
