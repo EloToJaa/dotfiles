@@ -15,7 +15,7 @@ in {
     {
       plugin = catppuccin;
       extraConfig = ''
-        set -g status-position top
+        # set -g status-position top
         set -g pane-active-border-style 'fg=magenta,bg=default'
         set -g pane-border-style 'fg=brightblack,bg=default'
         set -g @catppuccin_flavor 'mocha'
@@ -29,7 +29,8 @@ in {
 
         set -g status-interval 5
 
-        set -g status-style bg=default
+        # set -g status-style bg=default
+        set -g @catppuccin_status_background "default"
       '';
     }
     {
