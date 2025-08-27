@@ -3,7 +3,6 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (variables) homelab;
@@ -15,13 +14,6 @@
   mediaDir = "${homelab.dataDir}docs";
   consumptionDir = "/mnt/Documents/";
 in {
-  disabledModules = [
-    "services/misc/paperless.nix"
-  ];
-  imports = [
-    ./service.nix
-  ];
-
   services.${name} = {
     inherit port dataDir mediaDir consumptionDir;
     enable = true;
