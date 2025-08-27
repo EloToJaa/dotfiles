@@ -50,7 +50,6 @@ in {
 
             set -g status-interval 5
 
-            set -g status-bg default
             set -g status-style bg=default
           '';
         }
