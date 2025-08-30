@@ -16,7 +16,7 @@
 in {
   services.${name} = {
     inherit port dataDir mediaDir consumptionDir;
-    enable = false;
+    enable = true;
     package = pkgs.unstable.paperless-ngx;
     # package = inputs.nixpkgs-paperless.legacyPackages.${pkgs.system}.paperless-ngx;
     user = name;
