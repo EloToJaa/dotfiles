@@ -14,6 +14,13 @@
   mediaDir = "${homelab.dataDir}docs";
   consumptionDir = "/mnt/Documents/";
 in {
+  disabledModules = [
+    "services/misc/servarr/prowlarr.nix"
+  ];
+  imports = [
+    ./service.nix
+  ];
+
   services.${name} = {
     inherit port dataDir mediaDir consumptionDir;
     enable = true;
