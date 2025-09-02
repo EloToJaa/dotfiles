@@ -35,7 +35,7 @@
       nhos = "nh os switch";
       nhot = "nh os test";
 
-      s = "source";
+      s = "sudo";
 
       jc = "journalctl";
       jcf = "journalctl --follow -u";

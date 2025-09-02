@@ -10,12 +10,9 @@ let
     c = "clear";
     cd = "z";
     tt = "gtrash put";
-    s = "sudo";
     cat = "bat";
     diff = "delta --diff-so-fancy --side-by-side";
     less = "bat";
-    py = "python";
-    ipy = "ipython";
 
     tree = "eza --icons --tree --group-directories-first";
 
@@ -25,9 +22,6 @@ let
     nix-clean = "nh clean all --keep 5";
     nix-search = "nh search";
     nix-test = "nh os test";
-
-    # python
-    piv = "python -m venv .venv";
   };
 in {
   programs = {
