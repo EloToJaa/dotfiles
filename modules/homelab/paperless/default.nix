@@ -13,6 +13,7 @@
   dataDir = "${homelab.dataDir}${name}";
   mediaDir = "${homelab.dataDir}docs";
   consumptionDir = "/mnt/Documents/";
+  domain = "${domainName}.${homelab.baseDomain}";
 in {
   disabledModules = [
     "services/misc/paperless.nix"
@@ -22,7 +23,7 @@ in {
   ];
 
   services.${name} = {
-    inherit port dataDir mediaDir consumptionDir;
+    inherit port dataDir mediaDir consumptionDir domain;
     enable = true;
     package = pkgs.unstable.paperless-ngx;
     # package = inputs.nixpkgs-paperless.legacyPackages.${pkgs.system}.paperless-ngx;
@@ -36,7 +37,6 @@ in {
       # PAPERLESS_TIKA_ENABLED = "1";
       # PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://127.0.0.1:3000";
       # PAPERLESS_TIKA_ENDPOINT = "http://127.0.0.1:9998";
-      PAPERLESS_URL = "https://${domainName}.${homelab.baseDomain}";
       PAPERLESS_CONSUMER_IGNORE_PATTERN = [
         ".DS_STORE/*"
         "desktop.ini"
@@ -56,7 +56,7 @@ in {
     "d ${dataDir} 750 ${name} ${group} - -"
   ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
+  services.caddy.virtualHosts.${domain} = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
       request_body {
