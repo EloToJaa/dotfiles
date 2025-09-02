@@ -15,7 +15,7 @@
   consumptionDir = "/mnt/Documents/";
 in {
   disabledModules = [
-    "services/misc/servarr/prowlarr.nix"
+    "services/misc/paperless.nix"
   ];
   imports = [
     ./service.nix
