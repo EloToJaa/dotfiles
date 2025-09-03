@@ -27,8 +27,6 @@
     qbittorrent
     vaults
 
-    android-studio
-
     xdg-utils
   ];
 }
