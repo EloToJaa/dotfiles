@@ -7,12 +7,9 @@
     poweralertd
     swappy # snapshot editing tool
     woomer # zoomer for wayland
-    caligula # User-friendly, lightweight TUI for disk imaging
-    yt-dlp-light
 
     ## GUI Apps
     chromium
-    dconf-editor
     gimp
     # imv # image viewer
     libreoffice

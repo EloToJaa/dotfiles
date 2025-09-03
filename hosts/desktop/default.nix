@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
-    ./../../modules/gaming
+    # ./../../modules/gaming
   ];
 
   home-manager.users.${variables.username}.imports = [
