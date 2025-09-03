@@ -10,7 +10,6 @@
   programs.zsh.zsh-abbr = {
     enable = true;
     abbreviations = {
-      m = "man";
       py = "python";
       ja = "java";
 
@@ -36,6 +35,8 @@
       nhot = "nh os test";
 
       s = "sudo";
+      c = "clear";
+      m = "man";
 
       jc = "journalctl";
       jcf = "journalctl --follow -u";

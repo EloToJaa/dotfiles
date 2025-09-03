@@ -1,13 +1,6 @@
 let
   shellAliases = {
-    d = "docker";
-    ld = "lazydocker";
-    dc = "docker compose";
-    dcu = "docker compose up -d --force-recreate --remove-orphans";
-    dcd = "docker compose down --remove-orphans";
-
     # Utils
-    c = "clear";
     cd = "z";
     tt = "gtrash put";
     cat = "bat";
