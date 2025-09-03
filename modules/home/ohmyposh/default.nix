@@ -2,6 +2,8 @@
   # https://github.com/NovaViper/NixConfig/blob/51a5e1c261edb1deffaba6173a44de8d1002bee7/features/home/cli/prompt/oh-my-posh/posh.nix
   programs.oh-my-posh = {
     enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
     package = pkgs.oh-my-posh;
     settings = {
       "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
