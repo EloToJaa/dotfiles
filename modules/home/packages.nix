@@ -7,8 +7,6 @@
     man-pages # extra man pages
     openssl
     usbutils
-    unzip
     wget
-    systemctl-tui
   ];
 }

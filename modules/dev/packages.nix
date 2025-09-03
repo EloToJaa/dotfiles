@@ -13,15 +13,8 @@
     pastel
     programmer-calculator
     tdf # cli pdf viewer
-    todo # cli todo list
-    valgrind # c memory analyzer
     xxd
-    hyperfine
     deploy-rs
     xh
-
-    ## SQL
-    pgcli
-    litecli
   ];
 }

@@ -11,8 +11,6 @@
     yt-dlp-light
 
     ## GUI Apps
-    # audacity
-    bleachbit # cache cleaner
     chromium
     dconf-editor
     gimp
@@ -20,7 +18,6 @@
     libreoffice
     mpv # video player
     obs-studio
-    thunderbird
     pavucontrol # pulseaudio volume controle (GUI)
     qalculate-gtk # calculator
     qview # minimal image viewer
