@@ -4,10 +4,11 @@
   pkgs,
   ...
 }: let
-  atuin =
-    if (host == "desktop" || host == "server")
-    then variables.atuin.local
-    else variables.atuin.remote;
+  # atuin =
+  #   if (host == "desktop" || host == "server")
+  #   then variables.atuin.local
+  #   else variables.atuin.remote;
+  atuin = variables.atuin.remote;
 in {
   catppuccin = {
     atuin = {
