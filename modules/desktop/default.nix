@@ -7,6 +7,7 @@
     ./waybar # status bar
     # ./wezterm
     ./audacious.nix # music player
+    ./bluetooth.nix
     ./cava.nix # audio visualizer
     ./clipboard.nix
     ./discord.nix # discord
