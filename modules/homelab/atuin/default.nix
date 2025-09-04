@@ -42,9 +42,7 @@ in {
   ];
 
   sops.secrets = {
-    "${name}/pgpassword" = {
-      owner = name;
-    };
+    "${name}/pgpassword" = {};
   };
   sops.templates."${name}.env".content = ''
     ATUIN_DB_URI=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
