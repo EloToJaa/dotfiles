@@ -30,7 +30,6 @@
 
   environment.systemPackages = with pkgs.unstable; [
     wget
-    git
   ];
 
   time.timeZone = variables.timezone;

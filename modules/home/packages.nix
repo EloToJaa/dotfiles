@@ -7,6 +7,7 @@
     man-pages # extra man pages
     openssl
     usbutils
-    wget
+
+    dig
   ];
 }
