@@ -6,7 +6,7 @@
   ];
 
   services.kdeconnect = {
-    enable = true;
+    enable = false;
     package = pkgs.unstable.kdePackages.kdeconnect-kde;
   };
 
