@@ -12,7 +12,7 @@ in {
   services.${name} = {
     enable = true;
     package = pkgs.unstable.atuin;
-    openRegistration = true;
+    openRegistration = false;
     database = {
       uri = null;
       createLocally = false;
