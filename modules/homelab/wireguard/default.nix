@@ -18,17 +18,13 @@ in {
     "${name}/publickey" = {};
     "${name}/endpoint" = {};
   };
-  sops.templates = {
-    "wg0.conf" = {
-      content = ''
-        [Interface]
-        PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
+  sops.templates."wg0.conf".content = ''
+    [Interface]
+    PrivateKey = ${config.sops.placeholder."${name}/privatekey"}
 
-        [Peer]
-        PublicKey = ${config.sops.placeholder."${name}/publickey"}
-        AllowedIPs = 0.0.0.0/0
-        Endpoint = ${config.sops.placeholder."${name}/endpoint"}:51820
-      '';
-    };
-  };
+    [Peer]
+    PublicKey = ${config.sops.placeholder."${name}/publickey"}
+    AllowedIPs = 0.0.0.0/0
+    Endpoint = ${config.sops.placeholder."${name}/endpoint"}:51820
+  '';
 }

@@ -72,34 +72,32 @@ in {
       owner = name;
     };
   };
-  sops.templates = {
-    "config-${name}.xml" = {
-      content = ''
-        <Config>
-          <LogLevel>info</LogLevel>
-          <EnableSsl>False</EnableSsl>
-          <Port>${toString port}</Port>
-          <SslPort>6969</SslPort>
-          <UrlBase></UrlBase>
-          <BindAddress>*</BindAddress>
-          <ApiKey>${config.sops.placeholder."${name}/apikey"}</ApiKey>
-          <AuthenticationMethod>Forms</AuthenticationMethod>
-          <LaunchBrowser>True</LaunchBrowser>
-          <Branch>master</Branch>
-          <InstanceName>Prowlarr</InstanceName>
-          <AuthenticationRequired>Enabled</AuthenticationRequired>
-          <SslCertPath></SslCertPath>
-          <SslCertPassword></SslCertPassword>
-          <PostgresUser>${name}</PostgresUser>
-          <PostgresPassword>${config.sops.placeholder."${name}/pgpassword"}</PostgresPassword>
-          <PostgresPort>5432</PostgresPort>
-          <PostgresHost>127.0.0.1</PostgresHost>
-          <AnalyticsEnabled>False</AnalyticsEnabled>
-          <Theme>auto</Theme>
-        </Config>
-      '';
-      path = "${dataDir}/config.xml";
-      owner = name;
-    };
+  sops.templates."config-${name}.xml" = {
+    content = ''
+      <Config>
+        <LogLevel>info</LogLevel>
+        <EnableSsl>False</EnableSsl>
+        <Port>${toString port}</Port>
+        <SslPort>6969</SslPort>
+        <UrlBase></UrlBase>
+        <BindAddress>*</BindAddress>
+        <ApiKey>${config.sops.placeholder."${name}/apikey"}</ApiKey>
+        <AuthenticationMethod>Forms</AuthenticationMethod>
+        <LaunchBrowser>True</LaunchBrowser>
+        <Branch>master</Branch>
+        <InstanceName>Prowlarr</InstanceName>
+        <AuthenticationRequired>Enabled</AuthenticationRequired>
+        <SslCertPath></SslCertPath>
+        <SslCertPassword></SslCertPassword>
+        <PostgresUser>${name}</PostgresUser>
+        <PostgresPassword>${config.sops.placeholder."${name}/pgpassword"}</PostgresPassword>
+        <PostgresPort>5432</PostgresPort>
+        <PostgresHost>127.0.0.1</PostgresHost>
+        <AnalyticsEnabled>False</AnalyticsEnabled>
+        <Theme>auto</Theme>
+      </Config>
+    '';
+    path = "${dataDir}/config.xml";
+    owner = name;
   };
 }
