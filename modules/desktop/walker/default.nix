@@ -1,19 +1,12 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.walker.homeManagerModules.default
   ];
 
-  xdg.configFile = {
-    "walker/themes".source = pkgs.callPackage ./pkgs/theme.nix {};
-  };
-
   programs.walker = {
     enable = true;
     runAsService = true;
+    # theme = null;
 
     config = {
       search.placeholder = "Example";
@@ -22,7 +15,6 @@
         height = 200;
       };
       websearch.prefix = "?";
-      theme = "mocha";
       # switcher.prefix = "/";
     };
   };
