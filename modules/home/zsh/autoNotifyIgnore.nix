@@ -26,5 +26,6 @@ in {
       "fg"
       "yazi"
       "tmux"
+      "y"
     ];
 }
