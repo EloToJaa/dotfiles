@@ -4,23 +4,23 @@
   fetchFromGitHub,
 }:
 stdenv.mkDerivation {
-  pname = "yaziTheme-yazi";
-  version = "unstable-2025-09-03";
+  pname = "walker-catppuccin";
+  version = "unstable-2025-09-06";
 
   src = fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "yazi";
-    rev = "043ffae14e7f7fcc136636d5f2c617b5bc2f5e31";
-    hash = "sha256-zkL46h1+U9ThD4xXkv1uuddrlQviEQD3wNZFRgv7M8Y=";
+    owner = "Krymancer";
+    repo = "walker";
+    rev = "15ad25fc3ad5496094ece50300da2ac6bc355efe";
+    hash = "sha256-Fqh6/GEn2y7N5IBLSnva5djzADqpivIE321EREtpCSE=";
   };
 
   buildPhase = ''
-    cp $src/themes/mocha/catppuccin-mocha-blue.toml $out
+    cp $src/themes/* $out
   '';
 
   meta = with lib; {
-    description = "Theme for yazi";
-    homepage = "https://github.com/catppuccin/yazi";
+    description = "Catpuccin themes for walker";
+    homepage = "https://github.com/Krymancer/walker";
     license = licenses.mit;
     maintainers = [];
     platforms = platforms.all;
