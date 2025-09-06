@@ -8,7 +8,7 @@
   ];
 
   xdg.configFile = {
-    "walker/themes".source = pkgs.callPackage ./theme.nix {};
+    "walker/themes".source = pkgs.callPackage ./pkgs/theme.nix {};
   };
 
   programs.walker = {
