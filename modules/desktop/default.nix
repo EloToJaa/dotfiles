@@ -3,7 +3,7 @@
     ./hyprland # window manager
     ./scripts # personal scripts
     ./swaync # notification deamon
-    # ./walker
+    ./walker
     ./wallpapers
     ./waybar # status bar
     # ./wezterm
