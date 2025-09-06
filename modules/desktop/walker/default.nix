@@ -1,7 +1,15 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.walker.homeManagerModules.default
   ];
+
+  # xdg.configFile = {
+  #   "walker/themes".source = pkgs.callPackage ./theme.nix {};
+  # };
 
   programs.walker = {
     enable = true;

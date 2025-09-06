@@ -3,5 +3,6 @@
     ## CLI utility
     deploy-rs
     xh
+    nurl
   ];
 }
