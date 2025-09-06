@@ -31,10 +31,10 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # walker = {
+    #   url = "github:abenz1267/walker";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
 
     sops-nix.url = "github:Mic92/sops-nix";
     deploy-rs.url = "github:serokell/deploy-rs";
