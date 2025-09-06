@@ -20,6 +20,7 @@
     ./rofi.nix # launcher
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
+    ./walker.nix
     ./waypaper.nix # wallpaper picker
     ./xdg-mimes.nix # xdg config
     ./zen.nix
