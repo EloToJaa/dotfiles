@@ -15,6 +15,7 @@ stdenv.mkDerivation {
   };
 
   buildPhase = ''
+    mkdir $out
     cp $src/themes/* $out
   '';
 
