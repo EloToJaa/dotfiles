@@ -18,7 +18,7 @@ in {
   };
   services.resolved = {
     enable = true;
-    dnssec = "true";
+    dnssec = "false";
     domains = ["~."];
     fallbackDns = dns;
     dnsovertls = "true";
