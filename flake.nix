@@ -31,21 +31,48 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # walker = {
-    #   url = "github:abenz1267/walker";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
+    walker = {
+      url = "github:abenz1267/walker/0.13.26";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    yazi.url = "github:sxyazi/yazi/main";
-    wezterm.url = "github:wezterm/wezterm/main?dir=nix";
-    hypr-contrib.url = "github:hyprwm/contrib";
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    hyprmag.url = "github:SIMULATAN/hyprmag";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    catppuccin.url = "github:catppuccin/nix";
-    pwndbg.url = "github:pwndbg/pwndbg";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    yazi = {
+      url = "github:sxyazi/yazi/main";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    wezterm = {
+      url = "github:wezterm/wezterm/main?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    hypr-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {

@@ -8,7 +8,6 @@
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     inputs.hypr-contrib.packages.${pkgs.system}.hyprprop
     hyprpicker
-    inputs.hyprmag.packages.${pkgs.system}.hyprmag
     grim
     slurp
     wf-recorder
