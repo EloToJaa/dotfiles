@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   boot = {
     loader = {
       systemd-boot = {
@@ -10,4 +14,5 @@
 
     kernelPackages = pkgs.linuxPackages_6_16;
   };
+  systemd.package = inputs.systemd-nixpkgs.legacyPackages.${pkgs.system}.systemd;
 }
