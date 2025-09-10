@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "walker-catppuccin";
-  version = "unstable-2025-09-06";
+  version = "unstable-2025-09-10";
 
   src = fetchFromGitHub {
     owner = "Krymancer";
