@@ -6,7 +6,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nur.url = "github:nix-community/NUR";
 
-    systemd-nixpkgs.url = "github:nixos/nixpkgs/ed30f8aba41605e3ab46421e3dcb4510ec560ff8";
+    # systemd-nixpkgs.url = "github:nixos/nixpkgs/ed30f8aba41605e3ab46421e3dcb4510ec560ff8";
+    systemd-nixpkgs.url = "github:nixos/nixpkgs/5395fb3ab3f97b9b7abca147249fa2e8ed27b192";
 
     hyprland = {
       url = "github:hyprwm/Hyprland/main?submodules=true";
