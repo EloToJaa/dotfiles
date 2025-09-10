@@ -34,7 +34,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     walker = {
-      url = "github:abenz1267/walker/0.13.26";
+      url = "github:abenz1267/walker/1.0.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
