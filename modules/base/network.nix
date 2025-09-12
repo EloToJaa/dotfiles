@@ -2,6 +2,8 @@
   host,
   variables,
   pkgs,
+  lib,
+  config,
   ...
 }: let
   inherit (variables) dns;
@@ -25,6 +27,11 @@ in {
   };
   services.tailscale = {
     enable = true;
-    package = pkgs.unstable.tailscale;
+    package = pkgs.tailscale;
+    # Enable caddy to acquire certificates from the tailscale daemon
+    # - https://tailscale.com/blog/caddy
+    permitCertUid = lib.mkIf config.services.caddy.enable "caddy";
+    openFirewall = true;
+    useRoutingFeatures = "both";
   };
 }
