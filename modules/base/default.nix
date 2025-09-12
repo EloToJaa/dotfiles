@@ -1,9 +1,10 @@
-{inputs, ...}: {
+{
   imports = [
-    inputs.nix-index-database.nixosModules.nix-index
+    ./bash.nix
     ./bootloader.nix
     ./docker.nix
     ./hardware.nix
+    ./index.nix
     ./network.nix
     ./nfs.nix
     ./nh.nix

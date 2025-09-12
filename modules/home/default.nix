@@ -1,6 +1,5 @@
-{inputs, ...}: {
+{
   imports = [
-    inputs.nix-index-database.homeModules.nix-index
     # ./lazydocker
     ./lazygit
     ./ohmyposh # shell prompt
@@ -13,6 +12,7 @@
     ./fastfetch.nix # fetch tool
     ./fzf.nix # fuzzy finder
     ./git.nix # version control
+    ./index.nix
     ./nerdfonts.nix # fonts
     ./packages.nix # other packages
     ./shell.nix # shell programs
