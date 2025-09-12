@@ -28,7 +28,6 @@ in {
     description = variables.username;
     group = variables.username;
     extraGroups = [
-      "networkmanager"
       "wheel"
       "kvm"
       homelab.groups.main

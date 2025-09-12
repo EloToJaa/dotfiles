@@ -34,4 +34,10 @@ in {
     openFirewall = true;
     useRoutingFeatures = "both";
   };
+  users.users.${variables.username}.extraGroups = [
+    "networkmanager"
+  ];
+
+  # Workaround https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = lib.mkIf config.networking.networkmanager.enable false;
 }
