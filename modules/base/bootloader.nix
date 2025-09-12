@@ -12,7 +12,7 @@
       efi.canTouchEfiVariables = true;
     };
 
-    kernelPackages = pkgs.linuxPackages_6_16;
+    kernelPackages = pkgs.unstable.linuxPackages_latest;
   };
   systemd.package = inputs.systemd-nixpkgs.legacyPackages.${pkgs.system}.systemd;
 }
