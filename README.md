@@ -24,6 +24,12 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Setup discord notifications (maybe notifiarr?)
 - [x] Update nvim config to use nvf for package management
 - [ ] Replace rofi with walker
+- [ ] Add ollama
+- [ ] Add rustdesk
+- [ ] Add scrutiny
+- [ ] Add ntfy
+- [ ] Add goaccess
+- [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Add iwmenu and bzmenu
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Add dnsmasq; setup DNS server & ad blocker
