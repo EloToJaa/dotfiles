@@ -16,7 +16,7 @@ in {
     # ports = ["${toString port}:3000"];
     podman = {
       user = name;
-      sdnotify = "healthy";
+      sdnotify = "container";
     };
     serviceName = name;
     extraOptions = [
