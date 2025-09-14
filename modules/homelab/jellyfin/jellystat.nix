@@ -6,7 +6,7 @@
   inherit (variables) homelab;
   name = "jellystat";
   domainName = "stats";
-  backupDir = "${homelab.dataDir}${name}";
+  backupDir = "${homelab.varDataDir}${name}/${name}";
   port = 3003;
 in {
   virtualisation.oci-containers.containers.${name} = {
