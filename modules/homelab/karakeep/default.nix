@@ -9,7 +9,7 @@
   name = "karakeep";
   domainName = "hoarder";
   group = variables.homelab.groups.main;
-  port = 3000;
+  port = 3003;
   dataDir = "${homelab.varDataDir}${name}";
 in {
   services.${name} = {

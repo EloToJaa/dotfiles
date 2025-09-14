@@ -7,15 +7,19 @@
   name = "jellystat";
   domainName = "stats";
   backupDir = "${homelab.varDataDir}${name}/${name}";
-  port = 3003;
+  port = 3000;
+  id = 377;
 in {
   virtualisation.oci-containers.containers.${name} = {
     image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
-    ports = ["${toString port}:3000"];
+    # ports = ["${toString port}:3000"];
     podman.user = name;
     serviceName = name;
-    extraOptions = ["--cgroup-manager=cgroupfs"];
+    extraOptions = [
+      # "--cgroup-manager=cgroupfs"
+      "--network=host"
+    ];
     environment = {
       POSTGRES_DB = name;
       POSTGRES_USER = name;
@@ -55,14 +59,14 @@ in {
   };
 
   users.users.${name} = {
-    uid = 377;
+    uid = id;
     group = name;
     description = name;
     home = "/var/lib/${name}";
     autoSubUidGidRange = true;
-    # linger = true;
+    linger = true;
   };
-  users.groups.${name}.gid = 377;
+  users.groups.${name}.gid = id;
 
   sops.secrets = {
     "${name}/pgpassword" = {
