@@ -14,7 +14,10 @@ in {
     image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
     # ports = ["${toString port}:3000"];
-    podman.user = name;
+    podman = {
+      user = name;
+      sdnotify = "healthy";
+    };
     serviceName = name;
     extraOptions = [
       # "--cgroup-manager=cgroupfs"
