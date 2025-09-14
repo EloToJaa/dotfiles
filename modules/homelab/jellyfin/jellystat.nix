@@ -6,7 +6,6 @@
   inherit (variables) homelab;
   name = "jellystat";
   domainName = "stats";
-  group = variables.homelab.groups.media;
   backupDir = "${homelab.dataDir}${name}";
   port = 3003;
 in {
@@ -55,12 +54,13 @@ in {
   };
 
   users.users.${name} = {
-    isSystemUser = true;
+    uid = 377;
+    group = name;
     description = name;
-    inherit group;
-    createHome = true;
     home = "/var/lib/${name}";
+    autoSubUidGidRange = true;
   };
+  users.groups.${name}.gid = 377;
 
   sops.secrets = {
     "${name}/pgpassword" = {
