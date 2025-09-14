@@ -58,6 +58,8 @@ in {
     isSystemUser = true;
     description = name;
     inherit group;
+    createHome = true;
+    home = "/var/lib/${name}";
   };
 
   sops.secrets = {
