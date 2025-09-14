@@ -10,9 +10,9 @@
   port = 5050;
 in {
   services.${name} = {
+    inherit port;
     enable = true;
     package = pkgs.unstable.pgadmin4;
-    port = port;
     initialEmail = variables.email;
     initialPasswordFile = config.sops.secrets."pgadmin/password".path;
   };
@@ -45,7 +45,10 @@ in {
       owner = name;
     };
   };
-  sops.templates."${name}.env".content = ''
-    CONFIG_DATABASE_URI=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
-  '';
+  sops.templates."${name}.env" = {
+    content = ''
+      CONFIG_DATABASE_URI=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
+    '';
+    owner = name;
+  };
 }

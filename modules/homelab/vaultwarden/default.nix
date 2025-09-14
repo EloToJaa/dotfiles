@@ -70,8 +70,11 @@ in {
       owner = name;
     };
   };
-  sops.templates."${name}.env".content = ''
-    DATABASE_URL=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
-    ADMIN_TOKEN=${config.sops.placeholder."${name}/admintoken"}
-  '';
+  sops.templates."${name}.env" = {
+    content = ''
+      DATABASE_URL=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
+      ADMIN_TOKEN=${config.sops.placeholder."${name}/admintoken"}
+    '';
+    owner = name;
+  };
 }

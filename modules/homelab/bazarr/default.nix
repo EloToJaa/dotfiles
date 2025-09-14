@@ -67,7 +67,10 @@ in {
       owner = name;
     };
   };
-  sops.templates."${name}.env".content = ''
-    POSTGRES_PASSWORD=${config.sops.placeholder."${name}/pgpassword"}
-  '';
+  sops.templates."${name}.env" = {
+    content = ''
+      POSTGRES_PASSWORD=${config.sops.placeholder."${name}/pgpassword"}
+    '';
+    owner = name;
+  };
 }

@@ -77,7 +77,10 @@ in {
       owner = name;
     };
   };
-  sops.templates."${name}.env".content = ''
-    DB_PASS=${config.sops.placeholder."${name}/pgpassword"}
-  '';
+  sops.templates."${name}.env" = {
+    content = ''
+      DB_PASS=${config.sops.placeholder."${name}/pgpassword"}
+    '';
+    owner = name;
+  };
 }

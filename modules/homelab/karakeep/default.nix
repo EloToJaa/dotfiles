@@ -52,7 +52,10 @@ in {
       owner = name;
     };
   };
-  sops.templates."${name}.env".content = ''
-    OPENAI_API_KEY=${config.sops.placeholder."${name}/openaiapikey"}
-  '';
+  sops.templates."${name}.env" = {
+    content = ''
+      OPENAI_API_KEY=${config.sops.placeholder."${name}/openaiapikey"}
+    '';
+    owner = name;
+  };
 }
