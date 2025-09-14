@@ -46,7 +46,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "elotoja@protonmail.com";
+    defaults.email = variables.email;
     certs.${homelab.baseDomain} = {
       inherit group;
       reloadServices = ["caddy.service"];

@@ -7,21 +7,19 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = _final: prev: {
-    jellyfin-web = prev.unstable.jellyfin-web.overrideAttrs (
-      _: _: {
-        installPhase = ''
-          runHook preInstall
+    jellyfin-web = prev.unstable.jellyfin-web.overrideAttrs {
+      installPhase = ''
+        runHook preInstall
 
-          # this is the important line
-          sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
+        # this is the important line
+        sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
 
-          mkdir -p $out/share
-          cp -a dist $out/share/jellyfin-web
+        mkdir -p $out/share
+        cp -a dist $out/share/jellyfin-web
 
-          runHook postInstall
-        '';
-      }
-    );
+        runHook postInstall
+      '';
+    };
 
     # https://github.com/tailscale/tailscale/issues/16966#issuecomment-3239543750
     tailscale = prev.unstable.tailscale.overrideAttrs (old: {
