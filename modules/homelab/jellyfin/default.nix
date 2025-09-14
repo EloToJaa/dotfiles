@@ -12,6 +12,7 @@
   dataDir = "${homelab.dataDir}${name}";
   logDir = "${homelab.logDir}${name}";
 in {
+  imports = [./jellystat.nix];
   services.${name} = {
     enable = true;
     package = pkgs.unstable.jellyfin;

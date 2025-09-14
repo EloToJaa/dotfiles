@@ -1,0 +1,75 @@
+{
+  variables,
+  config,
+  ...
+}: let
+  inherit (variables) homelab;
+  name = "jellystat";
+  domainName = "stats";
+  group = variables.homelab.groups.media;
+  backupDir = "${homelab.dataDir}${name}";
+  port = 3003;
+in {
+  virtualisation.oci-containers.containers.${name} = {
+    image = "docker.io/cyfershepard/jellystat:latest";
+    autoStart = true;
+    ports = ["${toString port}:3000"];
+    podman.user = name;
+    environment = {
+      POSTGRES_DB = name;
+      POSTGRES_USER = name;
+      POSTGRES_IP = "127.0.0.1";
+      POSTGRES_PORT = "5432";
+      TZ = variables.timezone;
+    };
+    environmentFiles = [config.sops.templates."${name}.env".path];
+    volumes = [
+      "${backupDir}:/app/backend/backup-data"
+    ];
+  };
+
+  services.postgresql.ensureUsers = [
+    {
+      inherit name;
+      ensureDBOwnership = false;
+    }
+  ];
+  services.postgresql.ensureDatabases = [
+    name
+  ];
+  services.postgresqlBackup.databases = [
+    name
+  ];
+  services.restic.backups.appdata-local.paths = [
+    backupDir
+  ];
+
+  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
+    useACMEHost = homelab.baseDomain;
+    extraConfig = ''
+      reverse_proxy http://127.0.0.1:${toString port}
+    '';
+  };
+
+  users.users.${name} = {
+    isSystemUser = true;
+    description = name;
+    inherit group;
+  };
+
+  sops.secrets = {
+    "${name}/pgpassword" = {
+      owner = name;
+    };
+    "${name}/jwtsecret" = {
+      owner = name;
+    };
+  };
+  sops.templates."${name}.env" = {
+    content = ''
+      POSTGRES_PASSWORD=${config.sops.placeholder."${name}/pgpassword"}
+      JWT_SECRET=${config.sops.placeholder."${name}/jwtsecret"}
+    '';
+    owner = name;
+  };
+}
