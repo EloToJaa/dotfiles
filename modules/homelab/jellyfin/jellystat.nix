@@ -18,8 +18,10 @@ in {
     environment = {
       POSTGRES_DB = name;
       POSTGRES_USER = name;
+      POSTGRES_PASSWORD = "\${POSTGRES_PASSWORD}";
       POSTGRES_IP = "127.0.0.1";
       POSTGRES_PORT = "5432";
+      JWT_SECRET = "\${JWT_SECRET}";
       TZ = variables.timezone;
     };
     environmentFiles = [config.sops.templates."${name}.env".path];
