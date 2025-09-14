@@ -10,7 +10,7 @@
   port = 3003;
 in {
   virtualisation.oci-containers.containers.${name} = {
-    image = "docker.io/cyfershepard/jellystat:latest";
+    image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
     autoRemoveOnStop = false;
     ports = ["${toString port}:3000"];
