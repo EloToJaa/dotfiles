@@ -3,7 +3,7 @@
   variables,
   ...
 }: {
-  home.packages = with pkgs.unstable; [rofi-wayland];
+  home.packages = with pkgs.unstable; [rofi];
 
   xdg.configFile."rofi/theme.rasi".text = ''
     * {
