@@ -16,11 +16,11 @@ in {
     # ports = ["${toString port}:3000"];
     podman = {
       user = name;
-      sdnotify = "container";
+      sdnotify = "conmon";
     };
     serviceName = name;
     extraOptions = [
-      # "--cgroup-manager=cgroupfs"
+      "--cgroup-manager=cgroupfs"
       "--network=host"
     ];
     environment = {
