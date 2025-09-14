@@ -15,6 +15,7 @@ in {
     autoRemoveOnStop = false;
     ports = ["${toString port}:3000"];
     podman.user = name;
+    serviceName = name;
     environment = {
       POSTGRES_DB = name;
       POSTGRES_USER = name;
