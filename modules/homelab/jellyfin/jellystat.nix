@@ -12,10 +12,10 @@ in {
   virtualisation.oci-containers.containers.${name} = {
     image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
-    autoRemoveOnStop = false;
     ports = ["${toString port}:3000"];
     podman.user = name;
     serviceName = name;
+    extraOptions = ["--cgroup-manager=cgroupfs"];
     environment = {
       POSTGRES_DB = name;
       POSTGRES_USER = name;
@@ -60,7 +60,7 @@ in {
     description = name;
     home = "/var/lib/${name}";
     autoSubUidGidRange = true;
-    linger = true;
+    # linger = true;
   };
   users.groups.${name}.gid = 377;
 
