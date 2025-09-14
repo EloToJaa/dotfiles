@@ -13,6 +13,7 @@ in {
   virtualisation.oci-containers.containers.${name} = {
     image = "docker.io/cyfershepard/jellystat:latest";
     autoStart = true;
+    autoRemoveOnStop = false;
     ports = ["${toString port}:3000"];
     podman.user = name;
     environment = {
