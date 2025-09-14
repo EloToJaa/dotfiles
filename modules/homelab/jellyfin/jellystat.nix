@@ -67,7 +67,7 @@ in {
     description = name;
     home = "/var/lib/${name}";
     autoSubUidGidRange = true;
-    linger = true;
+    # linger = true;
   };
   users.groups.${name}.gid = id;
 
