@@ -1,3 +1,3 @@
 pkgs: {
-  oh-my-posh = pkgs.callPackage ./oh-my-posh {};
+  # oh-my-posh = pkgs.callPackage ./oh-my-posh {};
 }

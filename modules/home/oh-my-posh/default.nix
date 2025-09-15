@@ -4,7 +4,7 @@
     enable = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
-    package = pkgs.oh-my-posh;
+    package = pkgs.unstable.oh-my-posh;
     settings = {
       "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
       version = 2;

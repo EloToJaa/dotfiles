@@ -1,8 +1,7 @@
 {
   imports = [
-    # ./lazydocker
     ./lazygit
-    ./ohmyposh # shell prompt
+    ./oh-my-posh # shell prompt
     ./yazi
     ./zsh # shell
     ./aliases.nix # shell aliases

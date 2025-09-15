@@ -1,7 +1,6 @@
 let
   shellAliases = {
     # Utils
-    cd = "z";
     tt = "gtrash put";
     cat = "bat";
     diff = "delta --diff-so-fancy --side-by-side";
