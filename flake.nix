@@ -56,10 +56,6 @@
       url = "github:wezterm/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

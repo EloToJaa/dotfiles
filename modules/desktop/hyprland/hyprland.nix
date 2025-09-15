@@ -1,12 +1,8 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs.unstable; [
     swww
-    inputs.hypr-contrib.packages.${pkgs.system}.grimblast
-    inputs.hypr-contrib.packages.${pkgs.system}.hyprprop
+    grimblast
+    hyprprop
     hyprpicker
     grim
     slurp

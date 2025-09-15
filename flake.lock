@@ -350,26 +350,6 @@
         "type": "github"
       }
     },
-    "hypr-contrib": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1757928521,
-        "narHash": "sha256-+wZhFb5+MOmKbYZBsc+jeLRlHgoPlFf3lXBRX0YY0Kc=",
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "rev": "e7aaa6725c5597041330f371451116f1b2d1f88b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "type": "github"
-      }
-    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -998,7 +978,6 @@
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "home-manager": "home-manager",
-        "hypr-contrib": "hypr-contrib",
         "hyprland": "hyprland",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
