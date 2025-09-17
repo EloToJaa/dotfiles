@@ -1,35 +1,27 @@
-{
-  inputs,
-  pkgs,
-  variables,
-  ...
-}: let
-  themePkg = pkgs.callPackage ./pkgs/theme.nix {};
-  inherit (variables.catppuccin) flavor;
-in {
+{inputs, ...}: {
   imports = [
     inputs.walker.homeManagerModules.default
   ];
-
-  xdg.configFile = {
-    "walker/themes/${flavor}.toml".source = "${themePkg}/${flavor}.toml";
-    "walker/themes/${flavor}.css".source = "${themePkg}/${flavor}.css";
-  };
 
   programs.walker = {
     enable = true;
     runAsService = true;
     # theme = null;
 
+    # All options from the config.toml can be used here.
     config = {
-      theme = flavor;
-      search.placeholder = "Example";
-      ui.fullscreen = true;
-      list = {
-        height = 200;
-      };
-      websearch.prefix = "?";
-      # switcher.prefix = "/";
+      placeholders."default".input = "Example";
+      providers.prefixes = [
+        {
+          provider = "websearch";
+          prefix = "+";
+        }
+        {
+          provider = "providerlist";
+          prefix = "_";
+        }
+      ];
+      keybinds.quick_activate = ["F1" "F2" "F3"];
     };
   };
 }
