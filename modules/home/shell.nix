@@ -9,6 +9,9 @@
   #   then variables.atuin.local
   #   else variables.atuin.remote;
   atuin = variables.atuin.remote;
+  shellAliases = {
+    cd = "z";
+  };
 in {
   catppuccin = {
     atuin = {
@@ -17,6 +20,7 @@ in {
     };
   };
   programs = {
+    zsh.shellAliases = shellAliases;
     atuin = {
       enable = true;
       package = pkgs.unstable.atuin;
