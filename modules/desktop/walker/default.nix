@@ -66,12 +66,12 @@
           default = true;
           url = "https://www.google.com/search?q=%TERM%";
         }
-        {
-          name = "YouTube";
-          prefix = "y";
-          default = false;
-          url = "https://www.google.com/search?q=%TERM%";
-        }
+        # {
+        #   name = "YouTube";
+        #   prefix = "y";
+        #   default = false;
+        #   url = "https://www.google.com/search?q=%TERM%";
+        # }
       ];
     };
   };
