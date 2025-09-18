@@ -23,6 +23,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add uptime kuma
 - [x] Setup discord notifications (maybe notifiarr?)
 - [x] Update nvim config to use nvf for package management
+- [ ] Replace swappy with Satty
 - [ ] Replace rofi with walker
 - [ ] Add ollama
 - [ ] Add rustdesk
