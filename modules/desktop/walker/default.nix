@@ -10,18 +10,56 @@
 
     # All options from the config.toml can be used here.
     config = {
-      placeholders."default".input = "Example";
-      providers.prefixes = [
-        {
-          provider = "websearch";
-          prefix = "+";
-        }
-        {
-          provider = "providerlist";
-          prefix = "_";
-        }
-      ];
-      keybinds.quick_activate = ["F1" "F2" "F3"];
+      providers = {
+        default = [
+          "desktopapplications"
+          "menus"
+        ];
+        empty = ["desktopapplications"];
+        prefixes = [
+          {
+            provider = "providerlist";
+            prefix = ";";
+          }
+          {
+            provider = "files";
+            prefix = "/";
+          }
+          {
+            provider = "symbols";
+            prefix = ",";
+          }
+          {
+            provider = "unicode";
+            prefix = ".";
+          }
+          {
+            provider = "todo";
+            prefix = "@";
+          }
+          {
+            provider = "calc";
+            prefix = "=";
+          }
+          {
+            provider = "websearch";
+            prefix = "!";
+          }
+          {
+            provider = "runner";
+            prefix = ":";
+          }
+        ];
+      };
+      keybinds = {
+        next = "ctrl j";
+        previous = "ctrl k";
+        close = "ctrl q";
+        quick_activate = ["ctrl 1" "ctrl 2" "ctrl 3" "ctrl 4" "ctrl 5"];
+      };
+    };
+    elephant.config.providers = {
+      websearch = {};
     };
   };
 }
