@@ -59,7 +59,20 @@
       };
     };
     elephant.config.providers = {
-      websearch = {};
+      websearch.entries = [
+        {
+          name = "Google";
+          prefix = "";
+          default = true;
+          url = "https://www.google.com/search?q=%TERM%";
+        }
+        {
+          name = "YouTube";
+          prefix = "y";
+          default = false;
+          url = "https://www.google.com/search?q=%TERM%";
+        }
+      ];
     };
   };
 }
