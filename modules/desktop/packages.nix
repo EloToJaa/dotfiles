@@ -23,7 +23,7 @@
     zenity
     remmina
     rnote
-    jetbrains.idea-community
+    # jetbrains.idea-community
     qbittorrent
     vaults
 

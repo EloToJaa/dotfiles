@@ -17,7 +17,7 @@
     ./gtk.nix # gtk theme
     ./nemo.nix # file manager
     ./packages.nix # other packages
-    ./rider.nix # jetbrains rider
+    # ./rider.nix # jetbrains rider
     ./rofi.nix # launcher
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
