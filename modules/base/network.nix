@@ -6,7 +6,7 @@
   config,
   ...
 }: let
-  inherit (variables) dns;
+  inherit (variables) dns username;
 in {
   networking = {
     hostName = host;
@@ -34,7 +34,7 @@ in {
     openFirewall = true;
     useRoutingFeatures = "both";
   };
-  users.users.${variables.username}.extraGroups = [
+  users.users.${username}.extraGroups = [
     "networkmanager"
   ];
 
