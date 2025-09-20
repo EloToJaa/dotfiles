@@ -15,7 +15,7 @@ in {
       dns = "systemd-resolved";
       settings.connectivity.uri = "http://nmcheck.gnome.org/check_network_status.txt";
     };
-    firewall.enable = false;
+    firewall.enable = lib.mkDefault false;
     nameservers = dns;
   };
   services.resolved = {
