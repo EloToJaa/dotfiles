@@ -4,35 +4,32 @@
   ...
 }: let
   inherit (variables) homelab;
-  name = "bind";
   baseDomain = homelab.mainDomain;
 in {
-  services.${name} = {
-    enable = false;
-    package = pkgs.unstable.bind;
-    ipv4Only = false;
-    extraOptions = ''
-      dnssec-validation auto;
-    '';
-    forwarders = [
-      "9.9.9.9"
-      "149.112.112.112"
-      "2620:fe::fe"
-      "2620:fe::9"
-    ];
-    zones.${baseDomain} = {
-      master = true;
-      file = pkgs.writeText "${baseDomain}.zone" ''
-        $TTL 2d
-        $ORIGIN ${baseDomain}.
-        @       IN      SOA     ns.${baseDomain}. elotoja.protonmail.com. (2025050600 12h 15m 3w 2h)
-        @       IN      NS      ns.${baseDomain}.
-        ns      IN      A       192.168.0.32
-
-        server   IN      A       192.168.0.32
-        *.server IN      A       192.168.0.32
-        nas      IN      A       192.168.0.41
-      '';
+  services.blocky = {
+    enable = true;
+    package = pkgs.unstable.blocky;
+    settings = {
+      ports.dns = 53; # Port for incoming DNS Queries.
+      upstreams.groups.default = [
+        "https://one.one.one.one/dns-query" # Using Cloudflare's DNS over HTTPS server for resolving queries.
+      ];
+      # For initially solving DoH/DoT Requests when no system Resolver is available.
+      bootstrapDns = {
+        upstream = "https://one.one.one.one/dns-query";
+        ips = ["1.1.1.1" "1.0.0.1"];
+      };
+      #Enable Blocking of certain domains.
+      blocking = {
+        denylists = {
+          #Adblocking
+          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+        };
+        #Configure what block categories are used
+        clientGroupsBlock = {
+          default = ["ads"];
+        };
+      };
     };
   };
 }
