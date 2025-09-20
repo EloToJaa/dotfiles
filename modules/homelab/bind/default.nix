@@ -49,6 +49,11 @@ in {
     };
   };
 
+  services.resolved.extraConfig = ''
+    DNS=127.0.0.1
+    DNSStubListener=no
+  '';
+
   networking.firewall = {
     enable = lib.mkForce true;
     allowedTCPPorts = [
