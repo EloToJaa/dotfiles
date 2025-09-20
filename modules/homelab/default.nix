@@ -91,7 +91,7 @@ in {
     ./atuin
     ./backup
     ./bazarr
-    ./bind
+    ./blocky
     ./caddy
     ./glance
     # ./grafana
