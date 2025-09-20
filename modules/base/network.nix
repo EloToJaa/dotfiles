@@ -24,10 +24,6 @@ in {
     domains = ["~."];
     fallbackDns = dns;
     dnsovertls = "true";
-    extraConfig = ''
-      DNS=127.0.0.1
-      DNSStubListener=no
-    '';
   };
   services.tailscale = {
     enable = true;
