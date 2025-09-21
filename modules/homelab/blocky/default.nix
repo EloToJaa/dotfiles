@@ -59,6 +59,7 @@ in {
     enable = lib.mkForce true;
     allowedTCPPorts = [
       53
+      853
     ];
     allowedUDPPorts = [
       53
