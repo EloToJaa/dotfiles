@@ -1,9 +1,11 @@
 {
   variables,
   pkgs,
+  config,
   ...
 }: let
   inherit (variables.homelab) baseDomain;
+  name = "blocky";
 in {
   services.blocky = {
     enable = true;
@@ -47,6 +49,8 @@ in {
         mapping.${baseDomain} = "192.168.0.32";
       };
     };
+    # certFile = config.sops.secrets."${name}/cert".path;
+    # keyFile = config.sops.secrets."${name}/key".path;
   };
 
   services.resolved.extraConfig = ''
@@ -63,4 +67,9 @@ in {
       53
     ];
   };
+
+  # sops.secrets = {
+  #   "${name}/key" = {};
+  #   "${name}/cert" = {};
+  # };
 }
