@@ -44,7 +44,7 @@ in {
       };
       customDNS = {
         customTTL = "1h";
-        mapping."local.elotoja.com" = "192.168.0.32";
+        mapping.${baseDomain} = "192.168.0.32";
       };
     };
   };
