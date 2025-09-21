@@ -1,7 +1,6 @@
 {
   variables,
   pkgs,
-  lib,
   ...
 }: let
   inherit (variables.homelab) baseDomain;
@@ -56,7 +55,6 @@ in {
   '';
 
   networking.firewall = {
-    enable = lib.mkForce true;
     allowedTCPPorts = [
       53
       853

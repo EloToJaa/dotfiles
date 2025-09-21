@@ -23,7 +23,7 @@ in {
     dnssec = "false";
     domains = ["~."];
     fallbackDns = dns;
-    dnsovertls = "true";
+    dnsovertls = "opportunistic";
   };
   services.tailscale = {
     enable = true;
