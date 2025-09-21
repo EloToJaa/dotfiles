@@ -10,7 +10,10 @@ in {
     enable = true;
     package = pkgs.unstable.blocky;
     settings = {
-      ports.dns = 53; # Port for incoming DNS Queries.
+      ports = {
+        dns = 53;
+        tls = 853;
+      };
       upstreams.groups.default = [
         "https://dns.quad9.net/dns-query"
         "https://one.one.one.one/dns-query"
