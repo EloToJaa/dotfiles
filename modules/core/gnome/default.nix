@@ -1,7 +1,7 @@
 {
   imports = [
     ./keyring.nix
-    ./polkit.nix
+    ./packages.nix
     ./gparted.nix
   ];
 }
