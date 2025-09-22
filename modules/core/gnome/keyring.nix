@@ -4,6 +4,7 @@
     dconf.enable = true;
   };
 
+  security.polkit.enable = true;
   services = {
     gnome = {
       gnome-keyring.enable = true;
@@ -14,7 +15,6 @@
       # don't shutdown when power button is short-pressed
       HandlePowerKey=ignore
     '';
-    polkit.enable = true;
 
     dbus = {
       enable = true;
