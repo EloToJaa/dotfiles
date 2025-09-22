@@ -10,6 +10,11 @@
     package = pkgs.unstable.kdePackages.kdeconnect-kde;
   };
 
+  services.hyprpolkitagent = {
+    enable = true;
+    package = pkgs.unstable.hyprpolkitagent;
+  };
+
   dconf.settings = {
     "org/gnome/TextEditor" = {
       custom-font = "CaskaydiaCove Nerd Font 15";

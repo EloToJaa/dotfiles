@@ -14,6 +14,7 @@
       # don't shutdown when power button is short-pressed
       HandlePowerKey=ignore
     '';
+    polkit.enable = true;
 
     dbus = {
       enable = true;
