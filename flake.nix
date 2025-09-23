@@ -35,8 +35,8 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    walker = {
-      url = "github:abenz1267/walker/1.0.0";
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

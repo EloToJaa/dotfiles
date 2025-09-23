@@ -3,7 +3,6 @@
     ./hyprland # window manager
     ./scripts # personal scripts
     ./swaync # notification deamon
-    ./walker
     ./wallpapers
     ./waybar # status bar
     # ./wezterm
@@ -21,6 +20,7 @@
     ./rofi.nix # launcher
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
+    ./vicinae.nix # launcher
     ./waypaper.nix # wallpaper picker
     ./xdg-mimes.nix # xdg config
     ./zen.nix
