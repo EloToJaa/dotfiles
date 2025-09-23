@@ -149,7 +149,7 @@
         "$mainMod, f, fullscreen, 0"
         "$mainMod SHIFT, f, fullscreen, 1"
         "$mainMod, Space, exec, toggle-float"
-        "$mainMod, s, exec, rofi -show drun || pkill rofi"
+        "$mainMod, s, exec, vicinae vicinae://toggle"
         "$mainMod, d, exec, discord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "$mainMod, g, exec, hyprlock"
