@@ -24,7 +24,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Setup discord notifications (maybe notifiarr?)
 - [x] Update nvim config to use nvf for package management
 - [x] Replace rofi with vicinae
-- [ ] Replace swappy with Satty
+- [x] Replace swappy with Satty
 - [ ] Add ollama
 - [ ] Add rustdesk
 - [ ] Add scrutiny

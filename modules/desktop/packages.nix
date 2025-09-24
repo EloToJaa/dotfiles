@@ -1,12 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs.unstable; [
     ## CLI utility
-    libnotify
     pamixer # pulseaudio command line mixer
     playerctl # controller for media players
     poweralertd
-    swappy # snapshot editing tool
-    woomer # zoomer for wayland
 
     ## GUI Apps
     chromium

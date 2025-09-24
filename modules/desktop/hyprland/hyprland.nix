@@ -9,7 +9,9 @@
     wf-recorder
     glib
     wayland
-    wleave
+    woomer # zoomer for wayland
+    libnotify
+    satty # snapshot editing tool
   ];
 
   systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];
