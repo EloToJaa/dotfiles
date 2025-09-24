@@ -290,7 +290,6 @@
         "center,class:^(mpv)$"
         "size 1200 725,class:^(mpv)$"
         "float,class:^(audacious)$"
-        "pin,class:^(rofi)$"
         "pin,class:^(waypaper)$"
         "idleinhibit focus,class:^(mpv)$"
         "float,class:^(org.pulseaudio.pavucontrol)$"
