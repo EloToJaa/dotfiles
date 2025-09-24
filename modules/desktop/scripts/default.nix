@@ -13,8 +13,6 @@
 
   show-keybinds = pkgs.writeScriptBin "show-keybinds" (builtins.readFile ./scripts/keybinds.sh);
 
-  vm-start = pkgs.writeScriptBin "vm-start" (builtins.readFile ./scripts/vm-start.sh);
-
   record = pkgs.writeScriptBin "record" (builtins.readFile ./scripts/record.sh);
 
   screenshot = pkgs.writeScriptBin "screenshot" (builtins.readFile ./scripts/screenshot.sh);
@@ -36,8 +34,6 @@ in {
     toggle-float
 
     show-keybinds
-
-    vm-start
 
     record
 
