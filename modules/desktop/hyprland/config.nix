@@ -137,9 +137,6 @@
       };
 
       bind = [
-        # show keybinds list
-        "$mainMod, F1, exec, show-keybinds"
-
         # keybindings
         "$mainMod, Return, exec, ${variables.terminal}"
         "ALT, Return, exec, [float; size 1111 700] ${variables.terminal}"
@@ -158,14 +155,12 @@
         "$mainMod, x, togglesplit,"
         "$mainMod, t, exec, toggle-opacity"
         "$mainMod, e, exec, nemo"
-        "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
+        "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
         "$mainMod SHIFT, B, exec, toggle-waybar"
         "$mainMod, c, exec, hyprpicker -a"
-        "$mainMod, w, exec, wallpaper-picker"
-        "$mainMod SHIFT, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
+        "$mainMod, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "$mainMod, n, exec, swaync-client -t -sw"
         "$mainMod, equal, exec, woomer"
-        "$mainMod SHIFT, e, exec, vm-start"
 
         # screenshot
         ",Print, exec, screenshot --copy"

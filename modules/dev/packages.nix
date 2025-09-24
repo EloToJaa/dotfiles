@@ -4,5 +4,7 @@
     deploy-rs
     xh
     nurl
+
+    direnv
   ];
 }

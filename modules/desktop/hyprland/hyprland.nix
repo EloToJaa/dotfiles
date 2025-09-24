@@ -9,7 +9,7 @@
     wf-recorder
     glib
     wayland
-    direnv
+    wleave
   ];
 
   systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];

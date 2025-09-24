@@ -140,8 +140,8 @@ in {
     };
     "custom/launcher" = {
       format = "";
-      on-click = "rofi -show drun";
-      on-click-right = "wallpaper-picker";
+      on-click = "vicinae vicinae://toggle";
+      on-click-right = "hyprctl dispatch exec '[float; size 925 615] waypaper";
       tooltip = "false";
     };
     "custom/notification" = {
