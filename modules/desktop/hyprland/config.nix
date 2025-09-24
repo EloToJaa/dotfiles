@@ -150,7 +150,7 @@
         "$mainMod, d, exec, discord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "$mainMod, g, exec, hyprlock"
-        "$mainMod, Escape, exec, wleave"
+        "$mainMod, Escape, exec, wlogout"
         "$mainMod, p, pseudo,"
         "$mainMod, x, togglesplit,"
         "$mainMod, t, exec, toggle-opacity"

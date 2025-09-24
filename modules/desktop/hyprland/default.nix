@@ -4,6 +4,7 @@
     ./config.nix
     ./hyprlock.nix
     ./variables.nix
+    ./wlogout.nix
     inputs.hyprland.homeManagerModules.default
   ];
 }
