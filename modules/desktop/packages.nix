@@ -23,6 +23,7 @@
     # jetbrains.idea-community
     qbittorrent
     vaults
+    thunderbird
 
     xdg-utils
   ];
