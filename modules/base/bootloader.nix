@@ -17,7 +17,8 @@ in {
 
     kernelPackages = pkgs.linuxPackages_latest;
   };
-  systemd.package = inputs.systemd-nixpkgs.legacyPackages.${pkgs.system}.systemd;
+  # systemd.package = inputs.systemd-nixpkgs.legacyPackages.${pkgs.system}.systemd;
+  systemd.package = pkgs.systemd;
 
   environment.systemPackages = [
     needsreboot

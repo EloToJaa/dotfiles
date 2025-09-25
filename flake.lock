@@ -972,7 +972,6 @@
         "pwndbg": "pwndbg",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
-        "systemd-nixpkgs": "systemd-nixpkgs",
         "vicinae": "vicinae",
         "wezterm": "wezterm",
         "yazi": "yazi",
@@ -1079,22 +1078,6 @@
       "original": {
         "owner": "gerg-l",
         "repo": "spicetify-nix",
-        "type": "github"
-      }
-    },
-    "systemd-nixpkgs": {
-      "locked": {
-        "lastModified": 1754990257,
-        "narHash": "sha256-eEq2wlYNF2t89PsNyEv5Sz4lSxdukZCj4SdhZBVAGpI=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "372d9eeeafa5b15913201e2b92e8e539ac7c64d1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "372d9eeeafa5b15913201e2b92e8e539ac7c64d1",
         "type": "github"
       }
     },
