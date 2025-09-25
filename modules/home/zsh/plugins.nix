@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # Source URLs were fetched via nurl
   programs.zsh.plugins = with pkgs.unstable; [
     # Docs https://github.com/jeffreytse/zsh-vi-mode#-usage
     {

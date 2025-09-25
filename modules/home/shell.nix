@@ -1,14 +1,9 @@
 {
   variables,
-  host,
   pkgs,
   ...
 }: let
-  # atuin =
-  #   if (host == "desktop" || host == "server")
-  #   then variables.atuin.local
-  #   else variables.atuin.remote;
-  atuin = variables.atuin.remote;
+  inherit (variables) atuin;
   shellAliases = {
     cd = "z";
   };
