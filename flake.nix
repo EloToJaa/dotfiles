@@ -201,7 +201,7 @@
       server = {
         hostname = "server.${domain}";
         profiles.system = {
-          user = user;
+          inherit user;
           path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
           interactiveSudo = true;
         };
@@ -209,12 +209,12 @@
       laptop = {
         hostname = "laptop.${domain}";
         profiles.system = {
-          user = user;
+          inherit user;
           path = deploy-rs.lib.x86_64-linux.activate.nixos configs.laptop;
           interactiveSudo = true;
         };
       };
     };
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
