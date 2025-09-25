@@ -1,19 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Source URLs were fetched via nurl
-  programs.zsh.plugins = with pkgs.unstable; let
-    omz = oh-my-zsh;
-  in [
-    # Useful utilities
-    {
-      name = "you-should-use";
-      file = "you-should-use.plugin.zsh";
-      src = "${zsh-you-should-use}/share/zsh/plugins/you-should-use";
-    }
+  programs.zsh.plugins = with pkgs.unstable; [
     # Docs https://github.com/jeffreytse/zsh-vi-mode#-usage
     {
       name = "zsh-vi-mode";
@@ -46,12 +33,6 @@
       src = "${zsh-autosuggestions-abbreviations-strategy}/share/zsh/site-functions";
     }
 
-    # Tmux integration
-    (lib.mkIf config.programs.tmux.enable {
-      name = "omz-tmux";
-      file = "plugins/tmux/tmux.plugin.zsh";
-      src = omz;
-    })
     # Make ZLE use system clipboard
     # {
     #   name = "zsh-system-clipboard";
