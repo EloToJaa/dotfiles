@@ -4,21 +4,7 @@
   ...
 }: {
   home.packages = with pkgs.unstable; [
-    uv
     ruff
-
-    (python312.withPackages (pypkgs:
-      with pypkgs; [
-        click
-        requests
-        flask
-        pip
-        pipx
-        pwntools
-        ropper
-        # angr
-        pycryptodome
-      ]))
   ];
 
   programs.nixvim = {

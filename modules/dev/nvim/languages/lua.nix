@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs.unstable; [
-    lua5_4
-    lua54Packages.luarocks
     lua54Packages.luacheck
 
     stylua

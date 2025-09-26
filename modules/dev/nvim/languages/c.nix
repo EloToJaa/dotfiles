@@ -4,9 +4,6 @@
   ...
 }: {
   home.packages = with pkgs.unstable; [
-    gcc
-    gdb
-    gnumake
     clang-tools
   ];
 

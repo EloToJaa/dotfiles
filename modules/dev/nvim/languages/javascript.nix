@@ -2,10 +2,6 @@
   home.packages = with pkgs.unstable; [
     eslint_d
     prettierd
-
-    nodejs
-    bun
-    npm-check-updates
   ];
 
   programs.nixvim = {

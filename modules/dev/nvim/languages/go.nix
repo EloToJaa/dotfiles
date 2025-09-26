@@ -1,10 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs.unstable; [
-    go
     gofumpt
-
-    sqlc
-    goose
   ];
 
   programs.nixvim = {

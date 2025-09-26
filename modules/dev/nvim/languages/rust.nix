@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs.unstable; [
-    rustc
     rustfmt
-    cargo
   ];
 
   programs.nixvim = {

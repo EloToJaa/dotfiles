@@ -1,8 +1,4 @@
-{pkgs, ...}: {
-  home.packages = with pkgs.unstable; [
-    zig
-  ];
-
+{
   programs.nixvim = {
     lsp.servers.zls = {
       enable = true;
