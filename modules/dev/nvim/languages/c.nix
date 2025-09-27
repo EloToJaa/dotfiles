@@ -5,6 +5,7 @@
 }: {
   home.packages = with pkgs.unstable; [
     clang-tools
+    gcc
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
