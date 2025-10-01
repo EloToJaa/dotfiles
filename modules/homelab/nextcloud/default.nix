@@ -10,25 +10,48 @@
   domainName = "cloud";
   group = variables.homelab.groups.docs;
   dataDir = "${homelab.varDataDir}${name}";
+  domain = "${domainName}.${homelab.baseDomain}";
 in {
   services.nextcloud = {
     enable = true;
-    # package = pkgs.unstable.nextcloud;
+    package = pkgs.nextcloud;
     home = dataDir;
     datadir = "/mnt/Data/nextcloud";
-    # environmentFile = config.sops.templates."${name}.env".path;
-    database.createLocally = true;
-    autoUpdateApps.enable = true;
+    database.createLocally = false;
+    autoUpdateApps.enable = false;
     appstoreEnable = true;
+    enableImagemagick = true;
+    configureRedis = true;
+    caching.redis = true;
+    config = {
+      adminuser = variables.username;
+      adminpassFile = config.sops.secrets."${name}/adminpassword".path;
+      dbtype = "pgsql";
+      dbhost = "127.0.0.1:5432";
+      dbname = name;
+      dbuser = name;
+      dbpassFile = config.sops.secrets."${name}/pgpassword";
+    };
+    settings = {
+    };
+    extraApps = {
+      inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
+    };
   };
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
+  services.caddy.virtualHosts.${domain} = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${toString port}
     '';
   };
 
+  services.postgresql.ensureDatabases = [
+    name
+  ];
+  services.postgresqlBackup.databases = [
+    name
+  ];
   services.restic.backups.appdata-local.paths = [
     dataDir
   ];
@@ -39,14 +62,8 @@ in {
   };
 
   sops.secrets = {
-    "${name}/openaiapikey" = {
+    "${name}/adminpassword" = {
       owner = name;
     };
-  };
-  sops.templates."${name}.env" = {
-    content = ''
-      OPENAI_API_KEY=${config.sops.placeholder."${name}/openaiapikey"}
-    '';
-    owner = name;
   };
 }

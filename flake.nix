@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     vicinae = {
-      url = "github:vicinaehq/vicinae";
+      url = "github:vicinaehq/vicinae/v0.12.2";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
