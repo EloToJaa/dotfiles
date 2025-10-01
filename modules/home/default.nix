@@ -1,7 +1,9 @@
 {
   imports = [
     ./lazygit
+    ./nvim
     ./oh-my-posh # shell prompt
+    ./tmux
     ./yazi
     ./zsh # shell
     ./aliases.nix # shell aliases
