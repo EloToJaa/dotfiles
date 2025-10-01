@@ -6,29 +6,20 @@
   ...
 }: let
   inherit (variables) homelab;
-  name = "karakeep";
-  domainName = "hoarder";
-  group = variables.homelab.groups.main;
-  port = 3003;
+  name = "nextcloud";
+  domainName = "cloud";
+  group = variables.homelab.groups.docs;
   dataDir = "${homelab.varDataDir}${name}";
 in {
-  services.karakeep = {
+  services.nextcloud = {
     enable = true;
-    package = pkgs.unstable.karakeep;
-    environmentFile = config.sops.templates."${name}.env".path;
-    browser.enable = true;
-    meilisearch.enable = true;
-    extraEnvironment = {
-      NEXTAUTH_URL = "https://${domainName}.${homelab.baseDomain}";
-      DOMAIN = homelab.baseDomain;
-      DISABLE_NEW_RELEASE_CHECK = "true";
-      PORT = toString port;
-    };
-  };
-  systemd.services.${name}.serviceConfig = {
-    User = lib.mkForce name;
-    Group = lib.mkForce group;
-    UMask = lib.mkForce homelab.defaultUMask;
+    # package = pkgs.unstable.nextcloud;
+    home = dataDir;
+    datadir = "/mnt/Data/nextcloud";
+    # environmentFile = config.sops.templates."${name}.env".path;
+    database.createLocally = true;
+    autoUpdateApps.enable = true;
+    appstoreEnable = true;
   };
 
   services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
