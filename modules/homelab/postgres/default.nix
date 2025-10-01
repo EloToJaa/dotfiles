@@ -8,7 +8,7 @@
   port = 5432;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.postgresql = {
     inherit dataDir;
     enable = true;
     package = pkgs.unstable.postgresql_16;

@@ -11,7 +11,7 @@
   dataDir = "${homelab.dataDir}${name}";
   logDir = "${homelab.logDir}${name}";
 in {
-  services.${name} = {
+  services.caddy = {
     inherit group dataDir logDir;
     enable = true;
     package = pkgs.unstable.caddy;
@@ -33,7 +33,7 @@ in {
       };
     };
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.caddy.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${homelab.dataDir}${name} 750 ${name} ${group} - -"
     "d ${homelab.logDir}${name} 750 ${name} ${group} - -"

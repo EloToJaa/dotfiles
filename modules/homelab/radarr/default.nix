@@ -12,13 +12,13 @@
   port = 7878;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.radarr = {
     enable = true;
     package = pkgs.unstable.radarr;
     user = name;
     inherit group dataDir;
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.radarr.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
   ];

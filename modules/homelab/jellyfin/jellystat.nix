@@ -10,7 +10,7 @@
   port = 3000;
   id = 377;
 in {
-  virtualisation.oci-containers.containers.${name} = {
+  virtualisation.oci-containers.containers.jellystat = {
     image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
     podman = {

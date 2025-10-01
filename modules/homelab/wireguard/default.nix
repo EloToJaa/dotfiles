@@ -7,7 +7,7 @@ in {
     ./service.nix
   ];
 
-  services."${name}-netns" = {
+  services."wireguard-netns" = {
     enable = true;
     configFile = config.sops.templates."wg0.conf".path;
     inherit privateIP dnsIP;

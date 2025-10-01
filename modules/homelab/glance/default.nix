@@ -10,7 +10,7 @@
   group = variables.homelab.groups.main;
   port = 8081;
 in {
-  services.${name} = {
+  services.glance = {
     enable = true;
     package = pkgs.unstable.glance;
     settings = {

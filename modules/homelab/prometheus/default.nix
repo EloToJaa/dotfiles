@@ -3,14 +3,14 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "prometheus";
   domainName = "prometheus";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   stateDir = "${homelab.varDataDir}${name}";
   port = 9090;
 in {
-  services.${name} = {
+  services.prometheus = {
     enable = true;
     package = pkgs.unstable.prometheus;
     inherit port stateDir;

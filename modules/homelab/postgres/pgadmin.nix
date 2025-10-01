@@ -9,14 +9,14 @@
   domainName = "pgadmin";
   port = 5050;
 in {
-  services.${name} = {
+  services.pgadmin = {
     inherit port;
     enable = true;
     package = pkgs.unstable.pgadmin4;
     initialEmail = variables.email;
     initialPasswordFile = config.sops.secrets."pgadmin/password".path;
   };
-  systemd.services.${name}.serviceConfig = {
+  systemd.services.pgadmin.serviceConfig = {
     EnvironmentFile = config.sops.templates."${name}.env".path;
   };
 

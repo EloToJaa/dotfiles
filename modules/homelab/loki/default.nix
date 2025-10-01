@@ -10,7 +10,7 @@
   dataDir = "${homelab.dataDir}${name}";
   port = 9090;
 in {
-  services.${name} = {
+  services.loki = {
     inherit dataDir group;
     enable = true;
     package = pkgs.unstable.grafana-loki;

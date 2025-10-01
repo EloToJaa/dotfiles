@@ -14,15 +14,15 @@
   dataDir = "${homelab.varDataDir}nixos-containers/${name}${homelab.varDataDir}";
   host = "192.168.100.11";
 in {
-  containers.${name} = {
+  containers.immich = {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "192.168.100.10";
     localAddress = host;
     hostAddress6 = "fc00::1";
     localAddress6 = "fc00::2";
-    config = {...}: {
-      services.${name} = {
+    config = {
+      services.immich = {
         inherit group host port;
         enable = true;
         package = pkgs.unstable.immich;

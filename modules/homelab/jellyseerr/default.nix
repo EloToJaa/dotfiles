@@ -5,20 +5,19 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "jellyseerr";
   domainName = "request";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 5055;
   configDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.jellyseerr = {
+    inherit port configDir;
     enable = true;
     package = pkgs.unstable.jellyseerr;
-    port = port;
-    configDir = configDir;
   };
-  systemd.services.${name} = {
+  systemd.services.jellyseerr = {
     environment = {
       LOG_LEVEL = "info";
       DB_TYPE = "postgres";

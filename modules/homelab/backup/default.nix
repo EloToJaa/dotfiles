@@ -12,7 +12,7 @@
   postgresBackupDir = "/var/backup/postgresql/";
   port = 9999;
 in {
-  services.${name} = {
+  services.restic = {
     server = {
       enable = true;
       package = pkgs.unstable.restic-rest-server;

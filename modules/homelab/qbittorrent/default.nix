@@ -21,7 +21,7 @@ in {
     ./service.nix
     ./vuetorrent.nix
   ];
-  services.${name} = {
+  services.qbittorrent = {
     enable = true;
     package = pkgs.unstable.qbittorrent-nox;
     user = name;
@@ -29,7 +29,7 @@ in {
   };
   systemd =
     {
-      services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+      services.qbittorrent.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
       tmpfiles.rules = [
         "d ${dataDir} 750 ${name} ${group} - -"
       ];
@@ -85,7 +85,7 @@ in {
   };
 
   users.users.${name} = {
+    inherit group;
     isSystemUser = true;
-    group = group;
   };
 }

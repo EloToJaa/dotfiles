@@ -13,13 +13,13 @@
   logDir = "${homelab.logDir}${name}";
 in {
   imports = [./jellystat.nix];
-  services.${name} = {
+  services.jellyfin = {
     enable = true;
     package = pkgs.unstable.jellyfin;
     user = name;
     inherit group dataDir logDir;
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
     "d ${logDir} 750 ${name} ${group} - -"

@@ -9,7 +9,7 @@
   domainName = "atuin";
   port = 8888;
 in {
-  services.${name} = {
+  services.atuin = {
     enable = true;
     package = pkgs.unstable.atuin;
     openRegistration = false;

@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
+  inherit (variables) homelab;
   name = "prowlarr";
   domainName = "prowlarr";
-  homelab = variables.homelab;
   group = variables.homelab.groups.main;
   port = 9696;
   dataDir = "${homelab.dataDir}${name}";
@@ -21,7 +21,7 @@ in {
     ./service.nix
   ];
 
-  services.${name} = {
+  services.prowlarr = {
     enable = true;
     package = pkgs.unstable.prowlarr;
     user = name;
@@ -29,7 +29,7 @@ in {
   };
 
   systemd = {
-    services.${name}.serviceConfig = {
+    services.prowlarr.serviceConfig = {
       UMask = lib.mkForce homelab.defaultUMask;
     };
     tmpfiles.rules = [

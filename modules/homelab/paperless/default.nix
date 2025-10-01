@@ -22,7 +22,7 @@ in {
     ./service.nix
   ];
 
-  services.${name} = {
+  services.paperless = {
     inherit port dataDir mediaDir consumptionDir domain;
     enable = true;
     package = pkgs.unstable.paperless-ngx;
@@ -48,7 +48,7 @@ in {
       };
     };
   };
-  systemd.services.${name}.serviceConfig = {
+  systemd.services.paperless.serviceConfig = {
     Group = lib.mkForce group;
     UMask = lib.mkForce homelab.defaultUMask;
   };

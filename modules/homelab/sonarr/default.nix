@@ -12,13 +12,13 @@
   port = 8989;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.sonarr = {
     enable = true;
     package = pkgs.unstable.sonarr;
     user = name;
     inherit group dataDir;
   };
-  systemd.services.${name}.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+  systemd.services.sonarr.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
   ];

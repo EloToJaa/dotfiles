@@ -12,7 +12,7 @@
   port = 5232;
   dataDir = "${homelab.dataDir}${name}";
 in {
-  services.${name} = {
+  services.radicale = {
     enable = true;
     package = pkgs.unstable.radicale;
     settings = {
@@ -25,7 +25,7 @@ in {
       };
     };
   };
-  systemd.services.${name}.serviceConfig = {
+  systemd.services.radicale.serviceConfig = {
     User = lib.mkForce name;
     Group = lib.mkForce group;
     UMask = lib.mkForce homelab.defaultUMask;

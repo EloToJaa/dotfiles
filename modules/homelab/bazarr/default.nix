@@ -11,7 +11,7 @@
   group = variables.homelab.groups.media;
   port = 6767;
 in {
-  services.${name} = {
+  services.bazarr = {
     inherit group;
     enable = true;
     package = pkgs.unstable.bazarr;

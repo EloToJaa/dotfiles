@@ -12,7 +12,7 @@
   dataDir = "${homelab.varDataDir}${name}";
   port = 8222;
 in {
-  services.${name} = {
+  services.vaultwarden = {
     enable = true;
     package = pkgs.unstable.vaultwarden;
     dbBackend = "postgresql";
@@ -24,7 +24,7 @@ in {
       WEBSOCKET_ENABLED = "true";
     };
   };
-  systemd.services.${name}.serviceConfig = {
+  systemd.services.vaultwarden.serviceConfig = {
     Group = lib.mkForce group;
     UMask = lib.mkForce homelab.defaultUMask;
   };
