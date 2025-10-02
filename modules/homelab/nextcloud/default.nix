@@ -53,7 +53,7 @@ in {
       dbhost = "127.0.0.1:5432";
       dbname = name;
       dbuser = name;
-      dbpassFile = config.sops.secrets."${name}/pgpassword";
+      dbpassFile = config.sops.secrets."${name}/pgpassword".path;
     };
     settings = {
       default_phone_region = "PL";
