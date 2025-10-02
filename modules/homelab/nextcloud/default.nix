@@ -14,9 +14,9 @@
   port = 3004;
   occ = "${config.services.nextcloud.occ}/bin/nextcloud-occ";
 in {
-  shb.nextcloud = {
+  services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud;
+    # package = pkgs.nextcloud;
 
     # Data
     home = dataDir;
