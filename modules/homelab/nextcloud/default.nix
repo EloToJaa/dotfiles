@@ -58,7 +58,7 @@ in {
     settings = {
       default_phone_region = "PL";
       overwrite.cli.url = "https://${domain}";
-      overwritehost = "${domain}:${port}";
+      overwritehost = "${domain}:${toString port}";
       trusted_domains = [domain];
       trusted_proxies = "127.0.0.1";
       overwriteprotocol = "https";
