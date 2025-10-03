@@ -19,6 +19,7 @@
         searchFiles = true;
       };
       theme = {
+        name = "catppuccin-mocha.json";
         iconTheme = "Papirus-Dark";
       };
       window = {
