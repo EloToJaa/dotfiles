@@ -24,7 +24,7 @@
       window = {
         csd = true;
         opacity = 1;
-        rounding = 0;
+        rounding = 10;
       };
     };
   };

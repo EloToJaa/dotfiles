@@ -1,4 +1,6 @@
-{variables, ...}: {
+{variables, ...}: let
+  inherit (variables) terminal;
+in {
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
@@ -138,15 +140,15 @@
 
       bind = [
         # keybindings
-        "$mainMod, Return, exec, ${variables.terminal}"
-        "ALT, Return, exec, [float; size 1111 700] ${variables.terminal}"
-        "$mainMod SHIFT, Return, exec, [fullscreen] ${variables.terminal}"
+        "$mainMod, Return, exec, ${terminal}"
+        "ALT, Return, exec, [float; size 1111 700] ${terminal}"
+        "$mainMod SHIFT, Return, exec, [fullscreen] ${terminal}"
         "$mainMod, b, exec, hyprctl dispatch exec '[workspace 1 silent] zen-beta'"
         "$mainMod, q, killactive,"
         "$mainMod, f, fullscreen, 0"
         "$mainMod SHIFT, f, fullscreen, 1"
         "$mainMod, Space, exec, toggle-float"
-        "$mainMod, s, exec, vicinae vicinae://toggle"
+        "$mainMod, s, exec, vicinae toggle"
         "$mainMod, d, exec, discord"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "$mainMod, g, exec, hyprlock"
