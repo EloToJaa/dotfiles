@@ -12,7 +12,7 @@
     ./jellyseerr
     ./karakeep
     # ./loki
-    ./nextcloud
+    # ./nextcloud
     ./paperless
     ./postgres
     # ./prometheus
