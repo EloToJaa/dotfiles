@@ -1,8 +1,4 @@
-{
-  variables,
-  config,
-  ...
-}: let
+{variables, ...}: let
   inherit (variables) homelab timezone;
   name = "cleanuparr";
   domainName = "cleanuparr";
