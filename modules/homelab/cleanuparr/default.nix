@@ -6,36 +6,35 @@
   inherit (variables) homelab timezone;
   name = "cleanuparr";
   domainName = "cleanuparr";
-  dataDir = "${homelab.varDataDir}${name}/${name}";
+  dataDir = "${homelab.varDataDir}${name}";
   port = 11011;
-  pid = 1000;
   id = 378;
 in {
   virtualisation.oci-containers.containers.cleanuparr = {
     image = "ghcr.io/cleanuparr/cleanuparr:latest";
     autoStart = true;
-    podman = {
-      user = name;
-      sdnotify = "conmon";
-    };
+    # podman = {
+    #   user = name;
+    #   sdnotify = "container";
+    # };
     serviceName = name;
     extraOptions = [
-      "--cgroup-manager=cgroupfs"
+      "--network=host"
     ];
     environment = {
       PORT = toString port;
-      PUID = toString pid;
-      PGID = toString pid;
+      PUID = toString id;
+      PGID = toString id;
       TZ = timezone;
       UMASK = homelab.defaultUMask;
     };
     volumes = [
       "${dataDir}:/config"
     ];
-    ports = ["127.0.0.1:${toString port}:${toString port}"];
+    # ports = ["127.0.0.1:${toString port}:${toString port}"];
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.varDataDir}${name} 770 ${name} ${name} - -"
+    "d ${dataDir} 770 ${name} ${name} - -"
   ];
 
   services.restic.backups.appdata-local.paths = [
@@ -53,9 +52,7 @@ in {
     uid = id;
     group = name;
     description = name;
-    home = "/var/lib/${name}";
-    autoSubUidGidRange = true;
-    # linger = true;
+    home = dataDir;
   };
   users.groups.${name}.gid = id;
 }

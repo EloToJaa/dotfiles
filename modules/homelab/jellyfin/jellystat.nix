@@ -6,20 +6,20 @@
   inherit (variables) homelab;
   name = "jellystat";
   domainName = "stats";
-  backupDir = "${homelab.varDataDir}${name}/${name}";
+  backupDir = "${homelab.varDataDir}${name}";
   port = 3000;
   id = 377;
 in {
   virtualisation.oci-containers.containers.jellystat = {
     image = "ghcr.io/cyfershepard/jellystat:unstable";
     autoStart = true;
-    podman = {
-      user = name;
-      sdnotify = "conmon";
-    };
+    # podman = {
+    #   user = name;
+    #   sdnotify = "container";
+    # };
     serviceName = name;
     extraOptions = [
-      "--cgroup-manager=cgroupfs"
+      # "--cgroup-manager=cgroupfs"
       "--network=host"
     ];
     environment = {
@@ -35,7 +35,7 @@ in {
     ];
   };
   systemd.tmpfiles.rules = [
-    "d ${homelab.varDataDir}${name} 770 ${name} ${name} - -"
+    "d ${backupDir} 770 ${name} ${name} - -"
   ];
 
   services.postgresql.ensureUsers = [
@@ -65,8 +65,7 @@ in {
     uid = id;
     group = name;
     description = name;
-    home = "/var/lib/${name}";
-    autoSubUidGidRange = true;
+    home = backupDir;
   };
   users.groups.${name}.gid = id;
 
