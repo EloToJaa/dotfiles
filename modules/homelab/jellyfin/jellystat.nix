@@ -34,6 +34,9 @@ in {
       "${backupDir}:/app/backend/backup-data"
     ];
   };
+  systemd.tmpfiles.rules = [
+    "d ${homelab.varDataDir}${name} 770 ${name} ${name} - -"
+  ];
 
   services.postgresql.ensureUsers = [
     {

@@ -34,6 +34,9 @@ in {
     ];
     ports = ["127.0.0.1:${toString port}:${toString port}"];
   };
+  systemd.tmpfiles.rules = [
+    "d ${homelab.varDataDir}${name} 770 ${name} ${name} - -"
+  ];
 
   services.restic.backups.appdata-local.paths = [
     dataDir
