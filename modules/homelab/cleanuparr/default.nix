@@ -29,7 +29,6 @@ in {
       TZ = timezone;
       UMASK = homelab.defaultUMask;
     };
-    environmentFiles = [config.sops.templates."${name}.env".path];
     volumes = [
       "${dataDir}:/config"
     ];
@@ -55,20 +54,4 @@ in {
     autoSubUidGidRange = true;
   };
   users.groups.${name}.gid = id;
-
-  sops.secrets = {
-    "${name}/pgpassword" = {
-      owner = name;
-    };
-    "${name}/jwtsecret" = {
-      owner = name;
-    };
-  };
-  sops.templates."${name}.env" = {
-    content = ''
-      POSTGRES_PASSWORD=${config.sops.placeholder."${name}/pgpassword"}
-      JWT_SECRET=${config.sops.placeholder."${name}/jwtsecret"}
-    '';
-    owner = name;
-  };
 }
