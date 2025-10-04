@@ -26,7 +26,6 @@ in {
     inherit port dataDir mediaDir consumptionDir domain;
     enable = true;
     package = pkgs.unstable.paperless-ngx;
-    # package = inputs.nixpkgs-paperless.legacyPackages.${pkgs.system}.paperless-ngx;
     user = name;
     environmentFile = config.sops.templates."${name}.env".path;
     settings = {
