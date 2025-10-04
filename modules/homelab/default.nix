@@ -5,6 +5,7 @@
     ./bazarr
     ./blocky
     ./caddy
+    ./cleanuparr
     ./glance
     # ./grafana
     ./immich
