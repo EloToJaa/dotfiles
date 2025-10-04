@@ -15,12 +15,12 @@
   consumptionDir = "/mnt/Documents/";
   domain = "${domainName}.${homelab.baseDomain}";
 in {
-  # disabledModules = [
-  #   "services/misc/paperless.nix"
-  # ];
-  # imports = [
-  #   ./service.nix
-  # ];
+  disabledModules = [
+    "services/misc/paperless.nix"
+  ];
+  imports = [
+    ./service.nix
+  ];
 
   services.paperless = {
     inherit port dataDir mediaDir consumptionDir domain;
