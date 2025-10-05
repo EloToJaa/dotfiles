@@ -23,7 +23,7 @@ in {
       cache-file = "${dataDir}/cache.db";
       attachment-cache-dir = "${dataDir}/attachments";
       base-url = "https://${domain}";
-      behind-proxy = "true";
+      behind-proxy = true;
     };
   };
   systemd.services.paperless = {
