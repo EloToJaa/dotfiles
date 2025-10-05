@@ -14,6 +14,7 @@
     ./karakeep
     # ./loki
     # ./nextcloud
+    ./ntfy
     ./paperless
     ./postgres
     # ./prometheus
