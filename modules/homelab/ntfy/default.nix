@@ -23,15 +23,19 @@ in {
       cache-file = "${dataDir}/cache.db";
       auth-file = "${dataDir}/auth.db";
       attachment-cache-dir = "${dataDir}/attachments";
-      base-url = domain;
+      base-url = "https://${domain}";
       auth-default-access = "deny-all";
       ntfy-behind-proxy = "true";
       ntfy-enable-login = "true";
     };
   };
   systemd.services.paperless.serviceConfig = {
+    Group = group;
     UMask = lib.mkForce homelab.defaultUMask;
     EnvironmentFile = config.sops.templates."${name}.env".path;
+    StateDirectory = lib.mkForce null;
+    DynamicUser = lib.mkForce false;
+    ProtectSystem = lib.mkForce "off";
   };
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
