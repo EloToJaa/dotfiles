@@ -18,7 +18,6 @@ in {
     enable = true;
     package = pkgs.unstable.ntfy-sh;
     user = name;
-    environmentFile = config.sops.templates."${name}.env".path;
     settings = {
       listen-http = "127.0.0.1:${toString port}";
       cache-file = "${dataDir}/cache.db";
@@ -32,6 +31,7 @@ in {
   };
   systemd.services.paperless.serviceConfig = {
     UMask = lib.mkForce homelab.defaultUMask;
+    EnvironmentFile = config.sops.templates."${name}.env".path;
   };
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
