@@ -14,7 +14,7 @@
   domain = "${domainName}.${homelab.baseDomain}";
 in {
   services.ntfy-sh = {
-    inherit group port dataDir;
+    inherit group port;
     enable = true;
     package = pkgs.unstable.ntfy-sh;
     user = name;
