@@ -21,21 +21,25 @@ in {
     settings = {
       listen-http = "127.0.0.1:${toString port}";
       cache-file = "${dataDir}/cache.db";
-      auth-file = "${dataDir}/auth.db";
       attachment-cache-dir = "${dataDir}/attachments";
       base-url = "https://${domain}";
-      auth-default-access = "deny-all";
-      ntfy-behind-proxy = "true";
-      ntfy-enable-login = "true";
+      behind-proxy = "true";
     };
   };
-  systemd.services.paperless.serviceConfig = {
-    Group = group;
-    UMask = lib.mkForce homelab.defaultUMask;
-    EnvironmentFile = config.sops.templates."${name}.env".path;
-    StateDirectory = lib.mkForce null;
-    DynamicUser = lib.mkForce false;
-    ProtectSystem = lib.mkForce "off";
+  systemd.services.paperless = {
+    environment = {
+      NTFY_AUTH_FILE = "${dataDir}/auth.db";
+      NTFY_ENABLE_LOGIN = "true";
+      NTFY_AUTH_DEFAULT_ACCESS = "deny-all";
+    };
+    serviceConfig = {
+      Group = group;
+      UMask = lib.mkForce homelab.defaultUMask;
+      EnvironmentFile = config.sops.templates."${name}.env".path;
+      StateDirectory = lib.mkForce null;
+      DynamicUser = lib.mkForce false;
+      ProtectSystem = lib.mkForce "off";
+    };
   };
   systemd.tmpfiles.rules = [
     "d ${dataDir} 750 ${name} ${group} - -"
