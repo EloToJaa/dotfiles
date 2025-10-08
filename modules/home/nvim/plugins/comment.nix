@@ -2,7 +2,7 @@
   programs.nixvim.plugins = {
     ts-context-commentstring = {
       enable = true;
-      languages.c = {
+      settings.languages.c = {
         __default = "// %s";
         __multiline = "/* %s */";
       };
