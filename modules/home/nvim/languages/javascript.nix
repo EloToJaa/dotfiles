@@ -32,14 +32,14 @@
         html = ["prettierd"];
         css = ["prettierd"];
       };
-      treesitter.settings.ensure_installed = [
-        "javascript"
-        "typescript"
-        "astro"
-        "svelte"
-        "tsx"
-        "html"
-        "css"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        javascript
+        typescript
+        astro
+        svelte
+        tsx
+        html
+        css
       ];
     };
   };

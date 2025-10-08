@@ -8,12 +8,12 @@
       enable = true;
     };
     plugins = {
-      treesitter.settings.ensure_installed = [
-        "markdown"
-      ];
       conform-nvim.settings.formatters_by_ft = {
         markdown = ["prettierd"];
       };
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        markdown
+      ];
     };
   };
 }

@@ -50,8 +50,8 @@
           };
         };
       };
-      treesitter.settings.ensure_installed = [
-        "python"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        python
       ];
     };
   };

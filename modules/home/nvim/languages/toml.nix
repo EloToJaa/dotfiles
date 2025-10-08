@@ -1,11 +1,11 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     lsp.servers.taplo = {
       enable = true;
     };
     plugins = {
-      treesitter.settings.ensure_installed = [
-        "toml"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        toml
       ];
     };
   };

@@ -1,11 +1,11 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     lsp.servers.lemminx = {
       enable = true;
     };
     plugins = {
-      treesitter.settings.ensure_installed = [
-        "xml"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        xml
       ];
     };
   };

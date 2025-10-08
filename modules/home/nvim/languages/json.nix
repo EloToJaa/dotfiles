@@ -8,12 +8,12 @@
       enable = true;
     };
     plugins = {
-      treesitter.settings.ensure_installed = [
-        "json"
-      ];
       conform-nvim.settings.formatters_by_ft = {
         json = ["prettierd"];
       };
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        json
+      ];
     };
   };
 }

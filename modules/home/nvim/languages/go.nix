@@ -16,8 +16,8 @@
       conform-nvim.settings.formatters_by_ft = {
         go = ["gofumpt"];
       };
-      treesitter.settings.ensure_installed = [
-        "go"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        go
       ];
     };
   };

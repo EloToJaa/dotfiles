@@ -24,8 +24,8 @@
       conform-nvim.settings.formatters_by_ft = {
         rust = ["rustfmt"];
       };
-      treesitter.settings.ensure_installed = [
-        "rust"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        rust
       ];
     };
   };

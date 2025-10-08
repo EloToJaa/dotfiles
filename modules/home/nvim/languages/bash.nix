@@ -20,8 +20,8 @@
         bash = ["shfmt"];
         zsh = ["shfmt"];
       };
-      treesitter.settings.ensure_installed = [
-        "bash"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        bash
       ];
     };
   };

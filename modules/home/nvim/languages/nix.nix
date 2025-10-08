@@ -34,8 +34,8 @@ in {
       conform-nvim.settings.formatters_by_ft = {
         nix = ["alejandra"];
       };
-      treesitter.settings.ensure_installed = [
-        "nix"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        nix
       ];
     };
   };

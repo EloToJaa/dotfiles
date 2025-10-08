@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs.unstable; [
     clang-tools
-    gcc
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -19,9 +18,9 @@
         c = ["clang-format"];
         cpp = ["clang-format"];
       };
-      treesitter.settings.ensure_installed = [
-        "c"
-        "cpp"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        c
+        cpp
       ];
     };
   };

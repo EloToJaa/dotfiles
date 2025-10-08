@@ -1,11 +1,11 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     lsp.servers.zls = {
       enable = true;
     };
     plugins = {
-      treesitter.settings.ensure_installed = [
-        "zig"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        zig
       ];
     };
   };

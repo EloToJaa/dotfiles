@@ -16,8 +16,8 @@
       conform-nvim.settings.formatters_by_ft = {
         lua = ["stylua"];
       };
-      treesitter.settings.ensure_installed = [
-        "lua"
+      treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        lua
       ];
     };
   };
