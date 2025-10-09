@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nur.url = "github:nix-community/NUR";
     paperless-nixpkgs.url = "github:nixos/nixpkgs/5a983011e0f4b3b286aaa73e011ce32b1449a528";
