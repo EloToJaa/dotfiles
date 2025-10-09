@@ -859,6 +859,22 @@
         "type": "github"
       }
     },
+    "paperless-nixpkgs": {
+      "locked": {
+        "lastModified": 1754956457,
+        "narHash": "sha256-T2+GFBeim9Nd1D1sTytRpgo8E2RwlTwHmQUmewBceo4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5a983011e0f4b3b286aaa73e011ce32b1449a528",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5a983011e0f4b3b286aaa73e011ce32b1449a528",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -969,6 +985,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "nur": "nur",
+        "paperless-nixpkgs": "paperless-nixpkgs",
         "pwndbg": "pwndbg",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
