@@ -66,7 +66,7 @@ in {
         <Port>${toString port}</Port>
         <SslPort>9898</SslPort>
         <UrlBase></UrlBase>
-        <BindAddress>*</BindAddress>
+        <BindAddress>127.0.0.1</BindAddress>
         <ApiKey>${config.sops.placeholder."${name}/apikey"}</ApiKey>
         <AuthenticationMethod>Forms</AuthenticationMethod>
         <LaunchBrowser>True</LaunchBrowser>
