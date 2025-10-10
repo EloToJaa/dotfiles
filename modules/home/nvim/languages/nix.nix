@@ -18,7 +18,7 @@ in {
   programs.nixvim = {
     lsp.servers.nixd = {
       enable = true;
-      settings = {
+      config = {
         formatting.command = "alejandra";
         nixpkgs.expr = ''import (builtins.getFlake "${flakePath}").inputs.nixpkgs { }'';
         options = {

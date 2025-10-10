@@ -11,7 +11,7 @@
     lsp.servers.pyright = {
       enable = true;
 
-      settings = {
+      config = {
         pyright.disableOrganizeImports = true;
         python.analysis.ignore = {
           __unkeyed-1 = "*";

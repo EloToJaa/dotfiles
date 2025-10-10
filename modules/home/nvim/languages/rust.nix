@@ -7,7 +7,7 @@
     lsp.servers.rust_analyzer = {
       enable = true;
 
-      settings = {
+      config = {
         imports = {
           granularity.group = "module";
           prefix = "crate";

@@ -6,7 +6,7 @@
   programs.nixvim = {
     lsp.servers.bashls = {
       enable = true;
-      settings = {
+      config = {
         cmd = [
           "bash-language-server"
           "start"

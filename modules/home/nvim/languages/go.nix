@@ -6,7 +6,7 @@
   programs.nixvim = {
     lsp.servers.gopls = {
       enable = true;
-      settings = {
+      config = {
         analyses.unusedparams = true;
         staticcheck = true;
         gofumpt = true;
