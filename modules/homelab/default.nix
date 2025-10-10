@@ -23,6 +23,7 @@
     ./radarr
     ./radicale
     ./redis
+    ./rustdesk
     ./sonarr
     ./uptime
     ./vaultwarden
