@@ -9,7 +9,6 @@
     ## GUI Apps
     unstable.chromium
     unstable.gimp
-    # imv # image viewer
     unstable.libreoffice
     unstable.mpv # video player
     unstable.obs-studio
@@ -21,7 +20,6 @@
     unstable.zenity
     unstable.remmina
     unstable.rnote
-    # jetbrains.idea-community
     unstable.qbittorrent
     unstable.vaults
     unstable.thunderbird
