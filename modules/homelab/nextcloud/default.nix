@@ -25,7 +25,7 @@ in {
 
     # Apps
     autoUpdateApps.enable = false;
-    appstoreEnable = true;
+    appstoreEnable = false;
     extraAppsEnable = true;
     extraApps = {
       inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
