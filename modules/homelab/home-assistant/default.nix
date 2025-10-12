@@ -28,6 +28,17 @@ in {
         trusted_proxies = ["127.0.0.1"];
       };
     };
+    extraComponents = [
+      # Components required to complete the onboarding
+      "analytics"
+      "google_translate"
+      "met"
+      "radio_browser"
+      "shopping_list"
+      # Recommended for fast zlib compression
+      # https://www.home-assistant.io/integrations/isal
+      "isal"
+    ];
   };
   services.restic.backups.appdata-local.paths = [
     dataDir
