@@ -8,12 +8,13 @@
     ./cleanuparr
     ./glance
     # ./grafana
+    ./home-assistant
     ./immich
     ./jellyfin
     ./jellyseerr
     ./karakeep
     # ./loki
-    ./nextcloud
+    # ./nextcloud
     ./ntfy
     ./paperless
     ./postgres
