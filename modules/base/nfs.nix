@@ -19,6 +19,11 @@ in {
     fsType = "nfs";
     options = defaultOptions;
   };
+  fileSystems."/mnt/Cloud" = {
+    device = "${nfs}:/mnt/Main/Cloud";
+    fsType = "nfs";
+    options = defaultOptions;
+  };
   fileSystems."/mnt/Backups" = {
     device = "${nfs}:/mnt/Main/Backups";
     fsType = "nfs";

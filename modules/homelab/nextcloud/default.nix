@@ -20,7 +20,7 @@ in {
 
     # Data
     home = dataDir;
-    datadir = "/mnt/Data/nextcloud";
+    datadir = "/mnt/Cloud";
     database.createLocally = false;
 
     # Apps

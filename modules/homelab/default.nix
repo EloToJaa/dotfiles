@@ -13,7 +13,7 @@
     ./jellyseerr
     ./karakeep
     # ./loki
-    # ./nextcloud
+    ./nextcloud
     ./ntfy
     ./paperless
     ./postgres
