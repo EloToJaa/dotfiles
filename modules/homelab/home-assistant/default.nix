@@ -6,7 +6,7 @@
   inherit (variables) homelab;
   name = "hass";
   port = 8123;
-  dataDir = "${homelab.dataDir}${name}";
+  dataDir = "${homelab.varDataDir}${name}";
 in {
   services.home-assistant = {
     enable = true;
@@ -14,6 +14,7 @@ in {
       doInstallCheck = false;
     });
     configDir = dataDir;
+    configWritable = true;
     config = {
       homeassistant = {
         name = "Home";
@@ -38,6 +39,9 @@ in {
       # Recommended for fast zlib compression
       # https://www.home-assistant.io/integrations/isal
       "isal"
+
+      "roomba"
+      "xiaomi_miio"
     ];
   };
   services.restic.backups.appdata-local.paths = [
