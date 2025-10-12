@@ -5,7 +5,6 @@
 }: let
   inherit (variables) homelab;
   name = "hass";
-  domainName = "home";
   port = 8123;
   dataDir = "${homelab.dataDir}${name}";
 in {
@@ -32,7 +31,7 @@ in {
     dataDir
   ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
+  services.caddy.virtualHosts."${name}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${toString port}
