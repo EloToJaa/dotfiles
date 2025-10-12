@@ -117,6 +117,7 @@
         defaultUMask = "027";
         groups = {
           main = "homelab";
+          cloud = "cloud";
           media = "media";
           photos = "photos";
           docs = "documents";

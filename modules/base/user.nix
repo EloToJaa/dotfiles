@@ -27,31 +27,33 @@ in {
     isNormalUser = true;
     description = variables.username;
     group = variables.username;
-    extraGroups = [
+    extraGroups = with homelab.groups; [
       "wheel"
       "kvm"
-      homelab.groups.main
-      homelab.groups.media
-      homelab.groups.photos
-      homelab.groups.docs
-      homelab.groups.database
-      homelab.groups.backups
+      main
+      cloud
+      media
+      photos
+      docs
+      database
+      backups
     ];
     shell = pkgs.unstable.zsh;
   };
 
   nix.settings.allowed-users = [variables.username];
 
-  users.groups = {
+  users.groups = with homelab.groups; {
     ${variables.username} = {
       gid = 1000;
       members = [variables.username];
     };
-    ${homelab.groups.main}.gid = 1100;
-    ${homelab.groups.media}.gid = 1101;
-    ${homelab.groups.photos}.gid = 1102;
-    ${homelab.groups.docs}.gid = 1103;
-    ${homelab.groups.database}.gid = 1104;
-    ${homelab.groups.backups}.gid = 1105;
+    ${main}.gid = 1100;
+    ${media}.gid = 1101;
+    ${photos}.gid = 1102;
+    ${docs}.gid = 1103;
+    ${database}.gid = 1104;
+    ${backups}.gid = 1105;
+    ${cloud}.gid = 1106;
   };
 }

@@ -8,7 +8,7 @@
   inherit (variables) homelab;
   name = "nextcloud";
   domainName = "cloud";
-  group = variables.homelab.groups.docs;
+  group = variables.homelab.groups.cloud;
   dataDir = "${homelab.varDataDir}${name}";
   domain = "${domainName}.${homelab.baseDomain}";
   port = 3004;
