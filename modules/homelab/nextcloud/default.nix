@@ -8,7 +8,6 @@
   inherit (variables) homelab;
   name = "nextcloud";
   domainName = "cloud";
-  group = variables.homelab.groups.cloud;
   dataDir = "${homelab.varDataDir}${name}";
   domain = "${domainName}.${homelab.baseDomain}";
   port = 3004;
@@ -25,8 +24,8 @@ in {
 
     # Apps
     autoUpdateApps.enable = false;
-    appstoreEnable = false;
-    extraAppsEnable = true;
+    # appstoreEnable = false;
+    extraAppsEnable = false;
     extraApps = {
       inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
     };
@@ -113,11 +112,6 @@ in {
   services.restic.backups.appdata-local.paths = [
     dataDir
   ];
-
-  users.users.${name} = {
-    isSystemUser = true;
-    group = lib.mkForce group;
-  };
 
   sops.secrets = {
     "${name}/adminpassword" = {
