@@ -16,15 +16,16 @@ in {
   services.nextcloud = {
     enable = true;
     # package = pkgs.nextcloud;
+    package = pkgs.unstable.nextcloud32;
 
     # Data
     home = dataDir;
-    datadir = "/mnt/Cloud";
+    # datadir = "/mnt/Cloud";
     database.createLocally = false;
 
     # Apps
     autoUpdateApps.enable = false;
-    # appstoreEnable = false;
+    appstoreEnable = false;
     extraAppsEnable = false;
     extraApps = {
       inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
@@ -38,10 +39,10 @@ in {
     caching.apcu = false;
 
     # HTTP
-    https = false;
-    hostName = domain;
-    nginx.hstsMaxAge = 31536000;
-    webfinger = true;
+    https = true;
+    maxUploadSize = "16G";
+    hostName = "nix-nextcloud";
+    # webfinger = true;
 
     # Settings
     enableImagemagick = true;
@@ -56,14 +57,11 @@ in {
     };
     settings = {
       default_phone_region = "PL";
-      overwrite.cli.url = "https://${domain}";
-      overwritehost = "${domain}:${toString port}";
       trusted_domains = [domain];
       trusted_proxies = ["127.0.0.1"];
       overwriteprotocol = "https";
       overwritecondaddr = "";
       dbpersistent = "true";
-      chunkSize = "5120MB";
     };
     phpOptions = {
       # The OPcache interned strings buffer is nearly full with 8, bump to 16.
@@ -95,6 +93,14 @@ in {
   systemd.services.nextcloud-setup.script = ''
     mkdir -p ${dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
   '';
+
+  # services.nginx.enable = lib.mkForce false;
+  services.nginx.virtualHosts."nix-nextcloud".listen = [
+    {
+      addr = "127.0.0.1";
+      port = port;
+    }
+  ];
 
   services.caddy.virtualHosts.${domain} = {
     useACMEHost = homelab.baseDomain;
