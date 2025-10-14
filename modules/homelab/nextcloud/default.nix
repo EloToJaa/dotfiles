@@ -43,6 +43,8 @@ in {
     maxUploadSize = "16G";
     hostName = "nix-nextcloud";
     # webfinger = true;
+    # nginx.hstsMaxAge = 31536000;
+    # webfinger = true;
 
     # Settings
     enableImagemagick = true;
@@ -63,6 +65,10 @@ in {
       overwritecondaddr = "";
       overwriteport = 443;
       dbpersistent = "true";
+      chunkSize = "5120MB";
+      maintenance_window_start = 4; # Run jobs at 4am UTC
+      log_type = "file";
+      loglevel = 1;
     };
     phpOptions = {
       # The OPcache interned strings buffer is nearly full with 8, bump to 16.
@@ -95,13 +101,19 @@ in {
     mkdir -p ${dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
   '';
 
-  # services.nginx.enable = lib.mkForce false;
   services.nginx.virtualHosts."nix-nextcloud".listen = [
     {
       addr = "127.0.0.1";
       port = port;
     }
   ];
+
+  services.nginx.enable = false;
+  services.phpfpm.pools.nextcloud.settings = {
+    "listen.owner" = config.services.caddy.user;
+    "listen.group" = config.services.caddy.group;
+  };
+  users.users.caddy.extraGroups = ["nextcloud"];
 
   services.caddy.virtualHosts.${domain} = {
     useACMEHost = homelab.baseDomain;
