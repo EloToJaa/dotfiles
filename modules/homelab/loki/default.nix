@@ -1,33 +1,55 @@
 {
-  variables,
   pkgs,
+  config,
+  lib,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "loki";
-  domainName = "loki";
-  group = variables.homelab.groups.main;
-  dataDir = "${homelab.dataDir}${name}";
-  port = 9090;
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.loki;
 in {
-  services.loki = {
-    inherit dataDir group;
-    enable = true;
-    package = pkgs.unstable.grafana-loki;
-    user = name;
+  options.modules.homelab.loki = {
+    enable = lib.mkEnableOption "Loki module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "loki";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "loki";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 9090;
+    };
   };
-  systemd.tmpfiles.rules = [
-    "d ${dataDir} 750 ${name} ${group} - -"
-  ];
+  config = lib.mkIf cfg.enable {
+    services.loki = {
+      inherit (cfg) dataDir group;
+      enable = true;
+      package = pkgs.unstable.grafana-loki;
+      user = cfg.name;
+    };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
+
+    services.restic.backups.appdata-local.paths = [
+      cfg.dataDir
+    ];
   };
-
-  services.restic.backups.appdata-local.paths = [
-    dataDir
-  ];
 }

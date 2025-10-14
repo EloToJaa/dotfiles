@@ -1,35 +1,57 @@
 {
-  variables,
   pkgs,
+  config,
+  lib,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "grafana";
-  domainName = "grafana";
-  group = variables.homelab.groups.main;
-  dataDir = "${homelab.dataDir}${name}";
-  port = 3002;
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.grafana;
 in {
-  services.grafana = {
-    inherit dataDir;
-    enable = true;
-    package = pkgs.unstable.grafana;
-    settings.server = {
-      http_port = port;
+  options.modules.homelab.grafana = {
+    enable = lib.mkEnableOption "Grafana module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "grafana";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "grafana";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 3002;
     };
   };
-  systemd.tmpfiles.rules = [
-    "d ${dataDir} 750 ${name} ${group} - -"
-  ];
+  config = lib.mkIf cfg.enable {
+    services.grafana = {
+      inherit (cfg) dataDir;
+      enable = true;
+      package = pkgs.unstable.grafana;
+      settings.server = {
+        http_port = cfg.port;
+      };
+    };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
+
+    services.restic.backups.appdata-local.paths = [
+      cfg.dataDir
+    ];
   };
-
-  services.restic.backups.appdata-local.paths = [
-    dataDir
-  ];
 }

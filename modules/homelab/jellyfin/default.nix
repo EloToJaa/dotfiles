@@ -1,43 +1,66 @@
 {
-  variables,
   lib,
+  config,
   pkgs,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "jellyfin";
-  domainName = "watch";
-  group = variables.homelab.groups.media;
-  port = 8096;
-  dataDir = "${homelab.dataDir}${name}";
-  logDir = "${homelab.logDir}${name}";
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.jellyfin;
 in {
-  imports = [./jellystat.nix];
-  services.jellyfin = {
-    enable = true;
-    package = pkgs.unstable.jellyfin;
-    user = name;
-    inherit group dataDir logDir;
+  options.modules.homelab.jellyfin = {
+    enable = lib.mkEnableOption "Jellyfin module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "jellyfin";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "watch";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.media;
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 8096;
+    };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
+    };
+    logDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.logDir}${cfg.name}";
+    };
   };
-  systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
-  systemd.tmpfiles.rules = [
-    "d ${dataDir} 750 ${name} ${group} - -"
-    "d ${logDir} 750 ${name} ${group} - -"
-  ];
-  services.restic.backups.appdata-local.paths = [
-    dataDir
-  ];
+  config = lib.mkIf cfg.enable {
+    services.jellyfin = {
+      enable = true;
+      package = pkgs.unstable.jellyfin;
+      user = cfg.name;
+      inherit (cfg) group dataDir logDir;
+    };
+    systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+      "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
+    services.restic.backups.appdata-local.paths = [
+      cfg.dataDir
+    ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
-  };
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
 
-  users.users.${name} = {
-    isSystemUser = true;
-    description = name;
-    inherit group;
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      description = cfg.name;
+      inherit (cfg) group;
+    };
   };
 }

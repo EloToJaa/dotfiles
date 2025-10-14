@@ -1,85 +1,105 @@
 {
-  variables,
   lib,
   config,
   pkgs,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "jellyseerr";
-  domainName = "request";
-  group = variables.homelab.groups.main;
-  port = 5055;
-  configDir = "${homelab.dataDir}${name}";
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.jellyseerr;
 in {
-  services.jellyseerr = {
-    inherit port configDir;
-    enable = true;
-    package = pkgs.unstable.jellyseerr;
-  };
-  systemd.services.jellyseerr = {
-    environment = {
-      LOG_LEVEL = "info";
-      DB_TYPE = "postgres";
-      DB_HOST = "127.0.0.1";
-      DB_PORT = "5432";
-      DB_USER = name;
-      DB_NAME = name;
-      DB_USE_SSL = "false";
-      DB_LOG_QUERIES = "false";
+  options.modules.homelab.jellyseerr = {
+    enable = lib.mkEnableOption "Jellyseerr module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "jellyseerr";
     };
-    serviceConfig = {
-      User = name;
-      Group = group;
-      EnvironmentFile = config.sops.templates."${name}.env".path;
-      StateDirectory = lib.mkForce null;
-      DynamicUser = lib.mkForce false;
-      ProtectSystem = lib.mkForce "off";
-      UMask = lib.mkForce homelab.defaultUMask;
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "request";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 5055;
+    };
+    configDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
     };
   };
-  systemd.tmpfiles.rules = [
-    "d ${configDir} 750 ${name} ${group} - -"
-  ];
-
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
-  };
-
-  services.postgresql.ensureUsers = [
-    {
-      inherit name;
-      ensureDBOwnership = false;
-    }
-  ];
-  services.postgresql.ensureDatabases = [
-    name
-  ];
-  services.postgresqlBackup.databases = [
-    name
-  ];
-  services.restic.backups.appdata-local.paths = [
-    configDir
-  ];
-
-  users.users.${name} = {
-    isSystemUser = true;
-    description = name;
-    inherit group;
-  };
-
-  sops.secrets = {
-    "${name}/pgpassword" = {
-      owner = name;
+  config = lib.mkIf cfg.enable {
+    services.jellyseerr = {
+      inherit (cfg) port configDir;
+      enable = true;
+      package = pkgs.unstable.jellyseerr;
     };
-  };
-  sops.templates."${name}.env" = {
-    content = ''
-      DB_PASS=${config.sops.placeholder."${name}/pgpassword"}
-    '';
-    owner = name;
+    systemd.services.jellyseerr = {
+      environment = {
+        LOG_LEVEL = "info";
+        DB_TYPE = "postgres";
+        DB_HOST = "127.0.0.1";
+        DB_PORT = "5432";
+        DB_USER = cfg.name;
+        DB_NAME = cfg.name;
+        DB_USE_SSL = "false";
+        DB_LOG_QUERIES = "false";
+      };
+      serviceConfig = {
+        User = cfg.name;
+        Group = cfg.group;
+        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+        StateDirectory = lib.mkForce null;
+        DynamicUser = lib.mkForce false;
+        ProtectSystem = lib.mkForce "off";
+        UMask = lib.mkForce homelab.defaultUMask;
+      };
+    };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.configDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
+
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
+
+    services.postgresql.ensureUsers = [
+      {
+        inherit (cfg) name;
+        ensureDBOwnership = false;
+      }
+    ];
+    services.postgresql.ensureDatabases = [
+      cfg.name
+    ];
+    services.postgresqlBackup.databases = [
+      cfg.name
+    ];
+    services.restic.backups.appdata-local.paths = [
+      cfg.configDir
+    ];
+
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      description = cfg.name;
+      inherit (cfg) group;
+    };
+
+    sops.secrets = {
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
+    };
+    sops.templates."${cfg.name}.env" = {
+      content = ''
+        DB_PASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
+      '';
+      owner = cfg.name;
+    };
   };
 }

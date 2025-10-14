@@ -77,6 +77,7 @@ in {
       ./immich
       ./jellyfin
       ./jellyseerr
+      ./jellystat
       ./karakeep
       # ./loki
       ./nextcloud

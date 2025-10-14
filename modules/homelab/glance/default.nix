@@ -1,47 +1,65 @@
 {
-  variables,
   lib,
   pkgs,
+  config,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "glance";
-  domainName = "home";
-  group = variables.homelab.groups.main;
-  port = 8081;
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.glance;
 in {
-  services.glance = {
-    enable = true;
-    package = pkgs.unstable.glance;
-    settings = {
-      server.port = port;
-      pages = [
-        {
-          name = "Home";
-          columns = [
-            {
-              size = "full";
-              widgets = [{type = "calendar";}];
-            }
-            {
-              size = "full";
-              widgets = [{type = "rss";}];
-            }
-          ];
-        }
-      ];
+  options.modules.homelab.glance = {
+    enable = lib.mkEnableOption "Glance module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "glance";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "home";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 8081;
     };
   };
+  config = lib.mkIf cfg.enable {
+    services.glance = {
+      enable = true;
+      package = pkgs.unstable.glance;
+      settings = {
+        server.port = cfg.port;
+        pages = [
+          {
+            name = "Home";
+            columns = [
+              {
+                size = "full";
+                widgets = [{type = "calendar";}];
+              }
+              {
+                size = "full";
+                widgets = [{type = "rss";}];
+              }
+            ];
+          }
+        ];
+      };
+    };
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
-  };
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
 
-  users.users.${name} = {
-    isSystemUser = true;
-    group = lib.mkForce group;
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      group = lib.mkForce cfg.group;
+    };
   };
 }
