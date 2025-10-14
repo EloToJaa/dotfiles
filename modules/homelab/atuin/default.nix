@@ -1,14 +1,27 @@
 {
-  variables,
   pkgs,
   config,
+  lib,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "atuin";
-  domainName = "atuin";
-  port = 8888;
+  inherit (config.modules.homelab) homelab;
+  cfg = config.modules.homelab.atuin;
 in {
+  options.modules.homelab.atuin = {
+    enable = lib.mkEnableOption "Atuin module";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "atuin";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "atuin";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 8888;
+    };
+  };
   services.atuin = {
     enable = true;
     package = pkgs.unstable.atuin;
@@ -18,34 +31,34 @@ in {
       createLocally = false;
     };
   };
-  systemd.services.${name}.serviceConfig = {
-    EnvironmentFile = config.sops.templates."${name}.env".path;
+  systemd.services.${cfg.name}.serviceConfig = {
+    EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
   };
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
+  services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
     useACMEHost = homelab.baseDomain;
     extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
+      reverse_proxy http://127.0.0.1:${toString cfg.port}
     '';
   };
 
   services.postgresql.ensureUsers = [
     {
-      inherit name;
+      inherit (cfg) name;
       ensureDBOwnership = false;
     }
   ];
   services.postgresql.ensureDatabases = [
-    name
+    cfg.name
   ];
   services.postgresqlBackup.databases = [
-    name
+    cfg.name
   ];
 
   sops.secrets = {
-    "${name}/pgpassword" = {};
+    "${cfg.name}/pgpassword" = {};
   };
-  sops.templates."${name}.env".content = ''
-    ATUIN_DB_URI=postgresql://${name}:${config.sops.placeholder."${name}/pgpassword"}@127.0.0.1:5432/${name}
+  sops.templates."${cfg.name}.env".content = ''
+    ATUIN_DB_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:5432/${cfg.name}
   '';
 }
