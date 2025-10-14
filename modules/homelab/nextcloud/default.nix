@@ -39,7 +39,7 @@ in {
     caching.apcu = false;
 
     # HTTP
-    https = true;
+    https = false;
     maxUploadSize = "16G";
     hostName = "nix-nextcloud";
     # webfinger = true;
@@ -61,6 +61,7 @@ in {
       trusted_proxies = ["127.0.0.1"];
       overwriteprotocol = "https";
       overwritecondaddr = "";
+      overwriteport = 443;
       dbpersistent = "true";
     };
     phpOptions = {
