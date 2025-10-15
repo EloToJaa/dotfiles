@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.jellystat;
 in {
   options.modules.homelab.jellystat = {
-    enable = lib.mkEnableOption "Jellystat module";
+    enable = lib.mkEnableOption "Enable jellystat";
     name = lib.mkOption {
       type = lib.types.str;
       default = "jellystat";

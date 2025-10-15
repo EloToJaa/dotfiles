@@ -9,7 +9,7 @@
   cfg = config.modules.homelab.backup;
 in {
   options.modules.homelab.backup = {
-    enable = lib.mkEnableOption "Backup module";
+    enable = lib.mkEnableOption "Enable backup";
     name = lib.mkOption {
       type = lib.types.str;
       default = "restic";

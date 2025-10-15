@@ -9,7 +9,7 @@
   domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
   options.modules.homelab.paperless = {
-    enable = lib.mkEnableOption "Paperless module";
+    enable = lib.mkEnableOption "Enable paperless";
     name = lib.mkOption {
       type = lib.types.str;
       default = "paperless";

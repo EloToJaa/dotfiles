@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.glance;
 in {
   options.modules.homelab.glance = {
-    enable = lib.mkEnableOption "Glance module";
+    enable = lib.mkEnableOption "Enable glance";
     name = lib.mkOption {
       type = lib.types.str;
       default = "glance";

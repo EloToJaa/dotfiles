@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.jellyfin;
 in {
   options.modules.homelab.jellyfin = {
-    enable = lib.mkEnableOption "Jellyfin module";
+    enable = lib.mkEnableOption "Enable jellyfin";
     name = lib.mkOption {
       type = lib.types.str;
       default = "jellyfin";

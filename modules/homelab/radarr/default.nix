@@ -1,89 +1,109 @@
 {
-  variables,
   lib,
   config,
   pkgs,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "radarr";
-  domainName = "radarr";
-  group = variables.homelab.groups.media;
-  port = 7878;
-  dataDir = "${homelab.dataDir}${name}";
+  inherit (config.modules) homelab;
+  cfg = config.modules.homelab.radarr;
 in {
-  services.radarr = {
-    enable = true;
-    package = pkgs.unstable.radarr;
-    user = name;
-    inherit group dataDir;
-  };
-  systemd.services.radarr.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
-  systemd.tmpfiles.rules = [
-    "d ${dataDir} 750 ${name} ${group} - -"
-  ];
-
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
-  };
-
-  services.postgresql.ensureUsers = [
-    {
-      inherit name;
-      ensureDBOwnership = false;
-    }
-  ];
-  services.postgresql.ensureDatabases = [
-    "${name}-main"
-    "${name}-log"
-  ];
-  services.postgresqlBackup.databases = [
-    "${name}-main"
-  ];
-
-  users.users.${name} = {
-    isSystemUser = true;
-    description = name;
-    inherit group;
-  };
-
-  sops.secrets = {
-    "${name}/apikey" = {
-      owner = name;
+  options.modules.homelab.radarr = {
+    enable = lib.mkEnableOption "Enable radarr";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "radarr";
     };
-    "${name}/pgpassword" = {
-      owner = name;
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "radarr";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.media;
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 7878;
+    };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
     };
   };
-  sops.templates."config-${name}.xml" = {
-    content = ''
-      <Config>
-        <LogLevel>info</LogLevel>
-        <EnableSsl>False</EnableSsl>
-        <Port>${toString port}</Port>
-        <SslPort>8787</SslPort>
-        <UrlBase></UrlBase>
-        <BindAddress>127.0.0.1</BindAddress>
-        <ApiKey>${config.sops.placeholder."${name}/apikey"}</ApiKey>
-        <AuthenticationMethod>Forms</AuthenticationMethod>
-        <LaunchBrowser>True</LaunchBrowser>
-        <Branch>master</Branch>
-        <InstanceName>Radarr</InstanceName>
-        <AuthenticationRequired>Enabled</AuthenticationRequired>
-        <SslCertPath></SslCertPath>
-        <SslCertPassword></SslCertPassword>
-        <PostgresUser>${name}</PostgresUser>
-        <PostgresPassword>${config.sops.placeholder."${name}/pgpassword"}</PostgresPassword>
-        <PostgresPort>5432</PostgresPort>
-        <PostgresHost>127.0.0.1</PostgresHost>
-        <AnalyticsEnabled>False</AnalyticsEnabled>
-        <Theme>auto</Theme>
-      </Config>
-    '';
-    path = "${dataDir}/config.xml";
-    owner = name;
+  config = lib.mkIf cfg.enable {
+    services.radarr = {
+      enable = true;
+      package = pkgs.unstable.radarr;
+      user = cfg.name;
+      inherit (cfg) group dataDir;
+    };
+    systemd.services.radarr.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
+
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
+
+    services.postgresql.ensureUsers = [
+      {
+        inherit (cfg) name;
+        ensureDBOwnership = false;
+      }
+    ];
+    services.postgresql.ensureDatabases = [
+      "${cfg.name}-main"
+      "${cfg.name}-log"
+    ];
+    services.postgresqlBackup.databases = [
+      "${cfg.name}-main"
+    ];
+
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      description = cfg.name;
+      inherit (cfg) group;
+    };
+
+    sops.secrets = {
+      "${cfg.name}/apikey" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
+    };
+    sops.templates."config-${cfg.name}.xml" = {
+      content = ''
+        <Config>
+          <LogLevel>info</LogLevel>
+          <EnableSsl>False</EnableSsl>
+          <Port>${toString cfg.port}</Port>
+          <SslPort>8787</SslPort>
+          <UrlBase></UrlBase>
+          <BindAddress>127.0.0.1</BindAddress>
+          <ApiKey>${config.sops.placeholder."${cfg.name}/apikey"}</ApiKey>
+          <AuthenticationMethod>Forms</AuthenticationMethod>
+          <LaunchBrowser>True</LaunchBrowser>
+          <Branch>master</Branch>
+          <InstanceName>Radarr</InstanceName>
+          <AuthenticationRequired>Enabled</AuthenticationRequired>
+          <SslCertPath></SslCertPath>
+          <SslCertPassword></SslCertPassword>
+          <PostgresUser>${cfg.name}</PostgresUser>
+          <PostgresPassword>${config.sops.placeholder."${cfg.name}/pgpassword"}</PostgresPassword>
+          <PostgresPort>5432</PostgresPort>
+          <PostgresHost>127.0.0.1</PostgresHost>
+          <AnalyticsEnabled>False</AnalyticsEnabled>
+          <Theme>auto</Theme>
+        </Config>
+      '';
+      path = "${cfg.dataDir}/config.xml";
+      owner = cfg.name;
+    };
   };
 }

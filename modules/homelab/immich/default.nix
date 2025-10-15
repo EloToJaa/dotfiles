@@ -9,7 +9,7 @@
   cfg = config.modules.homelab.immich;
 in {
   options.modules.homelab.immich = {
-    enable = lib.mkEnableOption "Immich module";
+    enable = lib.mkEnableOption "Enable immich";
     name = lib.mkOption {
       type = lib.types.str;
       default = "immich";
@@ -144,5 +144,15 @@ in {
       cfg.mediaDir
     ];
     networking.firewall.allowedTCPPorts = [cfg.dbPort];
+
+    # Enable NAT for the container
+    networking.nat = {
+      enable = true;
+      # Use "ve-*" when using nftables instead of iptables
+      internalInterfaces = ["ve-+"];
+      externalInterface = "enp1s0";
+      # Lazy IPv6 connectivity for the container
+      enableIPv6 = true;
+    };
   };
 }

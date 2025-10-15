@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.bazarr;
 in {
   options.modules.homelab.bazarr = {
-    enable = lib.mkEnableOption "Bazarr module";
+    enable = lib.mkEnableOption "Enable bazarr";
     name = lib.mkOption {
       type = lib.types.str;
       default = "bazarr";

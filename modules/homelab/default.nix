@@ -7,7 +7,7 @@
   cfg = config.modules.homelab;
 in {
   options.modules.homelab = {
-    enable = lib.mkEnableOption "Homelab module";
+    enable = lib.mkEnableOption "Enable homelab module";
     mainDomain = lib.mkOption {
       type = lib.types.str;
       default = "elotoja.com";
@@ -72,25 +72,25 @@ in {
       ./caddy
       ./cleanuparr
       ./glance
-      # ./grafana
+      ./grafana
       ./home-assistant
       ./immich
       ./jellyfin
       ./jellyseerr
       ./jellystat
       ./karakeep
-      # ./loki
+      ./loki
       ./nextcloud
       ./ntfy
       ./paperless
       ./postgres
-      # ./prometheus
+      ./prometheus
       ./prowlarr
       ./qbittorrent
       ./radarr
       ./radicale
       ./redis
-      # ./rustdesk
+      ./rustdesk
       ./sonarr
       ./uptime
       ./vaultwarden

@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.home-assistant;
 in {
   options.modules.homelab.home-assistant = {
-    enable = lib.mkEnableOption "Home Assistant module";
+    enable = lib.mkEnableOption "Enable Home Assistant";
     name = lib.mkOption {
       type = lib.types.str;
       default = "hass";

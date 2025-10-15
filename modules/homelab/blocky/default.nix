@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.blocky;
 in {
   options.modules.homelab.blocky = {
-    enable = lib.mkEnableOption "Blocky module";
+    enable = lib.mkEnableOption "Enable blocky";
   };
   config = lib.mkIf cfg.enable {
     services.blocky = {

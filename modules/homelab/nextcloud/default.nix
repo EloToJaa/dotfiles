@@ -11,7 +11,7 @@
   occ = "${config.services.nextcloud.occ}/bin/nextcloud-occ";
 in {
   options.modules.homelab.nextcloud = {
-    enable = lib.mkEnableOption "Nextcloud module";
+    enable = lib.mkEnableOption "Enable nextcloud";
     name = lib.mkOption {
       type = lib.types.str;
       default = "nextcloud";

@@ -9,7 +9,7 @@
   domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
   options.modules.homelab.ntfy = {
-    enable = lib.mkEnableOption "Ntfy module";
+    enable = lib.mkEnableOption "Enable ntfy";
     name = lib.mkOption {
       type = lib.types.str;
       default = "ntfy-sh";

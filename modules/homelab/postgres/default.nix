@@ -5,8 +5,11 @@
   ...
 }: let
   inherit (config.modules) homelab;
-  cfg = config.modules.homelab.atuin;
+  cfg = config.modules.homelab.postgres;
 in {
+  imports = [
+    ./pgadmin.nix
+  ];
   options.modules.homelab.postgres = {
     enable = lib.mkEnableOption "Enable postgres";
     port = lib.mkOption {
@@ -28,9 +31,5 @@ in {
     };
 
     networking.firewall.allowedTCPPorts = [cfg.port];
-
-    imports = [
-      ./pgadmin.nix
-    ];
   };
 }

@@ -1,39 +1,61 @@
 {
-  variables,
   pkgs,
+  config,
+  lib,
   ...
 }: let
-  inherit (variables) homelab;
-  name = "prometheus";
-  domainName = "prometheus";
-  group = variables.homelab.groups.main;
-  stateDir = "${homelab.varDataDir}${name}";
-  port = 9090;
+  inherit (config.modules) homelab;
+  cfg = config.modules.homelab.prometheus;
 in {
-  services.prometheus = {
-    enable = true;
-    package = pkgs.unstable.prometheus;
-    inherit port stateDir;
+  options.modules.homelab.prometheus = {
+    enable = lib.mkEnableOption "Enable prometheus";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "prometheus";
+    };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "prometheus";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 9090;
+    };
+    stateDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.varDataDir}${cfg.name}";
+    };
   };
-  systemd.tmpfiles.rules = [
-    "d ${stateDir} 750 ${name} ${group} - -"
-  ];
+  config = lib.mkIf cfg.enable {
+    services.prometheus = {
+      enable = true;
+      package = pkgs.unstable.prometheus;
+      inherit (cfg) port stateDir;
+    };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.stateDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
 
-  services.caddy.virtualHosts."${domainName}.${homelab.baseDomain}" = {
-    useACMEHost = homelab.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString port}
-    '';
+    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
+    };
+
+    services.restic.backups.appdata-local.paths = [
+      cfg.stateDir
+    ];
+
+    # services.prometheus.exporters.node = {
+    #   enable = true;
+    #   enabledCollectors = [
+    #     "systemd"
+    #   ];
+    # };
   };
-
-  services.restic.backups.appdata-local.paths = [
-    stateDir
-  ];
-
-  # services.prometheus.exporters.node = {
-  #   enable = true;
-  #   enabledCollectors = [
-  #     "systemd"
-  #   ];
-  # };
 }

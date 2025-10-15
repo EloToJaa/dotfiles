@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.loki;
 in {
   options.modules.homelab.loki = {
-    enable = lib.mkEnableOption "Loki module";
+    enable = lib.mkEnableOption "Enable loki";
     name = lib.mkOption {
       type = lib.types.str;
       default = "loki";

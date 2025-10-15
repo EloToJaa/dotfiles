@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.cleanuparr;
 in {
   options.modules.homelab.cleanuparr = {
-    enable = lib.mkEnableOption "Cleanuparr module";
+    enable = lib.mkEnableOption "Enable cleanuparr";
     name = lib.mkOption {
       type = lib.types.str;
       default = "cleanuparr";

@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.karakeep;
 in {
   options.modules.homelab.karakeep = {
-    enable = lib.mkEnableOption "Karakeep module";
+    enable = lib.mkEnableOption "Enable karakeep";
     name = lib.mkOption {
       type = lib.types.str;
       default = "karakeep";

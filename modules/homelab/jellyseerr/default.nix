@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.jellyseerr;
 in {
   options.modules.homelab.jellyseerr = {
-    enable = lib.mkEnableOption "Jellyseerr module";
+    enable = lib.mkEnableOption "Enable jellyseerr";
     name = lib.mkOption {
       type = lib.types.str;
       default = "jellyseerr";

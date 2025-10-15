@@ -8,7 +8,7 @@
   cfg = config.modules.homelab.grafana;
 in {
   options.modules.homelab.grafana = {
-    enable = lib.mkEnableOption "Grafana module";
+    enable = lib.mkEnableOption "Enable grafana";
     name = lib.mkOption {
       type = lib.types.str;
       default = "grafana";

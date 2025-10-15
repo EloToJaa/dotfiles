@@ -9,7 +9,7 @@
   cfg = config.modules.homelab.caddy;
 in {
   options.modules.homelab.caddy = {
-    enable = lib.mkEnableOption "Caddy module";
+    enable = lib.mkEnableOption "Enable caddy";
     name = lib.mkOption {
       type = lib.types.str;
       default = "caddy";
