@@ -28,11 +28,11 @@ in {
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
+      default = "${homelab.dataDir}${cfg.name}";
     };
     mediaDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.varDataDir}docs";
+      default = "${homelab.dataDir}docs";
     };
     consumptionDir = lib.mkOption {
       type = lib.types.path;

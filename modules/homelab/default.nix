@@ -63,7 +63,7 @@ in {
       default = "backups";
     };
   };
-  imports = lib.optionals cfg.enable [
+  imports = [
     ./atuin
     ./backup
     ./bazarr
