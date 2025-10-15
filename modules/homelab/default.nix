@@ -63,8 +63,9 @@ in {
       default = "backups";
     };
   };
-  imports = [
-    (lib.mkIf cfg.enable [
+  imports =
+    []
+    ++ (lib.mkIf cfg.enable [
       ./atuin
       ./backup
       ./bazarr
@@ -97,6 +98,5 @@ in {
       ./wireguard
       ./firewall.nix
       ./journald.nix
-    ])
-  ];
+    ]);
 }
