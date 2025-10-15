@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (config.modules) homelab;
-  cfg = config.modules.homelab.pgadmin;
+  cfg = config.modules.homelab.postgres.pgadmin;
 in {
   options.modules.homelab.postgres.pgadmin = {
     enable = lib.mkEnableOption "Enable pgadmin";

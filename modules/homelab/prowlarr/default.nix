@@ -7,7 +7,6 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.prowlarr;
 in {
-  imports = [./flaresolverr.nix];
   options.modules.homelab.prowlarr = {
     enable = lib.mkEnableOption "Enable prowlarr";
     name = lib.mkOption {
@@ -37,6 +36,7 @@ in {
     ];
     imports = [
       ./service.nix
+      ./flaresolverr.nix
     ];
 
     services.prowlarr = {

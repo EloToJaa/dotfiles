@@ -45,11 +45,15 @@
     nextcloud.enable = true;
     ntfy.enable = true;
     paperless.enable = true;
-    postgres.enable = true;
-    pgadmin.enable = true;
+    postgres = {
+      enable = true;
+      pgadmin.enable = true;
+    };
     prometheus.enable = false;
-    prowlarr.enable = true;
-    flaresolverr.enable = true;
+    prowlarr = {
+      enable = true;
+      flaresolverr.enable = true;
+    };
     qbittorrent = {
       enable = true;
       vuetorrent.enable = true;

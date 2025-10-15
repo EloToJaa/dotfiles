@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.homelab.flaresolverr;
+  cfg = config.modules.homelab.prowlarr.flaresolverr;
 in {
-  options.modules.homelab.flaresolverr = {
+  options.modules.homelab.prowlarr.flaresolverr = {
     enable = lib.mkEnableOption "Enable flaresolverr";
     port = lib.mkOption {
       type = lib.types.port;

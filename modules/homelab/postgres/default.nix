@@ -7,9 +7,6 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres;
 in {
-  imports = [
-    ./pgadmin.nix
-  ];
   options.modules.homelab.postgres = {
     enable = lib.mkEnableOption "Enable postgres";
     port = lib.mkOption {
@@ -22,6 +19,9 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    imports = [
+      ./pgadmin.nix
+    ];
     services.postgresql = {
       inherit (cfg) dataDir;
       enable = true;
