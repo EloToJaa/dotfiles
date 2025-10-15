@@ -96,6 +96,5 @@ in {
     ./wireguard
     ./firewall.nix
     ./journald.nix
-    ./nat.nix
   ];
 }
