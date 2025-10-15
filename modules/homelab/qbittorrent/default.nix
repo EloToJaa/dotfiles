@@ -32,14 +32,14 @@ in {
       default = "${homelab.dataDir}${cfg.name}";
     };
   };
+  disabledModules = [
+    "services/torrent/qbittorrent.nix"
+  ];
+  imports = [
+    ./service.nix
+    ./vuetorrent.nix
+  ];
   config = lib.mkIf cfg.enable {
-    disabledModules = [
-      "services/torrent/qbittorrent.nix"
-    ];
-    imports = [
-      ./service.nix
-      ./vuetorrent.nix
-    ];
     services.qbittorrent = {
       enable = true;
       package = pkgs.unstable.qbittorrent-nox;

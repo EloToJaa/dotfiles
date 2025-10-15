@@ -20,11 +20,10 @@ in {
       default = "10.64.0.1";
     };
   };
+  imports = [
+    ./service.nix
+  ];
   config = lib.mkIf cfg.enable {
-    imports = [
-      ./service.nix
-    ];
-
     services."wireguard-netns" = {
       enable = true;
       configFile = config.sops.templates."wg0.conf".path;

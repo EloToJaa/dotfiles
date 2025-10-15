@@ -30,15 +30,14 @@ in {
       default = "${homelab.dataDir}${cfg.name}";
     };
   };
+  disabledModules = [
+    "services/misc/servarr/prowlarr.nix"
+  ];
+  imports = [
+    ./service.nix
+    ./flaresolverr.nix
+  ];
   config = lib.mkIf cfg.enable {
-    disabledModules = [
-      "services/misc/servarr/prowlarr.nix"
-    ];
-    imports = [
-      ./service.nix
-      ./flaresolverr.nix
-    ];
-
     services.prowlarr = {
       enable = true;
       package = pkgs.unstable.prowlarr;

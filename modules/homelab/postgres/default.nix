@@ -18,10 +18,10 @@ in {
       default = "${homelab.varDataDir}${cfg.name}";
     };
   };
+  imports = [
+    ./pgadmin.nix
+  ];
   config = lib.mkIf cfg.enable {
-    imports = [
-      ./pgadmin.nix
-    ];
     services.postgresql = {
       inherit (cfg) dataDir;
       enable = true;

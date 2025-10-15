@@ -39,14 +39,13 @@ in {
       default = "/mnt/Documents/";
     };
   };
+  disabledModules = [
+    "services/misc/paperless.nix"
+  ];
+  imports = [
+    ./service.nix
+  ];
   config = lib.mkIf cfg.enable {
-    disabledModules = [
-      "services/misc/paperless.nix"
-    ];
-    imports = [
-      ./service.nix
-    ];
-
     services.paperless = {
       inherit domain;
       inherit (cfg) port dataDir mediaDir consumptionDir;
