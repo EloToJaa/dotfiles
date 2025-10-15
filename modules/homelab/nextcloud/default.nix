@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.nextcloud;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
   occ = "${config.services.nextcloud.occ}/bin/nextcloud-occ";

@@ -5,7 +5,7 @@
   variables,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.immich;
 in {
   options.modules.homelab.immich = {

@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.glance;
 in {
   options.modules.homelab.glance = {

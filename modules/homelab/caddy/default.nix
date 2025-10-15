@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.caddy;
 in {
   options.modules.homelab.caddy = {

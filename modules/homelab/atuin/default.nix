@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.atuin;
 in {
   options.modules.homelab.atuin = {
-    enable = lib.mkEnableOption "Atuin module";
+    enable = lib.mkEnableOption "Enable atuin";
     name = lib.mkOption {
       type = lib.types.str;
       default = "atuin";

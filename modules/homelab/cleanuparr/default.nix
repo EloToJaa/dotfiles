@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.cleanuparr;
 in {
   options.modules.homelab.cleanuparr = {

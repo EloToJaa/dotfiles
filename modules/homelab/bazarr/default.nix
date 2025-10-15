@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.bazarr;
 in {
   options.modules.homelab.bazarr = {

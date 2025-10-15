@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules.homelab) homelab;
+  inherit (config.modules) homelab;
   cfg = config.modules.homelab.backup;
 in {
   options.modules.homelab.backup = {
