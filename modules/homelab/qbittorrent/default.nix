@@ -80,7 +80,7 @@ in {
             "${cfg.name}-proxy.socket"
           ];
           unitConfig = {
-            JoinsNamespcfg.aceOf = "${cfg.name}.service";
+            JoinsNamespaceOf = "${cfg.name}.service";
           };
           serviceConfig = {
             User = cfg.name;

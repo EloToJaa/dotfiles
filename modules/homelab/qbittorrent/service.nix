@@ -12,13 +12,7 @@ in {
   # https://github.com/hercules-ci/nixflk/blob/template/modules/services/torrent/qbittorrent.nix
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/torrent/qbittorrent.nix
   options.services.qbittorrent = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Run qBittorrent headlessly as systemwide daemon
-      '';
-    };
+    enable = mkEnableOption "Run qBittorrent headlessly as systemwide daemon";
 
     package = mkPackageOption pkgs "qbittorrent-nox" {};
 
