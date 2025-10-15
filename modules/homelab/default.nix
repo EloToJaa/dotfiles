@@ -63,38 +63,40 @@ in {
       default = "backups";
     };
   };
-  imports = [
-    ./atuin
-    ./backup
-    ./bazarr
-    ./blocky
-    ./caddy
-    ./cleanuparr
-    ./glance
-    ./grafana
-    ./home-assistant
-    ./immich
-    ./jellyfin
-    ./jellyseerr
-    ./jellystat
-    ./karakeep
-    ./loki
-    ./nextcloud
-    ./ntfy
-    ./paperless
-    ./postgres
-    ./prometheus
-    ./prowlarr
-    ./qbittorrent
-    ./radarr
-    ./radicale
-    ./redis
-    ./rustdesk
-    ./sonarr
-    ./uptime
-    ./vaultwarden
-    ./wireguard
-    ./firewall.nix
-    ./journald.nix
-  ];
+  imports =
+    []
+    // (lib.mkIf cfg.enable [
+      ./atuin
+      ./backup
+      ./bazarr
+      ./blocky
+      ./caddy
+      ./cleanuparr
+      ./glance
+      ./grafana
+      ./home-assistant
+      ./immich
+      ./jellyfin
+      ./jellyseerr
+      ./jellystat
+      ./karakeep
+      ./loki
+      ./nextcloud
+      ./ntfy
+      ./paperless
+      ./postgres
+      ./prometheus
+      ./prowlarr
+      ./qbittorrent
+      ./radarr
+      ./radicale
+      ./redis
+      ./rustdesk
+      ./sonarr
+      ./uptime
+      ./vaultwarden
+      ./wireguard
+      ./firewall.nix
+      ./journald.nix
+    ]);
 }
