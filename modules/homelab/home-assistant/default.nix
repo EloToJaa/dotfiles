@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  variables,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -39,7 +40,7 @@ in {
           name = "Home";
           unit_system = "metric";
           temperature_unit = "C";
-          time_zone = cfg.variables.timezone;
+          time_zone = variables.timezone;
         };
         http = {
           server_host = "127.0.0.1";
