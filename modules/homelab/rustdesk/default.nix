@@ -6,7 +6,7 @@
 }: let
   cfg = config.modules.homelab.rustdesk;
 in {
-  options.services.rustdesk = {
+  options.modules.homelab.rustdesk = {
     enable = lib.mkEnableOption "Enable rustdesk";
   };
   config = lib.mkIf cfg.enable {
