@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-exifaudio";
-  version = "unstable-2025-09-25";
+  version = "unstable-2025-10-16";
 
   src = fetchFromGitHub {
     owner = "Sonico98";

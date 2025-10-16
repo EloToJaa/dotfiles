@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-system-clipboard";
-  version = "unstable-2025-09-25";
+  version = "unstable-2025-10-16";
 
   src = fetchFromGitHub {
     owner = "orhnk";
     repo = "system-clipboard.yazi";
-    rev = "4f6942dd5f0e143586ab347d82dfd6c1f7f9c894";
-    hash = "sha256-M7zKUlLcQA3ihpCAZyOkAy/SzLu31eqHGLkCSQPX1dY=";
+    rev = "888026c6d5988bd9dc5be51f7f96787bb8cadc4b";
+    hash = "sha256-8YtYYxNDfQBTyMxn6Q7/BCiTiscpiZFXRuX0riMlRWQ=";
   };
 
   buildPhase = ''
