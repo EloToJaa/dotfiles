@@ -1,6 +1,6 @@
 {
   pkgs,
-  variables,
+  config,
   ...
 }: let
   shellAliases = {
@@ -34,7 +34,7 @@ in {
     enable = true;
     package = pkgs.unstable.git;
 
-    inherit (variables.git) userName userEmail;
+    inherit (config.modules.settings.git) userName userEmail;
 
     extraConfig = {
       init.defaultBranch = "main";

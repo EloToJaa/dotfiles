@@ -1,17 +1,24 @@
-let
+{
+  lib,
+  config,
+  ...
+}: let
   shellAliases = {
     vim = "nvim";
     vi = "nvim";
     v = "nvim";
   };
+  cfg = config.modules.home.nvim;
 in {
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    MANPAGER = "nvim +Man!";
-  };
+  config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      MANPAGER = "nvim +Man!";
+    };
 
-  programs = {
-    zsh.shellAliases = shellAliases;
+    programs = {
+      zsh.shellAliases = shellAliases;
+    };
   };
 }

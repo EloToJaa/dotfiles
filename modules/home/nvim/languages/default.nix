@@ -1,4 +1,7 @@
-{
+{lib, ...}: {
+  options.modules.home.nvim.languages = {
+    enable = lib.mkEnableOption "Enable languages";
+  };
   imports = [
     ./bash.nix
     ./c.nix

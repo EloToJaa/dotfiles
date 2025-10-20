@@ -1,4 +1,7 @@
-{
+{lib, ...}: {
+  options.modules.home.nvim.plugins = {
+    enable = lib.mkEnableOption "Enable plugins";
+  };
   imports = [
     ./auto-session.nix
     ./bufferline.nix

@@ -1,12 +1,16 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   inherit (pkgs.lib) makeBinPath;
   inherit (config.home) homeDirectory;
+  cfg = config.modules.home.nvim;
 in {
-  home.sessionVariables = {
-    PATH = "${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:${makeBinPath ["${homeDirectory}/.local"]}:${homeDirectory}/.dotnet:$PATH";
+  config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      PATH = "${makeBinPath ["${homeDirectory}/go"]}:${makeBinPath ["${homeDirectory}/.cargo"]}:${makeBinPath ["${homeDirectory}/.local"]}:${homeDirectory}/.dotnet:$PATH";
+    };
   };
 }

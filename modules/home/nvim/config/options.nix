@@ -1,40 +1,48 @@
-{config, ...}: {
-  programs.nixvim = {
-    opts = {
-      number = true;
-      relativenumber = true;
+{
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.modules.home.nvim;
+in {
+  config = lib.mkIf cfg.enable {
+    programs.nixvim = {
+      opts = {
+        number = true;
+        relativenumber = true;
 
-      tabstop = 2;
-      softtabstop = 2;
-      shiftwidth = 2;
-      expandtab = true;
+        tabstop = 2;
+        softtabstop = 2;
+        shiftwidth = 2;
+        expandtab = true;
 
-      smartindent = true;
+        smartindent = true;
 
-      swapfile = false;
-      backup = false;
-      # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
-      undofile = true;
+        swapfile = false;
+        backup = false;
+        # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
+        undofile = true;
 
-      hlsearch = false;
-      incsearch = true;
+        hlsearch = false;
+        incsearch = true;
 
-      termguicolors = true;
+        termguicolors = true;
 
-      scrolloff = 8;
-      signcolumn = "yes";
+        scrolloff = 8;
+        signcolumn = "yes";
 
-      updatetime = 50;
+        updatetime = 50;
 
-      colorcolumn = "80";
+        colorcolumn = "80";
 
-      wrap = true;
-      linebreak = true;
-      breakindent = true;
+        wrap = true;
+        linebreak = true;
+        breakindent = true;
+      };
+
+      extraConfigLuaPost = ''
+        undodir = { "${config.home.homeDirectory}/.vim/undodir" }
+      '';
     };
-
-    extraConfigLuaPost = ''
-      undodir = { "${config.home.homeDirectory}/.vim/undodir" }
-    '';
   };
 }
