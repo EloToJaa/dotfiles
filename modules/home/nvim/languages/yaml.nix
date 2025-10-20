@@ -4,10 +4,10 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.xml;
+  cfg = config.modules.home.nvim.languages.yaml;
 in {
-  options.modules.home.nvim.languages.xml = {
-    enable = lib.mkEnableOption "Enable xml";
+  options.modules.home.nvim.languages.yaml = {
+    enable = lib.mkEnableOption "Enable yaml";
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
