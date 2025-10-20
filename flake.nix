@@ -108,23 +108,6 @@
         user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtWaehMf7X23uUZDY5J4fG4/exqj5jWQVaLLXloaO/g elotoja@protonmail.com";
       };
       atuin = "https://atuin.server.elotoja.com";
-      homelab = {
-        mainDomain = "elotoja.com";
-        baseDomain = "server.${variables.homelab.mainDomain}";
-        dataDir = "/opt/";
-        varDataDir = "/var/lib/";
-        logDir = "/var/log/";
-        defaultUMask = "027";
-        groups = {
-          main = "homelab";
-          cloud = "cloud";
-          media = "media";
-          photos = "photos";
-          docs = "documents";
-          database = "database";
-          backups = "backups";
-        };
-      };
     };
   in {
     nixosConfigurations = {
