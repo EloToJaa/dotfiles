@@ -1,58 +1,64 @@
 {
-  variables,
   pkgs,
+  config,
+  lib,
   ...
 }: let
-  inherit (variables) atuin;
   shellAliases = {
     cd = "z";
   };
+  cfg = config.modules.home.shell;
 in {
-  catppuccin = {
-    atuin = {
-      enable = true;
-      inherit (variables.catppuccin) flavor;
-    };
+  options.modules.home.shell = {
+    enable = lib.mkEnableOption "Enable shell";
   };
-  programs = {
-    zsh.shellAliases = shellAliases;
-    atuin = {
-      enable = true;
-      package = pkgs.unstable.atuin;
-
-      enableZshIntegration = true;
-
-      settings = {
-        auto_sync = true;
-        sync_frequency = "10m";
-        sync_address = atuin;
-        show_preview = true;
-        store_failed = true;
-        secrets_filter = true;
-        enter_accept = true;
-        keymap_mode = "vim-normal";
+  config = lib.mkIf cfg.enable {
+    catppuccin = {
+      atuin = {
+        enable = true;
+        inherit (config.modules.settings.catppuccin) flavor;
       };
     };
-    zoxide = {
-      enable = true;
-      package = pkgs.unstable.zoxide;
+    programs = {
+      zsh.shellAliases = shellAliases;
+      atuin = {
+        enable = true;
+        package = pkgs.unstable.atuin;
 
-      enableZshIntegration = true;
-    };
-    eza = {
-      enable = true;
-      package = pkgs.unstable.eza;
+        enableZshIntegration = true;
 
-      enableZshIntegration = true;
+        settings = {
+          auto_sync = true;
+          sync_frequency = "10m";
+          sync_address = config.modules.settings.atuin;
+          show_preview = true;
+          store_failed = true;
+          secrets_filter = true;
+          enter_accept = true;
+          keymap_mode = "vim-normal";
+        };
+      };
+      zoxide = {
+        enable = true;
+        package = pkgs.unstable.zoxide;
 
-      git = true;
-      icons = "auto";
-    };
-    carapace = {
-      enable = true;
-      package = pkgs.unstable.carapace;
+        enableZshIntegration = true;
+      };
+      eza = {
+        enable = true;
+        package = pkgs.unstable.eza;
 
-      enableZshIntegration = true;
+        enableZshIntegration = true;
+
+        git = true;
+        icons = "auto";
+      };
+      carapace = {
+        enable = true;
+        package = pkgs.unstable.carapace;
+
+        enableZshIntegration = true;
+      };
     };
   };
 }

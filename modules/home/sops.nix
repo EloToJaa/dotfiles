@@ -2,17 +2,24 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
-}: {
+}: let
+  cfg = config.modules.home;
+in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
   ];
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  config = lib.mkIf cfg.enable {
+    sops = {
+      defaultSopsFile = ../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+      age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    };
 
-  home.packages = with pkgs.unstable; [
-    sops
-  ];
+    home.packages = with pkgs.unstable; [
+      sops
+    ];
+  };
 }

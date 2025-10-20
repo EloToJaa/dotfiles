@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   shellAliases = {
@@ -29,45 +30,51 @@
     glola = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all";
     glols = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat";
   };
+  cfg = config.modules.home.git;
 in {
-  programs.git = {
-    enable = true;
-    package = pkgs.unstable.git;
+  options.modules.home.git = {
+    enable = lib.mkEnableOption "Enable git";
+  };
+  config = lib.mkIf cfg.enable {
+    programs.git = {
+      enable = true;
+      package = pkgs.unstable.git;
 
-    inherit (config.modules.settings.git) userName userEmail;
+      inherit (config.modules.settings.git) userName userEmail;
 
-    extraConfig = {
-      init.defaultBranch = "main";
-      credential.helper = "store";
-      merge.conflictstyle = "diff3";
-      diff.colorMoved = "default";
-      pull.ff = "only";
-      color.ui = true;
-      url = {
-        "https://github.com/EloToJaa/".insteadOf = "etj:";
-        "https://github.com/".insteadOf = "gh:";
+      extraConfig = {
+        init.defaultBranch = "main";
+        credential.helper = "store";
+        merge.conflictstyle = "diff3";
+        diff.colorMoved = "default";
+        pull.ff = "only";
+        color.ui = true;
+        url = {
+          "https://github.com/EloToJaa/".insteadOf = "etj:";
+          "https://github.com/".insteadOf = "gh:";
+        };
+      };
+
+      signing = {
+        signByDefault = false;
       };
     };
 
-    signing = {
-      signByDefault = false;
+    delta = {
+      enable = true;
+      package = pkgs.unstable.delta;
+      options = {
+        line-numbers = true;
+        side-by-side = true;
+        diff-so-fancy = true;
+        navigate = true;
+      };
     };
-  };
 
-  delta = {
-    enable = true;
-    package = pkgs.unstable.delta;
-    options = {
-      line-numbers = true;
-      side-by-side = true;
-      diff-so-fancy = true;
-      navigate = true;
+    home.packages = with pkgs.unstable; [gh]; # git-lfs
+
+    programs = {
+      zsh.shellAliases = shellAliases;
     };
-  };
-
-  home.packages = with pkgs.unstable; [gh]; # git-lfs
-
-  programs = {
-    zsh.shellAliases = shellAliases;
   };
 }

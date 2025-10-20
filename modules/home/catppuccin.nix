@@ -1,14 +1,22 @@
 {
   inputs,
-  variables,
+  config,
+  lib,
   ...
-}: {
+}: let
+  cfg = config.modules.home.catppuccin;
+in {
+  options.modules.home.catppuccin = {
+    enable = lib.mkEnableOption "Enable catppuccin";
+  };
   imports = [inputs.catppuccin.homeModules.catppuccin];
-  catppuccin = {
-    enable = true;
-    flavor = variables.catppuccin.flavor;
-    accent = variables.catppuccin.accent;
+  config = lib.mkIf cfg.enable {
+    catppuccin = {
+      enable = true;
+      inherit (config.modules.settings.catppuccin) flavor accent;
 
-    mako.enable = false;
+      # TODO: Remove these
+      mako.enable = false;
+    };
   };
 }
