@@ -5,7 +5,6 @@
   config,
   ...
 }: let
-  inherit (config.modules.homelab) groups;
   inherit (config.modules.settings) username stateVersion uid;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
@@ -28,33 +27,17 @@ in {
     isNormalUser = true;
     description = username;
     group = username;
-    extraGroups = with groups; [
+    extraGroups = [
       "wheel"
       "kvm"
-      main
-      cloud
-      media
-      photos
-      docs
-      database
-      backups
     ];
     shell = pkgs.unstable.zsh;
   };
 
   nix.settings.allowed-users = [username];
 
-  users.groups = with groups; {
-    ${variables.username} = {
-      gid = uid;
-      members = [variables.username];
-    };
-    ${main}.gid = 1100;
-    ${media}.gid = 1101;
-    ${photos}.gid = 1102;
-    ${docs}.gid = 1103;
-    ${database}.gid = 1104;
-    ${backups}.gid = 1105;
-    ${cloud}.gid = 1106;
+  users.groups.${username} = {
+    gid = uid;
+    members = [username];
   };
 }

@@ -94,6 +94,7 @@ in {
     ./vaultwarden
     ./wireguard
     ./firewall.nix
+    ./groups.nix
     ./journald.nix
     ./redis.nix
   ];
