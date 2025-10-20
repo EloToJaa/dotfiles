@@ -1,4 +1,13 @@
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.modules.home;
+in {
+  options.modules.home = {
+    enable = lib.mkEnableOption "Enable home module";
+  };
   imports = [
     ./lazygit
     ./nvim
