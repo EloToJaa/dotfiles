@@ -9,6 +9,7 @@
   home-manager.users.${variables.username}.imports = [
     ./home.nix
     ./../../modules/home
+    ./../../modules/settings.nix
   ];
 
   networking = {

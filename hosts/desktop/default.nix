@@ -13,6 +13,7 @@
     ./../../modules/dev
     ./../../modules/desktop
     ./../../modules/cybersec
+    ./../../modules/settings.nix
   ];
 
   networking = {
