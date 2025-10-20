@@ -88,7 +88,6 @@ in {
     ./qbittorrent
     ./radarr
     ./radicale
-    ./redis
     ./rustdesk
     ./sonarr
     ./uptime
@@ -96,5 +95,6 @@ in {
     ./wireguard
     ./firewall.nix
     ./journald.nix
+    ./redis.nix
   ];
 }
