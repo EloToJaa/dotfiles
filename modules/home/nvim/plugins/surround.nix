@@ -8,7 +8,9 @@ in {
   options.modules.home.nvim.plugins.surround = {
     enable = lib.mkEnableOption "Enable surround";
   };
-  programs.nixvim.plugins = {
-    vim-surround.enable = cfg.enable;
+  config = lib.mkIf cfg.enable {
+    programs.nixvim.plugins = {
+      vim-surround.enable = true;
+    };
   };
 }

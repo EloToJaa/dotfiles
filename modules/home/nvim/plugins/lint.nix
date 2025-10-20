@@ -8,7 +8,9 @@ in {
   options.modules.home.nvim.plugins.lint = {
     enable = lib.mkEnableOption "Enable lint";
   };
-  programs.nixvim.plugins.lint = {
-    inherit (cfg) enable;
+  config = lib.mkIf cfg.enable {
+    programs.nixvim.plugins.lint = {
+      enable = true;
+    };
   };
 }

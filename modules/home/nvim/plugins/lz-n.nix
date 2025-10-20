@@ -8,7 +8,9 @@ in {
   options.modules.home.nvim.plugins.lz-n = {
     enable = lib.mkEnableOption "Enable lz-n";
   };
-  programs.nixvim.plugins.lz-n = {
-    inherit (cfg) enable;
+  config = lib.mkIf cfg.enable {
+    programs.nixvim.plugins.lz-n = {
+      enable = true;
+    };
   };
 }

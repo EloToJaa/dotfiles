@@ -8,7 +8,9 @@ in {
   options.modules.home.nvim.plugins.which-key = {
     enable = lib.mkEnableOption "Enable which-key";
   };
-  programs.nixvim.plugins.which-key = {
-    inherit (cfg) enable;
+  config = lib.mkIf cfg.enable {
+    programs.nixvim.plugins.which-key = {
+      enable = true;
+    };
   };
 }
