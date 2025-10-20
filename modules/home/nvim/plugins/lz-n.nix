@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  ...
 }: let
   cfg = config.modules.home.nvim.plugins.lz-n;
 in {
