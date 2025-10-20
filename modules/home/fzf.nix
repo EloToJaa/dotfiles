@@ -22,7 +22,7 @@ in {
     };
     catppuccin.fzf = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) favor accent;
+      inherit (config.modules.settings.catppuccin) flavor accent;
     };
   };
 }
