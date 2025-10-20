@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/homelab
+    ./../../modules/settings.nix
   ];
 
   home-manager.users.${variables.username}.imports = [
