@@ -1,11 +1,15 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.home.nvim.plugins.format;
 in {
   options.modules.home.nvim.plugins.format = {
-    enable = config.lib.mkEnableOption "Enable format";
+    enable = lib.mkEnableOption "Enable format";
   };
-  config = config.lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.nixvim = {
       plugins.conform-nvim = {
         enable = true;

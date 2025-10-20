@@ -1,11 +1,15 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.home.nvim.plugins.lsp;
 in {
   options.modules.home.nvim.plugins.lsp = {
-    enable = config.lib.mkEnableOption "Enable lsp";
+    enable = lib.mkEnableOption "Enable lsp";
   };
-  config = config.lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.nixvim = {
       plugins.lspconfig = {
         enable = true;

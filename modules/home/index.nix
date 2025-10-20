@@ -12,6 +12,7 @@ in {
   imports = [
     inputs.nix-index-database.homeModules.nix-index
   ];
-
-  programs.nix-index-database.comma.enable = cfg.enable;
+  config = lib.mkIf cfg.enable {
+    programs.nix-index-database.comma.enable = true;
+  };
 }

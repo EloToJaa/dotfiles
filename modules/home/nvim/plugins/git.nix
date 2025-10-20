@@ -1,11 +1,15 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.home.nvim.plugins.git;
 in {
   options.modules.home.nvim.plugins.git = {
-    enable = config.lib.mkEnableOption "Enable git";
+    enable = lib.mkEnableOption "Enable git";
   };
-  config = config.lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.nixvim = {
       plugins = {
         lazygit.enable = true;
