@@ -17,7 +17,7 @@
     "ssh"
     "nano"
   ];
-  cfg = config.modules.home.zsh.plugins.auto-notify;
+  cfg = config.modules.home.zsh.plugins.zsh-auto-notify;
 in {
   config = lib.mkIf cfg.enable {
     programs.zsh.localVariables.AUTO_NOTIFY_IGNORE =
