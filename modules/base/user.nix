@@ -3,6 +3,7 @@
   inputs,
   host,
   config,
+  variables,
   ...
 }: let
   inherit (config.modules.settings) username stateVersion uid;
@@ -12,7 +13,7 @@ in {
     backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = {inherit inputs host;};
+    extraSpecialArgs = {inherit inputs variables host;};
     users.${username} = {
       home = {
         inherit stateVersion username;
