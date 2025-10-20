@@ -40,9 +40,11 @@ in {
       enable = true;
       package = pkgs.unstable.git;
 
-      inherit (config.modules.settings.git) userName userEmail;
-
-      extraConfig = {
+      settings = {
+        user = {
+          name = config.modules.settings.git.userName;
+          email = config.modules.settings.git.userEmail;
+        };
         init.defaultBranch = "main";
         credential.helper = "store";
         merge.conflictstyle = "diff3";
