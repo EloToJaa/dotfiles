@@ -14,6 +14,10 @@ in {
       type = lib.types.str;
       default = "elotoja@protonmail.com";
     };
+    uid = lib.mkOption {
+      type = lib.types.int;
+      default = 1000;
+    };
     git.userName = lib.mkOption {
       type = lib.types.str;
       default = "EloToJaa";

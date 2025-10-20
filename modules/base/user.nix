@@ -1,33 +1,34 @@
 {
   pkgs,
   inputs,
-  variables,
   host,
+  config,
   ...
 }: let
-  inherit (variables) homelab;
+  inherit (config.modules.homelab) groups;
+  inherit (config.modules.settings) username stateVersion uid;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
   home-manager = {
     backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = {inherit inputs variables host;};
-    users.${variables.username} = {
+    extraSpecialArgs = {inherit inputs host;};
+    users.${username} = {
       home = {
-        inherit (variables) stateVersion username;
-        homeDirectory = "/home/${variables.username}";
+        inherit stateVersion username;
+        homeDirectory = "/home/${username}";
         enableNixpkgsReleaseCheck = false;
       };
       programs.home-manager.enable = true;
     };
   };
 
-  users.users.${variables.username} = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = variables.username;
-    group = variables.username;
-    extraGroups = with homelab.groups; [
+    description = username;
+    group = username;
+    extraGroups = with groups; [
       "wheel"
       "kvm"
       main
@@ -41,11 +42,11 @@ in {
     shell = pkgs.unstable.zsh;
   };
 
-  nix.settings.allowed-users = [variables.username];
+  nix.settings.allowed-users = [username];
 
-  users.groups = with homelab.groups; {
+  users.groups = with groups; {
     ${variables.username} = {
-      gid = 1000;
+      gid = uid;
       members = [variables.username];
     };
     ${main}.gid = 1100;
