@@ -1,5 +1,4 @@
 {
-  variables,
   config,
   lib,
   pkgs,
@@ -63,7 +62,7 @@ in {
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = variables.email;
+      defaults.email = config.modules.settings.email;
       certs.${homelab.baseDomain} = {
         inherit (cfg) group;
         reloadServices = ["caddy.service"];

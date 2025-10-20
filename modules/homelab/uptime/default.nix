@@ -1,5 +1,4 @@
 {
-  variables,
   lib,
   config,
   pkgs,
@@ -20,7 +19,7 @@ in {
     };
     group = lib.mkOption {
       type = lib.types.str;
-      default = variables.homelab.groups.main;
+      default = homelab.groups.main;
     };
     port = lib.mkOption {
       type = lib.types.port;

@@ -1,5 +1,4 @@
 {
-  variables,
   lib,
   config,
   pkgs,
@@ -66,7 +65,7 @@ in {
       # Settings
       enableImagemagick = true;
       config = {
-        adminuser = variables.username;
+        adminuser = config.modules.settings.username;
         adminpassFile = config.sops.secrets."${cfg.name}/adminpassword".path;
         dbtype = "pgsql";
         dbhost = "127.0.0.1:5432";

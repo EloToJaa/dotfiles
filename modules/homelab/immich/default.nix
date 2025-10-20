@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  variables,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -87,7 +86,7 @@ in {
           "d ${homelab.varDataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
         ];
 
-        system.stateVersion = variables.stateVersion;
+        system.stateVersion = config.modules.settings.stateVersion;
 
         networking = {
           firewall = {

@@ -1,5 +1,4 @@
 {
-  variables,
   config,
   lib,
   ...
@@ -48,7 +47,7 @@ in {
         POSTGRES_USER = cfg.name;
         POSTGRES_IP = "127.0.0.1";
         POSTGRES_PORT = "5432";
-        TZ = variables.timezone;
+        TZ = config.modules.settings.timezone;
       };
       environmentFiles = [config.sops.templates."${cfg.name}.env".path];
       volumes = [

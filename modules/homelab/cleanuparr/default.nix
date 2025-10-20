@@ -1,5 +1,4 @@
 {
-  variables,
   config,
   lib,
   ...
@@ -46,7 +45,7 @@ in {
         PORT = toString cfg.port;
         PUID = toString cfg.id;
         PGID = toString cfg.id;
-        TZ = variables.timezone;
+        TZ = config.modules.settings.timezone;
         UMASK = homelab.defaultUMask;
       };
       volumes = [

@@ -1,5 +1,4 @@
 {
-  variables,
   config,
   pkgs,
   lib,
@@ -28,7 +27,7 @@ in {
       inherit (cfg) port;
       enable = true;
       package = pkgs.unstable.pgadmin4;
-      initialEmail = variables.email;
+      initialEmail = config.modules.settings.email;
       initialPasswordFile = config.sops.secrets."pgadmin/password".path;
     };
     systemd.services.pgadmin.serviceConfig = {
