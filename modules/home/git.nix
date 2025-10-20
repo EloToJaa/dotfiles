@@ -30,9 +30,9 @@
     glols = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat";
   };
 in {
-  programs.git = with pkgs.unstable; {
+  programs.git = {
     enable = true;
-    package = git;
+    package = pkgs.unstable.git;
 
     inherit (variables.git) userName userEmail;
 
@@ -49,19 +49,19 @@ in {
       };
     };
 
-    delta = {
-      enable = true;
-      package = delta;
-      options = {
-        line-numbers = true;
-        side-by-side = true;
-        diff-so-fancy = true;
-        navigate = true;
-      };
-    };
-
     signing = {
       signByDefault = false;
+    };
+  };
+
+  delta = {
+    enable = true;
+    package = pkgs.unstable.delta;
+    options = {
+      line-numbers = true;
+      side-by-side = true;
+      diff-so-fancy = true;
+      navigate = true;
     };
   };
 
