@@ -1,4 +1,7 @@
-{
+{lib, ...}: {
+  options.modules.base = {
+    enable = lib.mkEnableOption "Enable base module";
+  };
   imports = [
     ./bash.nix
     ./bootloader.nix
