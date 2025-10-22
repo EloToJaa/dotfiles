@@ -98,7 +98,7 @@
   };
 
   associations = with lib.lists;
-    listToAttrs (
+    builtins.listToAttrs (
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 
@@ -111,7 +111,7 @@
 
     allRemoved = flatten (mapAttrsToList (cat: _: generateRemoved cat) removedApps);
   in
-    listToAttrs allRemoved;
+    builtins.listToAttrs allRemoved;
   cfg = config.modules.desktop.xdg-mimes;
 in {
   options.modules.desktop.xdg-mimes = {

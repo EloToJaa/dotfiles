@@ -12,10 +12,9 @@ in {
   options.modules.desktop.spotify = {
     enable = lib.mkEnableOption "Enable spotify";
   };
+  imports = [inputs.spicetify-nix.homeManagerModules.default];
   config = lib.mkIf cfg.enable {
     # home.packages = with pkgs.unstable; [spotube];
-
-    imports = [inputs.spicetify-nix.homeManagerModules.default];
 
     programs.spicetify = {
       enable = true;
