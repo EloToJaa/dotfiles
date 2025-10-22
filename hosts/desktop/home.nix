@@ -1,5 +1,41 @@
 {
   modules = {
+    cybersec = {
+      enable = false;
+    };
+    desktop = {
+      enable = true;
+      hyprland.enable = true;
+      hyprlock.enable = true;
+      satty.enable = true;
+      wlogout.enable = true;
+      swaync.enable = true;
+      wallpapers.enable = true;
+      waybar.enable = true;
+      wezterm.enable = false;
+      audacious.enable = false;
+      bluetooth.enable = true;
+      cava.enable = false;
+      clipboard.enable = true;
+      discord.enable = true;
+      ghostty.enable = true;
+      gnome.enable = true;
+      gtk.enable = true;
+      nemo.enable = true;
+      rider.enable = false;
+      spotify.enable = true;
+      swayosd.enable = true;
+      vicinae.enable = true;
+      waypaper.enable = true;
+      xdg-mimes.enable = true;
+      zen.enable = true;
+    };
+    dev = {
+      enable = true;
+      aoc.enable = false;
+      leetcode.enable = false;
+      opencode.enable = true;
+    };
     home = {
       enable = true;
       lazygit.enable = true;

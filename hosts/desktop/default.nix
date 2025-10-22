@@ -3,6 +3,7 @@
 in {
   imports = [
     ./hardware-configuration.nix
+    ./config.nix
     ./../../modules/base
     ./../../modules/core
     ./../../modules/settings.nix
