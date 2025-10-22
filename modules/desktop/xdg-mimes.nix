@@ -2,7 +2,8 @@
   lib,
   config,
   ...
-}: let
+}:
+with lib; let
   inherit (config.modules.settings) terminal;
   defaultApps = {
     browser = ["zen-beta.desktop"];
@@ -97,12 +98,12 @@
     discord = ["x-scheme-handler/discord"];
   };
 
-  associations = with lib.lists;
-    builtins.listToAttrs (
+  associations = with lists;
+    listToAttrs (
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 
-  removedAssociations = with lib.lists; let
+  removedAssociations = with lists; let
     generateRemoved = category: let
       mimeTypeList = mimeMap."${category}" or []; # Handle missing categories
       removeList = removedApps."${category}" or []; # Handle missing categories
@@ -111,7 +112,7 @@
 
     allRemoved = flatten (mapAttrsToList (cat: _: generateRemoved cat) removedApps);
   in
-    builtins.listToAttrs allRemoved;
+    listToAttrs allRemoved;
   cfg = config.modules.desktop.xdg-mimes;
 in {
   options.modules.desktop.xdg-mimes = {
