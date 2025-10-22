@@ -3,42 +3,46 @@
   inputs,
   host,
   config,
-  variables,
+  lib,
+  variables, # TODO: remove
   ...
 }: let
   inherit (config.modules.settings) username stateVersion uid;
+  cfg = config.modules.base;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
-  home-manager = {
-    backupFileExtension = "backup";
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    extraSpecialArgs = {inherit inputs variables host;};
-    users.${username} = {
-      home = {
-        inherit stateVersion username;
-        homeDirectory = "/home/${username}";
-        enableNixpkgsReleaseCheck = false;
+  config = lib.mkIf cfg.enable {
+    home-manager = {
+      backupFileExtension = "backup";
+      useUserPackages = true;
+      useGlobalPkgs = true;
+      extraSpecialArgs = {inherit inputs variables host;}; # TODO: remove
+      users.${username} = {
+        home = {
+          inherit stateVersion username;
+          homeDirectory = "/home/${username}";
+          enableNixpkgsReleaseCheck = false;
+        };
+        programs.home-manager.enable = true;
       };
-      programs.home-manager.enable = true;
     };
-  };
 
-  users.users.${username} = {
-    isNormalUser = true;
-    description = username;
-    group = username;
-    extraGroups = [
-      "wheel"
-      "kvm"
-    ];
-    shell = pkgs.unstable.zsh;
-  };
+    users.users.${username} = {
+      isNormalUser = true;
+      description = username;
+      group = username;
+      extraGroups = [
+        "wheel"
+        "kvm"
+      ];
+      shell = pkgs.unstable.zsh;
+    };
 
-  nix.settings.allowed-users = [username];
+    nix.settings.allowed-users = [username];
 
-  users.groups.${username} = {
-    gid = uid;
-    members = [username];
+    users.groups.${username} = {
+      gid = uid;
+      members = [username];
+    };
   };
 }
