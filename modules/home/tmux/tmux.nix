@@ -30,6 +30,9 @@ in {
           set -g renumber-windows on
           set -g set-clipboard on
 
+          set -g pane-active-border-style 'fg=magenta,bg=default'
+          set -g pane-border-style 'fg=brightblack,bg=default'
+
           # bind-key -r B run-shell "~/.config/tmux/scripts/sessionizer.sh ~/Projects/dotfiles"
 
           bind-key [ previous-window
