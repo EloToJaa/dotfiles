@@ -36,7 +36,9 @@ in {
           lib.getExe needsreboot
         } \"$systemConfig\" || true";
       };
-      nixos.label = "-";
+      # nixos.label = "-";
     };
+    # To prevent getting stuck at shutdown
+    systemd.extraConfig = "DefaultTimeoutStopSec=10s";
   };
 }

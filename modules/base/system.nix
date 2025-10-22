@@ -9,7 +9,6 @@
   inherit (config.modules.settings) username timezone locale stateVersion;
   cfg = config.modules.base;
 in {
-  imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
   config = lib.mkIf cfg.enable {
     nix = {
       settings = {
