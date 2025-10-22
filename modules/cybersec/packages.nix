@@ -7,9 +7,6 @@
 }: let
   cfg = config.modules.cybersec;
 in {
-  options.modules.cybersec.packages = {
-    enable = lib.mkEnableOption "Enable cybersec packages";
-  };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       # Recon

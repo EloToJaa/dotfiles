@@ -15,7 +15,10 @@ in {
       backupFileExtension = "backup";
       useUserPackages = true;
       useGlobalPkgs = true;
-      extraSpecialArgs = {inherit inputs host;};
+      extraSpecialArgs = {
+        inherit inputs host;
+        variables = {};
+      };
       users.${username} = {
         home = {
           inherit stateVersion username;

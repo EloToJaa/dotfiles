@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) terminal;
+  inherit (config.modules.settings) terminal keyboardLayout;
   cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {
@@ -30,7 +30,7 @@ in {
         ];
 
         input = {
-          kb_layout = variables.keyboardLayout;
+          kb_layout = keyboardLayout;
           kb_options = "grp:alt_caps_toggle";
           numlock_by_default = true;
           follow_mouse = 0;

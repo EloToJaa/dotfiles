@@ -29,7 +29,7 @@ in {
     users.users.${username}.openssh.authorizedKeys.keys = [
       ssh.keys.user
     ];
-    firewall.allowedTCPPorts = [
+    networking.firewall.allowedTCPPorts = [
       cfg.port
     ];
   };

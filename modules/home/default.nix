@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.modules.home;
-in {
+{lib, ...}: {
   options.modules.home = {
     enable = lib.mkEnableOption "Enable home module";
   };
