@@ -11,6 +11,7 @@
     ./network.nix
     ./pipewire.nix
     ./security.nix
+    ./steam.nix
     ./virtualization.nix
     ./wayland.nix
     ./xserver.nix

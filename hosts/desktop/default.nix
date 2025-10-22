@@ -5,7 +5,6 @@ in {
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
-    # ./../../modules/gaming
     ./../../modules/settings.nix
   ];
 

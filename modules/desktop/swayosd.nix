@@ -1,72 +1,84 @@
-{pkgs, ...}: {
-  home.packages = with pkgs.unstable; [swayosd];
-
-  wayland.windowManager.hyprland = {
-    settings = {
-      exec-once = [
-        "swayosd-server"
-      ];
-
-      bind = [
-        ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
-      ];
-      # binds active in lockscreen
-      bindl = [
-        ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise 5%+"
-        ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower 5%-"
-        "$mainMod, XF86MonBrightnessUp, exec, brightnessctl set 100%"
-        "$mainMod, XF86MonBrightnessDown, exec, brightnessctl set 0%"
-      ];
-      bindle = [
-        ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume +2 --max-volume=100"
-        ",XF86AudioLowerVolume, exec, swayosd-client --output-volume -2"
-      ];
-      bindr = [
-        "CAPS,Caps_Lock,exec,swayosd-client --caps-lock"
-        ",Scroll_Lock,exec,swayosd-client --scroll-lock"
-        ",Num_Lock,exec,swayosd-client --num-lock"
-      ];
-    };
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.modules.desktop.swayosd;
+in {
+  options.modules.desktop.swayosd = {
+    enable = lib.mkEnableOption "Enable swayosd";
   };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [swayosd];
 
-  xdg.configFile."swayosd/style.css".text = ''
-    window {
-        padding: 0px 10px;
-        border-radius: 30px;
-        border: 10px;
-        background: alpha(#111111, 0.99);
-    }
+    wayland.windowManager.hyprland = {
+      settings = {
+        exec-once = [
+          "swayosd-server"
+        ];
 
-    #container {
-        margin: 15px;
-    }
+        bind = [
+          ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+        ];
+        # binds active in lockscreen
+        bindl = [
+          ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise 5%+"
+          ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower 5%-"
+          "$mainMod, XF86MonBrightnessUp, exec, brightnessctl set 100%"
+          "$mainMod, XF86MonBrightnessDown, exec, brightnessctl set 0%"
+        ];
+        bindle = [
+          ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume +2 --max-volume=100"
+          ",XF86AudioLowerVolume, exec, swayosd-client --output-volume -2"
+        ];
+        bindr = [
+          "CAPS,Caps_Lock,exec,swayosd-client --caps-lock"
+          ",Scroll_Lock,exec,swayosd-client --scroll-lock"
+          ",Num_Lock,exec,swayosd-client --num-lock"
+        ];
+      };
+    };
 
-    image, label {
-        color: #FBF1C7;
-    }
+    xdg.configFile."swayosd/style.css".text = ''
+      window {
+          padding: 0px 10px;
+          border-radius: 30px;
+          border: 10px;
+          background: alpha(#111111, 0.99);
+      }
 
-    progressbar:disabled,
-    image:disabled {
-        opacity: 0.95;
-    }
+      #container {
+          margin: 15px;
+      }
 
-    progressbar {
-        min-height: 6px;
-        border-radius: 999px;
-        background: transparent;
-        border: none;
-    }
-    trough {
-        min-height: inherit;
-        border-radius: inherit;
-        border: none;
-        background: alpha(#CCCCCC, 0.1);
-    }
-    progress {
-        min-height: inherit;
-        border-radius: inherit;
-        border: none;
-        background: #FBF1C7;
-    }
-  '';
+      image, label {
+          color: #FBF1C7;
+      }
+
+      progressbar:disabled,
+      image:disabled {
+          opacity: 0.95;
+      }
+
+      progressbar {
+          min-height: 6px;
+          border-radius: 999px;
+          background: transparent;
+          border: none;
+      }
+      trough {
+          min-height: inherit;
+          border-radius: inherit;
+          border: none;
+          background: alpha(#CCCCCC, 0.1);
+      }
+      progress {
+          min-height: inherit;
+          border-radius: inherit;
+          border: none;
+          background: #FBF1C7;
+      }
+    '';
+  };
 }
