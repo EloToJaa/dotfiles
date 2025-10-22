@@ -1,13 +1,21 @@
 {
   inputs,
-  variables,
+  config,
+  lib,
   ...
-}: {
+}: let
+  inherit (config.modules.settings) username;
+  cfg = config.modules.base;
+in {
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  config = lib.mkIf cfg.enable {
+    sops = {
+      defaultSopsFile = ../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "/home/${variables.username}/.config/sops/age/keys.txt";
+      age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    };
+  };
 }
