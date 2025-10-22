@@ -1,19 +1,36 @@
 {
-  variables,
   pkgs,
+  lib,
+  config,
   ...
-}: {
-  programs.ssh.package = pkgs.unstable.openssh;
-  services.openssh = {
-    enable = true;
-    ports = [22];
-    settings = {
-      PasswordAuthentication = false;
-      AllowUsers = null;
-      PermitRootLogin = "yes";
+}: let
+  inherit (config.modules.settings) username ssh;
+  cfg = config.modules.base.ssh;
+in {
+  options.modules.base.ssh = {
+    enable = lib.mkEnableOption "Enable ssh";
+    port = lib.mkOption {
+      type = lib.types.int;
+      default = 22;
+      description = "ssh port";
     };
   };
-  users.users.${variables.username}.openssh.authorizedKeys.keys = [
-    variables.ssh.keys.user
-  ];
+  config = lib.mkIf cfg.enable {
+    programs.ssh.package = pkgs.unstable.openssh;
+    services.openssh = {
+      enable = true;
+      ports = [cfg.port];
+      settings = {
+        PasswordAuthentication = false;
+        AllowUsers = null;
+        PermitRootLogin = "no";
+      };
+    };
+    users.users.${username}.openssh.authorizedKeys.keys = [
+      ssh.keys.user
+    ];
+    firewall.allowedTCPPorts = [
+      cfg.port
+    ];
+  };
 }
