@@ -1,4 +1,7 @@
-{
+{lib, ...}: {
+  options.modules.desktop = {
+    enable = lib.mkEnableOption "Enable desktop module";
+  };
   imports = [
     ./hyprland # window manager
     ./scripts # personal scripts
