@@ -98,12 +98,12 @@ with lib; let
     discord = ["x-scheme-handler/discord"];
   };
 
-  associations = with lists;
+  associations = with lib.lists;
     listToAttrs (
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 
-  removedAssociations = with lists; let
+  removedAssociations = with lib.lists; let
     generateRemoved = category: let
       mimeTypeList = mimeMap."${category}" or []; # Handle missing categories
       removeList = removedApps."${category}" or []; # Handle missing categories

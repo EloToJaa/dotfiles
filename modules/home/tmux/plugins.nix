@@ -23,8 +23,6 @@ in {
         plugin = catppuccin;
         extraConfig = ''
           # set -g status-position top
-          set -g pane-active-border-style 'fg=magenta,bg=default'
-          # set -g pane-border-style 'fg=brightblack,bg=default'
           set -g @catppuccin_flavor 'mocha'
 
           set -g @catppuccin_window_status_style "rounded"
