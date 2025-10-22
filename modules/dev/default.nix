@@ -1,9 +1,11 @@
-{
+{lib, ...}: {
+  options.modules.dev = {
+    enable = lib.mkEnableOption "Enable dev module";
+  };
   imports = [
-    #./nvim
     ./scripts # personal scripts
-    #./tmux
-    ./coding.nix # leetcode cli
+    ./aoc.nix
+    ./leetcode.nix
     ./packages.nix # other packages
     ./variables.nix # environment variables
   ];
