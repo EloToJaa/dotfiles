@@ -2,7 +2,8 @@
   lib,
   config,
   ...
-}: let
+}:
+with lib; let
   inherit (config.modules.settings) terminal;
   defaultApps = {
     browser = ["zen-beta.desktop"];

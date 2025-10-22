@@ -17,7 +17,6 @@ in {
       useGlobalPkgs = true;
       extraSpecialArgs = {
         inherit inputs host;
-        variables = {};
       };
       users.${username} = {
         home = {
