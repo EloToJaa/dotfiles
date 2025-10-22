@@ -1,10 +1,10 @@
 {
   pkgs,
-  variables,
   config,
   lib,
   ...
 }: let
+  inherit (config.modules.settings) username;
   cfg = config.modules.base.nh;
 in {
   options.modules.base.nh = {
@@ -18,7 +18,7 @@ in {
         enable = true;
         extraArgs = "--keep-since 7d --keep 5";
       };
-      flake = "/home/${variables.username}/Projects/dotfiles";
+      flake = "/home/${username}/Projects/dotfiles";
     };
 
     environment.systemPackages = with pkgs.unstable; [
