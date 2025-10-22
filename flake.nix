@@ -82,32 +82,6 @@
   } @ inputs: let
     inherit (self) outputs;
     system = "x86_64-linux";
-    variables = {
-      username = "elotoja";
-      email = "elotoja@protonmail.com";
-      git = {
-        userName = "EloToJaa";
-        userEmail = variables.email;
-      };
-      catppuccin = {
-        flavor = "mocha";
-        accent = "blue";
-      };
-      terminal = "ghostty"; # wezterm/ghostty/kitty
-      timezone = "Europe/Warsaw";
-      locale = "en_GB.UTF-8";
-      keyboardLayout = "pl,pl";
-      stateVersion = "25.05";
-      dns = ["192.168.0.32" "9.9.9.9" "149.112.112.112"];
-      nfs = {
-        local = "192.168.0.41";
-        remote = "truenas.eagle-perch.ts.net";
-      };
-      ssh.keys = {
-        user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMtWaehMf7X23uUZDY5J4fG4/exqj5jWQVaLLXloaO/g elotoja@protonmail.com";
-      };
-      atuin = "https://atuin.server.elotoja.com";
-    };
   in {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
@@ -115,7 +89,7 @@
         modules = [./hosts/desktop];
         specialArgs = {
           host = "desktop";
-          inherit self inputs variables outputs;
+          inherit self inputs outputs;
         };
       };
       laptop = nixpkgs.lib.nixosSystem {
@@ -123,7 +97,7 @@
         modules = [./hosts/laptop];
         specialArgs = {
           host = "laptop";
-          inherit self inputs variables outputs;
+          inherit self inputs outputs;
         };
       };
       server = nixpkgs.lib.nixosSystem {
@@ -131,7 +105,7 @@
         modules = [./hosts/server];
         specialArgs = {
           host = "server";
-          inherit self inputs variables outputs;
+          inherit self inputs outputs;
         };
       };
       tester = nixpkgs.lib.nixosSystem {
@@ -139,7 +113,7 @@
         modules = [./hosts/tester];
         specialArgs = {
           host = "tester";
-          inherit self inputs variables outputs;
+          inherit self inputs outputs;
         };
       };
       vm = nixpkgs.lib.nixosSystem {
@@ -147,7 +121,7 @@
         modules = [./hosts/vm];
         specialArgs = {
           host = "vm";
-          inherit self inputs variables outputs;
+          inherit self inputs outputs;
         };
       };
     };

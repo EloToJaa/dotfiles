@@ -4,7 +4,6 @@
   host,
   config,
   lib,
-  variables, # TODO: remove
   ...
 }: let
   inherit (config.modules.settings) username stateVersion uid;
@@ -16,7 +15,7 @@ in {
       backupFileExtension = "backup";
       useUserPackages = true;
       useGlobalPkgs = true;
-      extraSpecialArgs = {inherit inputs variables host;}; # TODO: remove
+      extraSpecialArgs = {inherit inputs host;};
       users.${username} = {
         home = {
           inherit stateVersion username;
