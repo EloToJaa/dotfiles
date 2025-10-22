@@ -16,11 +16,12 @@
     "x-systemd.mount-timeout=10"
   ];
   fsType = "nfs";
+  cfg = config.modules.base.nfs;
 in {
   options.modules.base.nfs = {
     enable = lib.mkEnableOption "Enable nfs";
   };
-  config = lib.mkIf config.modules.base.nfs.enable {
+  config = lib.mkIf cfg.enable {
     fileSystems = {
       "/mnt/Data" = {
         device = "${nfs}:/mnt/Main/Data";
