@@ -1,9 +1,9 @@
 {
   pkgs,
   lib,
+  config,
   ...
-}:
-with lib; let
+}: let
   extra-path = with pkgs.unstable; [
     dotnetCorePackages.sdk_9_0-bin
     # dotnetCorePackages.sdk_8_0-bin
@@ -42,27 +42,33 @@ with lib; let
       ''
       + attrs.postInstall or "";
   });
+  cfg = config.modules.desktop.rider;
 in {
-  home.packages = with pkgs.unstable; [
-    _rider
-    icu
-    dotnet-sdk_9
-    # dotnet-sdk
-  ];
+  options.modules.desktop.rider = {
+    enable = lib.mkEnableOption "Enable rider";
+  };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [
+      _rider
+      icu
+      dotnet-sdk_9
+      # dotnet-sdk
+    ];
 
-  # Unity Rider plugin looks here for a .desktop file,
-  # which it uses to find the path to the rider binary.
-  home.file = {
-    ".local/share/applications/jetbrains-rider.desktop".source = let
-      desktopFile = pkgs.makeDesktopItem {
-        name = "jetbrains-rider";
-        desktopName = "Rider";
-        exec = "\"${_rider}/bin/rider\"";
-        icon = "rider";
-        type = "Application";
-        # Don't show desktop icon in search or run launcher
-        extraConfig.NoDisplay = "true";
-      };
-    in "${desktopFile}/share/applications/jetbrains-rider.desktop";
+    # Unity Rider plugin looks here for a .desktop file,
+    # which it uses to find the path to the rider binary.
+    home.file = {
+      ".local/share/applications/jetbrains-rider.desktop".source = let
+        desktopFile = pkgs.makeDesktopItem {
+          name = "jetbrains-rider";
+          desktopName = "Rider";
+          exec = "\"${_rider}/bin/rider\"";
+          icon = "rider";
+          type = "Application";
+          # Don't show desktop icon in search or run launcher
+          extraConfig.NoDisplay = "true";
+        };
+      in "${desktopFile}/share/applications/jetbrains-rider.desktop";
+    };
   };
 }

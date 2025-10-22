@@ -1,24 +1,32 @@
 {
   pkgs,
   inputs,
-  variables,
+  config,
+  lib,
   ...
 }: let
+  inherit (config.modules.settings) catppuccin;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  cfg = config.modules.desktop.spotify;
 in {
-  # home.packages = with pkgs.unstable; [spotube];
+  options.modules.desktop.spotify = {
+    enable = lib.mkEnableOption "Enable spotify";
+  };
+  config = lib.mkIf cfg.enable {
+    # home.packages = with pkgs.unstable; [spotube];
 
-  imports = [inputs.spicetify-nix.homeManagerModules.default];
+    imports = [inputs.spicetify-nix.homeManagerModules.default];
 
-  programs.spicetify = {
-    enable = true;
+    programs.spicetify = {
+      enable = true;
 
-    enabledExtensions = with spicePkgs.extensions; [
-      adblock
-      shuffle # shuffle+ (special characters are sanitized out of extension names)
-    ];
+      enabledExtensions = with spicePkgs.extensions; [
+        adblock
+        shuffle # shuffle+ (special characters are sanitized out of extension names)
+      ];
 
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = variables.catppuccin.flavor;
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = catppuccin.flavor;
+    };
   };
 }

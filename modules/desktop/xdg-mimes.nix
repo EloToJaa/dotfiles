@@ -1,10 +1,9 @@
 {
   lib,
   config,
-  variables,
   ...
-}:
-with lib; let
+}: let
+  inherit (config.modules.settings) terminal;
   defaultApps = {
     browser = ["zen-beta.desktop"];
     text = ["org.gnome.TextEditor.desktop"];
@@ -14,7 +13,7 @@ with lib; let
     directory = ["nemo.desktop"];
     office = ["libreoffice.desktop"];
     pdf = ["org.gnome.Evince.desktop"];
-    terminal = ["${variables.terminal}.desktop"];
+    terminal = ["${terminal}.desktop"];
     archive = ["org.gnome.FileRoller.desktop"];
     discord = ["discord.desktop"];
   };
@@ -98,35 +97,41 @@ with lib; let
     discord = ["x-scheme-handler/discord"];
   };
 
-  associations = with lists;
+  associations = with lib.lists;
     listToAttrs (
       flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 
-  removedAssociations = with lists; let
+  removedAssociations = with lib.lists; let
     generateRemoved = category: let
       mimeTypeList = mimeMap."${category}" or []; # Handle missing categories
       removeList = removedApps."${category}" or []; # Handle missing categories
     in
       map (mimeType: attrsets.nameValuePair mimeType removeList) mimeTypeList;
 
-    allRemoved = flatten (mapAttrsToList (cat: val: generateRemoved cat) removedApps);
+    allRemoved = flatten (mapAttrsToList (cat: _: generateRemoved cat) removedApps);
   in
     listToAttrs allRemoved;
+  cfg = config.modules.desktop.xdg-mimes;
 in {
-  xdg = {
-    configFile."mimeapps.list".force = true;
-    mimeApps = {
-      enable = true;
-      associations.added = associations;
-      associations.removed = removedAssociations;
-      defaultApplications = associations;
-    };
+  options.modules.desktop.xdg-mimes = {
+    enable = lib.mkEnableOption "Enable xdg mimes";
   };
+  config = lib.mkIf cfg.enable {
+    xdg = {
+      configFile."mimeapps.list".force = true;
+      mimeApps = {
+        enable = true;
+        associations.added = associations;
+        associations.removed = removedAssociations;
+        defaultApplications = associations;
+      };
+    };
 
-  home.sessionVariables = {
-    # prevent wine from creating file associations
-    WINEDLLOVERRIDES = "winemenubuilder.exe=d";
-    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+    home.sessionVariables = {
+      # prevent wine from creating file associations
+      WINEDLLOVERRIDES = "winemenubuilder.exe=d";
+      XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+    };
   };
 }

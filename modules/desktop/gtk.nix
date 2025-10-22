@@ -1,49 +1,55 @@
 {
   pkgs,
-  variables,
   lib,
+  config,
   ...
 }: let
   # theme = "Orchis-Dark-Compact";
   theme = "Adwaita-dark";
+  cfg = config.modules.desktop.gtk;
 in {
-  home.packages = with pkgs.unstable; [
-    nwg-look
-  ];
-
-  home.sessionVariables = {
-    GTK_THEME = theme;
+  options.modules.desktop.gtk = {
+    enable = lib.mkEnableOption "Enable gtk";
   };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [
+      nwg-look
+    ];
 
-  gtk = {
-    enable = true;
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 11;
+    home = {
+      sessionVariables = {
+        GTK_THEME = theme;
+      };
+      pointerCursor = {
+        name = "Bibata-Modern-Ice";
+        package = pkgs.unstable.bibata-cursors;
+        size = 22;
+      };
     };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = lib.mkForce (pkgs.unstable.catppuccin-papirus-folders.override {
-        flavor = variables.catppuccin.flavor;
-        accent = variables.catppuccin.accent;
-      });
-    };
-    theme = {
-      name = theme;
-      # package = pkgs.orchis-theme.override {
-      #   tweaks = ["primary"];
-      # };
-    };
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.unstable.bibata-cursors;
-      size = 22;
-    };
-  };
 
-  home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.unstable.bibata-cursors;
-    size = 22;
+    gtk = {
+      enable = true;
+      font = {
+        name = "JetBrainsMono Nerd Font";
+        size = 11;
+      };
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = lib.mkForce (pkgs.unstable.catppuccin-papirus-folders.override {
+          inherit (config.modules.settings.catppuccin) flavor accent;
+        });
+      };
+      theme = {
+        name = theme;
+        # package = pkgs.orchis-theme.override {
+        #   tweaks = ["primary"];
+        # };
+      };
+      cursorTheme = {
+        name = "Bibata-Modern-Ice";
+        package = pkgs.unstable.bibata-cursors;
+        size = 22;
+      };
+    };
   };
 }

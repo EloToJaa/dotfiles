@@ -1,17 +1,18 @@
 {
   pkgs,
   config,
-  variables,
   lib,
   ...
-}: {
+}: let
+  inherit (config.modules.settings) username;
+in {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/core
   ];
 
-  home-manager.users.${variables.username}.imports = [
+  home-manager.users.${username}.imports = [
     ./../../modules/home
     ./../../modules/dev
     ./../../modules/desktop

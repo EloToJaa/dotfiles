@@ -2,34 +2,43 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }: let
   needsreboot = inputs.nixos-needsreboot.packages.${pkgs.system}.default;
+  cfg = config.modules.base.bootloader;
 in {
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 10;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-
-    kernelPackages = pkgs.linuxPackages_latest;
+  options.modules.base.bootloader = {
+    enable = lib.mkEnableOption "Enable bootloader";
   };
-  systemd.package = pkgs.systemd;
+  config = lib.mkIf cfg.enable {
+    boot = {
+      loader = {
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 10;
+        };
+        efi.canTouchEfiVariables = true;
+      };
 
-  environment.systemPackages = [
-    needsreboot
-  ];
-
-  system = {
-    activationScripts.nixos-needsreboot = {
-      supportsDryActivation = true;
-      text = "${
-        lib.getExe needsreboot
-      } \"$systemConfig\" || true";
+      kernelPackages = pkgs.linuxPackages_latest;
     };
-    nixos.label = "-";
+    systemd.package = pkgs.systemd;
+
+    environment.systemPackages = [
+      needsreboot
+    ];
+
+    system = {
+      activationScripts.nixos-needsreboot = {
+        supportsDryActivation = true;
+        text = "${
+          lib.getExe needsreboot
+        } \"$systemConfig\" || true";
+      };
+      # nixos.label = "-";
+    };
+    # To prevent getting stuck at shutdown
+    systemd.extraConfig = "DefaultTimeoutStopSec=10s";
   };
 }

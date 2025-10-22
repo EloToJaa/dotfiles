@@ -1,6 +1,18 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.modules.base.index;
+in {
+  options.modules.base.index = {
+    enable = lib.mkEnableOption "Enable nix-index";
+  };
   imports = [
     inputs.nix-index-database.nixosModules.nix-index
   ];
-  programs.nix-index-database.comma.enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.nix-index-database.comma.enable = true;
+  };
 }

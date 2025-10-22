@@ -15,8 +15,7 @@ in {
       enable = true;
       inherit (config.modules.settings.catppuccin) flavor accent;
 
-      # TODO: Remove these
-      mako.enable = false;
+      # mako.enable = false;
     };
   };
 }

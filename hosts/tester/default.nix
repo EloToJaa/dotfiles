@@ -1,11 +1,13 @@
-{variables, ...}: {
+{config, ...}: let
+  inherit (config.modules.settings) username;
+in {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/base
     ./../../modules/homelab
   ];
 
-  home-manager.users.${variables.username}.imports = [
+  home-manager.users.${username}.imports = [
     ./../../modules/home
   ];
 

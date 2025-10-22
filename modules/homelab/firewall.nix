@@ -8,9 +8,6 @@ in {
   config = lib.mkIf cfg.enable {
     networking.firewall = {
       enable = lib.mkForce true;
-      allowedTCPPorts = [
-        22
-      ];
     };
   };
 }

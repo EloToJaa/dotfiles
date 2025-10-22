@@ -1,4 +1,9 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   wall-change = pkgs.writeShellScriptBin "wall-change" (builtins.readFile ./scripts/wall-change.sh);
   random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" (builtins.readFile ./scripts/random-wallpaper.sh);
 
@@ -10,18 +15,21 @@
   record = pkgs.writeScriptBin "record" (builtins.readFile ./scripts/record.sh);
 
   screenshot = pkgs.writeScriptBin "screenshot" (builtins.readFile ./scripts/screenshot.sh);
+  cfg = config.modules.desktop;
 in {
-  home.packages = [
-    wall-change
-    random-wallpaper
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      wall-change
+      random-wallpaper
 
-    toggle-blur
-    toggle-opacity
-    toggle-waybar
-    toggle-float
+      toggle-blur
+      toggle-opacity
+      toggle-waybar
+      toggle-float
 
-    record
+      record
 
-    screenshot
-  ];
+      screenshot
+    ];
+  };
 }
