@@ -26,7 +26,7 @@ in {
       extraPackages = with pkgs.unstable.bat-extras; [
         # batman
         batpipe
-        batgrep
+        # batgrep
         # batdiff
       ];
     };
