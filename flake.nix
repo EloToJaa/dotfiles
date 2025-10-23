@@ -78,12 +78,14 @@
   outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        ./nixosModules
-        ./homeModules
-        ./pkgs
+        # ./nixosModules
+        # ./homeModules
+        ./settings.nix
         ./hosts
+        ./pkgs
+        ./overlays
       ];
-      flake.modules.settings = import ./settings;
+      # flake.modules.settings = import ./settings;
 
       systems = [
         "x86_64-linux"

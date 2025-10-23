@@ -1,8 +1,13 @@
 {
-  flake.nixosModules = {
-    settings = import ./../settings;
-    base = import ./base;
-    core = import ./core;
-    homelab = import ./homelab;
-  };
+  # flake.nixosModules = {
+  #   base = import ./base;
+  #   core = import ./core;
+  #   homelab = import ./homelab;
+  # };
+  imports = [
+    ./../settings.nix
+    ./base
+    ./core
+    ./homelab
+  ];
 }

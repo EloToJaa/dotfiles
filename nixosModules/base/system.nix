@@ -44,7 +44,7 @@ in {
       overlays = [
         inputs.nur.overlays.default
         outputs.overlays.unstable-packages
-        outputs.overlays.additions
+        # outputs.overlays.additions
         outputs.overlays.modifications
       ];
       config = {

@@ -7,7 +7,8 @@
   flake.nixosConfigurations = let
     inherit (inputs.nixpkgs.lib) nixosSystem;
     inherit (config.settings) username;
-    specialArgs = {inherit inputs self host;};
+    inherit (self) outputs;
+    specialArgs = {inherit inputs outputs self host;};
     system = "x86_64-linux";
     host = "desktop";
   in {
