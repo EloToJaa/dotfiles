@@ -75,98 +75,66 @@
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
   };
 
-  outputs = {
-    nixpkgs,
-    self,
-    deploy-rs,
-    flake-parts,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [./hosts/desktop];
-        specialArgs = {
-          host = "desktop";
-          inherit self inputs outputs;
-        };
-      };
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [./hosts/laptop];
-        specialArgs = {
-          host = "laptop";
-          inherit self inputs outputs;
-        };
-      };
-      server = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [./hosts/server];
-        specialArgs = {
-          host = "server";
-          inherit self inputs outputs;
-        };
-      };
-      tester = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [./hosts/tester];
-        specialArgs = {
-          host = "tester";
-          inherit self inputs outputs;
-        };
-      };
-      vm = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [./hosts/vm];
-        specialArgs = {
-          host = "vm";
-          inherit self inputs outputs;
-        };
-      };
-    };
-    overlays = import ./overlays {inherit inputs;};
-    packages = {
-      ${system} = let
-        # Import nixpkgs for the target system, applying overlays directly
-        pkgsWithOverlays = import nixpkgs {
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        ./nixosModules
+        ./homeModules
+        ./pkgs
+        ./hosts
+      ];
+      flake.modules.settings = import ./settings;
+
+      systems = [
+        "x86_64-linux"
+      ];
+      perSystem = {system, ...}: {
+        _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          config = {allowUnfree = true;}; # Ensure consistent config
-          # Pass the list of overlay functions directly
-          overlays = builtins.attrValues self.overlays;
-        };
-        # Import the function from pkgs/default.nix
-        pkgsFunction = import ./pkgs;
-        # Call the function with the fully overlaid package set
-        customPkgs = pkgsFunction pkgsWithOverlays;
-      in
-        # Return the set of custom packages
-        customPkgs;
-    };
-    deploy.nodes = let
-      configs = self.nixosConfigurations;
-      domain = "eagle-perch.ts.net";
-      user = "elotoja";
-    in {
-      server = {
-        hostname = "server.${domain}";
-        profiles.system = {
-          inherit user;
-          path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
-          interactiveSudo = true;
-        };
-      };
-      laptop = {
-        hostname = "laptop.${domain}";
-        profiles.system = {
-          inherit user;
-          path = deploy-rs.lib.x86_64-linux.activate.nixos configs.laptop;
-          interactiveSudo = true;
+          overlays = import ./overlays {inherit inputs;};
+          config = {allowUnfree = true;};
         };
       };
     };
-    checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-  };
+
+  # packages = {
+  #   ${system} = let
+  #     # Import nixpkgs for the target system, applying overlays directly
+  #     pkgsWithOverlays = import nixpkgs {
+  #       inherit system;
+  #       config = {allowUnfree = true;}; # Ensure consistent config
+  #       # Pass the list of overlay functions directly
+  #       overlays = builtins.attrValues self.overlays;
+  #     };
+  #     # Import the function from pkgs/default.nix
+  #     pkgsFunction = import ./pkgs;
+  #     # Call the function with the fully overlaid package set
+  #     customPkgs = pkgsFunction pkgsWithOverlays;
+  #   in
+  #     # Return the set of custom packages
+  #     customPkgs;
+  # };
+  # deploy.nodes = let
+  #   configs = self.nixosConfigurations;
+  #   domain = "eagle-perch.ts.net";
+  #   user = "elotoja";
+  # in {
+  #   server = {
+  #     hostname = "server.${domain}";
+  #     profiles.system = {
+  #       inherit user;
+  #       path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
+  #       interactiveSudo = true;
+  #     };
+  #   };
+  #   laptop = {
+  #     hostname = "laptop.${domain}";
+  #     profiles.system = {
+  #       inherit user;
+  #       path = deploy-rs.lib.x86_64-linux.activate.nixos configs.laptop;
+  #       interactiveSudo = true;
+  #     };
+  #   };
+  # };
+  # checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 }

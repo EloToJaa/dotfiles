@@ -1,28 +1,27 @@
-{config, ...}: let
-  inherit (config.settings) username;
-in {
-  imports = [
-    ./hardware-configuration.nix
-    ./config.nix
-  ];
-
-  home-manager.users.${username}.imports = [
-    ./home.nix
-  ];
-
-  networking = {
-    useDHCP = false;
-    interfaces."eno1".ipv4.addresses = [
-      {
-        address = "192.168.0.20";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = {
-      address = "192.168.0.1";
-      interface = "eno1";
+{
+  config,
+  inputs,
+  self,
+  ...
+}: {
+  flake.nixosConfigurations = let
+    inherit (inputs.nixpkgs.lib) nixosSystem;
+    inherit (config.settings) username;
+    specialArgs = {inherit inputs self host;};
+    system = "x86_64-linux";
+    host = "desktop";
+  in {
+    "${host}" = nixosSystem {
+      inherit specialArgs system;
+      modules = [
+        ./hardware-configuration.nix
+        ./config.nix
+        {
+          home-manager.users.${username}.imports = [
+            ./home.nix
+          ];
+        }
+      ];
     };
   };
-
-  powerManagement.cpuFreqGovernor = "performance";
 }
