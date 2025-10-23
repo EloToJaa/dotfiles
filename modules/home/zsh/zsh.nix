@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   cfg = config.modules.home.zsh;
 in {
   config = lib.mkIf cfg.enable {
@@ -75,7 +76,7 @@ in {
     };
     catppuccin.zsh-syntax-highlighting = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) flavor;
+      inherit (catppuccin) flavor;
     };
   };
 }

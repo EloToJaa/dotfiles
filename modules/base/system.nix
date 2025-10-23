@@ -6,7 +6,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) username timezone locale stateVersion;
+  inherit (config.settings) username timezone locale stateVersion;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {

@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.nextcloud;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
@@ -65,7 +66,7 @@ in {
       # Settings
       enableImagemagick = true;
       config = {
-        adminuser = config.modules.settings.username;
+        adminuser = username;
         adminpassFile = config.sops.secrets."${cfg.name}/adminpassword".path;
         dbtype = "pgsql";
         dbhost = "127.0.0.1:5432";

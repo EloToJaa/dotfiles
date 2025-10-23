@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) stateVersion;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.immich;
 in {
@@ -86,7 +87,7 @@ in {
           "d ${homelab.varDataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
         ];
 
-        system.stateVersion = config.modules.settings.stateVersion;
+        system.stateVersion = stateVersion;
 
         networking = {
           firewall = {

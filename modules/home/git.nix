@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) git;
   shellAliases = {
     g = "git";
     gf = "onefetch --number-of-file-churns 0 --no-color-palette";
@@ -42,8 +43,8 @@ in {
 
       settings = {
         user = {
-          name = config.modules.settings.git.userName;
-          email = config.modules.settings.git.userEmail;
+          name = git.userName;
+          email = git.userEmail;
         };
         init.defaultBranch = "main";
         credential.helper = "store";

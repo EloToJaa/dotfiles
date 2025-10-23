@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) username;
+  inherit (config.settings) username;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {

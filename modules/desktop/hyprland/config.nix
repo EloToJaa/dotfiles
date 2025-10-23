@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) terminal keyboardLayout;
+  inherit (config.settings) terminal keyboardLayout;
   cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {

@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   shellAliases = {
     cat = "bat";
     less = "bat";
@@ -34,7 +35,7 @@ in {
     };
     catppuccin.bat = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) flavor;
+      inherit (catppuccin) flavor;
     };
   };
 }

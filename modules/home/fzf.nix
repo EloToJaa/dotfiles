@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   cfg = config.modules.home.fzf;
 in {
   options.modules.home.fzf = {
@@ -22,7 +23,7 @@ in {
     };
     catppuccin.fzf = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) flavor accent;
+      inherit (catppuccin) flavor accent;
     };
   };
 }

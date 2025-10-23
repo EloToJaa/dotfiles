@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (config.modules) homelab;
+  inherit (config.settings) timezone;
   cfg = config.modules.homelab.cleanuparr;
 in {
   options.modules.homelab.cleanuparr = {
@@ -45,7 +46,7 @@ in {
         PORT = toString cfg.port;
         PUID = toString cfg.id;
         PGID = toString cfg.id;
-        TZ = config.modules.settings.timezone;
+        TZ = timezone;
         UMASK = homelab.defaultUMask;
       };
       volumes = [

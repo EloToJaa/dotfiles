@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   cfg = config.modules.home.btop;
 in {
   options.modules.home.btop = {
@@ -22,7 +23,7 @@ in {
     };
     catppuccin.btop = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) flavor;
+      inherit (catppuccin) flavor;
     };
 
     home.packages = with pkgs.unstable; [nvtopPackages.amd];

@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) email;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres.pgadmin;
 in {
@@ -27,7 +28,7 @@ in {
       inherit (cfg) port;
       enable = true;
       package = pkgs.unstable.pgadmin4;
-      initialEmail = config.modules.settings.email;
+      initialEmail = email;
       initialPasswordFile = config.sops.secrets."pgadmin/password".path;
     };
     systemd.services.pgadmin.serviceConfig = {

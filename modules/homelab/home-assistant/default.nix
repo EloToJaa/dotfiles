@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) timezone;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.home-assistant;
 in {
@@ -39,7 +40,7 @@ in {
           name = "Home";
           unit_system = "metric";
           temperature_unit = "C";
-          time_zone = config.modules.settings.timezone;
+          time_zone = timezone;
         };
         http = {
           server_host = "127.0.0.1";

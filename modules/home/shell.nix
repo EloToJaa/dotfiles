@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin atuin;
   shellAliases = {
     cd = "z";
   };
@@ -16,7 +17,7 @@ in {
     catppuccin = {
       atuin = {
         enable = true;
-        inherit (config.modules.settings.catppuccin) flavor;
+        inherit (catppuccin) flavor;
       };
     };
     programs = {
@@ -30,7 +31,7 @@ in {
         settings = {
           auto_sync = true;
           sync_frequency = "10m";
-          sync_address = config.modules.settings.atuin;
+          sync_address = atuin;
           show_preview = true;
           store_failed = true;
           secrets_filter = true;

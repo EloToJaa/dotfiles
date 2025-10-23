@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) username;
+  inherit (config.settings) username;
   cfg = config.modules.core.virtualization;
 in {
   options.modules.core.virtualization = {

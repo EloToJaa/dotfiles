@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) username;
+  inherit (config.settings) username;
   cfg = config.modules.core.adb;
 in {
   options.modules.core.adb = {

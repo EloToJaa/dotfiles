@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   cfg = config.modules.home.catppuccin;
 in {
   options.modules.home.catppuccin = {
@@ -13,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     catppuccin = {
       enable = true;
-      inherit (config.modules.settings.catppuccin) flavor accent;
+      inherit (catppuccin) flavor accent;
 
       # mako.enable = false;
     };

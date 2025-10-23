@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  inherit (config.modules.settings) terminal;
+  inherit (config.settings) terminal;
   defaultApps = {
     browser = ["zen-beta.desktop"];
     text = ["org.gnome.TextEditor.desktop"];

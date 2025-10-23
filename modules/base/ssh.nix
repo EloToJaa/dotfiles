@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) username ssh;
+  inherit (config.settings) username ssh;
   cfg = config.modules.base.ssh;
 in {
   options.modules.base.ssh = {

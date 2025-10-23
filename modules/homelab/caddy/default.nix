@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  inherit (config.settings) email;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.caddy;
 in {
@@ -62,7 +63,7 @@ in {
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = config.modules.settings.email;
+      defaults.email = email;
       certs.${homelab.baseDomain} = {
         inherit (cfg) group;
         reloadServices = ["caddy.service"];

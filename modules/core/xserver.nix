@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) keyboardLayout username;
+  inherit (config.settings) keyboardLayout username;
   cfg = config.modules.core.xserver;
 in {
   options.modules.core.xserver = {

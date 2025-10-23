@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   # theme = "Orchis-Dark-Compact";
   theme = "Adwaita-dark";
   cfg = config.modules.desktop.gtk;
@@ -36,7 +37,7 @@ in {
       iconTheme = {
         name = "Papirus-Dark";
         package = lib.mkForce (pkgs.unstable.catppuccin-papirus-folders.override {
-          inherit (config.modules.settings.catppuccin) flavor accent;
+          inherit (catppuccin) flavor accent;
         });
       };
       theme = {

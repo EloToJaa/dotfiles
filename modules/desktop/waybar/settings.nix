@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) terminal;
+  inherit (config.settings) terminal;
   custom = {
     font = "JetBrainsMono Nerd Font";
     font_size = "18px";

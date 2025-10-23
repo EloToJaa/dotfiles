@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.settings;
+  cfg = config.settings;
 in {
-  options.modules.settings = {
+  options.settings = {
     username = lib.mkOption {
       type = lib.types.str;
       default = "elotoja";

@@ -6,7 +6,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) username stateVersion uid;
+  inherit (config.settings) username stateVersion uid;
   cfg = config.modules.base;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];

@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) catppuccin;
+  inherit (config.settings) catppuccin;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   cfg = config.modules.desktop.spotify;
 in {

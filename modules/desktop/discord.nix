@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) catppuccin;
+  inherit (config.settings) catppuccin;
   cfg = config.modules.desktop.discord;
 in {
   options.modules.desktop.discord = {

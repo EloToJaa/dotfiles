@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.settings) dns username;
+  inherit (config.settings) dns username;
   cfg = config.modules.base;
 in {
   options.modules.base.tailscale = {

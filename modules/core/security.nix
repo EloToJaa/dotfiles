@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (config.modules.settings) username;
+  inherit (config.settings) username;
   cfg = config.modules.core.security;
 in {
   options.modules.core.security = {

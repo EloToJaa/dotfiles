@@ -1,12 +1,12 @@
 {config, ...}: let
-  inherit (config.modules.settings) username;
+  inherit (config.settings) username;
 in {
   imports = [
     ./hardware-configuration.nix
     ./config.nix
     ./../../modules/base
     ./../../modules/core
-    ./../../modules/settings.nix
+    ./../../settings.nix
   ];
 
   home-manager.users.${username}.imports = [
@@ -15,7 +15,7 @@ in {
     ./../../modules/dev
     ./../../modules/desktop
     ./../../modules/cybersec
-    ./../../modules/settings.nix
+    ./../../settings.nix
   ];
 
   networking = {
