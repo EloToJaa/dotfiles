@@ -8,14 +8,11 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ./../../modules/base
-    ./../../modules/core
+    ./config.nix
   ];
 
   home-manager.users.${username}.imports = [
-    ./../../modules/home
-    ./../../modules/dev
-    ./../../modules/desktop
+    ./home.nix
   ];
 
   networking = {
