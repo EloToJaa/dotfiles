@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  inherit (config.modules) settings;
-  nfs =
+  inherit (config.settings) nfs;
+  hostname =
     if (host == "desktop" || host == "server")
-    then settings.nfs.local
-    else settings.nfs.remote;
+    then nfs.local
+    else nfs.remote;
   options = [
     "x-systemd.automount"
     "noauto"
@@ -24,31 +24,31 @@ in {
   config = lib.mkIf cfg.enable {
     fileSystems = {
       "/mnt/Data" = {
-        device = "${nfs}:/mnt/Main/Data";
+        device = "${hostname}:/mnt/Main/Data";
         inherit fsType options;
       };
       "/mnt/Cloud" = {
-        device = "${nfs}:/mnt/Main/Cloud";
+        device = "${hostname}:/mnt/Main/Cloud";
         inherit fsType options;
       };
       "/mnt/Backups" = {
-        device = "${nfs}:/mnt/Main/Backups";
+        device = "${hostname}:/mnt/Main/Backups";
         inherit fsType options;
       };
       "/mnt/Photos" = {
-        device = "${nfs}:/mnt/Main/Photos";
+        device = "${hostname}:/mnt/Main/Photos";
         inherit fsType options;
       };
       "/mnt/Media" = {
-        device = "${nfs}:/mnt/Main/Media";
+        device = "${hostname}:/mnt/Main/Media";
         inherit fsType options;
       };
       "/mnt/ISO" = {
-        device = "${nfs}:/mnt/Main/ISO";
+        device = "${hostname}:/mnt/Main/ISO";
         inherit fsType options;
       };
       "/mnt/Documents" = {
-        device = "${nfs}:/mnt/Main/Documents";
+        device = "${hostname}:/mnt/Main/Documents";
         inherit fsType options;
       };
     };
