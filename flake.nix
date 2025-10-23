@@ -6,6 +6,7 @@
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nur.url = "github:nix-community/NUR";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.51.1?submodules=true";
@@ -78,6 +79,7 @@
     nixpkgs,
     self,
     deploy-rs,
+    flake-parts,
     ...
   } @ inputs: let
     inherit (self) outputs;
