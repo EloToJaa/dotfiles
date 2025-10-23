@@ -4,18 +4,10 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./config.nix
-    ./../../modules/base
-    ./../../modules/core
-    ./../../settings.nix
   ];
 
   home-manager.users.${username}.imports = [
     ./home.nix
-    ./../../modules/home
-    ./../../modules/dev
-    ./../../modules/desktop
-    ./../../modules/cybersec
-    ./../../settings.nix
   ];
 
   networking = {

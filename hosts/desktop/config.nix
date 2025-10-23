@@ -1,4 +1,7 @@
 {
+  imports = [
+    ./../../nixosModules
+  ];
   modules = {
     base = {
       enable = true;
