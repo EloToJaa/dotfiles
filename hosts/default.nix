@@ -3,7 +3,7 @@
     ./desktop
     ./laptop
     ./server
-    # ./tester
+    ./tester
     # ./vm
   ];
 }
