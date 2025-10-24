@@ -1,7 +1,7 @@
 {
   imports = [
     ./desktop
-    # ./laptop
+    ./laptop
     ./server
     # ./tester
     # ./vm
