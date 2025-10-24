@@ -47,7 +47,7 @@ in {
 
         theme = "catppuccin-mocha";
         background-opacity = 0.9;
-        background-opacity-cells = true;
+        # background-opacity-cells = true;
         background-blur = 10;
 
         cursor-style = "bar";
