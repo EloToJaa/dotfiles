@@ -19,6 +19,7 @@ in {
         theme_background = false;
         update_ms = 500;
         rounded_corners = false;
+        vim_keys = true;
       };
     };
     catppuccin.btop = {
