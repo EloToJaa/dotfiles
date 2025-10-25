@@ -33,7 +33,7 @@ in {
         qbittorrent
         vaults
         thunderbird
-        rustdesk
+        rustdesk-flutter
         prismlauncher
       ]);
   };
