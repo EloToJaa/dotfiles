@@ -14,7 +14,7 @@ in {
       enable = true;
       package = pkgs.unstable.rustdesk-server;
       openFirewall = true;
-      relay.enable = true;
+      relay.enable = false;
       signal = {
         enable = true;
         # relayHosts = ["127.0.0.1"];
