@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   smart-splits = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "smart-splits";
     rtpFilePath = "smart-splits.tmux";
@@ -18,26 +19,26 @@
   cfg = config.modules.home.tmux;
 in {
   config = lib.mkIf cfg.enable {
+    catppuccin.tmux = {
+      inherit (catppuccin) flavor;
+      enable = true;
+      extraConfig = ''
+        # set -g status-position top
+
+        set -g @catppuccin_window_status_style "rounded"
+        set -g status-right-length 100
+        set -g status-left-length 100
+        set -g status-left ""
+        set -g status-right "#{E:@catppuccin_status_application}"
+        set -agF status-right "#{E:@catppuccin_status_session}"
+
+        set -g status-interval 5
+
+        # set -g status-style bg=default
+        set -g @catppuccin_status_background "default"
+      '';
+    };
     programs.tmux.plugins = with pkgs.unstable.tmuxPlugins; [
-      {
-        plugin = catppuccin;
-        extraConfig = ''
-          # set -g status-position top
-          set -g @catppuccin_flavor 'mocha'
-
-          set -g @catppuccin_window_status_style "rounded"
-          set -g status-right-length 100
-          set -g status-left-length 100
-          set -g status-left ""
-          set -g status-right "#{E:@catppuccin_status_application}"
-          set -agF status-right "#{E:@catppuccin_status_session}"
-
-          set -g status-interval 5
-
-          # set -g status-style bg=default
-          set -g @catppuccin_status_background "default"
-        '';
-      }
       {
         plugin = yank;
         extraConfig = ''
