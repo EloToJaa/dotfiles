@@ -37,40 +37,47 @@ in {
     enable = lib.mkEnableOption "Enable git";
   };
   config = lib.mkIf cfg.enable {
-    programs.git = {
-      enable = true;
-      package = pkgs.unstable.git;
+    programs = {
+      git = {
+        enable = true;
+        package = pkgs.unstable.git;
 
-      settings = {
-        user = {
-          name = git.userName;
-          email = git.userEmail;
+        settings = {
+          user = {
+            name = git.userName;
+            email = git.userEmail;
+          };
+          init.defaultBranch = "main";
+          credential.helper = "store";
+          merge.conflictstyle = "diff3";
+          diff.colorMoved = "default";
+          pull.ff = "only";
+          color.ui = true;
+          url = {
+            "https://github.com/EloToJaa/".insteadOf = "etj:";
+            "https://github.com/".insteadOf = "gh:";
+          };
         };
-        init.defaultBranch = "main";
-        credential.helper = "store";
-        merge.conflictstyle = "diff3";
-        diff.colorMoved = "default";
-        pull.ff = "only";
-        color.ui = true;
-        url = {
-          "https://github.com/EloToJaa/".insteadOf = "etj:";
-          "https://github.com/".insteadOf = "gh:";
+
+        signing = {
+          signByDefault = false;
         };
       };
 
-      signing = {
-        signByDefault = false;
+      delta = {
+        enable = true;
+        package = pkgs.unstable.delta;
+        options = {
+          line-numbers = true;
+          side-by-side = true;
+          diff-so-fancy = true;
+          navigate = true;
+        };
       };
-    };
 
-    programs.delta = {
-      enable = true;
-      package = pkgs.unstable.delta;
-      options = {
-        line-numbers = true;
-        side-by-side = true;
-        diff-so-fancy = true;
-        navigate = true;
+      gh-dash = {
+        enable = true;
+        package = pkgs.unstable.gh-dash;
       };
     };
 

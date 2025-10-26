@@ -4,12 +4,18 @@
   lib,
   ...
 }: let
+  inherit (config.settings) catppuccin;
   cfg = config.modules.desktop.wlogout;
 in {
   options.modules.desktop.wlogout = {
     enable = lib.mkEnableOption "Enable wlogout";
   };
   config = lib.mkIf cfg.enable {
+    catppuccin.wlogout = {
+      inherit (catppuccin) flavor accent;
+      enable = true;
+      iconStyle = "wlogout";
+    };
     programs.wlogout = {
       enable = true;
       package = pkgs.unstable.wlogout;
