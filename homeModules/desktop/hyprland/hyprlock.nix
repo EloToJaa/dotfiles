@@ -5,12 +5,15 @@
   lib,
   ...
 }: let
+  inherit (config.settings) username;
   cfg = config.modules.desktop.hyprlock;
+  isLaptop = host == "laptop";
 in {
   options.modules.desktop.hyprlock = {
     enable = lib.mkEnableOption "Enable hyprlock";
   };
   config = lib.mkIf cfg.enable {
+    catppuccin.hyprlock.enable = false;
     programs.hyprlock = {
       enable = true;
       package = pkgs.unstable.hyprlock;
@@ -26,7 +29,7 @@ in {
         background = [
           {
             monitor = "";
-            path = ../wallpapers/wallpapers/others/forest.jpg;
+            path = "${../wallpapers/wallpapers/others/forest.jpg}";
             blur_passes = 2;
             contrast = 0.8916;
             brightness = 0.8172;
@@ -44,7 +47,7 @@ in {
             font_family = "Maple Mono Bold";
             shadow_passes = 3;
             position = "0, ${
-              if (host == "laptop")
+              if isLaptop
               then "-25"
               else "-150"
             }";
@@ -60,7 +63,7 @@ in {
             font_family = "Maple Mono";
             shadow_passes = 3;
             position = "0, ${
-              if (host == "laptop")
+              if isLaptop
               then "-225"
               else "-350"
             }";
@@ -70,17 +73,17 @@ in {
           # User
           {
             monitor = "";
-            text = "  $USER";
+            text = "  ${username}";
             color = "rgba(235, 219, 178, 1)";
             font_size = 15;
             font_family = "Maple Mono Bold";
             position = "0, ${
-              if (host == "laptop")
+              if isLaptop
               then "131"
               else "281"
             }";
             halign = "center";
-            valign = "top";
+            valign = "bottom";
           }
         ];
         shape = [
@@ -94,7 +97,7 @@ in {
             border_color = "rgba(255, 255, 255, 0)";
             rotate = 0;
             position = "0, ${
-              if (host == "laptop")
+              if isLaptop
               then "120"
               else "270"
             }";
@@ -122,7 +125,7 @@ in {
             placeholder_text = "<i><span foreground=\"##fbf1c7\">Enter Password</span></i>";
             hide_input = false;
             position = "0, ${
-              if (host == "laptop")
+              if isLaptop
               then "50"
               else "200"
             }";

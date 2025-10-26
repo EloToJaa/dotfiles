@@ -9,13 +9,14 @@ in {
   options.modules.desktop.swaync = {
     enable = lib.mkEnableOption "Enable swaync";
   };
+  imports = [./style.nix];
   config = lib.mkIf cfg.enable {
     # home.packages = with pkgs.unstable; [swaynotificationcenter];
-    xdg.configFile."swaync/style.css".source = ./style.css;
+    # xdg.configFile."swaync/style.css".source = ./style.css;
     # xdg.configFile."swaync/config.json".source = ./config.json;
-    programs.swaync = {
+    services.swaync = {
       enable = true;
-      package = pkgs.unstable.swaync;
+      package = pkgs.unstable.swaynotificationcenter;
       settings = {
         positionX = "right";
         positionY = "top";
