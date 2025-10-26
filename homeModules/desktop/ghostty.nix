@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings.catppuccin) flavor;
   shellAliases = {
     icat = "kitten icat";
   };
@@ -45,7 +46,7 @@ in {
         bold-is-bright = true;
         selection-invert-fg-bg = true;
 
-        theme = "catppuccin-mocha";
+        theme = "catppuccin-${flavor}";
         background-opacity = 0.9;
         background-opacity-cells = false;
         background-blur = 10;
