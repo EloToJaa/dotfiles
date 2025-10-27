@@ -32,8 +32,9 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add grafana
 - [x] Add homeassistant
 - [x] Add nextcloud
+- [x] Add cleanuparr
 - [x] Restructure the flake using flake-parts
-- [ ] Add ollama
+- [ ] Add profilarr
 - [ ] Add scrutiny
 - [ ] Add goaccess
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
