@@ -25,24 +25,26 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Update nvim config to use nvf for package management
 - [x] Replace rofi with vicinae
 - [x] Replace swappy with Satty
+- [x] Add blocky; setup DNS server & ad blocker
+- [x] Add ntfy
+- [x] Add prometheus
+- [x] Add rustdesk
+- [x] Add grafana
+- [x] Add homeassistant
+- [x] Add nextcloud
+- [x] Restructure the flake using flake-parts
 - [ ] Add ollama
-- [ ] Add rustdesk
 - [ ] Add scrutiny
-- [ ] Add ntfy
 - [ ] Add goaccess
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Add iwmenu and bzmenu
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
-- [ ] Add dnsmasq; setup DNS server & ad blocker
 - [ ] Add redis
 - [ ] Add authelia
-- [ ] Add prometheus
-- [ ] Add grafana
 - [ ] Setup nas host with NixOS
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup logs in /var/log with loki and promtail
 - [ ] Add url shortner (shlink?)
 - [ ] Add microbin (pastebin alternative)
 - [ ] Setup music navidrome & lidarr
-- [ ] Add homeassistant
 - [ ] Add siyuan?
