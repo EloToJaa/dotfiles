@@ -35,8 +35,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add cleanuparr
 - [x] Restructure the flake using flake-parts
 - [ ] Add profilarr
-- [ ] Add scrutiny
-- [ ] Add goaccess
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Add iwmenu and bzmenu
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
@@ -45,7 +43,12 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [ ] Setup nas host with NixOS
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup logs in /var/log with loki and promtail
-- [ ] Add url shortner (shlink?)
-- [ ] Add microbin (pastebin alternative)
+
+Low priority:
+
+- [ ] Add goaccess
 - [ ] Setup music navidrome & lidarr
+- [ ] Add microbin (pastebin alternative)
+- [ ] Add url shortner (shlink?)
+- [ ] Add scrutiny
 - [ ] Add siyuan?
