@@ -52,6 +52,7 @@
         enable = true;
         pgadmin.enable = true;
       };
+      profilarr.enable = true;
       prometheus.enable = false;
       prowlarr = {
         enable = true;
