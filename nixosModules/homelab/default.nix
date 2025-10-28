@@ -83,6 +83,7 @@ in {
     ./ntfy
     ./paperless
     ./postgres
+    ./profilarr
     ./prometheus
     ./prowlarr
     ./qbittorrent
