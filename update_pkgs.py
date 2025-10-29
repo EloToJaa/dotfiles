@@ -145,4 +145,4 @@ def process_directory(directory: str):
 if __name__ == "__main__":
     process_directory("modules/home/yazi/pkgs")
     process_directory("modules/desktop/walker/pkgs")
-    process_directory("pkgs")
+    # process_directory("pkgs")
