@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
@@ -28,7 +27,7 @@ in {
       mediainfo
       hexyl
       udisks
-      inputs.yazi.packages.${pkgs.system}.default
+      yazi
     ];
 
     xdg.configFile = {

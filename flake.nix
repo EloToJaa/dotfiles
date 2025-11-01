@@ -46,10 +46,6 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    yazi = {
-      url = "github:sxyazi/yazi/main";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     wezterm = {
       url = "github:wezterm/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
