@@ -131,25 +131,25 @@ in {
                 }
               ];
             };
-            "backlight#mobile" = {
-              label = " 󰃠 ";
-              device = "panel";
-            };
-            volume = {
-              label = "";
-              expand-button-label = "";
-              collapse-button-label = "";
-              show-per-app = true;
-              show-per-app-icon = true;
-              show-per-app-label = false;
-            };
-            dnd = {
-              text = " Do Not Disturb";
-            };
-            mpris = {
-              image-size = 85;
-              image-radius = 5;
-            };
+          };
+          "backlight#mobile" = {
+            label = " 󰃠 ";
+            device = "panel";
+          };
+          volume = {
+            label = "";
+            expand-button-label = "";
+            collapse-button-label = "";
+            show-per-app = true;
+            show-per-app-icon = true;
+            show-per-app-label = false;
+          };
+          dnd = {
+            text = " Do Not Disturb";
+          };
+          mpris = {
+            image-size = 85;
+            image-radius = 5;
           };
         };
       };
