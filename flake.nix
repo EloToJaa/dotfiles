@@ -42,10 +42,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     wezterm = {
       url = "github:wezterm/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -91,28 +87,4 @@
         };
       };
     };
-
-  # deploy.nodes = let
-  #   configs = self.nixosConfigurations;
-  #   domain = "eagle-perch.ts.net";
-  #   user = "elotoja";
-  # in {
-  #   server = {
-  #     hostname = "server.${domain}";
-  #     profiles.system = {
-  #       inherit user;
-  #       path = deploy-rs.lib.x86_64-linux.activate.nixos configs.server;
-  #       interactiveSudo = true;
-  #     };
-  #   };
-  #   laptop = {
-  #     hostname = "laptop.${domain}";
-  #     profiles.system = {
-  #       inherit user;
-  #       path = deploy-rs.lib.x86_64-linux.activate.nixos configs.laptop;
-  #       interactiveSudo = true;
-  #     };
-  #   };
-  # };
-  # checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 }
