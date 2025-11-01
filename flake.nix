@@ -9,7 +9,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.51.1?submodules=true";
+      url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
