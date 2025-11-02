@@ -1,6 +1,27 @@
 {
   description = "EloToJa's NixOS configuration";
 
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        ./settings.nix
+        ./hosts
+        ./pkgs
+        ./overlays
+      ];
+
+      systems = [
+        "x86_64-linux"
+      ];
+      perSystem = {system, ...}: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = import ./overlays {inherit inputs;};
+          config = {allowUnfree = true;};
+        };
+      };
+    };
+
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
@@ -66,25 +87,4 @@
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
   };
-
-  outputs = {flake-parts, ...} @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        ./settings.nix
-        ./hosts
-        ./pkgs
-        ./overlays
-      ];
-
-      systems = [
-        "x86_64-linux"
-      ];
-      perSystem = {system, ...}: {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = import ./overlays {inherit inputs;};
-          config = {allowUnfree = true;};
-        };
-      };
-    };
 }
