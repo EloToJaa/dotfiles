@@ -10,7 +10,7 @@ in {
     enable = lib.mkEnableOption "Enable homelab groups";
   };
   config = lib.mkIf cfg.enable {
-    users.users.${username}.extraGroups = with cfg.groups; [
+    users.users.${username}.extraGroups = with cfg; [
       main
       cloud
       media
@@ -20,7 +20,7 @@ in {
       backups
     ];
 
-    users.groups = with cfg.groups; {
+    users.groups = with cfg; {
       ${main}.gid = 1100;
       ${media}.gid = 1101;
       ${photos}.gid = 1102;
