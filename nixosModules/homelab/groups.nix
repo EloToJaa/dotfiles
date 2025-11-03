@@ -4,8 +4,11 @@
   ...
 }: let
   inherit (config.settings) username;
-  cfg = config.modules.homelab;
+  cfg = config.modules.homelab.groups;
 in {
+  options.modules.homelab.groups = {
+    enable = lib.mkEnableOption "Enable homelab groups";
+  };
   config = lib.mkIf cfg.enable {
     users.users.${username}.extraGroups = with cfg.groups; [
       main

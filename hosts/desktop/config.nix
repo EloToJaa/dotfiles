@@ -43,5 +43,6 @@
       wayland.enable = true;
       xserver.enable = true;
     };
+    homelab.groups.enable = true;
   };
 }

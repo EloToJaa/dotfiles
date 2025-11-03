@@ -38,6 +38,7 @@
       cleanuparr.enable = true;
       glance.enable = false;
       grafana.enable = false;
+      groups.enable = true;
       home-assistant.enable = false;
       immich.enable = true;
       jellyfin.enable = true;
