@@ -4,16 +4,31 @@
   lib,
   ...
 }: let
-  ascii = pkgs.writeScriptBin "ascii" (builtins.readFile ./scripts/ascii.sh);
-  maxfetch = pkgs.writeScriptBin "maxfetch" (builtins.readFile ./scripts/maxfetch.sh);
-  runbg = pkgs.writeShellScriptBin "runbg" (builtins.readFile ./scripts/runbg.sh);
+  scriptDir = ./scripts;
+  scriptEntries = builtins.readDir scriptDir;
+
+  regularFiles = builtins.filter (name: scriptEntries.${name} == "regular") (
+    builtins.attrNames scriptEntries
+  );
+
+  shellScripts =
+    builtins.filter (
+      name: builtins.match ".*\\.sh$" name != null
+    )
+    regularFiles;
+
+  mkScript = name: {
+    inherit name;
+    value = pkgs.writeScriptBin (builtins.replaceStrings [".sh"] [""] name) (
+      builtins.readFile (scriptDir + "/${name}")
+    );
+  };
+
+  scriptsSet = builtins.listToAttrs (map mkScript shellScripts);
+  scripts = builtins.attrValues scriptsSet;
   cfg = config.modules.dev;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      ascii
-      maxfetch
-      runbg
-    ];
+    home.packages = scripts;
   };
 }

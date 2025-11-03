@@ -31,6 +31,7 @@ in {
         remmina
         rnote
         qbittorrent
+        udiskie
         vaults
         thunderbird
         rustdesk-flutter

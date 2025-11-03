@@ -4,32 +4,31 @@
   config,
   ...
 }: let
-  wall-change = pkgs.writeShellScriptBin "wall-change" (builtins.readFile ./scripts/wall-change.sh);
-  random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" (builtins.readFile ./scripts/random-wallpaper.sh);
+  scriptDir = ./scripts;
+  scriptEntries = builtins.readDir scriptDir;
 
-  toggle-blur = pkgs.writeScriptBin "toggle-blur" (builtins.readFile ./scripts/toggle-blur.sh);
-  toggle-opacity = pkgs.writeScriptBin "toggle-opacity" (builtins.readFile ./scripts/toggle-opacity.sh);
-  toggle-waybar = pkgs.writeScriptBin "toggle-waybar" (builtins.readFile ./scripts/toggle-waybar.sh);
-  toggle-float = pkgs.writeScriptBin "toggle-float" (builtins.readFile ./scripts/toggle-float.sh);
+  regularFiles = builtins.filter (name: scriptEntries.${name} == "regular") (
+    builtins.attrNames scriptEntries
+  );
 
-  record = pkgs.writeScriptBin "record" (builtins.readFile ./scripts/record.sh);
+  shellScripts =
+    builtins.filter (
+      name: builtins.match ".*\\.sh$" name != null
+    )
+    regularFiles;
 
-  screenshot = pkgs.writeScriptBin "screenshot" (builtins.readFile ./scripts/screenshot.sh);
+  mkScript = name: {
+    inherit name;
+    value = pkgs.writeScriptBin (builtins.replaceStrings [".sh"] [""] name) (
+      builtins.readFile (scriptDir + "/${name}")
+    );
+  };
+
+  scriptsSet = builtins.listToAttrs (map mkScript shellScripts);
+  scripts = builtins.attrValues scriptsSet;
   cfg = config.modules.desktop;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      wall-change
-      random-wallpaper
-
-      toggle-blur
-      toggle-opacity
-      toggle-waybar
-      toggle-float
-
-      record
-
-      screenshot
-    ];
+    home.packages = scripts;
   };
 }
