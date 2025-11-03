@@ -35,6 +35,7 @@ in {
         thunderbird
         rustdesk-flutter
         prismlauncher
+        zoom-us
       ]);
   };
 }
