@@ -21,7 +21,7 @@ in {
         "$mainMod, s, exec, vicinae toggle"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "$mainMod, d, exec, discord"
-        "$mainMod SHIFT, D, exec, nwg-displays'"
+        "$mainMod SHIFT, D, exec, nwg-displays"
         "$mainMod, g, exec, hyprlock"
         "$mainMod, Escape, exec, wlogout"
         "$mainMod, p, pseudo,"
