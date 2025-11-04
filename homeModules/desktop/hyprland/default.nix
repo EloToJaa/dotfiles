@@ -7,9 +7,13 @@
     enable = lib.mkEnableOption "Enable hyprland";
   };
   imports = [
+    ./bindings.nix
+    ./exec-once.nix
     ./hyprland.nix
-    ./config.nix
+    ./monitors.nix
+    ./settings.nix
     ./variables.nix
+    ./windowrules.nix
     inputs.hyprland.homeManagerModules.default
   ];
 }
