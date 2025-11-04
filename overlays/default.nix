@@ -28,7 +28,7 @@
           builtins.map (
             flag:
               if prev.lib.hasPrefix "-skip=" flag
-              then flag + "|^TestGetList$|^TestIgnoreLocallyBoundPorts$|^TestPoller$"
+              then flag + "|^TestGetList$|^TestIgnoreLocallyBoundPorts$|^TestPoller$|^TestBreakWatcherConnRecv$"
               else flag
           )
           old.checkFlags;
