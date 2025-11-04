@@ -20,6 +20,9 @@ in {
         "float,class:^(org.pulseaudio.pavucontrol)$"
         "size 1200 725,class:^(org.pulseaudio.pavucontrol)$"
         "center,class:^(org.pulseaudio.pavucontrol)$"
+        "float,class:^(nwg-displays)$"
+        "size 1200 725,class:^(nwg-displays)$"
+        "center,class:^(nwg-displays)$"
 
         # No gaps when only
         "bordersize 0, floating:0, onworkspace:w[t1]"
