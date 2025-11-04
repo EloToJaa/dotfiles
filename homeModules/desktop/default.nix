@@ -17,13 +17,16 @@
     ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
+    ./hyprlock.nix # lock screen
     ./nemo.nix # file manager
     ./packages.nix # other packages
     ./rider.nix # jetbrains rider
+    ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
     ./vicinae.nix # launcher
     ./waypaper.nix # wallpaper picker
+    ./wlogout.nix # logout screen
     ./xdg-mimes.nix # xdg config
     ./zen.nix
   ];
