@@ -121,10 +121,9 @@ in {
           "borderangle, 1, 30,  fluent_decel, once" # for animating the border's gradient angle - styles: once (default), loop
           "workspaces,  1, 3,   easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
         ];
-
-        xwayland = {
-          force_zero_scaling = true;
-        };
+      };
+      xwayland = {
+        force_zero_scaling = true;
       };
     };
   };
