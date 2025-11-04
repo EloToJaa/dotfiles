@@ -29,7 +29,7 @@ in {
         background = [
           {
             monitor = "";
-            path = "${../wallpapers/wallpapers/others/forest.jpg}";
+            path = "${./wallpapers/wallpapers/others/forest.jpg}";
             blur_passes = 2;
             contrast = 0.8916;
             brightness = 0.8172;
