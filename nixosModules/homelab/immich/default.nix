@@ -32,7 +32,7 @@ in {
     };
     mediaDir = lib.mkOption {
       type = lib.types.path;
-      default = "/mnt/Photos";
+      default = "/opt/photos";
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
