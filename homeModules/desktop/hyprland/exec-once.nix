@@ -16,7 +16,7 @@ in {
       "nm-applet &"
       "poweralertd &"
       "wl-clip-persist --clipboard both &"
-      "wl-paste --watch cliphist store &"
+      # "wl-paste --watch cliphist store &"
       "waybar &"
       "swaync &"
       "udiskie --automount --notify --smart-tray &"
