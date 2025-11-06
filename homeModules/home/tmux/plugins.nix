@@ -23,8 +23,6 @@ in {
       inherit (catppuccin) flavor;
       enable = true;
       extraConfig = ''
-        # set -g status-position top
-
         set -g @catppuccin_window_status_style "rounded"
         set -g status-right-length 100
         set -g status-left-length 100
@@ -33,9 +31,6 @@ in {
         set -agF status-right "#{E:@catppuccin_status_session}"
 
         set -g status-interval 5
-
-        # set -g status-style bg=default
-        set -g @catppuccin_status_background "default"
       '';
     };
     programs.tmux.plugins = with pkgs.unstable.tmuxPlugins; [
