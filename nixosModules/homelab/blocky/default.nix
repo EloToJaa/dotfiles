@@ -55,10 +55,12 @@ in {
       };
     };
 
-    services.resolved.extraConfig = ''
-      DNS=127.0.0.1
-      DNSStubListener=no
-    '';
+    services.resolved = lib.mkIf config.services.resolved.enable {
+      extraConfig = ''
+        DNS=127.0.0.1
+        DNSStubListener=no
+      '';
+    };
 
     networking.firewall = {
       allowedTCPPorts = [
