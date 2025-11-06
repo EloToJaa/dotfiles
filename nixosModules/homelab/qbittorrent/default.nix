@@ -85,14 +85,14 @@ in {
           serviceConfig = {
             User = cfg.name;
             Group = cfg.group;
-            ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
+            ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
             PrivateNetwork = "yes";
           };
         };
       });
 
     services.vuetorrent = {
-      enable = cfg.vuetorrent.enable;
+      inherit (cfg.vuetorrent) enable;
       package = pkgs.unstable.vuetorrent;
     };
 
