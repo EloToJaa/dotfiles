@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - "flake.lock"
-  pull_request:
+  pull_request_target:
     branches:
       - main
   workflow_dispatch:
