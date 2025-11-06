@@ -12,8 +12,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "mrjones2014";
       repo = "smart-splits.nvim";
-      rev = "f46b79cf9e83b0a13a4e3f83e3bd5b0d2f172bf2";
-      hash = "sha256-DHc26iiaNIMod1r2P0wKhpUI1TtjtnU+ZqOFlkdseVE=";
+      rev = "1611946e397a8b42807a9ad527088bf7ebc9ce33";
+      hash = "sha256-73F0iIPpG7RC0IT06Qv3ufcO6EfkEmYEXXk409S9tsw=";
     };
   };
   cfg = config.modules.home.tmux;

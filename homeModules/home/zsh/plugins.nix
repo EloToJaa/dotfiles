@@ -55,8 +55,8 @@ in {
             src = pkgs.fetchFromGitHub {
               owner = "kutsan";
               repo = "zsh-system-clipboard";
-              rev = "8b4229000d31e801e6458a3dfa2d60720c110d11";
-              hash = "sha256-phsIdvuqcwtAVE1dtQyXcMgNdRMNY03/mIzsvHWPS1Y=";
+              rev = "5f1d497ee3c215a967c0e6b9a772e73c40332d52";
+              hash = "sha256-dnWQEWa/Cxwopgj2teCpWhqX4Imx1PB7fHAa8djg8P4=";
             };
           }
         ])
