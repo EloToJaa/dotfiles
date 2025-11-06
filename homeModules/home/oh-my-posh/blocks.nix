@@ -36,7 +36,7 @@
         opts =
           opts
           // {
-            powerline_symbol = "${internals.ucode "E0B0"}";
+            powerline_symbol = "${internals.ucode "E0B4"}";
           };
       };
     # Make a diamond segment that has the arrow (for right side)
@@ -47,7 +47,7 @@
         opts =
           opts
           // {
-            leading_diamond = "${internals.ucode "E0B2"}";
+            leading_diamond = "${internals.ucode "E0B6"}";
           };
       };
   };

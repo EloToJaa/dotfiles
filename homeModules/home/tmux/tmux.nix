@@ -34,7 +34,7 @@ in {
           set -g window-status-current-style bg=default
           set -g window-status-style bg=default
 
-          set -g pane-active-border-style 'fg=magenta,bg=default'
+          set -g pane-active-border-style 'fg=blue,bg=default'
           set -g pane-border-style 'fg=brightblack,bg=default'
 
           bind-key [ previous-window
