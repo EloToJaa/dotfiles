@@ -6,6 +6,10 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.blocky;
+  dns = {
+    quad9 = "https://dns.quad9.net/dns-query";
+    cloudflare = "https://one.one.one.one/dns-query";
+  };
 in {
   options.modules.homelab.blocky = {
     enable = lib.mkEnableOption "Enable blocky";
@@ -20,17 +24,17 @@ in {
           tls = 853;
         };
         upstreams.groups.default = [
-          "https://dns.quad9.net/dns-query"
-          "https://one.one.one.one/dns-query"
+          dns.quad9
+          dns.cloudflare
         ];
         # For initially solving DoH/DoT Requests when no system Resolver is available.
         bootstrapDns = [
           {
-            upstream = "https://dns.quad9.net/dns-query";
+            upstream = dns.quad9;
             ips = ["9.9.9.9" "149.112.112.112"];
           }
           {
-            upstream = "https://one.one.one.one/dns-query";
+            upstream = dns.cloudflare;
             ips = ["1.1.1.1" "1.0.0.1"];
           }
         ];

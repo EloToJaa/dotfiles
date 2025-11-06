@@ -1,6 +1,6 @@
 {
   systems = ["x86_64-linux"];
-  perSystem = {pkgs, ...}: {
+  perSystem = {...}: {
     # oh-my-posh = pkgs.callPackage ./oh-my-posh {};
   };
 }
