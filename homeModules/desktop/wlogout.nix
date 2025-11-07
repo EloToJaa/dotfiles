@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     catppuccin.wlogout.enable = false;
     programs.wlogout = let
-      systemd = config.systemd.package;
+      inherit (pkgs) systemd;
       hyprlock = config.programs.hyprlock.package;
       package = pkgs.unstable.wlogout;
       bgImageSection = name: ''
