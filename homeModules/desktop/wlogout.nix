@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  username,
   ...
 }: let
   cfg = config.modules.desktop.wlogout;
@@ -38,7 +39,7 @@ in {
         }
         {
           label = "logout";
-          action = "${systemd}/bin/loginctl termina-user $USER";
+          action = "${systemd}/bin/loginctl terminate-user ${username}";
           text = "Logout";
           keybind = "e";
         }
