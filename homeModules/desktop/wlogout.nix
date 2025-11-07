@@ -12,6 +12,8 @@ in {
   config = lib.mkIf cfg.enable {
     catppuccin.wlogout.enable = false;
     programs.wlogout = let
+      systemd = config.systemd.package;
+      hyprlock = config.programs.hyprlock.package;
       package = pkgs.unstable.wlogout;
       bgImageSection = name: ''
         #${name} {
@@ -24,37 +26,37 @@ in {
       layout = [
         {
           label = "shutdown";
-          action = "systemctl poweroff";
+          action = "${systemd}/bin/systemctl poweroff";
           text = "Shutdown";
           keybind = "s";
         }
         {
           label = "reboot";
-          action = "systemctl reboot";
+          action = "${systemd}/bin/systemctl reboot";
           text = "Reboot";
           keybind = "r";
         }
         {
           label = "logout";
-          action = "hyprctl dispatch exit";
+          action = "${systemd}/bin/loginctl termina-user $USER";
           text = "Logout";
           keybind = "e";
         }
         {
           label = "lock";
-          action = "hyprlock";
+          action = "${hyprlock}/bin/hyprlock";
           text = "Lock";
           keybind = "l";
         }
         {
           label = "hibernate";
-          action = "systemctl hibernate";
+          action = "${systemd}/bin/systemctl hibernate";
           text = "Hibernate";
           keybind = "h";
         }
         {
           label = "suspend";
-          action = "systemctl suspend";
+          action = "${systemd}/bin/systemctl suspend";
           text = "Suspend";
           keybind = "u";
         }
