@@ -139,6 +139,12 @@ in {
       '';
     };
 
+    services.postgresql.ensureUsers = [
+      {
+        inherit (cfg) name;
+        ensureDBOwnership = false;
+      }
+    ];
     services.postgresql.ensureDatabases = [
       cfg.name
     ];
