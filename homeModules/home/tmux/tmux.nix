@@ -12,7 +12,7 @@ in {
       tmux = {
         enable = true;
         package = pkgs.unstable.tmux;
-        shell = "${pkgs.unstable.zsh}/bin/zsh";
+        shell = "${config.programs.zsh.package}/bin/zsh";
         terminal = "ghostty";
         historyLimit = 10000;
         clock24 = true;
