@@ -41,8 +41,6 @@ in {
           bind-key ] next-window
           bind-key -n C-[ previous-window
           bind-key -n C-] next-window
-          # bind-key -n M-[ swap-window -t -1 # breaks yazi with nvim open
-          # bind-key -n M-] next-window -t 1 # breaks yazi with nvim open
 
           bind-key x kill-pane
           bind-key q kill-window
