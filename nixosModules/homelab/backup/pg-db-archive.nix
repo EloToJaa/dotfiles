@@ -5,7 +5,8 @@
   fileEncKey,
   backupDir,
 }: let
-  script = pkgs.writeShellScriptBin "pg-db-archive-${dbName}" ''
+  scriptName = "pg-db-archive-${dbName}";
+  script = pkgs.writeShellScriptBin scriptName ''
     ## Fail on any error:
     set -e
 
@@ -37,6 +38,6 @@
   '';
 in {
   ExecStartPost = ''
-    ${script}/bin/pg-db-archive
+    ${script}/bin/${scriptName}
   '';
 }
