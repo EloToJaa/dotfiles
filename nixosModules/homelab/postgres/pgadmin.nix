@@ -51,6 +51,9 @@ in {
     services.postgresql.ensureDatabases = [
       cfg.name
     ];
+    services.postgresqlBackup.databases = [
+      cfg.name
+    ];
 
     sops.secrets = {
       "${cfg.name}/password" = {
