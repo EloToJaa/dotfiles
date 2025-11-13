@@ -5,7 +5,7 @@
   fileEncKey,
   backupDir,
 }: let
-  script = pkgs.writeShellScriptBin "pg-db-archive" ''
+  script = pkgs.writeShellScriptBin "pg-db-archive-${dbName}" ''
     ## Fail on any error:
     set -e
 
