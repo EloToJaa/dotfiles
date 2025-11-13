@@ -3,11 +3,9 @@
   pkgs,
   dbName,
   fileEncKey,
-  fileRclone,
+  backupDir,
 }: let
   script = pkgs.writeShellScriptBin "pg-db-archive" ''
-    #!/usr/bin/env bash
-
     ## Fail on any error:
     set -e
 
@@ -17,8 +15,10 @@
     ## Define the path to the file to be encrypted:
     _fileBackup="''${_dirBackup}/${dbName}.sql.gz"
 
+    _fileName="${dbName}_$(date --utc +%Y%m%dT%H%M%SZ).sql.gz.enc"
+
     ## Define the path to the encrypted file to be archived:
-    _fileArchive="''${_dirBackup}/${dbName}_$(date --utc +%Y%m%dT%H%M%SZ).sql.gz.enc"
+    _fileArchive="''${_dirBackup}/''${_fileName}"
 
     ## Encrypt the file:
     echo "Encrypting database dump..."
@@ -27,7 +27,7 @@
 
     ## Archive the file:
     echo "Archiving encrypted database dump..."
-    ${pkgs.rclone}/bin/rclone --config "${fileRclone}" copy "''${_fileArchive}" "archive-target-database:/${dbName}/"
+    mv "''${_fileArchive}" "${backupDir}/''${_fileName}"
     echo "Encrypted database file is archived successfully."
 
     ## Remove the local archive file:

@@ -9,9 +9,9 @@
   mkBackupServiceConfig = {
     dbName,
     fileEncKey,
-    fileRclone,
+    backupDir,
   }: (import ./pg-db-archive.nix {
-    inherit config pkgs dbName fileEncKey fileRclone;
+    inherit config pkgs dbName fileEncKey backupDir;
   });
 in {
   config = lib.mkIf cfg.enable {
@@ -29,15 +29,20 @@ in {
     #   fileRclone = "/run/secrets/rclone/database-archive.conf";
     # };
 
-    # systemd.services = builtins.listToAttrs (map (dbName: {
-    #     "postgresqlBackup-${dbName}" = {
-    #       serviceConfig = mkBackupServiceConfig {
-    #         inherit dbName;
-    #         fileEncKey = "/run/secrets/keys/${dbName}";
-    #         fileRclone = "/run/secrets/rclone/database-archive.conf";
-    #       };
-    #     };
-    #   })
-    #   config.services.postgresqlBackup.databases);
+    systemd.services = builtins.listToAttrs (map (dbName: {
+        name = "postgresqlBackup-${dbName}";
+        value.serviceConfig = mkBackupServiceConfig {
+          inherit dbName;
+          fileEncKey = config.sops.secrets."backup/database".path;
+          backupDir = "/mnt/Backups/database";
+        };
+      })
+      config.services.postgresqlBackup.databases);
+
+    sops.secrets = {
+      "backup/database" = {
+        owner = "postgres";
+      };
+    };
   };
 }
