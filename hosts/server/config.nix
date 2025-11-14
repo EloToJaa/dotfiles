@@ -51,7 +51,7 @@
       paperless.enable = true;
       postgres = {
         enable = true;
-        pgadmin.enable = true;
+        pgadmin.enable = false;
       };
       profilarr.enable = true;
       prometheus.enable = false;
