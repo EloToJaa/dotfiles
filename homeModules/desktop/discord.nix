@@ -16,6 +16,7 @@ in {
         withVencord = true;
       })
       # webcord-vencord
+      vesktop
     ];
 
     xdg.configFile."Vencord/themes/custom.css".text =
