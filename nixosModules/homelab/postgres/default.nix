@@ -4,7 +4,6 @@
   lib,
   ...
 }: let
-  inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres;
 in {
   options.modules.homelab.postgres = {
@@ -17,17 +16,12 @@ in {
       type = lib.types.port;
       default = 5432;
     };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
-    };
   };
   imports = [
     ./pgadmin.nix
   ];
   config = lib.mkIf cfg.enable {
     services.postgresql = {
-      inherit (cfg) dataDir;
       enable = true;
       package = pkgs.unstable.postgresql_16;
       settings.port = cfg.port;
