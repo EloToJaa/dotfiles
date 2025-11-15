@@ -38,6 +38,10 @@ in {
       type = lib.types.str;
       default = "ghostty"; # wezterm/ghostty/kitty
     };
+    discord = lib.mkOption {
+      type = lib.types.str;
+      default = "vesktop"; # discord/vesktop
+    };
     timezone = lib.mkOption {
       type = lib.types.str;
       default = "Europe/Warsaw";

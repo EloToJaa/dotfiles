@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  inherit (config.settings) terminal;
+  inherit (config.settings) terminal discord;
   defaultApps = {
     browser = ["zen-beta.desktop"];
     text = ["org.gnome.TextEditor.desktop"];
@@ -16,7 +16,7 @@ with lib; let
     pdf = ["org.gnome.Evince.desktop"];
     terminal = ["${terminal}.desktop"];
     archive = ["org.gnome.FileRoller.desktop"];
-    discord = ["discord.desktop"];
+    discord = ["${discord}.desktop"];
   };
 
   removedApps = {

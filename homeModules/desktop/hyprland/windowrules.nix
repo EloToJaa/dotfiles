@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) discord;
   cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {
@@ -41,7 +42,7 @@ in {
         "workspace 4, class:^(evince)$"
         "workspace 4, class:^(Gimp-2.10)$"
         "workspace 5, class:^(Audacious)$"
-        "workspace 5, class:^(discord)$"
+        "workspace 5, class:^(${discord})$"
         "workspace 6, class:^(Spotify)$"
         "workspace 8, class:^(com.obsproject.Studio)$"
         "idleinhibit focus, class:^(mpv)$"
