@@ -10,14 +10,6 @@ in {
     enable = lib.mkEnableOption "Enable discord";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = with pkgs.unstable; [
-    #   (discord.override {
-    #     withVencord = true;
-    #   })
-    #   # webcord-vencord
-    #   vesktop
-    # ];
-
     programs.vesktop = {
       enable = true;
       package = pkgs.unstable.vesktop;
