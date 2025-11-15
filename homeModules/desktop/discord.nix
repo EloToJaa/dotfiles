@@ -4,7 +4,6 @@
   lib,
   ...
 }: let
-  inherit (config.settings) catppuccin;
   cfg = config.modules.desktop.discord;
 in {
   options.modules.desktop.discord = {
@@ -68,6 +67,7 @@ in {
             BetterSessions.enabled = true;
             CrashHandler.enabled = true;
             FixImagesQuality.enabled = true;
+            FixSpotifyEmbeds.enabled = true;
             PlatformIndicators.enabled = true;
             ReplyTimestamp.enabled = true;
             ShowHiddenChannels.enabled = true;
@@ -96,23 +96,5 @@ in {
         };
       };
     };
-
-    xdg.configFile."Vencord/themes/custom.css".text =
-      /*
-      css
-      */
-      ''
-        /**
-         * @name Catppuccin
-         * @author winston#0001
-         * @authorId 505490445468696576
-         * @version 0.2.0
-         * @description 🎮 Soothing pastel theme for Discord
-         * @website https://github.com/catppuccin/discord
-         * @invite r6Mdz5dpFc
-         * **/
-
-        @import url("https://catppuccin.github.io/discord/dist/catppuccin-${catppuccin.flavor}.theme.css");
-      '';
   };
 }
