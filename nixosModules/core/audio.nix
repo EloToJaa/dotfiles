@@ -21,7 +21,7 @@ in {
       # lowLatency.enable = true;
     };
     hardware.alsa.enablePersistence = true;
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs.unstable; [
       pulseaudioFull
       pwmenu
     ];
