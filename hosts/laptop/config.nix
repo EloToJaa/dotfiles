@@ -15,6 +15,8 @@
     powertop
   ];
 
+  settings.isLaptop = true;
+
   services = {
     power-profiles-daemon.enable = true;
 

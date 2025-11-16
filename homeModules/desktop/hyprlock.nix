@@ -1,13 +1,11 @@
 {
   pkgs,
-  host,
   config,
   lib,
   ...
 }: let
-  inherit (config.settings) username;
+  inherit (config.settings) username isLaptop;
   cfg = config.modules.desktop.hyprlock;
-  isLaptop = host == "laptop";
 in {
   options.modules.desktop.hyprlock = {
     enable = lib.mkEnableOption "Enable hyprlock";

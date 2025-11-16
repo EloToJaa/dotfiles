@@ -78,5 +78,9 @@ in {
       type = lib.types.str;
       default = "https://atuin.server.elotoja.com";
     };
+    isLaptop = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

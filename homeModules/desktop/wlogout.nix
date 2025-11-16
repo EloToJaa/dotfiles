@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username;
+  inherit (config.settings) username isLaptop;
   cfg = config.modules.desktop.wlogout;
 in {
   options.modules.desktop.wlogout = {
@@ -83,7 +83,11 @@ in {
             margin: 1rem;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: 25%;
+            background-size: ${
+            if isLaptop
+            then "30"
+            else "25"
+          }%;
           }
 
           button:focus, button:active, button:hover {
