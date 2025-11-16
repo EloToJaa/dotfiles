@@ -8,6 +8,7 @@
     ./bluetooth.nix
     ./camera.nix
     ./gnome.nix
+    ./mullvad.nix
     ./network.nix
     ./security.nix
     ./steam.nix
