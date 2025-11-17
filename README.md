@@ -35,8 +35,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add cleanuparr
 - [x] Restructure the flake using flake-parts
 - [x] Add profilarr
+- [x] Add iwmenu and bzmenu
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
-- [ ] Add iwmenu and bzmenu
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Add redis
 - [ ] Add authelia
