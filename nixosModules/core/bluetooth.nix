@@ -26,9 +26,9 @@ in {
       # load-module module-bluez5-discover
     '';
 
-    environment.systemPackages = with pkgs.unstable; [
+    environment.systemPackages = with pkgs; [
       bluez
-      bzmenu
+      # unstable.bzmenu
     ];
   };
 }

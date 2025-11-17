@@ -10,9 +10,9 @@ in {
     enable = lib.mkEnableOption "Enable network managment";
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs.unstable; [
+    environment.systemPackages = with pkgs; [
       networkmanagerapplet
-      iwmenu
+      # unstable.iwmenu
     ];
   };
 }
