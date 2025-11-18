@@ -27,7 +27,7 @@ in {
     services.pgadmin = {
       inherit (cfg) port;
       enable = true;
-      package = pkgs.master.pgadmin4;
+      package = pkgs.unstable.pgadmin4;
       initialEmail = email;
       initialPasswordFile = config.sops.secrets."pgadmin/password".path;
     };
