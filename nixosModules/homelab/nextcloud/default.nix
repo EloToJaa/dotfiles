@@ -25,6 +25,9 @@ in {
       default = "${homelab.varDataDir}${cfg.name}";
     };
   };
+  imports = [
+    ./onlyoffice.nix
+  ];
   config = lib.mkIf cfg.enable {
     services.nextcloud = {
       enable = true;
@@ -40,7 +43,7 @@ in {
       appstoreEnable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
+        inherit (pkgs.unstable.nextcloud31Packages.apps) mail calendar contacts onlyoffice;
       };
 
       # Caching
@@ -209,6 +212,17 @@ in {
     services.restic.backups.appdata-local.paths = [
       cfg.dataDir
     ];
+
+    services.onlyoffice = {
+      enable = true;
+      package = pkgs.unstable.onlyoffice-documentserver;
+      hostname = "${cfg.apps.onlyoffice.subdomain}.${cfg.domain}";
+      port = 13444;
+
+      postgresHost = "/run/postgresql";
+
+      jwtSecretFile = cfg.apps.onlyoffice.jwtSecretFile;
+    };
 
     sops.secrets = {
       "${cfg.name}/adminpassword" = {
