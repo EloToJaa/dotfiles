@@ -22,16 +22,19 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
     };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 13444;
+    };
   };
   config = lib.mkIf cfg.enable {
     services.onlyoffice = {
+      inherit (cfg) port;
       enable = true;
       package = pkgs.unstable.onlyoffice-documentserver;
       hostname = domain;
-      port = 13444;
 
-      postgresHost = "/run/postgresql";
-
+      # postgresHost = "/run/postgresql";
       # jwtSecretFile = cfg.apps.onlyoffice.jwtSecretFile;
     };
 
