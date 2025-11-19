@@ -46,7 +46,7 @@
       jellystat.enable = true;
       karakeep.enable = true;
       loki.enable = false;
-      nextcloud.enable = false;
+      nextcloud.enable = true;
       ntfy.enable = true;
       paperless.enable = true;
       postgres = {
