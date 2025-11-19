@@ -43,7 +43,7 @@ in {
       appstoreEnable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (pkgs.unstable.nextcloud31Packages.apps) mail calendar contacts onlyoffice;
+        inherit (pkgs.unstable.nextcloud32Packages.apps) mail calendar contacts;
       };
 
       # Caching
@@ -127,7 +127,7 @@ in {
     users.users.caddy.extraGroups = [cfg.name];
 
     services.caddy.virtualHosts.${domain} = let
-      virtCfg = config.services.nginx.virtualHosts."nix-nextcloud";
+      virtCfg = config.services.nginx.virtualHosts.${config.services.nextcloud.hostName};
     in {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
