@@ -36,6 +36,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Restructure the flake using flake-parts
 - [x] Add profilarr
 - [x] Add iwmenu and bzmenu
+- [ ] Add forms and onlyoffice to nextcloud
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Add redis

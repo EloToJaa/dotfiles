@@ -24,15 +24,10 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
     };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 3004;
-    };
   };
   config = lib.mkIf cfg.enable {
     services.nextcloud = {
       enable = true;
-      # package = pkgs.nextcloud;
       package = pkgs.unstable.nextcloud32;
 
       # Data
@@ -42,8 +37,8 @@ in {
 
       # Apps
       autoUpdateApps.enable = false;
-      appstoreEnable = false;
-      extraAppsEnable = false;
+      appstoreEnable = true;
+      extraAppsEnable = true;
       extraApps = {
         inherit (pkgs.nextcloud31Packages.apps) mail calendar contacts;
       };
@@ -56,7 +51,7 @@ in {
       caching.apcu = false;
 
       # HTTP
-      https = false;
+      https = true;
       maxUploadSize = "16G";
       hostName = "nix-nextcloud";
       # webfinger = true;
@@ -78,11 +73,6 @@ in {
         default_phone_region = "PL";
         trusted_domains = [domain];
         trusted_proxies = ["127.0.0.1"];
-        overwriteprotocol = "https";
-        overwritecondaddr = "";
-        overwriteport = 443;
-        dbpersistent = "true";
-        chunkSize = "5120MB";
         maintenance_window_start = 4; # Run jobs at 4am UTC
         log_type = "file";
         loglevel = 1;
@@ -110,6 +100,14 @@ in {
         "redis.session.lock_retries" = "-1";
         "redis.session.lock_wait_time" = "10000";
       };
+      poolSettings = {
+        pm = "dynamic";
+        "pm.max_children" = "160";
+        "pm.max_requests" = "700";
+        "pm.max_spare_servers" = "120";
+        "pm.min_spare_servers" = "40";
+        "pm.start_servers" = "40";
+      };
     };
 
     # This is needed to be able to run the cron job before opening the app for the first time.
@@ -118,25 +116,82 @@ in {
       mkdir -p ${cfg.dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
     '';
 
-    services.nginx.virtualHosts."nix-nextcloud".listen = [
-      {
-        inherit (cfg) port;
-        addr = "127.0.0.1";
-      }
-    ];
-
     services.nginx.enable = false;
     services.phpfpm.pools.nextcloud.settings = {
       "listen.owner" = config.services.caddy.user;
       "listen.group" = config.services.caddy.group;
     };
-    users.users.caddy.extraGroups = ["nextcloud"];
+    users.users.caddy.extraGroups = [cfg.name];
 
-    services.caddy.virtualHosts.${domain} = {
+    services.caddy.virtualHosts.${domain} = let
+      virtCfg = config.services.nginx.virtualHosts."nix-nextcloud";
+    in {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
+        encode zstd gzip
+
+        root * ${virtCfg.root}
+        root /nix-apps/* ${virtCfg.root}
+
+        redir /.well-known/carddav /remote.php/dav 301
+        redir /.well-known/caldav /remote.php/dav 301
+        redir /.well-known/* /index.php{uri} 301
+        redir /remote/* /remote.php{uri} 301
+
+        header {
+          Strict-Transport-Security max-age=31536000
+          Permissions-Policy interest-cohort=()
+          X-Content-Type-Options nosniff
+          X-Frame-Options SAMEORIGIN
+          Referrer-Policy no-referrer
+          X-XSS-Protection "1; mode=block"
+          X-Permitted-Cross-Domain-Policies none
+          X-Robots-Tag "noindex, nofollow"
+          -X-Powered-By
+        }
+
+        php_fastcgi unix//run/phpfpm/nextcloud.sock {
+          root ${virtCfg.root}
+          env front_controller_active true
+          env modHeadersAvailable true
+        }
+
+        @forbidden {
+          path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
+          path /.* /autotest* /occ* /issue* /indie* /db_* /console*
+          not path /.well-known/*
+        }
+        error @forbidden 404
+
+        @immutable {
+          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
+          query v=*
+        }
+        header @immutable Cache-Control "max-age=15778463, immutable"
+
+        @static {
+          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
+          not query v=*
+        }
+        header @static Cache-Control "max-age=15778463"
+
+        @woff2 path *.woff2
+        header @woff2 Cache-Control "max-age=604800"
+
+        file_server
       '';
+    };
+
+    # Fix for memories
+    # https://memories.gallery/troubleshooting/#trigger-compatibility-mode
+    systemd.services.nextcloud-cron = {
+      path = [pkgs.perl];
+    };
+
+    # Ensure that postgres is running *before* running the setup
+    systemd.services."nextcloud-setup" = {
+      requires = ["postgresql.service"];
+      after = ["postgresql.service"];
     };
 
     services.postgresql.ensureUsers = [
