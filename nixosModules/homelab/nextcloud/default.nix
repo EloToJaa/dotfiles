@@ -213,17 +213,6 @@ in {
       cfg.dataDir
     ];
 
-    services.onlyoffice = {
-      enable = true;
-      package = pkgs.unstable.onlyoffice-documentserver;
-      hostname = "${cfg.apps.onlyoffice.subdomain}.${cfg.domain}";
-      port = 13444;
-
-      postgresHost = "/run/postgresql";
-
-      jwtSecretFile = cfg.apps.onlyoffice.jwtSecretFile;
-    };
-
     sops.secrets = {
       "${cfg.name}/adminpassword" = {
         owner = cfg.name;

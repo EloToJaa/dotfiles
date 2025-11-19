@@ -27,7 +27,7 @@ in {
     services.onlyoffice = {
       enable = true;
       package = pkgs.unstable.onlyoffice-documentserver;
-      hostname = "${cfg.apps.onlyoffice.subdomain}.${cfg.domain}";
+      hostname = domain;
       port = 13444;
 
       postgresHost = "/run/postgresql";
