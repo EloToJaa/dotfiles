@@ -34,15 +34,29 @@ in {
       package = pkgs.unstable.onlyoffice-documentserver;
       hostname = domain;
 
-      # postgresHost = "/run/postgresql";
-      # jwtSecretFile = cfg.apps.onlyoffice.jwtSecretFile;
+      postgresHost = "127.0.0.1:5432";
+      postgresName = cfg.name;
+      postgresUser = cfg.name;
+      postgresPasswordFile = config.sops.secrets."${cfg.name}/pgpassword".path;
+
+      jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
+    };
+
+    services.caddy.virtualHosts.${domain} = {
+      useACMEHost = homelab.baseDomain;
+      extraConfig = ''
+        respond /welcome/* "Access denied" 403 {
+          close
+        }
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
+      '';
     };
 
     sops.secrets = {
-      "${cfg.name}/adminpassword" = {
+      "${cfg.name}/pgpassword" = {
         owner = cfg.name;
       };
-      "${cfg.name}/pgpassword" = {
+      "${cfg.name}/jwtsecret" = {
         owner = cfg.name;
       };
     };
