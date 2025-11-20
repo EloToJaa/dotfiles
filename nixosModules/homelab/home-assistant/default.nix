@@ -48,6 +48,7 @@ in {
           use_x_forwarded_for = true;
           trusted_proxies = ["127.0.0.1"];
         };
+        default_config = {};
         mobile_app = {};
       };
       extraComponents = [
@@ -63,9 +64,21 @@ in {
 
         "mobile_app"
 
+        # Devices
         "roomba"
         "xiaomi_miio"
         "home_connect"
+
+        # Homelab services
+        "nextcloud"
+        "jellyfin"
+        "sonarr"
+        "radarr"
+        "immich"
+        "qbittorrent"
+        "ntfy"
+        "paperless_ngx"
+        "uptime_kuma"
       ];
     };
     services.restic.backups.appdata-local.paths = [
