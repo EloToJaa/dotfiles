@@ -34,7 +34,7 @@ in {
         doInstallCheck = false;
       });
       configDir = cfg.dataDir;
-      configWritable = false;
+      configWritable = true;
       config = {
         homeassistant = {
           name = "Home";
@@ -65,6 +65,7 @@ in {
 
         "roomba"
         "xiaomi_miio"
+        "home_connect"
       ];
     };
     services.restic.backups.appdata-local.paths = [
