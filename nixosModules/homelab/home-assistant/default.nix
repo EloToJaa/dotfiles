@@ -34,7 +34,7 @@ in {
         doInstallCheck = false;
       });
       configDir = cfg.dataDir;
-      configWritable = true;
+      configWritable = false;
       config = {
         homeassistant = {
           name = "Home";
@@ -59,6 +59,8 @@ in {
         # Recommended for fast zlib compression
         # https://www.home-assistant.io/integrations/isal
         "isal"
+
+        "mobile_app"
 
         "roomba"
         "xiaomi_miio"
