@@ -138,11 +138,11 @@ def get_all_files(directory: str) -> list[str]:
     return new_files
 
 def process_directory(directory: str):
+    print(f"Processing directory {directory}")
     files = get_all_files(directory)
     for file in files:
         process_file(file)
 
 if __name__ == "__main__":
-    process_directory("modules/home/yazi/pkgs")
-    process_directory("modules/desktop/walker/pkgs")
+    process_directory("homeModules/home/yazi/pkgs")
     # process_directory("pkgs")
