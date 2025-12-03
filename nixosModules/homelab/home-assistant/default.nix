@@ -56,7 +56,7 @@ in {
         "analytics"
         "google_translate"
         "met"
-        "radio_browser"
+        # "radio_browser"
         "shopping_list"
         # Recommended for fast zlib compression
         # https://www.home-assistant.io/integrations/isal
@@ -68,6 +68,7 @@ in {
         "roomba"
         "xiaomi_miio"
         "home_connect"
+        "samsungtv"
 
         # Homelab services
         "nextcloud"
