@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-system-clipboard";
-  version = "unstable-2025-10-16";
+  version = "unstable-2025-12-03";
 
   src = fetchFromGitHub {
     owner = "orhnk";
