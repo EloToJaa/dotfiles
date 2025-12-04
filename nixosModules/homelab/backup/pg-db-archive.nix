@@ -4,6 +4,7 @@
   dbName,
   fileEncKey,
   backupDir,
+  keepLast,
 }: let
   scriptName = "pg-db-archive-${dbName}";
   script = pkgs.writeShellScriptBin scriptName ''
@@ -35,6 +36,13 @@
     echo "Removing local encrypted database dump..."
     rm -f "''${_fileArchive}"
     echo "Local encrypted database file is removed successfully."
+
+    ## Remove old backups:
+    echo "Cleaning old backups..."
+    ${pkgs.findutils}/bin/find "${backupDir}" -maxdepth 1 -type f -name "${dbName}_*.sql.gz.enc" \
+      | ${pkgs.coreutils}/bin/sort \
+      | ${pkgs.coreutils}/bin/head -n -${toString keepLast} \
+      | ${pkgs.findutils}/bin/xargs -r rm -f
   '';
 in {
   ExecStartPost = ''

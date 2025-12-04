@@ -10,8 +10,9 @@
     dbName,
     fileEncKey,
     backupDir,
+    keepLast,
   }: (import ./pg-db-archive.nix {
-    inherit config pkgs dbName fileEncKey backupDir;
+    inherit config pkgs dbName fileEncKey backupDir keepLast;
   });
 in {
   config = lib.mkIf cfg.enable {
@@ -26,6 +27,7 @@ in {
         name = "postgresqlBackup-${dbName}";
         value.serviceConfig = mkBackupServiceConfig {
           inherit dbName;
+          keepLast = 14;
           fileEncKey = config.sops.secrets."backup/database".path;
           backupDir = "/mnt/Backups/database";
         };
