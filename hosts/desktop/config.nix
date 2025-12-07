@@ -34,7 +34,7 @@
       adb.enable = false;
       audio.enable = true;
       bluetooth.enable = true;
-      camera.enable = true;
+      camera.enable = false;
       gnome.enable = true;
       mullvad.enable = true;
       network.enable = true;
