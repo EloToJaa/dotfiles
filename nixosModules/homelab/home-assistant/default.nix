@@ -71,6 +71,7 @@ in {
         "samsungtv"
         "legrand"
         "netatmo"
+        "bticino"
 
         # Homelab services
         "nextcloud"
