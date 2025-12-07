@@ -70,6 +70,7 @@ in {
         "home_connect"
         "samsungtv"
         "legrand"
+        "netatmo"
 
         # Homelab services
         "nextcloud"
