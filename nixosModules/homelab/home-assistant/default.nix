@@ -69,6 +69,7 @@ in {
         "xiaomi_miio"
         "home_connect"
         "samsungtv"
+        "legrand"
 
         # Homelab services
         "nextcloud"
