@@ -22,10 +22,10 @@ in {
         tinysparql.enable = true;
       };
       gvfs.enable = true;
-      logind.extraConfig = ''
+      logind.settings.Login = {
         # don't shutdown when power button is short-pressed
-        HandlePowerKey=ignore
-      '';
+        HandlePowerKey = "ignore";
+      };
 
       dbus = {
         enable = true;
