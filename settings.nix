@@ -56,7 +56,7 @@ in {
     };
     stateVersion = lib.mkOption {
       type = lib.types.str;
-      default = "25.05";
+      default = "25.11";
     };
     dns = lib.mkOption {
       type = lib.types.listOf lib.types.str;
