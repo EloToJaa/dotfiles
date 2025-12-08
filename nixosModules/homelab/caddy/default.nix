@@ -64,16 +64,30 @@ in {
     security.acme = {
       acceptTerms = true;
       defaults.email = email;
-      certs.${homelab.baseDomain} = {
-        inherit (cfg) group;
-        reloadServices = ["caddy.service"];
-        domain = homelab.baseDomain;
-        extraDomainNames = ["*.${homelab.baseDomain}"];
-        dnsProvider = "cloudflare";
-        dnsResolver = "1.1.1.1:53";
-        dnsPropagationCheck = true;
-        credentialFiles = {
-          CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+      certs = {
+        ${homelab.mainDomain} = {
+          inherit (cfg) group;
+          reloadServices = ["caddy.service"];
+          domain = homelab.baseDomain;
+          extraDomainNames = ["*.${homelab.mainDomain}"];
+          dnsProvider = "cloudflare";
+          dnsResolver = "1.1.1.1:53";
+          dnsPropagationCheck = true;
+          credentialFiles = {
+            CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+          };
+        };
+        ${homelab.baseDomain} = {
+          inherit (cfg) group;
+          reloadServices = ["caddy.service"];
+          domain = homelab.baseDomain;
+          extraDomainNames = ["*.${homelab.baseDomain}"];
+          dnsProvider = "cloudflare";
+          dnsResolver = "1.1.1.1:53";
+          dnsPropagationCheck = true;
+          credentialFiles = {
+            CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+          };
         };
       };
     };

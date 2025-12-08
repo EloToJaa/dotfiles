@@ -50,11 +50,19 @@ in {
       cfg.dataDir
     ];
 
-    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      useACMEHost = homelab.baseDomain;
+    services.caddy.virtualHosts = let
       extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
+    in {
+      "${cfg.domainName}.${homelab.baseDomain}" = {
+        inherit extraConfig;
+        useACMEHost = homelab.baseDomain;
+      };
+      "${cfg.domainName}.${homelab.mainDomain}" = {
+        inherit extraConfig;
+        useACMEHost = homelab.mainDomain;
+      };
     };
 
     users.users.${cfg.name} = {
