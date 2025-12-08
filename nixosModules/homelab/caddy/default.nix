@@ -68,7 +68,7 @@ in {
         ${homelab.mainDomain} = {
           inherit (cfg) group;
           reloadServices = ["caddy.service"];
-          domain = homelab.baseDomain;
+          domain = homelab.mainDomain;
           extraDomainNames = ["*.${homelab.mainDomain}"];
           dnsProvider = "cloudflare";
           dnsResolver = "1.1.1.1:53";
