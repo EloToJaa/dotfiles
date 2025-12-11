@@ -61,7 +61,7 @@ in {
           # accelerationDevices = ["/dev/dri/renderD128"];
           mediaLocation = "/data";
           database = {
-            inherit (cfg) name host;
+            inherit (cfg) name;
             enable = true;
             createDB = true;
             port = cfg.dbPort;
@@ -79,9 +79,6 @@ in {
             server.externalDomain = "https://${cfg.domainName}.${homelab.baseDomain}";
           };
         };
-        # services.postgresql = {
-        #   enableTCPIP = true;
-        # };
         services.redis.package = pkgs.unstable.redis;
         systemd.services.${cfg.name}.serviceConfig = {
           UMask = lib.mkForce homelab.defaultUMask;
