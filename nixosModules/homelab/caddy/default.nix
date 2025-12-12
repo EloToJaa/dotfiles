@@ -26,6 +26,13 @@ in {
       type = lib.types.path;
       default = "${homelab.logDir}${cfg.name}";
     };
+    baseDomains = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        homelab.mainDomain
+        homelab.baseDomain
+      ];
+    };
   };
   config = lib.mkIf cfg.enable {
     services.caddy = {
@@ -37,18 +44,21 @@ in {
       globalConfig = ''
         auto_https off
       '';
-      virtualHosts = {
-        "http://${homelab.baseDomain}" = {
-          extraConfig = ''
-            redir https://{host}{uri}
-          '';
-        };
-        "http://*.${homelab.baseDomain}" = {
-          extraConfig = ''
-            redir https://{host}{uri}
-          '';
-        };
-      };
+      virtualHosts = builtins.listToAttrs (lib.concatMap (domain: [
+          {
+            name = "http://${domain}";
+            value.extraConfig = ''
+              redir https://{host}{uri}
+            '';
+          }
+          {
+            name = "http://*.${domain}";
+            value.extraConfig = ''
+              redir https://{host}{uri}
+            '';
+          }
+        ])
+        cfg.baseDomains);
     };
     systemd.services.caddy.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
     systemd.tmpfiles.rules = [
@@ -64,32 +74,22 @@ in {
     security.acme = {
       acceptTerms = true;
       defaults.email = email;
-      certs = {
-        ${homelab.mainDomain} = {
-          inherit (cfg) group;
-          reloadServices = ["caddy.service"];
-          domain = homelab.mainDomain;
-          extraDomainNames = ["*.${homelab.mainDomain}"];
-          dnsProvider = "cloudflare";
-          dnsResolver = "1.1.1.1:53";
-          dnsPropagationCheck = true;
-          credentialFiles = {
-            CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+      certs = builtins.listToAttrs (map (domain: {
+          name = domain;
+          value = {
+            inherit domain;
+            inherit (cfg) group;
+            reloadServices = ["caddy.service"];
+            extraDomainNames = ["*.${domain}"];
+            dnsProvider = "cloudflare";
+            dnsResolver = "1.1.1.1:53";
+            dnsPropagationCheck = true;
+            credentialFiles = {
+              CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+            };
           };
-        };
-        ${homelab.baseDomain} = {
-          inherit (cfg) group;
-          reloadServices = ["caddy.service"];
-          domain = homelab.baseDomain;
-          extraDomainNames = ["*.${homelab.baseDomain}"];
-          dnsProvider = "cloudflare";
-          dnsResolver = "1.1.1.1:53";
-          dnsPropagationCheck = true;
-          credentialFiles = {
-            CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
-          };
-        };
-      };
+        })
+        cfg.baseDomains);
     };
 
     users.users.${cfg.name} = {
