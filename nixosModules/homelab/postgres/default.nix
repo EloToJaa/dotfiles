@@ -23,7 +23,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.unstable.postgresql_16;
+      package = pkgs.unstable.postgresql_18;
       settings.port = cfg.port;
       enableTCPIP = true;
     };
