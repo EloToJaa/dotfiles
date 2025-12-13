@@ -26,13 +26,9 @@ in {
       type = lib.types.port;
       default = 2283;
     };
-    dbPort = lib.mkOption {
-      type = lib.types.port;
-      default = 5433;
-    };
     mediaDir = lib.mkOption {
       type = lib.types.path;
-      default = "/opt/photos";
+      default = "${homelab.dataDir}photos";
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
@@ -64,7 +60,6 @@ in {
             inherit (cfg) name;
             enable = true;
             createDB = true;
-            port = cfg.dbPort;
             user = cfg.name;
           };
           redis = {
@@ -80,6 +75,7 @@ in {
           };
         };
         services.redis.package = pkgs.unstable.redis;
+        services.postgresql.package = pkgs.unstable.postgresql;
         systemd.services.${cfg.name}.serviceConfig = {
           UMask = lib.mkForce homelab.defaultUMask;
         };
@@ -90,10 +86,7 @@ in {
         system.stateVersion = stateVersion;
 
         networking = {
-          firewall = {
-            enable = true;
-            allowedTCPPorts = [5433];
-          };
+          firewall.enable = true;
           # Use systemd-resolved inside the container
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
           useHostResolvConf = lib.mkForce false;
@@ -115,11 +108,6 @@ in {
         };
       };
       forwardPorts = [
-        {
-          containerPort = cfg.dbPort;
-          hostPort = cfg.dbPort;
-          protocol = "tcp";
-        }
         {
           containerPort = cfg.port;
           hostPort = cfg.port;
@@ -143,7 +131,6 @@ in {
       cfg.dataDir
       cfg.mediaDir
     ];
-    networking.firewall.allowedTCPPorts = [cfg.dbPort];
 
     # Enable NAT for the container
     networking.nat = {
