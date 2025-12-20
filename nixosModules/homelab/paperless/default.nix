@@ -39,12 +39,6 @@ in {
       default = "/mnt/Documents/";
     };
   };
-  # disabledModules = [
-  #   "services/misc/paperless.nix"
-  # ];
-  # imports = [
-  #   ./service.nix
-  # ];
   config = lib.mkIf cfg.enable {
     services.paperless = {
       inherit domain;
