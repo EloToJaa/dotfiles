@@ -16,7 +16,7 @@ in {
         indent.enable = true;
         incremental_selection.enable = true;
 
-        auto_install = true;
+        auto_install = false;
       };
     };
   };
