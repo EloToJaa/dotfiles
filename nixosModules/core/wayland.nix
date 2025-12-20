@@ -12,8 +12,6 @@ in {
   config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = true;
-      # package = inputs.hyprland.packages.${pkgs.system}.default;
-      # portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       package = pkgs.unstable.hyprland;
       portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
     };

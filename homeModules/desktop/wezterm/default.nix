@@ -16,11 +16,10 @@ in {
     enable = lib.mkEnableOption "Enable wezterm";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = [inputs.wezterm.packages.${pkgs.system}.default];
     programs = {
       wezterm = {
         enable = true;
-        package = inputs.wezterm.packages.${pkgs.system}.default;
+        package = inputs.wezterm.packages.${pkgs.stdenv.hostPlatform.system}.default;
         enableZshIntegration = true;
         enableBashIntegration = true;
       };

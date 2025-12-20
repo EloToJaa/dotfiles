@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  needsreboot = inputs.nixos-needsreboot.packages.${pkgs.system}.default;
+  needsreboot = inputs.nixos-needsreboot.packages.${pkgs.stdenv.hostPlatform.system}.default;
   cfg = config.modules.base.bootloader;
 in {
   options.modules.base.bootloader = {

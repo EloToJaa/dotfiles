@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (config.settings) catppuccin;
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   cfg = config.modules.desktop.spotify;
 in {
   options.modules.desktop.spotify = {
