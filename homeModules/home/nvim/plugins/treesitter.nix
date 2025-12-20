@@ -12,6 +12,7 @@ in {
     programs.nixvim.plugins.treesitter = {
       enable = true;
       settings = {
+        folding.enable = true;
         highlight.enable = true;
         indent.enable = true;
         incremental_selection.enable = true;
