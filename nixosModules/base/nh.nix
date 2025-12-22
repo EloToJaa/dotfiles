@@ -23,7 +23,6 @@ in {
 
     environment.systemPackages = with pkgs.unstable; [
       nix-update
-      nix-output-monitor
       nvd
     ];
   };
