@@ -79,6 +79,7 @@ in {
     ./jellystat
     ./karakeep
     ./loki
+    ./minecraft
     ./nextcloud
     ./ntfy
     ./paperless
