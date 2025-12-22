@@ -15,7 +15,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs = {
       nix-index-database.comma.enable = true;
-      command-not-found.enable = true;
+      # command-not-found.enable = true;
     };
   };
 }
