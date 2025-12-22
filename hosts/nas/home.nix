@@ -6,6 +6,7 @@
     home = {
       enable = true;
       lazygit.enable = true;
+      nix.enable = true;
       nvim = {
         enable = true;
         languages = {
