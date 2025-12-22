@@ -80,6 +80,7 @@ in {
     ./karakeep
     ./loki
     ./minecraft
+    ./mysql
     ./nextcloud
     ./ntfy
     ./paperless

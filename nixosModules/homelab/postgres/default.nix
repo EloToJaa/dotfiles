@@ -8,10 +8,6 @@
 in {
   options.modules.homelab.postgres = {
     enable = lib.mkEnableOption "Enable postgres";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "postgresql";
-    };
     port = lib.mkOption {
       type = lib.types.port;
       default = 5432;
