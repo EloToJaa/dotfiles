@@ -13,6 +13,9 @@ in {
     inputs.nix-index-database.nixosModules.nix-index
   ];
   config = lib.mkIf cfg.enable {
-    programs.nix-index-database.comma.enable = true;
+    programs = {
+      nix-index-database.comma.enable = true;
+      command-not-found.enable = true;
+    };
   };
 }
