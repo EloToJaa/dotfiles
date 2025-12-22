@@ -18,6 +18,7 @@
     ./git.nix # version control
     ./index.nix
     ./nerdfonts.nix # fonts
+    ./nix.nix # nix
     ./packages.nix # other packages
     ./shell.nix # shell programs
     ./sops.nix # secrets
