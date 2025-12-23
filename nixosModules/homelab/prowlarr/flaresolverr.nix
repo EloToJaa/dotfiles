@@ -19,5 +19,8 @@ in {
       package = pkgs.unstable.flaresolverr;
       inherit (cfg) port;
     };
+    systemd.services.flaresolverr.environment = {
+      HOST = "127.0.0.1";
+    };
   };
 }
