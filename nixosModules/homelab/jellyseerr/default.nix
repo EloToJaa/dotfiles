@@ -46,6 +46,7 @@ in {
         DB_NAME = cfg.name;
         DB_USE_SSL = "false";
         DB_LOG_QUERIES = "false";
+        HOST = "127.0.0.1";
       };
       serviceConfig = {
         User = cfg.name;

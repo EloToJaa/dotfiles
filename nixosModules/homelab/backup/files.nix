@@ -14,7 +14,7 @@ in {
         package = pkgs.unstable.restic-rest-server;
         dataDir = cfg.backupDir;
         # htpasswd-file = config.sops.secrets."${name}/htpasswd".path;
-        listenAddress = toString cfg.port;
+        listenAddress = "127.0.0.1:${toString cfg.port}";
         extraFlags = ["--no-auth"];
       };
       backups.appdata-local = {
