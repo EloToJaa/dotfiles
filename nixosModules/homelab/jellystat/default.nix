@@ -48,6 +48,7 @@ in {
         POSTGRES_USER = cfg.name;
         POSTGRES_IP = "127.0.0.1";
         POSTGRES_PORT = "5432";
+        JS_LISTEN_IP = "127.0.0.1";
         TZ = timezone;
       };
       environmentFiles = [config.sops.templates."${cfg.name}.env".path];
