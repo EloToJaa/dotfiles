@@ -4,6 +4,7 @@
   outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
+        ./terranix
         ./settings.nix
         ./hosts
         ./pkgs
@@ -28,6 +29,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nur.url = "github:nix-community/NUR";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    terranix.url = "github:terranix/terranix";
 
     hyprland = {
       url = "github:hyprwm/Hyprland/main?submodules=true";
