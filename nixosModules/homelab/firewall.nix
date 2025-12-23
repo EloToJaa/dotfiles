@@ -6,8 +6,9 @@
   cfg = config.modules.homelab;
 in {
   config = lib.mkIf cfg.enable {
-    networking.firewall = {
-      enable = lib.mkForce true;
+    networking = {
+      firewall.enable = lib.mkForce true;
+      nftables.enable = true;
     };
   };
 }
