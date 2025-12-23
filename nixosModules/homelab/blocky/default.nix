@@ -54,7 +54,12 @@ in {
         };
         customDNS = {
           customTTL = "1h";
-          mapping.${homelab.baseDomain} = "192.168.0.32";
+          mapping = {
+            "server.${homelab.mainDomain}" = "192.168.0.32";
+            "nas.${homelab.mainDomain}" = "192.168.0.41";
+            "pve.${homelab.mainDomain}" = "192.168.0.40";
+            "kvm.${homelab.mainDomain}" = "192.168.0.31";
+          };
         };
       };
     };
