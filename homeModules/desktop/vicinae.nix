@@ -15,7 +15,6 @@ in {
   config = lib.mkIf cfg.enable {
     services.vicinae = {
       enable = true;
-      useLayerShell = true;
 
       systemd = {
         enable = true;
