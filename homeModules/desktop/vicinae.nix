@@ -15,8 +15,15 @@ in {
   config = lib.mkIf cfg.enable {
     services.vicinae = {
       enable = true;
-      autoStart = true;
       useLayerShell = true;
+
+      systemd = {
+        enable = true;
+        autoStart = true;
+        environment = {
+          USE_LAYER_SHELL = 1;
+        };
+      };
 
       settings = {
         faviconService = "twenty";
