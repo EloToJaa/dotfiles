@@ -10,6 +10,7 @@
     ./gnome.nix
     ./mullvad.nix
     ./network.nix
+    ./printing.nix
     ./security.nix
     ./steam.nix
     ./virtualization.nix
