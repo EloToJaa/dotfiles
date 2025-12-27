@@ -28,16 +28,29 @@ in {
   };
   config = lib.mkIf cfg.enable {
     services.authelia.instances.main = {
+      inherit (cfg) group;
       enable = true;
       package = pkgs.unstable.authelia;
+      user = cfg.name;
+      secrets = {
+        jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
+        sessionSecretFile = config.sops.secrets."${cfg.name}/sessionsecret".path;
+        storageEncryptionKeyFile = config.sops.secrets."${cfg.name}/storageencryptionkey".path;
+      };
       settings = {
         theme = "dark";
         default_2fa_method = "mobile_push";
+        server = {
+          address = "tcp://127.0.0.1:${toString cfg.port}/";
+          endpoints = {
+            enable_pprof = false;
+            enable_expvars = false;
+          };
+        };
+        log.level = "info";
+        totp.issuer = homelab.mainDomain;
       };
     };
-    systemd.tmpfiles.rules = [
-      "d ${homelab.dataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
-    ];
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;
@@ -58,6 +71,12 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
+
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      description = cfg.name;
+      inherit (cfg) group;
+    };
 
     sops.secrets = {
       "${cfg.name}/pgpassword" = {
