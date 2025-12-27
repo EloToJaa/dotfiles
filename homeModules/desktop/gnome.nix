@@ -39,7 +39,7 @@ in {
         style-variant = "dark";
         tab-width = "uint32 4";
         use-system-font = false;
-        wrap-text = false;
+        wrap-text = true;
       };
     };
   };
