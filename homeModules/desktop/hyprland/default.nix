@@ -10,6 +10,7 @@
     ./bindings.nix
     ./exec-once.nix
     ./hyprland.nix
+    ./layerrules.nix
     ./monitors.nix
     ./settings.nix
     ./variables.nix

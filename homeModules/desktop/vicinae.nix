@@ -20,7 +20,8 @@ in {
         enable = true;
         autoStart = true;
         environment = {
-          USE_LAYER_SHELL = 1;
+          USE_LAYER_SHELL = "1";
+          QT_SCALE_FACTOR = "1.2";
         };
       };
 
