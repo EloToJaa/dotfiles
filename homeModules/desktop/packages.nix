@@ -19,7 +19,7 @@ in {
         ## GUI Apps
         chromium
         gimp
-        libreoffice
+        # libreoffice
         mpv # video player
         obs-studio
         pavucontrol # pulseaudio volume controle (GUI)
