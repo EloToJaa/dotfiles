@@ -22,10 +22,6 @@ in {
       type = lib.types.port;
       default = 17170;
     };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.homelab;
-    };
   };
   config = lib.mkIf cfg.enable {
     services.lldap = {
@@ -65,12 +61,6 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
-
-    users.users.${cfg.name} = {
-      isSystemUser = true;
-      description = cfg.name;
-      inherit (cfg) group;
-    };
 
     sops.secrets = {
       "${cfg.name}/pgpassword" = {
