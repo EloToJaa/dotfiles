@@ -31,6 +31,8 @@
     homelab = {
       enable = true;
       atuin.enable = true;
+      authelia.enable = false;
+      lldap.enable = true;
       backup.enable = true;
       bazarr.enable = true;
       blocky.enable = true;
