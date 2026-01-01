@@ -16,11 +16,15 @@ in {
     };
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "ldap";
+      default = "lldap";
     };
     port = lib.mkOption {
       type = lib.types.port;
       default = 17170;
+    };
+    ldapPort = lib.mkOption {
+      type = lib.types.port;
+      default = 3890;
     };
   };
   config = lib.mkIf cfg.enable {
@@ -33,7 +37,7 @@ in {
         http_port = cfg.port;
         http_url = "https://${cfg.domainName}.${homelab.baseDomain}";
         ldap_host = "127.0.0.1";
-        ldap_port = 3890;
+        ldap_port = cfg.ldapPort;
         ldap_base_dn = "dc=elotoja,dc=com";
         ldap_user_dn = username;
         ldap_user_email = email;
