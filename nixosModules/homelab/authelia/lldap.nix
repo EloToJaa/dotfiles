@@ -37,6 +37,7 @@ in {
         ldap_base_dn = "dc=elotoja,dc=com";
         ldap_user_dn = username;
         ldap_user_email = email;
+        force_ldap_user_pass_reset = "always";
 
         jwt_secret_file = config.sops.secrets."${cfg.name}/jwtsecret".path;
         ldap_user_pass_file = config.sops.secrets."${cfg.name}/password".path;
