@@ -52,6 +52,10 @@ in {
         };
         log.level = "info";
         totp.issuer = homelab.mainDomain;
+        ldap = {
+          address = "ldap://127.0.0.1:${toString homelab.lldap.ldapPort}";
+          implementation = "lldap";
+        };
       };
     };
 
