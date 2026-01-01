@@ -26,7 +26,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.lldap = {
       enable = true;
-      package = pkgs.unstable.authelia;
+      package = pkgs.unstable.lldap;
       settings = {
         http_host = "127.0.0.1";
         http_port = cfg.port;
@@ -63,9 +63,9 @@ in {
     ];
 
     sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
+      "${cfg.name}/jwtsecret" = {};
+      "${cfg.name}/password" = {};
+      "${cfg.name}/pgpassword" = {};
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
