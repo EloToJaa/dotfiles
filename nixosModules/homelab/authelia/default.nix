@@ -26,6 +26,9 @@ in {
       default = homelab.groups.homelab;
     };
   };
+  imports = [
+    ./lldap.nix
+  ];
   config = lib.mkIf cfg.enable {
     services.authelia.instances.main = {
       inherit (cfg) group;

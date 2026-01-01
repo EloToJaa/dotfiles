@@ -27,9 +27,6 @@ in {
       default = homelab.groups.homelab;
     };
   };
-  imports = [
-    ./lldap.nix
-  ];
   config = lib.mkIf cfg.enable {
     services.lldap = {
       enable = true;
