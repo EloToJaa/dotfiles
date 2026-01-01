@@ -75,9 +75,15 @@ in {
     users.groups.${cfg.name} = {};
 
     sops.secrets = {
-      "${cfg.name}/jwtsecret" = {};
-      "${cfg.name}/password" = {};
-      "${cfg.name}/pgpassword" = {};
+      "${cfg.name}/jwtsecret" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/password" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
