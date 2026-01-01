@@ -27,6 +27,7 @@ in {
     services.lldap = {
       enable = true;
       package = pkgs.unstable.lldap;
+      environmentFile = config.sops.templates."${cfg.name}.env".path;
       settings = {
         http_host = "127.0.0.1";
         http_port = cfg.port;
@@ -40,6 +41,9 @@ in {
         jwt_secret_file = config.sops.secrets."${cfg.name}/jwtsecret".path;
         ldap_user_pass_file = config.sops.secrets."${cfg.name}/password".path;
       };
+    };
+    systemd.services.lldap.serviceConfig = {
+      DynamicUser = lib.mkForce false;
     };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -61,6 +65,13 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
+
+    users.users.${cfg.name} = {
+      isSystemUser = true;
+      group = lib.mkForce cfg.name;
+      description = cfg.name;
+    };
+    users.groups.${cfg.name} = {};
 
     sops.secrets = {
       "${cfg.name}/jwtsecret" = {};
