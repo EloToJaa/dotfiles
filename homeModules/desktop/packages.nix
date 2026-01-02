@@ -34,7 +34,7 @@ in {
         udiskie
         vaults
         thunderbird
-        rustdesk-flutter
+        # rustdesk-flutter
         prismlauncher
         zoom-us
       ]);
