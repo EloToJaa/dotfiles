@@ -154,6 +154,9 @@ in {
       "${cfg.name}/duosecretkey" = {
         owner = cfg.name;
       };
+      "${cfg.name}/password" = {
+        owner = cfg.name;
+      };
     };
   };
 }
