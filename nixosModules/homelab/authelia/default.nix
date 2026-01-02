@@ -78,7 +78,7 @@ in {
         };
         notifier = {
           disable_startup_check = false;
-          filesystem.filename = "${homelab.dataDir}authelia/notification.txt";
+          filesystem.filename = "${homelab.varDataDir}authelia-main/notification.txt";
         };
         session = {
           name = "authelia_session";
