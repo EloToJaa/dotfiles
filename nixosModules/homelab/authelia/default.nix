@@ -92,6 +92,11 @@ in {
             host = config.services.redis.servers.authelia.unixSocket;
           };
         };
+        security.regulation = {
+          max_retries = 3;
+          find_time = "2m";
+          ban_time = "5m";
+        };
       };
     };
 
