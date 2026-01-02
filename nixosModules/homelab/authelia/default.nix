@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.modules) homelab;
+  inherit (config.settings) username;
   cfg = config.modules.homelab.authelia;
   redisServer = config.services.redis.servers.authelia;
 in {
@@ -62,7 +63,7 @@ in {
           address = "ldap://127.0.0.1:${toString homelab.lldap.ldapPort}";
           implementation = "lldap";
           base_dn = "DC=elotoja,DC=com";
-          user = "UID=admin,OU=people,DC=elotoja,DC=com";
+          user = "UID=${username},OU=people,DC=elotoja,DC=com";
         };
         access_control.default_policy = "two_factor";
         duo_api = {
