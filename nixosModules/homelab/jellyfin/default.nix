@@ -59,10 +59,10 @@ in {
         inherit extraConfig;
         useACMEHost = homelab.baseDomain;
       };
-      # "${cfg.domainName}.${homelab.mainDomain}" = {
-      #   inherit extraConfig;
-      #   useACMEHost = homelab.mainDomain;
-      # };
+      "${cfg.domainName}.${homelab.mainDomain}" = {
+        inherit extraConfig;
+        useACMEHost = homelab.mainDomain;
+      };
     };
 
     users.users.${cfg.name} = {
