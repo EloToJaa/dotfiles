@@ -43,7 +43,7 @@ in {
       environmentVariables = {
         AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
         AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.sops.secrets."${cfg.name}/pgpassword".path;
-        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."lldap/password".path;
+        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/password".path;
       };
       settings = {
         theme = "dark";
@@ -94,7 +94,7 @@ in {
             host = config.services.redis.servers.authelia.unixSocket;
           };
         };
-        security.regulation = {
+        regulation = {
           max_retries = 3;
           find_time = "2m";
           ban_time = "5m";
