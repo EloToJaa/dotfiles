@@ -63,7 +63,7 @@ in {
           base_dn = "DC=elotoja,DC=com";
           user = "CN=admin,DC=elotoja,DC=com";
         };
-        access_control.default_policy = "allow";
+        access_control.default_policy = "two_factor";
         duo_api = {
           hostname = "api-9400ee3a.duosecurity.com";
           integration_key = "DID9QW95YCI6U92UIS7Q";
@@ -85,11 +85,9 @@ in {
           remember_me = "1M";
           same_site = "lax";
           cookies = {
-            inherit (config.services.authelia.instances.main.settings.session) name expiration inactivity same_site;
             domain = homelab.mainDomain;
             authelia_url = "https://${cfg.name}.${homelab.mainDomain}";
             default_redirection_url = "https://${homelab.mainDomain}";
-            remember_me = "1d";
           };
           redis = {
             # host = "unix://${config.services.redis.servers.authelia.unixSocket}";
