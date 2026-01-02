@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.authelia;
+  redisServer = config.services.redis.servers.authelia;
 in {
   options.modules.homelab.authelia = {
     enable = lib.mkEnableOption "Enable authelia";
@@ -91,10 +92,7 @@ in {
               default_redirection_url = "https://${homelab.mainDomain}";
             }
           ];
-          redis = {
-            # host = "unix://${config.services.redis.servers.authelia.unixSocket}";
-            host = config.services.redis.servers.authelia.unixSocket;
-          };
+          redis.host = redisServer.unixSocket;
         };
         regulation = {
           max_retries = 3;
@@ -102,6 +100,9 @@ in {
           ban_time = "5m";
         };
       };
+    };
+    systemd.services.authelia-main.serviceConfig = {
+      SupplementaryGroups = redisServer.group;
     };
 
     services.caddy.virtualHosts = let
