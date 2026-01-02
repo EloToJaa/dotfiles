@@ -23,7 +23,7 @@ in {
     };
     group = lib.mkOption {
       type = lib.types.str;
-      default = homelab.groups.homelab;
+      default = homelab.groups.main;
     };
   };
   imports = [
