@@ -62,7 +62,7 @@ in {
           address = "ldap://127.0.0.1:${toString homelab.lldap.ldapPort}";
           implementation = "lldap";
           base_dn = "DC=elotoja,DC=com";
-          user = "CN=admin,DC=elotoja,DC=com";
+          user = "UID=admin,OU=people,DC=elotoja,DC=com";
         };
         access_control.default_policy = "two_factor";
         duo_api = {
