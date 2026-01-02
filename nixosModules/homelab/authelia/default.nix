@@ -84,11 +84,13 @@ in {
           inactivity = "5m";
           remember_me = "1M";
           same_site = "lax";
-          cookies = {
-            domain = homelab.mainDomain;
-            authelia_url = "https://${cfg.name}.${homelab.mainDomain}";
-            default_redirection_url = "https://${homelab.mainDomain}";
-          };
+          cookies = [
+            {
+              domain = homelab.mainDomain;
+              authelia_url = "https://${cfg.name}.${homelab.mainDomain}";
+              default_redirection_url = "https://${homelab.mainDomain}";
+            }
+          ];
           redis = {
             # host = "unix://${config.services.redis.servers.authelia.unixSocket}";
             host = config.services.redis.servers.authelia.unixSocket;
