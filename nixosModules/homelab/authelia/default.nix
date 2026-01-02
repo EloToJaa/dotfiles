@@ -43,6 +43,7 @@ in {
       environmentVariables = {
         AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
         AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.sops.secrets."${cfg.name}/pgpassword".path;
+        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."lldap/password".path;
       };
       settings = {
         theme = "dark";
@@ -59,6 +60,8 @@ in {
         authentication_backend.ldap = {
           address = "ldap://127.0.0.1:${toString homelab.lldap.ldapPort}";
           implementation = "lldap";
+          base_dn = "DC=elotoja,DC=com";
+          user = "CN=admin,DC=elotoja,DC=com";
         };
         access_control.default_policy = "allow";
         duo_api = {
