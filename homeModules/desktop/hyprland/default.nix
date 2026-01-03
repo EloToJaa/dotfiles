@@ -5,6 +5,11 @@
 }: {
   options.modules.desktop.hyprland = {
     enable = lib.mkEnableOption "Enable hyprland";
+    mainMod = lib.mkOption {
+      type = lib.types.str;
+      default = "SUPER";
+      description = "The main modifier key";
+    };
   };
   imports = [
     ./bindings.nix

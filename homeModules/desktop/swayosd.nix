@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (config.modules.desktop.hyprland) mainMod;
   cfg = config.modules.desktop.swayosd;
 in {
   options.modules.desktop.swayosd = {
@@ -25,8 +26,8 @@ in {
         bindl = [
           ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise 5%+"
           ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower 5%-"
-          "$mainMod, XF86MonBrightnessUp, exec, brightnessctl set 100%"
-          "$mainMod, XF86MonBrightnessDown, exec, brightnessctl set 0%"
+          "${mainMod}, XF86MonBrightnessUp, exec, brightnessctl set 100%"
+          "${mainMod}, XF86MonBrightnessDown, exec, brightnessctl set 0%"
         ];
         bindle = [
           ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume +2 --max-volume=100"
