@@ -75,8 +75,8 @@ in {
       {
         client_id = "jellyfin";
         client_name = "Jellyfin";
-        client_secret = "";
-        public = true;
+        client_secret = ''{{ secret "${config.age.secrets."authelia/secrets/jellyfin".path}" }}'';
+        public = false;
         authorization_policy = "two_factor";
         require_pkce = true;
         pkce_challenge_method = "S256";
@@ -99,5 +99,11 @@ in {
         token_endpoint_auth_method = "client_secret_post";
       }
     ];
+
+    sops.secrets = {
+      "authelia/secrets/jellyfin" = {
+        owner = "authelia";
+      };
+    };
   };
 }
