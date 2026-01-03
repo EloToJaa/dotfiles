@@ -75,7 +75,7 @@ in {
       {
         client_id = "jellyfin";
         client_name = "Jellyfin";
-        client_secret = ''{{ secret "${config.age.secrets."authelia/secrets/jellyfin".path}" }}'';
+        client_secret = ''{{ secret "${config.sops.secrets."authelia/secrets/jellyfin".path}" }}'';
         public = false;
         authorization_policy = "two_factor";
         require_pkce = true;
