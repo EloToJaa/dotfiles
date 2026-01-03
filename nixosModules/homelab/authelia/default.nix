@@ -41,6 +41,8 @@ in {
         jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
         sessionSecretFile = config.sops.secrets."${cfg.name}/sessionsecret".path;
         storageEncryptionKeyFile = config.sops.secrets."${cfg.name}/storageencryptionkey".path;
+        oidcHmacSecretFile = config.sops.secrets."${cfg.name}/oidchmacsecret".path;
+        oidcIssuerPrivateKeyFile = config.sops.secrets."${cfg.name}/oidcprivatekey".path;
       };
       environmentVariables = {
         AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
@@ -159,6 +161,12 @@ in {
         owner = cfg.name;
       };
       "${cfg.name}/password" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/oidchmacsecret" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/oidcprivatekey" = {
         owner = cfg.name;
       };
     };
