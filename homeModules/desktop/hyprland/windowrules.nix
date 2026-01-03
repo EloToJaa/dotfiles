@@ -62,6 +62,11 @@ in {
         "match:title ^(branchdialog)$, float on"
         "match:title ^(Confirm to replace files)$, float on"
         "match:title ^(File Operation Progress)$, float on"
+        "match:title ^(.*Bitwarden Password Manager.*)$, float on"
+
+        "match:title ^(Firefox — Sharing Indicator)$, workspace special silent"
+        "match:title ^(Zen — Sharing Indicator)$, workspace special silent"
+        "match:title ^(.*is sharing (your screen|a window)\.)$, workspace special silent"
 
         "match:class ^(xwaylandvideobridge)$, opacity 0.0 override"
         "match:class ^(xwaylandvideobridge)$, no_anim on"
