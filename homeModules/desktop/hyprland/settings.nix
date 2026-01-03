@@ -28,8 +28,6 @@ in {
         border_size = 2;
         "col.active_border" = "rgb(98971a) rgb(cc241d) 45deg";
         "col.inactive_border" = "0x00000000";
-        # border_part_of_window = false;
-        no_border_on_floating = false;
       };
 
       misc = {
@@ -40,7 +38,7 @@ in {
         animate_manual_resizes = false;
         enable_swallow = true;
         focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
+        on_focus_under_fullscreen = 2;
         middle_click_paste = false;
       };
 
@@ -65,6 +63,7 @@ in {
         # active_opacity = 0.90;
         # inactive_opacity = 0.90;
         # fullscreen_opacity = 1.0;
+        border_part_of_window = true;
 
         blur = {
           enabled = true;

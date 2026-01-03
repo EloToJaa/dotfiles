@@ -69,6 +69,8 @@ in {
         "match:class ^(xwaylandvideobridge)$, max_size 1 1"
         "match:class ^(xwaylandvideobridge)$, no_blur on"
 
+        "match:float true, border_size 0"
+
         # Remove context menu transparancy in chromium based apps
         "match:class ^()$, match:title ^()$, opaque on"
         "match:class ^()$, match:title ^()$, no_shadow on"
