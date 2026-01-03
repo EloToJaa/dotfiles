@@ -9,21 +9,27 @@ in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = {
       windowrule = [
-        "match:class ^(com.interversehq.qView)$, float on"
-        "match:class ^(com.interversehq.qView)$, center on"
-        "match:class ^(com.interversehq.qView)$, size 1200 725"
-        "match:class ^(mpv)$, float on"
-        "match:class ^(mpv)$, center on"
-        "match:class ^(mpv)$, size 1200 725"
         "match:class ^(audacious)$, float on"
         "match:class ^(waypaper)$, pin on"
-        "match:class ^(mpv)$, idle_inhibit focus"
+
         "match:class ^(org.pulseaudio.pavucontrol)$, float on"
         "match:class ^(org.pulseaudio.pavucontrol)$, size 1200 725"
         "match:class ^(org.pulseaudio.pavucontrol)$, center on"
+
+        "match:class ^(com.interversehq.qView)$, float on"
+        "match:class ^(com.interversehq.qView)$, center on"
+        "match:class ^(com.interversehq.qView)$, size 1200 725"
+
         "match:class ^(nwg-displays)$, float on"
         "match:class ^(nwg-displays)$, size 1200 725"
         "match:class ^(nwg-displays)$, center on"
+
+        "match:class ^(mpv)$, float on"
+        "match:class ^(mpv)$, center on"
+        "match:class ^(mpv)$, size 1200 725"
+        "match:class ^(mpv|.+exe|celluloid)$, idle_inhibit focus"
+        "match:class ^(zen)$, match:title ^(.*YouTube.*)$, idle_inhibit focus"
+        "match:class ^(zen)$, idle_inhibit fullscreen"
 
         # No gaps when only
         "match:workspace w[t1], match:float false, border_size 0"
