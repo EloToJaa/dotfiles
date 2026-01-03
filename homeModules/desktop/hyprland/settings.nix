@@ -90,7 +90,7 @@ in {
       };
 
       ecosystem = {
-        no_update_news = true;
+        no_update_news = false;
         no_donation_nag = true;
       };
 

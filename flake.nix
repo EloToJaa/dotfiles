@@ -34,7 +34,7 @@
     hyprland-nixpkgs.url = "github:nixos/nixpkgs/f6b44b2401525650256b977063dbcf830f762369";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.52.2?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.52.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
