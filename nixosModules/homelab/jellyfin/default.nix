@@ -81,7 +81,7 @@ in {
         require_pkce = true;
         pkce_challenge_method = "S256";
         redirect_uris = [
-          "https://${cfg.domainName}.${homelab.mainDomain}/sso/OID/redirect/authelia"
+          "https://${cfg.domainName}.${homelab.mainDomain}/sso/OID/r/authelia"
         ];
         scopes = [
           "openid"
