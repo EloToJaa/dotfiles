@@ -59,7 +59,7 @@ in {
             enable_expvars = false;
           };
         };
-        log.level = "info";
+        log.level = "debug";
         totp.issuer = homelab.mainDomain;
         authentication_backend.ldap = {
           address = "ldap://127.0.0.1:${toString homelab.lldap.ldapPort}";
