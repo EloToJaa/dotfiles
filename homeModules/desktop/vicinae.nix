@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) isLaptop;
   cfg = config.modules.desktop.vicinae;
 in {
   options.modules.desktop.vicinae = {
@@ -21,7 +22,10 @@ in {
         autoStart = true;
         environment = {
           USE_LAYER_SHELL = "1";
-          QT_SCALE_FACTOR = "1.2";
+          QT_SCALE_FACTOR =
+            if isLaptop
+            then "1.2"
+            else "1";
         };
       };
 
