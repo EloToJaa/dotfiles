@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.vesktop = {
       enable = true;
-      package = pkgs.unstable.vesktop;
+      package = pkgs.master.vesktop;
       settings = {
         appBadge = false;
         arRPC = true;
