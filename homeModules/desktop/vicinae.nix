@@ -25,7 +25,7 @@ in {
           QT_SCALE_FACTOR =
             if isLaptop
             then "1.2"
-            else "1";
+            else "1.1";
         };
       };
 
