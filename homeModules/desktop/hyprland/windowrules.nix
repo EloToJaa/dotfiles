@@ -76,7 +76,7 @@ in {
 
         "match:class ^(zen-beta)$, workspace 1"
         "match:class ^(evince)$, workspace 4"
-        "match:class ^(Gimp-2.10)$, workspace 4"
+        "match:class ^(gimp)$, workspace 4"
         "match:class ^(Audacious)$, workspace 5"
         "match:class ^(${discord})$, workspace 5"
         "match:class ^(Spotify)$, workspace 6"
