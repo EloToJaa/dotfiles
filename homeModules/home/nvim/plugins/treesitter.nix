@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.modules.home.nvim.plugins.treesitter;
@@ -11,6 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nixvim.plugins.treesitter = {
       enable = true;
+      package = pkgs.vimPlugins.nvim-treesitter;
       settings = {
         folding.enable = true;
         highlight.enable = true;
