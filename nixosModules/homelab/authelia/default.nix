@@ -48,6 +48,7 @@ in {
         AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
         AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.sops.secrets."${cfg.name}/pgpassword".path;
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/password".path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/smtppassword".path;
       };
       settings = {
         theme = "dark";
@@ -80,7 +81,13 @@ in {
         };
         notifier = {
           disable_startup_check = false;
-          filesystem.filename = "${homelab.varDataDir}authelia-main/notification.txt";
+          # filesystem.filename = "${homelab.varDataDir}authelia-main/notification.txt";
+          smtp = {
+            address = "submission://smtp.resend.com";
+            username = "resend";
+            sender = "Authelia <auth@${homelab.mainDomain}>";
+            subject = "[Authelia] {title}";
+          };
         };
         session = {
           name = "authelia_session";
@@ -167,6 +174,9 @@ in {
         owner = cfg.name;
       };
       "${cfg.name}/oidcprivatekey" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/smtppassword" = {
         owner = cfg.name;
       };
     };
