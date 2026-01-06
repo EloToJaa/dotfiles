@@ -68,7 +68,7 @@ in {
           base_dn = "DC=elotoja,DC=com";
           user = "UID=${username},OU=people,DC=elotoja,DC=com";
         };
-        access_control.default_policy = "two_factor";
+        access_control.default_policy = "one_factor";
         duo_api = {
           hostname = "api-9400ee3a.duosecurity.com";
           integration_key = "DID9QW95YCI6U92UIS7Q";
