@@ -77,7 +77,7 @@ in {
         client_name = "Jellyfin";
         client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/jellyfin".path}\" }}";
         public = false;
-        authorization_policy = "two_factor";
+        authorization_policy = "one_factor";
         require_pkce = true;
         pkce_challenge_method = "S256";
         redirect_uris = [
