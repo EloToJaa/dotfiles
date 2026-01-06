@@ -52,7 +52,7 @@ in {
       };
       settings = {
         theme = "dark";
-        default_2fa_method = "mobile_push";
+        default_2fa_method = "totp";
         server = {
           address = "tcp://127.0.0.1:${toString cfg.port}/";
           endpoints = {
@@ -99,7 +99,7 @@ in {
             {
               domain = homelab.mainDomain;
               authelia_url = "https://${cfg.name}.${homelab.mainDomain}";
-              default_redirection_url = "https://${homelab.mainDomain}";
+              default_redirection_url = "https://${cfg.domainName}.${homelab.mainDomain}/settings";
             }
           ];
           redis.host = redisServer.unixSocket;
