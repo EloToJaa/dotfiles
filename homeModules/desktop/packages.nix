@@ -19,6 +19,7 @@ in {
         ## GUI Apps
         chromium
         gimp
+        jellyfin-desktop
         # libreoffice
         mpv # video player
         obs-studio
