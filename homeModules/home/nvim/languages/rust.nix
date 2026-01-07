@@ -12,12 +12,13 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       rustfmt
+      rust-analyzer
     ];
 
     programs.nixvim = {
       lsp.servers.rust_analyzer = {
         enable = true;
-
+        package = null;
         config = {
           imports = {
             granularity.group = "module";

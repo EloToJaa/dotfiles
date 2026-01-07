@@ -12,12 +12,13 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       ruff
+      pyright
     ];
 
     programs.nixvim = {
       lsp.servers.pyright = {
         enable = true;
-
+        package = null;
         config = {
           pyright.disableOrganizeImports = true;
           python.analysis.ignore = {

@@ -31,7 +31,7 @@ in {
     };
 
     programs.opencode.settings.lsp.markdown_oxide = {
-      command = ["markdown-oxide" "--stdio"];
+      command = ["markdown-oxide"];
       extensions = [".md"];
     };
   };
