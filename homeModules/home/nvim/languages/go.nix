@@ -12,11 +12,13 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       gofumpt
+      gopls
     ];
 
     programs.nixvim = {
       lsp.servers.gopls = {
         enable = true;
+        package = null;
         config = {
           analyses.unusedparams = true;
           staticcheck = true;

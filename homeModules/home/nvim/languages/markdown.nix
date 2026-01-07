@@ -12,11 +12,13 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       prettierd
+      markdown-oxide
     ];
 
     programs.nixvim = {
       lsp.servers.markdown_oxide = {
         enable = true;
+        package = null;
       };
       plugins = {
         conform-nvim.settings.formatters_by_ft = {
@@ -26,6 +28,11 @@ in {
           markdown
         ];
       };
+    };
+
+    programs.opencode.settings.lsp.markdown_oxide = {
+      command = ["markdown-oxide" "--stdio"];
+      extensions = [".md"];
     };
   };
 }

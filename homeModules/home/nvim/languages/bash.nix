@@ -12,11 +12,13 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       shfmt
+      bash-language-server
     ];
 
     programs.nixvim = {
       lsp.servers.bashls = {
         enable = true;
+        package = null;
         config = {
           cmd = [
             "bash-language-server"
