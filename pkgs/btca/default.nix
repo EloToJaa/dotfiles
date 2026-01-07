@@ -4,19 +4,17 @@
   buildNpmPackage,
   nodejs_25,
   nix-update-script,
-  jellyfin,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "better-context";
   version = "0.6.42";
 
-  src = assert finalAttrs.version == jellyfin.version;
-    fetchFromGitHub {
-      owner = "davis7dotsh";
-      repo = "better-context";
-      tag = "v${finalAttrs.version}";
-      hash = "sha256-9gDGREPORJILjVqw+Kk56+5qS/TQUd8OFmsEXL7KPAE=";
-    };
+  src = fetchFromGitHub {
+    owner = "davis7dotsh";
+    repo = "better-context";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-9gDGREPORJILjVqw+Kk56+5qS/TQUd8OFmsEXL7KPAE=";
+  };
 
   nodejs = nodejs_25;
 
