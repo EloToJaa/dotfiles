@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: let
   cfg = config.modules.desktop.hyprland;
@@ -29,10 +28,6 @@ in {
       portalPackage = null;
       # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-      xwayland = {
-        enable = true;
-        # hidpi = true;
-      };
       # enableNvidiaPatches = false;
       systemd.enable = true;
     };
