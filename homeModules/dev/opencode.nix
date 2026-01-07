@@ -10,6 +10,12 @@ in {
     enable = lib.mkEnableOption "Enable opencode module";
   };
   config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
+    };
+    programs.zsh.zsh-abbr.abbreviations = {
+      oc = "opencode";
+    };
     programs.opencode = {
       enable = true;
       package = pkgs.unstable.opencode;
@@ -48,7 +54,18 @@ in {
         autoupdate = false;
         tools = {
           write = true;
+          edit = true;
+          read = true;
           bash = true;
+          webfetch = true;
+          lsp = true;
+        };
+        formatter = {
+          alejandra = {
+            command = ["alejandra" "$FILE"];
+            extensions = [".nix"];
+          };
+          nixfmt.disabled = true;
         };
       };
     };
