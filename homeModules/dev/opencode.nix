@@ -43,9 +43,13 @@ in {
         '';
       settings = {
         theme = "catppuccin";
-        model = "anthropic/claude-sonnet-4-20250514";
-        small_model = "anthropic/claude-3-5-haiku-20241022";
+        model = "anthropic/claude-sonnet-4-5";
+        small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
+        tools = {
+          write = true;
+          bash = true;
+        };
       };
     };
   };
