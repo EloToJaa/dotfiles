@@ -8,7 +8,7 @@ in {
   options.modules.home.nvim.plugins.yazi = {
     enable = lib.mkEnableOption "Enable yazi";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.modules.home.yazi.enable) {
     programs.nixvim = {
       plugins = {
         yazi = {

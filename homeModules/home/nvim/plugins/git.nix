@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
       plugins = {
-        lazygit.enable = true;
+        lazygit.enable = config.modules.home.lazygit.enable;
         fugitive.enable = true;
         gitsigns = {
           enable = true;
