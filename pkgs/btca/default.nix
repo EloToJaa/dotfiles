@@ -1,45 +1,46 @@
 {
   lib,
-  stdenv,
-  fetchurl,
-  nodejs,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodejs_25,
+  nix-update-script,
+  jellyfin,
 }:
-stdenv.mkDerivation rec {
-  pname = "btca";
+buildNpmPackage (finalAttrs: {
+  pname = "better-context";
   version = "0.6.42";
 
-  src = fetchurl {
-    url = "https://registry.npmjs.org/btca/-/btca-${version}.tgz";
-    hash = "sha256-1xf4765bjaknby6s4jrmkpy48m4lia34kpa3zf3w58pqvnskx5ia";
-  };
+  src = assert finalAttrs.version == jellyfin.version;
+    fetchFromGitHub {
+      owner = "davis7dotsh";
+      repo = "better-context";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-9gDGREPORJILjVqw+Kk56+5qS/TQUd8OFmsEXL7KPAE=";
+    };
 
-  buildInputs = [nodejs];
+  nodejs = nodejs_25;
 
-  unpackPhase = ''
-    tar xf $src
-    cd package
-  '';
+  npmDepsHash = "sha256-AYGWZ5QvmQl8+ayjzkWuBra+QUvde36ReIJ7Fxk89VM=";
 
-  buildPhase = ''
-    export HOME=$(mktemp -d)
-    npm install --production
-  '';
+  npmBuildScript = ["build:cli"];
 
   installPhase = ''
-        mkdir -p $out/bin $out/lib/node_modules/btca
-        cp -R . $out/lib/node_modules/btca/
-        cat > $out/bin/btca << 'EOF'
-    #!/bin/sh
-    exec ${nodejs}/bin/node $out/lib/node_modules/btca/bin.js "$@"
-    EOF
-        chmod +x $out/bin/btca
+    runHook preInstall
+
+    mkdir -p $out/share
+    cp -a dist $out/share/jellyfin-web # replace with btca
+
+    runHook postInstall
   '';
 
-  meta = with lib; {
-    description = "CLI tool for asking questions about technologies using OpenCode";
-    homepage = "https://btca.dev";
-    license = licenses.mit;
-    platforms = platforms.unix;
-    mainProgram = "btca";
+  passthru.updateScript = nix-update-script {};
+
+  meta = {
+    description = "A better way to get up to date context on libraries/technologies in your projects";
+    homepage = "https://btca.dev/";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
+      elotoja
+    ];
   };
-}
+})
