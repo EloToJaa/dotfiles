@@ -20,6 +20,7 @@ in {
     programs.nixvim = {
       lsp.servers.clangd = {
         enable = true;
+        package = null;
       };
       plugins = {
         conform-nvim.settings.formatters_by_ft = {

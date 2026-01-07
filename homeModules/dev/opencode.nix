@@ -49,7 +49,7 @@ in {
         '';
       settings = {
         theme = "catppuccin";
-        model = "anthropic/claude-sonnet-4-5";
+        model = "anthropic/claude-opus-4-5";
         small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
         tools = {

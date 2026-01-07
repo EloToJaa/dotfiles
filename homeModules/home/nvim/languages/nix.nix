@@ -6,8 +6,8 @@
   lib,
   ...
 }: let
-  flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
   cfg = config.modules.home.nvim.languages.nix;
+  flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
 in {
   options.modules.home.nvim.languages.nix = {
     enable = lib.mkEnableOption "Enable nix";
@@ -17,6 +17,7 @@ in {
       alejandra
       deadnix
       statix
+      nixd
     ];
 
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -24,6 +25,7 @@ in {
     programs.nixvim = {
       lsp.servers.nixd = {
         enable = true;
+        package = null;
         config = {
           formatting.command = "alejandra";
           nixpkgs.expr = ''import (builtins.getFlake "${flakePath}").inputs.nixpkgs { }'';
