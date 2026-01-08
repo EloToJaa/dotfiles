@@ -3,10 +3,10 @@
     enable = lib.mkEnableOption "Enable dev module";
   };
   imports = [
-    ./lazygit
     ./nvim
     ./scripts # personal scripts
     ./aoc.nix
+    ./lazygit.nix
     ./leetcode.nix
     ./opencode.nix
     ./packages.nix # other packages
