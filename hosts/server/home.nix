@@ -76,5 +76,9 @@
       shell.enable = true;
       tldr.enable = true;
     };
+    dev = {
+      enable = true;
+      opencode.enable = true;
+    };
   };
 }
