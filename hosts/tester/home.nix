@@ -5,6 +5,35 @@
   modules = {
     home = {
       enable = true;
+      oh-my-posh.enable = true;
+      tmux.enable = true;
+      yazi.enable = true;
+      zsh = {
+        enable = true;
+        plugins = {
+          enable = true;
+          zsh-vi-mode.enable = true;
+          zsh-autopair.enable = true;
+          zsh-fzf-tab.enable = true;
+          zsh-auto-notify.enable = false;
+          zsh-autosuggestions-abbreviations-strategy.enable = true;
+          zsh-system-clipboard.enable = false;
+          zsh-zhooks.enable = true;
+          zsh-abbr.enable = true;
+        };
+      };
+      bat.enable = true;
+      btop.enable = true;
+      catppuccin.enable = true;
+      fastfetch.enable = true;
+      fzf.enable = true;
+      git.enable = true;
+      index.enable = true;
+      shell.enable = true;
+      tldr.enable = true;
+    };
+    dev = {
+      enable = true;
       lazygit.enable = true;
       nvim = {
         enable = true;
@@ -53,32 +82,6 @@
           yazi.enable = true;
         };
       };
-      oh-my-posh.enable = true;
-      tmux.enable = true;
-      yazi.enable = true;
-      zsh = {
-        enable = true;
-        plugins = {
-          enable = true;
-          zsh-vi-mode.enable = true;
-          zsh-autopair.enable = true;
-          zsh-fzf-tab.enable = true;
-          zsh-auto-notify.enable = false;
-          zsh-autosuggestions-abbreviations-strategy.enable = true;
-          zsh-system-clipboard.enable = false;
-          zsh-zhooks.enable = true;
-          zsh-abbr.enable = true;
-        };
-      };
-      bat.enable = true;
-      btop.enable = true;
-      catppuccin.enable = true;
-      fastfetch.enable = true;
-      fzf.enable = true;
-      git.enable = true;
-      index.enable = true;
-      shell.enable = true;
-      tldr.enable = true;
     };
   };
 }

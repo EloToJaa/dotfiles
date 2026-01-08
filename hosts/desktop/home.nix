@@ -89,7 +89,6 @@
     };
     home = {
       enable = true;
-      lazygit.enable = true;
       nix.enable = true;
       oh-my-posh.enable = true;
       tmux.enable = true;
