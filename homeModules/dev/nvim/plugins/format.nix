@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.format;
+  cfg = config.modules.dev.nvim.plugins.format;
 in {
-  options.modules.home.nvim.plugins.format = {
+  options.modules.dev.nvim.plugins.format = {
     enable = lib.mkEnableOption "Enable format";
   };
   config = lib.mkIf cfg.enable {

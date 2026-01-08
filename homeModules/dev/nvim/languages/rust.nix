@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.rust;
+  cfg = config.modules.dev.nvim.languages.rust;
 in {
-  options.modules.home.nvim.languages.rust = {
+  options.modules.dev.nvim.languages.rust = {
     enable = lib.mkEnableOption "Enable rust";
   };
   config = lib.mkIf cfg.enable {

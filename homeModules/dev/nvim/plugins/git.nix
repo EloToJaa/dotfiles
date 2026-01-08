@@ -4,15 +4,15 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.git;
+  cfg = config.modules.dev.nvim.plugins.git;
 in {
-  options.modules.home.nvim.plugins.git = {
+  options.modules.dev.nvim.plugins.git = {
     enable = lib.mkEnableOption "Enable git";
   };
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
       plugins = {
-        lazygit.enable = config.modules.home.lazygit.enable;
+        lazygit.enable = config.modules.dev.lazygit.enable;
         fugitive.enable = true;
         gitsigns = {
           enable = true;

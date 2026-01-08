@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.telescope;
+  cfg = config.modules.dev.nvim.plugins.telescope;
 in {
-  options.modules.home.nvim.plugins.telescope = {
+  options.modules.dev.nvim.plugins.telescope = {
     enable = lib.mkEnableOption "Enable telescope";
   };
   config = lib.mkIf cfg.enable {

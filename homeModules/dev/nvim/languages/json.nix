@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.json;
+  cfg = config.modules.dev.nvim.languages.json;
 in {
-  options.modules.home.nvim.languages.json = {
+  options.modules.dev.nvim.languages.json = {
     enable = lib.mkEnableOption "Enable json";
   };
   config = lib.mkIf cfg.enable {

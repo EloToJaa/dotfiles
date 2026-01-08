@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.yaml;
+  cfg = config.modules.dev.nvim.languages.yaml;
 in {
-  options.modules.home.nvim.languages.yaml = {
+  options.modules.dev.nvim.languages.yaml = {
     enable = lib.mkEnableOption "Enable yaml";
   };
   config = lib.mkIf cfg.enable {

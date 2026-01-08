@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.noice;
+  cfg = config.modules.dev.nvim.plugins.noice;
 in {
-  options.modules.home.nvim.plugins.noice = {
+  options.modules.dev.nvim.plugins.noice = {
     enable = lib.mkEnableOption "Enable noice";
   };
   config = lib.mkIf cfg.enable {

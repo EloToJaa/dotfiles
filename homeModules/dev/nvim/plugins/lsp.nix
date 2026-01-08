@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.lsp;
+  cfg = config.modules.dev.nvim.plugins.lsp;
 in {
-  options.modules.home.nvim.plugins.lsp = {
+  options.modules.dev.nvim.plugins.lsp = {
     enable = lib.mkEnableOption "Enable lsp";
   };
   config = lib.mkIf cfg.enable {

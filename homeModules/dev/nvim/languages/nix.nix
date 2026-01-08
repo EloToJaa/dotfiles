@@ -6,10 +6,10 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.nix;
+  cfg = config.modules.dev.nvim.languages.nix;
   flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
 in {
-  options.modules.home.nvim.languages.nix = {
+  options.modules.dev.nvim.languages.nix = {
     enable = lib.mkEnableOption "Enable nix";
   };
   config = lib.mkIf cfg.enable {

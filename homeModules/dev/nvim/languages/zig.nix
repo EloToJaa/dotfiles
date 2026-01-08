@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.zig;
+  cfg = config.modules.dev.nvim.languages.zig;
 in {
-  options.modules.home.nvim.languages.zig = {
+  options.modules.dev.nvim.languages.zig = {
     enable = lib.mkEnableOption "Enable zig";
   };
   config = lib.mkIf cfg.enable {

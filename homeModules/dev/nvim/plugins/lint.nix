@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.lint;
+  cfg = config.modules.dev.nvim.plugins.lint;
 in {
-  options.modules.home.nvim.plugins.lint = {
+  options.modules.dev.nvim.plugins.lint = {
     enable = lib.mkEnableOption "Enable lint";
   };
   config = lib.mkIf cfg.enable {

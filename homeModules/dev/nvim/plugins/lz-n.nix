@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.lz-n;
+  cfg = config.modules.dev.nvim.plugins.lz-n;
 in {
-  options.modules.home.nvim.plugins.lz-n = {
+  options.modules.dev.nvim.plugins.lz-n = {
     enable = lib.mkEnableOption "Enable lz-n";
   };
   config = lib.mkIf cfg.enable {

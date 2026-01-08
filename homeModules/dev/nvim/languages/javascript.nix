@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.javascript;
+  cfg = config.modules.dev.nvim.languages.javascript;
 in {
-  options.modules.home.nvim.languages.javascript = {
+  options.modules.dev.nvim.languages.javascript = {
     enable = lib.mkEnableOption "Enable javascript";
   };
   config = lib.mkIf cfg.enable {

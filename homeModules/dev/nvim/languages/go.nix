@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.go;
+  cfg = config.modules.dev.nvim.languages.go;
 in {
-  options.modules.home.nvim.languages.go = {
+  options.modules.dev.nvim.languages.go = {
     enable = lib.mkEnableOption "Enable go";
   };
   config = lib.mkIf cfg.enable {

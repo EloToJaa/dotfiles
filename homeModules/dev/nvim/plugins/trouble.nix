@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.trouble;
+  cfg = config.modules.dev.nvim.plugins.trouble;
 in {
-  options.modules.home.nvim.plugins.trouble = {
+  options.modules.dev.nvim.plugins.trouble = {
     enable = lib.mkEnableOption "Enable trouble";
   };
   config = lib.mkIf cfg.enable {

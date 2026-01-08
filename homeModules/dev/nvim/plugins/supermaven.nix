@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.supermaven;
+  cfg = config.modules.dev.nvim.plugins.supermaven;
 in {
-  options.modules.home.nvim.plugins.supermaven = {
+  options.modules.dev.nvim.plugins.supermaven = {
     enable = lib.mkEnableOption "Enable supermaven";
   };
   config = lib.mkIf cfg.enable {

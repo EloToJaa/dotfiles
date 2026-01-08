@@ -5,9 +5,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.c;
+  cfg = config.modules.dev.nvim.languages.c;
 in {
-  options.modules.home.nvim.languages.c = {
+  options.modules.dev.nvim.languages.c = {
     enable = lib.mkEnableOption "Enable c";
   };
   config = lib.mkIf cfg.enable {

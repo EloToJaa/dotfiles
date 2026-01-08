@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.markdown;
+  cfg = config.modules.dev.nvim.languages.markdown;
 in {
-  options.modules.home.nvim.languages.markdown = {
+  options.modules.dev.nvim.languages.markdown = {
     enable = lib.mkEnableOption "Enable markdown";
   };
   config = lib.mkIf cfg.enable {

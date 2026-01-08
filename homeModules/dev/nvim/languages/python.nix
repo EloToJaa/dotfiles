@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.python;
+  cfg = config.modules.dev.nvim.languages.python;
 in {
-  options.modules.home.nvim.languages.python = {
+  options.modules.dev.nvim.languages.python = {
     enable = lib.mkEnableOption "Enable python";
   };
   config = lib.mkIf cfg.enable {

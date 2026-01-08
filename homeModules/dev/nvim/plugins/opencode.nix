@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.opencode;
+  cfg = config.modules.dev.nvim.plugins.opencode;
 in {
-  options.modules.home.nvim.plugins.opencode = {
+  options.modules.dev.nvim.plugins.opencode = {
     enable = lib.mkEnableOption "Enable opencode";
   };
   config = lib.mkIf (cfg.enable && config.modules.dev.opencode.enable) {

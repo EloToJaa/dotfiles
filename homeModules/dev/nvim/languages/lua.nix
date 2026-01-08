@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.lua;
+  cfg = config.modules.dev.nvim.languages.lua;
 in {
-  options.modules.home.nvim.languages.lua = {
+  options.modules.dev.nvim.languages.lua = {
     enable = lib.mkEnableOption "Enable lua";
   };
   config = lib.mkIf cfg.enable {

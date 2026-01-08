@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.xml;
+  cfg = config.modules.dev.nvim.languages.xml;
 in {
-  options.modules.home.nvim.languages.xml = {
+  options.modules.dev.nvim.languages.xml = {
     enable = lib.mkEnableOption "Enable xml";
   };
   config = lib.mkIf cfg.enable {

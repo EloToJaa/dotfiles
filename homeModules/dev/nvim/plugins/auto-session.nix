@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.auto-session;
+  cfg = config.modules.dev.nvim.plugins.auto-session;
 in {
-  options.modules.home.nvim.plugins.auto-session = {
+  options.modules.dev.nvim.plugins.auto-session = {
     enable = lib.mkEnableOption "Enable auto-session";
   };
   config = lib.mkIf cfg.enable {

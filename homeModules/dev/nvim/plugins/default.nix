@@ -1,5 +1,5 @@
 {lib, ...}: {
-  options.modules.home.nvim.plugins = {
+  options.modules.dev.nvim.plugins = {
     enable = lib.mkEnableOption "Enable plugins";
   };
   imports = [

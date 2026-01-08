@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.undotree;
+  cfg = config.modules.dev.nvim.plugins.undotree;
 in {
-  options.modules.home.nvim.plugins.undotree = {
+  options.modules.dev.nvim.plugins.undotree = {
     enable = lib.mkEnableOption "Enable undotree";
   };
   config = lib.mkIf cfg.enable {

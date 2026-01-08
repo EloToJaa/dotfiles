@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.smart-splits;
+  cfg = config.modules.dev.nvim.plugins.smart-splits;
 in {
-  options.modules.home.nvim.plugins.smart-splits = {
+  options.modules.dev.nvim.plugins.smart-splits = {
     enable = lib.mkEnableOption "Enable smart-splits";
   };
   config = lib.mkIf cfg.enable {

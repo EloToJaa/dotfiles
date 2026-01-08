@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.comment;
+  cfg = config.modules.dev.nvim.plugins.comment;
 in {
-  options.modules.home.nvim.plugins.comment = {
+  options.modules.dev.nvim.plugins.comment = {
     enable = lib.mkEnableOption "Enable comment";
   };
   config = lib.mkIf cfg.enable {

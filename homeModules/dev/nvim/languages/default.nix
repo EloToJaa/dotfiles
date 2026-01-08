@@ -1,5 +1,5 @@
 {lib, ...}: {
-  options.modules.home.nvim.languages = {
+  options.modules.dev.nvim.languages = {
     enable = lib.mkEnableOption "Enable languages";
   };
   imports = [

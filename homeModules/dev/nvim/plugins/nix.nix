@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.nix;
+  cfg = config.modules.dev.nvim.plugins.nix;
 in {
-  options.modules.home.nvim.plugins.nix = {
+  options.modules.dev.nvim.plugins.nix = {
     enable = lib.mkEnableOption "Enable nix";
   };
   config = lib.mkIf cfg.enable {

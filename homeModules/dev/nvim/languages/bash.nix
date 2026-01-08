@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.bash;
+  cfg = config.modules.dev.nvim.languages.bash;
 in {
-  options.modules.home.nvim.languages.bash = {
+  options.modules.dev.nvim.languages.bash = {
     enable = lib.mkEnableOption "Enable bash";
   };
   config = lib.mkIf cfg.enable {

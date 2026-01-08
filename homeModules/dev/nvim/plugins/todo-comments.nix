@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.todo-comments;
+  cfg = config.modules.dev.nvim.plugins.todo-comments;
 in {
-  options.modules.home.nvim.plugins.todo-comments = {
+  options.modules.dev.nvim.plugins.todo-comments = {
     enable = lib.mkEnableOption "Enable todo-comments";
   };
   config = lib.mkIf cfg.enable {

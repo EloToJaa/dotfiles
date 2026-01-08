@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.cmp;
+  cfg = config.modules.dev.nvim.plugins.cmp;
 in {
-  options.modules.home.nvim.plugins.cmp = {
+  options.modules.dev.nvim.plugins.cmp = {
     enable = lib.mkEnableOption "Enable cmp";
   };
   config = lib.mkIf cfg.enable {

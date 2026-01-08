@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.bufferline;
+  cfg = config.modules.dev.nvim.plugins.bufferline;
 in {
-  options.modules.home.nvim.plugins.bufferline = {
+  options.modules.dev.nvim.plugins.bufferline = {
     enable = lib.mkEnableOption "Enable bufferline";
   };
   config = lib.mkIf cfg.enable {

@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  options.modules.home.nvim = {
+  options.modules.dev.nvim = {
     enable = lib.mkEnableOption "Enable nvim";
   };
   imports = [

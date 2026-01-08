@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.languages.toml;
+  cfg = config.modules.dev.nvim.languages.toml;
 in {
-  options.modules.home.nvim.languages.toml = {
+  options.modules.dev.nvim.languages.toml = {
     enable = lib.mkEnableOption "Enable toml";
   };
   config = lib.mkIf cfg.enable {

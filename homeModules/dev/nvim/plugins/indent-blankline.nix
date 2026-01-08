@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.indent-blankline;
+  cfg = config.modules.dev.nvim.plugins.indent-blankline;
 in {
-  options.modules.home.nvim.plugins.indent-blankline = {
+  options.modules.dev.nvim.plugins.indent-blankline = {
     enable = lib.mkEnableOption "Enable indent-blankline";
   };
   config = lib.mkIf cfg.enable {

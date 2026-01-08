@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.yazi;
+  cfg = config.modules.dev.nvim.plugins.yazi;
 in {
-  options.modules.home.nvim.plugins.yazi = {
+  options.modules.dev.nvim.plugins.yazi = {
     enable = lib.mkEnableOption "Enable yazi";
   };
   config = lib.mkIf (cfg.enable && config.modules.home.yazi.enable) {

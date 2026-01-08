@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.surround;
+  cfg = config.modules.dev.nvim.plugins.surround;
 in {
-  options.modules.home.nvim.plugins.surround = {
+  options.modules.dev.nvim.plugins.surround = {
     enable = lib.mkEnableOption "Enable surround";
   };
   config = lib.mkIf cfg.enable {

@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  cfg = config.modules.home.nvim.plugins.substitute;
+  cfg = config.modules.dev.nvim.plugins.substitute;
 in {
-  options.modules.home.nvim.plugins.substitute = {
+  options.modules.dev.nvim.plugins.substitute = {
     enable = lib.mkEnableOption "Enable substitute";
   };
   config = lib.mkIf cfg.enable {

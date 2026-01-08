@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.lualine;
+  cfg = config.modules.dev.nvim.plugins.lualine;
 in {
-  options.modules.home.nvim.plugins.lualine = {
+  options.modules.dev.nvim.plugins.lualine = {
     enable = lib.mkEnableOption "Enable lualine";
   };
   config = lib.mkIf cfg.enable {

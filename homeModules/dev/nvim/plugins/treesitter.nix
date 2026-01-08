@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.home.nvim.plugins.treesitter;
+  cfg = config.modules.dev.nvim.plugins.treesitter;
 in {
-  options.modules.home.nvim.plugins.treesitter = {
+  options.modules.dev.nvim.plugins.treesitter = {
     enable = lib.mkEnableOption "Enable treesitter";
   };
   config = lib.mkIf cfg.enable {
