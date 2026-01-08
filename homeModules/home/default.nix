@@ -3,8 +3,6 @@
     enable = lib.mkEnableOption "Enable home module";
   };
   imports = [
-    ./lazygit
-    ./nvim
     ./oh-my-posh # shell prompt
     ./tmux
     ./yazi

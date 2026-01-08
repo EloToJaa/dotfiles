@@ -38,11 +38,7 @@
       aoc.enable = false;
       leetcode.enable = false;
       opencode.enable = true;
-    };
-    home = {
-      enable = true;
       lazygit.enable = true;
-      nix.enable = true;
       nvim = {
         enable = true;
         languages = {
@@ -90,6 +86,11 @@
           yazi.enable = true;
         };
       };
+    };
+    home = {
+      enable = true;
+      lazygit.enable = true;
+      nix.enable = true;
       oh-my-posh.enable = true;
       tmux.enable = true;
       yazi.enable = true;

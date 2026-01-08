@@ -23,8 +23,6 @@ in {
       "lazygit/config.yml".source = ./config.yml;
     };
 
-    programs = {
-      zsh.shellAliases = shellAliases;
-    };
+    programs.zsh.zsh-abbr.abbreviations = shellAliases;
   };
 }
