@@ -1,10 +1,10 @@
 name: Build 🏗️ Hosts ️💁
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - "flake.lock"
+  push:
+    branches:
+      - main
+    paths:
+      - "flake.lock"
   workflow_dispatch:
 
 concurrency:
