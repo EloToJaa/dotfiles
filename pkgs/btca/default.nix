@@ -1,44 +1,75 @@
 {
   lib,
-  fetchFromGitHub,
-  buildNpmPackage,
-  nodejs_25,
+  stdenvNoCC,
+  fetchurl,
+  autoPatchelfHook,
   nix-update-script,
-}:
-buildNpmPackage (finalAttrs: {
-  pname = "better-context";
-  version = "0.6.42";
-
-  src = fetchFromGitHub {
-    owner = "davis7dotsh";
-    repo = "better-context";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-9gDGREPORJILjVqw+Kk56+5qS/TQUd8OFmsEXL7KPAE=";
+}: let
+  sources = {
+    "x86_64-linux" = {
+      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
+      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      binary = "btca-linux-x64";
+    };
+    "aarch64-linux" = {
+      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
+      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      binary = "btca-linux-arm64";
+    };
+    "x86_64-darwin" = {
+      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
+      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      binary = "btca-darwin-x64";
+    };
+    "aarch64-darwin" = {
+      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
+      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      binary = "btca-darwin-arm64";
+    };
   };
+  source = sources.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported platform: ${stdenvNoCC.hostPlatform.system}");
+in
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "btca";
+    version = "0.6.50";
 
-  nodejs = nodejs_25;
+    src = fetchurl {
+      url = source.url;
+      hash = source.hash;
+    };
 
-  npmDepsHash = "sha256-AYGWZ5QvmQl8+ayjzkWuBra+QUvde36ReIJ7Fxk89VM=";
-
-  npmBuildScript = ["build:cli"];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/share
-    cp -a dist $out/share/jellyfin-web # replace with btca
-
-    runHook postInstall
-  '';
-
-  passthru.updateScript = nix-update-script {};
-
-  meta = {
-    description = "A better way to get up to date context on libraries/technologies in your projects";
-    homepage = "https://btca.dev/";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      elotoja
+    nativeBuildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
+      autoPatchelfHook
     ];
-  };
-})
+
+    sourceRoot = ".";
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+      cp package/dist/${source.binary} $out/bin/btca
+      chmod +x $out/bin/btca
+
+      runHook postInstall
+    '';
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = {
+      description = "A better way to get up to date context on libraries/technologies in your projects";
+      homepage = "https://btca.dev/";
+      license = lib.licenses.mit;
+      mainProgram = "btca";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      maintainers = with lib.maintainers; [
+        elotoja
+      ];
+    };
+  })
