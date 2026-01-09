@@ -68,10 +68,9 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-      cfg.mediaDir
-    ];
+    # services.restic.backups.appdata-local.paths = [
+    #   cfg.dataDir
+    # ];
 
     users.users.${cfg.name} = {
       inherit (cfg) group;
