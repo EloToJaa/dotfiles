@@ -48,6 +48,7 @@
       jellystat.enable = true;
       karakeep.enable = true;
       loki.enable = false;
+      n8n.enable = true;
       nextcloud = {
         enable = true;
         onlyoffice.enable = false;
