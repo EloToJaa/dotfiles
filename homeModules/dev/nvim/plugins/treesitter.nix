@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nixvim.plugins.treesitter = {
       enable = true;
-      package = pkgs.vimPlugins.nvim-treesitter;
+      package = pkgs.master.vimPlugins.nvim-treesitter;
       settings = {
         folding.enable = true;
         highlight.enable = true;
