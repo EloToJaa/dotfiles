@@ -19,6 +19,7 @@ in {
         indent.enable = true;
         incremental_selection.enable = true;
 
+        nixGrammars = true;
         auto_install = false;
       };
     };
