@@ -82,6 +82,7 @@ in {
     ./loki
     ./minecraft
     ./mysql
+    ./n8n.nix
     ./nextcloud
     ./ntfy
     ./paperless

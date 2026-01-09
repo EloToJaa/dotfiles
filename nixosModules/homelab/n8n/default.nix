@@ -21,6 +21,10 @@ in {
       type = lib.types.port;
       default = 5678;
     };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = homelab.groups.main;
+    };
   };
   config = lib.mkIf cfg.enable {
     services.n8n = {
@@ -33,9 +37,15 @@ in {
         DB_POSTGRESDB_HOST = "127.0.0.1";
         DB_POSTGRESDB_PORT = toString homelab.postgres.port;
         DB_POSTGRESDB_USER = cfg.name;
-        # DB_POSTGRESDB_PASSWORD = config.sops.placeholder."${cfg.name}/pgpassword";
         DB_POSTGRESDB_SCHEMA = "public";
       };
+    };
+    systemd.services.n8n.serviceConfig = {
+      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+      DynamicUser = lib.mkForce false;
+      User = cfg.name;
+      Group = cfg.group;
+      UMask = homelab.defaultUMask;
     };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -63,9 +73,9 @@ in {
     ];
 
     users.users.${cfg.name} = {
+      inherit (cfg) group;
       isSystemUser = true;
       description = cfg.name;
-      group = lib.mkForce cfg.group;
     };
 
     sops.secrets = {
