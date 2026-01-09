@@ -6,8 +6,9 @@ on:
   #   paths:
   #     - "flake.lock"
   pull_request_target:
-    paths:
-      - "flake.lock"
+    types: [opened, synchronize, reopened]
+    # paths:
+    #   - "flake.lock"
   workflow_dispatch:
 
 concurrency:
