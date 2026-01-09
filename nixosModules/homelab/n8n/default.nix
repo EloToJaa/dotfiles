@@ -29,7 +29,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.n8n = {
       enable = true;
-      package = pkgs.unstable.n8n;
+      # package = pkgs.unstable.n8n;
       environment = {
         N8N_PORT = cfg.port;
         DB_TYPE = "postgresdb";
@@ -46,6 +46,7 @@ in {
       User = cfg.name;
       Group = cfg.group;
       UMask = homelab.defaultUMask;
+      ExecStart = lib.mkForce "${pkgs.unstable.n8n}/bin/n8n";
     };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
