@@ -1,9 +1,9 @@
 name: Build 🏗️ Hosts ️💁
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   merge_group:
   pull_request:
 
