@@ -1,8 +1,11 @@
 name: Build 🏗️ Hosts ️💁
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-  workflow_call:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  merge_group:
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
