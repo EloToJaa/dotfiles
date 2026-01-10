@@ -1,0 +1,30 @@
+name: Summarize flake.lock auto updates
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  review:
+    if: contains(github.event.pull_request.labels.*.name, 'dependencies') && contains(github.event.pull_request.labels.*.name, 'automated')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - uses: actions/checkout@v65
+      - name: Run opencode
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        with:
+          model: opencode/minimax-m2.1-free
+          prompt: |
+            Create a table summarizing the changes in the flake.lock file.
+            The table should have the following columns:
+            - Input: The flake.nix input that was updated.
+            - Old commit: The commit hash of the previous version of the input.
+            - New commit: The commit hash of the new version of the input.
+            - Date: The date and time of the updated flake input (example: 2026-01-09 → 2026-01-10)
