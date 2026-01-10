@@ -1,15 +1,8 @@
 name: Build 🏗️ Hosts ️💁
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - "flake.lock"
   pull_request_target:
     types: [opened, synchronize, reopened]
-    # paths:
-    #   - "flake.lock"
-  workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
