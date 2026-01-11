@@ -23,19 +23,135 @@ in {
           };
         };
         display = {
-          separator = "";
-          size = {
-            binaryPrefix = "si";
-            ndigits = 0;
-          };
-          percent = {
-            type = 1;
-          };
-          key = {
-            Width = 1;
-          };
+          separator = " 󰑃  ";
         };
+        # "modules": [
+        #   "break",
+        #   {
+        #     "type": "title",
+        #     "color": {
+        #       "user": "35",
+        #       "host": "36"
+        #     }
+        #   },
+        #   {
+        #     "type": "separator",
+        #     "string": "▔"
+        #   },
+        #   {
+        #     "type": "os",
+        #     "key": " Distro",
+        #     "keyColor": "yellow"
+        #   },
+        #   {
+        #     "type": "kernel",
+        #     "key": "  ├─",
+        #     "keyColor": "yellow"
+        #   },
+        #   {
+        #     "type": "packages",
+        #     "key": "  ├─󰏖",
+        #     "keyColor": "yellow"
+        #   },
+        #   {
+        #     "type": "shell",
+        #     "key": "  └─",
+        #     "keyColor": "yellow"
+        #   },
+        #   "break",
+        #   {
+        #     "type": "wm",
+        #     "key": " DE/WM",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "theme",
+        #     "key": "  ├─󰉼",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "wmtheme",
+        #     "key": "  ├─󰉼",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "icons",
+        #     "key": "  ├─󰉋",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "cursor",
+        #     "key": "  ├─󰳽",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "font",
+        #     "key": "  ├─",
+        #     "format": "{2}",
+        #     "keyColor": "blue"
+        #   },
+        #   {
+        #     "type": "terminal",
+        #     "key": "  └─",
+        #     "keyColor": "blue"
+        #   },
+        #   "break",
+        #   {
+        #     "type": "host",
+        #     "key": "󰌢 System",
+        #     "keyColor": "green"
+        #   },
+        #   {
+        #     "type": "board",
+        #     "key": "󰌢 System",
+        #     "keyColor": "green",
+        #     "condition": {
+        #         "succeeded": false
+        #     }
+        #   },
+        #   {
+        #     "type": "display",
+        #     "key": "  ├─󰹑",
+        #     "keyColor": "green",
+        #     "compactType": "original-with-refresh-rate"
+        #   },
+        #   {
+        #     "type": "cpu",
+        #     "key": "  ├─",
+        #     "keyColor": "green"
+        #   },
+        #   {
+        #     "type": "gpu",
+        #     "key": "  ├─",
+        #     "format": "{2}",
+        #     "keyColor": "green"
+        #   },
+        #   {
+        #     "type": "memory",
+        #     "key": "  ├─󰘚",
+        #     "keyColor": "green"
+        #   },
+        #   {
+        #     "type": "disk",
+        #     "key": "  ├─󰋊",
+        #     "folders": "/",
+        #     "keyColor": "green"
+        #   },
+        #   {
+        #     "type": "uptime",
+        #     "key": "  └─󰔚",
+        #     "keyColor": "green"
+        #   },
+        #   "break",
+        #   {
+        #     "type": "colors",
+        #     "symbol": "background",
+        #     "paddingLeft": 9
+        #   },
+        #   "break"
+        # ]
         modules = [
+          "break"
           {
             type = "title";
             color = {
@@ -49,129 +165,115 @@ in {
           }
           {
             type = "os";
-            key = "╭─ ";
-            format = "{3} ({12})";
-            keyColor = "32";
-          }
-          {
-            type = "host";
-            key = "├─󰟀 ";
-            keyColor = "32";
+            key = " Distro";
+            keyColor = "yellow";
           }
           {
             type = "kernel";
-            key = "├─󰒔 ";
-            format = "{1} {2}";
-            keyColor = "32";
-          }
-          {
-            type = "shell";
-            key = "├─$ ";
-            format = "{1} {4}";
-            keyColor = "32";
+            key = "  ├─";
+            keyColor = "yellow";
           }
           {
             type = "packages";
-            key = "├─ ";
-            keyColor = "32";
+            key = "  ├─󰏖";
+            keyColor = "yellow";
           }
           {
-            type = "uptime";
-            key = "╰─󰔚 ";
-            keyColor = "32";
+            type = "shell";
+            key = "  └─";
+            keyColor = "yellow";
           }
           "break"
-          /*
-             {
-            type = "cpu";
-            key = "╭─ ";
-            keyColor = "34";
-            freqNdigits = 1;
-          }
-          {
-            type = "gpu";
-            key = "├─󰢮 ";
-            format = "{1} {2} ({3})";
-            keyColor = "34";
-          }
-          {
-            type = "sound";
-            key = "├─󰓃 ";
-            format = "{2}";
-            keyColor = "34";
-          }
-          {
-            type = "battery";
-            key = "├─󰁹 ";
-            keyColor = "34";
-          }
-          {
-            type = "memory";
-            key = "├─ ";
-            keyColor = "34";
-          }
-          {
-            type = "disk";
-            key = "├─󰋊 ";
-            keyColor = "34";
-          }
-          {
-            type = "localip";
-            key = "╰─󱦂 ";
-            keyColor = "34";
-            showIpv4 = true;
-            compact = true;
-          }
-          "break",
-          */
-          {
-            type = "display";
-            key = "╭─󰹑 ";
-            keyColor = "33";
-            compactType = "original";
-          }
-          {
-            type = "de";
-            key = "├─󰧨 ";
-            keyColor = "33";
-          }
           {
             type = "wm";
-            key = "├─ ";
-            keyColor = "33";
+            key = " DE/WM";
+            keyColor = "blue";
           }
           {
             type = "theme";
-            key = "├─󰉼 ";
-            keyColor = "33";
+            key = "  ├─󰉼";
+            keyColor = "blue";
+          }
+          {
+            type = "wmtheme";
+            key = "  ├─󰉼";
+            keyColor = "blue";
           }
           {
             type = "icons";
-            key = "├─ ";
-            keyColor = "33";
+            key = "  ├─󰉋";
+            keyColor = "blue";
           }
           {
             type = "cursor";
-            key = "├─󰳽 ";
-            keyColor = "33";
+            key = "  ├─󰳽";
+            keyColor = "blue";
           }
           {
             type = "font";
-            key = "├─ ";
+            key = "  ├─";
             format = "{2}";
-            keyColor = "33";
+            keyColor = "blue";
           }
           {
             type = "terminal";
-            key = "╰─ ";
-            format = "{3}";
-            keyColor = "33";
+            key = "  └─";
+            keyColor = "blue";
+          }
+          "break"
+          {
+            type = "host";
+            key = "󰌢 System";
+            keyColor = "green";
+          }
+          {
+            type = "board";
+            key = "󰌢 System";
+            keyColor = "green";
+            condition = {
+              succeeded = false;
+            };
+          }
+          {
+            type = "display";
+            key = "  ├─󰹑";
+            keyColor = "green";
+            compactType = "original-with-refresh-rate";
+          }
+          {
+            type = "cpu";
+            key = "  ├─";
+            keyColor = "green";
+          }
+          {
+            type = "gpu";
+            key = "  ├─";
+            format = "{2}";
+            keyColor = "green";
+          }
+          {
+            type = "memory";
+            key = "  ├─󰘚";
+            keyColor = "green";
+          }
+          {
+            type = "disk";
+            key = "  ├─󰋊";
+            folders = "/";
+            keyColor = "green";
+          }
+          {
+            type = "uptime";
+            key = "  └─󰔚";
+            keyColor = "green";
           }
           "break"
           {
             type = "colors";
-            symbol = "block";
+            symbol = "background";
+            paddingLeft = 9;
           }
+          "break"
         ];
       };
     };
