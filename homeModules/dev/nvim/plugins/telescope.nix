@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib.nixvim) mkRaw;
+  inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim.plugins.telescope;
 in {
   options.modules.dev.nvim.plugins.telescope = {
