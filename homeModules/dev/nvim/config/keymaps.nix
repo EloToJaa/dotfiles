@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim;
 in {
   config = lib.mkIf cfg.enable {
@@ -16,7 +17,12 @@ in {
         {
           mode = "n";
           key = "<leader>rp";
-          action = ":lua require('precognition').peek()<CR>";
+          action =
+            mkRaw
+            /*
+            lua
+            */
+            "function() require('precognition').peek() end";
           options.desc = "Peek recognition";
         }
         {
