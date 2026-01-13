@@ -3,6 +3,7 @@
   config,
   ...
 }: let
+  inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim.plugins.telescope;
 in {
   options.modules.dev.nvim.plugins.telescope = {
@@ -12,12 +13,17 @@ in {
     programs.nixvim.plugins = {
       telescope = {
         enable = true;
-        settings.defaults.mappings.i = {
-          "<C-k>" = {
-            __raw = "require('telescope.actions').move_selection_previous";
+        settings = {
+          defaults = {
+            mappings.i = {
+              "<C-k>" = mkRaw "require('telescope.actions').move_selection_previous";
+              "<C-j>" = mkRaw "require('telescope.actions').move_selection_next";
+            };
+            file_ignore_patterns = ["^%.git/" "^%.venv/" "^node_modules/"];
           };
-          "<C-j>" = {
-            __raw = "require('telescope.actions').move_selection_next";
+          pickers = {
+            find_files.hidden = true;
+            live_grep.additional_args = mkRaw "function(_) return { '--hidden' } end";
           };
         };
         extensions.fzf-native = {
@@ -31,16 +37,16 @@ in {
         };
         keymaps = {
           "<C-p>" = {
-            action = "function() find_files({ hidden = true }) end";
-            options.desc = "Telescope git files";
+            action = "find_files";
+            options.desc = "Find files";
+          };
+          "<leader>ff" = {
+            action = "find_files";
+            options.desc = "Find files";
           };
           "<leader>fs" = {
             action = "live_grep";
             options.desc = "Live grep";
-          };
-          "<leader>ff" = {
-            action = "function() find_files({ hidden = true }) end";
-            options.desc = "Find files";
           };
           "<leader>ft" = {
             action = "treesitter";
