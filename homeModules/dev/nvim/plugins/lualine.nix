@@ -3,6 +3,7 @@
   config,
   ...
 }: let
+  inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim.plugins.lualine;
 in {
   options.modules.dev.nvim.plugins.lualine = {
@@ -32,7 +33,15 @@ in {
               };
             }
           ];
-          lualine_x = ["encoding" "fileformat" "filetype"];
+          lualine_x =
+            [
+              "encoding"
+              "fileformat"
+              "filetype"
+            ]
+            ++ lib.optionals config.modules.dev.nvim.plugins.opencode.enable [
+              {__unkeyed-1 = mkRaw "require('opencode').statusline";}
+            ];
           lualine_z = [
             {
               __unkeyed-1 = "location";

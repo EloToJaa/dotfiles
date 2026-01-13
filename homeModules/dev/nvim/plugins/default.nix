@@ -16,6 +16,7 @@
     ./lz-n.nix
     ./nix.nix
     ./noice.nix
+    ./opencode.nix
     ./smart-splits.nix
     ./substitute.nix
     ./supermaven.nix
