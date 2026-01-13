@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (config.lib.nixvim) mkRaw;
+  inherit (lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim;
 in {
   config = lib.mkIf cfg.enable {

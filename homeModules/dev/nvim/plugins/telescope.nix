@@ -3,7 +3,6 @@
   config,
   ...
 }: let
-  inherit (config.lib.nixvim) mkRaw;
   cfg = config.modules.dev.nvim.plugins.telescope;
 in {
   options.modules.dev.nvim.plugins.telescope = {
@@ -32,7 +31,7 @@ in {
         };
         keymaps = {
           "<C-p>" = {
-            action = mkRaw "function() find_files({ hidden = true }) end";
+            action = "function() find_files({ hidden = true }) end";
             options.desc = "Telescope git files";
           };
           "<leader>fs" = {
@@ -40,7 +39,7 @@ in {
             options.desc = "Live grep";
           };
           "<leader>ff" = {
-            action = mkRaw "function() find_files({ hidden = true }) end";
+            action = "function() find_files({ hidden = true }) end";
             options.desc = "Find files";
           };
           "<leader>ft" = {
