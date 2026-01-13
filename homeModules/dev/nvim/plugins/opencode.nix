@@ -16,19 +16,19 @@ in {
       keymaps = [
         {
           mode = ["n" "x"];
-          key = "<C-a>";
+          key = "<leader>oa";
           action = mkRaw "function() require('opencode').ask('@this: ', { submit = true }) end";
           options.desc = "Ask opencode";
         }
         {
           mode = ["n" "x"];
-          key = "<C-x>";
+          key = "<leader>ox";
           action = mkRaw "function() require('opencode').select() end";
           options.desc = "Execute opencode action…";
         }
         {
           mode = ["n" "t"];
-          key = "<C-.>";
+          key = "<leader>oo";
           action = mkRaw "function() require('opencode').toggle() end";
           options.desc = "Toggle opencode";
         }
