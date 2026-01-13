@@ -177,7 +177,7 @@ in {
         }
         {
           mode = "n";
-          key = "<M-l>";
+          key = "<M-e>";
           action = "<cmd>copen<CR>";
           options.desc = "Open quickfix list";
         }
