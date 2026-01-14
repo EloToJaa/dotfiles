@@ -24,23 +24,23 @@
       docker.enable = true;
       index.enable = true;
       tailscale.enable = true;
-      nfs.enable = true;
+      nfs.enable = false;
       nh.enable = true;
       ssh.enable = true;
     };
-    homelab = {
-      enable = true;
-      backup.enable = true;
-      bazarr.enable = true;
-      blocky.enable = true;
-      caddy.enable = true;
-      groups.enable = true;
-      home-assistant.enable = true;
-      jellyfin.enable = true;
-      postgres = {
-        enable = true;
-        pgadmin.enable = true;
-      };
-    };
+    # homelab = {
+    #   enable = true;
+    #   backup.enable = true;
+    #   bazarr.enable = true;
+    #   blocky.enable = true;
+    #   caddy.enable = true;
+    #   groups.enable = true;
+    #   home-assistant.enable = true;
+    #   jellyfin.enable = true;
+    #   postgres = {
+    #     enable = true;
+    #     pgadmin.enable = true;
+    #   };
+    # };
   };
 }
