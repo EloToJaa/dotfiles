@@ -17,6 +17,7 @@
       modules = [
         ./hardware-configuration.nix
         ./config.nix
+        ./disko.nix
         {
           home-manager.users.${username}.imports = [
             ./home.nix
