@@ -82,5 +82,9 @@ in {
       type = lib.types.bool;
       default = false;
     };
+    isServer = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

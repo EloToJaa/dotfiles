@@ -17,6 +17,7 @@
   imports = [
     ./../../nixosModules
   ];
+  settings.isServer = true;
   modules = {
     base = {
       enable = true;

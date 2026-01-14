@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
+  inherit (config.settings) isServer;
   cfg = config.modules.dev.nvim.plugins.opencode;
 in {
   options.modules.dev.nvim.plugins.opencode = {
@@ -77,7 +78,10 @@ in {
         opencode = {
           enable = true;
           settings = {
-            provider.enabled = "tmux";
+            provider.enabled =
+              if isServer
+              then "terminal"
+              else "tmux";
           };
         };
         snacks = {
