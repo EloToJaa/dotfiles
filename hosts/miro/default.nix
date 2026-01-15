@@ -22,8 +22,8 @@
             ./home.nix
           ];
         }
-        inputs.disko.nixosModules.disko
-        ./disko.nix
+        # inputs.disko.nixosModules.disko
+        # ./disko.nix
       ];
     };
   };
