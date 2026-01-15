@@ -1,75 +1,164 @@
 {
   lib,
+  stdenv,
   stdenvNoCC,
-  fetchurl,
-  autoPatchelfHook,
+  bun,
+  fetchFromGitHub,
   nix-update-script,
+  versionCheckHook,
+  writableTmpDirAsHomeHook,
 }: let
-  sources = {
+  pname = "better-context";
+  version = "1.0.44";
+
+  src = fetchFromGitHub {
+    owner = "davis7dotsh";
+    repo = pname;
+    tag = "v${version}";
+    hash = "sha256-HRXwC/YBOcxJ16al84J5HHOe87aq9vDRGeOy0poPdcQ=";
+  };
+
+  # Platform-specific mapping
+  platformMap = {
     "x86_64-linux" = {
-      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
-      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      bunTarget = "bun-linux-x64";
       binary = "btca-linux-x64";
     };
     "aarch64-linux" = {
-      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
-      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      bunTarget = "bun-linux-arm64";
       binary = "btca-linux-arm64";
     };
     "x86_64-darwin" = {
-      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
-      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      bunTarget = "bun-darwin-x64";
       binary = "btca-darwin-x64";
     };
     "aarch64-darwin" = {
-      url = "https://registry.npmjs.org/btca/-/btca-0.6.50.tgz";
-      hash = "sha256-4yn95cUqF6/6O2VAJX7GN9VUBz2vAnncoUFhGXY/jy4=";
+      bunTarget = "bun-darwin-arm64";
       binary = "btca-darwin-arm64";
     };
   };
-  source = sources.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported platform: ${stdenvNoCC.hostPlatform.system}");
-in
-  stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "btca";
-    version = "0.6.50";
 
-    src = fetchurl {
-      url = source.url;
-      hash = source.hash;
-    };
+  platformInfo =
+    platformMap.${stdenv.hostPlatform.system}
+    or (throw "Unsupported platform: ${stdenv.hostPlatform.system}");
 
-    nativeBuildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
-      autoPatchelfHook
+  node_modules = stdenvNoCC.mkDerivation {
+    pname = "${pname}-node_modules";
+    inherit version src;
+
+    nativeBuildInputs = [
+      bun
+      writableTmpDirAsHomeHook
     ];
 
-    sourceRoot = ".";
+    dontConfigure = true;
+
+    buildPhase = ''
+      runHook preBuild
+
+      bun install \
+        --cpu="*" \
+        --frozen-lockfile \
+        --ignore-scripts \
+        --no-progress \
+        --os="*"
+
+      runHook postBuild
+    '';
 
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/bin
-      cp package/dist/${source.binary} $out/bin/btca
-      chmod +x $out/bin/btca
+      mkdir -p $out
+      find . -type d -name node_modules -exec cp -R --parents {} $out \;
 
       runHook postInstall
     '';
 
-    passthru.updateScript = nix-update-script {};
+    dontFixup = true;
+
+    outputHash = "sha256-X2nytxxJegur2FgYMjnLgxpRyI5BAWYBNwPKx9FV+XM=";
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+  };
+in
+  stdenv.mkDerivation (finalAttrs: {
+    inherit pname version src node_modules;
+
+    nativeBuildInputs = [
+      bun
+      writableTmpDirAsHomeHook
+    ];
+
+    postPatch = ''
+      # Patch the version to match the release tag
+      substituteInPlace apps/cli/src/index.ts \
+        --replace-fail ".version(VERSION, '-v, --version', 'output the version number')" \
+                       ".version('${version}', '-v, --version', 'output the version number')"
+    '';
+
+    configurePhase = ''
+      runHook preConfigure
+
+      cp -R ${node_modules}/. .
+
+      chmod -R u+w node_modules/.bin 2>/dev/null || true
+      rm -f node_modules/.bin/turbo
+
+      cp ${./build-binaries.ts} apps/cli/scripts/build-binaries.ts
+
+      runHook postConfigure
+    '';
+
+    buildPhase = ''
+      runHook preBuild
+
+      bun run --cwd apps/cli scripts/build-binaries.ts ${platformInfo.bunTarget} ${version}
+
+      runHook postBuild
+    '';
+
+    # Don't strip the binary - it breaks bun compiled executables
+    dontStrip = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      # Install the platform-specific binary
+      install -Dm755 apps/cli/dist/${platformInfo.binary} $out/bin/btca
+
+      runHook postInstall
+    '';
+
+    nativeInstallCheckInputs = [
+      versionCheckHook
+      writableTmpDirAsHomeHook
+    ];
+    doInstallCheck = true;
+    versionCheckProgramArg = "--version";
+    versionCheckKeepEnvironment = ["HOME"];
+
+    passthru = {
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "node_modules"
+        ];
+      };
+    };
 
     meta = {
       description = "A better way to get up to date context on libraries/technologies in your projects";
-      homepage = "https://btca.dev/";
+      homepage = "https://github.com/davis7dotsh/better-context";
       license = lib.licenses.mit;
-      mainProgram = "btca";
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      maintainers = with lib.maintainers; [EloToJaa];
+      sourceProvenance = with lib.sourceTypes; [fromSource];
       platforms = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      maintainers = with lib.maintainers; [
-        elotoja
-      ];
+      mainProgram = "btca";
     };
   })

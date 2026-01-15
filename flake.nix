@@ -1,23 +1,66 @@
 {
   description = "EloToJa's NixOS configuration";
 
-  outputs = {flake-parts, ...} @ inputs:
+  outputs = {flake-parts, ...} @ inputs: let
+    overlays = [
+      (_final: prev: {
+        jellyfin-web = prev.unstable.jellyfin-web.overrideAttrs {
+          installPhase = ''
+            runHook preInstall
+
+            sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
+
+            mkdir -p $out/share
+            cp -a dist $out/share/jellyfin-web
+
+            runHook postInstall
+          '';
+        };
+
+        tailscale = prev.unstable.tailscale.overrideAttrs (old: {
+          checkFlags =
+            map (
+              flag:
+                if prev.lib.hasPrefix "-skip=" flag
+                then flag + "|^TestGetList$|^TestIgnoreLocallyBoundPorts$|^TestPoller$|^TestBreakWatcherConnRecv$"
+                else flag
+            )
+            old.checkFlags;
+        });
+      })
+
+      (final: _prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit (final) system;
+          config.allowUnfree = true;
+          config.allowInsecurePredicate = _: true;
+        };
+        master = import inputs.nixpkgs-master {
+          inherit (final) system;
+          config.allowUnfree = true;
+          config.allowInsecurePredicate = _: true;
+        };
+      })
+    ];
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         ./terranix
         ./settings.nix
         ./hosts
         ./pkgs
-        ./overlays
       ];
 
       systems = [
         "x86_64-linux"
       ];
+
+      flake.overlays = overlays;
+
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = import ./overlays {inherit inputs;};
+          overlays = overlays;
           config = {allowUnfree = true;};
         };
       };
