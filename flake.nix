@@ -17,7 +17,7 @@
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = with (import ./overlays {inherit inputs;}).flake.overlays; [modifications unstable-packages];
+          overlays = import ./overlays {inherit inputs;};
           config = {allowUnfree = true;};
         };
       };
