@@ -13,6 +13,7 @@ in {
     home.sessionVariables = {
       OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
     };
+    home.packages = [pkgs.btca];
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
