@@ -2,11 +2,9 @@
   lib,
   config,
   pkgs,
-  settings,
   ...
 }: let
   inherit (config.lib.nixvim) mkRaw;
-  inherit (settings) isServer;
   cfg = config.modules.dev.nvim.plugins.opencode;
 in {
   options.modules.dev.nvim.plugins.opencode = {
