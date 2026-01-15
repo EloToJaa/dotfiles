@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  settings,
   ...
 }:
 with lib; let
