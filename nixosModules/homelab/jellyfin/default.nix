@@ -71,7 +71,7 @@ in {
       inherit (cfg) group;
     };
 
-    services.authelia.instances.main.settings.identity_providers.oidc.clients = [
+    services.authelia.instances.main.settings.identity_providers.oidc.clients = lib.mkIf config.services.authelia.instances.main.enabled [
       {
         client_id = "jellyfin";
         client_name = "Jellyfin";
