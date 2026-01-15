@@ -13,11 +13,12 @@
     };
   };
 
+  settings.isServer = true;
+
   powerManagement.cpuFreqGovernor = "performance";
   imports = [
     ./../../nixosModules
   ];
-  settings.isServer = true;
   modules = {
     base = {
       enable = true;
