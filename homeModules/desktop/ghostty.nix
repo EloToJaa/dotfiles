@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings.catppuccin) flavor;
+  inherit (settings.catppuccin) flavor;
   shellAliases = {
     icat = "kitten icat";
   };

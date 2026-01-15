@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin atuin;
+  inherit (settings) catppuccin atuin;
   shellAliases = {
     cd = "z";
   };

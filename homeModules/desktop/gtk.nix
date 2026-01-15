@@ -2,9 +2,10 @@
   pkgs,
   lib,
   config,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin;
+  inherit (settings) catppuccin;
   # theme = "Orchis-Dark-Compact";
   theme = "Adwaita-dark";
   cfg = config.modules.desktop.gtk;

@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin;
+  inherit (settings) catppuccin;
   shellAliases = {
     cat = "bat";
     less = "bat";

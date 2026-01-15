@@ -3,9 +3,10 @@
   inputs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin;
+  inherit (settings) catppuccin;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   cfg = config.modules.desktop.spotify;
 in {

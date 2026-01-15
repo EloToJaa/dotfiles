@@ -2,9 +2,10 @@
   inputs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin;
+  inherit (settings) catppuccin;
   cfg = config.modules.home.catppuccin;
 in {
   options.modules.home.catppuccin = {

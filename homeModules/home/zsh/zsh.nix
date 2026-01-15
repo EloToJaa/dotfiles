@@ -2,9 +2,10 @@
   pkgs,
   lib,
   config,
+  settings,
   ...
 }: let
-  inherit (config.settings) catppuccin;
+  inherit (settings) catppuccin;
   cfg = config.modules.home.zsh;
 in {
   config = lib.mkIf cfg.enable {

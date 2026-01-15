@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  inherit (config.settings) terminal discord;
+  inherit (settings) terminal discord;
   defaultApps = {
     browser = ["zen-beta.desktop"];
     text = ["org.gnome.TextEditor.desktop"];

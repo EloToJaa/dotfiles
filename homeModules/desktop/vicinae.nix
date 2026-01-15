@@ -2,9 +2,10 @@
   inputs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) isLaptop;
+  inherit (settings) isLaptop;
   cfg = config.modules.desktop.vicinae;
 in {
   options.modules.desktop.vicinae = {

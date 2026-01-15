@@ -1,9 +1,10 @@
 {
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) terminal discord;
+  inherit (settings) terminal discord;
   cfg = config.modules.desktop.hyprland;
   inherit (cfg) mainMod;
 in {

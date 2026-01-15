@@ -1,9 +1,10 @@
 {
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) discord;
+  inherit (settings) discord;
   cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {

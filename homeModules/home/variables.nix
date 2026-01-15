@@ -2,9 +2,10 @@
   config,
   host,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) uid;
+  inherit (settings) uid;
   cfg = config.modules.home;
 in {
   config = lib.mkIf cfg.enable {

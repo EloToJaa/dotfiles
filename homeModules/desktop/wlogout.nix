@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) username isLaptop;
+  inherit (settings) username isLaptop;
   cfg = config.modules.desktop.wlogout;
 in {
   options.modules.desktop.wlogout = {

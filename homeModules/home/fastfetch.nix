@@ -2,9 +2,10 @@
   pkgs,
   lib,
   config,
+  settings,
   ...
 }: let
-  inherit (config.settings) isServer;
+  inherit (settings) isServer;
   cfg = config.modules.home.fastfetch;
 in {
   options.modules.home.fastfetch = {

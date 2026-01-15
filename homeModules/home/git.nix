@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
+  settings,
   ...
 }: let
-  inherit (config.settings) git;
+  inherit (settings) git;
   shellAliases = {
     g = "git";
     gf = "onefetch --number-of-file-churns 0 --no-color-palette";
