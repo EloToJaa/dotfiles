@@ -42,7 +42,6 @@
     #     };
     #   })
     # ];
-    overlays = import ./overlays.nix {inherit inputs;};
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -50,6 +49,7 @@
         ./settings.nix
         ./hosts
         ./pkgs
+        ./overlays.nix
       ];
 
       systems = [
@@ -61,7 +61,7 @@
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = overlays;
+          overlays = import ./overlays.nix {inherit inputs;};
           config = {allowUnfree = true;};
         };
       };
