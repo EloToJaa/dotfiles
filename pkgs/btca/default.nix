@@ -90,13 +90,6 @@ in
       writableTmpDirAsHomeHook
     ];
 
-    postPatch = ''
-      # Patch the version to match the release tag
-      substituteInPlace apps/cli/src/index.ts \
-        --replace-fail ".version(VERSION, '-v, --version', 'output the version number')" \
-                       ".version('${version}', '-v, --version', 'output the version number')"
-    '';
-
     configurePhase = ''
       runHook preConfigure
 
