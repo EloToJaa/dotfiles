@@ -45,6 +45,7 @@ in {
         inputs.nur.overlays.default
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages
+        outputs.overlays.localPackages
       ];
       config = {
         allowUnfree = true;

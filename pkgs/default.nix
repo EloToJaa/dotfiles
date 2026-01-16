@@ -1,7 +1,5 @@
 {
   perSystem = {pkgs, ...}: {
-    packages = {
-      btca = pkgs.callPackage ./btca {};
-    };
+    packages = import ./pkgs.nix {inherit pkgs;};
   };
 }
