@@ -33,7 +33,6 @@
     homelab = {
       enable = true;
       backup.enable = true;
-      bazarr.enable = true;
       blocky.enable = true;
       caddy.enable = true;
       groups.enable = true;
