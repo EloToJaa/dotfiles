@@ -3,7 +3,7 @@
     useDHCP = false;
     interfaces."enp1s0".ipv4.addresses = [
       {
-        address = "192.168.0.20";
+        address = "192.168.0.22";
         prefixLength = 24;
       }
     ];
