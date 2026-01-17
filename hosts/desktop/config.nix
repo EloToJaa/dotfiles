@@ -3,7 +3,7 @@
     useDHCP = false;
     interfaces."eno1".ipv4.addresses = [
       {
-        address = "192.168.0.20";
+        address = "192.168.0.21";
         prefixLength = 24;
       }
     ];
