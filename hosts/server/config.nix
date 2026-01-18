@@ -46,7 +46,10 @@
       groups.enable = true;
       home-assistant.enable = true;
       immich.enable = true;
-      jellyfin.enable = true;
+      jellyfin = {
+        enable = true;
+        auth.enable = true;
+      };
       jellyseerr.enable = true;
       jellystat.enable = true;
       karakeep.enable = true;
