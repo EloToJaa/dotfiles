@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.jellyfin;
+  autheliaEnabled = config.services.authelia.instances.main.enable;
 in {
   options.modules.homelab.jellyfin = {
     enable = lib.mkEnableOption "Enable jellyfin";
@@ -72,7 +73,7 @@ in {
         inherit (cfg) group;
       };
     }
-    // lib.mkIf config.services.authelia.instances.main.enable {
+    // lib.mkIf (cfg.enable && autheliaEnabled) {
       services.authelia.instances.main.settings.identity_providers.oidc.clients = [
         {
           client_id = "jellyfin";
