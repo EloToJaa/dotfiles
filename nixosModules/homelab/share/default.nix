@@ -45,7 +45,7 @@ in {
     };
 
     services.samba-wsdd = {
-      enable = true; # makes it visible in Finder
+      enable = true;
       openFirewall = true;
     };
   };
