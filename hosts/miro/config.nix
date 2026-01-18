@@ -8,7 +8,7 @@
       }
     ];
     defaultGateway = {
-      address = "192.168.0.1";
+      address = "192.168.3.1";
       interface = "enp1s0";
     };
   };
