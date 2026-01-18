@@ -94,6 +94,7 @@ in {
     ./radarr
     ./radicale
     ./rustdesk
+    ./share
     ./sonarr
     ./uptime
     ./vaultwarden
