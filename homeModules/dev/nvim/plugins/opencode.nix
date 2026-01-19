@@ -77,7 +77,7 @@ in {
         opencode = {
           enable = true;
           settings = {
-            provider.enabled = "tmux";
+            provider.enabled = "terminal";
           };
         };
         snacks = {
