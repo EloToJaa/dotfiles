@@ -4,12 +4,12 @@
   ...
 }: let
   inherit (config.modules) homelab;
-  cfg = config.modules.homelab.jellyfin.auth;
+  cfg = config.modules.homelab.jellyfin;
 in {
   options.modules.homelab.jellyfin.auth = {
     enable = lib.mkEnableOption "Enable jellyfin auth";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.auth.enable {
     services.authelia.instances.main.settings.identity_providers.oidc.clients = [
       {
         client_id = "jellyfin";
