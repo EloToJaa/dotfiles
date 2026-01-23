@@ -14,9 +14,7 @@ in {
         # pinentryFlavor = "";
       };
       nix-ld.enable = true;
-      zsh = {
-        enable = true;
-      };
+      zsh.enable = true;
     };
 
     services.smartd.enable = true;
