@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v5
-      - uses: wimpysworld/nothing-but-nix@v7
+      - uses: wimpysworld/nothing-but-nix@v9
         with:
           hatchet-protocol: "holster"
       - uses: DeterminateSystems/determinate-nix-action@v3
