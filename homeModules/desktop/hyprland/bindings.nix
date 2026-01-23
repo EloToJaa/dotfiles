@@ -41,6 +41,7 @@ in {
         ",Print, exec, screenshot --copy"
         "${mainMod}, Print, exec, screenshot --save"
         "${mainMod} SHIFT, Print, exec, screenshot --edit"
+        "${mainMod} CTRL, O, exec, ocr"
 
         # switch focus
         "${mainMod}, left, movefocus, l"

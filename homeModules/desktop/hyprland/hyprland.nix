@@ -19,6 +19,7 @@ in {
       wayland
       woomer # zoomer for wayland
       libnotify
+      tesseract
     ];
 
     systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];
