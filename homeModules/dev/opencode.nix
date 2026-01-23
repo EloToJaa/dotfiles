@@ -39,10 +39,21 @@ in {
 
           ## Development Guidelines
 
+          Whenever possible avoid using if else statements, instead use if guards. This will make your code more readable and maintainable.
           For TypeScript code style and best practices: @docs/typescript-guidelines.md
           For React component architecture and hooks patterns: @docs/react-patterns.md
           For REST API design and error handling: @docs/api-standards.md
           For testing strategies and coverage requirements: @test/testing-guidelines.md
+
+          ## Documentation
+
+          Whenever user says for `use btca` or asks for documentation of a project use btca. You can also use btca whenever you need additional information about the latest tech.
+
+          Commands you should use:
+
+          - `btca ask <question>` - ask a question about the project
+          - `btca config resources list` - list all configured resources
+          - `btca config resources add --name <name> --url <git_url> --branch <branch> --notes <ai_notes>` - use only if the required resource is not available in the list
 
           ## General Guidelines
 
