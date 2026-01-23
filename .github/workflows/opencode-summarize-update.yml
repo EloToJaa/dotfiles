@@ -14,13 +14,16 @@ jobs:
       pull-requests: read
       issues: read
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Run opencode
         uses: anomalyco/opencode/github@latest
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
-          model: opencode/minimax-m2.1-free
+          model: opencode/big-pickle
           prompt: |
             Create a table summarizing the changes in the flake.lock file.
             The table should have the following columns:
