@@ -25,7 +25,7 @@ in {
         markdown
         */
         ''
-          # TypeScript Project Rules
+          # Project Rules
 
           ## External File Loading
 
