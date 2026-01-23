@@ -9,13 +9,13 @@
   writableTmpDirAsHomeHook,
 }: let
   pname = "better-context";
-  version = "1.0.44";
+  version = "1.0.51";
 
   src = fetchFromGitHub {
     owner = "davis7dotsh";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-HRXwC/YBOcxJ16al84J5HHOe87aq9vDRGeOy0poPdcQ=";
+    hash = "sha256-N8fZBnA7HGz89Oj3cnjEMCd3koo/Dm07yoeUTlRGlyI=";
   };
 
   # Platform-specific mapping
@@ -77,7 +77,7 @@
 
     dontFixup = true;
 
-    outputHash = "sha256-X2nytxxJegur2FgYMjnLgxpRyI5BAWYBNwPKx9FV+XM=";
+    outputHash = "sha256-BfTb6RoZvWX5g6+rHagVDyX7PzBheQK47UL0Wmb7HrM=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
