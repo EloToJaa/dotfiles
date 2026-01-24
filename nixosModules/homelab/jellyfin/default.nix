@@ -17,6 +17,10 @@ in {
       type = lib.types.str;
       default = "watch";
     };
+    openFirewall = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
     group = lib.mkOption {
       type = lib.types.str;
       default = homelab.groups.media;
@@ -42,7 +46,7 @@ in {
       enable = true;
       package = pkgs.unstable.jellyfin;
       user = cfg.name;
-      inherit (cfg) group dataDir logDir;
+      inherit (cfg) group dataDir logDir openFirewall;
     };
     systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
     systemd.tmpfiles.rules = [

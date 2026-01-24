@@ -37,7 +37,10 @@
       caddy.enable = true;
       groups.enable = true;
       home-assistant.enable = true;
-      jellyfin.enable = true;
+      jellyfin = {
+        enable = true;
+        openFirewall = true;
+      };
       share.enable = true;
       postgres = {
         enable = true;
