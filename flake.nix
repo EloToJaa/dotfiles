@@ -2,7 +2,7 @@
   description = "EloToJa's NixOS configuration";
 
   outputs = {flake-parts, ...} @ inputs: let
-    overlaysList = (import ./overlays.nix {inherit inputs;})._module.args.overlaysList;
+    inherit ((import ./overlays.nix {inherit inputs;})._module.args) overlaysList;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
