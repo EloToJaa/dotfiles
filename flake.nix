@@ -1,7 +1,9 @@
 {
   description = "EloToJa's NixOS configuration";
 
-  outputs = {flake-parts, ...} @ inputs:
+  outputs = {flake-parts, ...} @ inputs: let
+    overlaysList = (import ./overlays.nix {inherit inputs;})._module.args.overlaysList;
+  in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         ./terranix
@@ -15,12 +17,10 @@
         "x86_64-linux"
       ];
 
-      # flake.overlays = overlays;
-
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = import ./overlays.nix {inherit inputs;};
+          overlays = overlaysList;
           config = {allowUnfree = true;};
         };
       };
