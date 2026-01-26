@@ -25,6 +25,8 @@ jobs:
         with:
           model: opencode/big-pickle
           prompt: |
+            Do not create or update files in the repository.
+
             Create a table summarizing the changes in the flake.lock file.
             The table should have the following columns:
             - Input: The flake.nix input that was updated.
