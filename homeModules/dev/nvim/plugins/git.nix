@@ -28,8 +28,7 @@ in {
           enable = true;
           enableTelescope = true;
           settings = {
-            change_directory_command = "z";
-            clear_jumps_on_change = true;
+            change_directory_command = "cd";
           };
         };
         lz-n.keymaps = [
