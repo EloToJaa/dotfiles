@@ -35,7 +35,7 @@
     terranix.url = "github:terranix/terranix";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.53.1?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.53.3?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
