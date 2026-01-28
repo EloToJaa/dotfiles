@@ -94,12 +94,12 @@ in {
           options.desc = "Preview hunk";
         }
         {
-          key = "<leader>gw";
+          key = "<leader>fgw";
           action = mkRaw "require('telescope').extensions.git_worktree.git_worktree";
           options.desc = "Git worktrees";
         }
         {
-          key = "<leader>gW";
+          key = "<leader>fgW";
           action = mkRaw "require('telescope').extensions.git_worktree.create_git_worktree";
           options.desc = "Create git worktree";
         }
