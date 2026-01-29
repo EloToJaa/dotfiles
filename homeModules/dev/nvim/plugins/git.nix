@@ -94,24 +94,19 @@ in {
           options.desc = "Preview hunk";
         }
         {
-          key = "<leader>ww";
+          key = "<leader>fw";
           action = mkRaw "require('telescope').extensions.git_worktree.git_worktree";
           options.desc = "Git worktrees";
         }
         {
-          key = "<leader>wc";
+          key = "<leader>fW";
           action = mkRaw "require('telescope').extensions.git_worktree.create_git_worktree";
           options.desc = "Create git worktree";
-        }
-        {
-          key = "<leader>wd";
-          action = mkRaw "require('telescope').extensions.git_worktree.delete_worktree";
-          options.desc = "Delete git worktree";
         }
       ];
       which-key.settings.spec = [
         {
-          __unkeyed-1 = "<leader>w";
+          __unkeyed-1 = "<leader>fw";
           group = "Git worktree";
           icon = "🌳";
         }
