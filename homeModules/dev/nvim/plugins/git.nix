@@ -29,6 +29,7 @@ in {
           enableTelescope = true;
           settings = {
             change_directory_command = "cd";
+            update_on_change = true;
           };
         };
         lz-n.keymaps = [
@@ -93,14 +94,26 @@ in {
           options.desc = "Preview hunk";
         }
         {
-          key = "<leader>fgw";
+          key = "<leader>ww";
           action = mkRaw "require('telescope').extensions.git_worktree.git_worktree";
           options.desc = "Git worktrees";
         }
         {
-          key = "<leader>fgW";
+          key = "<leader>wc";
           action = mkRaw "require('telescope').extensions.git_worktree.create_git_worktree";
           options.desc = "Create git worktree";
+        }
+        {
+          key = "<leader>wd";
+          action = mkRaw "require('telescope').extensions.git_worktree.delete_worktree";
+          options.desc = "Delete git worktree";
+        }
+      ];
+      which-key.settings.spec = [
+        {
+          __unkeyed-1 = "<leader>w";
+          group = "Git worktree";
+          icon = "🌳";
         }
       ];
     };
