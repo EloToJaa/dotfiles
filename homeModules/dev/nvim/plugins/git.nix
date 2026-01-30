@@ -86,12 +86,12 @@ in {
         {
           key = "<leader>gtb";
           action = mkRaw "require('gitsigns').toggle_current_line_blame";
-          options.desc = "Preview hunk";
+          options.desc = "Toggle current line blame";
         }
         {
           key = "<leader>gtw";
           action = mkRaw "require('gitsigns').toggle_word_diff";
-          options.desc = "Preview hunk";
+          options.desc = "Toggle word diff";
         }
         {
           key = "<leader>fw";
