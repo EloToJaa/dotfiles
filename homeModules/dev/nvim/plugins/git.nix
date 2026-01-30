@@ -69,14 +69,29 @@ in {
           options.desc = "Log";
         }
         {
+          key = "<leader>gs";
+          action = "<cmd>Git<cr>";
+          options.desc = "Status";
+        }
+        {
+          key = "<leader>gc";
+          action = "<cmd>Git commit<cr>";
+          options.desc = "Commit";
+        }
+        {
+          key = "<leader>gr";
+          action = "<cmd>Git rebase -i<cr>";
+          options.desc = "Interactive rebase";
+        }
+        {
           key = "<leader>gd";
-          action = "<cmd>Gdiffsplit<cr>";
-          options.desc = "Diff";
+          action = "<cmd>Git difftool<cr>";
+          options.desc = "Difftool";
         }
         {
           key = "<leader>gD";
-          action = "<cmd>Git difftool<cr>";
-          options.desc = "Difftool";
+          action = "<cmd>Gdiffsplit<cr>";
+          options.desc = "Diff";
         }
         {
           key = "<leader>gh";
@@ -94,21 +109,14 @@ in {
           options.desc = "Toggle word diff";
         }
         {
-          key = "<leader>fw";
+          key = "<leader>gw";
           action = mkRaw "require('telescope').extensions.git_worktree.git_worktree";
           options.desc = "Git worktrees";
         }
         {
-          key = "<leader>fW";
+          key = "<leader>gW";
           action = mkRaw "require('telescope').extensions.git_worktree.create_git_worktree";
           options.desc = "Create git worktree";
-        }
-      ];
-      which-key.settings.spec = [
-        {
-          __unkeyed-1 = "<leader>fw";
-          group = "Git worktree";
-          icon = "🌳";
         }
       ];
     };
