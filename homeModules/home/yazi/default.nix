@@ -41,7 +41,6 @@ in {
 
       # Plugins
       "yazi/plugins/git.yazi".source = pkgs.callPackage ./pkgs/git.nix {};
-      "yazi/plugins/lazygit.yazi".source = pkgs.callPackage ./pkgs/lazygit.nix {};
       "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./pkgs/smart-filter.nix {};
       "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./pkgs/smart-enter.nix {};
       "yazi/plugins/mount.yazi".source = pkgs.callPackage ./pkgs/mount.nix {};

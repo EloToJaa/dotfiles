@@ -71,10 +71,6 @@ prepend_keymap = [
     "c",
     "o",
   ], run = "plugin copy-file-contents", desc = "Copy contents of file" },
-  { on = [
-    "g",
-    "i",
-  ], run = "plugin lazygit", desc = "Open lazygit" },
 
   # Toggle pane
   { on = "e", run = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },

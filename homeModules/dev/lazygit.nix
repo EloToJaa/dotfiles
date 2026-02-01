@@ -17,11 +17,6 @@ in {
       difftastic
     ];
 
-    # https://github.com/catppuccin/lazygit/blob/main/themes/mocha/blue.yml
-    # xdg.configFile = {
-    #   "lazygit/config.yml".source = ./config.yml;
-    # };
-
     programs.lazygit = {
       enable = true;
       package = pkgs.unstable.lazygit;

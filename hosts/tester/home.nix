@@ -34,7 +34,7 @@
     };
     dev = {
       enable = true;
-      lazygit.enable = true;
+      lazygit.enable = false;
       nvim = {
         enable = true;
         languages = {

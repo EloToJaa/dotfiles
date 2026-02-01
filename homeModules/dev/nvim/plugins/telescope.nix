@@ -64,26 +64,6 @@ in {
             action = "resume";
             options.desc = "Resume";
           };
-          "<leader>gfc" = {
-            action = "git_commits";
-            options.desc = "Git commits";
-          };
-          "<leader>gfb" = {
-            action = "git_branches";
-            options.desc = "Git branches";
-          };
-          "<leader>gfs" = {
-            action = "git_status";
-            options.desc = "Git status";
-          };
-          "<leader>gfd" = {
-            action = "git_bcommits";
-            options.desc = "Git buffer commits";
-          };
-          "<leader>gff" = {
-            action = "git_files";
-            options.desc = "Find files";
-          };
           "<leader>fyb" = {
             action = "lsp_document_symbols";
             options.desc = "LSP document symbols";
@@ -124,10 +104,6 @@ in {
         {
           __unkeyed-1 = "<leader>fy";
           group = "LSP symbols";
-        }
-        {
-          __unkeyed-1 = "<leader>gf";
-          group = "Find";
         }
       ];
     };

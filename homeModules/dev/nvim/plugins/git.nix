@@ -32,7 +32,7 @@ in {
             update_on_change = true;
           };
         };
-        lz-n.keymaps = [
+        lz-n.keymaps = lib.optionals config.modules.dev.lazygit.enable [
           {
             key = "<leader>gg";
             action = "<cmd>LazyGit<cr>";
@@ -51,15 +51,37 @@ in {
             group = "Toggle";
           }
         ];
+        telescope.keymaps = {
+          "<leader>gc" = {
+            action = "git_commits";
+            options.desc = "Git commits";
+          };
+          "<leader>gb" = {
+            action = "git_branches";
+            options.desc = "Git branches";
+          };
+          "<leader>gs" = {
+            action = "git_status";
+            options.desc = "Git status";
+          };
+          # "<leader>gfd" = {
+          #   action = "git_bcommits";
+          #   options.desc = "Git buffer commits";
+          # };
+          "<leader>gf" = {
+            action = "git_files";
+            options.desc = "Find files";
+          };
+        };
       };
       keymaps = [
         {
-          key = "<leader>gB";
+          key = "<leader>gBl";
           action = mkRaw "require('gitsigns').blame_line";
           options.desc = "Blame line";
         }
         {
-          key = "<leader>gb";
+          key = "<leader>gBb";
           action = mkRaw "require('gitsigns').blame";
           options.desc = "Blame";
         }
@@ -84,12 +106,12 @@ in {
           options.desc = "Push";
         }
         {
-          key = "<leader>gs";
+          key = "<leader>gg";
           action = "<cmd>Git<cr>";
           options.desc = "Status";
         }
         {
-          key = "<leader>gc";
+          key = "<leader>gC";
           action = "<cmd>Git commit<cr>";
           options.desc = "Commit";
         }
