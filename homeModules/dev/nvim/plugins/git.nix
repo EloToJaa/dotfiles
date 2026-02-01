@@ -69,6 +69,21 @@ in {
           options.desc = "Log";
         }
         {
+          key = "<leader>gf";
+          action = "<cmd>Git fetch<cr>";
+          options.desc = "Fetch";
+        }
+        {
+          key = "<leader>gp";
+          action = "<cmd>Git pull<cr>";
+          options.desc = "Pull";
+        }
+        {
+          key = "<leader>gP";
+          action = "<cmd>Git push<cr>";
+          options.desc = "Push";
+        }
+        {
           key = "<leader>gs";
           action = "<cmd>Git<cr>";
           options.desc = "Status";
