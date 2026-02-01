@@ -23,7 +23,7 @@
     gC = "git clone";
     gc = "git commit";
     gcm = "git commit -m";
-    gcma = "git commit -am";
+    gcam = "git commit -am";
     gtag = "git tag -ma";
     gch = "git checkout";
     gchb = "git checkout -b";
@@ -55,14 +55,12 @@ in {
           diff.colorMoved = "default";
           pull.ff = "only";
           color.ui = true;
-          url = {
-            "https://github.com/EloToJaa/".insteadOf = "etj:";
-            "https://github.com/".insteadOf = "gh:";
-          };
         };
 
         signing = {
-          signByDefault = false;
+          signByDefault = true;
+          format = "ssh";
+          key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         };
       };
 
