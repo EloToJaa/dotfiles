@@ -55,7 +55,6 @@ in {
           diff.colorMoved = "default";
           pull.ff = "only";
           color.ui = true;
-          # test
         };
 
         signing = {
