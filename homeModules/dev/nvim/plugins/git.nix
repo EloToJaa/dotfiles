@@ -64,10 +64,6 @@ in {
             action = "git_status";
             options.desc = "Git status";
           };
-          # "<leader>gfd" = {
-          #   action = "git_bcommits";
-          #   options.desc = "Git buffer commits";
-          # };
           "<leader>gf" = {
             action = "git_files";
             options.desc = "Find files";
