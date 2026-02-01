@@ -30,6 +30,7 @@ in {
           settings = {
             change_directory_command = "cd";
             update_on_change = true;
+            autopush = true;
           };
         };
         lz-n.keymaps = lib.optionals config.modules.dev.lazygit.enable [
