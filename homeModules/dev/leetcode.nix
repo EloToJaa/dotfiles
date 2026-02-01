@@ -17,9 +17,7 @@ in {
       leetcode-cli
     ];
 
-    programs = {
-      zsh.shellAliases = shellAliases;
-    };
+    programs.zsh.zsh-abbr.abbreviations = shellAliases;
 
     sops.secrets = {
       "leetcode/csrftoken" = {};

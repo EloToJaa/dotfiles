@@ -20,18 +20,16 @@
   cfg = config.modules.home;
 in {
   config = lib.mkIf cfg.enable {
-    programs = {
-      zsh.shellAliases =
-        shellAliases
-        // {
-          dsize = "du -hs";
-          open = "xdg-open";
-          psv = "source .venv/bin/activate";
-          l = "eza --icons -a --group-directories-first -1";
-          ll = "eza --icons -a --group-directories-first -1 --long -g";
-          ns = "nom-shell --run zsh";
-          nix-dev = "nom develop --command zsh";
-        };
-    };
+    programs.zsh.zsh-abbr.abbreviations =
+      shellAliases
+      // {
+        dsize = "du -hs";
+        open = "xdg-open";
+        psv = "source .venv/bin/activate";
+        l = "eza --icons -a --group-directories-first -1";
+        ll = "eza --icons -a --group-directories-first -1 --long -g";
+        ns = "nom-shell --run zsh";
+        nix-dev = "nom develop --command zsh";
+      };
   };
 }

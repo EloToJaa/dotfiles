@@ -88,8 +88,6 @@ in {
       serie
     ];
 
-    programs = {
-      zsh.shellAliases = shellAliases;
-    };
+    programs.zsh.zsh-abbr.abbreviations = shellAliases;
   };
 }
