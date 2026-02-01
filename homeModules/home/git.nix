@@ -55,6 +55,7 @@ in {
           diff.colorMoved = "default";
           pull.ff = "only";
           color.ui = true;
+          remote.origin.fetch = "+refs/heads/*:refs/remotes/origin/*";
         };
 
         signing = {
@@ -62,6 +63,12 @@ in {
           format = "ssh";
           key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         };
+      };
+
+      gh = {
+        enable = true;
+        package = pkgs.unstable.gh;
+        settings.git_protocol = "ssh";
       };
 
       delta = {

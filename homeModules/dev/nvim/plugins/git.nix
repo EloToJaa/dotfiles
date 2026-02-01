@@ -35,7 +35,7 @@ in {
         };
         lz-n.keymaps = lib.optionals config.modules.dev.lazygit.enable [
           {
-            key = "<leader>gg";
+            key = "<leader>gG";
             action = "<cmd>LazyGit<cr>";
             options.desc = "Open lazygit";
             plugin = "lazygit.nvim";
