@@ -94,6 +94,11 @@ in {
           options.desc = "Diff";
         }
         {
+          key = "<leader>gm";
+          action = "<cmd>Gmergetool<cr>";
+          options.desc = "Merge tool";
+        }
+        {
           key = "<leader>gh";
           action = mkRaw "require('gitsigns').preview_hunk";
           options.desc = "Preview hunk";
