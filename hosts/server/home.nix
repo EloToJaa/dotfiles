@@ -36,7 +36,7 @@
     dev = {
       enable = true;
       opencode.enable = true;
-      lazygit.enable = false;
+      lazygit.enable = true;
       nvim = {
         enable = true;
         languages = {
