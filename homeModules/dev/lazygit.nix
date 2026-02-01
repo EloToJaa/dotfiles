@@ -22,6 +22,7 @@ in {
       package = pkgs.unstable.lazygit;
       settings = {
         git = {
+          log.order = "default";
           parseEmoji = true;
           pagers = [
             {
