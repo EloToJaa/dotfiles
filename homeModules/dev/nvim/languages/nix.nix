@@ -6,8 +6,8 @@
   lib,
   ...
 }: let
+  inherit (config.settings) dotfilesDirectory;
   cfg = config.modules.dev.nvim.languages.nix;
-  flakePath = "${config.home.homeDirectory}/Projects/dotfiles";
 in {
   options.modules.dev.nvim.languages.nix = {
     enable = lib.mkEnableOption "Enable nix";
@@ -28,10 +28,10 @@ in {
         package = null;
         config = {
           formatting.command = "alejandra";
-          nixpkgs.expr = ''import (builtins.getFlake "${flakePath}").inputs.nixpkgs { }'';
+          nixpkgs.expr = ''import (builtins.getFlake "${dotfilesDirectory}").inputs.nixpkgs { }'';
           options = {
-            nixos.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options'';
-            home-manager.expr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options.home-manager.users.type.getSubOptions []'';
+            nixos.expr = ''(builtins.getFlake "${dotfilesDirectory}").nixosConfigurations.${host}.options'';
+            home-manager.expr = ''(builtins.getFlake "${dotfilesDirectory}").nixosConfigurations.${host}.options.home-manager.users.type.getSubOptions []'';
           };
         };
       };

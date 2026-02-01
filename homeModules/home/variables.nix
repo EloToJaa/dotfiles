@@ -5,7 +5,7 @@
   settings,
   ...
 }: let
-  inherit (settings) uid;
+  inherit (settings) uid dotfilesDirectory;
   cfg = config.modules.home;
 in {
   config = lib.mkIf cfg.enable {
@@ -13,7 +13,7 @@ in {
       SSH_AUTH_SOCK = "/run/user/${toString uid}/keyring/ssh";
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
-      NH_FLAKE = "${config.home.homeDirectory}/Projects/dotfiles";
+      NH_FLAKE = dotfilesDirectory;
       HOST = host;
     };
   };

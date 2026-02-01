@@ -6,7 +6,7 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username stateVersion uid;
+  inherit (config.settings) username stateVersion uid homeDirectory;
   cfg = config.modules.base;
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
@@ -21,8 +21,7 @@ in {
       };
       users.${username} = {
         home = {
-          inherit stateVersion username;
-          homeDirectory = "/home/${username}";
+          inherit stateVersion username homeDirectory;
           enableNixpkgsReleaseCheck = false;
         };
         programs.home-manager.enable = true;

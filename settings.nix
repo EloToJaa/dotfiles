@@ -14,6 +14,14 @@ in {
       type = lib.types.str;
       default = "elotoja@protonmail.com";
     };
+    homeDirectory = lib.mkOption {
+      type = lib.types.path;
+      default = "/home/${cfg.username}";
+    };
+    dotfilesDirectory = lib.mkOption {
+      type = lib.types.path;
+      default = "${cfg.homeDirectory}/Projects/dotfiles";
+    };
     uid = lib.mkOption {
       type = lib.types.int;
       default = 1000;

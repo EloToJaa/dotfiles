@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username;
+  inherit (config.settings) dotfilesDirectory;
   cfg = config.modules.base.nh;
 in {
   options.modules.base.nh = {
@@ -18,7 +18,7 @@ in {
         enable = true;
         extraArgs = "--keep-since 7d --keep 5";
       };
-      flake = "/home/${username}/Projects/dotfiles";
+      flake = dotfilesDirectory;
     };
 
     environment.systemPackages = with pkgs.unstable; [

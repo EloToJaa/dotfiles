@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username;
+  inherit (config.settings) homeDirectory;
   cfg = config.modules.base;
 in {
   imports = [
@@ -15,7 +15,7 @@ in {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
 
-      age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+      age.keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
     };
   };
 }
