@@ -76,7 +76,7 @@ in {
       };
 
       gh-dash = {
-        enable = true;
+        enable = false;
         package = pkgs.unstable.gh-dash;
       };
     };
