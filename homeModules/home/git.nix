@@ -51,7 +51,7 @@ in {
           };
           init.defaultBranch = "main";
           credential.helper = "store";
-          merge.conflictstyle = "diff3";
+          merge.conflictStyle = "diff3";
           diff.colorMoved = "default";
           pull.ff = "only";
           color.ui = true;
