@@ -6,6 +6,7 @@
     ./bash.nix
     ./bootloader.nix
     ./docker.nix
+    ./duo.nix
     ./hardware.nix
     ./index.nix
     ./network.nix
