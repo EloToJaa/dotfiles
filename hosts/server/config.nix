@@ -25,7 +25,7 @@
       enable = true;
       bootloader.enable = true;
       docker.enable = true;
-      duo.enable = false;
+      duo.enable = true;
       index.enable = true;
       tailscale.enable = true;
       nfs.enable = true;
@@ -55,7 +55,7 @@
       jellystat.enable = true;
       karakeep.enable = true;
       loki.enable = false;
-      n8n.enable = true;
+      n8n.enable = false;
       nextcloud = {
         enable = false;
         onlyoffice.enable = false;
