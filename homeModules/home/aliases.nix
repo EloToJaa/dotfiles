@@ -20,7 +20,7 @@
   cfg = config.modules.home;
 in {
   config = lib.mkIf cfg.enable {
-    programs.zsh.zsh-abbr.abbreviations =
+    programs.zsh.shellAliases =
       shellAliases
       // {
         dsize = "du -hs";
