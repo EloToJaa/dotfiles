@@ -5,16 +5,16 @@
     inherit ((import ./overlays.nix {inherit inputs;})._module.args) overlaysList;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+      ];
+
       imports = [
         ./terranix
         ./settings.nix
         ./hosts
         ./pkgs
         ./overlays.nix
-      ];
-
-      systems = [
-        "x86_64-linux"
       ];
 
       perSystem = {system, ...}: {
