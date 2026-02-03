@@ -5,6 +5,10 @@
     inherit ((import ./overlays.nix {inherit inputs;})._module.args) overlaysList;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+      ];
+
       imports = [
         ./terranix
         ./settings.nix
@@ -13,9 +17,13 @@
         ./overlays.nix
       ];
 
-      systems = [
-        "x86_64-linux"
-      ];
+      clan = {
+        meta = {
+          name = "elotoja";
+          domain = "elotoja";
+          description = "EloToJa's NixOS configuration";
+        };
+      };
 
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
