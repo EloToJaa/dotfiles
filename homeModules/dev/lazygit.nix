@@ -2,10 +2,8 @@
   pkgs,
   lib,
   config,
-  settings,
   ...
 }: let
-  inherit (settings) catppuccin;
   shellAliases = {
     lg = "lazygit";
   };
@@ -62,8 +60,7 @@ in {
     };
 
     catppuccin.lazygit = {
-      enable = true;
-      inherit (catppuccin) flavor accent;
+      enable = false;
     };
 
     programs.zsh.zsh-abbr.abbreviations = shellAliases;
