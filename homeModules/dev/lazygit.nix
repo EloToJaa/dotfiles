@@ -24,6 +24,7 @@ in {
         git = {
           log.order = "default";
           parseEmoji = true;
+          overrideGpg = true;
           pagers = [
             {
               colorArg = "always";
@@ -36,6 +37,7 @@ in {
         gui = {
           border = "single";
           switchTabsWithPanelJumpKeys = true;
+          showBranchCommitHash = true;
           theme = {
             activeBorderColor = ["#89b4fa" "bold"];
             inactiveBorderColor = ["#a6adc8"];
