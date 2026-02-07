@@ -67,7 +67,7 @@ in {
         adminuser = username;
         adminpassFile = config.sops.secrets."${cfg.name}/adminpassword".path;
         dbtype = "pgsql";
-        dbhost = "127.0.0.1:5432";
+        dbhost = "127.0.0.1:${toString homelab.postgres.port}";
         dbname = cfg.name;
         dbuser = cfg.name;
         dbpassFile = config.sops.secrets."${cfg.name}/pgpassword".path;

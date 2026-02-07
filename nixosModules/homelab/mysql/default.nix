@@ -10,7 +10,7 @@ in {
     enable = lib.mkEnableOption "Enable mysql";
     port = lib.mkOption {
       type = lib.types.port;
-      default = 5432;
+      default = 1433;
     };
   };
   config = lib.mkIf cfg.enable {

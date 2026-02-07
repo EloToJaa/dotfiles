@@ -34,7 +34,7 @@ in {
       package = pkgs.unstable.onlyoffice-documentserver;
       hostname = domain;
 
-      postgresHost = "127.0.0.1:5432";
+      postgresHost = "127.0.0.1:${toString homelab.postgres.port}";
       postgresName = cfg.name;
       postgresUser = cfg.name;
       postgresPasswordFile = config.sops.secrets."${cfg.name}/pgpassword".path;

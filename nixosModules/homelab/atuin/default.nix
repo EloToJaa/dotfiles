@@ -60,7 +60,7 @@ in {
       "${cfg.name}/pgpassword" = {};
     };
     sops.templates."${cfg.name}.env".content = ''
-      ATUIN_DB_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:5432/${cfg.name}
+      ATUIN_DB_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
     '';
   };
 }

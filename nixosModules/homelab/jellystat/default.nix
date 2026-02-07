@@ -47,7 +47,7 @@ in {
         POSTGRES_DB = cfg.name;
         POSTGRES_USER = cfg.name;
         POSTGRES_IP = "127.0.0.1";
-        POSTGRES_PORT = "5432";
+        POSTGRES_PORT = toString homelab.postgres.port;
         JS_LISTEN_IP = "127.0.0.1";
         TZ = timezone;
       };
