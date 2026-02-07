@@ -30,7 +30,7 @@ in {
     services.bazarr = {
       inherit (cfg) group;
       enable = true;
-      package = pkgs.unstable.bazarr;
+      package = pkgs.master.bazarr;
       user = cfg.name;
       listenPort = cfg.port;
     };
