@@ -96,7 +96,7 @@ in {
           <SslCertPassword></SslCertPassword>
           <PostgresUser>${cfg.name}</PostgresUser>
           <PostgresPassword>${config.sops.placeholder."${cfg.name}/pgpassword"}</PostgresPassword>
-          <PostgresPort>5432</PostgresPort>
+          <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
           <PostgresHost>127.0.0.1</PostgresHost>
           <AnalyticsEnabled>False</AnalyticsEnabled>
           <Theme>auto</Theme>

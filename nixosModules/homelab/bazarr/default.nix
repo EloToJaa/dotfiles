@@ -33,19 +33,19 @@ in {
       package = pkgs.master.bazarr;
       user = cfg.name;
       listenPort = cfg.port;
+      dataDir = "${homelab.dataDir}${cfg.name}";
     };
     systemd.services.bazarr = {
       environment = {
         POSTGRES_ENABLED = "true";
         POSTGRES_HOST = "127.0.0.1";
-        POSTGRES_PORT = "5432";
+        POSTGRES_PORT = toString homelab.postgres.port;
         POSTGRES_USERNAME = cfg.name;
         POSTGRES_DATABASE = cfg.name;
       };
       serviceConfig = {
         EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
         UMask = lib.mkForce homelab.defaultUMask;
-        ExecStart = lib.mkForce "${pkgs.unstable.bazarr}/bin/bazarr --config '${homelab.dataDir}${cfg.name}' --port ${toString cfg.port} --no-update True";
       };
     };
     systemd.tmpfiles.rules = [

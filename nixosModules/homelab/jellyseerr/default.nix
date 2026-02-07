@@ -41,7 +41,7 @@ in {
         LOG_LEVEL = "info";
         DB_TYPE = "postgres";
         DB_HOST = "127.0.0.1";
-        DB_PORT = "5432";
+        DB_PORT = toString homelab.postgres.port;
         DB_USER = cfg.name;
         DB_NAME = cfg.name;
         DB_USE_SSL = "false";
