@@ -17,6 +17,14 @@
         ./overlays.nix
       ];
 
+      clan = {
+        meta = {
+          name = "elotoja";
+          domain = "elotoja";
+          description = "EloToJa's NixOS configuration";
+        };
+      };
+
       perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
