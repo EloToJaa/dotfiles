@@ -10,6 +10,8 @@
       ];
 
       imports = [
+        inputs.clan-core.flakeModules.default
+        inputs.devshell.flakeModule
         ./terranix
         ./settings.nix
         ./hosts
@@ -25,11 +27,21 @@
         };
       };
 
-      perSystem = {system, ...}: {
+      perSystem = {
+        system,
+        pkgs,
+        ...
+      }: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = overlaysList;
           config = {allowUnfree = true;};
+        };
+
+        devshells.default = {
+          packages = [
+            inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
+          ];
         };
       };
     };
@@ -40,7 +52,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nur.url = "github:nix-community/NUR";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    devshell.url = "github:numtide/devshell";
     terranix.url = "github:terranix/terranix";
+
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.flake-parts.follows = "flake-parts";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.53.1?submodules=true";
