@@ -1,7 +1,4 @@
 {
-  imports = [
-    ./../../homeModules
-  ];
   modules = {
     cybersec = {
       enable = false;
