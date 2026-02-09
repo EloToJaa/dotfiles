@@ -21,7 +21,7 @@
         meta = {
           name = "elotoja";
           domain = "elotoja";
-          description = "EloToJa's NixOS configuration";
+          description = "EloToJa's clan";
         };
       };
 
