@@ -37,7 +37,7 @@ in {
         gui = {
           border = "single";
           switchTabsWithPanelJumpKeys = true;
-          showBranchCommitHash = true;
+          showBranchCommitHash = false;
           theme = {
             activeBorderColor = ["#89b4fa" "bold"];
             inactiveBorderColor = ["#a6adc8"];
