@@ -12,6 +12,7 @@
       imports = [
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
+        ./nixosModules/flake-module.nix
         ./terranix
         ./settings.nix
         ./hosts
