@@ -1,4 +1,7 @@
 {
+  imports = [
+    ./../../homeModules
+  ];
   modules = {
     home = {
       enable = true;
