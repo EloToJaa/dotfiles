@@ -17,21 +17,11 @@
         ./overlays.nix
       ];
 
-      perSystem = {
-        system,
-        pkgs,
-        ...
-      }: {
+      perSystem = {system, ...}: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = overlaysList;
           config = {allowUnfree = true;};
-        };
-
-        devShells.default = {
-          packages = [
-            inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
-          ];
         };
       };
     };
