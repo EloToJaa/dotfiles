@@ -12,20 +12,13 @@
       imports = [
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
+        ./machines/flake-module.nix
         ./terranix
         ./settings.nix
         ./hosts
         ./pkgs
         ./overlays.nix
       ];
-
-      clan = {
-        meta = {
-          name = "elotoja";
-          domain = "elotoja";
-          description = "EloToJa's clan";
-        };
-      };
 
       perSystem = {
         system,
