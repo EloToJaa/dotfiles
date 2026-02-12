@@ -4,6 +4,10 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./../../nixosModules
+  ];
+
   networking = {
     useDHCP = lib.mkForce true;
   };

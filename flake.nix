@@ -12,9 +12,10 @@
       imports = [
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
+        inputs.home-manager.flakeModules.default
+        ./settings.nix
         ./machines/flake-module.nix
         ./terranix
-        ./settings.nix
         ./hosts
         ./pkgs
         ./overlays.nix
@@ -31,7 +32,7 @@
           config = {allowUnfree = true;};
         };
 
-        devShells.default = {
+        devshells.default = {
           packages = [
             inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
           ];

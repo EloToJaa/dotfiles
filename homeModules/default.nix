@@ -1,6 +1,6 @@
 {
   imports = [
-    ./../settings.nix
+    # ./../settings.nix
 
     ./cybersec
     ./desktop

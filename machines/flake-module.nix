@@ -1,5 +1,6 @@
 {
   flake.nixosModules.default = ../nixosModules/default.nix;
+  flake.homeModules.default = ../homeModules/default.nix;
   clan = {
     meta = {
       name = "elotoja";
@@ -44,12 +45,9 @@
         internet = {
           module.name = "internet";
           module.input = "clan-core";
-          # roles.default.machines.laptop = {
-          #   settings.host = "laptop.x";
-          # };
         };
 
-        # tor.roles.server.tags.nixos = {};
+        tor.roles.server.tags.nixos = {};
 
         users-root = {
           module.name = "users";
