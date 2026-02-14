@@ -19,7 +19,7 @@ in
 
     src = fetchzip {
       url = "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
-      hash = "sha256-YiR/hi+/vptjHxwBYsq/W3QdjT12+pv74AuU1ggM084=";
+      hash = "sha256-/q9YADLWzrfDdavj5Oh7nk4UVOzpRhQUrPJrG0zSE9I=";
       stripRoot = false;
     };
 
