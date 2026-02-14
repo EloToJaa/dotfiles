@@ -15,7 +15,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "bazarr";
-    version = "1.5.6-beta.9";
+    version = "1.5.6-beta.10";
 
     src = fetchzip {
       url = "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
