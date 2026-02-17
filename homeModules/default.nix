@@ -2,9 +2,9 @@
   imports = [
     ./../settings.nix
 
-    # ./cybersec
-    # ./desktop
-    # ./dev
+    ./cybersec
+    ./desktop
+    ./dev
     ./home
   ];
 }
