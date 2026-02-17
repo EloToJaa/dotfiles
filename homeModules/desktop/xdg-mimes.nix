@@ -131,8 +131,6 @@ in {
     };
 
     home.sessionVariables = {
-      # prevent wine from creating file associations
-      WINEDLLOVERRIDES = "winemenubuilder.exe=d";
       XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
     };
   };

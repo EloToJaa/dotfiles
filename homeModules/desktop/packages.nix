@@ -26,8 +26,6 @@ in {
         pavucontrol # pulseaudio volume controle (GUI)
         qalculate-gtk # calculator
         qview # minimal image viewer
-        winetricks
-        wineWowPackages.wayland
         zenity
         remmina
         rnote
