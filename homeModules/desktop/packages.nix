@@ -32,10 +32,9 @@ in {
         qbittorrent
         udiskie
         vaults
-        thunderbird
         rustdesk-flutter
         prismlauncher
-        zoom-us
+        # zoom-us
       ]);
   };
 }

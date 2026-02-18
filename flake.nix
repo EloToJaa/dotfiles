@@ -10,7 +10,7 @@
       ];
 
       imports = [
-        ./terranix
+        # ./terranix
         ./settings.nix
         ./hosts
         ./pkgs
