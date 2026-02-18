@@ -2,11 +2,12 @@
   pkgs,
   inputs,
   config,
+  settings,
   host,
   lib,
   ...
 }: let
-  inherit (config.settings) dotfilesDirectory;
+  inherit (settings) dotfilesDirectory;
   cfg = config.modules.dev.nvim.languages.nix;
 in {
   options.modules.dev.nvim.languages.nix = {
