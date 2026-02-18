@@ -64,6 +64,7 @@ in {
         model = "anthropic/claude-opus-4-5";
         small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
+        plugin = ["opencode-pty"];
         tools = {
           write = true;
           edit = true;
