@@ -31,9 +31,9 @@
         };
 
         devshells.default = {
-          packages = [
+          packages = with pkgs.unstable; [
             inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
-            pkgs.unstable.nurl
+            nurl
           ];
         };
       };
