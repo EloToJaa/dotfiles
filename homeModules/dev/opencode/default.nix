@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.modules.dev.opencode;
+  skills = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
 in {
   options.modules.dev.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
@@ -23,13 +24,14 @@ in {
       rules = ./AGENTS.md;
       skills = {
         better-context = "${pkgs.btca}/skills/btca-cli/";
+        frontend-design = "${skills}/skills/frontend-design/";
       };
       settings = {
         theme = "catppuccin";
         model = "anthropic/claude-opus-4-5";
         small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
-        plugin = ["opencode-pty"];
+        plugin = [];
         tools = {
           write = true;
           edit = true;

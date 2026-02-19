@@ -16,11 +16,11 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     mkdir $out
-    cp $src/* $out
+    cp -r $src/* $out
   '';
 
   meta = with lib; {
-    description = "Execute chmod on the selected files to change their mode.";
+    description = "Public repository for Agent Skills";
     homepage = "https://github.com/anthropics/skills";
     license = licenses.mit;
     maintainers = [];
