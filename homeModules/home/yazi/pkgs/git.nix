@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-git";
-  version = "unstable-2026-02-18";
+  version = "unstable-2026-02-19";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
