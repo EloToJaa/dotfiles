@@ -10,12 +10,12 @@ buildNpmPackage (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "CyferShepard";
-    repo = "jellystat";
-    tag = finalAttrs.version;
-    hash = lib.fakeHash;
+    repo = "Jellystat";
+    tag = "V${finalAttrs.version}";
+    hash = "sha256-3wD9xy+P/edVJnLgImRyDCQ1xgVvkjN07T5JZDoJFY0=";
   };
 
-  npmDepsHash = lib.fakeHash;
+  npmDepsHash = "sha256-Y40ZnpHjEbYOjDrgwjLxCTyGWHGH6Zw8JADUiJc4hl4=";
 
   # If https://github.com/CyferShepard/Jellystat/pull/346 is ever merged, this can be removed
   # Required for the ability to configure a port in the systemd-service / nixos module
@@ -44,7 +44,7 @@ buildNpmPackage (finalAttrs: {
   meta = {
     description = "Free and open source Statistics App for Jellyfin";
     homepage = "https://github.com/CyferShepard/Jellystat";
-    changelog = "https://github.com/CyferShepard/Jellystat/releases/tag/${finalAttrs.version}";
+    changelog = "https://github.com/CyferShepard/Jellystat/releases/tag/V${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = [lib.maintainers.kashw2];
   };
