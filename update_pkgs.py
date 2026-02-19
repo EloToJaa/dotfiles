@@ -145,4 +145,5 @@ def process_directory(directory: str):
 
 if __name__ == "__main__":
     process_directory("homeModules/home/yazi/pkgs")
+    process_directory("homeModules/dev/opencode/pkgs")
     # process_directory("pkgs")

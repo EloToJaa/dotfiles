@@ -4,11 +4,11 @@
   };
   imports = [
     ./nvim
+    ./opencode
     ./scripts # personal scripts
     ./aoc.nix
     ./lazygit.nix
     ./leetcode.nix
-    ./opencode.nix
     ./packages.nix # other packages
     ./variables.nix # environment variables
   ];

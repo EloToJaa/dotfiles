@@ -9,13 +9,13 @@
   writableTmpDirAsHomeHook,
 }: let
   pname = "better-context";
-  version = "1.0.51";
+  version = "1.0.950";
 
   src = fetchFromGitHub {
     owner = "davis7dotsh";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-N8fZBnA7HGz89Oj3cnjEMCd3koo/Dm07yoeUTlRGlyI=";
+    hash = "sha256-01i9vdacxdK8T4x8CL2cQykxH6CLKjhd83gWokExgMk=";
   };
 
   # Platform-specific mapping
@@ -77,7 +77,7 @@
 
     dontFixup = true;
 
-    outputHash = "sha256-BfTb6RoZvWX5g6+rHagVDyX7PzBheQK47UL0Wmb7HrM=";
+    outputHash = "sha256-++78hmAEeqTVx3dc6Cwh+MUmkutG+/DYXZJtUNCNoMo=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -106,19 +106,20 @@ in
     buildPhase = ''
       runHook preBuild
 
-      bun run --cwd apps/cli scripts/build-binaries.ts ${platformInfo.bunTarget} ${version}
+      cd apps/cli
+      BTCA_TARGETS=${platformInfo.bunTarget} bun scripts/build-binaries.ts
+      cd ../..
 
       runHook postBuild
     '';
 
-    # Don't strip the binary - it breaks bun compiled executables
     dontStrip = true;
 
     installPhase = ''
       runHook preInstall
 
-      # Install the platform-specific binary
       install -Dm755 apps/cli/dist/${platformInfo.binary} $out/bin/btca
+      cp -r skills $out/skills
 
       runHook postInstall
     '';
