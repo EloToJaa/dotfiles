@@ -11,9 +11,6 @@ in {
     enable = lib.mkEnableOption "Enable opencode module";
   };
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      OPENCODE_EXPERIMENTAL_LSP_TOOL = "true";
-    };
     home.packages = with pkgs; [btca];
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
