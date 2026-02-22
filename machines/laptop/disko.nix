@@ -6,7 +6,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/nvme-RPFTJ256PDD2MWX_SS0R27339Z1CD94K149V";
         content = {
           type = "gpt";
           partitions = {
