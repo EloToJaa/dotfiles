@@ -15,7 +15,7 @@
         # ./terranix
         ./settings.nix
         ./machines/flake-module.nix
-        # ./hosts
+        ./hosts
         ./pkgs
         ./overlays.nix
       ];
