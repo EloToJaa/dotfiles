@@ -21,7 +21,7 @@ in {
       nixd
     ];
 
-    xdg.configFile."statix/statix.toml" =
+    xdg.configFile."statix/statix.toml".text =
       /*
       toml
       */
