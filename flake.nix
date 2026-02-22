@@ -57,7 +57,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.53.1?submodules=true";
+      url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
