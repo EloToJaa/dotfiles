@@ -5,8 +5,8 @@
   ...
 }: let
   inherit (settings) terminal discord;
-  cfg = config.modules.desktop.hyprland;
   inherit (config.modules.desktop) mainMod;
+  cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = {
@@ -34,6 +34,7 @@ in {
         "${mainMod} SHIFT, B, exec, toggle-waybar"
         "${mainMod}, c, exec, hyprpicker -a"
         "${mainMod}, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
+        "${mainMod} SHIFT, W, exec, hyprctl dispatch exec '[workspace 2 silent] delfin'"
         "${mainMod}, n, exec, swaync-client -t -sw"
         "${mainMod}, equal, exec, woomer"
 
