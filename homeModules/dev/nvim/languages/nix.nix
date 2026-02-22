@@ -21,6 +21,16 @@ in {
       nixd
     ];
 
+    xdg.configFile."statix/statix.toml" =
+      /*
+      toml
+      */
+      ''
+        disabled = [
+          "repeated_keys"
+        ]
+      '';
+
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     programs.nixvim = {
