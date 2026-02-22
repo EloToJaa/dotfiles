@@ -9,7 +9,6 @@
   inherit (config.settings) username stateVersion uid homeDirectory;
   cfg = config.modules.base;
 in {
-  imports = [inputs.home-manager.nixosModules.home-manager];
   config = lib.mkIf cfg.enable {
     home-manager = {
       backupFileExtension = "backup";

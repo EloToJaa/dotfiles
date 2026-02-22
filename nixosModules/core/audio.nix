@@ -10,7 +10,7 @@ in {
   options.modules.core.audio = {
     enable = lib.mkEnableOption "Enable audio module";
   };
-  imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
+  imports = [];
   config = lib.mkIf cfg.enable {
     services.pulseaudio.enable = false;
     services.pipewire = {

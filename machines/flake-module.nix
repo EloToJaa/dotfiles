@@ -1,5 +1,7 @@
 {
-  # flake.nixosModules.default = ../nixosModules/default.nix;
+  flake.nixosModules.inputs-args = {inputs, ...}: {
+    _module.args.inputs = inputs;
+  };
   flake.clan = {
     meta = {
       name = "elotoja";

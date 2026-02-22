@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   settings,
@@ -11,7 +10,6 @@ in {
   options.modules.home.catppuccin = {
     enable = lib.mkEnableOption "Enable catppuccin";
   };
-  imports = [inputs.catppuccin.homeModules.catppuccin];
   config = lib.mkIf cfg.enable {
     catppuccin = {
       enable = true;
