@@ -1,6 +1,6 @@
 {
-  flake.nixosModules.default = ../nixosModules/default.nix;
-  clan = {
+  # flake.nixosModules.default = ../nixosModules/default.nix;
+  flake.clan = {
     meta = {
       name = "elotoja";
       domain = "elotoja";
@@ -11,10 +11,6 @@
       # tags = {config, ...}: {
       #   backup = builtins.filter (name: name != "blob64" && name != "installer") config.nixos;
       # };
-
-      machines = {
-        laptop.deploy.targetHost = "root@laptop.x";
-      };
 
       instances = {
         emergency-access = {

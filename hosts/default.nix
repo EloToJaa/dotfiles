@@ -1,7 +1,6 @@
 {
   imports = [
     ./desktop
-    ./laptop
     ./miro
     # ./nas
     ./server

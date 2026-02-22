@@ -14,7 +14,8 @@
         inputs.devshell.flakeModule
         # ./terranix
         ./settings.nix
-        ./hosts
+        ./machines/flake-module.nix
+        # ./hosts
         ./pkgs
         ./overlays.nix
       ];

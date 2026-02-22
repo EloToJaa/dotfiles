@@ -65,6 +65,9 @@
       ++ [pkgs.cpupower-gui];
   };
 
+  imports = [
+    ./../../nixosModules
+  ];
   modules = {
     base = {
       enable = true;
