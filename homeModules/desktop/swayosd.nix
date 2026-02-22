@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.modules.desktop.hyprland) mainMod;
+  inherit (config.modules.desktop) mainMod;
   cfg = config.modules.desktop.swayosd;
 in {
   options.modules.desktop.swayosd = {
