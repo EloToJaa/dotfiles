@@ -1,10 +1,11 @@
-{
-  networking.hostName = "laptop";
+{config, ...}: let
+  inherit (config.settings) username;
+in {
   _module.args.host = "laptop";
   imports = [
     ./config.nix
     {
-      home-manager.users.elotoja.imports = [
+      home-manager.users.${username}.imports = [
         ./home.nix
       ];
     }
