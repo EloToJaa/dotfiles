@@ -1,12 +1,18 @@
 {
-  flake.nixosModules.inputs-args = {inputs, ...}: {
-    _module.args.inputs = inputs;
-  };
+  inputs,
+  self,
+  ...
+}: {
   flake.clan = {
     meta = {
       name = "elotoja";
       domain = "elotoja";
       description = "EloToJa's clan";
+    };
+
+    specialArgs = {
+      inherit inputs;
+      outputs = self;
     };
 
     inventory = {

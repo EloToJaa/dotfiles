@@ -66,7 +66,9 @@
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
-        "sops-nix": "sops-nix",
+        "sops-nix": [
+          "sops-nix"
+        ],
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
       },
@@ -1135,7 +1137,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pwndbg": "pwndbg",
-        "sops-nix": "sops-nix_2",
+        "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "terranix": "terranix",
         "vicinae": "vicinae",
@@ -1185,27 +1187,6 @@
       }
     },
     "sops-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "clan-core",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768271704,
-        "narHash": "sha256-jJqlW8A3OZ5tYbXphF7U8P8g/3Cn8PPwPa4YlJ/9agg=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "691b8b6713855d0fe463993867291c158472fc6f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "sops-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs-unstable"
