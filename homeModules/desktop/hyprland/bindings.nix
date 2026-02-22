@@ -6,7 +6,7 @@
 }: let
   inherit (settings) terminal discord;
   cfg = config.modules.desktop.hyprland;
-  inherit (cfg) mainMod;
+  inherit (config.modules.desktop) mainMod;
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = {
