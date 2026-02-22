@@ -20,6 +20,10 @@
       #   backup = builtins.filter (name: name != "blob64" && name != "installer") config.nixos;
       # };
 
+      machines = {
+        laptop.deploy.targetHost = "100.81.29.41";
+      };
+
       instances = {
         emergency-access = {
           module.name = "emergency-access";
