@@ -24,6 +24,7 @@
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
     ./swayosd.nix # brightness / volume wiget
+    ./variables.nix
     ./vicinae.nix # launcher
     ./waypaper.nix # wallpaper picker
     ./wlogout.nix # logout screen

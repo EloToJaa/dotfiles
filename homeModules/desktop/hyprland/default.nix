@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.modules.desktop.hyprland = {
     enable = lib.mkEnableOption "Enable hyprland";
     mainMod = lib.mkOption {
@@ -20,6 +16,5 @@
     ./settings.nix
     ./variables.nix
     ./windowrules.nix
-    inputs.hyprland.homeManagerModules.default
   ];
 }

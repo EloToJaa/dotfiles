@@ -8,18 +8,7 @@
 in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
-      swww
-      grimblast
       hyprprop
-      hyprpicker
-      grim
-      slurp
-      wf-recorder
-      glib
-      wayland
-      woomer # zoomer for wayland
-      libnotify
-      tesseract
     ];
 
     systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];

@@ -35,6 +35,19 @@ in {
         rustdesk-flutter
         prismlauncher
         # zoom-us
+
+        ## Wayland Utilities
+        swww
+        grimblast
+        hyprpicker
+        grim
+        slurp
+        wf-recorder
+        glib
+        wayland
+        woomer # zoomer for wayland
+        libnotify
+        tesseract
       ]);
   };
 }
