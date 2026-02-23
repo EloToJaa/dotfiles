@@ -2,65 +2,91 @@
   boot.growPartition = true;
   boot.supportedFilesystems.btrfs = true;
 
-  disko.devices = {
-    disk = {
-      main = {
-        type = "disk";
-        device = "/dev/disk/by-id/nvme-RPFTJ256PDD2MWX_SS0R27339Z1CD94K149V";
-        content = {
-          type = "gpt";
-          partitions = {
-            ESP = {
-              size = "512M";
-              type = "EF00";
+  disko.devices.disk = {
+    main = {
+      type = "disk";
+      device = "/dev/disk/by-id/nvme-RPFTJ256PDD2MWX_SS0R27339Z1CD94K149V";
+      content = {
+        type = "gpt";
+        partitions = {
+          ESP = {
+            size = "512M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = ["umask=0077"];
+            };
+          };
+          luks = {
+            size = "100%";
+            content = {
+              type = "luks";
+              name = "crypted";
+              # disable settings.keyFile if you want to use interactive password entry
+              #passwordFile = "/tmp/secret.key"; # Interactive
+              settings.allowDiscards = true;
+              # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
               content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+                type = "btrfs";
+                extraArgs = ["-f"];
+                subvolumes = {
+                  "/root" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "/home" = {
+                    mountpoint = "/home";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "/nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "/swap" = {
+                    mountpoint = "/.swapvol";
+                    swap.swapfile.size = "20M";
+                  };
+                };
               };
             };
-            luks = {
-              size = "100%";
+          };
+        };
+      };
+    };
+    data = {
+      type = "disk";
+      device = "/dev/disk/by-id/ata-CT500MX500SSD1_2130E5BAD987";
+      content = {
+        type = "gpt";
+        partitions = {
+          luks_data = {
+            size = "100%";
+            content = {
+              type = "luks";
+              name = "crypted_data";
+              # passwordFile = "/tmp/data.key";
+              settings = {
+                allowDiscards = true;
+                # keyFile = "/tmp/data.key";
+              };
               content = {
-                type = "luks";
-                name = "crypted";
-                # disable settings.keyFile if you want to use interactive password entry
-                #passwordFile = "/tmp/secret.key"; # Interactive
-                settings = {
-                  allowDiscards = true;
-                  # keyFile = "/tmp/secret.key";
-                };
-                # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
-                content = {
-                  type = "btrfs";
-                  extraArgs = ["-f"];
-                  subvolumes = {
-                    "/root" = {
-                      mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    "/home" = {
-                      mountpoint = "/home";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    "/nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    "/swap" = {
-                      mountpoint = "/.swapvol";
-                      swap.swapfile.size = "20M";
-                    };
+                type = "btrfs";
+                extraArgs = ["-f"];
+                subvolumes = {
+                  "/data" = {
+                    mountpoint = "/mnt/data";
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                 };
               };
