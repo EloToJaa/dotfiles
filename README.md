@@ -10,6 +10,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 
 ## TODO
 
+### High priority
+
 - [x] Add paperless
 - [x] Add radicale
 - [x] Add immich
@@ -38,20 +40,22 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add iwmenu and bzmenu
 - [x] Add home-assistant
 - [x] Add redis
+- [x] Add authelia
+- [x] Migrate postgresql from v16 to v18
+- [x] Migrate first host to clan
+- [ ] Migrate all hosts to clan
 - [ ] Setup disko for each host
-- [ ] Migrate postgresql from v16 to v18
 - [ ] Add forms and onlyoffice to nextcloud
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
-- [ ] Add authelia
 - [ ] Setup nas host with NixOS
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup logs in /var/log with loki and promtail
 
-Low priority:
+### Low priority
 
 - [ ] Add goaccess
-- [ ] Setup music navidrome & lidarr
+- [ ] Setup music navidrome/jellyfin & lidarr
 - [ ] Add microbin (pastebin alternative)
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
