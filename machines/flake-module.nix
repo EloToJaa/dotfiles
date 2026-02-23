@@ -20,7 +20,7 @@ in {
 
     inventory = {
       machines = {
-        laptop.deploy.targetHost = "100.81.29.41";
+        laptop.deploy.targetHost = "${username}@100.110.242.103";
       };
 
       instances = {
