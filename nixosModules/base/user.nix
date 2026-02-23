@@ -10,16 +10,13 @@
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
-    clan.core.vars.generators.root-password = {
-      prompts.password.description = "Root password";
+    clan.core.vars.generators."${username}-password" = {
+      prompts.password.description = "${username} password";
       prompts.password.type = "hidden";
       files.hash.secret = false;
       script = "mkpasswd -m sha-512 < $prompts/password > $out/hash";
       runtimeInputs = [pkgs.mkpasswd];
     };
-
-    users.users.root.hashedPasswordFile =
-      config.clan.core.vars.generators.root-password.files.hash.path;
 
     home-manager = {
       backupFileExtension = "backup";
@@ -40,7 +37,7 @@ in {
 
     users.users.${username} = {
       isNormalUser = true;
-      hashedPasswordFile = config.clan.core.vars.generators.root-password.files.hash.path;
+      hashedPasswordFile = config.clan.core.vars.generators."${username}-password".files.hash.path;
       description = username;
       group = username;
       extraGroups = [
