@@ -1,8 +1,11 @@
 {
   inputs,
   self,
+  config,
   ...
-}: {
+}: let
+  inherit (config.settings) username;
+in {
   flake.clan = {
     meta = {
       name = "elotoja";
@@ -32,7 +35,15 @@
           module.input = "clan-core";
         };
 
-        tor.roles.server.tags.nixos = {};
+        wifi = {
+          module.name = "wifi";
+          module.input = "clan-core";
+          roles.default = {
+            machines.laptop = {
+              settings.networks.home = {};
+            };
+          };
+        };
 
         users-root = {
           module.name = "users";
@@ -41,7 +52,16 @@
           roles.default.settings = {
             user = "root";
             prompt = false;
-            groups = [];
+          };
+        };
+
+        "users-${username}" = {
+          module.name = "users";
+          module.input = "clan-core";
+          roles.default.tags.nixos = {};
+          roles.default.settings = {
+            user = username;
+            share = true;
           };
         };
       };
