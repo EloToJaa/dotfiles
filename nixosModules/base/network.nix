@@ -18,7 +18,7 @@ in {
         description = "Tailscale auth key";
         type = "hidden";
       };
-      files.auth_key = {
+      files.auth-key = {
         secret = true;
         deploy = true;
       };
