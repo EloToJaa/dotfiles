@@ -43,6 +43,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add authelia
 - [x] Migrate postgresql from v16 to v18
 - [x] Migrate first host to clan
+- [ ] Migrate sops to clan vars
+- [ ] Migrate backups to clan bordbackups
 - [ ] Migrate all hosts to clan
 - [ ] Setup disko for each host
 - [ ] Add forms and onlyoffice to nextcloud
