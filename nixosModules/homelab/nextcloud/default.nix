@@ -43,7 +43,7 @@ in {
       appstoreEnable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (pkgs.unstable.nextcloud32Packages.apps) mail calendar contacts;
+        inherit (pkgs.unstable.nextcloud32Packages.apps) calendar contacts; #mail
       };
 
       # Caching
