@@ -34,6 +34,7 @@ in {
 
     environment.systemPackages = with pkgs.unstable; [
       wget
+      neovim
     ];
 
     time.timeZone = timezone;
