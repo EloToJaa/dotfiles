@@ -7,11 +7,26 @@
 }: let
   inherit (config.settings) dns username;
   cfg = config.modules.base;
+  interfaceName = "tailscale0";
 in {
   options.modules.base.tailscale = {
     enable = lib.mkEnableOption "Enable tailscale";
   };
   config = lib.mkIf cfg.enable {
+    clan.core.vars.generators.tailscale-key = {
+      prompts.auth-key = {
+        description = "Tailscale auth key";
+        type = "hidden";
+      };
+      files.auth_key = {
+        secret = true;
+        deploy = true;
+      };
+      share = true;
+      script = ''
+        cat $prompts/auth-key > $out/auth-key
+      '';
+    };
     networking = {
       hostName = host;
       networkmanager = {
@@ -29,14 +44,17 @@ in {
       fallbackDns = dns;
       dnsovertls = "opportunistic";
     };
+    networking.firewall.trustedInterfaces = [interfaceName];
     services.tailscale = {
       inherit (cfg.tailscale) enable;
-      package = pkgs.tailscale;
+      inherit interfaceName;
+      package = pkgs.unstable.tailscale;
       # Enable caddy to acquire certificates from the tailscale daemon
       # - https://tailscale.com/blog/caddy
       permitCertUid = lib.mkIf config.services.caddy.enable "caddy";
       openFirewall = true;
       useRoutingFeatures = "both";
+      authKeyFile = config.clan.core.vars.generators.tailscale-key.files.auth-key.path;
     };
     users.users.${username}.extraGroups = [
       "networkmanager"
