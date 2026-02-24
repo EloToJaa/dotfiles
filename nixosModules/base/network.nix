@@ -13,7 +13,7 @@ in {
     enable = lib.mkEnableOption "Enable tailscale";
   };
   config = lib.mkIf cfg.enable {
-    clan.core.vars.generators.tailscale-key = {
+    clan.core.vars.generators.tailscale = {
       prompts.auth-key = {
         description = "Tailscale auth key";
         type = "hidden";
@@ -54,7 +54,7 @@ in {
       permitCertUid = lib.mkIf config.services.caddy.enable "caddy";
       openFirewall = true;
       useRoutingFeatures = "both";
-      authKeyFile = config.clan.core.vars.generators.tailscale-key.files.auth-key.path;
+      authKeyFile = config.clan.core.vars.generators.tailscale.files.auth-key.path;
     };
     users.users.${username}.extraGroups = [
       "networkmanager"
