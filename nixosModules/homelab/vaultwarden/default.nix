@@ -42,7 +42,7 @@ in {
         signupsAllowed = false;
         invitationsAllowed = false;
         websocketEnabled = true;
-        databaseUrl = "postgresql://${cfg.name}@%2Frun%2Fpostgresql/bitwarden_rs";
+        databaseUrl = "postgresql://${cfg.name}@%2Frun%2Fpostgresql/${cfg.name}";
       };
     };
     systemd.services.vaultwarden.serviceConfig = {
@@ -66,15 +66,7 @@ in {
 
     clan.core.vars.generators.vaultwarden = {
       files = {
-        pg-password = {
-          secret = true;
-          owner = cfg.name;
-        };
         admin-token-plaintext = {
-          secret = true;
-          owner = cfg.name;
-        };
-        admin-token-hash = {
           secret = true;
           owner = cfg.name;
         };
@@ -84,15 +76,11 @@ in {
         };
       };
       runtimeInputs = with pkgs; [
-        pwgen
         coreutils
         openssl
         libargon2
       ];
       script = ''
-        PG_PASS=$(pwgen -s 64 1)
-        echo -n "$PG_PASS" > $out/pg-password
-
         # Generate admin token plaintext (64 random bytes, URL-safe base64)
         openssl rand 64 | openssl base64 -A | tr '+/' '-_' | tr -d '=' > "$out/admin-token-plaintext"
 
@@ -104,7 +92,6 @@ in {
         HASH=$(echo -n "$(cat "$out/admin-token-plaintext")" | argon2 "$SALT" -id -t 3 -m 16 -p 4 -l 32 -e)
 
         cat > "$out/envfile" << EOF
-        DATABASE_URL=postgresql://${cfg.name}:$PG_PASS@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
         ADMIN_TOKEN='$HASH'
         EOF
       '';
