@@ -13,11 +13,15 @@ in {
     home.packages = with pkgs.unstable; [
       eslint_d
       prettierd
+      typescript-go
     ];
 
     programs.nixvim = {
       lsp.servers = {
-        ts_ls.enable = true;
+        tsgo = {
+          enable = true;
+          package = null;
+        };
         astro.enable = true;
         svelte.enable = true;
         tailwindcss.enable = true;
