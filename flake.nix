@@ -28,7 +28,7 @@
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = overlaysList;
-          config = {allowUnfree = true;};
+          config.allowUnfree = true;
         };
 
         devshells.default = {
@@ -51,9 +51,11 @@
 
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.sops-nix.follows = "sops-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        sops-nix.follows = "sops-nix";
+      };
     };
 
     hyprland = {
