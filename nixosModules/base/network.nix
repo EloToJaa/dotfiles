@@ -20,7 +20,6 @@ in {
       };
       files.auth-key = {
         secret = true;
-        deploy = true;
       };
       share = true;
       script = ''
