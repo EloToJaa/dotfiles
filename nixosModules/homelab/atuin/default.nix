@@ -25,7 +25,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.atuin = {
       enable = true;
-      package = pkgs.unstable.atuin;
+      package = pkgs.atuin;
       openRegistration = false;
       database = {
         uri = null;
