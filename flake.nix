@@ -31,12 +31,10 @@
           config.allowUnfree = true;
         };
 
-        devshells.default = {
-          packages = with pkgs.unstable; [
-            inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
-            nurl
-          ];
-        };
+        devshells.default.packages = with pkgs.unstable; [
+          inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
+          nurl
+        ];
       };
     };
 
