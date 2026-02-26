@@ -9,6 +9,7 @@
     ./duo
     ./hardware.nix
     ./index.nix
+    ./initrd.nix
     ./network.nix
     ./nfs.nix
     ./nh.nix
