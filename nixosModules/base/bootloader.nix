@@ -29,14 +29,11 @@ in {
       needsreboot
     ];
 
-    system = {
-      activationScripts.nixos-needsreboot = {
-        supportsDryActivation = true;
-        text = "${
-          lib.getExe needsreboot
-        } \"$systemConfig\" || true";
-      };
-      # nixos.label = "-";
+    system.activationScripts.nixos-needsreboot = {
+      supportsDryActivation = true;
+      text = "${
+        lib.getExe needsreboot
+      } \"$systemConfig\" || true";
     };
     # To prevent getting stuck at shutdown
     systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
