@@ -82,11 +82,9 @@
             content = {
               type = "btrfs";
               extraArgs = ["-f"];
-              subvolumes = {
-                "/data" = {
-                  mountpoint = "/mnt/data";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
+              subvolumes."/data" = {
+                mountpoint = "/mnt/data";
+                mountOptions = ["compress=zstd" "noatime"];
               };
             };
           };
