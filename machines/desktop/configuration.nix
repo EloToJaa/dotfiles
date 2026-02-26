@@ -1,7 +1,7 @@
 {config, ...}: let
   inherit (config.settings) username;
 in {
-  _module.args.host = "laptop";
+  _module.args.host = "desktop";
   imports = [
     ./config.nix
     {
