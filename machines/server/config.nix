@@ -25,8 +25,9 @@
       enable = true;
       bootloader.enable = true;
       docker.enable = true;
-      duo.enable = true;
+      duo.enable = false;
       index.enable = true;
+      initrd.enable = true;
       tailscale.enable = true;
       nfs.enable = true;
       nh.enable = true;
