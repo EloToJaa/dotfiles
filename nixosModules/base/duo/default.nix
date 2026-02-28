@@ -9,7 +9,6 @@ in {
     enable = lib.mkEnableOption "Enable duo";
   };
 
-  # TODO: Remove this once the servarr module is fixed https://github.com/NixOS/nixpkgs/pull/486213
   disabledModules = [
     "security/duosec.nix"
   ];
