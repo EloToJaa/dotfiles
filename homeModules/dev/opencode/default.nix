@@ -2,26 +2,41 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.modules.dev.opencode;
-  skills = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
+  aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  skills = {
+    # inherit (pkgs) btca;
+    inherit (aiTools) workmux;
+    anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
+  };
 in {
   options.modules.dev.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = with pkgs; [btca];
+    home.packages = with pkgs; [
+      # btca
+      aiTools.workmux
+    ];
+    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${aiTools.workmux}/plugins/workmux-status.ts";
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
     programs.opencode = {
       enable = true;
-      package = pkgs.unstable.opencode;
+      package = aiTools.opencode;
       rules = ./AGENTS.md;
       skills = {
         # better-context = "${pkgs.btca}/skills/btca-cli/";
-        frontend-design = "${skills}/skills/frontend-design/";
+        frontend-design = "${skills.anthropic}/skills/frontend-design/";
+        coordinator = "${skills.workmux}/skills/coordinator/";
+        merge = "${skills.workmux}/skills/merge/";
+        open-pr = "${skills.workmux}/skills/open-pr/";
+        rebase = "${skills.workmux}/skills/rebase/";
+        worktree = "${skills.workmux}/skills/worktree/";
       };
       settings = {
         theme = "catppuccin";
