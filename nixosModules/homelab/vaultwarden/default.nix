@@ -35,7 +35,7 @@ in {
       enable = true;
       package = pkgs.unstable.vaultwarden;
       dbBackend = "postgresql";
-      environmentFile = config.clan.core.generators.vaultwarden.files.envfile.path;
+      environmentFile = config.clan.core.vars.generators.vaultwarden.files.envfile.path;
       config = {
         domain = "${cfg.domainName}.${homelab.baseDomain}";
         rocketPort = cfg.port;
