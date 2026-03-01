@@ -18,7 +18,6 @@ in {
         inherit inputs host;
         inherit (config) settings;
       };
-      users.mutableUsers = false;
       users.${username} = {
         home = {
           inherit stateVersion username homeDirectory;
@@ -28,22 +27,24 @@ in {
       };
     };
 
-    users.users.${username} = {
-      isNormalUser = true;
-      description = username;
-      group = username;
-      extraGroups = [
-        "wheel"
-        "kvm"
-      ];
-      shell = pkgs.unstable.zsh;
+    users = {
+      mutableUsers = false;
+      users.${username} = {
+        isNormalUser = true;
+        description = username;
+        group = username;
+        extraGroups = [
+          "wheel"
+          "kvm"
+        ];
+        shell = pkgs.unstable.zsh;
+      };
+      groups.${username} = {
+        gid = uid;
+        members = [username];
+      };
     };
 
     nix.settings.allowed-users = [username];
-
-    users.groups.${username} = {
-      gid = uid;
-      members = [username];
-    };
   };
 }
