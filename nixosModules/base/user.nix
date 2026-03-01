@@ -18,6 +18,7 @@ in {
         inherit inputs host;
         inherit (config) settings;
       };
+      users.mutableUsers = false;
       users.${username} = {
         home = {
           inherit stateVersion username homeDirectory;
