@@ -30,7 +30,7 @@ in {
     services.bazarr = {
       inherit (cfg) group;
       enable = true;
-      package = pkgs.bazarr;
+      package = pkgs.unstable.bazarr;
       user = cfg.name;
       listenPort = cfg.port;
       dataDir = "${homelab.dataDir}${cfg.name}";
