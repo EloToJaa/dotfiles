@@ -56,16 +56,6 @@ in {
             prompt = false;
           };
         };
-
-        "users-${username}" = {
-          module.name = "users";
-          module.input = "clan-core";
-          roles.default.tags.nixos = {};
-          roles.default.settings = {
-            user = username;
-            share = true;
-          };
-        };
       };
     };
   };
