@@ -29,6 +29,8 @@ in {
         cat $prompts/password-input | mkpasswd -m sha-512 > $out/password-hash
       '';
 
+      share = true;
+
       # the tools required by the script
       runtimeInputs = [pkgs.mkpasswd];
     };
