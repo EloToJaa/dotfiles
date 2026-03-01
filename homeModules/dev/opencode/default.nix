@@ -16,12 +16,14 @@ in {
   options.modules.dev.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
   };
+  imports = [
+    ./workmux.nix
+  ];
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # btca
       aiTools.workmux
     ];
-    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${aiTools.workmux}/plugins/workmux-status.ts";
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
@@ -32,11 +34,6 @@ in {
       skills = {
         # better-context = "${pkgs.btca}/skills/btca-cli/";
         frontend-design = "${skills.anthropic}/skills/frontend-design/";
-        coordinator = "${skills.workmux}/skills/coordinator/";
-        merge = "${skills.workmux}/skills/merge/";
-        open-pr = "${skills.workmux}/skills/open-pr/";
-        rebase = "${skills.workmux}/skills/rebase/";
-        worktree = "${skills.workmux}/skills/worktree/";
       };
       settings = {
         theme = "catppuccin";
