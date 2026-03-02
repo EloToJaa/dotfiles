@@ -50,7 +50,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.grafana.folders = [
       cfg.dataDir
     ];
   };

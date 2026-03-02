@@ -85,7 +85,7 @@ in {
         "uptime_kuma"
       ];
     };
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.home-assistant.folders = [
       cfg.dataDir
     ];
 

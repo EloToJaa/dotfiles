@@ -55,7 +55,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.uptime.folders = [
       cfg.dataDir
     ];
 

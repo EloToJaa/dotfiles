@@ -68,9 +68,9 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
-    # services.restic.backups.appdata-local.paths = [
-    #   cfg.dataDir
-    # ];
+    clan.core.state.n8n.folders = [
+      cfg.dataDir
+    ];
 
     users.users.${cfg.name} = {
       inherit (cfg) group;

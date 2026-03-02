@@ -96,7 +96,7 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.paperless.folders = [
       cfg.dataDir
       cfg.mediaDir
     ];

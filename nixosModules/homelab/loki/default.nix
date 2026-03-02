@@ -48,7 +48,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.loki.folders = [
       cfg.dataDir
     ];
   };

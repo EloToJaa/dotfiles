@@ -81,7 +81,7 @@ in {
     services.postgresqlBackup.databases = [
       cfg.name
     ];
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.jellyseerr.folders = [
       cfg.configDir
     ];
 

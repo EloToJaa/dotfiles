@@ -57,7 +57,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.karakeep.folders = [
       cfg.dataDir
     ];
 

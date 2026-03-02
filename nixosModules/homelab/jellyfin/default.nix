@@ -53,7 +53,7 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.jellyfin.folders = [
       cfg.dataDir
     ];
 

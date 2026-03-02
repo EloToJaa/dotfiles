@@ -127,7 +127,7 @@ in {
         reverse_proxy http://${cfg.host}:${toString cfg.port}
       '';
     };
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.immich.folders = [
       cfg.dataDir
       cfg.mediaDir
     ];

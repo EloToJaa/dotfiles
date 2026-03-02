@@ -47,7 +47,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.prometheus.folders = [
       cfg.stateDir
     ];
 

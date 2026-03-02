@@ -71,7 +71,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.ntfy.folders = [
       cfg.dataDir
     ];
 

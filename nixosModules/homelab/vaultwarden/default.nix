@@ -60,7 +60,7 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
+    clan.core.state.vaultwarden.folders = [
       cfg.dataDir
     ];
 
