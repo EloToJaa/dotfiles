@@ -24,6 +24,8 @@ in {
       enableTCPIP = true;
     };
 
+    clan.core.postgresql.enable = true;
+
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
 }

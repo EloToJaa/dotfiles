@@ -197,18 +197,21 @@ in {
       after = ["postgresql.service"];
     };
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = [];
+      };
+      users.${cfg.name} = {};
+    };
     clan.core.state.nextcloud.folders = [
       cfg.dataDir
     ];
