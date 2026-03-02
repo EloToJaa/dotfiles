@@ -95,14 +95,35 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["paperless-scheduler.service"];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.paperless.folders = [
-      cfg.dataDir
-      cfg.mediaDir
-    ];
+    clan.core.state.paperless = {
+      folders = [
+        cfg.dataDir
+        cfg.mediaDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop paperless-scheduler.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start paperless-scheduler.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

@@ -48,8 +48,29 @@ in {
       '';
     };
 
-    clan.core.state.loki.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.loki = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop loki.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start loki.service
+      '';
+    };
   };
 }

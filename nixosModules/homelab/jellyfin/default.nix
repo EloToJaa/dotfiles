@@ -53,9 +53,30 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
-    clan.core.state.jellyfin.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.jellyfin = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop jellyfin.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start jellyfin.service
+      '';
+    };
 
     services.caddy.virtualHosts = let
       extraConfig = ''

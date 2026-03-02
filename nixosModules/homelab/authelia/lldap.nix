@@ -69,7 +69,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["lldap.service"];
       };
       users.${cfg.name} = {};
     };

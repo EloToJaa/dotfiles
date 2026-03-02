@@ -70,7 +70,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["bazarr.service"];
       };
       users.${cfg.name} = {};
     };

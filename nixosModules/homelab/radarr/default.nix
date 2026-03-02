@@ -61,7 +61,7 @@ in {
               OWNER = cfg.name;
             };
           };
-          restore.stopOnRestore = [];
+          restore.stopOnRestore = ["radarr.service"];
         };
         "${cfg.name}-log" = {
           create = {
@@ -73,7 +73,7 @@ in {
               OWNER = cfg.name;
             };
           };
-          restore.stopOnRestore = [];
+          restore.stopOnRestore = ["radarr.service"];
         };
       };
       users.${cfg.name} = {};

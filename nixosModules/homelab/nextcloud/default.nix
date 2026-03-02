@@ -208,13 +208,39 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = [
+          "phpfpm-nextcloud.service"
+          "nextcloud-cron.timer"
+        ];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.nextcloud.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.nextcloud = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop phpfpm-nextcloud.service
+        systemctl stop nextcloud-cron.timer
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start phpfpm-nextcloud.service
+        systemctl start nextcloud-cron.timer
+      '';
+    };
 
     sops.secrets = {
       "${cfg.name}/adminpassword" = {

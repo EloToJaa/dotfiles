@@ -127,10 +127,31 @@ in {
         reverse_proxy http://${cfg.host}:${toString cfg.port}
       '';
     };
-    clan.core.state.immich.folders = [
-      cfg.dataDir
-      cfg.mediaDir
-    ];
+    clan.core.state.immich = {
+      folders = [
+        cfg.dataDir
+        cfg.mediaDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop container@immich.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start container@immich.service
+      '';
+    };
 
     # Enable NAT for the container
     networking.nat = {

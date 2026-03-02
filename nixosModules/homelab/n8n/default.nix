@@ -67,13 +67,34 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["n8n.service"];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.n8n.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.n8n = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop n8n.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start n8n.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       inherit (cfg) group;

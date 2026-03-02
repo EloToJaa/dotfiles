@@ -55,9 +55,30 @@ in {
       '';
     };
 
-    clan.core.state.uptime.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.uptime = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop uptime-kuma.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start uptime-kuma.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

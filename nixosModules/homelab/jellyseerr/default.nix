@@ -80,13 +80,34 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["jellyseerr.service"];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.jellyseerr.folders = [
-      cfg.configDir
-    ];
+    clan.core.state.jellyseerr = {
+      folders = [
+        cfg.configDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop jellyseerr.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start jellyseerr.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

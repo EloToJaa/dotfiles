@@ -53,7 +53,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["pgadmin.service"];
       };
       users.${cfg.name} = {};
     };

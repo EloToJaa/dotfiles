@@ -54,7 +54,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["atuin.service"];
       };
       users.${cfg.name} = {};
     };

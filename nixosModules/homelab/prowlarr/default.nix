@@ -73,7 +73,7 @@ in {
               OWNER = cfg.name;
             };
           };
-          restore.stopOnRestore = [];
+          restore.stopOnRestore = ["prowlarr.service"];
         };
         "${cfg.name}-log" = {
           create = {
@@ -85,7 +85,7 @@ in {
               OWNER = cfg.name;
             };
           };
-          restore.stopOnRestore = [];
+          restore.stopOnRestore = ["prowlarr.service"];
         };
       };
       users.${cfg.name} = {};

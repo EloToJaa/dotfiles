@@ -57,9 +57,36 @@ in {
       '';
     };
 
-    clan.core.state.karakeep.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.karakeep = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop karakeep-browser.service
+        systemctl stop karakeep-init.service
+        systemctl stop karakeep-web.service
+        systemctl stop karakeep-workers.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start karakeep-browser.service
+        systemctl start karakeep-init.service
+        systemctl start karakeep-web.service
+        systemctl start karakeep-workers.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

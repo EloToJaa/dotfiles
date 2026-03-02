@@ -60,9 +60,30 @@ in {
       '';
     };
 
-    clan.core.state.vaultwarden.folders = [
-      cfg.dataDir
-    ];
+    clan.core.state.vaultwarden = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop vaultwarden.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start vaultwarden.service
+      '';
+    };
 
     clan.core.vars.generators.vaultwarden = {
       files = {
@@ -107,7 +128,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["vaultwarden.service"];
       };
       users.${cfg.name} = {};
     };

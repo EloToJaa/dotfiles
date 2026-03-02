@@ -71,13 +71,34 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["jellystat.service"];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.jellystat.folders = [
-      cfg.backupDir
-    ];
+    clan.core.state.jellystat = {
+      folders = [
+        cfg.backupDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop jellystat.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start jellystat.service
+      '';
+    };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;

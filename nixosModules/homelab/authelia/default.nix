@@ -143,7 +143,7 @@ in {
             OWNER = cfg.name;
           };
         };
-        restore.stopOnRestore = [];
+        restore.stopOnRestore = ["authelia-main.service"];
       };
       users.${cfg.name} = {};
     };
