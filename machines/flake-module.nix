@@ -26,6 +26,19 @@ in {
       };
 
       instances = {
+        borgbackup = {
+          module = {
+            name = "borgbackup";
+            input = "clan-core";
+          };
+          roles.client.machines.server.settings = {
+            destinations.storagebox = {
+              repo = "u441859-sub1@u441859-sub1.your-storagebox.de:/./borgbackup";
+              rsh = ''ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh'';
+            };
+          };
+        };
+
         emergency-access = {
           module.name = "emergency-access";
           module.input = "clan-core";
