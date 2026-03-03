@@ -51,10 +51,11 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Migrate postgresql from v16 to v18
 - [x] Migrate first host to clan
 - [x] Migrate all hosts to clan
+- [x] Migrate postgresql to clan postgresql
+- [x] Migrate backups to clan bordbackups
+- [x] Setup disko for each host
 - [ ] Migrate sops to clan vars
-- [ ] Migrate backups to clan bordbackups
 - [ ] Migrate caddy to nginx
-- [ ] Setup disko for each host
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup nas host with NixOS
 
