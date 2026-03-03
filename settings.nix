@@ -62,6 +62,10 @@ in {
       type = lib.types.str;
       default = "pl,pl";
     };
+    stateVersion = lib.mkOption {
+      type = lib.types.str;
+      default = "25.11";
+    };
     dns = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = ["192.168.0.32" "9.9.9.9" "149.112.112.112"];

@@ -6,12 +6,10 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username uid homeDirectory;
-  inherit (config.clan.core.settings) state-version;
+  inherit (config.settings) username stateVersion uid homeDirectory;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
-    clan.core.settings.state-version.enable = true;
     clan.core.vars.generators."${username}-password" = {
       # prompt the user for a password
       # (`password-input` being an arbitrary name)
@@ -47,8 +45,7 @@ in {
       };
       users.${username} = {
         home = {
-          inherit username homeDirectory;
-          stateVersion = state-version;
+          inherit stateVersion username homeDirectory;
           enableNixpkgsReleaseCheck = false;
         };
         programs.home-manager.enable = true;
