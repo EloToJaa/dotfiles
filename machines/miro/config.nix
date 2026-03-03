@@ -32,7 +32,6 @@
     };
     homelab = {
       enable = true;
-      backup.enable = true;
       blocky.enable = true;
       caddy.enable = true;
       groups.enable = true;
