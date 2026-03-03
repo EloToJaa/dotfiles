@@ -11,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable opencode module";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [btca];
+    # home.packages = with pkgs; [btca];
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
