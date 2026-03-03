@@ -11,6 +11,7 @@
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
+    clan.core.settings.state-version.enable = true;
     clan.core.vars.generators."${username}-password" = {
       # prompt the user for a password
       # (`password-input` being an arbitrary name)

@@ -24,7 +24,6 @@ in {
         desktop.deploy.targetHost = "${username}@100.97.5.37";
         server.deploy.targetHost = "${username}@100.84.164.91";
       };
-      clan.core.settings.state-version.enable = true;
 
       instances = {
         borgbackup = {
