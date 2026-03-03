@@ -6,7 +6,8 @@
   config,
   ...
 }: let
-  inherit (config.settings) username timezone locale stateVersion;
+  inherit (config.settings) username timezone locale;
+  inherit (config.clan.core.settings) state-version;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
@@ -39,7 +40,7 @@ in {
 
     time.timeZone = timezone;
     i18n.defaultLocale = locale;
-    system.stateVersion = stateVersion;
+    system.stateVersion = state-version;
 
     nixpkgs = {
       overlays = [

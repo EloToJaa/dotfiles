@@ -6,7 +6,8 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username stateVersion uid homeDirectory;
+  inherit (config.settings) username uid homeDirectory;
+  inherit (config.clan.core.settings) state-version;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
@@ -45,7 +46,8 @@ in {
       };
       users.${username} = {
         home = {
-          inherit stateVersion username homeDirectory;
+          inherit username homeDirectory;
+          stateVersion = state-version;
           enableNixpkgsReleaseCheck = false;
         };
         programs.home-manager.enable = true;

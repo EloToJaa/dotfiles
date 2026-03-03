@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (config.settings) stateVersion;
+  inherit (config.clan.core.settings) state-version;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.immich;
 in {
@@ -83,7 +83,7 @@ in {
           "d ${homelab.varDataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
         ];
 
-        system.stateVersion = stateVersion;
+        system.stateVersion = state-version;
 
         networking = {
           firewall.enable = true;
