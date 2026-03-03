@@ -56,6 +56,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Setup disko for each host
 - [ ] Migrate sops to clan vars
 - [ ] Migrate caddy to nginx
+- [ ] Migrate state directories from `/opt/` to `/var/lib/`
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup nas host with NixOS
 

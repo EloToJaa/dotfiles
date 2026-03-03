@@ -25,15 +25,18 @@ in {
       type = lib.types.str;
       default = homelab.groups.media;
     };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.dataDir}${cfg.name}";
+    };
   };
   config = lib.mkIf cfg.enable {
     services.bazarr = {
-      inherit (cfg) group;
+      inherit (cfg) group dataDir;
       enable = true;
       package = pkgs.unstable.bazarr;
       user = cfg.name;
       listenPort = cfg.port;
-      dataDir = "${homelab.dataDir}${cfg.name}";
     };
     systemd.services.bazarr = {
       environment = {
@@ -59,6 +62,30 @@ in {
       '';
     };
 
+    clan.core.state.bazarr = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop bazarr.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start bazarr.service
+      '';
+    };
     clan.core.postgresql = {
       databases.${cfg.name} = {
         create = {
