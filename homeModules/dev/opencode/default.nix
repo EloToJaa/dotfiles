@@ -20,7 +20,7 @@ in {
       package = pkgs.unstable.opencode;
       rules = ./AGENTS.md;
       skills = {
-        better-context = "${pkgs.btca}/skills/btca-cli/";
+        # better-context = "${pkgs.btca}/skills/btca-cli/";
         frontend-design = "${skills}/skills/frontend-design/";
       };
       settings = {
