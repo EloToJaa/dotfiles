@@ -31,7 +31,7 @@ in {
         subfolders = False
         show_hidden = False
         show_gifs_only = False
-        post_command = wall-change $wallpaper
+        post_command = pkill .waypaper-wrap && wall-change $wallpaper
         number_of_columns = 3
         swww_transition_type = any
         swww_transition_step = 90
