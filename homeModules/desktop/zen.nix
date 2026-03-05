@@ -16,21 +16,21 @@ in {
       languagePacks = ["en-US"];
       suppressXdgMigrationWarning = true;
 
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
-        ublock-origin
-        refined-github
-        darkreader
-        wappalyzer
-
-        bitwarden
-        karakeep
-
-        return-youtube-dislikes
-        sponsorblock
-        dearrow
-      ];
-
       profiles.default = {
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+          ublock-origin
+          refined-github
+          darkreader
+          # wappalyzer
+
+          bitwarden
+          karakeep
+
+          return-youtube-dislikes
+          sponsorblock
+          dearrow
+        ];
+
         settings = {
           "zen.workspaces.continue-where-left-off" = true;
           "zen.workspaces.natural-scroll" = true;
@@ -54,6 +54,29 @@ in {
           "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
           "fd24f832-a2e6-4ce9-8b19-7aa888eb7f8e" # Quietify
         ];
+
+        keyboardShortcutsVersion = 16;
+        keyboardShortcuts = [
+          {
+            id = "zen-compact-mode-toggle";
+            key = "c";
+            modifiers.alt = true;
+          }
+          {
+            id = "zen-toggle-sidebar";
+            key = "b";
+            modifiers.alt = true;
+          }
+          {
+            id = "key_savePage";
+            key = "s";
+            modifiers.control = true;
+          }
+          {
+            id = "key_quitApplication";
+            disabled = true;
+          }
+        ];
       };
       policies = {
         AutofillAddressEnabled = true;
@@ -73,29 +96,6 @@ in {
           Fingerprinting = true;
         };
       };
-
-      keyboardShortcutsVersion = 16;
-      keyboardShortcuts = [
-        {
-          id = "zen-compact-mode-toggle";
-          key = "c";
-          modifiers.alt = true;
-        }
-        {
-          id = "zen-toggle-sidebar";
-          key = "b";
-          modifiers.alt = true;
-        }
-        {
-          id = "key_savePage";
-          key = "s";
-          modifiers.control = true;
-        }
-        {
-          id = "key_quitApplication";
-          disabled = true;
-        }
-      ];
     };
   };
 }
