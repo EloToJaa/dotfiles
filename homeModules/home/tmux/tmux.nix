@@ -19,7 +19,7 @@ in {
         baseIndex = 1;
         keyMode = "vi";
         escapeTime = 0;
-        secureSocket = false; # Check if has to be false for tmux-resurrect
+        secureSocket = false;
         shortcut = "a";
         newSession = true;
 
