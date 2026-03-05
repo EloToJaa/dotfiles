@@ -76,16 +76,12 @@ in {
       plugins = {
         opencode = {
           enable = true;
-          settings = {
-            provider.enabled = "tmux";
-          };
         };
         snacks = {
           enable = true;
           settings = {
             input.enable = true;
             picker.enable = true;
-            terminal.enable = true;
           };
         };
       };
