@@ -41,6 +41,7 @@ in {
         small_model = "anthropic/claude-haiku-4-5";
         autoupdate = false;
         plugin = [];
+        server.port = 4096;
         tools = {
           write = true;
           edit = true;
