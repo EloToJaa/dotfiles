@@ -102,22 +102,5 @@
         };
       };
     };
-    windows = {
-      type = "disk";
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S649NL0T757428Z";
-      content = {
-        type = "gpt";
-        partitions.windows = {
-          size = "100%";
-          type = "EF00";
-          content = {
-            type = "filesystem";
-            format = "vfat";
-            mountpoint = "/boot-windows";
-            mountOptions = ["umask=0077" "noauto"];
-          };
-        };
-      };
-    };
   };
 }
