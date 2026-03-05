@@ -57,6 +57,9 @@ in {
           bind-key r command-prompt -I "#W" { rename-window "%%" }
           bind-key R source-file ~/.config/tmux/tmux.conf
 
+          bind-key L run-shell "workmux last-done"
+          bind-key Tab run-shell "workmux last-agent"
+
           setw -g aggressive-resize on
         '';
       };
