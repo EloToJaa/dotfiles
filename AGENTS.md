@@ -11,8 +11,10 @@ This project is a Nix-based dotfiles and homelab management repository.
   - Manages all system and user configurations
 
 - **Clan.lol**: Infrastructure management and deployment tool
-  - Used to deploy, build, and install configurations across machines
+  - Used to deploy, build, and install configurations across machines (`nixos-anywhere`, `disko`, `nixos-facter`)
   - Manages homelab infrastructure and orchestration
+  - Manages backups and state directories (`borgbackup`)
+  - Manages and generates secrets (stores them using `sops`)
 
 ## Project Structure
 
