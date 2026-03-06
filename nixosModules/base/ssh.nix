@@ -30,12 +30,12 @@ in {
       runtimeInputs = [pkgs.openssh];
       script = ''
         ssh-keygen -t ed25519 -N "" -f $out/ca
-        mv $out/ca.pub $out/ca.pub
       '';
     };
 
     # Host-specific SSH keys
     clan.core.vars.generators.ssh-host = {
+      share = true;
       files = {
         "ssh_host_ed25519_key" = {
           secret = true;
