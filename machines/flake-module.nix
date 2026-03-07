@@ -21,7 +21,7 @@ in {
     inventory = {
       machines = {
         laptop.deploy.targetHost = "${username}@100.110.242.103";
-        desktop.deploy.targetHost = "${username}@100.103.16.98";
+        desktop.deploy.targetHost = "${username}@100.112.233.120";
         server.deploy.targetHost = "${username}@100.84.164.91";
       };
 
