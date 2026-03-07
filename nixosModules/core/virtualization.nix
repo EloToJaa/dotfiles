@@ -30,7 +30,7 @@ in {
     virtualisation = {
       libvirtd = {
         enable = true;
-        package = pkgs.unstable.libvirt;
+        package = pkgs.master.libvirt;
         qemu = {
           swtpm.enable = true;
         };
