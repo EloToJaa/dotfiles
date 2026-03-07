@@ -35,7 +35,6 @@ in {
 
     # Host-specific SSH keys
     clan.core.vars.generators.ssh-host = {
-      share = true;
       files = {
         "ssh_host_ed25519_key" = {
           secret = true;
@@ -76,11 +75,12 @@ in {
       settings = {
         PasswordAuthentication = false;
         AllowUsers = null;
+        KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
       };
     };
     users.users.${username}.openssh.authorizedKeys.keys = [
-      config.clan.core.vars.generators.ssh-host.files."ssh_host_ed25519_key.pub".value
+      ssh.keys.user
     ];
     networking.firewall.allowedTCPPorts = [
       cfg.port
