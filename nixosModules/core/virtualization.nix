@@ -6,6 +6,9 @@
 }: let
   inherit (config.settings) username;
   cfg = config.modules.core.virtualization;
+
+  dirName = "libvirt";
+  subDirs = list: [dirName] ++ map (e: "${dirName}/${e}") list;
 in {
   options.modules.core.virtualization = {
     enable = lib.mkEnableOption "Enable virtualization module";
@@ -38,5 +41,10 @@ in {
       spiceUSBRedirection.enable = true;
     };
     services.spice-vdagentd.enable = true;
+
+    systemd.services.libvirtd-config.serviceConfig.StateDirectory = subDirs [
+      "dnsmasq"
+      "secrets"
+    ];
   };
 }

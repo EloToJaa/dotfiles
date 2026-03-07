@@ -14,7 +14,6 @@ in {
     programs.zen-browser = {
       enable = true;
       languagePacks = ["en-US"];
-      suppressXdgMigrationWarning = true;
 
       profiles.default = {
         extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
