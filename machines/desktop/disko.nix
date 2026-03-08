@@ -1,19 +1,19 @@
 {
-  boot = {
-    growPartition = true;
-    supportedFilesystems.btrfs = true;
-    loader.systemd-boot = {
-      extraEntries."windows.conf" = ''
-        title Windows 10
-        efi /EFI/Microsoft/Boot/bootmgfw.efi
-      '';
-      extraFiles = {
-        "EFI/Microsoft/Boot/bootmgfw.efi" = "/boot-windows/EFI/Microsoft/Boot/bootmgfw.efi";
-        "EFI/Microsoft/Boot/BCD" = "/boot-windows/EFI/Microsoft/Boot/BCD";
-        "EFI/Microsoft/Boot/BootMenu.efi" = "/boot-windows/EFI/Microsoft/Boot/BootMenu.efi";
-      };
-    };
-  };
+  # boot = {
+  #   growPartition = true;
+  #   supportedFilesystems.btrfs = true;
+  #   loader.systemd-boot = {
+  #     extraEntries."windows.conf" = ''
+  #       title Windows 10
+  #       efi /EFI/Microsoft/Boot/bootmgfw.efi
+  #     '';
+  #     extraFiles = {
+  #       "EFI/Microsoft/Boot/bootmgfw.efi" = "/boot-windows/EFI/Microsoft/Boot/bootmgfw.efi";
+  #       "EFI/Microsoft/Boot/BCD" = "/boot-windows/EFI/Microsoft/Boot/BCD";
+  #       "EFI/Microsoft/Boot/BootMenu.efi" = "/boot-windows/EFI/Microsoft/Boot/BootMenu.efi";
+  #     };
+  #   };
+  # };
 
   disko.devices.disk = {
     main = {
