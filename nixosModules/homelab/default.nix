@@ -76,7 +76,6 @@ in {
     ./home-assistant
     ./immich
     ./jellyfin
-    ./jellyseerr
     ./jellystat
     ./karakeep
     ./loki
@@ -94,6 +93,7 @@ in {
     ./radarr
     ./radicale
     ./rustdesk
+    ./seerr
     ./share
     ./sonarr
     ./uptime
