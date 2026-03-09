@@ -54,6 +54,20 @@
                     "noatime"
                   ];
                 };
+                "/opt" = {
+                  mountpoint = "/opt";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
+                "/var/lib" = {
+                  mountpoint = "/var/lib";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
                 "/swap" = {
                   mountpoint = "/.swapvol";
                   swap.swapfile.size = "20M";
