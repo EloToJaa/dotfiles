@@ -5,13 +5,13 @@
   ...
 }: let
   inherit (config.modules) homelab;
-  cfg = config.modules.homelab.jellyseerr;
+  cfg = config.modules.homelab.seerr;
 in {
-  options.modules.homelab.jellyseerr = {
-    enable = lib.mkEnableOption "Enable jellyseerr";
+  options.modules.homelab.seerr = {
+    enable = lib.mkEnableOption "Enable seerr";
     name = lib.mkOption {
       type = lib.types.str;
-      default = "jellyseerr";
+      default = "seerr";
     };
     domainName = lib.mkOption {
       type = lib.types.str;
@@ -27,16 +27,19 @@ in {
     };
     configDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
   };
+  imports = [
+    ./service.nix
+  ];
   config = lib.mkIf cfg.enable {
-    services.jellyseerr = {
+    services.seerr = {
       inherit (cfg) port configDir;
       enable = true;
-      package = pkgs.unstable.jellyseerr;
+      package = pkgs.seerr;
     };
-    systemd.services.jellyseerr = {
+    systemd.services.seerr = {
       environment = {
         LOG_LEVEL = "info";
         DB_TYPE = "postgres";

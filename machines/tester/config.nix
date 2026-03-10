@@ -43,7 +43,7 @@
       home-assistant.enable = false;
       immich.enable = true;
       jellyfin.enable = true;
-      jellyseerr.enable = true;
+      seerr.enable = true;
       jellystat.enable = true;
       karakeep.enable = true;
       loki.enable = false;
