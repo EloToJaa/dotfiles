@@ -11,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable seerr";
     name = lib.mkOption {
       type = lib.types.str;
-      default = "jellyseerr";
+      default = "seerr";
     };
     domainName = lib.mkOption {
       type = lib.types.str;
@@ -27,7 +27,7 @@ in {
     };
     configDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
   };
   imports = [
