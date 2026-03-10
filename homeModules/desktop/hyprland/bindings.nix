@@ -27,7 +27,7 @@ in {
         "${mainMod}, g, exec, hyprlock"
         "${mainMod}, Escape, exec, wlogout"
         "${mainMod}, p, pseudo,"
-        "${mainMod}, x, togglesplit,"
+        # "${mainMod}, x, togglesplit,"
         "${mainMod}, t, exec, toggle-opacity"
         "${mainMod}, e, exec, nemo"
         "${mainMod} SHIFT, e, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"

@@ -15,7 +15,6 @@
         # ./terranix
         ./settings.nix
         ./machines/flake-module.nix
-        ./hosts
         ./pkgs
         ./overlays.nix
       ];
@@ -28,15 +27,13 @@
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = overlaysList;
-          config = {allowUnfree = true;};
+          config.allowUnfree = true;
         };
 
-        devshells.default = {
-          packages = with pkgs.unstable; [
-            inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
-            nurl
-          ];
-        };
+        devshells.default.packages = with pkgs.unstable; [
+          inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
+          nurl
+        ];
       };
     };
 
@@ -51,13 +48,15 @@
 
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.sops-nix.follows = "sops-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        sops-nix.follows = "sops-nix";
+      };
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/main?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.54.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
@@ -103,6 +102,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager";
     };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -110,6 +113,17 @@
     pwndbg = {
       url = "github:pwndbg/pwndbg";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";

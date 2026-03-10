@@ -19,7 +19,7 @@ in {
         baseIndex = 1;
         keyMode = "vi";
         escapeTime = 0;
-        secureSocket = false; # Check if has to be false for tmux-resurrect
+        secureSocket = false;
         shortcut = "a";
         newSession = true;
 
@@ -56,6 +56,9 @@ in {
           # unbind-key ,
           bind-key r command-prompt -I "#W" { rename-window "%%" }
           bind-key R source-file ~/.config/tmux/tmux.conf
+
+          bind-key L run-shell "workmux last-done"
+          bind-key Tab run-shell "workmux last-agent"
 
           setw -g aggressive-resize on
         '';

@@ -35,12 +35,14 @@ in {
       enable = true;
       package = pkgs.unstable.vaultwarden;
       dbBackend = "postgresql";
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = config.clan.core.vars.generators.vaultwarden.files.envfile.path;
       config = {
-        ROCKET_PORT = toString cfg.port;
-        SIGNUPS_ALLOWED = "false";
-        INVITATIONS_ALLOWED = "false";
-        WEBSOCKET_ENABLED = "true";
+        domain = "${cfg.domainName}.${homelab.baseDomain}";
+        rocketPort = cfg.port;
+        signupsAllowed = false;
+        invitationsAllowed = false;
+        websocketEnabled = true;
+        databaseUrl = "postgresql://${cfg.name}@%2Frun%2Fpostgresql/${cfg.name}";
       };
     };
     systemd.services.vaultwarden.serviceConfig = {
@@ -58,43 +60,83 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-    ];
+    clan.core.state.vaultwarden = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
+        systemctl stop vaultwarden.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start vaultwarden.service
+      '';
+    };
+
+    clan.core.vars.generators.vaultwarden = {
+      files = {
+        admin-token-plaintext = {
+          secret = true;
+          owner = cfg.name;
+        };
+        envfile = {
+          secret = true;
+          owner = cfg.name;
+        };
+      };
+      runtimeInputs = with pkgs; [
+        coreutils
+        openssl
+        libargon2
+      ];
+      script = ''
+        # Generate admin token plaintext (64 random bytes, URL-safe base64)
+        openssl rand 64 | openssl base64 -A | tr '+/' '-_' | tr -d '=' > "$out/admin-token-plaintext"
+
+        # Generate random salt for argon2 (16 bytes = 128 bits)
+        SALT=$(openssl rand -base64 16 | tr -d '\n')
+
+        # Generate argon2id hash using bitwarden preset: m=64MiB (2^16), t=3, p=4
+        # Output format: ADMIN_TOKEN='$argon2id$...'
+        HASH=$(echo -n "$(cat "$out/admin-token-plaintext")" | argon2 "$SALT" -id -t 3 -m 16 -p 4 -l 32 -e)
+
+        cat > "$out/envfile" << EOF
+        ADMIN_TOKEN='$HASH'
+        EOF
+      '';
+    };
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = ["vaultwarden.service"];
+      };
+      users.${cfg.name} = {};
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;
       description = cfg.name;
       group = lib.mkForce cfg.group;
-    };
-
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/admintoken" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        DATABASE_URL=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-        ADMIN_TOKEN=${config.sops.placeholder."${cfg.name}/admintoken"}
-      '';
-      owner = cfg.name;
     };
   };
 }

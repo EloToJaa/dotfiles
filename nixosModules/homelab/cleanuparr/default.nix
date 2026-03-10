@@ -58,9 +58,30 @@ in {
       "d ${cfg.dataDir} 770 ${cfg.name} ${cfg.name} - -"
     ];
 
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-    ];
+    clan.core.state.cleanuparr = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop cleanuparr.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start cleanuparr.service
+      '';
+    };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;

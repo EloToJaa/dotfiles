@@ -1,6 +1,8 @@
 {
-  boot.growPartition = true;
-  boot.supportedFilesystems.btrfs = true;
+  boot = {
+    growPartition = true;
+    supportedFilesystems.btrfs = true;
+  };
 
   disko.devices.disk = {
     main = {
@@ -69,26 +71,20 @@
       device = "/dev/disk/by-id/ata-CT500MX500SSD1_2130E5BAD987";
       content = {
         type = "gpt";
-        partitions = {
-          luks_data = {
-            size = "100%";
+        partitions.luks_data = {
+          size = "100%";
+          content = {
+            type = "luks";
+            name = "crypted_data";
+            # passwordFile = "/tmp/data.key";
+            settings.allowDiscards = true;
+            # keyFile = "/tmp/data.key";
             content = {
-              type = "luks";
-              name = "crypted_data";
-              # passwordFile = "/tmp/data.key";
-              settings = {
-                allowDiscards = true;
-                # keyFile = "/tmp/data.key";
-              };
-              content = {
-                type = "btrfs";
-                extraArgs = ["-f"];
-                subvolumes = {
-                  "/data" = {
-                    mountpoint = "/mnt/data";
-                    mountOptions = ["compress=zstd" "noatime"];
-                  };
-                };
+              type = "btrfs";
+              extraArgs = ["-f"];
+              subvolumes."/data" = {
+                mountpoint = "/mnt/data";
+                mountOptions = ["compress=zstd" "noatime"];
               };
             };
           };

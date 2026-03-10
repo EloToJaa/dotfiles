@@ -71,9 +71,30 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-    ];
+    clan.core.state.ntfy = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop ntfy-sh.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start ntfy-sh.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

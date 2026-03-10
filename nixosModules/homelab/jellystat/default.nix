@@ -60,21 +60,45 @@ in {
       "d ${cfg.backupDir} 770 ${cfg.name} ${cfg.name} - -"
     ];
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
-    services.restic.backups.appdata-local.paths = [
-      cfg.backupDir
-    ];
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = ["jellystat.service"];
+      };
+      users.${cfg.name} = {};
+    };
+    clan.core.state.jellystat = {
+      folders = [
+        cfg.backupDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop jellystat.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start jellystat.service
+      '';
+    };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;

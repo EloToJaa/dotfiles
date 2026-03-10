@@ -85,9 +85,30 @@ in {
         "uptime_kuma"
       ];
     };
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-    ];
+    clan.core.state.home-assistant = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop home-assistant.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start home-assistant.service
+      '';
+    };
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;

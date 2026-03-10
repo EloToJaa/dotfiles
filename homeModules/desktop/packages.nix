@@ -36,6 +36,7 @@ in {
         rustdesk-flutter
         prismlauncher
         nextcloud-client
+        bitwarden-desktop
         # zoom-us
 
         ## Wayland Utilities

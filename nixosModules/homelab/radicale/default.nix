@@ -60,6 +60,31 @@ in {
       '';
     };
 
+    clan.core.state.radicale = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop radicale.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start radicale.service
+      '';
+    };
+
     users.users.${cfg.name} = {
       isSystemUser = true;
       description = lib.mkForce cfg.name;

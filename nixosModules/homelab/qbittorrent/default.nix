@@ -91,6 +91,31 @@ in {
         };
       });
 
+    clan.core.state.qbittorrent = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop qbittorrent.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start qbittorrent.service
+      '';
+    };
+
     services.vuetorrent = {
       inherit (cfg.vuetorrent) enable;
       package = pkgs.unstable.vuetorrent;

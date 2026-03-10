@@ -49,19 +49,35 @@ in {
       '';
     };
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      "${cfg.name}-main"
-      "${cfg.name}-log"
-    ];
-    services.postgresqlBackup.databases = [
-      "${cfg.name}-main"
-    ];
+    clan.core.postgresql = {
+      databases = {
+        "${cfg.name}-main" = {
+          create = {
+            enable = true;
+            options = {
+              LC_COLLATE = "C";
+              LC_CTYPE = "C";
+              ENCODING = "UTF8";
+              OWNER = cfg.name;
+            };
+          };
+          restore.stopOnRestore = ["radarr.service"];
+        };
+        "${cfg.name}-log" = {
+          create = {
+            enable = true;
+            options = {
+              LC_COLLATE = "C";
+              LC_CTYPE = "C";
+              ENCODING = "UTF8";
+              OWNER = cfg.name;
+            };
+          };
+          restore.stopOnRestore = ["radarr.service"];
+        };
+      };
+      users.${cfg.name} = {};
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

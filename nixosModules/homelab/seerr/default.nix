@@ -11,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable seerr";
     name = lib.mkOption {
       type = lib.types.str;
-      default = "jellyseerr";
+      default = "seerr";
     };
     domainName = lib.mkOption {
       type = lib.types.str;
@@ -27,7 +27,7 @@ in {
     };
     configDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
   };
   imports = [
@@ -72,21 +72,45 @@ in {
       '';
     };
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
-    services.restic.backups.appdata-local.paths = [
-      cfg.configDir
-    ];
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = ["jellyseerr.service"];
+      };
+      users.${cfg.name} = {};
+    };
+    clan.core.state.jellyseerr = {
+      folders = [
+        cfg.configDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop jellyseerr.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start jellyseerr.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;

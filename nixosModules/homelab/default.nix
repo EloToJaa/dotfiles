@@ -66,7 +66,6 @@ in {
   imports = [
     ./atuin
     ./authelia
-    ./backup
     ./bazarr
     ./blocky
     ./caddy

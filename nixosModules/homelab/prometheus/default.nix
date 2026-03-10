@@ -47,9 +47,30 @@ in {
       '';
     };
 
-    services.restic.backups.appdata-local.paths = [
-      cfg.stateDir
-    ];
+    clan.core.state.prometheus = {
+      folders = [
+        cfg.stateDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop prometheus.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start prometheus.service
+      '';
+    };
 
     # services.prometheus.exporters.node = {
     #   enable = true;

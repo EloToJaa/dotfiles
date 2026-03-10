@@ -197,21 +197,50 @@ in {
       after = ["postgresql.service"];
     };
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-    ];
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = [
+          "phpfpm-nextcloud.service"
+          "nextcloud-cron.timer"
+        ];
+      };
+      users.${cfg.name} = {};
+    };
+    clan.core.state.nextcloud = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop phpfpm-nextcloud.service
+        systemctl stop nextcloud-cron.timer
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start phpfpm-nextcloud.service
+        systemctl start nextcloud-cron.timer
+      '';
+    };
 
     sops.secrets = {
       "${cfg.name}/adminpassword" = {

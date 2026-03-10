@@ -23,7 +23,7 @@ in {
         language = en
         folder = ~/Pictures/wallpapers/others
         monitors = All
-        wallpaper = ~/Pictures/wallpapers/others/nixos.png
+        wallpaper = ~/Pictures/wallpapers/wallpaper
         backend = swww
         fill = fill
         sort = name
@@ -31,7 +31,7 @@ in {
         subfolders = False
         show_hidden = False
         show_gifs_only = False
-        post_command = pkill .waypaper-wrapp
+        post_command = pkill .waypaper-wrap && wall-change $wallpaper
         number_of_columns = 3
         swww_transition_type = any
         swww_transition_step = 90

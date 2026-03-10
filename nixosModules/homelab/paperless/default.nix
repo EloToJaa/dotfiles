@@ -84,22 +84,46 @@ in {
       '';
     };
 
-    services.postgresql.ensureUsers = [
-      {
-        inherit (cfg) name;
-        ensureDBOwnership = false;
-      }
-    ];
-    services.postgresql.ensureDatabases = [
-      cfg.name
-    ];
-    services.postgresqlBackup.databases = [
-      cfg.name
-    ];
-    services.restic.backups.appdata-local.paths = [
-      cfg.dataDir
-      cfg.mediaDir
-    ];
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+          };
+        };
+        restore.stopOnRestore = ["paperless-scheduler.service"];
+      };
+      users.${cfg.name} = {};
+    };
+    clan.core.state.paperless = {
+      folders = [
+        cfg.dataDir
+        cfg.mediaDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop paperless-scheduler.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start paperless-scheduler.service
+      '';
+    };
 
     users.users.${cfg.name} = {
       isSystemUser = true;
