@@ -36,11 +36,13 @@ in {
         nerdfont: true
         theme: dark
         mode: window
-        worktree_dir: <project>__worktrees/
+        worktree_dir: ""
         panes:
+          - command: nvim
           - command: <agent>
+            split: horizontal
             focus: true
-          - split: horizontal
+          - split: vertical
       '';
   };
 }
