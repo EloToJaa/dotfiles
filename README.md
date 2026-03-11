@@ -39,6 +39,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add home-assistant
 - [x] Add redis
 - [x] Add authelia
+- [ ] Setup zen browser config
 - [ ] Add forms and onlyoffice to nextcloud
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
