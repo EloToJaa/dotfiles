@@ -9,7 +9,6 @@
   aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
   skills = {
     # inherit (pkgs) btca;
-    inherit (aiTools) workmux;
     anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
   };
 in {
@@ -22,7 +21,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # btca
-      aiTools.workmux
     ];
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";

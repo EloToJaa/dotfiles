@@ -13,6 +13,10 @@ in {
       aiTools.workmux
     ];
 
+    programs.zsh.zsh-abbr.abbreviations = {
+      wm = "workmux";
+    };
+
     xdg.configFile."opencode/plugins/workmux-status.ts".source = "${aiTools.workmux}/plugins/workmux-status.ts";
     programs.opencode.skills = {
       coordinator = "${aiTools.workmux}/skills/coordinator/";
