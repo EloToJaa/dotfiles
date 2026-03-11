@@ -13,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.zen-browser = {
       enable = true;
+      setAsDefaultBrowser = true;
       languagePacks = ["en-US"];
 
       profiles.default = {
