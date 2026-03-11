@@ -91,6 +91,7 @@ in {
     home.packages = with pkgs.unstable; [
       gh
       serie
+      onefetch
     ];
 
     programs.zsh.zsh-abbr.abbreviations = shellAliases;
