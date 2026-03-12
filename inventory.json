@@ -5,6 +5,9 @@
     },
     "desktop": {
       "installedAt": 1772740103
+    },
+    "server": {
+      "installedAt": 1773340142
     }
   }
 }
