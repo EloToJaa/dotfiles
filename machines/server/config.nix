@@ -40,7 +40,7 @@
       #   lldap.enable = true;
       #   bazarr.enable = true;
       #   blocky.enable = true;
-      #   caddy.enable = true;
+      caddy.enable = true;
       #   cleanuparr.enable = true;
       #   glance.enable = false;
       #   grafana.enable = false;
