@@ -79,6 +79,11 @@ in {
         term = "ghostty";
         clipboard-paste-protection = false;
 
+        shell-integration-features = [
+          "ssh-terminfo"
+          "ssh-env"
+        ];
+
         keybind = [
           "shift+end=unbind"
           "shift+home=unbind"
