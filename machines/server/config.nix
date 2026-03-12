@@ -37,7 +37,7 @@
       enable = true;
       atuin.enable = true;
       authelia.enable = true;
-      #   lldap.enable = true;
+      lldap.enable = true;
       #   bazarr.enable = true;
       blocky.enable = true;
       caddy.enable = true;
