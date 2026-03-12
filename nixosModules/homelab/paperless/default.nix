@@ -93,6 +93,7 @@ in {
             LC_CTYPE = "C";
             ENCODING = "UTF8";
             OWNER = cfg.name;
+            TEMPLATE = "template0";
           };
         };
         restore.stopOnRestore = ["paperless-scheduler.service"];
