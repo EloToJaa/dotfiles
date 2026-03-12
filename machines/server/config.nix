@@ -27,7 +27,7 @@
       docker.enable = true;
       duo.enable = false;
       index.enable = true;
-      initrd.enable = true;
+      initrd.enable = false;
       tailscale.enable = true;
       nfs.enable = true;
       nh.enable = true;
