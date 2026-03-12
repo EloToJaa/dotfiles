@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.settings) username;
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
@@ -24,5 +25,16 @@ in {
       enable = true;
       package = pkgs.unstable.sudo-rs;
     };
+    security.sudo-rs.extraRules = [
+      {
+        users = [username];
+        commands = [
+          {
+            command = "ALL";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
   };
 }

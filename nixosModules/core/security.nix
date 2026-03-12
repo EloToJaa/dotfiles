@@ -10,19 +10,6 @@ in {
     enable = lib.mkEnableOption "Enable security module";
   };
   config = lib.mkIf cfg.enable {
-    security.sudo-rs = {
-      extraRules = [
-        {
-          users = [username];
-          commands = [
-            {
-              command = "ALL";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-      ];
-    };
     security.pam.services.hyprlock = {};
   };
 }
