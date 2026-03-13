@@ -68,10 +68,10 @@
       };
       #   profilarr.enable = true;
       #   prometheus.enable = false;
-      #   prowlarr = {
-      #     enable = true;
-      #     flaresolverr.enable = true;
-      #   };
+      prowlarr = {
+        enable = true;
+        flaresolverr.enable = true;
+      };
       qbittorrent = {
         enable = true;
         vuetorrent.enable = true;
