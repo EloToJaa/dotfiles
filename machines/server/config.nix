@@ -72,10 +72,10 @@
       #     enable = true;
       #     flaresolverr.enable = true;
       #   };
-      #   qbittorrent = {
-      #     enable = true;
-      #     vuetorrent.enable = true;
-      #   };
+      qbittorrent = {
+        enable = true;
+        vuetorrent.enable = true;
+      };
       #   radarr.enable = true;
       #   radicale.enable = false;
       #   rustdesk.enable = true;
