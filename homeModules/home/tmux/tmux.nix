@@ -2,10 +2,12 @@
   pkgs,
   lib,
   config,
+  settings,
   ...
 }: let
   tmux-smart-launch = pkgs.writeShellScriptBin "tmux-smart-launch" (builtins.readFile ./tmux-smart-launch.sh);
   cfg = config.modules.home.tmux;
+  inherit (settings) isServer;
 in {
   config = lib.mkIf cfg.enable {
     programs = {
@@ -13,7 +15,10 @@ in {
         enable = true;
         package = pkgs.unstable.tmux;
         shell = "${config.programs.zsh.package}/bin/zsh";
-        terminal = "ghostty";
+        terminal =
+          if isServer
+          then "xterm-256color"
+          else "ghostty";
         historyLimit = 10000;
         clock24 = true;
         baseIndex = 1;
