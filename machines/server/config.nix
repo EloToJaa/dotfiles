@@ -61,7 +61,7 @@
       #     onlyoffice.enable = false;
       #   };
       #   ntfy.enable = true;
-      #   paperless.enable = true;
+      paperless.enable = true;
       postgres = {
         enable = true;
         pgadmin.enable = true;
