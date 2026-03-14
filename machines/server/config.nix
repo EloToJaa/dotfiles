@@ -41,7 +41,7 @@
       bazarr.enable = true;
       blocky.enable = true;
       caddy.enable = true;
-      #   cleanuparr.enable = true;
+      cleanuparr.enable = true;
       glance.enable = false;
       grafana.enable = false;
       groups.enable = true;
