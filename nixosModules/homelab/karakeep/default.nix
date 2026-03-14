@@ -49,6 +49,9 @@ in {
       Group = lib.mkForce cfg.group;
       UMask = lib.mkForce homelab.defaultUMask;
     };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;
