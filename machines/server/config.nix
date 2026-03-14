@@ -53,7 +53,7 @@
       };
       seerr.enable = true;
       #   jellystat.enable = true;
-      karakeep.enable = true;
+      karakeep.enable = false;
       loki.enable = false;
       n8n.enable = false;
       #   nextcloud = {
@@ -81,7 +81,7 @@
       #   rustdesk.enable = true;
       sonarr.enable = true;
       #   uptime.enable = true;
-      #   vaultwarden.enable = true;
+      vaultwarden.enable = true;
       #   wireguard.enable = true;
     };
   };
