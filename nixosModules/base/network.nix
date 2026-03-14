@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   inherit (config.settings) dns username;
@@ -26,6 +27,9 @@ in {
         cat $prompts/auth-key > $out/auth-key
       '';
     };
+    environment.systemPackages = [
+      inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
+    ];
     networking = {
       hostName = host;
       networkmanager = {
