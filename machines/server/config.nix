@@ -82,7 +82,7 @@
       sonarr.enable = true;
       #   uptime.enable = true;
       vaultwarden.enable = true;
-      #   wireguard.enable = true;
+      wireguard.enable = true;
     };
   };
 }
