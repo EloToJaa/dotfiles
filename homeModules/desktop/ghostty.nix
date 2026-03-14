@@ -80,7 +80,6 @@ in {
         clipboard-paste-protection = false;
 
         shell-integration-features = [
-          "ssh-terminfo"
           "ssh-env"
         ];
 
