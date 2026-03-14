@@ -51,7 +51,7 @@
         enable = true;
         auth.enable = true;
       };
-      #   seerr.enable = true;
+      seerr.enable = true;
       #   jellystat.enable = true;
       #   karakeep.enable = true;
       #   loki.enable = false;
