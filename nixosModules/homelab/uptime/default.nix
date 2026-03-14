@@ -27,7 +27,7 @@ in {
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
   };
   config = lib.mkIf cfg.enable {
@@ -47,6 +47,9 @@ in {
       DynamicUser = lib.mkForce false;
       ProtectSystem = lib.mkForce "off";
     };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+    ];
 
     services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       useACMEHost = homelab.baseDomain;

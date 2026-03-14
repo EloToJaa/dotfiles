@@ -80,7 +80,7 @@
       radicale.enable = false;
       rustdesk.enable = true;
       sonarr.enable = true;
-      #   uptime.enable = true;
+      uptime.enable = true;
       vaultwarden.enable = true;
       wireguard.enable = true;
     };
