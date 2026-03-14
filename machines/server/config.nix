@@ -78,7 +78,7 @@
       };
       radarr.enable = true;
       radicale.enable = false;
-      #   rustdesk.enable = true;
+      rustdesk.enable = true;
       sonarr.enable = true;
       #   uptime.enable = true;
       vaultwarden.enable = true;
