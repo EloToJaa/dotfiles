@@ -42,8 +42,8 @@
       blocky.enable = true;
       caddy.enable = true;
       #   cleanuparr.enable = true;
-      #   glance.enable = false;
-      #   grafana.enable = false;
+      glance.enable = false;
+      grafana.enable = false;
       groups.enable = true;
       #   home-assistant.enable = true;
       #   immich.enable = true;
@@ -54,8 +54,8 @@
       seerr.enable = true;
       #   jellystat.enable = true;
       #   karakeep.enable = true;
-      #   loki.enable = false;
-      #   n8n.enable = false;
+      loki.enable = false;
+      n8n.enable = false;
       #   nextcloud = {
       #     enable = true;
       #     onlyoffice.enable = false;
@@ -67,7 +67,7 @@
         pgadmin.enable = true;
       };
       #   profilarr.enable = true;
-      #   prometheus.enable = false;
+      prometheus.enable = false;
       prowlarr = {
         enable = true;
         flaresolverr.enable = true;
@@ -77,7 +77,7 @@
         vuetorrent.enable = true;
       };
       radarr.enable = true;
-      #   radicale.enable = false;
+      radicale.enable = false;
       #   rustdesk.enable = true;
       sonarr.enable = true;
       #   uptime.enable = true;
