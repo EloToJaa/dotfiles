@@ -35,7 +35,7 @@
     };
     homelab = {
       enable = true;
-      atuin.enable = true;
+      atuin.enable = false;
       authelia.enable = true;
       lldap.enable = true;
       bazarr.enable = true;
