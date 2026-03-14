@@ -5,6 +5,45 @@
   ...
 }: let
   cfg = config.services.jellystat;
+
+  nameToEnvVar = name: let
+    parts = builtins.split "([A-Z0-9]+)" name;
+    partsToEnvVar = parts:
+      lib.foldl' (
+        key: x: let
+          last = lib.stringLength key - 1;
+        in
+          if lib.isList x
+          then key + lib.optionalString (key != "" && lib.substring last 1 key != "_") "_" + lib.head x
+          else if key != "" && lib.elem (lib.substring 0 1 x) lib.lowerChars
+          then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
+            lib.substring 0 last key
+            + lib.optionalString (lib.substring (last - 1) 1 key != "_") "_"
+            + lib.substring last 1 key
+            + lib.toUpper x
+          else key + lib.toUpper x
+      ) ""
+      parts;
+  in
+    if builtins.match "[A-Z0-9_]+" name != null
+    then name
+    else partsToEnvVar parts;
+
+  configEnv =
+    lib.concatMapAttrs (
+      name: value:
+        lib.optionalAttrs (value != null) {
+          ${nameToEnvVar name} =
+            if lib.isBool value
+            then lib.boolToString value
+            else toString value;
+        }
+    )
+    cfg.config;
+
+  configFile = pkgs.writeText "vaultwarden.env" (
+    lib.concatStrings (lib.mapAttrsToList (name: value: "${name}=${value}\n") configEnv)
+  );
 in {
   meta.maintainers = [lib.maintainers.kashw2];
 
@@ -13,56 +52,38 @@ in {
 
     package = lib.mkPackageOption pkgs "jellystat" {};
 
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "jellystat";
+      description = "The user to run the service as.";
+    };
+
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = "jellystat";
+      description = "The group to run the service as.";
+    };
+
     openFirewall = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Open port in the firewall for the Jellystat web interface.";
     };
 
-    listenAddress = lib.mkOption {
-      type = lib.types.str;
-      default = "0.0.0.0";
-      description = "The listen address the server should serve from.";
+    config = lib.mkOption {
+      type = with lib.types;
+        attrsOf (
+          nullOr (oneOf [
+            bool
+            int
+            str
+          ])
+        );
     };
 
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 3000;
-      description = "The port the Jellystat UI should run on.";
-    };
-
-    postgresUser = lib.mkOption {
-      type = lib.types.str;
-      default = "postgres";
-      description = "The Postgresql username.";
-    };
-
-    postgresPassword = lib.mkOption {
-      type = lib.types.str;
-      description = "The Postgresql password.";
-    };
-
-    postgresAddress = lib.mkOption {
-      type = lib.types.str;
-      default = "127.0.0.1";
-      description = "The Postgresql instance address";
-    };
-
-    postgresPort = lib.mkOption {
-      type = lib.types.port;
-      default = 5432;
-      description = "The Postgresql instance port.";
-    };
-
-    postgresDatabase = lib.mkOption {
-      type = lib.types.str;
-      default = "postgres";
-      description = "The Postgresql database name.";
-    };
-
-    jwtSecretFilePath = lib.mkOption {
+    environmentFile = lib.mkOption {
       type = lib.types.path;
-      description = "The path to the JWT to be used during authentication.";
+      description = "The path to the environment file to be used during authentication.";
     };
   };
 
@@ -71,26 +92,22 @@ in {
       description = "Jellystat, a free and open source Statistics App for Jellyfin";
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
-      environment = {
-        POSTGRES_USER = cfg.postgresUser;
-        POSTGRES_PASSWORD = cfg.postgresPassword;
-        POSTGRES_IP = cfg.postgresAddress;
-        POSTGRES_PORT = toString cfg.postgresPort;
-        POSTGRES_DB = cfg.postgresDatabase;
-        JS_PORT = toString cfg.port;
-        JS_LISTEN_IP = cfg.listenAddress;
-      };
-      preStart =
-        lib.optionalString cfg.jwtSecretFile
-        != null ''
-          export JWT_SECRET="$(cat "$CREDENTIALS_DIRECTORY/jellystat-jwt-secret"}")
-        '';
       serviceConfig = {
-        DynamicUser = true;
-        ExecStart = "${pkgs.nodejs}/bin/node ${cfg.package}/backend/server.js";
-        LoadCredential = "jellystat-jwt-secret:${cfg.jwtSecretFilePath}";
+        DynamicUser = false;
+        User = cfg.user;
+        Group = cfg.group;
+        WorkingDirectory = "${cfg.package}/backend";
+        ExecStart = "${pkgs.nodejs}/bin/node ./server.js";
+        EnvironmentFile = [configFile cfg.environmentFile];
       };
     };
+
+    users.users.${cfg.user} = {
+      inherit (cfg) group;
+      description = cfg.user;
+      isSystemUser = true;
+    };
+    users.groups.${cfg.group} = {};
 
     networking.firewall = lib.mkIf cfg.openFirewall {
       allowedTCPPorts = [cfg.port];

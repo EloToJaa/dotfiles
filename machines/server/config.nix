@@ -45,14 +45,14 @@
       glance.enable = false;
       grafana.enable = false;
       groups.enable = true;
-      #   home-assistant.enable = true;
+      home-assistant.enable = false;
       #   immich.enable = true;
       jellyfin = {
         enable = true;
         auth.enable = true;
       };
       seerr.enable = true;
-      #   jellystat.enable = true;
+      jellystat.enable = true;
       karakeep.enable = false;
       loki.enable = false;
       n8n.enable = false;
@@ -60,7 +60,7 @@
       #     enable = true;
       #     onlyoffice.enable = false;
       #   };
-      #   ntfy.enable = true;
+      ntfy.enable = false;
       paperless.enable = true;
       postgres = {
         enable = true;

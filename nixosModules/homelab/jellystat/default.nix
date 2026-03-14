@@ -1,9 +1,9 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (config.settings) timezone;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.jellystat;
 in {
@@ -25,36 +25,25 @@ in {
       type = lib.types.port;
       default = 3000;
     };
-    id = lib.mkOption {
-      type = lib.types.int;
-      default = 377;
-    };
   };
+  imports = [./service.nix];
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers.jellystat = {
-      image = "ghcr.io/cyfershepard/jellystat:unstable";
-      autoStart = true;
-      # podman = {
-      #   user = name;
-      #   sdnotify = "container";
-      # };
-      serviceName = cfg.name;
-      extraOptions = [
-        # "--cgroup-manager=cgroupfs"
-        "--network=host"
-      ];
-      environment = {
-        POSTGRES_DB = cfg.name;
-        POSTGRES_USER = cfg.name;
-        POSTGRES_IP = "127.0.0.1";
-        POSTGRES_PORT = toString homelab.postgres.port;
-        JS_LISTEN_IP = "127.0.0.1";
-        TZ = timezone;
+    services.jellystat = {
+      enable = true;
+      package = pkgs.jellystat;
+      user = cfg.name;
+      group = cfg.name;
+
+      environmentFile = config.sops.templates."${cfg.name}.env".path;
+
+      config = {
+        jsListenIp = "127.0.0.1";
+        jsPort = cfg.port;
+        postgresDb = cfg.name;
+        postgresUser = cfg.name;
+        postgresIp = "127.0.0.1";
+        postgresPort = homelab.postgres.port;
       };
-      environmentFiles = [config.sops.templates."${cfg.name}.env".path];
-      volumes = [
-        "${cfg.backupDir}:/app/backend/backup-data"
-      ];
     };
     systemd.tmpfiles.rules = [
       "d ${cfg.backupDir} 770 ${cfg.name} ${cfg.name} - -"
@@ -107,14 +96,6 @@ in {
         reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
-
-    users.users.${cfg.name} = {
-      uid = cfg.id;
-      group = cfg.name;
-      description = cfg.name;
-      home = cfg.backupDir;
-    };
-    users.groups.${cfg.name}.gid = cfg.id;
 
     sops.secrets = {
       "${cfg.name}/pgpassword" = {
