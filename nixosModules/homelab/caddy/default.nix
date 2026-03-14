@@ -20,7 +20,7 @@ in {
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.dataDir}${cfg.name}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
     logDir = lib.mkOption {
       type = lib.types.path;
