@@ -84,11 +84,11 @@ in {
             TEMPLATE = "template0";
           };
         };
-        restore.stopOnRestore = ["jellyseerr.service"];
+        restore.stopOnRestore = ["seerr.service"];
       };
       users.${cfg.name} = {};
     };
-    clan.core.state.jellyseerr = {
+    clan.core.state.seerr = {
       folders = [
         cfg.configDir
       ];
@@ -99,7 +99,7 @@ in {
           ]
         }
 
-        systemctl stop jellyseerr.service
+        systemctl stop seerr.service
       '';
 
       postBackupScript = ''
@@ -109,7 +109,7 @@ in {
           ]
         }
 
-        systemctl start jellyseerr.service
+        systemctl start seerr.service
       '';
     };
 
