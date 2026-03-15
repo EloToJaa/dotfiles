@@ -46,7 +46,7 @@
       grafana.enable = false;
       groups.enable = true;
       home-assistant.enable = true;
-      #   immich.enable = true;
+      immich.enable = true;
       jellyfin = {
         enable = true;
         auth.enable = true;

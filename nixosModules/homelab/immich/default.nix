@@ -26,13 +26,9 @@ in {
       type = lib.types.port;
       default = 2283;
     };
-    mediaDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.dataDir}photos";
-    };
     dataDir = lib.mkOption {
       type = lib.types.path;
-      default = "${homelab.varDataDir}nixos-containers/${cfg.name}${homelab.varDataDir}";
+      default = "${homelab.varDataDir}${cfg.name}";
     };
     host = lib.mkOption {
       type = lib.types.str;
@@ -55,7 +51,7 @@ in {
           user = cfg.name;
           openFirewall = true;
           # accelerationDevices = ["/dev/dri/renderD128"];
-          mediaLocation = "/data";
+          mediaLocation = cfg.dataDir;
           database = {
             inherit (cfg) name;
             enable = true;
@@ -66,9 +62,7 @@ in {
             enable = true;
             port = 0; # disable tcp
           };
-          machine-learning = {
-            enable = true;
-          };
+          machine-learning.enable = true;
           settings = {
             newVersionCheck.enabled = true;
             server.externalDomain = "https://${cfg.domainName}.${homelab.baseDomain}";
@@ -80,7 +74,7 @@ in {
           UMask = lib.mkForce homelab.defaultUMask;
         };
         systemd.tmpfiles.rules = [
-          "d ${homelab.varDataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
+          "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
         ];
 
         system.stateVersion = stateVersion;
@@ -116,8 +110,8 @@ in {
       ];
       bindMounts.mediaLocation = {
         isReadOnly = false;
-        hostPath = cfg.mediaDir;
-        mountPoint = "/data";
+        hostPath = cfg.dataDir;
+        mountPoint = cfg.dataDir;
       };
     };
 
@@ -130,7 +124,6 @@ in {
     clan.core.state.immich = {
       folders = [
         cfg.dataDir
-        cfg.mediaDir
       ];
       preBackupScript = ''
         export PATH=${
