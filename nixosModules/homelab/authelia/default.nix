@@ -98,7 +98,7 @@ in {
           cookies = [
             {
               domain = homelab.mainDomain;
-              authelia_url = "https://${cfg.name}.${homelab.mainDomain}";
+              authelia_url = "https://${cfg.domainName}.${homelab.mainDomain}";
               default_redirection_url = "https://${cfg.domainName}.${homelab.mainDomain}/settings";
             }
           ];

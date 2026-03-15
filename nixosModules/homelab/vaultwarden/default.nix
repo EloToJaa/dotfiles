@@ -31,6 +31,9 @@ in {
       default = 8222;
     };
   };
+  imports = [
+    ./auth.nix
+  ];
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
@@ -115,11 +118,17 @@ in {
       "${cfg.name}/admintoken" = {
         owner = cfg.name;
       };
+      "authelia/secrets/vaultwarden" = {
+        inherit (cfg) group;
+        mode = "0400";
+        owner = "authelia";
+      };
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
         DATABASE_URL=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
         ADMIN_TOKEN=${config.sops.placeholder."${cfg.name}/admintoken"}
+        SSO_CLIENT_SECRET=${config.sops.placeholder."authelia/secrets/vaultwarden"}
       '';
       owner = cfg.name;
     };
