@@ -56,10 +56,10 @@
       karakeep.enable = true;
       loki.enable = false;
       n8n.enable = false;
-      #   nextcloud = {
-      #     enable = true;
-      #     onlyoffice.enable = false;
-      #   };
+      nextcloud = {
+        enable = true;
+        onlyoffice.enable = false;
+      };
       ntfy.enable = false;
       paperless.enable = true;
       postgres = {
