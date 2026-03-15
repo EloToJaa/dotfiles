@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.auth.enable {
     services.authelia.instances.main.settings.identity_providers.oidc.clients = [
       {
-        client_id = "jellyfin";
+        client_id = "42VeHabCU9UyRptuVpwJlfd0wKqkpC0mddyY0qDihVhdyeox8wPxA4Tx9X0C30slzEAZOAPo";
         client_name = "Jellyfin";
         client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/jellyfin".path}\" }}";
         public = false;

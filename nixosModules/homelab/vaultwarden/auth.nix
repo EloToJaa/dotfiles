@@ -16,7 +16,7 @@ in {
       ssoAuthority = "https://auth.${homelab.baseDomain}";
       ssoScopes = "profile email offline_access vaultwarden";
       ssoPkce = true;
-      ssoClientId = "vaultwarden";
+      ssoClientId = "U6q0xNiGN.y2KqGANMx5We30Pj2PtI1aUB_rSd9iDP0K19gmCNBNhGVk02eOOND.fH4Lg_w3";
       ssoRolesEnabled = true;
       ssoRolesDefaultToUser = true;
       ssoRolesTokenPath = "/vaultwarden_roles";
@@ -36,7 +36,7 @@ in {
         ];
         clients = [
           {
-            client_id = "vaultwarden";
+            client_id = config.services.vaultwarden.config.ssoClientId;
             client_name = "Vaultwarden";
             client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/vaultwarden".path}\" }}";
             public = false;
@@ -66,6 +66,11 @@ in {
             token_endpoint_auth_method = "client_secret_basic";
           }
         ];
+      };
+    };
+    sops.secrets = {
+      "authelia/secrets/vaultwarden" = {
+        owner = "authelia";
       };
     };
   };

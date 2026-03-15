@@ -81,7 +81,10 @@
       rustdesk.enable = true;
       sonarr.enable = true;
       uptime.enable = true;
-      vaultwarden.enable = true;
+      vaultwarden = {
+        enable = true;
+        auth.enable = false;
+      };
       wireguard.enable = true;
     };
   };
