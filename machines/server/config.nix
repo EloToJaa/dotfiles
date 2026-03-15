@@ -53,7 +53,7 @@
       };
       seerr.enable = true;
       jellystat.enable = true;
-      karakeep.enable = false;
+      karakeep.enable = true;
       loki.enable = false;
       n8n.enable = false;
       #   nextcloud = {
