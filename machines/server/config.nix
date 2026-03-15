@@ -45,7 +45,7 @@
       glance.enable = false;
       grafana.enable = false;
       groups.enable = true;
-      home-assistant.enable = false;
+      home-assistant.enable = true;
       #   immich.enable = true;
       jellyfin = {
         enable = true;
