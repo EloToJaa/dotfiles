@@ -24,17 +24,20 @@ in {
     security.sudo-rs = {
       enable = true;
       package = pkgs.unstable.sudo-rs;
+      extraConfig = ''
+        Defaults pwfeedback
+      '';
+      extraRules = [
+        {
+          users = [username];
+          commands = [
+            {
+              command = "ALL";
+              options = ["NOPASSWD"];
+            }
+          ];
+        }
+      ];
     };
-    security.sudo-rs.extraRules = [
-      {
-        users = [username];
-        commands = [
-          {
-            command = "ALL";
-            options = ["NOPASSWD"];
-          }
-        ];
-      }
-    ];
   };
 }
