@@ -98,6 +98,9 @@ in {
         # > Output Buffering must be turned off [...] or PHP will return memory-related errors.
         output_buffering = "Off";
 
+        "overwrite.cli.url" = "https://${domain}";
+        overwriteprotocol = "https";
+
         # Needed to avoid corruption per https://docs.nextcloud.com/server/21/admin_manual/configuration_server/caching_configuration.html#id2
         "redis.session.locking_enabled" = "1";
         "redis.session.lock_retries" = "-1";
