@@ -64,12 +64,26 @@ in {
           };
           machine-learning.enable = true;
           settings = {
-            newVersionCheck.enabled = true;
+            newVersionCheck.enabled = false;
             server.externalDomain = "https://${cfg.domainName}.${homelab.baseDomain}";
+            backup = {
+              enabled = true;
+              cronExpression = "0 02 * * *";
+              keepLastAmount = 14;
+            };
+            metadata.faces.import = true;
+            user.deleteDelay = 14;
+            trash = {
+              enabled = true;
+              days = 30;
+            };
           };
         };
-        services.redis.package = pkgs.unstable.redis;
-        services.postgresql.package = pkgs.unstable.postgresql;
+        services = {
+          redis.package = pkgs.unstable.redis;
+          postgresql.package = pkgs.unstable.postgresql;
+          resolved.enable = true;
+        };
         systemd.services.${cfg.name}.serviceConfig = {
           UMask = lib.mkForce homelab.defaultUMask;
         };
@@ -85,8 +99,6 @@ in {
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
           useHostResolvConf = lib.mkForce false;
         };
-
-        services.resolved.enable = true;
 
         users.users.${cfg.name} = {
           isSystemUser = true;
