@@ -40,6 +40,7 @@ in {
       postgresPasswordFile = config.sops.secrets."${cfg.name}/pgpassword".path;
 
       jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
+      securityNonceFile = config.sops.templates."${cfg.name}-nonce.conf".path;
     };
 
     services.nginx.virtualHosts.${domain} = {
@@ -55,6 +56,24 @@ in {
       };
     };
 
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+            TEMPLATE = "template0";
+          };
+        };
+        restore.stopOnRestore = [
+        ];
+      };
+      users.${cfg.name} = {};
+    };
+
     sops.secrets = {
       "${cfg.name}/pgpassword" = {
         owner = cfg.name;
@@ -62,6 +81,15 @@ in {
       "${cfg.name}/jwtsecret" = {
         owner = cfg.name;
       };
+      "${cfg.name}/link_secret" = {
+        owner = cfg.name;
+      };
+    };
+    sops.templates."${cfg.name}-nonce.conf" = {
+      content = ''
+        set $secure_link_secret "${config.sops.placeholder."${cfg.name}/link_secret"}";
+      '';
+      owner = cfg.name;
     };
   };
 }

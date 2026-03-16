@@ -58,7 +58,7 @@
       n8n.enable = false;
       nextcloud = {
         enable = true;
-        onlyoffice.enable = false;
+        onlyoffice.enable = true;
       };
       ntfy.enable = false;
       paperless.enable = true;
