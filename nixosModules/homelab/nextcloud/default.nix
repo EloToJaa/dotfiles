@@ -7,7 +7,9 @@
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.nextcloud;
+  onlyofficeCfg = config.modules.homelab.nextcloud.onlyoffice;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
+  onlyofficeDomain = "${onlyofficeCfg.domainName}.${homelab.baseDomain}";
   occ = "${config.services.nextcloud.occ}/bin/nextcloud-occ";
 in {
   options.modules.homelab.nextcloud = {
@@ -40,7 +42,7 @@ in {
       appstoreEnable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (pkgs.unstable.nextcloud32Packages.apps) calendar contacts;
+        inherit (pkgs.unstable.nextcloud32Packages.apps) calendar contacts onlyoffice;
       };
 
       configureRedis = true;
@@ -99,9 +101,27 @@ in {
       nginx.hstsMaxAge = 31536000;
     };
 
-    systemd.services.nextcloud-setup.script = ''
-      mkdir -p ${cfg.dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
-    '';
+    systemd.services.nextcloud-setup.script = lib.mkMerge [
+      ''
+        mkdir -p ${cfg.dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
+      ''
+      (lib.mkIf onlyofficeCfg.enable ''
+        # Enable the OnlyOffice app if not already enabled
+        ${occ} app:enable onlyoffice || true
+
+        # Configure OnlyOffice document server URL
+        ${occ} config:app:set onlyoffice document_server_url --value="https://${onlyofficeDomain}"
+
+        # Configure JWT secret for secure communication
+        ${occ} config:app:set onlyoffice jwt_secret --value="$(cat ${config.sops.secrets."onlyoffice/jwtsecret".path})"
+
+        # Set JWT header
+        ${occ} config:app:set onlyoffice jwt_header --value="Authorization"
+
+        # Verify connection
+        ${occ} onlyoffice:documentserver --check || true
+      '')
+    ];
 
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;

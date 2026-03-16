@@ -26,15 +26,26 @@ in {
       type = lib.types.port;
       default = 13444;
     };
+    examplePort = lib.mkOption {
+      type = lib.types.port;
+      default = 13445;
+    };
   };
+  disabledModules = [
+    "services/web-apps/onlyoffice.nix"
+  ];
+  imports = [
+    ./service.nix
+  ];
   config = lib.mkIf cfg.enable {
     services.onlyoffice = {
-      inherit (cfg) port;
+      inherit (cfg) port examplePort;
       enable = true;
+      enableExampleServer = true;
       package = pkgs.unstable.onlyoffice-documentserver;
       hostname = domain;
 
-      postgresHost = "127.0.0.1:${toString homelab.postgres.port}";
+      postgresHost = "127.0.0.1";
       postgresName = cfg.name;
       postgresUser = cfg.name;
       postgresPasswordFile = config.sops.secrets."${cfg.name}/pgpassword".path;
@@ -46,14 +57,6 @@ in {
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      locations = {
-        "/welcome/" = {
-          extraConfig = ''
-            return 403;
-          '';
-        };
-        "/" = {proxyPass = "http://127.0.0.1:${toString cfg.port}";};
-      };
     };
 
     clan.core.postgresql = {
@@ -82,14 +85,18 @@ in {
         owner = cfg.name;
       };
       "${cfg.name}/link_secret" = {
+        mode = "0440";
         owner = cfg.name;
+        group = "nginx";
       };
     };
     sops.templates."${cfg.name}-nonce.conf" = {
       content = ''
         set $secure_link_secret "${config.sops.placeholder."${cfg.name}/link_secret"}";
       '';
+      mode = "0440";
       owner = cfg.name;
+      group = "nginx";
     };
   };
 }
