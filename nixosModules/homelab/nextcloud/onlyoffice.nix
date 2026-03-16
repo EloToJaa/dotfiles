@@ -42,14 +42,17 @@ in {
       jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
     };
 
-    services.caddy.virtualHosts.${domain} = {
+    services.nginx.virtualHosts.${domain} = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        respond /welcome/* "Access denied" 403 {
-          close
-        }
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
-      '';
+      locations = {
+        "/welcome/" = {
+          extraConfig = ''
+            return 403;
+          '';
+        };
+        "/" = {proxyPass = "http://127.0.0.1:${toString cfg.port}";};
+      };
     };
 
     sops.secrets = {

@@ -35,7 +35,7 @@
       atuin.enable = true;
       bazarr.enable = true;
       blocky.enable = true;
-      caddy.enable = true;
+      nginx.enable = true;
       cleanuparr.enable = true;
       glance.enable = false;
       grafana.enable = false;

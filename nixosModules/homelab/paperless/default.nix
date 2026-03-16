@@ -74,13 +74,12 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
-    services.caddy.virtualHosts.${domain} = {
+    services.nginx.virtualHosts.${domain} = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
+      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
       extraConfig = ''
-        request_body {
-          max_size 1000MB
-        }
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
+        client_max_body_size 1000M;
       '';
     };
 

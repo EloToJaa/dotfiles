@@ -122,70 +122,88 @@ in {
       mkdir -p ${cfg.dataDir}/data/appdata_$(${occ} config:system:get instanceid)/theming/global
     '';
 
-    services.nginx.enable = false;
+    services.nginx.enable = true;
     services.phpfpm.pools.nextcloud.settings = {
-      "listen.owner" = config.services.caddy.user;
-      "listen.group" = config.services.caddy.group;
+      "listen.owner" = "nginx";
+      "listen.group" = config.services.nginx.group;
     };
-    users.users.caddy.extraGroups = [cfg.name];
+    users.users.nginx.extraGroups = [cfg.name];
 
-    services.caddy.virtualHosts.${domain} = let
-      virtCfg = config.services.nginx.virtualHosts.${config.services.nextcloud.hostName};
-    in {
+    services.nginx.virtualHosts.${domain} = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        encode zstd gzip
+      locations = {
+        "/" = {
+          root = config.services.nginx.virtualHosts.${config.services.nextcloud.hostName}.root;
+          extraConfig = ''
+            client_max_body_size 16G;
 
-        root * ${virtCfg.root}
-        root /nix-apps/* ${virtCfg.root}
+            add_header Strict-Transport-Security "max-age=31536000" always;
+            add_header Permissions-Policy "interest-cohort=()" always;
+            add_header X-Content-Type-Options "nosniff" always;
+            add_header X-Frame-Options "SAMEORIGIN" always;
+            add_header Referrer-Policy "no-referrer" always;
+            add_header X-XSS-Protection "1; mode=block" always;
+            add_header X-Permitted-Cross-Domain-Policies "none" always;
+            add_header X-Robots-Tag "noindex, nofollow" always;
+          '';
+        };
 
-        redir /.well-known/carddav /remote.php/dav 301
-        redir /.well-known/caldav /remote.php/dav 301
-        redir /.well-known/* /index.php{uri} 301
-        redir /remote/* /remote.php{uri} 301
+        "~ ^/remote" = {
+          extraConfig = ''
+            return 301 /remote.php$request_uri;
+          '';
+        };
 
-        header {
-          Strict-Transport-Security max-age=31536000
-          Permissions-Policy interest-cohort=()
-          X-Content-Type-Options nosniff
-          X-Frame-Options SAMEORIGIN
-          Referrer-Policy no-referrer
-          X-XSS-Protection "1; mode=block"
-          X-Permitted-Cross-Domain-Policies none
-          X-Robots-Tag "noindex, nofollow"
-          -X-Powered-By
-        }
+        "~ ^/\\.well-known/(carddav|caldav)" = {
+          extraConfig = ''
+            return 301 /remote.php/dav;
+          '';
+        };
 
-        php_fastcgi unix//run/phpfpm/nextcloud.sock {
-          root ${virtCfg.root}
-          env front_controller_active true
-          env modHeadersAvailable true
-        }
+        "~ ^/\\.well-known" = {
+          extraConfig = ''
+            return 301 /index.php$request_uri;
+          '';
+        };
 
-        @forbidden {
-          path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
-          path /.* /autotest* /occ* /issue* /indie* /db_* /console*
-          not path /.well-known/*
-        }
-        error @forbidden 404
+        "~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/" = {
+          extraConfig = ''
+            return 404;
+          '';
+        };
 
-        @immutable {
-          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
-          query v=*
-        }
-        header @immutable Cache-Control "max-age=15778463, immutable"
+        "~ ^/(?:\\.|autotest|occ|issue|indie|db_|console)" = {
+          extraConfig = ''
+            return 404;
+          '';
+        };
 
-        @static {
-          path *.css *.js *.mjs *.svg *.gif *.png *.jpg *.ico *.wasm *.tflite
-          not query v=*
-        }
-        header @static Cache-Control "max-age=15778463"
+        "~ \\.(?:css|js|mjs|svg|gif|png|jpg|ico|wasm|tflite)$" = {
+          extraConfig = ''
+            add_header Cache-Control "max-age=15778463, $http_if_modified_since";
+          '';
+        };
 
-        @woff2 path *.woff2
-        header @woff2 Cache-Control "max-age=604800"
+        "~ \\.woff2$" = {
+          extraConfig = ''
+            add_header Cache-Control "max-age=604800";
+          '';
+        };
 
-        file_server
-      '';
+        "~ \\.php(?:/|$)" = {
+          extraConfig = ''
+            include ${config.services.nginx.package}/conf/fastcgi.conf;
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            fastcgi_param front_controller_active true;
+            fastcgi_param modHeadersAvailable true;
+            fastcgi_pass unix:/run/phpfpm/nextcloud.sock;
+            fastcgi_read_timeout 1200;
+          '';
+        };
+      };
     };
 
     # Fix for memories

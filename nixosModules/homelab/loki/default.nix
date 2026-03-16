@@ -41,11 +41,10 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
-    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
-      '';
+      locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
     };
 
     clan.core.state.loki = {

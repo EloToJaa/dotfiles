@@ -127,11 +127,10 @@ in {
       };
     };
 
-    services.caddy.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        reverse_proxy http://${cfg.host}:${toString cfg.port}
-      '';
+      locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
     };
     clan.core.state.immich = {
       folders = [

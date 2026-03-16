@@ -33,7 +33,7 @@
     homelab = {
       enable = true;
       blocky.enable = false;
-      caddy.enable = true;
+      nginx.enable = true;
       groups.enable = true;
       postgres = {
         enable = true;

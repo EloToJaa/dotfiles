@@ -56,11 +56,15 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
-    services.caddy.virtualHosts.${domain} = {
+    services.nginx.virtualHosts.${domain} = {
+      forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
-      '';
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
     };
 
     clan.core.state.vaultwarden = {

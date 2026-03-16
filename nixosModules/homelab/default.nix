@@ -68,7 +68,6 @@ in {
     ./authelia
     ./bazarr
     ./blocky
-    ./caddy
     ./cleanuparr
     ./glance
     ./grafana
@@ -82,6 +81,7 @@ in {
     ./mysql
     ./n8n
     ./nextcloud
+    ./nginx
     ./ntfy
     ./paperless
     ./postgres

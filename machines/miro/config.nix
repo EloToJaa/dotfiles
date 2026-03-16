@@ -33,7 +33,7 @@
     homelab = {
       enable = true;
       blocky.enable = true;
-      caddy.enable = true;
+      nginx.enable = true;
       groups.enable = true;
       home-assistant.enable = true;
       jellyfin = {

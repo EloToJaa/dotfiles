@@ -54,7 +54,7 @@ in {
       package = pkgs.unstable.tailscale;
       # Enable caddy to acquire certificates from the tailscale daemon
       # - https://tailscale.com/blog/caddy
-      permitCertUid = lib.mkIf config.services.caddy.enable "caddy";
+      permitCertUid = lib.mkIf config.services.nginx.enable "nginx";
       openFirewall = true;
       useRoutingFeatures = "both";
       authKeyFile = config.clan.core.vars.generators.tailscale.files.auth-key.path;

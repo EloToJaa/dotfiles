@@ -78,19 +78,14 @@ in {
       '';
     };
 
-    services.caddy.virtualHosts = let
-      extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString cfg.port}
-      '';
+    services.nginx.virtualHosts = let
+      proxyConfig = {
+        forceSSL = true;
+        locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
+      };
     in {
-      "${cfg.domainName}.${homelab.baseDomain}" = {
-        inherit extraConfig;
-        useACMEHost = homelab.baseDomain;
-      };
-      "${cfg.domainName}.${homelab.mainDomain}" = {
-        inherit extraConfig;
-        useACMEHost = homelab.mainDomain;
-      };
+      "${cfg.domainName}.${homelab.baseDomain}" = proxyConfig // {useACMEHost = homelab.baseDomain;};
+      "${cfg.domainName}.${homelab.mainDomain}" = proxyConfig // {useACMEHost = homelab.mainDomain;};
     };
 
     users.users.${cfg.name} = {
