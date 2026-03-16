@@ -42,7 +42,10 @@ in {
           - command: <agent>
             split: horizontal
             focus: true
-          - split: vertical
+        status_icons:
+          working: "🤖" # Agent is processing
+          waiting: "💬" # Agent needs input (auto-clears on focus)
+          done: "✅" # Agent finished (auto-clears on focus)
       '';
   };
 }
