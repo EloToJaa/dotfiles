@@ -38,7 +38,7 @@ in {
         mode: window
         worktree_dir: ""
         panes:
-          - command: nvim
+          - command: nvim -c 'lua require("opencode.cli.server").get()'
           - command: opencode --port $(find-port 5660)
             split: horizontal
             focus: true
