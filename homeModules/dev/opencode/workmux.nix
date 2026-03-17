@@ -33,16 +33,16 @@ in {
       */
       ''
         merge_strategy: rebase
-        agent: opencode
         nerdfont: true
         theme: dark
         mode: window
         worktree_dir: ""
         panes:
           - command: nvim
-          - command: <agent>
+          - command: opencode --port $(find-port 5660)
             split: horizontal
             focus: true
+          - split: vertical
         status_icons:
           working: "🤖" # Agent is processing
           waiting: "💬" # Agent needs input (auto-clears on focus)

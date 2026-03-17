@@ -39,7 +39,7 @@ in {
         autoupdate = false;
         autoshare = false;
         plugin = [];
-        server.port = 4096;
+        # server.port = 4096;
         keybinds = {
           "input_submit" = "return";
           "input_newline" = "shift+return";
