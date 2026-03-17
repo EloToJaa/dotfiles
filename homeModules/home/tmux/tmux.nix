@@ -42,6 +42,9 @@ in {
           set -g pane-active-border-style 'fg=blue,bg=default'
           set -g pane-border-style 'fg=brightblack,bg=default'
 
+          set -g extended-keys on
+          set -as terminal-features 'xterm*:extkeys'
+
           bind-key [ previous-window
           bind-key ] next-window
           bind-key -n C-[ previous-window
