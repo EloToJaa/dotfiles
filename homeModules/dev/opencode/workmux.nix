@@ -17,13 +17,13 @@ in {
       wm = "workmux";
     };
 
-    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${aiTools.workmux}/plugins/workmux-status.ts";
+    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${pkgs.workmux}/.opencode/plugin/workmux-status.ts";
     programs.opencode.skills = {
-      coordinator = "${aiTools.workmux}/skills/coordinator/";
-      merge = "${aiTools.workmux}/skills/merge/";
-      open-pr = "${aiTools.workmux}/skills/open-pr/";
-      rebase = "${aiTools.workmux}/skills/rebase/";
-      worktree = "${aiTools.workmux}/skills/worktree/";
+      coordinator = "${pkgs.workmux}/skills/coordinator/";
+      merge = "${pkgs.workmux}/skills/merge/";
+      open-pr = "${pkgs.workmux}/skills/open-pr/";
+      rebase = "${pkgs.workmux}/skills/rebase/";
+      worktree = "${pkgs.workmux}/skills/worktree/";
     };
 
     xdg.configFile."workmux/config.yaml".text =
