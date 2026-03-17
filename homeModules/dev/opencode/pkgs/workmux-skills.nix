@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "raine";
     repo = "workmux";
-    rev = "1ed29a03dc852d30fa6ef2ca53a67dc2c2c2c563";
-    hash = "sha256-9FGubcwHcGBJcKl02aJ+YsTMiwDOdgU/FHALjARG51c=";
+    rev = "02a20337cb6cae8ffd06fbc0047c818fb2a2f999";
+    hash = "sha256-q8mFEeiiyRwWWkUdNIp9jOk5aKgdtgSzckLqM3PM340=";
   };
 
   buildPhase = ''

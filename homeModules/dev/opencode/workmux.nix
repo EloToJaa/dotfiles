@@ -7,6 +7,7 @@
 }: let
   cfg = config.modules.dev.opencode;
   aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  workmux = pkgs.callPackage ./pkgs/workmux-skills.nix {};
 in {
   config = lib.mkIf cfg.enable {
     home.packages = [
@@ -17,13 +18,13 @@ in {
       wm = "workmux";
     };
 
-    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${pkgs.workmux}/.opencode/plugin/workmux-status.ts";
+    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${workmux}/.opencode/plugin/workmux-status.ts";
     programs.opencode.skills = {
-      coordinator = "${pkgs.workmux}/skills/coordinator/";
-      merge = "${pkgs.workmux}/skills/merge/";
-      open-pr = "${pkgs.workmux}/skills/open-pr/";
-      rebase = "${pkgs.workmux}/skills/rebase/";
-      worktree = "${pkgs.workmux}/skills/worktree/";
+      coordinator = "${workmux}/skills/coordinator/";
+      merge = "${workmux}/skills/merge/";
+      open-pr = "${workmux}/skills/open-pr/";
+      rebase = "${workmux}/skills/rebase/";
+      worktree = "${workmux}/skills/worktree/";
     };
 
     xdg.configFile."workmux/config.yaml".text =
