@@ -23,13 +23,25 @@ in {
         {
           mode = ["n" "x"];
           key = "<leader>ox";
-          action = mkRaw "function() require('opencode').select() end";
-          options.desc = "Execute opencode action…";
+          action = mkRaw "require('opencode').select";
+          options.desc = "Execute opencode action";
+        }
+        {
+          mode = "n";
+          key = "<leader>os";
+          action = mkRaw "require('opencode').select_session";
+          options.desc = "Select opencode session";
+        }
+        {
+          mode = "n";
+          key = "<leader>oS";
+          action = mkRaw "require('opencode').select_server";
+          options.desc = "Select opencode server";
         }
         {
           mode = ["n" "t"];
           key = "<leader>oo";
-          action = mkRaw "function() require('opencode').toggle() end";
+          action = mkRaw "require('opencode').toggle";
           options.desc = "Toggle opencode";
         }
         {
