@@ -20,7 +20,7 @@ in {
   ];
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      # btca
+      btca
     ];
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
@@ -30,13 +30,12 @@ in {
       package = aiTools.opencode;
       rules = ./AGENTS.md;
       skills = {
-        # better-context = "${pkgs.btca}/skills/btca-cli/";
+        better-context = "${pkgs.btca}/skills/btca-cli/";
         frontend-design = "${skills.anthropic}/skills/frontend-design/";
       };
       settings = {
         theme = "catppuccin";
-        model = "anthropic/claude-opus-4-5";
-        small_model = "anthropic/claude-haiku-4-5";
+        model = "opencode-go/kimi-k2.5";
         autoupdate = false;
         plugin = [];
         server.port = 4096;

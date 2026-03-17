@@ -9,13 +9,13 @@
   writableTmpDirAsHomeHook,
 }: let
   pname = "better-context";
-  version = "1.0.950";
+  version = "2.0.5";
 
   src = fetchFromGitHub {
     owner = "davis7dotsh";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-01i9vdacxdK8T4x8CL2cQykxH6CLKjhd83gWokExgMk=";
+    hash = "sha256-R/ltRSlfb54EsRVGg7icoix1hbRqsuf5lYXlZLKnP38=";
   };
 
   # Platform-specific mapping
@@ -77,12 +77,12 @@
 
     dontFixup = true;
 
-    outputHash = "sha256-++78hmAEeqTVx3dc6Cwh+MUmkutG+/DYXZJtUNCNoMo=";
+    outputHash = "sha256-Vdkb685o9TiMKSUHKMXYQhWqKHiBwqZN49afUjWaAoM=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
 in
-  stdenv.mkDerivation (finalAttrs: {
+  stdenv.mkDerivation (_: {
     inherit pname version src node_modules;
 
     nativeBuildInputs = [
