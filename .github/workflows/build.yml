@@ -1,10 +1,10 @@
 name: Build 🏗️ Hosts ️💁
 on:
   workflow_dispatch:
-  #merge_group:
-  #pull_request:
-  #  paths:
-  #    - "flake.lock"
+  merge_group:
+  pull_request:
+    paths:
+      - "flake.lock"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
