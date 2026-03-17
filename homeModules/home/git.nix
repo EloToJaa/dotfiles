@@ -69,10 +69,10 @@ in {
         enable = true;
         package = pkgs.unstable.gh;
         settings.git_protocol = "ssh";
-        hosts."github.com" = {
-          git_protocol = "ssh";
-          user = git.userName;
-        };
+        # hosts."github.com" = {
+        #   git_protocol = "ssh";
+        #   user = git.userName;
+        # };
       };
 
       delta = {
