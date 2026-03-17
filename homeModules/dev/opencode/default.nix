@@ -37,8 +37,13 @@ in {
         theme = "catppuccin";
         model = "opencode-go/kimi-k2.5";
         autoupdate = false;
+        autoshare = false;
         plugin = [];
         server.port = 4096;
+        keybinds = {
+          "input_submit" = "return";
+          "input_newline" = "shift+return";
+        };
         tools = {
           write = true;
           edit = true;
