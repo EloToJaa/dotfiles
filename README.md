@@ -39,8 +39,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add home-assistant
 - [x] Add redis
 - [x] Add authelia
-- [ ] Setup zen browser config
-- [ ] Add forms and onlyoffice to nextcloud
+- [x] Setup zen browser config
+- [x] Add forms and onlyoffice to nextcloud
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [ ] Add grafana
@@ -55,16 +55,16 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Migrate postgresql to clan postgresql
 - [x] Migrate backups to clan bordbackups
 - [x] Setup disko for each host
+- [x] Migrate caddy to nginx
+- [x] Migrate state directories from `/opt/` to `/var/lib/`
 - [ ] Migrate sops to clan vars
-- [ ] Migrate caddy to nginx
-- [ ] Migrate state directories from `/opt/` to `/var/lib/`
 - [ ] Setup SMB & NFS servers for nas
 - [ ] Setup nas host with NixOS
 
 ### Low priority
 
 - [ ] Add goaccess
-- [ ] Setup music jellyfin & lidarr
+- [ ] Setup music navidrome/jellyfin & lidarr
 - [ ] Add microbin (pastebin alternative)
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
