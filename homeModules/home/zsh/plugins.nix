@@ -51,13 +51,8 @@ in {
         ++ (lib.optionals plugins.zsh-system-clipboard.enable [
           {
             name = "zsh-system-clipboard";
-            #file = "zsh-system-clipboard.plugin.zsh";
-            src = pkgs.fetchFromGitHub {
-              owner = "kutsan";
-              repo = "zsh-system-clipboard";
-              rev = "5f1d497ee3c215a967c0e6b9a772e73c40332d52";
-              hash = "sha256-dnWQEWa/Cxwopgj2teCpWhqX4Imx1PB7fHAa8djg8P4=";
-            };
+            file = "zsh-system-clipboard.zsh";
+            src = "${zsh-system-clipboard}/share/zsh/";
           }
         ])
         ++ (lib.optionals plugins.zsh-zhooks.enable [
