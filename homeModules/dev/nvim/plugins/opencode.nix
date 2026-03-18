@@ -10,7 +10,7 @@ in {
   options.modules.dev.nvim.plugins.opencode = {
     enable = lib.mkEnableOption "Enable opencode";
   };
-  config = lib.mkIf (cfg.enable && config.modules.dev.opencode.enable) {
+  config = lib.mkIf (cfg.enable && config.modules.dev.ai.opencode.enable) {
     home.packages = with pkgs.unstable; [lsof];
     programs.nixvim = {
       keymaps = [

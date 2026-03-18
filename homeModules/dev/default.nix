@@ -3,8 +3,8 @@
     enable = lib.mkEnableOption "Enable dev module";
   };
   imports = [
+    ./ai
     ./nvim
-    ./opencode
     ./scripts # personal scripts
     ./aoc.nix
     ./lazygit.nix

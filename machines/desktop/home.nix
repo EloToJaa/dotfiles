@@ -35,9 +35,15 @@
     };
     dev = {
       enable = true;
+      ai = {
+        enable = true;
+        btca.enable = true;
+        opencode.enable = true;
+        skills.enable = true;
+        workmux.enable = true;
+      };
       aoc.enable = false;
       leetcode.enable = false;
-      opencode.enable = true;
       lazygit.enable = true;
       nvim = {
         enable = true;
