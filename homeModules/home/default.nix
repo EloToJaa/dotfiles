@@ -3,6 +3,7 @@
     enable = lib.mkEnableOption "Enable home module";
   };
   imports = [
+    ./git # version control
     ./oh-my-posh # shell prompt
     ./tmux
     ./yazi
@@ -13,7 +14,6 @@
     ./catppuccin.nix
     ./fastfetch.nix # fetch tool
     ./fzf.nix # fuzzy finder
-    ./git.nix # version control
     ./index.nix
     ./nerdfonts.nix # fonts
     ./nix.nix # nix

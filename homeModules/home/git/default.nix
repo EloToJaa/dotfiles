@@ -34,6 +34,7 @@
     glols = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --stat";
   };
   cfg = config.modules.home.git;
+  clone-bare = pkgs.writeShellScriptBin "clone-bare" (builtins.readFile ./clone-bare.sh);
 in {
   options.modules.home.git = {
     enable = lib.mkEnableOption "Enable git";
@@ -55,7 +56,8 @@ in {
           diff.colorMoved = "default";
           pull.ff = "only";
           color.ui = true;
-          remote.origin.fetch = "+refs/heads/*:refs/remotes/origin/*";
+          # remote.origin.fetch = "+refs/heads/*:refs/remotes/origin/*";
+          alias."clone-bare" = "!sh ${clone-bare}/bin/clone-bare";
         };
 
         signing = {
