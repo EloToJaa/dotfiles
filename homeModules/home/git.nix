@@ -5,7 +5,7 @@
   settings,
   ...
 }: let
-  inherit (settings) git;
+  inherit (settings) git catppuccin;
   shellAliases = {
     g = "git";
     gf = "onefetch --number-of-file-churns 0 --no-color-palette";
@@ -90,6 +90,11 @@ in {
         enable = true;
         package = pkgs.unstable.gh-dash;
       };
+    };
+
+    catppuccin.gh-dash = {
+      enable = true;
+      inherit (catppuccin) flavor accent;
     };
 
     home.packages = with pkgs.unstable; [
