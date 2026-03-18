@@ -98,6 +98,7 @@ in {
     ./uptime
     ./vaultwarden
     ./wireguard
+    ./zeroclaw
     ./firewall.nix
     ./groups.nix
     ./journald.nix
