@@ -9,7 +9,7 @@
   smart-splits = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "smart-splits";
     rtpFilePath = "smart-splits.tmux";
-    version = "unstable-2025-08-02";
+    version = "unstable-2026-03-18";
     src = pkgs.fetchFromGitHub {
       owner = "mrjones2014";
       repo = "smart-splits.nvim";
