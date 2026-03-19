@@ -13,6 +13,7 @@
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
         # ./terranix
+        ./lib
         ./settings.nix
         ./machines/flake-module.nix
         ./pkgs

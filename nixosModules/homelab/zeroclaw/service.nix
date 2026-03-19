@@ -2,11 +2,12 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   cfg = config.services.zeroclaw;
 
-  configFile = pkgs.writeText "zeroclaw-config.toml" (lib.generators.toTOML (cfg.config
+  configFile = pkgs.writeText "zeroclaw-config.toml" (inputs.self.lib.toTOML (cfg.config
     // {
       gateway = {
         inherit (cfg) host port;

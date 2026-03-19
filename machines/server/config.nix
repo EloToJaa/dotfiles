@@ -86,7 +86,7 @@
         auth.enable = false;
       };
       wireguard.enable = true;
-      # zeroclaw.enable = true;
+      zeroclaw.enable = true;
     };
   };
 }
