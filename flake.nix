@@ -55,6 +55,18 @@
       };
     };
 
+    niri = {
+      url = "github:YaLTeR/niri";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    niri-nix = {
+      url = "git+https://codeberg.org/BANanaD3V/niri-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        niri-unstable.follows = "niri";
+      };
+    };
+
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
