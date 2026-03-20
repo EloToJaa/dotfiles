@@ -44,6 +44,7 @@ in {
     nixpkgs = {
       overlays = [
         inputs.nur.overlays.default
+        inputs.niri-nix.overlays.niri-nix
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages
         outputs.overlays.localPackages

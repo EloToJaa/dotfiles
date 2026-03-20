@@ -42,7 +42,10 @@
       security.enable = true;
       steam.enable = false;
       virtualization.enable = true;
-      wayland.enable = true;
+      wayland = {
+        enable = true;
+        hyprland.enable = true;
+      };
       xserver.enable = true;
     };
     homelab.groups.enable = true;

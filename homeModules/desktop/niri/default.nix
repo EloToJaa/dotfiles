@@ -3,5 +3,6 @@
     enable = lib.mkEnableOption "Enable niri";
   };
   imports = [
+    ./niri.nix
   ];
 }
