@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (config.settings) keyboardLayout username;
+  inherit (config.settings) keyboardLayout;
   cfg = config.modules.core.xserver;
 in {
   options.modules.core.xserver = {
@@ -17,10 +17,6 @@ in {
         xkb.layout = keyboardLayout;
       };
 
-      displayManager.autoLogin = {
-        enable = true;
-        user = username;
-      };
       libinput = {
         enable = true;
       };

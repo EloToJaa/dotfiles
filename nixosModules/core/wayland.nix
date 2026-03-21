@@ -5,9 +5,10 @@
   inputs,
   ...
 }: let
-  cfg = config.modules.core.wayland;
   inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
+  inherit (config.settings) username;
   niri = pkgs.niri-unstable;
+  cfg = config.modules.core.wayland;
 in {
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
@@ -24,7 +25,7 @@ in {
         enable = true;
         package = hyprland;
         portalPackage = xdg-desktop-portal-hyprland;
-        withUWSM = false;
+        withUWSM = true;
       };
       # niri = lib.mkIf cfg.niri.enable {
       #   enable = true;
@@ -47,7 +48,6 @@ in {
         };
       };
     };
-    # niri-flake.cache.enable = cfg.niri.enable;
     xdg.portal = {
       enable = true;
       wlr.enable = true;
@@ -62,6 +62,24 @@ in {
       # extraPortals = with pkgs.unstable; [
       #   xdg-desktop-portal-gtk
       # ];
+    };
+
+    services.greetd = let
+      session = {
+        command = "${lib.getExe config.programs.uwsm.package} start ${hyprland}/share/wayland-sessions/hyprland.desktop";
+        user = username;
+      };
+    in {
+      enable = true;
+
+      # do not restart on session exit (useful on autologin)
+      restart = false;
+
+      settings = {
+        terminal.vt = 1;
+        default_session = session;
+        initial_session = session;
+      };
     };
 
     boot.initrd.kernelModules = ["amdgpu"];
