@@ -11,6 +11,5 @@ in {
       enable = true;
       package = pkgs.niri-unstable;
     };
-    niri-flake.cache.enable = true;
   };
 }
