@@ -20,23 +20,23 @@ in {
         "${mainMod}, f, fullscreen, 0"
         "${mainMod} SHIFT, f, fullscreen, 1"
         "${mainMod}, Space, exec, toggle-float"
-        "${mainMod}, s, exec, vicinae toggle"
+        "${mainMod}, s, exec, uwsm app -- vicinae toggle"
         "${mainMod} SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "${mainMod}, d, exec, ${discord}"
-        "${mainMod} SHIFT, D, exec, nwg-displays"
+        "${mainMod} SHIFT, D, exec, uwsm app -- nwg-displays"
         "${mainMod}, g, exec, hyprlock"
-        "${mainMod}, Escape, exec, wlogout"
+        "${mainMod}, Escape, exec, uwsm app -- wlogout"
         "${mainMod}, p, pseudo,"
         # "${mainMod}, x, togglesplit,"
         "${mainMod}, t, exec, toggle-opacity"
-        "${mainMod}, e, exec, nemo"
+        "${mainMod}, e, exec, uwsm app -- nemo"
         "${mainMod} SHIFT, e, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
         "${mainMod} SHIFT, B, exec, toggle-waybar"
-        "${mainMod}, c, exec, hyprpicker -a"
+        "${mainMod}, c, exec, uwsm app -- hyprpicker -a"
         "${mainMod}, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "${mainMod} SHIFT, W, exec, hyprctl dispatch exec '[workspace 2 silent] delfin'"
-        "${mainMod}, n, exec, swaync-client -t -sw"
-        "${mainMod}, equal, exec, woomer"
+        "${mainMod}, n, exec, uwsm app -- swaync-client -t -sw"
+        "${mainMod}, equal, exec, uwsm app -- woomer"
 
         # screenshot
         ",Print, exec, uwsm app -- screenshot --copy"
@@ -132,7 +132,7 @@ in {
         "${mainMod}, mouse_up, workspace, e+1"
 
         # clipboard manager
-        "${mainMod}, v, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
+        "${mainMod}, v, exec, uwsm app -- vicinae vicinae://extensions/vicinae/clipboard/history"
       ];
 
       # # binds active in lockscreen
