@@ -11,7 +11,7 @@ in {
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
     hyprland.enable = lib.mkEnableOption "Enable hyprland";
-    niri.enable = lib.mkEnableOption "Enable niri";
+    # niri.enable = lib.mkEnableOption "Enable niri";
   };
   config = lib.mkIf cfg.enable {
     programs = {
@@ -20,10 +20,10 @@ in {
         package = hyprland;
         portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
-      niri = lib.mkIf cfg.niri.enable {
-        enable = true;
-        package = pkgs.niri-unstable;
-      };
+      # niri = lib.mkIf cfg.niri.enable {
+      #   enable = true;
+      #   package = pkgs.niri-unstable;
+      # };
       uwsm = {
         enable = true;
         package = pkgs.unstable.uwsm;
@@ -41,7 +41,7 @@ in {
         };
       };
     };
-    niri-flake.cache.enable = cfg.niri.enable;
+    # niri-flake.cache.enable = cfg.niri.enable;
     xdg.portal = {
       enable = true;
       wlr.enable = true;
