@@ -33,6 +33,9 @@ in {
         "yazi"
         "tmux"
         "y"
+        "opencode"
+        "lazygit"
+        "clan"
       ];
   };
 }
