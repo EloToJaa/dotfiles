@@ -145,7 +145,7 @@ in {
       };
       "custom/launcher" = {
         format = "";
-        on-click = "vicinae vicinae://toggle";
+        on-click = "uwsm app -- vicinae vicinae://toggle";
         on-click-right = "hyprctl dispatch exec '[float; size 925 615] waypaper";
         tooltip = "false";
       };

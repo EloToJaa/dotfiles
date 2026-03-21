@@ -83,11 +83,11 @@ in {
               actions = [
                 {
                   label = "󰹑  Whole screen";
-                  command = "grimblast --notify --cursor --freeze copy output";
+                  command = "uwsm app -- grimblast --notify --cursor --freeze copy output";
                 }
                 {
                   label = "󰩭  Window / Region";
-                  command = "grimblast --notify --cursor --freeze copy area";
+                  command = "uwsm app -- grimblast --notify --cursor --freeze copy area";
                 }
               ];
             };

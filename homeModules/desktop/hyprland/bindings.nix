@@ -39,10 +39,10 @@ in {
         "${mainMod}, equal, exec, woomer"
 
         # screenshot
-        ",Print, exec, screenshot --copy"
-        "${mainMod}, Print, exec, screenshot --save"
-        "${mainMod} SHIFT, Print, exec, screenshot --edit"
-        "${mainMod} CTRL, O, exec, ocr"
+        ",Print, exec, uwsm app -- screenshot --copy"
+        "${mainMod}, Print, exec, uwsm app -- screenshot --save"
+        "${mainMod} SHIFT, Print, exec, uwsm app -- screenshot --edit"
+        "${mainMod} CTRL, O, exec, uwsm app -- ocr"
 
         # switch focus
         "${mainMod}, left, movefocus, l"
