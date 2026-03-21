@@ -6,19 +6,20 @@
   ...
 }: let
   cfg = config.modules.core.wayland;
-  hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
 in {
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
     hyprland.enable = lib.mkEnableOption "Enable hyprland";
-    # niri.enable = lib.mkEnableOption "Enable niri";
+    niri.enable = lib.mkEnableOption "Enable niri";
   };
   config = lib.mkIf cfg.enable {
     programs = {
       hyprland = lib.mkIf cfg.hyprland.enable {
         enable = true;
         package = hyprland;
-        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        portalPackage = xdg-desktop-portal-hyprland;
+        withUWSM = true;
       };
       # niri = lib.mkIf cfg.niri.enable {
       #   enable = true;
@@ -28,12 +29,12 @@ in {
         enable = true;
         package = pkgs.unstable.uwsm;
         waylandCompositors = {
-          hyprland = {
+          hyprland = lib.mkIf cfg.hyprland.enable {
             prettyName = "Hyprland";
             comment = "Hyprland compositor managed by UWSM";
             binPath = "${hyprland}/bin/Hyprland";
           };
-          niri = {
+          niri = lib.mkIf cfg.niri.enable {
             prettyName = "Niri";
             comment = "Niri compositor managed by UWSM";
             binPath = "${pkgs.niri-unstable}/bin/niri";

@@ -45,6 +45,7 @@
       wayland = {
         enable = true;
         hyprland.enable = true;
+        niri.enable = true;
       };
       xserver.enable = true;
     };
