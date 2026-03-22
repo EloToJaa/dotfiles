@@ -47,7 +47,7 @@ in {
             /* margin: 0px; */
             /* margin: -15px -10px -15px -10px; */
             border-radius: 4px;
-            background: inherit;
+            background: @base;
             /* background: @theme_bg_color; */
             /* background: shade(alpha(@borders, 2.55), 0.25); */
         }
@@ -159,10 +159,6 @@ in {
             border: 2px solid #A89984;
             border-radius: 0px;
             box-shadow: 0px 0px 2px black;
-        }
-
-        .blank-window {
-            background: alpha(black, 0.2);
         }
 
         /* .right.overlay-indicator { */

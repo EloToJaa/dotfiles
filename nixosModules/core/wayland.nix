@@ -66,7 +66,9 @@ in {
 
     services.greetd = let
       session = {
-        command = "${lib.getExe config.programs.uwsm.package} start ${hyprland}/share/wayland-sessions/hyprland.desktop";
+        command = ''
+          ${lib.getExe config.programs.uwsm.package} start ${hyprland}/share/wayland-sessions/hyprland.desktop
+        '';
         user = username;
       };
     in {
