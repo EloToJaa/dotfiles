@@ -6,8 +6,8 @@
   ...
 }: let
   inherit (settings) catppuccin;
-  theme = "Orchis-Dark-Compact";
-  # theme = "Adwaita-dark";
+  # theme = "Orchis-Dark-Compact";
+  theme = "Adwaita-dark";
   cfg = config.modules.desktop.gtk;
 in {
   options.modules.desktop.gtk = {
@@ -44,9 +44,9 @@ in {
       };
       theme = {
         name = theme;
-        package = pkgs.orchis-theme.override {
-          tweaks = ["primary"];
-        };
+        # package = pkgs.orchis-theme.override {
+        #   tweaks = ["primary"];
+        # };
       };
       cursorTheme = {
         name = "Bibata-Modern-Ice";
