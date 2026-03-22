@@ -10,6 +10,7 @@
       enable = true;
       hyprland.enable = true;
       hyprlock.enable = true;
+      niri.enable = true;
       satty.enable = true;
       wlogout.enable = true;
       swaync.enable = true;
