@@ -46,7 +46,6 @@ in {
         grim
         slurp
         wf-recorder
-        glib
         wayland
         woomer # zoomer for wayland
         libnotify

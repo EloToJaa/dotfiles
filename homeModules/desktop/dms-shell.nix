@@ -14,12 +14,12 @@ in {
     programs.dank-material-shell = {
       enable = true;
 
-      niri = {
-        enableKeybinds = true;
-        enableSpawn = true;
-      };
+      # niri = {
+      #   enableKeybinds = true;
+      #   enableSpawn = true;
+      # };
 
-      package = pkgs.unstable.dms-shell;
+      # package = pkgs.unstable.dms-shell;
       quickshell.package = pkgs.unstable.quickshell;
       dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 

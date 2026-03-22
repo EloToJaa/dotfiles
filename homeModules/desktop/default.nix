@@ -20,6 +20,7 @@
     ./cava.nix # audio visualizer
     ./clipboard.nix
     ./discord.nix # discord
+    ./dms-shell.nix # DankMaterialShell
     ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
