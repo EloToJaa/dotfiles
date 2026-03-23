@@ -53,6 +53,7 @@ in {
         package = pkgs.unstable.bibata-cursors;
         size = 22;
       };
+      gtk4.theme = config.gtk.theme;
     };
   };
 }
