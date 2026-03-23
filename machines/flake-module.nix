@@ -36,6 +36,7 @@ in {
               repo = "u441859-sub1@u441859-sub1.your-storagebox.de:/./borgbackup";
               rsh = ''ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh'';
             };
+            startAt = "*-*-* 03:00:00";
           };
         };
 
