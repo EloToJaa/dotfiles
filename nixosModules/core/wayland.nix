@@ -50,7 +50,7 @@ in {
 
     services.xserver.displayManager.lightdm.enable = false;
     services.greetd = {
-      enable = true;
+      enable = false;
 
       settings = {
         terminal.vt = 1;
@@ -58,8 +58,12 @@ in {
       };
     };
 
+    programs.uwsm.enable = false;
+    programs.uwsm.package = pkgs.uwsm;
+    programs.uwsm.waylandCompositors = {};
+
     programs.dank-material-shell.greeter = {
-      enable = true;
+      enable = false;
       compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
 
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
