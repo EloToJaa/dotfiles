@@ -17,6 +17,23 @@ in {
       niri = {
         enableKeybinds = false;
         enableSpawn = true;
+
+        includes = {
+          enable = true;
+
+          override = true;
+          originalFileName = "hm";
+          filesToInclude = [
+            "alttab"
+            "binds"
+            "colors"
+            "cursor"
+            "layout"
+            "outputs"
+            "windowrules"
+            "wpblur"
+          ];
+        };
       };
 
       # package = pkgs.unstable.dms-shell;
