@@ -18,7 +18,7 @@
       waybar.enable = false;
       wezterm.enable = false;
       audacious.enable = false;
-      bluetooth.enable = true;
+      bluetooth.enable = false;
       cava.enable = false;
       clipboard.enable = true;
       discord.enable = true;
