@@ -11,18 +11,18 @@ in {
     programs.niri.settings.binds = {
       # Applications
       "Mod+Return" = {action.spawn = [terminal];};
-      "Mod+b" = {action.spawn = ["uwsm" "app" "--" "zen-beta"];};
+      "Mod+b" = {action.spawn = ["zen-beta"];};
       "Mod+q" = {action.close-window = {};};
       "Mod+f" = {action.fullscreen-window = {};};
       # "Mod+Space" = {action.toggle-window-floating = {};};
-      "Mod+s" = {action.spawn = ["uwsm" "app" "--" "vicinae" "toggle"];};
+      "Mod+s" = {action.spawn = ["vicinae" "toggle"];};
       "Mod+d" = {action.spawn = [discord];};
-      "Mod+e" = {action.spawn = ["uwsm" "app" "--" "nemo"];};
-      # "Mod+n" = {action.spawn = ["uwsm" "app" "--" "swaync-client" "-t" "-sw"];};
+      "Mod+e" = {action.spawn = ["nemo"];};
+      # "Mod+n" = {action.spawn = ["swaync-client" "-t" "-sw"];};
 
       # Screenshots
-      "Print" = {action.spawn = ["uwsm" "app" "--" "screenshot" "--copy"];};
-      "Mod+Print" = {action.spawn = ["uwsm" "app" "--" "screenshot" "--save"];};
+      "Print" = {action.spawn = ["screenshot" "--copy"];};
+      "Mod+Print" = {action.spawn = ["screenshot" "--save"];};
 
       # Focus movement
       "Mod+Left" = {action.focus-column-left = {};};
@@ -73,7 +73,7 @@ in {
       "Mod+g" = {action.spawn = ["hyprlock"];};
 
       # Logout menu
-      "Mod+Escape" = {action.spawn = ["uwsm" "app" "--" "wlogout"];};
+      "Mod+Escape" = {action.spawn = ["wlogout"];};
     };
   };
 }

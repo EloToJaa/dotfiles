@@ -13,17 +13,17 @@ in {
 
       "hyprlock"
 
-      "uwsm app -- nm-applet"
-      "uwsm app -- poweralertd"
-      "uwsm app -- wl-clip-persist --clipboard both"
+      "nm-applet"
+      "poweralertd"
+      "wl-clip-persist --clipboard both"
       # "wl-paste --watch cliphist store"
-      "uwsm app -- waybar"
-      "uwsm app -- swaync"
-      "uwsm app -- udiskie --automount --notify --smart-tray"
+      "waybar"
+      "swaync"
+      "udiskie --automount --notify --smart-tray"
       "hyprctl setcursor Bibata-Modern-Ice 22"
       "init-wallpaper"
 
-      # "uwsm app -- kdeconnect-indicator"
+      # "kdeconnect-indicator"
     ];
   };
 }

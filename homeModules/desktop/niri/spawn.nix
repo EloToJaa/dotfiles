@@ -51,12 +51,12 @@ in {
       {command = ["hyprlock"];}
 
       # System tray apps
-      {command = ["uwsm" "app" "--" "nm-applet"];}
-      {command = ["uwsm" "app" "--" "poweralertd"];}
-      {command = ["uwsm" "app" "--" "wl-clip-persist" "--clipboard" "both"];}
-      {command = ["uwsm" "app" "--" "waybar"];}
-      {command = ["uwsm" "app" "--" "swaync"];}
-      {command = ["uwsm" "app" "--" "udiskie" "--automount" "--notify" "--smart-tray"];}
+      {command = ["nm-applet"];}
+      {command = ["poweralertd"];}
+      {command = ["wl-clip-persist" "--clipboard" "both"];}
+      {command = ["waybar"];}
+      {command = ["swaync"];}
+      {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
 
       # Cursor theme
       {command = ["hyprctl" "setcursor" "Bibata-Modern-Ice" "22"];}
