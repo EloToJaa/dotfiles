@@ -49,5 +49,6 @@ in {
 
       systemd.enable = false;
     };
+    systemd.user.services.niri-flake-polkit.enable = false;
   };
 }
