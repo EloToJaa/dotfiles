@@ -60,43 +60,32 @@ in {
       # ];
     };
 
-    services.greetd = let
-      session = {
-        command = ''
-          ${lib.getExe config.programs.uwsm.package} start ${niri}/share/wayland-sessions/niri.desktop
-        '';
-        user = username;
-      };
-    in {
+    services.xserver.displayManager.lightdm.enable = false;
+    services.greetd = {
       enable = true;
-
-      # do not restart on session exit (useful on autologin)
-      restart = false;
 
       settings = {
         terminal.vt = 1;
-        default_session = session;
-        initial_session = session;
+        default_session.user = username;
       };
     };
 
-    services.xserver.displayManager.lightdm.enable = false;
-    # services.greetd.enable = true;
-    # programs.dank-material-shell.greeter = {
-    #   compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
-    #
-    #   # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
-    #   configHome = "/home/${username}";
-    #
-    #   # Save the logs to a file
-    #   logs = {
-    #     save = true;
-    #     path = "/tmp/dms-greeter.log";
-    #   };
-    #
-    #   # Custom Quickshell Package
-    #   quickshell.package = pkgs.unstable.quickshell;
-    # };
+    programs.dank-material-shell.greeter = {
+      enable = true;
+      compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
+
+      # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
+      configHome = "/home/${username}";
+
+      # Save the logs to a file
+      logs = {
+        save = true;
+        path = "/tmp/dms-greeter.log";
+      };
+
+      # Custom Quickshell Package
+      quickshell.package = pkgs.unstable.quickshell;
+    };
 
     boot.initrd.kernelModules = ["amdgpu"];
   };
