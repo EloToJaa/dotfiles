@@ -15,7 +15,7 @@ in {
       enable = true;
 
       niri = {
-        enableKeybinds = true;
+        enableKeybinds = false;
         enableSpawn = true;
       };
 

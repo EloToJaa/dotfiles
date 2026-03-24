@@ -50,7 +50,7 @@ in {
       {
         matches = [
           {
-            app-id = "^zen$";
+            app-id = "^zen-beta$";
             title = ".*YouTube.*";
           }
         ];
@@ -107,6 +107,10 @@ in {
       {
         matches = [{app-id = "^zen-beta$";}];
         open-on-workspace = "1";
+      }
+      {
+        matches = [{app-id = "^ghostty$";}];
+        open-on-workspace = "3";
       }
       {
         matches = [
