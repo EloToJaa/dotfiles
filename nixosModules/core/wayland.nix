@@ -80,6 +80,24 @@ in {
       };
     };
 
+    services.xserver.displayManager.lightdm.enable = false;
+    # services.greetd.enable = true;
+    # programs.dank-material-shell.greeter = {
+    #   compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
+    #
+    #   # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
+    #   configHome = "/home/${username}";
+    #
+    #   # Save the logs to a file
+    #   logs = {
+    #     save = true;
+    #     path = "/tmp/dms-greeter.log";
+    #   };
+    #
+    #   # Custom Quickshell Package
+    #   quickshell.package = pkgs.unstable.quickshell;
+    # };
+
     boot.initrd.kernelModules = ["amdgpu"];
   };
 }
