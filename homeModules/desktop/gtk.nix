@@ -9,28 +9,35 @@
   # theme = "Orchis-Dark-Compact";
   theme = "Adwaita-dark";
   cfg = config.modules.desktop.gtk;
+  pointerPackage = pkgs.unstable.bibata-cursors;
+  iconsPackage = pkgs.unstable.catppuccin-papirus-folders.override {
+    inherit (catppuccin) flavor accent;
+  };
 in {
   options.modules.desktop.gtk = {
     enable = lib.mkEnableOption "Enable gtk";
+    applyTheme = lib.mkEnableOption "Apply theme";
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       nwg-look
       adw-gtk3
+      pointerPackage
+      iconsPackage
     ];
 
     home = {
-      sessionVariables = {
+      sessionVariables = lib.mkIf cfg.applyTheme {
         GTK_THEME = theme;
       };
       pointerCursor = {
         name = "Bibata-Modern-Ice";
-        package = pkgs.unstable.bibata-cursors;
+        package = pointerPackage;
         size = 22;
       };
     };
 
-    gtk = {
+    gtk = lib.mkIf cfg.applyTheme {
       enable = true;
       colorScheme = "dark";
       font = {
@@ -39,9 +46,7 @@ in {
       };
       iconTheme = {
         name = "Papirus-Dark";
-        package = lib.mkForce (pkgs.unstable.catppuccin-papirus-folders.override {
-          inherit (catppuccin) flavor accent;
-        });
+        package = iconsPackage;
       };
       theme = {
         name = theme;
@@ -49,11 +54,7 @@ in {
         #   tweaks = ["primary"];
         # };
       };
-      cursorTheme = {
-        name = "Bibata-Modern-Ice";
-        package = pkgs.unstable.bibata-cursors;
-        size = 22;
-      };
+      cursorTheme = config.home.pointerCursor;
       gtk4.theme = config.gtk.theme;
     };
   };
