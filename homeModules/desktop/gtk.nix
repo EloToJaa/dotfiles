@@ -16,6 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       nwg-look
+      adw-gtk3
     ];
 
     home = {

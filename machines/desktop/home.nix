@@ -25,7 +25,7 @@
       dms-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
-      gtk.enable = true;
+      gtk.enable = false;
       nemo.enable = true;
       rider.enable = false;
       spotify.enable = true;
