@@ -8,14 +8,14 @@
     };
     desktop = {
       enable = true;
-      hyprland.enable = true;
-      hyprlock.enable = true;
+      hyprland.enable = false;
+      hyprlock.enable = false;
       niri.enable = true;
       satty.enable = true;
-      wlogout.enable = true;
-      swaync.enable = true;
+      wlogout.enable = false;
+      swaync.enable = false;
       wallpapers.enable = true;
-      waybar.enable = true;
+      waybar.enable = false;
       wezterm.enable = false;
       audacious.enable = false;
       bluetooth.enable = true;
@@ -29,9 +29,9 @@
       nemo.enable = true;
       rider.enable = false;
       spotify.enable = true;
-      swayosd.enable = true;
+      swayosd.enable = false;
       vicinae.enable = true;
-      waypaper.enable = true;
+      waypaper.enable = false;
       xdg-mimes.enable = true;
       zen.enable = true;
     };
