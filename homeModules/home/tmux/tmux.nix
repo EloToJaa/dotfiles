@@ -73,7 +73,7 @@ in {
       };
 
       fzf.tmux.enableShellIntegration = true;
-      ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
+      # ghostty.settings.command = lib.mkIf config.programs.tmux.enable "${tmux-smart-launch}/bin/tmux-smart-launch";
     };
   };
 }
