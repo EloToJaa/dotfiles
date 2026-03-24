@@ -14,10 +14,10 @@ in {
     programs.dank-material-shell = {
       enable = true;
 
-      # niri = {
-      #   enableKeybinds = true;
-      #   enableSpawn = true;
-      # };
+      niri = {
+        enableKeybinds = true;
+        enableSpawn = true;
+      };
 
       # package = pkgs.unstable.dms-shell;
       quickshell.package = pkgs.unstable.quickshell;
