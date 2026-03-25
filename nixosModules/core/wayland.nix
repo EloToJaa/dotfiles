@@ -30,6 +30,17 @@ in {
       #   enable = true;
       #   package = pkgs.niri-unstable;
       # };
+      uwsm = {
+        enable = true;
+        package = pkgs.unstable.uwsm;
+        waylandCompositors = {
+          niri = lib.mkIf cfg.niri.enable {
+            prettyName = "Niri";
+            comment = "Niri compositor managed by UWSM";
+            binPath = "${niri}/bin/niri";
+          };
+        };
+      };
     };
     systemd.user.services.niri-flake-polkit.enable = !cfg.niri.enable;
     xdg.portal = {
@@ -50,20 +61,40 @@ in {
 
     services.xserver.displayManager.lightdm.enable = false;
     services.greetd = {
-      enable = false;
+      enable = true;
 
       settings = {
         terminal.vt = 1;
         default_session.user = username;
       };
     };
+    # services.greetd = let
+    #   session = {
+    #     command = ''
+    #       ${lib.getExe config.programs.uwsm.package} start ${niri}/share/wayland-sessions/niri.desktop
+    #     '';
+    #     user = username;
+    #   };
+    # in {
+    #   enable = true;
+    #
+    #   # do not restart on session exit (useful on autologin)
+    #   restart = false;
+    #
+    #   settings = {
+    #     terminal.vt = 1;
+    #     default_session = session;
+    #     initial_session = session;
+    #   };
+    # };
 
-    programs.uwsm.enable = false;
-    programs.uwsm.package = pkgs.uwsm;
-    programs.uwsm.waylandCompositors = {};
+    # programs.uwsm.enable = true;
+    # programs.uwsm.package = pkgs.unstable.uwsm;
+    # programs.uwsm.waylandCompositors = {};
+    # services.dbus.implementation = "dbus";
 
     programs.dank-material-shell.greeter = {
-      enable = false;
+      enable = true;
       compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
 
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this

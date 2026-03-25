@@ -47,7 +47,7 @@ in {
       enableSystemMonitoring = true;
       enableVPN = true;
 
-      systemd.enable = true;
+      systemd.enable = false;
     };
   };
 }

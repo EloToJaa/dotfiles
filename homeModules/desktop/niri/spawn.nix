@@ -1,10 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.modules.desktop.niri;
+
+  # Helper to wrap commands with uwsm
+  uwsmApp = command: ["uwsm" "app" "--"] ++ command;
 in {
   config = lib.mkIf cfg.enable {
     programs.niri.settings.spawn-at-startup = [
@@ -47,22 +49,13 @@ in {
         ];
       }
 
-      # Lock screen - hyprlock works on any Wayland compositor
-      {command = ["hyprlock"];}
-
       # System tray apps
-      {command = ["nm-applet"];}
-      {command = ["poweralertd"];}
-      {command = ["wl-clip-persist" "--clipboard" "both"];}
-      {command = ["waybar"];}
-      {command = ["swaync"];}
-      {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
-
-      # Cursor theme
-      {command = ["hyprctl" "setcursor" "Bibata-Modern-Ice" "22"];}
-
-      # Wallpaper
-      {command = ["init-wallpaper"];}
+      # {command = uwsmApp ["nm-applet"];}
+      {command = uwsmApp ["poweralertd"];}
+      {command = uwsmApp ["wl-clip-persist" "--clipboard" "both"];}
+      # {command = uwsmApp ["waybar"];}
+      # {command = uwsmApp ["swaync"];}
+      {command = uwsmApp ["udiskie" "--automount" "--notify" "--smart-tray"];}
     ];
   };
 }
