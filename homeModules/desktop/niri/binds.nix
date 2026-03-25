@@ -12,68 +12,284 @@
 in {
   config = lib.mkIf cfg.enable {
     programs.niri.settings.binds = {
-      # Applications
-      "Mod+Return".action.spawn = uwsmApp [terminal];
-      "Mod+b".action.spawn = uwsmApp ["zen-beta"];
-      "Mod+q".action.close-window = {};
-      "Mod+f".action.fullscreen-window = {};
-      # "Mod+Space" = {action.toggle-window-floating = {};};
-      "Mod+s".action.spawn = uwsmApp ["vicinae" "toggle"];
-      "Mod+d".action.spawn = uwsmApp [discord];
-      "Mod+e".action.spawn = uwsmApp ["nemo"];
-      # "Mod+n" = {action.spawn = uwsmApp ["swaync-client" "-t" "-sw"];};
+      "Mod+Tab" = {
+        repeat = false;
+        action."toggle-overview" = {};
+      };
+      "Mod+Shift+Tab".action."focus-monitor-previous" = {};
+      "Mod+Shift+Slash" = {
+        hotkey-overlay.title = "Show Hotkey Overlay";
+        action.spawn = dmsIpc ["keybinds" "toggle" "niri"];
+      };
 
-      # Screenshots
-      # "Print" = {action.spawn = uwsmApp ["screenshot" "--copy"];};
-      # "Mod+Print" = {action.spawn = uwsmApp ["screenshot" "--save"];};
+      "Mod+d" = {
+        hotkey-overlay.title = "Discord";
+        action.spawn = uwsmApp [discord];
+      };
+      "Mod+Shift+d" = {
+        hotkey-overlay.title = "Display settings";
+        action.spawn = dmsIpc ["settings" "toggleWith" "displays"];
+      };
+      "Mod+b" = {
+        hotkey-overlay.title = "Zen Browser";
+        action.spawn = uwsmApp ["zen-beta"];
+      };
+      "Mod+e" = {
+        hotkey-overlay.title = "Nemo file manager";
+        action.spawn = uwsmApp ["nemo"];
+      };
+      "Mod+s" = {
+        hotkey-overlay.title = "Vicinae";
+        action.spawn = uwsmApp ["vicinae" "toggle"];
+      };
+      "Mod+Shift+s" = {
+        hotkey-overlay.title = "Spotify";
+        action.spawn = uwsmApp ["spotify"];
+      };
 
-      # Focus movement
-      "Mod+Left".action.focus-column-left = {};
-      "Mod+Right".action.focus-column-right = {};
-      "Mod+Up".action.focus-window-up = {};
-      "Mod+Down".action.focus-window-down = {};
-      "Mod+h".action.focus-column-left = {};
-      "Mod+l".action.focus-column-right = {};
-      "Mod+k".action.focus-window-up = {};
-      "Mod+j".action.focus-window-down = {};
+      "Mod+Return" = {
+        hotkey-overlay.title = "Open Terminal";
+        action.spawn = uwsmApp [terminal];
+      };
+      "Mod+Space" = {
+        hotkey-overlay.title = "Application Launcher";
+        action.spawn = dmsIpc ["spotlight" "toggle"];
+      };
+      "Mod+v" = {
+        hotkey-overlay.title = "Clipboard Manager";
+        action.spawn = dmsIpc ["clipboard" "toggle"];
+      };
+      "Mod+m" = {
+        hotkey-overlay.title = "Task Manager";
+        action.spawn = dmsIpc ["processlist" "focusOrToggle"];
+      };
+      "Mod+Escape" = {
+        hotkey-overlay.title = "Power Menu: Toggle";
+        action.spawn = dmsIpc ["powermenu" "toggle"];
+      };
+      "Mod+comma" = {
+        hotkey-overlay.title = "Settings";
+        action.spawn = dmsIpc ["settings" "focusOrToggle"];
+      };
+      "Mod+y" = {
+        hotkey-overlay.title = "Browse Wallpapers";
+        action.spawn = dmsIpc ["dankdash" "wallpaper"];
+      };
+      "Mod+n" = {
+        hotkey-overlay.title = "Notifications";
+        action.spawn = dmsIpc ["notifications" "toggle"];
+      };
+      "Mod+Shift+n" = {
+        hotkey-overlay.title = "Notepad";
+        action.spawn = dmsIpc ["notepad" "toggle"];
+      };
+      "Mod+g" = {
+        hotkey-overlay.title = "Lock Screen";
+        action.spawn = dmsIpc ["lock" "lock"];
+      };
+      "Mod+w" = {
+        hotkey-overlay.title = "Change wallpaper";
+        action.spawn = dmsIpc ["dankdash" "wallpaper"];
+      };
+      "Mod+Shift+w" = {
+        hotkey-overlay.title = "Launch jellyfin app";
+        action.spawn = uwsmApp ["delfin"];
+      };
 
-      # Workspaces 1-10
-      "Mod+1".action.focus-workspace = [1];
-      "Mod+2".action.focus-workspace = [2];
-      "Mod+3".action.focus-workspace = [3];
-      "Mod+4".action.focus-workspace = [4];
-      "Mod+5".action.focus-workspace = [5];
-      "Mod+6".action.focus-workspace = [6];
-      "Mod+7".action.focus-workspace = [7];
-      "Mod+8".action.focus-workspace = [8];
-      "Mod+9".action.focus-workspace = [9];
-      "Mod+0".action.focus-workspace = [10];
+      "Mod+Shift+e".action.quit = {};
 
-      # Move window to workspace
-      "Mod+Shift+1".action.move-column-to-workspace = [1];
-      "Mod+Shift+2".action.move-column-to-workspace = [2];
-      "Mod+Shift+3".action.move-column-to-workspace = [3];
-      "Mod+Shift+4".action.move-column-to-workspace = [4];
-      "Mod+Shift+5".action.move-column-to-workspace = [5];
-      "Mod+Shift+6".action.move-column-to-workspace = [6];
-      "Mod+Shift+7".action.move-column-to-workspace = [7];
-      "Mod+Shift+8".action.move-column-to-workspace = [8];
-      "Mod+Shift+9".action.move-column-to-workspace = [9];
-      "Mod+Shift+0".action.move-column-to-workspace = [10];
+      "Ctrl+Alt+Delete" = {
+        hotkey-overlay.title = "Task Manager";
+        action.spawn = dmsIpc ["processlist" "focusOrToggle"];
+      };
 
-      # Change monitor focus
-      "Mod+Tab".action.focus-monitor-next = {};
-      "Mod+Shift+Tab".action.focus-monitor-previous = {};
+      "XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["audio" "increment" "2"];
+      };
+      "XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["audio" "decrement" "2"];
+      };
+      "XF86AudioMute" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["audio" "mute"];
+      };
+      "XF86AudioMicMute" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["audio" "micmute"];
+      };
+      "XF86AudioPause" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "playPause"];
+      };
+      "XF86AudioPlay" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "playPause"];
+      };
+      "XF86AudioPrev" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "previous"];
+      };
+      "XF86AudioNext" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "next"];
+      };
+      "Ctrl+XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "increment" "2"];
+      };
+      "Ctrl+XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["mpris" "decrement" "2"];
+      };
 
-      # Window movement
-      "Mod+Shift+Left".action.move-column-left = {};
-      "Mod+Shift+Right".action.move-column-right = {};
+      "XF86MonBrightnessUp" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["brightness" "increment" "5" ""];
+      };
+      "XF86MonBrightnessDown" = {
+        allow-when-locked = true;
+        action.spawn = dmsIpc ["brightness" "decrement" "5" ""];
+      };
 
-      # Lock screen - hyprlock works on any Wayland compositor
-      "Mod+g".action.spawn = dmsIpc ["lock" "lock"];
+      "Mod+q" = {
+        repeat = false;
+        action."close-window" = {};
+      };
+      "Mod+f".action."maximize-column" = {};
+      "Mod+Shift+f".action."fullscreen-window" = {};
+      "Mod+Shift+t".action."toggle-window-floating" = {};
+      "Mod+Shift+v".action."switch-focus-between-floating-and-tiling" = {};
 
-      # Logout menu
-      "Mod+Escape".action.spawn = dmsIpc ["powermenu" "toggle"];
+      "Mod+Left".action."focus-column-left" = {};
+      "Mod+Down".action."focus-window-down" = {};
+      "Mod+Up".action."focus-window-up" = {};
+      "Mod+Right".action."focus-column-right" = {};
+      "Mod+h".action."focus-column-left" = {};
+      "Mod+j".action."focus-window-down" = {};
+      "Mod+k".action."focus-window-up" = {};
+      "Mod+l".action."focus-column-right" = {};
+
+      "Mod+Shift+Left".action."move-column-left" = {};
+      "Mod+Shift+Down".action."move-window-down" = {};
+      "Mod+Shift+Up".action."move-window-up" = {};
+      "Mod+Shift+Right".action."move-column-right" = {};
+      "Mod+Shift+h".action."move-column-left" = {};
+      "Mod+Shift+j".action."move-window-down" = {};
+      "Mod+Shift+k".action."move-window-up" = {};
+      "Mod+Shift+l".action."move-column-right" = {};
+
+      "Mod+Home".action."focus-column-first" = {};
+      "Mod+End".action."focus-column-last" = {};
+      "Mod+Ctrl+Home".action."move-column-to-first" = {};
+      "Mod+Ctrl+End".action."move-column-to-last" = {};
+
+      "Mod+Ctrl+Left".action."focus-monitor-left" = {};
+      "Mod+Ctrl+Right".action."focus-monitor-right" = {};
+      "Mod+Ctrl+h".action."focus-monitor-left" = {};
+      "Mod+Ctrl+j".action."focus-monitor-down" = {};
+      "Mod+Ctrl+k".action."focus-monitor-up" = {};
+      "Mod+Ctrl+l".action."focus-monitor-right" = {};
+
+      "Mod+Shift+Ctrl+Left".action."move-column-to-monitor-left" = {};
+      "Mod+Shift+Ctrl+Down".action."move-column-to-monitor-down" = {};
+      "Mod+Shift+Ctrl+Up".action."move-column-to-monitor-up" = {};
+      "Mod+Shift+Ctrl+Right".action."move-column-to-monitor-right" = {};
+      "Mod+Shift+Ctrl+h".action."move-column-to-monitor-left" = {};
+      "Mod+Shift+Ctrl+j".action."move-column-to-monitor-down" = {};
+      "Mod+Shift+Ctrl+k".action."move-column-to-monitor-up" = {};
+      "Mod+Shift+Ctrl+l".action."move-column-to-monitor-right" = {};
+
+      "Mod+Page_Down".action."focus-workspace-down" = {};
+      "Mod+Page_Up".action."focus-workspace-up" = {};
+      "Mod+u".action."focus-workspace-down" = {};
+      "Mod+i".action."focus-workspace-up" = {};
+      "Mod+Ctrl+Down".action."move-column-to-workspace-down" = {};
+      "Mod+Ctrl+Up".action."move-column-to-workspace-up" = {};
+      "Mod+Ctrl+u".action."move-column-to-workspace-down" = {};
+      "Mod+Ctrl+i".action."move-column-to-workspace-up" = {};
+
+      "Ctrl+Shift+r" = {
+        hotkey-overlay.title = "Rename Workspace";
+        action.spawn = dmsIpc ["workspace-rename" "open"];
+      };
+
+      "Mod+Shift+Page_Down".action."move-workspace-down" = {};
+      "Mod+Shift+Page_Up".action."move-workspace-up" = {};
+      "Mod+Shift+u".action."move-workspace-down" = {};
+      "Mod+Shift+i".action."move-workspace-up" = {};
+
+      "Mod+WheelScrollDown" = {
+        "cooldown-ms" = 150;
+        action."focus-workspace-down" = {};
+      };
+      "Mod+WheelScrollUp" = {
+        "cooldown-ms" = 150;
+        action."focus-workspace-up" = {};
+      };
+      "Mod+Ctrl+WheelScrollDown" = {
+        "cooldown-ms" = 150;
+        action."move-column-to-workspace-down" = {};
+      };
+      "Mod+Ctrl+WheelScrollUp" = {
+        "cooldown-ms" = 150;
+        action."move-column-to-workspace-up" = {};
+      };
+      "Mod+WheelScrollRight".action."focus-column-right" = {};
+      "Mod+WheelScrollLeft".action."focus-column-left" = {};
+      "Mod+Ctrl+WheelScrollRight".action."move-column-right" = {};
+      "Mod+Ctrl+WheelScrollLeft".action."move-column-left" = {};
+      "Mod+Shift+WheelScrollDown".action."focus-column-right" = {};
+      "Mod+Shift+WheelScrollUp".action."focus-column-left" = {};
+      "Mod+Ctrl+Shift+WheelScrollDown".action."move-column-right" = {};
+      "Mod+Ctrl+Shift+WheelScrollUp".action."move-column-left" = {};
+
+      "Mod+1".action."focus-workspace" = [1];
+      "Mod+2".action."focus-workspace" = [2];
+      "Mod+3".action."focus-workspace" = [3];
+      "Mod+4".action."focus-workspace" = [4];
+      "Mod+5".action."focus-workspace" = [5];
+      "Mod+6".action."focus-workspace" = [6];
+      "Mod+7".action."focus-workspace" = [7];
+      "Mod+8".action."focus-workspace" = [8];
+      "Mod+9".action."focus-workspace" = [9];
+
+      "Mod+Shift+1".action."move-column-to-workspace" = [1];
+      "Mod+Shift+2".action."move-column-to-workspace" = [2];
+      "Mod+Shift+3".action."move-column-to-workspace" = [3];
+      "Mod+Shift+4".action."move-column-to-workspace" = [4];
+      "Mod+Shift+5".action."move-column-to-workspace" = [5];
+      "Mod+Shift+6".action."move-column-to-workspace" = [6];
+      "Mod+Shift+7".action."move-column-to-workspace" = [7];
+      "Mod+Shift+8".action."move-column-to-workspace" = [8];
+      "Mod+Shift+9".action."move-column-to-workspace" = [9];
+
+      "Mod+BracketLeft".action."consume-or-expel-window-left" = {};
+      "Mod+BracketRight".action."consume-or-expel-window-right" = {};
+      "Mod+Period".action."expel-window-from-column" = {};
+
+      "Mod+r".action."switch-preset-column-width" = {};
+      "Mod+Shift+r".action."switch-preset-window-height" = {};
+      "Mod+Ctrl+r".action."reset-window-height" = {};
+      "Mod+Ctrl+f".action."expand-column-to-available-width" = {};
+      "Mod+c".action."center-column" = {};
+      "Mod+Ctrl+c".action."center-visible-columns" = {};
+
+      "Mod+Minus".action."set-column-width" = ["-10%"];
+      "Mod+Equal".action."set-column-width" = ["+10%"];
+      "Mod+Shift+Minus".action."set-window-height" = ["-10%"];
+      "Mod+Shift+Equal".action."set-window-height" = ["+10%"];
+
+      "XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot"];
+      "Ctrl+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot-screen"];
+      "Alt+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot-window"];
+      "Print".action.spawn = dmsIpc ["niri" "screenshot"];
+      "Ctrl+Print".action.spawn = dmsIpc ["niri" "screenshot-screen"];
+      "Alt+Print".action.spawn = dmsIpc ["niri" "screenshot-window"];
+
+      "Mod+x".action."toggle-keyboard-shortcuts-inhibit" = {};
+      "Mod+Shift+p".action."power-off-monitors" = {};
     };
   };
 }

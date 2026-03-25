@@ -37,7 +37,8 @@ in {
         GDK_BACKEND = "wayland";
         QT_QPA_PLATFORM = "wayland";
         MOZ_ENABLE_WAYLAND = "1";
-        GTK_THEME = "Catppuccin-Mocha-Standard-Blue-Dark";
+
+        DMS_SCREENSHOT_EDITOR = "satty";
       };
 
       # Misc settings - mirrors hyprland misc section

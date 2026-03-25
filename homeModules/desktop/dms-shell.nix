@@ -25,7 +25,6 @@ in {
           originalFileName = "hm";
           filesToInclude = [
             "alttab"
-            "binds"
             "colors"
             "cursor"
             "layout"

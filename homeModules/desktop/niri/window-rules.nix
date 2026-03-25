@@ -16,22 +16,12 @@ in {
         open-floating = true;
       }
       {
-        matches = [{app-id = "^waypaper$";}];
-        open-floating = true;
-        open-on-workspace = "special:scratchpad";
-      }
-      {
         matches = [{app-id = "^org.pulseaudio.pavucontrol$";}];
         default-column-width = {fixed = 1200;};
         open-floating = true;
       }
       {
         matches = [{app-id = "^com.interversehq.qView$";}];
-        open-floating = true;
-      }
-      {
-        matches = [{app-id = "^nwg-displays$";}];
-        default-column-width = {fixed = 1200;};
         open-floating = true;
       }
       {
@@ -126,10 +116,10 @@ in {
         ];
         open-on-workspace = "5";
       }
-      {
-        matches = [{app-id = "^Spotify$";}];
-        open-on-workspace = "6";
-      }
+      # {
+      #   matches = [{app-id = "^Spotify$";}];
+      #   open-on-workspace = "6";
+      # }
       {
         matches = [{app-id = "^com.obsproject.Studio$";}];
         open-on-workspace = "8";

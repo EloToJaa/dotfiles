@@ -1,11 +1,12 @@
 {
   config,
   lib,
+  settings,
   ...
 }: let
   cfg = config.modules.desktop.niri;
+  inherit (settings) discord;
 
-  # Helper to wrap commands with uwsm
   uwsmApp = command: ["uwsm" "app" "--"] ++ command;
 in {
   config = lib.mkIf cfg.enable {
@@ -54,6 +55,7 @@ in {
       {command = uwsmApp ["poweralertd"];}
       {command = uwsmApp ["wl-clip-persist" "--clipboard" "both"];}
       {command = uwsmApp ["udiskie" "--automount" "--notify" "--smart-tray"];}
+      {command = uwsmApp [discord];}
     ];
   };
 }
