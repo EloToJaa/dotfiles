@@ -28,13 +28,13 @@ in {
         }
         {
           mode = "n";
-          key = "<leader>os";
+          key = "<leader>oS";
           action = mkRaw "require('opencode').select_session";
           options.desc = "Select opencode session";
         }
         {
           mode = "n";
-          key = "<leader>oS";
+          key = "<leader>os";
           action = mkRaw "require('opencode').select_server";
           options.desc = "Select opencode server";
         }
