@@ -6,12 +6,17 @@
   ...
 }: let
   inherit (settings) catppuccin;
-  # theme = "Orchis-Dark-Compact";
-  theme = "Adwaita-dark";
+  theme = "adw-gtk3-dark";
   cfg = config.modules.desktop.gtk;
   pointerPackage = pkgs.unstable.bibata-cursors;
   iconsPackage = pkgs.unstable.catppuccin-papirus-folders.override {
     inherit (catppuccin) flavor accent;
+  };
+  themePackage = pkgs.unstable.adw-gtk3;
+  cursorTheme = {
+    name = "Bibata-Modern-Ice";
+    package = pointerPackage;
+    size = 22;
   };
 in {
   options.modules.desktop.gtk = {
@@ -21,7 +26,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       nwg-look
-      adw-gtk3
+      themePackage
       pointerPackage
       iconsPackage
     ];
@@ -30,14 +35,11 @@ in {
       sessionVariables = lib.mkIf cfg.applyTheme {
         GTK_THEME = theme;
       };
-      pointerCursor = {
-        name = "Bibata-Modern-Ice";
-        package = pointerPackage;
-        size = 22;
-      };
+      pointerCursor = cursorTheme;
     };
 
     gtk = lib.mkIf cfg.applyTheme {
+      inherit cursorTheme;
       enable = true;
       colorScheme = "dark";
       font = {
@@ -50,11 +52,8 @@ in {
       };
       theme = {
         name = theme;
-        # package = pkgs.orchis-theme.override {
-        #   tweaks = ["primary"];
-        # };
+        package = themePackage;
       };
-      cursorTheme = config.home.pointerCursor;
       gtk4.theme = config.gtk.theme;
     };
   };

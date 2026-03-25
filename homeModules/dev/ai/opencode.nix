@@ -28,6 +28,9 @@ in {
         autoshare = false;
         plugin = [];
         # server.port = 4096;
+        permissions.external_directory = {
+          "/nix/store/**" = "allow";
+        };
         keybinds = {
           "input_submit" = "return";
           "input_newline" = "shift+return";

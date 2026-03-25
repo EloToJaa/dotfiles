@@ -8,15 +8,9 @@
     };
     desktop = {
       enable = true;
-      hyprland.enable = false;
-      hyprlock.enable = false;
       niri.enable = true;
       satty.enable = true;
-      wlogout.enable = false;
-      swaync.enable = false;
       wallpapers.enable = true;
-      waybar.enable = false;
-      wezterm.enable = false;
       audacious.enable = false;
       bluetooth.enable = false;
       cava.enable = false;
@@ -25,7 +19,10 @@
       dms-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
-      gtk.enable = true;
+      gtk = {
+        enable = true;
+        applyTheme = true;
+      };
       nemo.enable = true;
       rider.enable = false;
       spotify.enable = true;

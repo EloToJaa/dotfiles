@@ -14,6 +14,7 @@ in {
     catppuccin = {
       enable = true;
       inherit (catppuccin) flavor accent;
+      gtk.icon.enable = false;
 
       # mako.enable = false;
     };
