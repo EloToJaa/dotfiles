@@ -50,11 +50,9 @@ in {
       }
 
       # System tray apps
-      # {command = uwsmApp ["nm-applet"];}
+      {command = uwsmApp ["dms" "run"];}
       {command = uwsmApp ["poweralertd"];}
       {command = uwsmApp ["wl-clip-persist" "--clipboard" "both"];}
-      # {command = uwsmApp ["waybar"];}
-      # {command = uwsmApp ["swaync"];}
       {command = uwsmApp ["udiskie" "--automount" "--notify" "--smart-tray"];}
     ];
   };
