@@ -39,7 +39,7 @@
         enable = true;
         btca.enable = true;
         opencode.enable = true;
-        skills.enable = true;
+        skills.enable = false;
         workmux.enable = true;
       };
       lazygit.enable = true;
