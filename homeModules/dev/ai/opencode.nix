@@ -28,7 +28,7 @@ in {
         autoshare = false;
         plugin = [];
         # server.port = 4096;
-        permissions.external_directory = {
+        permission.external_directory = {
           "/nix/store/**" = "allow";
         };
         keybinds = {
