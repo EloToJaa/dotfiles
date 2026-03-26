@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.cava = {
       enable = true;
-      package = pkgs.unstable.cava;
+      package = pkgs.cava;
       settings = {
         general = {
           autosens = 1;
