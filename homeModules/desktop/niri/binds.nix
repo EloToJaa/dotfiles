@@ -14,9 +14,9 @@ in {
     programs.niri.settings.binds = {
       "Mod+Tab" = {
         repeat = false;
-        action."toggle-overview" = {};
+        action.toggle-overview = {};
       };
-      "Mod+Shift+Tab".action."focus-monitor-previous" = {};
+      "Mod+Shift+Tab".action.focus-monitor-previous = {};
       "Mod+Shift+Slash" = {
         hotkey-overlay.title = "Show Hotkey Overlay";
         action.spawn = dmsIpc ["keybinds" "toggle" "niri"];
