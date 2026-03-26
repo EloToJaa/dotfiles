@@ -168,7 +168,7 @@ in {
       "Mod+Right".action.focus-column-or-monitor-right = {};
       "Mod+h".action.focus-column-or-monitor-left = {};
       "Mod+j".action.focus-window-or-workspace-down = {};
-      "Mod+k".action.focus-window-or-worskpace-up = {};
+      "Mod+k".action.focus-window-or-workspace-up = {};
       "Mod+l".action.focus-column-or-monitor-right = {};
 
       "Mod+Shift+Left".action.move-column-left-or-to-monitor-left = {};
@@ -207,8 +207,6 @@ in {
       "Mod+Page_Up".action.focus-workspace-up = {};
       "Mod+u".action.focus-workspace-down = {};
       "Mod+i".action.focus-workspace-up = {};
-      "Mod+Ctrl+Down".action.move-column-to-workspace-down = {};
-      "Mod+Ctrl+Up".action.move-column-to-workspace-up = {};
       "Mod+Ctrl+u".action.move-column-to-workspace-down = {};
       "Mod+Ctrl+i".action.move-column-to-workspace-up = {};
 
