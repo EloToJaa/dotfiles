@@ -67,6 +67,10 @@
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    danksearch = {
+      url = "github:AvengeMedia/danksearch";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
