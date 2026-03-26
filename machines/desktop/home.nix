@@ -13,7 +13,7 @@
       wallpapers.enable = true;
       audacious.enable = false;
       bluetooth.enable = false;
-      cava.enable = false;
+      cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
       dms-shell.enable = true;
