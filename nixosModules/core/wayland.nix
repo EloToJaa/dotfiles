@@ -59,40 +59,17 @@ in {
       # ];
     };
 
-    services.xserver.displayManager.lightdm.enable = false;
-    services.greetd = {
-      enable = true;
+    services = {
+      xserver.displayManager.lightdm.enable = false;
+      greetd = {
+        enable = true;
 
-      settings = {
-        terminal.vt = 1;
-        default_session.user = username;
+        settings = {
+          terminal.vt = 1;
+          default_session.user = username;
+        };
       };
     };
-    # services.greetd = let
-    #   session = {
-    #     command = ''
-    #       ${lib.getExe config.programs.uwsm.package} start ${niri}/share/wayland-sessions/niri.desktop
-    #     '';
-    #     user = username;
-    #   };
-    # in {
-    #   enable = true;
-    #
-    #   # do not restart on session exit (useful on autologin)
-    #   restart = false;
-    #
-    #   settings = {
-    #     terminal.vt = 1;
-    #     default_session = session;
-    #     initial_session = session;
-    #   };
-    # };
-
-    # programs.uwsm.enable = true;
-    # programs.uwsm.package = pkgs.unstable.uwsm;
-    # programs.uwsm.waylandCompositors = {};
-    # services.dbus.implementation = "dbus";
-
     programs.dank-material-shell.greeter = {
       enable = true;
       compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
