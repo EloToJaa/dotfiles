@@ -11,9 +11,12 @@ in {
     programs.niri.settings = {
       # Input configuration - mirrors hyprland settings.nix
       input = {
-        keyboard.xkb = {
-          layout = keyboardLayout;
-          options = "grp:alt_caps_toggle";
+        keyboard = {
+          xkb = {
+            layout = keyboardLayout;
+            options = "grp:alt_caps_toggle";
+          };
+          numlock = true;
         };
         touchpad = {
           natural-scroll = true;
