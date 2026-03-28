@@ -33,10 +33,5 @@ in {
     #     gnome-portal-niri
     #   ];
     # };
-
-    programs.niri = {
-      enable = true;
-      package = pkgs.niri-unstable;
-    };
   };
 }

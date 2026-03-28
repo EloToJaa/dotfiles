@@ -5,6 +5,7 @@
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.dms.nixosModules.greeter
+    inputs.niri.nixosModules.niri
 
     ./../settings.nix
     ./base

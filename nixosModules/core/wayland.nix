@@ -24,8 +24,13 @@ in {
         package = hyprland;
         portalPackage = xdg-desktop-portal-hyprland;
       };
+      niri = lib.mkIf cfg.niri.enable {
+        enable = true;
+        package = niri;
+      };
     };
     systemd.user.services.niri-flake-polkit.enable = false;
+    services.dbus.implementation = "broker";
 
     services = {
       xserver.displayManager.lightdm.enable = false;

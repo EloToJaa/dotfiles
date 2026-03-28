@@ -6,7 +6,6 @@
     inputs.hyprland.homeManagerModules.default
     inputs.zen-browser.homeModules.default
 
-    inputs.niri.homeModules.niri
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
     inputs.danksearch.homeModules.dsearch
