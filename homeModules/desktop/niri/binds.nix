@@ -7,7 +7,6 @@
   inherit (settings) terminal discord;
   cfg = config.modules.desktop.niri;
 
-  uwsmApp = command: ["uwsm" "app" "--"] ++ command;
   dmsIpc = command: ["dms" "ipc" "call"] ++ command;
 in {
   config = lib.mkIf cfg.enable {
@@ -24,7 +23,7 @@ in {
 
       "Mod+d" = {
         hotkey-overlay.title = "Discord";
-        action.spawn = uwsmApp [discord];
+        action.spawn = [discord];
       };
       "Mod+Shift+d" = {
         hotkey-overlay.title = "Display settings";
@@ -32,11 +31,11 @@ in {
       };
       "Mod+b" = {
         hotkey-overlay.title = "Zen Browser";
-        action.spawn = uwsmApp ["zen-beta"];
+        action.spawn = ["zen-beta"];
       };
       "Mod+e" = {
         hotkey-overlay.title = "Nemo file manager";
-        action.spawn = uwsmApp ["nemo"];
+        action.spawn = ["nemo"];
       };
       "Mod+Space" = {
         hotkey-overlay.title = "Window Floating";
@@ -44,12 +43,12 @@ in {
       };
       "Mod+Shift+s" = {
         hotkey-overlay.title = "Spotify";
-        action.spawn = uwsmApp ["spotify"];
+        action.spawn = ["spotify"];
       };
 
       "Mod+Return" = {
         hotkey-overlay.title = "Open Terminal";
-        action.spawn = uwsmApp [terminal];
+        action.spawn = [terminal];
       };
       "Mod+s" = {
         hotkey-overlay.title = "Application Launcher";
@@ -91,7 +90,7 @@ in {
       };
       "Mod+w" = {
         hotkey-overlay.title = "Launch jellyfin app";
-        action.spawn = uwsmApp ["delfin"];
+        action.spawn = ["delfin"];
       };
 
       "Mod+Shift+e".action.quit = {};

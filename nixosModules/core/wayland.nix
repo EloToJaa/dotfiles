@@ -16,9 +16,6 @@ in {
     niri.enable = lib.mkEnableOption "Enable niri";
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = lib.optionals cfg.niri.enable [
-      niri
-    ];
     environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
     programs = {
@@ -26,21 +23,6 @@ in {
         enable = true;
         package = hyprland;
         portalPackage = xdg-desktop-portal-hyprland;
-      };
-      # niri = lib.mkIf cfg.niri.enable {
-      #   enable = true;
-      #   package = pkgs.niri-unstable;
-      # };
-      uwsm = {
-        enable = true;
-        package = pkgs.unstable.uwsm;
-        waylandCompositors = {
-          niri = lib.mkIf cfg.niri.enable {
-            prettyName = "Niri";
-            comment = "Niri compositor managed by UWSM";
-            binPath = "${niri}/bin/niri";
-          };
-        };
       };
     };
     systemd.user.services.niri-flake-polkit.enable = false;
