@@ -19,6 +19,7 @@ in {
     environment.systemPackages = lib.optionals cfg.niri.enable [
       niri
     ];
+    environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
     programs = {
       hyprland = lib.mkIf cfg.hyprland.enable {
@@ -43,7 +44,7 @@ in {
       };
     };
     systemd.user.services.niri-flake-polkit.enable = !cfg.niri.enable;
-    xdg.portal = {
+    xdg.portal = lib.mkIf cfg.hyprland.enable {
       enable = true;
       wlr.enable = true;
       xdgOpenUsePortal = true;
