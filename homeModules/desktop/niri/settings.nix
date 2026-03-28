@@ -11,6 +11,11 @@ in {
     programs.niri.settings = {
       # Input configuration - mirrors hyprland settings.nix
       input = {
+        focus-follows-mouse = {
+          enable = true;
+          max-scroll-amount = "95%";
+        };
+        warp-mouse-to-focus.enable = true;
         keyboard = {
           xkb = {
             layout = keyboardLayout;
@@ -31,6 +36,8 @@ in {
           width = 2;
         };
       };
+
+      gestures.hot-corners.enable = true;
 
       # Environment variables - mirrors hyprland exec-once exports
       environment = {
