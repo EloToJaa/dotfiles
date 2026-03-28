@@ -26,7 +26,7 @@ in {
           "XDG_SESSION_DESKTOP"
           "WAYLAND_DISPLAY"
           "GTK_THEME"
-          "GDK_BACKEND"
+          # "GDK_BACKEND"
           "MOZ_ENABLE_WAYLAND"
           "QT_QPA_PLATFORM"
         ];
@@ -44,7 +44,7 @@ in {
           "XDG_SESSION_DESKTOP"
           "WAYLAND_DISPLAY"
           "GTK_THEME"
-          "GDK_BACKEND"
+          # "GDK_BACKEND"
           "MOZ_ENABLE_WAYLAND"
           "QT_QPA_PLATFORM"
         ];

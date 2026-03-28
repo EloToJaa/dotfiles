@@ -25,7 +25,7 @@ in {
       WLR_RENDERER = "vulkan";
       WLR_NO_HARDWARE_CURSORS = "1";
 
-      GDK_BACKEND = "wayland";
+      # GDK_BACKEND = "wayland";
       XDG_SESSION_TYPE = "wayland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
