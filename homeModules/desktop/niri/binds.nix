@@ -38,9 +38,9 @@ in {
         hotkey-overlay.title = "Nemo file manager";
         action.spawn = uwsmApp ["nemo"];
       };
-      "Mod+s" = {
-        hotkey-overlay.title = "Vicinae";
-        action.spawn = uwsmApp ["vicinae" "toggle"];
+      "Mod+Space" = {
+        hotkey-overlay.title = "Window Floating";
+        action.toggle-window-floating = {};
       };
       "Mod+Shift+s" = {
         hotkey-overlay.title = "Spotify";
@@ -51,7 +51,7 @@ in {
         hotkey-overlay.title = "Open Terminal";
         action.spawn = uwsmApp [terminal];
       };
-      "Mod+Space" = {
+      "Mod+s" = {
         hotkey-overlay.title = "Application Launcher";
         action.spawn = dmsIpc ["spotlight" "toggle"];
       };
@@ -67,14 +67,12 @@ in {
         hotkey-overlay.title = "Power Menu: Toggle";
         action.spawn = dmsIpc ["powermenu" "toggle"];
       };
-      "Mod+comma" = {
+      "Mod+a" = {
         hotkey-overlay.title = "Settings";
         action.spawn = dmsIpc ["settings" "focusOrToggle"];
       };
-      "Mod+y" = {
-        hotkey-overlay.title = "Browse Wallpapers";
-        action.spawn = dmsIpc ["dankdash" "wallpaper"];
-      };
+      "Mod+Comma".action.move-workspace-to-monitor-left = {};
+      "Mod+Period".action.move-workspace-to-monitor-right = {};
       "Mod+n" = {
         hotkey-overlay.title = "Notifications";
         action.spawn = dmsIpc ["notifications" "toggle"];
@@ -87,11 +85,11 @@ in {
         hotkey-overlay.title = "Lock Screen";
         action.spawn = dmsIpc ["lock" "lock"];
       };
-      "Mod+w" = {
-        hotkey-overlay.title = "Change wallpaper";
+      "Mod+Shift+w" = {
+        hotkey-overlay.title = "Browse wallpaper";
         action.spawn = dmsIpc ["dankdash" "wallpaper"];
       };
-      "Mod+Shift+w" = {
+      "Mod+w" = {
         hotkey-overlay.title = "Launch jellyfin app";
         action.spawn = uwsmApp ["delfin"];
       };
@@ -159,7 +157,6 @@ in {
       };
       "Mod+f".action.maximize-column = {};
       "Mod+Shift+f".action.fullscreen-window = {};
-      "Mod+Shift+t".action.toggle-window-floating = {};
       "Mod+Shift+v".action.switch-focus-between-floating-and-tiling = {};
 
       "Mod+Left".action.focus-column-or-monitor-left = {};
@@ -267,7 +264,7 @@ in {
 
       "Mod+BracketLeft".action.consume-or-expel-window-left = {};
       "Mod+BracketRight".action.consume-or-expel-window-right = {};
-      "Mod+Period".action.expel-window-from-column = {};
+      # "Mod+Period".action.expel-window-from-column = {};
 
       "Mod+r".action.switch-preset-column-width = {};
       "Mod+Shift+r".action.switch-preset-window-height = {};

@@ -37,7 +37,7 @@ in {
         };
       };
 
-      gestures.hot-corners.enable = true;
+      gestures.hot-corners.enable = false;
 
       # Environment variables - mirrors hyprland exec-once exports
       environment = {

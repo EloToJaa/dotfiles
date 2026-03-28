@@ -56,7 +56,7 @@ in {
       {command = uwsmApp ["wl-clip-persist" "--clipboard" "both"];}
       {command = uwsmApp ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = uwsmApp [discord];}
-      {command = uwsmApp ["nextcloud"];}
+      {command = uwsmApp ["nextcloud" "--background"];}
     ];
   };
 }

@@ -27,7 +27,7 @@
       rider.enable = false;
       spotify.enable = true;
       swayosd.enable = false;
-      vicinae.enable = true;
+      vicinae.enable = false;
       waypaper.enable = false;
       xdg-mimes.enable = true;
       zen.enable = true;
