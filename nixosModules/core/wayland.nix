@@ -43,22 +43,7 @@ in {
         };
       };
     };
-    systemd.user.services.niri-flake-polkit.enable = !cfg.niri.enable;
-    xdg.portal = lib.mkIf cfg.hyprland.enable {
-      enable = true;
-      wlr.enable = true;
-      xdgOpenUsePortal = true;
-      config = {
-        common.default = ["gtk"];
-        hyprland.default = lib.mkIf cfg.hyprland.enable [
-          "gtk"
-          "hyprland"
-        ];
-      };
-      # extraPortals = with pkgs.unstable; [
-      #   xdg-desktop-portal-gtk
-      # ];
-    };
+    systemd.user.services.niri-flake-polkit.enable = false;
 
     services = {
       xserver.displayManager.lightdm.enable = false;

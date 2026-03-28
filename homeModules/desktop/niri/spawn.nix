@@ -17,36 +17,12 @@ in {
           "systemctl"
           "--user"
           "import-environment"
-          "PATH"
-          "HOME"
-          "USER"
-          "XDG_DATA_DIRS"
-          "XDG_SESSION_TYPE"
-          "XDG_CURRENT_DESKTOP"
-          "XDG_SESSION_DESKTOP"
-          "WAYLAND_DISPLAY"
-          "GTK_THEME"
-          # "GDK_BACKEND"
-          "MOZ_ENABLE_WAYLAND"
-          "QT_QPA_PLATFORM"
         ];
       }
       {
         command = [
           "dbus-update-activation-environment"
-          "--systemd"
-          "PATH"
-          "HOME"
-          "USER"
-          "XDG_DATA_DIRS"
-          "XDG_SESSION_TYPE"
-          "XDG_CURRENT_DESKTOP"
-          "XDG_SESSION_DESKTOP"
-          "WAYLAND_DISPLAY"
-          "GTK_THEME"
-          # "GDK_BACKEND"
-          "MOZ_ENABLE_WAYLAND"
-          "QT_QPA_PLATFORM"
+          "--all"
         ];
       }
 
