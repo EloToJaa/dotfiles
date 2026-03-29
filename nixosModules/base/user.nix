@@ -59,6 +59,7 @@ in {
         description = username;
         group = username;
         extraGroups = [
+          "input"
           "wheel"
           "kvm"
         ];
