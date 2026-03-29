@@ -51,7 +51,6 @@ in {
         XDG_CURRENT_DESKTOP = "niri";
         XDG_SESSION_DESKTOP = "niri";
         GTK_USE_PORTAL = "1";
-        G_MESSAGES_DEBUG = "all";
 
         DMS_SCREENSHOT_EDITOR = "satty";
       };
