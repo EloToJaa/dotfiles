@@ -1,1 +1,0 @@
-{"storage":"scorch","index_type":"scorch","config":{"create_if_missing":true,"error_if_exists":false,"store":{"create_if_missing":true,"error_if_exists":false,"metrics":false,"mmap":false},"unsafe_batch":false}}
