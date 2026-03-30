@@ -10,7 +10,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.niri.settings.spawn-at-startup = [
       # System tray apps
-      {command = ["poweralertd"];}
+      # {command = ["poweralertd"];}
       {command = ["wl-clip-persist" "--clipboard" "both"];}
       {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = [discord];}
