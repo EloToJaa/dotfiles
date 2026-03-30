@@ -46,6 +46,29 @@ in {
         ];
         block-out-from = "screencast";
       }
+      {
+        matches = [
+          {
+            app-id = "^zen-beta$";
+            title = ".*Bitwarden.*";
+          }
+        ];
+        block-out-from = "screencast";
+      }
+
+      # https://github.com/sodiboo/niri-flake/pull/1382
+      # {
+      #   matches = [
+      #     {app-id = "^zen-beta$";}
+      #   ];
+      #   open-maximized-to-edges = true;
+      # }
+      {
+        matches = [
+          {app-id = "^com.mitchellh.ghostty$";}
+        ];
+        open-maximized = true;
+      }
 
       # Picture-in-Picture
       {
@@ -91,38 +114,6 @@ in {
         open-floating = true;
         default-column-width = {fixed = 1;};
         default-window-height = {fixed = 1;};
-      }
-
-      # Workspace assignments
-      {
-        matches = [{app-id = "^zen-beta$";}];
-        open-on-workspace = "1";
-      }
-      {
-        matches = [{app-id = "^ghostty$";}];
-        open-on-workspace = "3";
-      }
-      {
-        matches = [
-          {app-id = "^evince$";}
-          {app-id = "^gimp$";}
-        ];
-        open-on-workspace = "4";
-      }
-      {
-        matches = [
-          {app-id = "^Audacious$";}
-          {app-id = "^${discord}$";}
-        ];
-        open-on-workspace = "5";
-      }
-      # {
-      #   matches = [{app-id = "^Spotify$";}];
-      #   open-on-workspace = "6";
-      # }
-      {
-        matches = [{app-id = "^com.obsproject.Studio$";}];
-        open-on-workspace = "8";
       }
     ];
   };

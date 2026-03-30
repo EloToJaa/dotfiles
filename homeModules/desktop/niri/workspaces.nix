@@ -9,7 +9,7 @@ in {
     programs.niri.settings = {
       workspaces = {
         "01-terminal" = {
-          open-on-output = "DP-1";
+          open-on-output = "DP-2";
           name = "terminal";
         };
         "02-browser" = {
@@ -17,15 +17,15 @@ in {
           name = "browser";
         };
         "03-chat" = {
-          open-on-output = "DP-1";
+          open-on-output = "HDMI-A-1";
           name = "chat";
         };
         "04-watch" = {
-          open-on-output = "DP-1";
+          open-on-output = "DP-2";
           name = "watch";
         };
         "05-music" = {
-          open-on-output = "DP-1";
+          open-on-output = "HDMI-A-1";
           name = "music";
         };
         "06-record" = {
@@ -42,7 +42,7 @@ in {
         }
         {
           matches = [
-            {app-id = "^ghostty$";}
+            {app-id = "^com.mitchellh.ghostty$";}
           ];
           open-on-workspace = "terminal";
         }
@@ -51,6 +51,24 @@ in {
             {app-id = "^vesktop$";}
           ];
           open-on-workspace = "chat";
+        }
+        {
+          matches = [
+            {app-id = "^spotify$";}
+          ];
+          open-on-workspace = "music";
+        }
+        {
+          matches = [
+            {app-id = "^com.obsproject.Studio$";}
+          ];
+          open-on-workspace = "record";
+        }
+        {
+          matches = [
+            {app-id = "^cafe.avery.Delfin$";}
+          ];
+          open-on-workspace = "watch";
         }
       ];
     };
