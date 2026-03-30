@@ -4,9 +4,9 @@
   };
   imports = [
     ./binds.nix
-    ./niri.nix
     ./settings.nix
     ./spawn.nix
     ./window-rules.nix
+    ./workspaces.nix
   ];
 }
