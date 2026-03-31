@@ -62,7 +62,7 @@ in {
         index_all_files = true;
 
         # Auto-reindex settings
-        auto_reindex = false;
+        auto_reindex = true;
         reindex_interval_hours = 24;
 
         # Text file extensions
