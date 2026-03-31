@@ -52,7 +52,7 @@ in {
       };
       "Mod+s" = {
         hotkey-overlay.title = "Application Launcher";
-        action.spawn = dmsIpc ["spotlight" "toggle"];
+        action.spawn = ["vicinae" "toggle"];
       };
       "Mod+v" = {
         hotkey-overlay.title = "Clipboard Manager";

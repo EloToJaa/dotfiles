@@ -8,15 +8,9 @@
     };
     desktop = {
       enable = true;
-      hyprland.enable = true;
-      hyprlock.enable = true;
       niri.enable = true;
       satty.enable = true;
-      wlogout.enable = true;
-      swaync.enable = true;
       wallpapers.enable = true;
-      waybar.enable = true;
-      wezterm.enable = false;
       audacious.enable = false;
       bluetooth.enable = true;
       cava.enable = false;
@@ -28,9 +22,7 @@
       nemo.enable = true;
       rider.enable = false;
       spotify.enable = true;
-      swayosd.enable = true;
       vicinae.enable = true;
-      waypaper.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;
     };
