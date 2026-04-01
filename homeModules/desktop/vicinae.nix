@@ -32,21 +32,6 @@ in {
       };
 
       settings = {
-        # popToRootOnClose = true;
-        # rootSearch = {
-        #   searchFiles = true;
-        # };
-        # theme = {
-        #   name = "catppuccin-mocha.json";
-        #   iconTheme = "Papirus-Dark";
-        # };
-        # window = {
-        #   csd = true;
-        #   opacity = 1;
-        #   rounding = 10;
-        # };
-      };
-      settings = {
         close_on_focus_loss = true;
         consider_preedit = true;
         pop_to_root_on_close = true;
