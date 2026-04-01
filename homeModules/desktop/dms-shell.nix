@@ -50,7 +50,7 @@ in {
       systemd.enable = false;
     };
     programs.dsearch = {
-      enable = true;
+      enable = false;
       config = {
         # Server configuration
         listen_addr = ":43654";

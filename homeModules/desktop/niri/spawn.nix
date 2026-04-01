@@ -11,7 +11,7 @@ in {
     programs.niri.settings.spawn-at-startup = [
       # System tray apps
       # {command = ["poweralertd"];}
-      {command = ["wl-clip-persist" "--clipboard" "both"];}
+      # {command = ["wl-clip-persist" "--clipboard" "both"];}
       {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = [discord];}
       {command = ["nextcloud" "--background"];}

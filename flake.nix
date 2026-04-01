@@ -101,6 +101,10 @@
       url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
