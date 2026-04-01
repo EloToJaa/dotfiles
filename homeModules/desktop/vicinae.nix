@@ -81,6 +81,7 @@ in {
         power-profile
         niri
         ssh
+        it-tools
         # systemd
         wifi-commander
       ];
