@@ -20,6 +20,9 @@
   cfg = config.modules.home.tmux;
 in {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [
+      sesh
+    ];
     catppuccin.tmux = {
       inherit (catppuccin) flavor;
       enable = true;
