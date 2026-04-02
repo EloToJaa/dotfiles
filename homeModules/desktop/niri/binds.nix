@@ -21,6 +21,10 @@ in {
         action.spawn = dmsIpc ["keybinds" "toggle" "niri"];
       };
 
+      "Mod+p" = {
+        hotkey-overlay.title = "Open project in ghostty";
+        action.spawn = ["sessionizer"];
+      };
       "Mod+d" = {
         hotkey-overlay.title = "Discord";
         action.spawn = [discord];
