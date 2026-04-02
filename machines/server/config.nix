@@ -57,7 +57,7 @@
       loki.enable = false;
       n8n.enable = false;
       nextcloud = {
-        enable = true;
+        enable = false;
         # onlyoffice.enable = true;
       };
       ntfy.enable = false;
