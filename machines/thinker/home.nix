@@ -16,9 +16,13 @@
       cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
+      dms-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
-      gtk.enable = true;
+      gtk = {
+        enable = true;
+        applyTheme = true;
+      };
       nemo.enable = true;
       spotify.enable = true;
       vicinae.enable = true;

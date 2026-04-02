@@ -24,11 +24,8 @@
         applyTheme = true;
       };
       nemo.enable = true;
-      rider.enable = false;
       spotify.enable = true;
-      swayosd.enable = false;
       vicinae.enable = true;
-      waypaper.enable = false;
       xdg-mimes.enable = true;
       zen.enable = true;
     };
