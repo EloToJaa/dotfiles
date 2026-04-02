@@ -40,7 +40,6 @@ in {
         # zoom-us
 
         ## Wayland Utilities
-        swww
         grimblast
         hyprpicker
         grim
