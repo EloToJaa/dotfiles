@@ -6,7 +6,7 @@
 
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-ID";
+    device = "/dev/disk/by-id/nvme-Micron_MTFDKCD512TFK_22293A3CCE8F";
     content = {
       type = "gpt";
       partitions = {
