@@ -8,7 +8,7 @@
 
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
-    inputs.danksearch.homeModules.dsearch
+    # inputs.danksearch.homeModules.dsearch
 
     ./cybersec
     ./desktop

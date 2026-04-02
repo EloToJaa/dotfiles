@@ -143,26 +143,6 @@
         "url": "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz"
       }
     },
-    "danksearch": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1774118214,
-        "narHash": "sha256-Y7frUOBhSJtalBo/kDESkTTvsQe1FJov5EUzKF+sfjM=",
-        "owner": "AvengeMedia",
-        "repo": "danksearch",
-        "rev": "1342ceae4c0a18b45cce7a00dd26fe924a42d66a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "danksearch",
-        "type": "github"
-      }
-    },
     "data-mesher": {
       "inputs": {
         "flake-parts": [
@@ -1487,7 +1467,6 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "clan-core": "clan-core",
-        "danksearch": "danksearch",
         "devshell": "devshell",
         "dgop": "dgop",
         "disko": "disko_2",

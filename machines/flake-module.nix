@@ -35,7 +35,7 @@ in {
           roles.client.machines.server.settings = {
             destinations.storagebox = {
               repo = "u441859-sub1@u441859-sub1.your-storagebox.de:/./borgbackup";
-              rsh = ''ssh -p 23 -oStrictHostKeyChecking=accept-new -i ${config.clan.core.vars.generators.borgbackup.files."borgbackup.ssh".path}'';
+              rsh = ''ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh'';
             };
             startAt = "*-*-* 03:00:00";
           };
