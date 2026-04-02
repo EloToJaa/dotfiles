@@ -4,7 +4,7 @@
   settings,
   ...
 }: let
-  inherit (settings) terminal discord;
+  inherit (settings) discord;
   cfg = config.modules.desktop.niri;
 
   dmsIpc = command: ["dms" "ipc" "call"] ++ command;
@@ -52,7 +52,7 @@ in {
 
       "Mod+Return" = {
         hotkey-overlay.title = "Open Terminal";
-        action.spawn = [terminal];
+        action.spawn = ["ghostty" "+new-window"];
       };
       "Mod+s" = {
         hotkey-overlay.title = "Application Launcher";
