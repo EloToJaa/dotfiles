@@ -21,8 +21,9 @@ in {
     inventory = {
       machines = {
         laptop.deploy.targetHost = "${username}@100.110.242.103";
+        thinker.deploy.targetHost = "${username}@1.1.1.1";
         desktop.deploy.targetHost = "${username}@100.112.233.120";
-        server.deploy.targetHost = "${username}@192.168.0.32";
+        server.deploy.targetHost = "${username}@100.120.221.4";
       };
 
       instances = {
@@ -55,8 +56,13 @@ in {
           module.name = "wifi";
           module.input = "clan-core";
           roles.default = {
-            machines.laptop = {
-              settings.networks.home = {};
+            machines = {
+              laptop.settings.networks = {
+                home = {};
+              };
+              thinker.settings.networks = {
+                home = {};
+              };
             };
           };
         };
