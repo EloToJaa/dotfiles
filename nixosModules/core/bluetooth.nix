@@ -14,7 +14,7 @@ in {
       enable = true;
       powerOnBoot = true;
     };
-    services.blueman.enable = true;
+    services.blueman.enable = false;
 
     services.pulseaudio.configFile = pkgs.writeText "default.pa" ''
       load-module module-bluetooth-policy
