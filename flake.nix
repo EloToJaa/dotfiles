@@ -46,6 +46,8 @@
     terranix.url = "github:terranix/terranix";
     devshell.url = "github:numtide/devshell";
 
+    srvos.url = "github:nix-community/srvos";
+
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz";
       inputs = {
