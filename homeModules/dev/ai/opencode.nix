@@ -15,14 +15,19 @@ in {
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
+    catppuccin.opencode.enable = false;
     programs.opencode = {
       enable = true;
       package = aiTools.opencode;
       rules = ./AGENTS.md;
-      skills = {
+      tui = {
+        theme = "catppuccin";
+        keybinds = {
+          "input_submit" = "return";
+          "input_newline" = "shift+return";
+        };
       };
       settings = {
-        theme = "catppuccin";
         model = "opencode-go/kimi-k2.5";
         autoupdate = false;
         autoshare = false;
@@ -30,10 +35,6 @@ in {
         # server.port = 4096;
         permission.external_directory = {
           "/nix/store/**" = "allow";
-        };
-        keybinds = {
-          "input_submit" = "return";
-          "input_newline" = "shift+return";
         };
         tools = {
           write = true;
