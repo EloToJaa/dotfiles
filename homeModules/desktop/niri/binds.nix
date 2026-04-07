@@ -159,7 +159,8 @@ in {
         action.close-window = {};
       };
       "Mod+f".action.maximize-column = {};
-      "Mod+Shift+f".action.fullscreen-window = {};
+      "Mod+Shift+f".action.maximize-window-to-edges = {};
+      # "Mod+Shift+f".action.fullscreen-window = {};
       "Mod+Shift+v".action.switch-focus-between-floating-and-tiling = {};
 
       "Mod+Left".action.focus-column-or-monitor-left = {};
