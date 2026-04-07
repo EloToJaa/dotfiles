@@ -37,7 +37,7 @@ in {
     services.seerr = {
       inherit (cfg) port configDir;
       enable = true;
-      package = pkgs.seerr;
+      package = pkgs.unstable.seerr;
     };
     systemd.services.seerr = {
       environment = {
