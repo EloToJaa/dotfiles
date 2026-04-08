@@ -47,6 +47,7 @@
           enable = true;
           bash.enable = true;
           c.enable = true;
+          csharp.enable = true;
           go.enable = true;
           javascript.enable = true;
           json.enable = true;

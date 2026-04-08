@@ -5,6 +5,7 @@
   imports = [
     ./bash.nix
     ./c.nix
+    ./csharp.nix
     ./go.nix
     ./javascript.nix
     ./json.nix
