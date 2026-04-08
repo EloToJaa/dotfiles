@@ -30,10 +30,12 @@ in {
       };
     };
     systemd.user.services.niri-flake-polkit.enable = false;
-    services.dbus.implementation = "broker";
 
     services = {
       xserver.displayManager.lightdm.enable = false;
+      dbus.implementation = "broker";
+      accounts-daemon.enable = true;
+      power-profiles-daemon.enable = true;
       greetd = {
         enable = true;
 
