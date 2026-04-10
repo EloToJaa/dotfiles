@@ -18,6 +18,7 @@ with lib; let
     terminal = ["${terminal}.desktop"];
     archive = ["org.gnome.FileRoller.desktop"];
     discord = ["${discord}.desktop"];
+    kdeconnect = ["org.kde.kdeconnect.desktop"];
   };
 
   removedApps = {
@@ -97,6 +98,7 @@ with lib; let
       "application/*tar"
     ];
     discord = ["x-scheme-handler/discord"];
+    kdeconnect = ["x-scheme-handler/kdeconnect"];
   };
 
   associations = with lib.lists;

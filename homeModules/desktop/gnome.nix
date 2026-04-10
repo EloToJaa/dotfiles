@@ -17,7 +17,7 @@ in {
     ];
 
     services.kdeconnect = {
-      enable = false;
+      enable = true;
       package = pkgs.unstable.kdePackages.kdeconnect-kde;
     };
 

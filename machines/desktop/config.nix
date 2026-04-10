@@ -33,7 +33,7 @@
       enable = true;
       adb.enable = false;
       audio.enable = true;
-      bluetooth.enable = false;
+      bluetooth.enable = true;
       camera.enable = true;
       gnome.enable = true;
       mullvad.enable = true;

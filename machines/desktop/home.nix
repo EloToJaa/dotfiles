@@ -12,7 +12,7 @@
       satty.enable = true;
       wallpapers.enable = true;
       audacious.enable = true;
-      bluetooth.enable = false;
+      bluetooth.enable = true;
       cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
