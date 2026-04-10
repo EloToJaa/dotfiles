@@ -29,7 +29,6 @@ in {
         qview # minimal image viewer
         zenity
         remmina
-        rnote
         qbittorrent
         udiskie
         vaults
