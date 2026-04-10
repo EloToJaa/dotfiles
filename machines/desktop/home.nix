@@ -23,7 +23,7 @@
         enable = true;
         applyTheme = true;
       };
-      nemo.enable = true;
+      nautilus.enable = true;
       spotify.enable = true;
       vicinae.enable = true;
       xdg-mimes.enable = true;

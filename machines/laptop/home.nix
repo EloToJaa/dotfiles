@@ -19,7 +19,7 @@
       ghostty.enable = true;
       gnome.enable = true;
       gtk.enable = true;
-      nemo.enable = true;
+      nautilus.enable = true;
       rider.enable = false;
       spotify.enable = true;
       vicinae.enable = true;

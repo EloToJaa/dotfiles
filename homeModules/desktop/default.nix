@@ -25,7 +25,7 @@
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
     ./hyprlock.nix # lock screen
-    ./nemo.nix # file manager
+    ./nautilus.nix # file manager
     ./packages.nix # other packages
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool

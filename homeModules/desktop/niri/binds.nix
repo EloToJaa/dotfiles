@@ -38,8 +38,8 @@ in {
         action.spawn = ["zen-beta"];
       };
       "Mod+e" = {
-        hotkey-overlay.title = "Nemo file manager";
-        action.spawn = ["nemo"];
+        hotkey-overlay.title = "Nautilus file manager";
+        action.spawn = ["nautilus"];
       };
       "Mod+Space" = {
         hotkey-overlay.title = "Window Floating";

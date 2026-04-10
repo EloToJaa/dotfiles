@@ -18,7 +18,10 @@ This is a Nix-based dotfiles and homelab management repository using Clan.lol fo
 
 ```bash
 # Build a machine configuration
-clan machines build <machine>
+nix build .#nixosConfigurations.<machine>.config.system.build.toplevel
+
+# Build a package
+nix build .#<package>
 
 # Deploy configuration to a machine
 clan machines update <machine>
@@ -42,7 +45,6 @@ nix fmt
 ### Testing/Linting
 
 ```bash
-# Build all configurations (CI)
 nix build .#nixosConfigurations.<host>.config.system.build.toplevel
 
 # Lint Lua files (for Neovim configs)
@@ -86,12 +88,14 @@ nix flake check
 ### Nix (.nix files)
 
 **Formatting:**
+
 - Indentation: 2 spaces
 - Line length: ~100 characters (soft limit)
 - Use `let ... in` for local variable bindings
 - Use `inherit` to bring values into scope
 
 **Module Structure:**
+
 ```nix
 {lib, ...}: {
   options.modules.<name> = {
@@ -102,7 +106,7 @@ nix flake check
       description = "Option description";
     };
   };
-  
+
   imports = [
     ./submodule.nix
   ];
@@ -110,6 +114,7 @@ nix flake check
 ```
 
 **Naming Conventions:**
+
 - Module options: `modules.<category>.<name>`
 - Enable options: `enable` (within the module namespace)
 - Variables: `snake_case` or `camelCase` (prefer `snake_case` in Nix)
@@ -117,12 +122,14 @@ nix flake check
 - Function parameters: Destructure with `{lib, config, pkgs, ...}:`
 
 **Imports and Dependencies:**
+
 - Always include `lib` as first parameter
 - Use `inherit (lib) mkOption mkEnableOption types;` for frequently used functions
 - Follow inputs with `inputs` attribute for flake inputs
 - Use `specialArgs` to pass additional arguments to modules
 
 **Comments:**
+
 - Inline comments after option definitions: `# brief description`
 - Avoid redundant comments that repeat the code
 - Use comments for non-obvious behavior or rationale
@@ -130,16 +137,19 @@ nix flake check
 ### Python
 
 **Formatting:**
+
 - Indentation: 4 spaces
 - Line length: 88 characters (Black default)
 - 2 blank lines between top-level functions
 - 1 blank line between methods
 
 **Type Hints:**
+
 - Use type hints for function parameters and return types
 - Use `|` for union types (Python 3.10+): `str | None`
 
 **Style:**
+
 ```python
 def function_name(param: str) -> tuple[str | None, str | None]:
     """Brief docstring."""
@@ -151,12 +161,14 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 ### Lua (Neovim configs)
 
 **Formatting:**
+
 - Use `stylua.toml` configuration
 - Indentation: 2 spaces
 - Sort requires alphabetically
 - Collapse simple statements for functions only
 
 **Linting:**
+
 - Use `luacheck` with `.luacheckrc`
 - Globals: `vim`, `Status`, `Header`, `ui`, `cx`, `ya`
 
@@ -201,6 +213,7 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 ## CI/CD
 
 GitHub Actions workflows in `.github/workflows/`:
+
 - `build.yml` - Builds all machine configurations
 - `update-flake-lock.yml` - Updates flake.lock automatically
 - `opencode.yml` - OpenCode integration

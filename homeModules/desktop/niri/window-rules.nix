@@ -1,14 +1,20 @@
 {
   config,
   lib,
-  settings,
   ...
 }: let
-  inherit (settings) discord;
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
     programs.niri.settings.window-rules = [
+      {
+        matches = [
+          {app-id = "^org.gnome.Nautilus$";}
+          {app-id = "^.virt-manager-wrapped$";}
+        ];
+        default-column-width = {proportion = 0.5;};
+      }
+
       # Floating applications
       {
         matches = [{app-id = "^audacious$";}];
