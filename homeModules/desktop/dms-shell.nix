@@ -27,7 +27,7 @@ in {
             "alttab"
             "colors"
             "cursor"
-            "layout"
+            # "layout"
             "outputs"
             "windowrules"
             "wpblur"

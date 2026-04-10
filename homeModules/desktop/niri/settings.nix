@@ -30,12 +30,31 @@ in {
 
       # Layout configuration - mirrors hyprland general settings
       layout = {
-        gaps = 0;
+        gaps = 2;
         border = {
           enable = true;
-          width = 2;
+          width = 1;
+        };
+        focus-ring = {
+          enable = true;
+          width = 1;
         };
       };
+      window-rules = [
+        {
+          geometry-corner-radius = let
+            radius = 8.0;
+          in {
+            bottom-left = radius;
+            bottom-right = radius;
+            top-left = radius;
+            top-right = radius;
+          };
+          clip-to-geometry = true;
+          tiled-state = true;
+          draw-border-with-background = false;
+        }
+      ];
 
       gestures.hot-corners.enable = false;
 
