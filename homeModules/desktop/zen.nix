@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
@@ -17,11 +16,11 @@ in {
       languagePacks = ["en-US"];
 
       profiles.default = {
-        extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           ublock-origin
           refined-github
           darkreader
-          # wappalyzer
+          wappalyzer
 
           bitwarden
           karakeep
@@ -55,7 +54,7 @@ in {
           "fd24f832-a2e6-4ce9-8b19-7aa888eb7f8e" # Quietify
         ];
 
-        keyboardShortcutsVersion = 16;
+        keyboardShortcutsVersion = 17;
         keyboardShortcuts = [
           {
             id = "zen-compact-mode-toggle";
