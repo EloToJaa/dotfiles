@@ -12,18 +12,24 @@ in {
           {app-id = "^org.gnome.Nautilus$";}
           {app-id = "^.virt-manager-wrapped$";}
         ];
-        default-column-width = {proportion = 0.5;};
+        default-column-width.proportion = 0.5;
       }
 
       # Floating applications
       {
-        matches = [{app-id = "^audacious$";}];
-        default-column-width = {proportion = 0.5;};
+        matches = [
+          {app-id = "^audacious$";}
+          {title = ".*Bitwarden Password Manager.*";}
+        ];
+        default-column-width.proportion = 0.5;
         open-floating = true;
       }
       {
-        matches = [{app-id = "^org.pulseaudio.pavucontrol$";}];
-        default-column-width = {fixed = 1200;};
+        matches = [
+          {app-id = "^org.pulseaudio.pavucontrol$";}
+          {app-id = "^mpv$";}
+        ];
+        default-column-width.fixed = 1200;
         open-floating = true;
       }
       {
@@ -31,33 +37,15 @@ in {
         open-floating = true;
       }
       {
-        matches = [{app-id = "^mpv$";}];
-        default-column-width = {fixed = 1200;};
-        open-floating = true;
-      }
-      {
         matches = [
           {app-id = "^mpv$";}
           {app-id = "^.+exe$";}
           {app-id = "^celluloid$";}
-        ];
-        block-out-from = "screencast";
-      }
-      {
-        matches = [
           {
             app-id = "^zen-beta$";
             title = ".*YouTube.*";
           }
-        ];
-        block-out-from = "screencast";
-      }
-      {
-        matches = [
-          {
-            app-id = "^zen-beta$";
-            title = ".*Bitwarden.*";
-          }
+          {title = ".*Bitwarden Password Manager.*";}
         ];
         block-out-from = "screencast";
       }
@@ -99,7 +87,6 @@ in {
           {title = "^branchdialog$";}
           {title = "^Confirm to replace files$";}
           {title = "^File Operation Progress$";}
-          {title = ".*Bitwarden Password Manager.*";}
         ];
         open-floating = true;
       }
@@ -118,8 +105,8 @@ in {
       {
         matches = [{app-id = "^xwaylandvideobridge$";}];
         open-floating = true;
-        default-column-width = {fixed = 1;};
-        default-window-height = {fixed = 1;};
+        default-column-width.fixed = 1;
+        default-window-height.fixed = 1;
       }
     ];
   };

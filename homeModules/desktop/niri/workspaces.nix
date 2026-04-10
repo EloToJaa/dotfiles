@@ -28,9 +28,9 @@ in {
           open-on-output = "HDMI-A-1";
           name = "music";
         };
-        "06-record" = {
+        "06-misc" = {
           open-on-output = "DP-1";
-          name = "record";
+          name = "misc";
         };
       };
       window-rules = [
@@ -62,7 +62,7 @@ in {
           matches = [
             {app-id = "^com.obsproject.Studio$";}
           ];
-          open-on-workspace = "record";
+          open-on-workspace = "misc";
         }
         {
           matches = [

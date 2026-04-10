@@ -11,7 +11,7 @@
       niri.enable = true;
       satty.enable = true;
       wallpapers.enable = true;
-      audacious.enable = false;
+      audacious.enable = true;
       bluetooth.enable = false;
       cava.enable = true;
       clipboard.enable = true;
