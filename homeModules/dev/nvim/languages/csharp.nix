@@ -18,6 +18,7 @@ in {
     programs.nixvim = {
       lsp.servers.roslyn_ls = {
         enable = true;
+        package = null;
       };
       plugins = {
         # roslyn = {

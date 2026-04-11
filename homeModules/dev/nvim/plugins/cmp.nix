@@ -28,7 +28,6 @@ in {
                 name = "lsp";
                 enabled = true;
                 module = "blink.cmp.sources.lsp";
-                min_keyword_length = 2;
                 score_offset = 90;
               };
               supermaven = {
@@ -41,7 +40,7 @@ in {
                 module = "blink.cmp.sources.path";
                 score_offset = 25;
                 fallbacks = ["snippets" "buffer"];
-                min_keyword_length = 2;
+                min_keyword_length = 1;
                 opts = {
                   trailing_slash = false;
                   label_trailing_slash = true;
@@ -68,7 +67,7 @@ in {
                 name = "snippets";
                 enabled = true;
                 max_items = 15;
-                min_keyword_length = 2;
+                min_keyword_length = 1;
                 module = "blink.cmp.sources.snippets";
                 score_offset = 85;
               };
@@ -171,6 +170,8 @@ in {
             # ["<S-j>"] = { "scroll_documentation_down", "fallback" };
             # ["<C-space>"] = { "show", "show_documentation", "hide_documentation" };
             # ["<C-e>"] = { "hide", "fallback" };
+            "<Tab>" = ["snippet_forward" "fallback"];
+            "<S-Tab>" = ["snippet_backward" "fallback"];
           };
 
           appearance = {
