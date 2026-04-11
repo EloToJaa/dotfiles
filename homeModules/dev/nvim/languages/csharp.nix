@@ -13,6 +13,7 @@ in {
     home.packages = with pkgs.unstable; [
       dotnetCorePackages.sdk_10_0
       roslyn-ls
+      csharpier
     ];
 
     programs.nixvim = {
@@ -21,17 +22,31 @@ in {
         package = null;
       };
       plugins = {
-        # roslyn = {
-        #   enable = true;
-        #   package = pkgs.unstable.vimPlugins.roslyn-nvim;
-        # };
-        # conform-nvim.settings.formatters_by_ft = {
-        #   cs = ["clang-format"];
-        # };
+        conform-nvim.settings.formatters_by_ft = {
+          cs = ["csharpier"];
+          csproj = ["csharpier"];
+        };
         treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
           c_sharp
         ];
       };
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "cs";
+          callback = config.lib.nixvim.mkRaw ''
+            function()
+              vim.bo.indentexpr = ""
+              vim.bo.cindent = true
+              vim.bo.autoindent = true
+              vim.bo.shiftwidth = 4
+              vim.bo.tabstop = 4
+              vim.bo.softtabstop = 4
+              vim.bo.expandtab = true
+            end
+          '';
+        }
+      ];
     };
   };
 }
