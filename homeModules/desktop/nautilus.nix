@@ -39,7 +39,6 @@ in {
     xdg.configFile."gtk-3.0/bookmarks".text = let
       home = config.home.homeDirectory;
     in ''
-      file://${home}
       file://${home}/Downloads
       file://${home}/Desktop
       file://${home}/Documents
@@ -47,6 +46,7 @@ in {
       file://${home}/Projects
       file://${home}/Videos
       file:///
+      file:///mnt
       file:///mnt/data
     '';
   };

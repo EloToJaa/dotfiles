@@ -98,6 +98,7 @@ with lib; let
       "application/*tar"
     ];
     discord = ["x-scheme-handler/discord"];
+    # kdeconnect:// URLs will open with KDE Connect
     kdeconnect = ["x-scheme-handler/kdeconnect"];
   };
 

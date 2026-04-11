@@ -10,6 +10,8 @@ in {
       {
         matches = [
           {app-id = "^org.gnome.Nautilus$";}
+          {app-id = "^org.gnome.TextEditor$";}
+          {app-id = "^org.gnome.Evince$";}
           {app-id = "^.virt-manager-wrapped$";}
         ];
         default-column-width.proportion = 0.5;
@@ -27,7 +29,6 @@ in {
       {
         matches = [
           {app-id = "^org.pulseaudio.pavucontrol$";}
-          {app-id = "^mpv$";}
         ];
         default-column-width.fixed = 1200;
         open-floating = true;
@@ -60,6 +61,7 @@ in {
       {
         matches = [
           {app-id = "^com.mitchellh.ghostty$";}
+          {app-id = "^mpv$";}
         ];
         open-maximized = true;
       }

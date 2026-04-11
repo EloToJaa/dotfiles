@@ -82,7 +82,7 @@ in {
       };
       "Mod+Shift+n" = {
         hotkey-overlay.title = "Notepad";
-        action.spawn = dmsIpc ["notepad" "toggle"];
+        action.spawn = ["gnome-text-editor"];
       };
       "Mod+g" = {
         hotkey-overlay.title = "Lock Screen";
