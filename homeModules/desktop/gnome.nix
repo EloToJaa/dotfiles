@@ -14,6 +14,7 @@ in {
       evince # pdf
       file-roller # archive
       gnome-text-editor # gedit
+      switcheroo
     ];
 
     services.kdeconnect = {
