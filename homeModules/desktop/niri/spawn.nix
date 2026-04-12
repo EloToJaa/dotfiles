@@ -15,7 +15,6 @@ in {
       {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = [discord];}
       {command = ["nextcloud" "--background"];}
-      {command = ["kdeconnect-indicator"];}
     ];
   };
 }
