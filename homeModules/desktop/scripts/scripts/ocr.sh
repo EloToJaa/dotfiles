@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
-# Create temporary file for screenshot
-temp_image=$(mktemp /tmp/ocr-screenshot-XXXXXX.png)
+file_name="ocr-screenshot-$(
+  LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6
+  echo
+).png"
+dir_name="/tmp/"
+temp_image="$dir_name$file_name"
 
-# Capture screen area with grimblast
-grimblast --freeze save area "$temp_image"
+# Capture screen area
+dms screenshot region --dir "$dir_name" --filename "$file_name" --no-notify --no-clipboard --cursor off
 
 # Perform OCR and copy to clipboard
 tesseract "$temp_image" stdout 2>/dev/null | wl-copy
