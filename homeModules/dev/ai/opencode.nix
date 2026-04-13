@@ -19,7 +19,7 @@ in {
     programs.opencode = {
       enable = true;
       package = aiTools.opencode;
-      rules = ./AGENTS.md;
+      context = ./AGENTS.md;
       tui = {
         theme = "catppuccin";
         keybinds = {
