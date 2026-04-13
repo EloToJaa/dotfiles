@@ -2,7 +2,8 @@
 
 dir="$HOME/Pictures/Screenshots"
 time=$(date +'%Y_%m_%d_at_%Hh%Mm%Ss')
-file="${dir}/Screenshot_${time}.png"
+file_name="Screenshot_${time}.png"
+file="$dir/$file_name"
 
 copy() {
   GRIMBLAST_HIDE_CURSOR=0 grimblast --notify --freeze copy area

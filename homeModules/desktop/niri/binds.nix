@@ -283,11 +283,12 @@ in {
       "Mod+Shift+Equal".action.set-window-height = ["+10%"];
 
       "XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot"];
-      "Ctrl+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot-screen"];
-      "Alt+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshot-window"];
+      "Ctrl+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshotScreen"];
+      "Alt+XF86Launch1".action.spawn = dmsIpc ["niri" "screenshotWindow"];
       "Print".action.spawn = dmsIpc ["niri" "screenshot"];
-      "Ctrl+Print".action.spawn = dmsIpc ["niri" "screenshot-screen"];
-      "Alt+Print".action.spawn = dmsIpc ["niri" "screenshot-window"];
+      "Ctrl+Print".action.spawn = dmsIpc ["niri" "screenshotScreen"];
+      "Alt+Print".action.spawn = dmsIpc ["niri" "screenshotWindow"];
+      "Mod+o".action.spawn = ["ocr"];
 
       "Mod+x".action.toggle-keyboard-shortcuts-inhibit = {};
       "Mod+Shift+p".action.power-off-monitors = {};
