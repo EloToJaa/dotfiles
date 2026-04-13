@@ -20,6 +20,9 @@ in {
       enable = true;
       package = aiTools.opencode;
       context = ./AGENTS.md;
+      commands = {
+        commit = ./commands/commit.md;
+      };
       tui = {
         theme = "catppuccin";
         keybinds = {
