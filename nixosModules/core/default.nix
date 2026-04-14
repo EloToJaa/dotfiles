@@ -15,6 +15,7 @@
     ./steam.nix
     ./virtualization.nix
     ./wayland.nix
+    ./winboat.nix
     ./xserver.nix
   ];
 }
