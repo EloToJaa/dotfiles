@@ -34,6 +34,7 @@
     ./variables.nix
     ./vicinae.nix # launcher
     ./waypaper.nix # wallpaper picker
+    ./winboat.nix # remote desktop
     ./wlogout.nix # logout screen
     ./xdg-mimes.nix # xdg config
     ./zen.nix

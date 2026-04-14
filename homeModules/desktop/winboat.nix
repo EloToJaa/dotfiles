@@ -4,15 +4,14 @@
   config,
   ...
 }: let
-  cfg = config.modules.core.winboat;
+  cfg = config.modules.desktop.winboat;
 in {
-  options.modules.core.winboat = {
+  options.modules.desktop.winboat = {
     enable = lib.mkEnableOption "Enable winboat module";
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs.unstable; [
+    home.packages = with pkgs.unstable; [
       winboat
-      freerdp
     ];
   };
 }

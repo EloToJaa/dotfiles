@@ -26,6 +26,7 @@
       nautilus.enable = true;
       spotify.enable = true;
       vicinae.enable = true;
+      winboat.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;
     };
