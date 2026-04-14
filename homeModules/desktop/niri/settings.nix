@@ -2,6 +2,7 @@
   config,
   lib,
   settings,
+  pkgs,
   ...
 }: let
   inherit (settings) keyboardLayout;
@@ -9,7 +10,10 @@
 in {
   config = lib.mkIf cfg.enable {
     programs.niri.settings = {
-      # Input configuration - mirrors hyprland settings.nix
+      xwayland-satellite = {
+        enable = true;
+        path = lib.getExe pkgs.unstable.xwayland-satellite;
+      };
       input = {
         focus-follows-mouse = {
           enable = true;
@@ -70,6 +74,7 @@ in {
         XDG_CURRENT_DESKTOP = "niri";
         XDG_SESSION_DESKTOP = "niri";
         GTK_USE_PORTAL = "1";
+        DISPLAY = ":0";
 
         DMS_SCREENSHOT_EDITOR = "satty";
       };
