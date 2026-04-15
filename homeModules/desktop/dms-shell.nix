@@ -26,11 +26,11 @@ in {
           filesToInclude = [
             "alttab"
             "colors"
-            "cursor"
+            # "cursor"
             # "layout"
             "outputs"
             "windowrules"
-            "wpblur"
+            # "wpblur"
           ];
         };
       };

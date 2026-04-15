@@ -31,6 +31,10 @@ in {
           natural-scroll = true;
         };
       };
+      cursor = {
+        theme = "Bibata-Modern-Ice";
+        size = 24;
+      };
 
       # Layout configuration - mirrors hyprland general settings
       layout = {
@@ -44,6 +48,12 @@ in {
           width = 1;
         };
       };
+      layer-rules = [
+        {
+          matches = [{namespace = "dms:blurwallpaper";}];
+          place-within-backdrop = true;
+        }
+      ];
       window-rules = [
         {
           geometry-corner-radius = let
