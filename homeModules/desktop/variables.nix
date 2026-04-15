@@ -27,7 +27,7 @@ in {
 
       # GDK_BACKEND = "wayland";
       XDG_SESSION_TYPE = "wayland";
-      SDL_VIDEODRIVER = "wayland";
+      SDL_VIDEODRIVER = "wayland,x11";
       CLUTTER_BACKEND = "wayland";
     };
   };

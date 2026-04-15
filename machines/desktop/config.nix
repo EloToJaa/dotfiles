@@ -40,14 +40,13 @@
       network.enable = false;
       printing.enable = false;
       security.enable = true;
-      steam.enable = false;
+      steam.enable = true;
       virtualization.enable = true;
       wayland = {
         enable = true;
         hyprland.enable = false;
         niri.enable = true;
       };
-      xserver.enable = true;
     };
     homelab.groups.enable = true;
   };

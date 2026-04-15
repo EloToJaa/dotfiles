@@ -97,7 +97,6 @@
         hyprland.enable = true;
         niri.enable = true;
       };
-      xserver.enable = true;
     };
   };
 }
