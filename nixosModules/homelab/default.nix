@@ -83,6 +83,7 @@ in {
     ./nextcloud
     ./nginx
     ./ntfy
+    ./open-webui
     ./paperless
     ./postgres
     ./profilarr
@@ -98,7 +99,6 @@ in {
     ./uptime
     ./vaultwarden
     ./wireguard
-    ./zeroclaw
     ./firewall.nix
     ./groups.nix
     ./journald.nix

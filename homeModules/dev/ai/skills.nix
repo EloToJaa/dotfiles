@@ -18,7 +18,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with aiTools; [
       agent-browser
-      # zeroclaw
     ];
     programs.opencode.skills = {
       frontend-design = "${skills.anthropic}/skills/frontend-design/";

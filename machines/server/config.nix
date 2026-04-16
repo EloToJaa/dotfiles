@@ -61,6 +61,7 @@
         # onlyoffice.enable = true;
       };
       ntfy.enable = false;
+      open-webui.enable = true;
       paperless.enable = true;
       postgres = {
         enable = true;
@@ -86,7 +87,6 @@
         auth.enable = false;
       };
       wireguard.enable = true;
-      zeroclaw.enable = false;
     };
   };
 }
