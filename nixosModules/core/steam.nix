@@ -20,7 +20,7 @@ in {
         dedicatedServer.openFirewall = false;
         localNetworkGameTransfers.openFirewall = false;
 
-        gamescopeSession.enable = true;
+        gamescopeSession.enable = false;
 
         extraCompatPackages = with pkgs.unstable; [proton-ge-bin];
       };

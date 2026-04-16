@@ -38,7 +38,7 @@ in {
           "Maple Mono"
           "DejaVu Sans"
         ];
-        font-size = 10;
+        font-size = 9;
         font-feature = [
           "calt"
           "ss03"

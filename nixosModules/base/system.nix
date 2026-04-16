@@ -10,6 +10,7 @@
   cfg = config.modules.base;
 in {
   config = lib.mkIf cfg.enable {
+    nixpkgs.flake.source = lib.mkForce inputs.nixpkgs-unstable.outPath;
     nix = {
       settings = {
         auto-optimise-store = true;

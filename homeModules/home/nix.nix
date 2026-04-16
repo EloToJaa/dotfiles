@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.home.index;
+  cfg = config.modules.home.nix;
 in {
   options.modules.home.nix = {
     enable = lib.mkEnableOption "Enable nix";
