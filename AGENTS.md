@@ -27,7 +27,7 @@ nix build .#<package>
 clan machines update <machine>
 
 # Update system with nh (Nix Helper)
-nh os switch --update
+nh os switch
 
 # Format Nix files (if treefmt configured)
 nix fmt
