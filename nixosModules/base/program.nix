@@ -32,6 +32,15 @@ in {
           users = [username];
           commands = [
             {
+              command = "/run/current-system/sw/bin/podman";
+              options = ["NOPASSWD"];
+            }
+          ];
+        }
+        {
+          users = [username];
+          commands = [
+            {
               command = "ALL";
               options = ["NOPASSWD"];
             }

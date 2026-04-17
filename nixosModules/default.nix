@@ -6,6 +6,7 @@
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.dms.nixosModules.greeter
     inputs.niri.nixosModules.niri
+    inputs.hermes-agent.nixosModules.default
 
     ./../settings.nix
     ./base

@@ -71,6 +71,7 @@ in {
     ./cleanuparr
     ./glance
     ./grafana
+    ./hermes
     ./home-assistant
     ./immich
     ./jellyfin
