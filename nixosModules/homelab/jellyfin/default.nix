@@ -81,7 +81,10 @@ in {
     services.nginx.virtualHosts = let
       proxyConfig = {
         forceSSL = true;
-        locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
       };
     in {
       "${cfg.domainName}.${homelab.baseDomain}" = proxyConfig // {useACMEHost = homelab.baseDomain;};

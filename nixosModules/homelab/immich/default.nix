@@ -130,7 +130,10 @@ in {
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      locations."/" = {
+        proxyPass = "http://${cfg.host}:${toString cfg.port}";
+        proxyWebsockets = true;
+      };
     };
     clan.core.state.immich = {
       folders = [
