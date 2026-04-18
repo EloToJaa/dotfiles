@@ -19,7 +19,7 @@ in {
     };
     port = lib.mkOption {
       type = lib.types.port;
-      default = 3005;
+      default = 8642;
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
@@ -40,7 +40,19 @@ in {
         image = "ubuntu:24.04";
       };
 
-      settings.model.default = "opencode-go/kimi-k2.5";
+      settings = {
+        model = {
+          provider = "opencode-go";
+          default = "kimi-k2.5";
+        };
+        web.backend = "firecrawl";
+      };
+      environment = {
+        DISCORD_ALLOWED_USERS = "308939544407834625";
+        API_SERVER_ENABLED = "true";
+        API_SERVER_PORT = toString cfg.port;
+        API_SERVER_HOST = "127.0.0.1";
+      };
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -78,13 +90,26 @@ in {
     };
 
     sops.secrets = {
-      "${cfg.name}/oc-api-key" = {
+      "${cfg.name}/opencode-api-key" = {
+        group = cfg.name;
+      };
+      "${cfg.name}/firecrawl-api-key" = {
+        group = cfg.name;
+      };
+      "${cfg.name}/discord-bot-token" = {
+        group = cfg.name;
+      };
+      "${cfg.name}/api-server-key" = {
         group = cfg.name;
       };
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
-        OPENCODE_GO_API_KEY=${config.sops.placeholder."${cfg.name}/oc-api-key"}
+        OPENCODE_GO_API_KEY=${config.sops.placeholder."${cfg.name}/opencode-api-key"}
+        OPENCODE_ZEN_API_KEY=${config.sops.placeholder."${cfg.name}/opencode-api-key"}
+        FIRECRAWL_API_KEY=${config.sops.placeholder."${cfg.name}/firecrawl-api-key"}
+        DISCORD_BOT_TOKEN=${config.sops.placeholder."${cfg.name}/discord-bot-token"}
+        API_SERVER_KEY=${config.sops.placeholder."${cfg.name}/api-server-key"}
       '';
       group = cfg.name;
     };
