@@ -58,10 +58,10 @@
       loki.enable = false;
       n8n.enable = false;
       nextcloud = {
-        enable = false;
+        enable = true;
         # onlyoffice.enable = true;
       };
-      opencloud.enable = true;
+      opencloud.enable = false;
       ntfy.enable = false;
       open-webui.enable = true;
       paperless.enable = true;
