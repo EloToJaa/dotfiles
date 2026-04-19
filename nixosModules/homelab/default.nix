@@ -84,6 +84,7 @@ in {
     ./nextcloud
     ./nginx
     ./ntfy
+    ./opencloud
     ./open-webui
     ./paperless
     ./postgres
