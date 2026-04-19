@@ -14,7 +14,7 @@ in {
       # {command = ["wl-clip-persist" "--clipboard" "both"];}
       {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = [discord];}
-      {command = ["nextcloud" "--background"];}
+      {command = ["opencloud"];}
     ];
   };
 }

@@ -18,10 +18,6 @@ in {
       type = lib.types.str;
       default = "cloud";
     };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.cloud;
-    };
     port = lib.mkOption {
       type = lib.types.port;
       default = 9200;
@@ -34,7 +30,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.opencloud = {
-      inherit (cfg) port group;
+      inherit (cfg) port;
       enable = true;
       package = pkgs.unstable.opencloud;
       webPackage = pkgs.unstable.opencloud.web;
@@ -42,14 +38,21 @@ in {
       url = "https://${domain}";
       stateDir = cfg.dataDir;
       user = cfg.name;
+      group = cfg.name;
       address = "127.0.0.1";
+      environmentFile = config.clan.core.vars.generators.opencloud.files."envfile".path;
+      environment = {
+        OC_INSECURE = "true";
+        INITIAL_ADMIN_PASSWORD = "Test1234";
+        COLLABORA_DOMAIN = "https://docs.${homelab.baseDomain}";
+        WOPISERVER_DOMAIN = "https://wopiserver.${homelab.baseDomain}";
+      };
+      settings = {
+        opencloud = {
+          proxy.insecure_backends = true;
+        };
+      };
     };
-    systemd.services.opencloud.serviceConfig = {
-      UMask = lib.mkForce homelab.defaultUMask;
-    };
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-    ];
 
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
@@ -85,8 +88,38 @@ in {
       '';
     };
 
-    # OpenCloud user is created by services.opencloud
-    # We just ensure it's in the right group
-    users.users.${cfg.name}.group = lib.mkForce cfg.group;
+    clan.core.vars.generators.opencloud = {
+      files.envfile = {
+        owner = "opencloud";
+        group = "opencloud";
+      };
+      runtimeInputs = with pkgs; [
+        util-linux
+        pwgen
+      ];
+      script = ''
+        mkdir -p $out
+
+        # Generate required secrets (matching opencloud init output)
+        SERVICE_ACCOUNT_ID=$(uuidgen)
+        STORAGE_UUID=$(uuidgen)
+
+        {
+          echo "OC_JWT_SECRET=$(pwgen -s 64 1)"
+          echo "OC_TRANSFER_SECRET=$(pwgen -s 64 1)"
+          echo "OC_MACHINE_AUTH_API_KEY=$(pwgen 64 1)"
+          echo "OC_SYSTEM_USER_ID=$(uuidgen)"
+          echo "OC_SYSTEM_USER_API_KEY=$(pwgen -s 64 1)"
+          echo "OC_ADMIN_USER_ID=$(uuidgen)"
+          echo "GRAPH_APPLICATION_ID=$(uuidgen)"
+          echo "OC_SERVICE_ACCOUNT_ID=$SERVICE_ACCOUNT_ID"
+          echo "OC_SERVICE_ACCOUNT_SECRET=$(pwgen -s 64 1)"
+          echo "STORAGE_USERS_MOUNT_ID=$STORAGE_UUID"
+          echo "GATEWAY_STORAGE_USERS_MOUNT_ID=$STORAGE_UUID"
+          echo "THUMBNAILS_TRANSFER_SECRET=$(pwgen -s 64 1)"
+          echo "OC_URL_SIGNING_SECRET=$(pwgen -s 64 1)"
+        } > $out/envfile
+      '';
+    };
   };
 }
