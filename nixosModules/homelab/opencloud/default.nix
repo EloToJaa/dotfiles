@@ -90,8 +90,8 @@ in {
 
     clan.core.vars.generators.opencloud = {
       files.envfile = {
-        owner = "opencloud";
-        group = "opencloud";
+        owner = cfg.name;
+        group = cfg.name;
       };
       runtimeInputs = with pkgs; [
         util-linux
