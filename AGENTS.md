@@ -29,7 +29,7 @@ clan machines update <machine>
 # Update system with nh (Nix Helper)
 nh os switch
 
-# Format Nix files (if treefmt configured)
+# Format all project files with treefmt
 nix fmt
 ```
 
@@ -47,14 +47,17 @@ nix fmt
 ```bash
 nix build .#nixosConfigurations.<host>.config.system.build.toplevel
 
+# Format all files (Nix, Lua, Python, Shell, YAML, TOML, Markdown)
+nix fmt
+
+# Verify formatting in CI mode (exits 1 if unformatted)
+nix fmt -- --ci
+
+# Check flake evaluation and formatting
+nix flake check
+
 # Lint Lua files (for Neovim configs)
 luacheck <file>
-
-# Format Lua files
-stylua <file>
-
-# Check Nix syntax
-nix flake check
 ```
 
 ## Project Structure
@@ -192,28 +195,29 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 ### Adding a New Machine
 
 1. Create directory in `machines/<name>/`
-2. Add `default.nix` with machine-specific configuration
-3. Add `disko.nix` for disk partitioning (if needed)
-4. Add to `machines/flake-module.nix` inventory
-5. Generate SSH host keys in `vars/per-machine/<name>/`
+1. Add `default.nix` with machine-specific configuration
+1. Add `disko.nix` for disk partitioning (if needed)
+1. Add to `machines/flake-module.nix` inventory
+1. Generate SSH host keys in `vars/per-machine/<name>/`
 
 ### Adding a Home Module
 
 1. Create file in `homeModules/<category>/<name>.nix`
-2. Export from `homeModules/<category>/default.nix`
-3. Import in `homeModules/<category>/default.nix` if applicable
-4. Follow existing module pattern with `options` and `config`
+1. Export from `homeModules/<category>/default.nix`
+1. Import in `homeModules/<category>/default.nix` if applicable
+1. Follow existing module pattern with `options` and `config`
 
 ### Adding a Custom Package
 
 1. Create package definition in `pkgs/<name>.nix`
-2. Add to `pkgs/pkgs.nix` exports
-3. Update package versions using `nurl` or `nix-update`
+1. Add to `pkgs/pkgs.nix` exports
+1. Update package versions using `nurl` or `nix-update`
 
 ## CI/CD
 
 GitHub Actions workflows in `.github/workflows/`:
 
 - `build.yml` - Builds all machine configurations
+- `format-check.yml` - Verifies all files are formatted with treefmt
 - `update-flake-lock.yml` - Updates flake.lock automatically
 - `opencode.yml` - OpenCode integration

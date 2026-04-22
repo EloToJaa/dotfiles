@@ -12,6 +12,7 @@
       imports = [
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
+        inputs.treefmt-nix.flakeModule
         # ./terranix
         ./lib
         ./settings.nix
@@ -34,6 +35,8 @@
         devshells.default.packages = with pkgs.unstable; [
           nurl
         ];
+
+        treefmt = import ./treefmt.nix;
       };
     };
 
