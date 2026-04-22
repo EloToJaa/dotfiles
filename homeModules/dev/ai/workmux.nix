@@ -20,12 +20,16 @@ in {
       wm = "workmux";
     };
 
-    xdg.configFile."opencode/plugins/workmux-status.ts".source = "${workmux}/.opencode/plugin/workmux-status.ts";
+    xdg.configFile = {
+      "opencode/plugins/workmux-status.ts".source = "${workmux}/opencode/plugins/workmux-status.ts";
+      "opencode/package.json".source = "${workmux}/opencode/package.json";
+    };
     programs.opencode.skills = {
       coordinator = "${workmux}/skills/coordinator/";
       merge = "${workmux}/skills/merge/";
       open-pr = "${workmux}/skills/open-pr/";
       rebase = "${workmux}/skills/rebase/";
+      workmux = "${workmux}/skills/workmux/";
       worktree = "${workmux}/skills/worktree/";
     };
 

@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   buildPhase = ''
     mkdir $out
     cp -r $src/skills/ $out
-    cp -r $src/resources/opencode/plugins/ $out
+    cp -r $src/resources/opencode/ $out
   '';
 
   meta = with lib; {
