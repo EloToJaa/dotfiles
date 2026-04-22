@@ -31,7 +31,7 @@ in {
         };
       };
       settings = {
-        model = "opencode-go/kimi-k2.5";
+        model = "opencode-go/kimi-k2.6";
         autoupdate = false;
         autoshare = false;
         plugin = [];

@@ -43,7 +43,7 @@ in {
       settings = {
         model = {
           provider = "opencode-go";
-          default = "kimi-k2.5";
+          default = "kimi-k2.6";
         };
         web.backend = "firecrawl";
       };
