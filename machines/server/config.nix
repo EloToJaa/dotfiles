@@ -73,7 +73,7 @@
       prometheus.enable = false;
       prowlarr = {
         enable = true;
-        flaresolverr.enable = true;
+        flaresolverr.enable = false;
       };
       qbittorrent = {
         enable = true;
