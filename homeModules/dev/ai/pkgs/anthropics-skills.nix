@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "anthropics-skills";
-  version = "unstable-2026-03-18";
+  version = "unstable-2026-04-22";
 
   src = fetchFromGitHub {
     owner = "anthropics";
     repo = "skills";
-    rev = "b0cbd3df1533b396d281a6886d5132f623393a9c";
-    hash = "sha256-GzNpraXV85qUwyGs5XDe0zHYr2AazqFppWtH9JvO3QE=";
+    rev = "b9e19e6f44773509fbdd7001d77ff41a49a486c1";
+    hash = "sha256-qAhHPjh7kgqx0oj8r2SPTPp/BamShae0f/9gbrUePCY=";
   };
 
   buildPhase = ''

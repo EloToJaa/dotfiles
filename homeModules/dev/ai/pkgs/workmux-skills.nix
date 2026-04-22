@@ -5,19 +5,19 @@
 }:
 stdenv.mkDerivation {
   pname = "workmux-skills";
-  version = "unstable-2026-03-18";
+  version = "unstable-2026-04-22";
 
   src = fetchFromGitHub {
     owner = "raine";
     repo = "workmux";
-    rev = "a0ceadc3a794c1ffcedc920bd535dd99b9b746bb";
-    hash = "sha256-blMSGNi7pe4tDMW2t7J2upJyFR1aSanCyCvnPcHqRkA=";
+    rev = "57efd749f44232d7f8fb9b6b46708406075b7de9";
+    hash = "sha256-xppT1/ks4nPDRGCcUr7LhGfJPHG9F+NuqLSzOISBgBI=";
   };
 
   buildPhase = ''
     mkdir $out
     cp -r $src/skills/ $out
-    cp -r $src/.opencode/ $out
+    cp -r $src/resources/opencode/plugins/ $out
   '';
 
   meta = with lib; {
