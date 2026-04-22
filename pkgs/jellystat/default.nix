@@ -6,13 +6,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "jellystat";
-  version = "1.1.9";
+  version = "1.1.10";
 
   src = fetchFromGitHub {
     owner = "CyferShepard";
     repo = "Jellystat";
     tag = finalAttrs.version;
-    hash = "sha256-M7Gw/TgDB+vA5wtYf5vLxLZ5r9D8B9pVEBE0FiRGlKs=";
+    hash = "sha256-eMDnQJLGEUlOZupUODXvNQ/TtQyQ7salqeZatR6ieRQ=";
   };
 
   npmDepsHash = "sha256-Y40ZnpHjEbYOjDrgwjLxCTyGWHGH6Zw8JADUiJc4hl4=";
