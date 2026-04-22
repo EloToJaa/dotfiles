@@ -100,6 +100,7 @@ in {
     };
 
     home.packages = with pkgs.unstable; [
+      act
       gh
       serie
       onefetch
