@@ -18,15 +18,15 @@ edit() {
   satty -f "$file"
 }
 
-if [[ ! -d "$dir" ]]; then
+if [[ ! -d $dir ]]; then
   mkdir -p "$dir"
 fi
 
-if [[ "$1" == "--copy" ]]; then
+if [[ $1 == "--copy" ]]; then
   copy
-elif [[ "$1" == "--save" ]]; then
+elif [[ $1 == "--save" ]]; then
   save
-elif [[ "$1" == "--edit" ]]; then
+elif [[ $1 == "--edit" ]]; then
   edit
 else
   echo -e "Available Options: --copy --save --edit"

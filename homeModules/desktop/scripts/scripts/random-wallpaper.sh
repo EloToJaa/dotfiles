@@ -12,7 +12,7 @@ wallpaper_count=${#wallpaper_list[@]}
 while true; do
   wallpaper_name="${wallpaper_list[RANDOM % wallpaper_count]}"
 
-  if [[ "$wallpaper_name" != "$current_wallpaper_name" ]]; then
+  if [[ $wallpaper_name != "$current_wallpaper_name" ]]; then
     break
   fi
 done

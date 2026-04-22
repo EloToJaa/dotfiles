@@ -5,14 +5,12 @@ on:
   pull_request:
     paths:
       - "flake.lock"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 permissions:
   contents: read
   id-token: write
-
 jobs:
   build-hosts:
     name: 💁
