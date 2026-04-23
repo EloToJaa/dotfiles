@@ -67,6 +67,23 @@ in {
 
           bind-key L run-shell "workmux last-done"
           bind-key Tab run-shell "workmux last-agent"
+          bind-key b run-shell "workmux sidebar"
+
+          # Alt+j / Alt+k to cycle agents (no prefix needed)
+          bind -n M-j run-shell "workmux sidebar next"
+          bind -n M-k run-shell "workmux sidebar prev"
+
+          # Alt+1..9 to jump directly
+          bind -n M-1 run-shell "workmux sidebar jump 1"
+          bind -n M-2 run-shell "workmux sidebar jump 2"
+          bind -n M-3 run-shell "workmux sidebar jump 3"
+          bind -n M-4 run-shell "workmux sidebar jump 4"
+          bind -n M-5 run-shell "workmux sidebar jump 5"
+          bind -n M-6 run-shell "workmux sidebar jump 6"
+          bind -n M-7 run-shell "workmux sidebar jump 7"
+          bind -n M-8 run-shell "workmux sidebar jump 8"
+          bind -n M-9 run-shell "workmux sidebar jump 9"
+          bind -n M-0 run-shell "workmux sidebar jump 10"
 
           setw -g aggressive-resize on
         '';
