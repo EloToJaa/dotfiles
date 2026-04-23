@@ -27,7 +27,7 @@ in {
       inherit (catppuccin) flavor;
       enable = true;
       extraConfig = ''
-        set -g @catppuccin_window_status_style "rounded"
+        set -g @catppuccin_window_status_style "basic"
         set -g status-right-length 100
         set -g status-left-length 100
         set -g status-left ""
@@ -35,6 +35,11 @@ in {
         set -agF status-right "#{E:@catppuccin_status_session}"
 
         set -g status-interval 5
+        set -g status-position top
+
+        set -g @catppuccin_window_current_number_color "#{@thm_${catppuccin.accent}}"
+        set -g @catppuccin_pane_active_border_style "fg=#{@thm_${catppuccin.accent}}"
+        set -g @catppuccin_pane_color "#{@thm_${catppuccin.accent}}"
       '';
     };
     programs.tmux.plugins = with pkgs.unstable.tmuxPlugins; [

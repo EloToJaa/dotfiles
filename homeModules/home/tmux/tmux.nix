@@ -29,7 +29,7 @@ in {
         newSession = true;
 
         extraConfig = ''
-          set-option -sa terminal-overrides ",xterm*:Tc"
+          set-option -sa terminal-overrides ",xterm*:Tc,ghostty:Tc"
           set -g detach-on-destroy off
           set -g mouse on
           set -g renumber-windows on
@@ -43,7 +43,7 @@ in {
           set -g pane-border-style 'fg=brightblack,bg=default'
 
           set -g extended-keys on
-          set -as terminal-features 'xterm*:extkeys'
+          set -as terminal-features 'xterm*:extkeys,ghostty:extkeys'
 
           bind-key [ previous-window
           bind-key ] next-window
@@ -65,6 +65,7 @@ in {
           bind-key r command-prompt -I "#W" { rename-window "%%" }
           bind-key R source-file ~/.config/tmux/tmux.conf
 
+          bind-key a display-popup -h 60 -w 200 -E "workmux dashboard"
           bind-key L run-shell "workmux last-done"
           bind-key Tab run-shell "workmux last-agent"
           bind-key b run-shell "workmux sidebar"
@@ -85,7 +86,7 @@ in {
           bind -n M-9 run-shell "workmux sidebar jump 9"
           bind -n M-0 run-shell "workmux sidebar jump 10"
 
-          setw -g aggressive-resize on
+          # setw -g aggressive-resize on
         '';
       };
 

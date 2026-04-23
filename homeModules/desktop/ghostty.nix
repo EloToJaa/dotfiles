@@ -89,7 +89,6 @@ in {
           "ctrl+shift+left=unbind"
           "ctrl+shift+right=unbind"
           "ctrl+tab=unbind"
-          "shift+enter=text:\n"
         ];
       };
     };
