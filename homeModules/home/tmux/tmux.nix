@@ -86,7 +86,7 @@ in {
           bind -n M-9 run-shell "workmux sidebar jump 9"
           bind -n M-0 run-shell "workmux sidebar jump 10"
 
-          # setw -g aggressive-resize on
+          setw -g aggressive-resize on
         '';
       };
 
