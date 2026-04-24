@@ -18,5 +18,6 @@
     ./ssh.nix
     ./system.nix
     ./user.nix
+    ./btop.nix
   ];
 }

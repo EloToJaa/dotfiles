@@ -24,6 +24,7 @@
     base = {
       enable = true;
       bootloader.enable = true;
+      btop.enable = true;
       docker.enable = true;
       duo.enable = false;
       index.enable = true;

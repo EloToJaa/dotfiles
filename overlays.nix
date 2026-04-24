@@ -28,11 +28,11 @@
         old.checkFlags;
     });
 
-    karakeep = prev.unstable.karakeep.overrideAttrs (old: {
-      # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
-      # The patch was trying to allow NEXT_CACHE_DIR env var for cache directory
-      preInstall = '''';
-    });
+    # karakeep = prev.unstable.karakeep.overrideAttrs {
+    #   # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
+    #   # The patch was trying to allow NEXT_CACHE_DIR env var for cache directory
+    #   preInstall = '''';
+    # };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
@@ -44,10 +44,11 @@
       config.allowInsecurePredicate = _: true;
       overlays = [
         (_final: prev: {
-          karakeep = prev.karakeep.overrideAttrs (old: {
+          karakeep = prev.karakeep.overrideAttrs {
             # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
             preInstall = '''';
-          });
+          };
+          btop = prev.btop.override {rocmSupport = true;};
         })
       ];
     };

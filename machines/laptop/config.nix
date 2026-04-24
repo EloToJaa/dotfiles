@@ -71,6 +71,7 @@
   modules = {
     base = {
       enable = true;
+      btop.enable = true;
       bootloader.enable = true;
       docker.enable = true;
       index.enable = true;

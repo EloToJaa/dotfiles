@@ -22,6 +22,7 @@
   modules = {
     base = {
       enable = true;
+      btop.enable = true;
       bootloader.enable = true;
       docker.enable = false;
       index.enable = true;

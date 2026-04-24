@@ -108,7 +108,6 @@
         };
       };
       bat.enable = true;
-      btop.enable = true;
       catppuccin.enable = true;
       fastfetch.enable = true;
       fzf.enable = true;

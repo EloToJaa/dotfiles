@@ -22,6 +22,7 @@
     base = {
       enable = true;
       bootloader.enable = true;
+      btop.enable = true;
       docker.enable = true;
       index.enable = true;
       tailscale.enable = true;
