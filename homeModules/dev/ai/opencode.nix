@@ -15,6 +15,9 @@ in {
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
+    home.packages = [
+      aiTools.ccusage-opencode
+    ];
     catppuccin.opencode.enable = false;
     programs.opencode = {
       enable = true;
