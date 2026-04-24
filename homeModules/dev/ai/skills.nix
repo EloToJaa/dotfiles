@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   cfg = config.modules.dev.ai.skills;
-  aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
   skills = {
     anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
     agent-browser = pkgs.callPackage ./pkgs/agent-browser-skills.nix {};
@@ -16,8 +14,8 @@ in {
     enable = lib.mkEnableOption "Enable skills module";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with aiTools; [
-      agent-browser
+    home.packages = with pkgs; [
+      llm-agents.agent-browser
     ];
     programs.opencode.skills = {
       frontend-design = "${skills.anthropic}/skills/frontend-design/";

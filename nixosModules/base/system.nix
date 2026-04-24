@@ -22,6 +22,7 @@ in {
           "https://yazi.cachix.org"
           "https://vicinae.cachix.org"
           "https://niri.cachix.org"
+          "https://cache.numtide.com"
         ];
         trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -30,6 +31,7 @@ in {
           "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
           "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
           "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
         trusted-users = [username];
       };
@@ -48,6 +50,7 @@ in {
       overlays = [
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
+        inputs.llm-agents.overlays.default
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages
         outputs.overlays.localPackages

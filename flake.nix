@@ -146,11 +146,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
   };

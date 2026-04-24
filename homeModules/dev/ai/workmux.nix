@@ -2,19 +2,17 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   cfg = config.modules.dev.ai.workmux;
-  aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
   workmux = pkgs.callPackage ./pkgs/workmux-skills.nix {};
 in {
   options.modules.dev.ai.workmux = {
     enable = lib.mkEnableOption "Enable workmux module";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      aiTools.workmux
+    home.packages = with pkgs; [
+      llm-agents.workmux
     ];
     programs.zsh.zsh-abbr.abbreviations = {
       wm = "workmux";

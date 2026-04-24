@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   cfg = config.modules.dev.ai.opencode;
-  aiTools = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 in {
   options.modules.dev.ai.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
@@ -15,13 +13,13 @@ in {
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
     };
-    home.packages = [
-      aiTools.ccusage-opencode
+    home.packages = with pkgs; [
+      llm-agents.ccusage-opencode
     ];
     catppuccin.opencode.enable = false;
     programs.opencode = {
       enable = true;
-      package = aiTools.opencode;
+      package = pkgs.llm-agents.opencode;
       context = ./AGENTS.md;
       commands = {
         commit = ./commands/commit.md;
