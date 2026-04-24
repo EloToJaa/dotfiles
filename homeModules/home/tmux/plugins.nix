@@ -40,6 +40,9 @@ in {
         set -g @catppuccin_window_current_number_color "#{@thm_${catppuccin.accent}}"
         set -g @catppuccin_pane_active_border_style "fg=#{@thm_${catppuccin.accent}}"
         set -g @catppuccin_pane_color "#{@thm_${catppuccin.accent}}"
+
+        set -g @catppuccin_window_text "#W"
+        set -g @catppuccin_window_current_text "#W"
       '';
     };
     programs.tmux.plugins = with pkgs.unstable.tmuxPlugins; [

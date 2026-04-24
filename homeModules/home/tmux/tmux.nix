@@ -62,9 +62,11 @@ in {
           bind-key -n C-S-Tab send-keys Escape [27\;6\;9~
 
           # unbind-key ,
-          bind-key r command-prompt -I "#W" { rename-window "%%" }
+          bind-key r command-prompt -I " #W" { rename-window "%%" }
           bind-key R source-file ~/.config/tmux/tmux.conf
 
+          bind-key m display-popup -h 60 -w 200 -E "btop"
+          bind-key g display-popup -h 60 -w 200 -d "#{pane_current_path}" -E "lazygit"
           bind-key a display-popup -h 60 -w 200 -E "workmux dashboard"
           bind-key L run-shell "workmux last-done"
           bind-key Tab run-shell "workmux last-agent"
@@ -87,6 +89,7 @@ in {
           bind -n M-0 run-shell "workmux sidebar jump 10"
 
           setw -g aggressive-resize on
+          set -g automatic-rename off
         '';
       };
 
