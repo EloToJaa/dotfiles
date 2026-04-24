@@ -58,7 +58,6 @@
 
       bun install \
         --cpu="*" \
-        --frozen-lockfile \
         --ignore-scripts \
         --no-progress \
         --os="*"
@@ -77,7 +76,7 @@
 
     dontFixup = true;
 
-    outputHash = "sha256-Vdkb685o9TiMKSUHKMXYQhWqKHiBwqZN49afUjWaAoM=";
+    outputHash = "sha256-65RsPEBbElowlW6CmeYpEicCQwWJSayS7CennLXFYEE=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
