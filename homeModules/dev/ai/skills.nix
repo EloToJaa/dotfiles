@@ -16,6 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       llm-agents.agent-browser
+      llm-agents.tuicr
     ];
     programs.opencode.skills = {
       frontend-design = "${skills.anthropic}/skills/frontend-design/";
