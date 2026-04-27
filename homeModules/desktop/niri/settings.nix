@@ -54,36 +54,6 @@ in {
           place-within-backdrop = true;
         }
       ];
-      window-rules = [
-        {
-          geometry-corner-radius = let
-            radius = 8.0;
-          in {
-            bottom-left = radius;
-            bottom-right = radius;
-            top-left = radius;
-            top-right = radius;
-          };
-          clip-to-geometry = true;
-          tiled-state = true;
-          draw-border-with-background = false;
-        }
-        {
-          matches = [{app-id = "^winboat$";}];
-          clip-to-geometry = false;
-          tiled-state = false;
-          # border.enable = false;
-          # focus-ring.enable = false;
-        }
-        {
-          matches = [{app-id = "^winboat-.*";}];
-          clip-to-geometry = false;
-          tiled-state = false;
-          open-floating = true;
-          # border.enable = false;
-          # focus-ring.enable = false;
-        }
-      ];
 
       gestures.hot-corners.enable = false;
 
