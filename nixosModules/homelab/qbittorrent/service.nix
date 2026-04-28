@@ -13,9 +13,7 @@ in {
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/torrent/qbittorrent.nix
   options.services.qbittorrent = {
     enable = mkEnableOption "Run qBittorrent headlessly as systemwide daemon";
-
     package = mkPackageOption pkgs "qbittorrent-nox" {};
-
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/qbittorrent";
@@ -23,7 +21,6 @@ in {
         The directory where qBittorrent will create files.
       '';
     };
-
     user = mkOption {
       type = types.str;
       default = "qbittorrent";
@@ -31,7 +28,6 @@ in {
         User account under which qBittorrent runs.
       '';
     };
-
     group = mkOption {
       type = types.str;
       default = "qbittorrent";
@@ -39,7 +35,6 @@ in {
         Group under which qBittorrent runs.
       '';
     };
-
     port = mkOption {
       type = types.port;
       default = 8080;
@@ -47,7 +42,6 @@ in {
         qBittorrent web UI port.
       '';
     };
-
     openFirewall = mkOption {
       type = types.bool;
       default = false;
@@ -55,7 +49,6 @@ in {
         Open services.qBittorrent.port to the outside network.
       '';
     };
-
     openFilesLimit = mkOption {
       default = openFilesLimit;
       description = ''

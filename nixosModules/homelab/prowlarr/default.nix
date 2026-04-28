@@ -110,6 +110,7 @@ in {
       };
     };
     sops.templates."config-${cfg.name}.xml" = {
+      restartUnits = ["prowlarr.service"];
       content = ''
         <Config>
           <LogLevel>info</LogLevel>

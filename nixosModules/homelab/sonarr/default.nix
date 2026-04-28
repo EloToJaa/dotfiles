@@ -98,6 +98,7 @@ in {
       };
     };
     sops.templates."config-${cfg.name}.xml" = {
+      restartUnits = ["sonarr.service"];
       content = ''
         <Config>
           <LogLevel>info</LogLevel>
