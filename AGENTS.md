@@ -66,8 +66,6 @@ luacheck <file>
 
 **Formatting:**
 
-- Indentation: 2 spaces
-- Line length: ~100 characters (soft limit)
 - Use `let ... in` for local variable bindings
 - Use `inherit` to bring values into scope
 
@@ -169,7 +167,7 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 After making any code changes, AI agents **must** follow this verification sequence before declaring the task complete:
 
 1. **Format** – Run `nix fmt` to apply formatting across all project files (Nix, Lua, Python, Shell, YAML, TOML, Markdown).
-2. **Build** – Run the relevant build command for the changed configuration:
+1. **Build** – Run the relevant build command for the changed configuration:
    - For machine changes: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`
    - For packages: `nix build .#<package>`
 
