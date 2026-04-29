@@ -68,6 +68,7 @@ in {
           bind-key m display-popup -h 85% -w 80% -E "btop"
           bind-key g display-popup -h 85% -w 80% -d "#{pane_current_path}" -E "lazygit"
           bind-key a display-popup -h 85% -w 80% -E "workmux dashboard"
+          bind-key h display-popup -h 85% -w 80% -E "gh dash"
           bind-key L run-shell "workmux last-done"
           bind-key Tab run-shell "workmux last-agent"
           bind-key b run-shell "workmux sidebar"
