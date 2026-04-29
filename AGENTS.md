@@ -190,6 +190,17 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 - CI builds all machine configurations on PRs affecting `flake.lock`
 - Supported hosts: server, desktop, laptop
 
+## AI Agent Workflow
+
+After making any code changes, AI agents **must** follow this verification sequence before declaring the task complete:
+
+1. **Format** – Run `nix fmt` to apply formatting across all project files (Nix, Lua, Python, Shell, YAML, TOML, Markdown).
+2. **Build** – Run the relevant build command for the changed configuration:
+   - For machine changes: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`
+   - For packages: `nix build .#<package>`
+
+Only proceed to the next step if the previous one succeeds.
+
 ## Common Patterns
 
 ### Adding a New Machine
