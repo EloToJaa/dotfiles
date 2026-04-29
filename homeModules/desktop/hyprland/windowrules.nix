@@ -44,7 +44,6 @@ in {
         "match:title ^(Picture-in-Picture)$, opacity 1.0 override"
         "match:title ^(Picture-in-Picture)$, pin on"
         "match:title ^(.*mpv.*)$, opacity 1.0 override"
-        "match:class (evince), opacity 1.0 override"
 
         "match:class ^(mpv)$, idle_inhibit focus"
         "match:class ^(firefox)$, idle_inhibit fullscreen on"
@@ -76,7 +75,6 @@ in {
         "match:class ^(xwaylandvideobridge)$, no_blur on"
 
         "match:class ^(zen-beta)$, workspace 1"
-        "match:class ^(evince)$, workspace 4"
         "match:class ^(gimp)$, workspace 4"
         "match:class ^(Audacious)$, workspace 5"
         "match:class ^(${discord})$, workspace 5"

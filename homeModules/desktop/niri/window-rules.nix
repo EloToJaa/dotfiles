@@ -39,7 +39,7 @@ in {
         matches = [
           {app-id = "^org.gnome.Nautilus$";}
           {app-id = "^org.gnome.TextEditor$";}
-          {app-id = "^org.gnome.Evince$";}
+          {app-id = "^org.gnome.Papers$";}
           {app-id = "^.virt-manager-wrapped$";}
         ];
         default-column-width.proportion = 0.5;

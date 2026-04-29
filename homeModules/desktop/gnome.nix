@@ -11,7 +11,7 @@ in {
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
-      evince # pdf
+      papers # pdf
       file-roller # archive
       gnome-text-editor # gedit
       switcheroo

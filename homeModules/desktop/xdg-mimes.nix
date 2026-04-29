@@ -14,7 +14,7 @@ with lib; let
     video = ["mpv.desktop"];
     directory = ["org.gnome.Nautilus.desktop"];
     office = ["libreoffice.desktop"];
-    pdf = ["org.gnome.Evince.desktop"];
+    pdf = ["org.gnome.Papers.desktop"];
     terminal = ["${terminal}.desktop"];
     archive = ["org.gnome.FileRoller.desktop"];
     discord = ["${discord}.desktop"];
