@@ -13,10 +13,6 @@ in {
     enable = lib.mkEnableOption "Enable lazygit";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      difftastic
-    ];
-
     programs.lazygit = {
       enable = true;
       package = pkgs.unstable.lazygit;
@@ -29,7 +25,6 @@ in {
             {
               colorArg = "always";
               pager = "delta --dark --paging=never";
-              externalDiffCommand = "difft --color=always";
             }
           ];
         };
