@@ -60,32 +60,6 @@ nix flake check
 luacheck <file>
 ```
 
-## Project Structure
-
-```
-├── flake.nix              # Flake entry point
-├── settings.nix           # Shared settings module (username, email, etc.)
-├── overlays.nix           # Nixpkgs overlays
-├── machines/              # Per-machine configurations
-│   ├── flake-module.nix   # Machine definitions for clan
-│   ├── desktop/
-│   ├── laptop/
-│   └── server/
-├── homeModules/           # Home-manager modules
-│   ├── home/              # Home configuration
-│   ├── desktop/           # Desktop environment
-│   ├── dev/               # Development tools
-│   └── cybersec/          # Security tools
-├── nixosModules/          # NixOS system modules
-│   ├── base/              # Base system configuration
-│   ├── core/              # Core system features
-│   └── homelab/           # Homelab services
-├── pkgs/                  # Custom packages
-├── sops/                  # SOPS secrets configuration
-├── terranix/              # Infrastructure as code (Terraform)
-└── vars/                  # Clan variables
-```
-
 ## Code Style Guidelines
 
 ### Nix (.nix files)
