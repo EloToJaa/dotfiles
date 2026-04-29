@@ -10,6 +10,7 @@
     ./lazygit.nix
     ./leetcode.nix
     ./packages.nix # other packages
+    ./zed.nix
     ./variables.nix # environment variables
   ];
 }

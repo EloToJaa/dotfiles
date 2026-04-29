@@ -42,6 +42,7 @@
       aoc.enable = false;
       leetcode.enable = false;
       lazygit.enable = true;
+      zed.enable = true;
       nvim = {
         enable = true;
         languages = {
