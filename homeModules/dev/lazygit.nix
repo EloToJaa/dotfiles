@@ -17,6 +17,10 @@ in {
       enable = true;
       package = pkgs.unstable.lazygit;
       settings = {
+        keybinding.universal = {
+          jumpToBlock = ["1" "2" "3" "4" "6"];
+          focusMainView = "5";
+        };
         git = {
           log.order = "default";
           parseEmoji = true;
