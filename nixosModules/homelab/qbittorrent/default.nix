@@ -7,6 +7,49 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.qbittorrent;
   ns = config.services.wireguard-netns.namespace;
+  # Fix crash in acceptsGzipEncoding with Qt >= 6.11
+  # https://github.com/qbittorrent/qBittorrent/issues/24038
+  qbittorrent-nox-fixed = pkgs.unstable.qbittorrent-nox.overrideAttrs (oldAttrs: {
+    patches =
+      (oldAttrs.patches or [])
+      ++ [
+        (pkgs.writeText "qbittorrent-fix-gzip-crash.patch" ''
+          --- a/src/base/http/connection.cpp
+          +++ b/src/base/http/connection.cpp
+          @@ -182,9 +182,9 @@ bool Connection::acceptsGzipEncoding(QString codings)
+           {
+               // [rfc7231] 5.3.4. Accept-Encoding
+
+          -    const auto isCodingAvailable = [](const QList<QStringView> &list, const QStringView encoding) -> bool
+          +    const auto isCodingAvailable = [](const QStringList &list, const QStringView encoding) -> bool
+               {
+          -        for (const QStringView &str : list)
+          +        for (const QString &str : list)
+                   {
+                       if (!str.startsWith(encoding))
+                           continue;
+          @@ -194,7 +194,7 @@ bool Connection::acceptsGzipEncoding(QString codings)
+                           return true;
+
+                       // [rfc7231] 5.3.1. Quality Values
+          -            const QStringView substr = str.mid(encoding.size() + 3);  // ex. skip over "gzip;q="
+          +            const QStringView substr = QStringView(str).mid(encoding.size() + 3);  // ex. skip over "gzip;q="
+
+                       bool ok = false;
+                       const double qvalue = substr.toDouble(&ok);
+          @@ -206,7 +206,9 @@ bool Connection::acceptsGzipEncoding(QString codings)
+                   return false;
+               };
+
+          -    const QList<QStringView> list = QStringView(codings.remove(u' ').remove(u'\t')).split(u',', Qt::SkipEmptyParts);
+          +    codings.remove(u' ');
+          +    codings.remove(u'\t');
+          +    const QStringList list = codings.split(u',', Qt::SkipEmptyParts);
+               if (list.isEmpty())
+                   return false;
+        '')
+      ];
+  });
 in {
   options.modules.homelab.qbittorrent = {
     enable = lib.mkEnableOption "Enable qbittorrent";
@@ -42,7 +85,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.qbittorrent = {
       enable = true;
-      package = pkgs.unstable.qbittorrent-nox;
+      package = qbittorrent-nox-fixed;
       user = cfg.name;
       inherit (cfg) port group dataDir;
     };
