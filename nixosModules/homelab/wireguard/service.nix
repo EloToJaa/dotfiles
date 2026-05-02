@@ -15,6 +15,7 @@ in {
       description = "Network namespace to be created";
       default = "wg_client";
     };
+    # Clean Coyote
     configFile = lib.mkOption {
       type = lib.types.path;
       description = "Path to a file with Wireguard config (not a wg-quick one!)";
