@@ -5,7 +5,7 @@
   ...
 }: let
   extra-path = with pkgs.unstable; [
-    dotnetCorePackages.sdk_9_0-bin
+    dotnetCorePackages.sdk_10_0-bin
     # dotnetCorePackages.sdk_8_0-bin
     dotnetPackages.Nuget
     # mono
@@ -51,7 +51,7 @@ in {
     home.packages = with pkgs.unstable; [
       _rider
       icu
-      dotnet-sdk_9
+      dotnet-sdk_10
       # dotnet-sdk
     ];
 
