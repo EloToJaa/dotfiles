@@ -65,10 +65,10 @@ in {
           bind-key r command-prompt -I "#W" { rename-window "%%" }
           bind-key R source-file ~/.config/tmux/tmux.conf
 
-          bind-key m display-popup -h 85% -w 80% -E "btop"
-          bind-key g display-popup -h 85% -w 80% -d "#{pane_current_path}" -E "lazygit"
-          bind-key a display-popup -h 85% -w 80% -E "workmux dashboard"
-          bind-key G display-popup -h 85% -w 80% -E "gh dash"
+          bind-key m display-popup -h 90% -w 85% -E "btop"
+          bind-key g display-popup -h 90% -w 85% -d "#{pane_current_path}" -E "lazygit"
+          bind-key a display-popup -h 90% -w 85% -E "workmux dashboard"
+          bind-key G display-popup -h 90% -w 85% -E "gh dash"
           bind-key L run-shell "workmux last-done"
           bind-key Tab run-shell "workmux last-agent"
           bind-key b run-shell "workmux sidebar"
