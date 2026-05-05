@@ -42,8 +42,8 @@ in {
 
       settings = {
         model = {
-          provider = "opencode-go";
-          default = "kimi-k2.6";
+          provider = "openai";
+          default = "gpt-5.3-codex";
         };
         web.backend = "firecrawl";
       };
@@ -105,8 +105,6 @@ in {
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
-        OPENCODE_GO_API_KEY=${config.sops.placeholder."${cfg.name}/opencode-api-key"}
-        OPENCODE_ZEN_API_KEY=${config.sops.placeholder."${cfg.name}/opencode-api-key"}
         FIRECRAWL_API_KEY=${config.sops.placeholder."${cfg.name}/firecrawl-api-key"}
         DISCORD_BOT_TOKEN=${config.sops.placeholder."${cfg.name}/discord-bot-token"}
         API_SERVER_KEY=${config.sops.placeholder."${cfg.name}/api-server-key"}

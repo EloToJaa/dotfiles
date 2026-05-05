@@ -32,7 +32,7 @@ in {
         };
       };
       settings = {
-        model = "opencode-go/kimi-k2.6";
+        model = "openai/gpt-5.3-codex";
         autoupdate = false;
         autoshare = false;
         plugin = [];
