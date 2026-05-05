@@ -64,7 +64,7 @@
       };
       opencloud.enable = false;
       ntfy.enable = false;
-      open-webui.enable = true;
+      open-webui.enable = false;
       paperless.enable = true;
       postgres = {
         enable = true;
