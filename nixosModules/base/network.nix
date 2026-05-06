@@ -42,10 +42,12 @@ in {
     };
     services.resolved = {
       enable = true;
-      dnssec = "false";
-      domains = ["~."];
-      fallbackDns = dns;
-      dnsovertls = "opportunistic";
+      settings.Resolve = {
+        DNSSEC = "false";
+        Domains = ["~."];
+        FallbackDNS = dns;
+        DNSOverTLS = "opportunistic";
+      };
     };
     networking.firewall.trustedInterfaces = [interfaceName];
     services.tailscale = {
