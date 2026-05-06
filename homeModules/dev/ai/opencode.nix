@@ -21,7 +21,7 @@ in {
     programs.opencode = {
       enable = true;
       package = pkgs.llm-agents.opencode;
-      context = ./AGENTS.md;
+      rules = ./AGENTS.md;
       commands = {
         commit = ./commands/commit.md;
       };
