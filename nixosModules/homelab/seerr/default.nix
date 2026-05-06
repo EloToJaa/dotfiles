@@ -30,9 +30,9 @@ in {
       default = "${homelab.varDataDir}${cfg.name}";
     };
   };
-  imports = [
-    ./service.nix
-  ];
+  # imports = [
+  #   ./service.nix
+  # ];
   config = lib.mkIf cfg.enable {
     services.seerr = {
       inherit (cfg) port configDir;

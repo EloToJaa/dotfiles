@@ -9,6 +9,7 @@ in {
   options.modules.dev.ai.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
   };
+
   config = lib.mkIf cfg.enable {
     programs.zsh.zsh-abbr.abbreviations = {
       oc = "opencode";
@@ -20,16 +21,9 @@ in {
     programs.opencode = {
       enable = true;
       package = pkgs.llm-agents.opencode;
-      context = ./AGENTS.md;
+      rules = ./AGENTS.md;
       commands = {
         commit = ./commands/commit.md;
-      };
-      tui = {
-        theme = "catppuccin";
-        keybinds = {
-          "input_submit" = "return";
-          "input_newline" = "shift+return";
-        };
       };
       settings = {
         model = "openai/gpt-5.3-codex";
