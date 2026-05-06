@@ -25,6 +25,13 @@ in {
       commands = {
         commit = ./commands/commit.md;
       };
+      tui = {
+        theme = "catppuccin";
+        keybinds = {
+          "input_submit" = "return";
+          "input_newline" = "shift+return";
+        };
+      };
       settings = {
         model = "openai/gpt-5.3-codex";
         autoupdate = false;
