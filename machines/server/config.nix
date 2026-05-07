@@ -60,7 +60,7 @@
       loki.enable = false;
       n8n.enable = false;
       nextcloud = {
-        enable = false;
+        enable = true;
         # onlyoffice.enable = true;
       };
       opencloud.enable = false;
@@ -82,7 +82,7 @@
         vuetorrent.enable = true;
       };
       radarr.enable = true;
-      xandikos.enable = false;
+      xandikos.enable = true;
       rustdesk.enable = true;
       sonarr.enable = true;
       uptime.enable = true;

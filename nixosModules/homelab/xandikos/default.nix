@@ -18,7 +18,11 @@ in {
     };
     port = lib.mkOption {
       type = lib.types.port;
-      default = 5232;
+      default = 3006;
+    };
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.varDataDir}${cfg.name}";
     };
   };
 
@@ -40,6 +44,31 @@ in {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
       };
+    };
+
+    clan.core.state.xandikos = {
+      folders = [
+        cfg.dataDir
+      ];
+      preBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl stop xandikos.service
+      '';
+
+      postBackupScript = ''
+        export PATH=${
+          lib.makeBinPath [
+            config.systemd.package
+          ]
+        }
+
+        systemctl start xandikos.service
+      '';
     };
   };
 }
