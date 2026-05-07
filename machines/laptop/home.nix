@@ -113,6 +113,7 @@
       fzf.enable = true;
       git.enable = true;
       index.enable = true;
+      khal.enable = true;
       shell.enable = true;
       tldr.enable = true;
     };

@@ -13,24 +13,27 @@ in {
       default = pkgs.khal;
       description = "The khal package to use.";
     };
-    settings = lib.mkOption {
-      type = lib.types.attrsOf lib.types.anything;
-      default = {};
-      description = "Configuration options for programs.khal.settings.";
-    };
-    locale = lib.mkOption {
-      type = lib.types.attrsOf lib.types.anything;
-      default = {};
-      description = "Locale options for programs.khal.locale.";
-    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.khal = {
+      inherit (cfg) package;
       enable = true;
-      package = cfg.package;
-      settings = cfg.settings;
-      locale = cfg.locale;
+      settings = {
+        "calendars main" = {
+          path = "~/.local/share/calendars/*";
+          type = "discover";
+        };
+      };
+      locale = {
+        timeformat = "%H:%M";
+        dateformat = "%Y-%m-%d";
+        longdateformat = "%Y-%m-%d";
+        datetimeformat = "%Y-%m-%d %H:%M";
+        longdatetimeformat = "%Y-%m-%d %H:%M";
+        default_timezone = "Europe/Warsaw";
+        local_timezone = "Europe/Warsaw";
+      };
     };
   };
 }
