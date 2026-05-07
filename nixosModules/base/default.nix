@@ -5,6 +5,8 @@
   imports = [
     ./bash.nix
     ./bootloader.nix
+    ./btop.nix
+    ./catppuccin.nix
     ./docker.nix
     ./duo
     ./hardware.nix
@@ -18,6 +20,5 @@
     ./ssh.nix
     ./system.nix
     ./user.nix
-    ./btop.nix
   ];
 }

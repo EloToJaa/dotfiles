@@ -25,6 +25,7 @@
       enable = true;
       bootloader.enable = true;
       btop.enable = true;
+      catppuccin.enable = true;
       docker.enable = true;
       duo.enable = false;
       index.enable = true;

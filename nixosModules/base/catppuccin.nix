@@ -1,13 +1,12 @@
 {
   config,
   lib,
-  settings,
   ...
 }: let
-  inherit (settings) catppuccin;
-  cfg = config.modules.home.catppuccin;
+  inherit (config.settings) catppuccin;
+  cfg = config.modules.base.catppuccin;
 in {
-  options.modules.home.catppuccin = {
+  options.modules.base.catppuccin = {
     enable = lib.mkEnableOption "Enable catppuccin";
   };
   config = lib.mkIf cfg.enable {

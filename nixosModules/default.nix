@@ -7,6 +7,7 @@
     inputs.dms.nixosModules.greeter
     inputs.niri.nixosModules.niri
     inputs.hermes-agent.nixosModules.default
+    inputs.catppuccin.nixosModules.catppuccin
 
     ./../settings.nix
     ./base

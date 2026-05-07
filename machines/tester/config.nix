@@ -23,6 +23,7 @@
     base = {
       enable = true;
       btop.enable = true;
+      catppuccin.enable = true;
       bootloader.enable = true;
       docker.enable = true;
       index.enable = true;
