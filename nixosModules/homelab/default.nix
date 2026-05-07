@@ -93,7 +93,7 @@ in {
     ./prowlarr
     ./qbittorrent
     ./radarr
-    ./radicale
+    ./xandikos
     ./rustdesk
     ./seerr
     ./share

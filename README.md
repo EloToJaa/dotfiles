@@ -13,7 +13,7 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 ### High priority
 
 - [x] Add paperless
-- [x] Add radicale
+- [x] Add xandikos
 - [x] Add immich
 - [x] Add hoarder
 - [x] Setup home page (glance)

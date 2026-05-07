@@ -82,7 +82,7 @@
         vuetorrent.enable = true;
       };
       radarr.enable = true;
-      radicale.enable = false;
+      xandikos.enable = false;
       rustdesk.enable = true;
       sonarr.enable = true;
       uptime.enable = true;
