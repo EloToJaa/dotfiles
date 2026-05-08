@@ -77,7 +77,7 @@ in {
 
     clan.core.vars.generators.xandikos = {
       files.passwd = {
-        shared = false;
+        share = false;
         secret = true;
       };
       files.httpd = {
