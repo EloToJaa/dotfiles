@@ -1,9 +1,11 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   inherit (config.modules) homelab;
+  inherit (config.settings) username;
   cfg = config.modules.homelab.xandikos;
 in {
   options.modules.homelab.xandikos = {
@@ -43,6 +45,8 @@ in {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
+        basicAuth.user = username;
+        basicAuthFile = config.clan.core.vars.generators.xandikos.files.httpd.path;
       };
     };
 
@@ -68,6 +72,28 @@ in {
         }
 
         systemctl start xandikos.service
+      '';
+    };
+
+    clan.core.vars.generators.xandikos = {
+      files.passwd = {
+        shared = false;
+        secret = true;
+      };
+      files.httpd = {
+        owner = "nginx";
+        secret = true;
+      };
+      runtimeInputs = with pkgs; [
+        apacheHttpd
+        pwgen
+      ];
+      script = ''
+        mkdir -p $out
+
+        pwgen -s 64 1 > $out/passwd
+
+        cat $out/passwd | htpasswd -i -c $out/httpd "${username}"
       '';
     };
   };
