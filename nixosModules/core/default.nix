@@ -13,7 +13,6 @@
     ./printing.nix
     ./security.nix
     ./steam.nix
-    ./vdirsyncer.nix
     ./virtualization.nix
     ./wayland.nix
     ./xserver.nix

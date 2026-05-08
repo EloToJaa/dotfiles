@@ -36,7 +36,3 @@ Example scenarios:
 - "Should I add this as a new module or extend an existing one?"
 - "Do you prefer approach A or B for handling this error?"
 - "What should the default behavior be for this feature?"
-
-## General Guidelines
-
-Read the following file immediately as it's relevant to all workflows: @rules/general-guidelines.md.

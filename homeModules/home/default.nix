@@ -15,7 +15,7 @@
     ./fastfetch.nix # fetch tool
     ./fzf.nix # fuzzy finder
     ./index.nix
-    ./khal.nix # cli calendar
+    ./calendar.nix # cli calendar
     ./nerdfonts.nix # fonts
     ./nix.nix # nix
     ./packages.nix # other packages
