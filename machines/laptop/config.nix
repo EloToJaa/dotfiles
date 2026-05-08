@@ -93,7 +93,6 @@
       printing.enable = false;
       security.enable = true;
       steam.enable = false;
-      vdirsyncer.enable = true;
       virtualization.enable = true;
       wayland = {
         enable = true;
