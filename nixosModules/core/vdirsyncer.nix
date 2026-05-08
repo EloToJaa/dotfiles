@@ -6,6 +6,7 @@
 }: let
   cfg = config.modules.core.vdirsyncer;
   inherit (config.settings) username;
+  dav = "https://dav.server.elotoja.com/";
 in {
   options.modules.core.vdirsyncer = {
     enable = lib.mkEnableOption "Enable vdirsyncer";
@@ -33,12 +34,27 @@ in {
             };
             remote_calendar = {
               type = "caldav";
-              url = "https://dav.server.elotoja.com/";
+              url = dav;
+            };
+            local_contacts = {
+              type = "filesystem";
+              path = "/home/${username}/.local/share/contacts/";
+              fileext = ".vcf";
+            };
+            remote_contacts = {
+              type = "carddav";
+              url = dav;
             };
           };
           pairs.calendar = {
             a = "local_calendar";
             b = "remote_calendar";
+            collections = ["from b"];
+            conflict_resolution = "b wins";
+          };
+          pairs.contacts = {
+            a = "local_contacts";
+            b = "remote_contacts";
             collections = ["from b"];
             conflict_resolution = "b wins";
           };
