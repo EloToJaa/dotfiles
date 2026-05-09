@@ -7,8 +7,8 @@
   owner = username;
   group = username;
 in {
-  clan.core.vars.generators.accounts = {
-    files.dav-passwd = {
+  clan.core.vars.generators.dav = {
+    files.passwd = {
       inherit owner group;
       share = true;
       secret = true;
@@ -18,7 +18,7 @@ in {
       pwgen
     ];
     script = ''
-      pwgen -s 64 1 > $out/dav-passwd
+      pwgen -s 64 1 > $out/passwd
     '';
   };
 }

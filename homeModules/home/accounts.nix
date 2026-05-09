@@ -39,7 +39,7 @@ in {
           url = "https://dav.server.elotoja.com/";
           passwordCommand = [
             "${pkgs.coreutils}/bin/cat"
-            config.clan.core.vars.generators.dav-password.files.passwd.path
+            "/run/secrets/vars/accounts/dav-passwd"
           ];
         };
         local = {

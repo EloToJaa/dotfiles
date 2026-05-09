@@ -82,13 +82,13 @@ in {
         deploy = true;
       };
       dependencies = [
-        "accounts"
+        "dav"
       ];
       runtimeInputs = with pkgs; [
         apacheHttpd
       ];
       script = ''
-        cat $in/accounts/dav-passwd | htpasswd -i -c $out/httpd "${username}"
+        cat $in/accounts/passwd | htpasswd -i -c $out/httpd "${username}"
       '';
     };
   };
