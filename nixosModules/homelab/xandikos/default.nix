@@ -76,24 +76,19 @@ in {
     };
 
     clan.core.vars.generators.xandikos = {
-      files.passwd = {
-        share = false;
-        secret = true;
-      };
       files.httpd = {
         owner = "nginx";
         secret = true;
+        deploy = true;
       };
+      dependencies = [
+        "dav-passwd"
+      ];
       runtimeInputs = with pkgs; [
         apacheHttpd
-        pwgen
       ];
       script = ''
-        mkdir -p $out
-
-        pwgen -s 64 1 > $out/passwd
-
-        cat $out/passwd | htpasswd -i -c $out/httpd "${username}"
+        cat $in/dav-password/passwd | htpasswd -i -c $out/httpd "${username}"
       '';
     };
   };

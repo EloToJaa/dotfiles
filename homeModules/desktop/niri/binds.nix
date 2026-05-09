@@ -60,7 +60,7 @@ in {
       };
       "Mod+v" = {
         hotkey-overlay.title = "Clipboard Manager";
-        action.spawn = ["vicinae" "vicinae://extensions/vicinae/clipboard/history"];
+        action.spawn = ["vicinae" "vicinae://launch/clipboard/history"];
       };
       "Mod+m" = {
         hotkey-overlay.title = "Task Manager";

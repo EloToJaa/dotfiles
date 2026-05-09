@@ -5,7 +5,7 @@
   settings,
   ...
 }: let
-  inherit (settings) timezone;
+  inherit (settings) timezone username;
   cfg = config.modules.home.calendar;
   localDir = "${config.home.homeDirectory}/.local/share";
 in {
@@ -59,6 +59,21 @@ in {
         default_timezone = timezone;
         local_timezone = timezone;
       };
+    };
+
+    clan.core.vars.generators.dav-password = {
+      files.passwd = {
+        owner = username;
+        share = true;
+        secret = true;
+        deploy = true;
+      };
+      runtimeInputs = with pkgs; [
+        pwgen
+      ];
+      script = ''
+        pwgen -s 64 1 > $out/passwd
+      '';
     };
   };
 }
