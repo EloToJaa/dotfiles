@@ -20,10 +20,22 @@ in {
 
     inventory = {
       machines = {
-        laptop.deploy.targetHost = "${username}@100.110.242.103";
-        thinker.deploy.targetHost = "${username}@100.114.61.57";
-        desktop.deploy.targetHost = "${username}@100.112.233.120";
-        server.deploy.targetHost = "${username}@100.120.221.4";
+        laptop = {
+          deploy.targetHost = "${username}@100.110.242.103";
+          tags = ["desktop"];
+        };
+        thinker = {
+          deploy.targetHost = "${username}@100.114.61.57";
+          tags = ["desktop"];
+        };
+        desktop = {
+          deploy.targetHost = "${username}@100.112.233.120";
+          tags = ["desktop"];
+        };
+        server = {
+          deploy.targetHost = "${username}@100.120.221.4";
+          tags = ["server"];
+        };
       };
 
       instances = {

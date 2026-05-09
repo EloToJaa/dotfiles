@@ -9,6 +9,7 @@ in {
   imports = [
     inputs.srvos.nixosModules.desktop
     ./config.nix
+    ../../homeModules/vars.nix
     {
       home-manager.users.${username}.imports = [
         ./home.nix

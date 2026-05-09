@@ -6,13 +6,12 @@
   ...
 }: let
   inherit (settings) timezone username;
-  cfg = config.modules.home.calendar;
+  cfg = config.modules.home.accounts;
   localDir = "${config.home.homeDirectory}/.local/share";
 in {
-  options.modules.home.calendar = {
-    enable = lib.mkEnableOption "Enable khal";
+  options.modules.home.accounts = {
+    enable = lib.mkEnableOption "Enable accounts";
   };
-
   config = lib.mkIf cfg.enable {
     accounts.calendar.accounts = {
       xandikos = {
@@ -35,8 +34,13 @@ in {
         };
 
         remote = {
+          userName = username;
           type = "caldav";
           url = "https://dav.server.elotoja.com/";
+          passwordCommand = [
+            "${pkgs.coreutils}/bin/cat"
+            config.clan.core.vars.generators.dav-password.files.passwd.path
+          ];
         };
         local = {
           type = "filesystem";
@@ -44,8 +48,14 @@ in {
         };
       };
     };
-    programs.vdirsyncer.enable = true;
-    services.vdirsyncer.enable = true;
+    programs.vdirsyncer = {
+      enable = true;
+      package = pkgs.unstable.vdirsyncer;
+    };
+    services.vdirsyncer = {
+      enable = true;
+      package = pkgs.unstable.vdirsyncer;
+    };
     programs.khal = {
       enable = true;
       package = pkgs.unstable.khal;
@@ -59,21 +69,6 @@ in {
         default_timezone = timezone;
         local_timezone = timezone;
       };
-    };
-
-    clan.core.vars.generators.dav-password = {
-      files.passwd = {
-        owner = username;
-        share = true;
-        secret = true;
-        deploy = true;
-      };
-      runtimeInputs = with pkgs; [
-        pwgen
-      ];
-      script = ''
-        pwgen -s 64 1 > $out/passwd
-      '';
     };
   };
 }

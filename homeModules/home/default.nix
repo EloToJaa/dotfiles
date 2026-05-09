@@ -8,6 +8,7 @@
     ./tmux
     ./yazi
     ./zsh # shell
+    ./accounts.nix
     ./aliases.nix # shell aliases
     ./bat.nix # better cat command
     ./btop.nix # resouces monitor
@@ -15,7 +16,6 @@
     ./fastfetch.nix # fetch tool
     ./fzf.nix # fuzzy finder
     ./index.nix
-    ./calendar.nix # cli calendar
     ./nerdfonts.nix # fonts
     ./nix.nix # nix
     ./packages.nix # other packages
