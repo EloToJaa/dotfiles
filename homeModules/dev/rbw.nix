@@ -2,10 +2,8 @@
   pkgs,
   lib,
   config,
-  settings,
   ...
 }: let
-  inherit (settings) email;
   cfg = config.modules.dev.rbw;
 in {
   options.modules.dev.rbw = {
@@ -17,7 +15,7 @@ in {
       enable = true;
       package = pkgs.unstable.rbw;
       settings = {
-        inherit email;
+        email = "lukaszbudziak122@gmail.com";
         base_url = "https://pwd.server.elotoja.com";
         pinentry = pkgs.unstable.pinentry-gnome3;
       };
