@@ -76,6 +76,7 @@ in {
     };
 
     clan.core.vars.generators.xandikos = {
+      share = true;
       files.httpd = {
         owner = "nginx";
         secret = true;
@@ -88,7 +89,7 @@ in {
         apacheHttpd
       ];
       script = ''
-        cat $in/accounts/passwd | htpasswd -i -c $out/httpd "${username}"
+        cat $in/dav/passwd | htpasswd -icB $out/httpd "${username}"
       '';
     };
   };

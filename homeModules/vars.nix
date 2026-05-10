@@ -9,8 +9,9 @@
   group = username;
 in {
   clan.core.vars.generators.dav = {
+    share = true;
     files.passwd = {
-      share = true;
+      inherit owner group;
       secret = true;
       deploy = false;
     };
@@ -22,9 +23,9 @@ in {
     '';
   };
   clan.core.vars.generators.accounts = lib.mkIf (!isServer) {
+    share = true;
     files.dav-passwd = {
       inherit owner group;
-      share = true;
       secret = true;
       deploy = true;
     };
