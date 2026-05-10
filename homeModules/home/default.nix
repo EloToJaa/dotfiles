@@ -3,12 +3,12 @@
     enable = lib.mkEnableOption "Enable home module";
   };
   imports = [
+    ./accounts
     ./git # version control
     ./oh-my-posh # shell prompt
     ./tmux
     ./yazi
     ./zsh # shell
-    ./accounts.nix
     ./aliases.nix # shell aliases
     ./bat.nix # better cat command
     ./btop.nix # resouces monitor

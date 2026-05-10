@@ -10,10 +10,12 @@
 in {
   clan.core.vars.generators.dav = {
     share = true;
-    files.passwd = {
-      inherit owner group;
-      secret = true;
-      deploy = false;
+    files = {
+      passwd = {
+        inherit owner group;
+        secret = true;
+        deploy = false;
+      };
     };
     runtimeInputs = with pkgs; [
       pwgen
@@ -24,10 +26,12 @@ in {
   };
   clan.core.vars.generators.accounts = lib.mkIf (!isServer) {
     share = true;
-    files.dav-passwd = {
-      inherit owner group;
-      secret = true;
-      deploy = true;
+    files = {
+      dav-passwd = {
+        inherit owner group;
+        secret = true;
+        deploy = true;
+      };
     };
     dependencies = [
       "dav"

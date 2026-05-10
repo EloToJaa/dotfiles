@@ -8,6 +8,10 @@
   inherit (settings) timezone username;
   cfg = config.modules.home.accounts;
   localDir = "${config.home.homeDirectory}/.local/share";
+  passwordCommand = [
+    "${pkgs.coreutils}/bin/cat"
+    "/run/secrets/vars/accounts/dav-passwd"
+  ];
 in {
   options.modules.home.accounts = {
     enable = lib.mkEnableOption "Enable accounts";
@@ -35,15 +39,14 @@ in {
                 "displayname"
               ];
             };
+            primary = true;
+            primaryCollection = "personal";
 
             remote = {
+              inherit passwordCommand;
               userName = username;
               type = "caldav";
               url = "https://dav.server.elotoja.com/";
-              passwordCommand = [
-                "${pkgs.coreutils}/bin/cat"
-                "/run/secrets/vars/accounts/dav-passwd"
-              ];
             };
             local = {
               type = "filesystem";
@@ -60,10 +63,6 @@ in {
             vdirsyncer = {
               enable = true;
               conflictResolution = "remote wins";
-              collections = [
-                "from a"
-                "from b"
-              ];
               metadata = [
                 "color"
                 "displayname"
@@ -71,12 +70,41 @@ in {
             };
 
             remote = {
+              inherit passwordCommand;
+              userName = username;
               type = "http";
-              url = "https://sonarr.server.elotoja.com/feed/v3/calendar/Sonarr.ics?apikey=API-KEY-SECRET";
+              url = "https://dav.server.elotoja.com/feeds/sonarr.ics";
             };
             local = {
               type = "filesystem";
-              path = "${localDir}/calendars";
+              path = "${localDir}/calendars/sonarr";
+            };
+          };
+          radarr = {
+            khal = {
+              enable = true;
+              type = "calendar";
+              priority = 50;
+              readOnly = true;
+            };
+            vdirsyncer = {
+              enable = true;
+              conflictResolution = "remote wins";
+              metadata = [
+                "color"
+                "displayname"
+              ];
+            };
+
+            remote = {
+              inherit passwordCommand;
+              userName = username;
+              type = "http";
+              url = "https://dav.server.elotoja.com/feeds/radarr.ics";
+            };
+            local = {
+              type = "filesystem";
+              path = "${localDir}/calendars/radarr";
             };
           };
         };
@@ -135,7 +163,7 @@ in {
       khal = {
         enable = true;
         package = pkgs.unstable.khal;
-        settings.default.default_calendar = "personal";
+        settings.default.default_calendar = "xandikos";
         locale = {
           timeformat = "%H:%M";
           dateformat = "%d/%m/%Y";
