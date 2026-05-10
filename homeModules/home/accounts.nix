@@ -13,61 +13,152 @@ in {
     enable = lib.mkEnableOption "Enable accounts";
   };
   config = lib.mkIf cfg.enable {
-    accounts.calendar.accounts = {
-      xandikos = {
-        khal = {
-          enable = true;
-          type = "discover";
-          priority = 1;
-        };
+    accounts = {
+      calendar = {
+        basePath = "${localDir}/calendars";
+        accounts = {
+          xandikos = {
+            khal = {
+              enable = true;
+              type = "discover";
+              priority = 100;
+            };
+            vdirsyncer = {
+              enable = true;
+              conflictResolution = "remote wins";
+              collections = [
+                "from a"
+                "from b"
+              ];
+              metadata = [
+                "color"
+                "displayname"
+              ];
+            };
 
-        vdirsyncer = {
-          enable = true;
-          collections = [
-            "from a"
-            "from b"
-          ];
-          metadata = [
-            "color"
-            "displayname"
-          ];
-        };
+            remote = {
+              userName = username;
+              type = "caldav";
+              url = "https://dav.server.elotoja.com/";
+              passwordCommand = [
+                "${pkgs.coreutils}/bin/cat"
+                "/run/secrets/vars/accounts/dav-passwd"
+              ];
+            };
+            local = {
+              type = "filesystem";
+              path = "${localDir}/calendars";
+            };
+          };
+          sonarr = {
+            khal = {
+              enable = true;
+              type = "calendar";
+              priority = 50;
+              readOnly = true;
+            };
+            vdirsyncer = {
+              enable = true;
+              conflictResolution = "remote wins";
+              collections = [
+                "from a"
+                "from b"
+              ];
+              metadata = [
+                "color"
+                "displayname"
+              ];
+            };
 
-        remote = {
-          userName = username;
-          type = "caldav";
-          url = "https://dav.server.elotoja.com/";
-          passwordCommand = [
-            "${pkgs.coreutils}/bin/cat"
-            "/run/secrets/vars/accounts/dav-passwd"
-          ];
-        };
-        local = {
-          type = "filesystem";
-          path = "${localDir}/calendars/xandikos";
+            remote = {
+              type = "http";
+              url = "https://sonarr.server.elotoja.com/feed/v3/calendar/Sonarr.ics?apikey=API-KEY-SECRET";
+            };
+            local = {
+              type = "filesystem";
+              path = "${localDir}/calendars";
+            };
+          };
         };
       };
-    };
-    programs.vdirsyncer = {
-      enable = true;
-      package = pkgs.unstable.vdirsyncer;
+      contact = {
+        basePath = "${localDir}/contacts";
+        accounts = {
+          xandikos = {
+            khal = {
+              enable = true;
+              priority = 1;
+            };
+            khard = {
+              enable = true;
+              type = "discover";
+            };
+            vdirsyncer = {
+              enable = true;
+              conflictResolution = "remote wins";
+              collections = [
+                "from a"
+                "from b"
+              ];
+              metadata = [
+                "color"
+                "displayname"
+              ];
+            };
+
+            remote = {
+              userName = username;
+              type = "carddav";
+              url = "https://dav.server.elotoja.com/";
+              passwordCommand = [
+                "${pkgs.coreutils}/bin/cat"
+                "/run/secrets/vars/accounts/dav-passwd"
+              ];
+            };
+            local = {
+              type = "filesystem";
+              path = "${localDir}/contacts";
+            };
+          };
+        };
+      };
     };
     services.vdirsyncer = {
       enable = true;
       package = pkgs.unstable.vdirsyncer;
     };
-    programs.khal = {
-      enable = true;
-      package = pkgs.unstable.khal;
-      settings.default.default_calendar = "personal";
-      locale = {
-        timeformat = "%H:%M";
-        dateformat = "%d/%m/%Y";
-        longdateformat = "%d/%m/%Y";
-        datetimeformat = "%d/%m/%Y %H:%M";
-        longdatetimeformat = "%d/%m/%Y %H:%M";
-        default_timezone = timezone;
-        local_timezone = timezone;
+    programs = {
+      vdirsyncer = {
+        enable = true;
+        package = pkgs.unstable.vdirsyncer;
+      };
+      khal = {
+        enable = true;
+        package = pkgs.unstable.khal;
+        settings.default.default_calendar = "personal";
+        locale = {
+          timeformat = "%H:%M";
+          dateformat = "%d/%m/%Y";
+          longdateformat = "%d/%m/%Y";
+          datetimeformat = "%d/%m/%Y %H:%M";
+          longdatetimeformat = "%d/%m/%Y %H:%M";
+          default_timezone = timezone;
+          local_timezone = timezone;
+        };
+      };
+      khard = {
+        enable = true;
+        package = pkgs.unstable.khard;
+      };
+      todoman = {
+        enable = true;
+        package = pkgs.unstable.todoman;
+        extraConfig = ''
+          date_format = "%d/%m/%Y";
+          time_format = "%H:%M";
+          default_list = "personal";
+          default_due = 48;
+        '';
       };
     };
   };
