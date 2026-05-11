@@ -13,6 +13,7 @@ in {
     home.packages = with pkgs.unstable; [
       rustfmt
       rust-analyzer
+      clippy
     ];
 
     programs.nixvim = {
@@ -33,6 +34,9 @@ in {
         };
       };
       plugins = {
+        lint.lintersByFt = {
+          rust = ["clippy"];
+        };
         conform-nvim.settings.formatters_by_ft = {
           rust = ["rustfmt"];
         };
