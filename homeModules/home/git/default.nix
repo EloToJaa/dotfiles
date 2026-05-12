@@ -70,6 +70,10 @@ in {
       gh = {
         enable = true;
         package = pkgs.unstable.gh;
+        extensions = with pkgs.unstable; [
+          gh-dash
+          gh-stack
+        ];
         settings.git_protocol = "ssh";
         # hosts."github.com" = {
         #   git_protocol = "ssh";
