@@ -39,9 +39,9 @@ in {
         # zoom-us
 
         ## Wayland Utilities
-        grimblast
-        hyprpicker
-        grim
+        # grimblast
+        # hyprpicker
+        # grim
         slurp
         wf-recorder
         wayland
