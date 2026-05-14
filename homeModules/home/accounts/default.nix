@@ -63,10 +63,6 @@ in {
             vdirsyncer = {
               enable = true;
               conflictResolution = "remote wins";
-              metadata = [
-                "color"
-                "displayname"
-              ];
             };
 
             remote = {
@@ -90,10 +86,6 @@ in {
             vdirsyncer = {
               enable = true;
               conflictResolution = "remote wins";
-              metadata = [
-                "color"
-                "displayname"
-              ];
             };
 
             remote = {
