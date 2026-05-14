@@ -35,7 +35,6 @@
       enable = true;
       ai = {
         enable = true;
-        btca.enable = true;
         opencode.enable = true;
         skills.enable = true;
         workmux.enable = true;
