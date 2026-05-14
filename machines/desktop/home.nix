@@ -35,6 +35,7 @@
       enable = true;
       ai = {
         enable = true;
+        ollama.enable = true;
         opencode.enable = true;
         skills.enable = true;
         workmux.enable = true;

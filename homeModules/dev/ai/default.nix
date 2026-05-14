@@ -3,6 +3,7 @@
     enable = lib.mkEnableOption "Enable ai module";
   };
   imports = [
+    ./ollama.nix
     ./opencode.nix
     ./skills.nix
     ./workmux.nix
