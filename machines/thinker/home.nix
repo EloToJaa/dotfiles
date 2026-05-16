@@ -109,13 +109,13 @@
           zsh-abbr.enable = true;
         };
       };
+      accounts.enable = true;
       bat.enable = true;
       catppuccin.enable = true;
       fastfetch.enable = true;
       fzf.enable = true;
       git.enable = true;
       index.enable = true;
-      khal.enable = true;
       shell.enable = true;
       tldr.enable = true;
     };
