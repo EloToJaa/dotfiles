@@ -59,6 +59,10 @@ in {
             "nas.${homelab.mainDomain}" = "192.168.0.41";
             "pve.${homelab.mainDomain}" = "192.168.0.40";
             "kvm.${homelab.mainDomain}" = "192.168.0.31";
+            # "kvm.${homelab.mainDomain}" = "10.11.0.31";
+            # "server.${homelab.mainDomain}" = "10.11.0.32";
+            # "nas.${homelab.mainDomain}" = "10.11.0.34";
+            # "pve.${homelab.mainDomain}" = "10.11.0.33";
           };
         };
       };

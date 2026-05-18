@@ -1,5 +1,6 @@
 {
   networking = {
+    # useDHCP = lib.mkForce true;
     useDHCP = false;
     interfaces."eno1".ipv4.addresses = [
       {
