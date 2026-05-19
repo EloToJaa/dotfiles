@@ -37,6 +37,7 @@
       aoc.enable = false;
       leetcode.enable = false;
       lazygit.enable = true;
+      rbw.enable = true;
       nvim = {
         enable = true;
         languages = {
