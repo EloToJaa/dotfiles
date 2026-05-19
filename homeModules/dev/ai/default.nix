@@ -5,6 +5,7 @@
   imports = [
     ./ollama.nix
     ./opencode.nix
+    ./pi.nix
     ./skills.nix
     ./workmux.nix
   ];
