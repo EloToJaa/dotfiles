@@ -11,8 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      pi-coding-agent
+    home.packages = [
+      pkgs.llm-agents.pi
     ];
   };
 }
