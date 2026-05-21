@@ -160,5 +160,5 @@ def process_directory(directory: str):
 
 if __name__ == "__main__":
     process_directory("homeModules/home/yazi/pkgs")
-    process_directory("homeModules/dev/ai/pkgs")
+    process_directory("homeModules/ai/pkgs")
     # process_directory("pkgs")
