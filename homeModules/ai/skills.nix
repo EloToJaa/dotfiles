@@ -22,5 +22,9 @@ in {
       frontend-design = "${skills.anthropic}/skills/frontend-design/";
       agent-browser = "${skills.agent-browser}/skills/agent-browser/";
     };
+    home.file = {
+      ".pi/agent/skills/frontend-design".source = "${skills.anthropic}/skills/frontend-design";
+      ".pi/agent/skills/agent-browser".source = "${skills.agent-browser}/skills/agent-browser";
+    };
   };
 }

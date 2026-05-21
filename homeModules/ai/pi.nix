@@ -20,6 +20,7 @@ in {
         recursive = true;
         source = ./pi;
       };
+      ".pi/agent/AGENTS.md".source = ./AGENTS.md;
       ".pi/agent/extensions/air".source = "${extensions}/air";
       ".pi/agent/extensions/direnv".source = "${extensions}/direnv";
       ".pi/agent/extensions/fetch".source = "${extensions}/fetch";
