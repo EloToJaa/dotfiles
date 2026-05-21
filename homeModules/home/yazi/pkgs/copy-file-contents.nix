@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-copy-file-contents";
-  version = "unstable-2026-04-22";
+  version = "unstable-2026-05-21";
 
   src = fetchFromGitHub {
     owner = "Anirudhg07";
