@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.dev.ai.pi;
+  cfg = config.modules.ai.pi;
 in {
-  options.modules.dev.ai.pi = {
+  options.modules.ai.pi = {
     enable = lib.mkEnableOption "Enable pi module";
   };
 

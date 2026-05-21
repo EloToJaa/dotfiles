@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.dev.ai.ollama;
+  cfg = config.modules.ai.ollama;
 in {
-  options.modules.dev.ai.ollama = {
+  options.modules.ai.ollama = {
     enable = lib.mkEnableOption "Enable ollama module";
   };
 

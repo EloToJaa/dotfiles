@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.dev.ai.opencode;
+  cfg = config.modules.ai.opencode;
 in {
-  options.modules.dev.ai.opencode = {
+  options.modules.ai.opencode = {
     enable = lib.mkEnableOption "Enable opencode module";
   };
 
@@ -19,9 +19,6 @@ in {
       enable = true;
       package = pkgs.llm-agents.opencode;
       context = ./AGENTS.md;
-      commands = {
-        commit = ./commands/commit.md;
-      };
       tui = {
         theme = "catppuccin";
         keybinds = {

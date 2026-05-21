@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.dev.ai.workmux;
+  cfg = config.modules.ai.workmux;
   workmux = pkgs.callPackage ./pkgs/workmux-skills.nix {};
 in {
-  options.modules.dev.ai.workmux = {
+  options.modules.ai.workmux = {
     enable = lib.mkEnableOption "Enable workmux module";
   };
   config = lib.mkIf cfg.enable {

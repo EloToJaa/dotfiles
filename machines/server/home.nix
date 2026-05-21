@@ -32,15 +32,15 @@
       shell.enable = true;
       tldr.enable = true;
     };
+    ai = {
+      enable = true;
+      opencode.enable = true;
+      pi.enable = true;
+      skills.enable = false;
+      workmux.enable = true;
+    };
     dev = {
       enable = true;
-      ai = {
-        enable = true;
-        opencode.enable = true;
-        pi.enable = true;
-        skills.enable = false;
-        workmux.enable = true;
-      };
       lazygit.enable = true;
       nvim = {
         enable = true;

@@ -31,16 +31,16 @@
       xdg-mimes.enable = true;
       zen.enable = true;
     };
+    ai = {
+      enable = true;
+      ollama.enable = true;
+      opencode.enable = true;
+      pi.enable = true;
+      skills.enable = true;
+      workmux.enable = true;
+    };
     dev = {
       enable = true;
-      ai = {
-        enable = true;
-        ollama.enable = true;
-        opencode.enable = true;
-        pi.enable = true;
-        skills.enable = true;
-        workmux.enable = true;
-      };
       aoc.enable = false;
       leetcode.enable = false;
       lazygit.enable = true;

@@ -1,5 +1,5 @@
 {lib, ...}: {
-  options.modules.dev.ai = {
+  options.modules.ai = {
     enable = lib.mkEnableOption "Enable ai module";
   };
   imports = [

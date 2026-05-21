@@ -3,7 +3,6 @@
     enable = lib.mkEnableOption "Enable dev module";
   };
   imports = [
-    ./ai
     ./nvim
     ./scripts # personal scripts
     ./aoc.nix

@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.dev.ai.skills;
+  cfg = config.modules.ai.skills;
   skills = {
     anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
     agent-browser = pkgs.callPackage ./pkgs/agent-browser-skills.nix {};
   };
 in {
-  options.modules.dev.ai.skills = {
+  options.modules.ai.skills = {
     enable = lib.mkEnableOption "Enable skills module";
   };
   config = lib.mkIf cfg.enable {

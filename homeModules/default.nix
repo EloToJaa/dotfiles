@@ -10,6 +10,7 @@
     inputs.dms.homeModules.niri
     # inputs.danksearch.homeModules.dsearch
 
+    ./ai
     ./cybersec
     ./desktop
     ./dev
