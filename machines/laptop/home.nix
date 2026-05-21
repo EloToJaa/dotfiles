@@ -72,7 +72,7 @@
           lz-n.enable = true;
           nix.enable = true;
           noice.enable = true;
-          opencode.enable = true;
+          opencode.enable = false;
           smart-splits.enable = true;
           substitute.enable = true;
           supermaven.enable = true;

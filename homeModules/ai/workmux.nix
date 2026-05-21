@@ -43,7 +43,7 @@ in {
         worktree_dir: ""
         panes:
           - command: nvim
-          - command: opencode --port $(find-port 5660)
+          - command: pi
             split: horizontal
             focus: true
           - split: vertical
