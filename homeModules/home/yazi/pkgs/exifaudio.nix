@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Preview audio files metadata on yazi ";
-    homepage = "Preview audio files metadata on yazi ";
+    description = "Preview audio files metadata on yazi";
+    homepage = "https://github.com/Sonico98/exifaudio.yazi";
     license = licenses.mit;
     maintainers = [];
     platforms = platforms.all;

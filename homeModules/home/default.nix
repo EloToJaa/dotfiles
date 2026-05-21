@@ -14,6 +14,7 @@
     ./btop.nix # resouces monitor
     ./catppuccin.nix
     ./fastfetch.nix # fetch tool
+    ./direnv.nix # per-project env manager
     ./fzf.nix # fuzzy finder
     ./index.nix
     ./nerdfonts.nix # fonts

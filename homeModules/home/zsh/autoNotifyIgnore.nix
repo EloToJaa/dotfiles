@@ -34,6 +34,7 @@ in {
         "tmux"
         "y"
         "opencode"
+        "pi"
         "lazygit"
         "clan"
       ];
