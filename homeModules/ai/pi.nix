@@ -6,6 +6,7 @@
 }: let
   cfg = config.modules.ai.pi;
   extensions = pkgs.callPackage ./pkgs/pi-agent-extensions.nix {};
+  pi-vim = pkgs.callPackage ./pkgs/pi-vim.nix {};
 in {
   options.modules.ai.pi = {
     enable = lib.mkEnableOption "Enable pi module";
@@ -30,6 +31,7 @@ in {
       ".pi/agent/extensions/slow-mode".source = "${extensions}/slow-mode";
       ".pi/agent/extensions/stash".source = "${extensions}/stash";
       ".pi/agent/extensions/statusline".source = "${extensions}/statusline";
+      ".pi/agent/extensions/pi-vim".source = pi-vim;
     };
   };
 }
