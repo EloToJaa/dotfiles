@@ -36,7 +36,7 @@
       enable = true;
       opencode.enable = true;
       pi.enable = true;
-      skills.enable = false;
+      skills.enable = true;
       workmux.enable = true;
     };
     dev = {

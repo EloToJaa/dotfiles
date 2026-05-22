@@ -22,21 +22,13 @@ in {
       "opencode/plugins/workmux-status.ts".source = "${workmux}/opencode/plugins/workmux-status.ts";
       "opencode/package.json".source = "${workmux}/opencode/package.json";
     };
-    programs.opencode.skills = {
+    modules.ai.skills.registry = {
       coordinator = "${workmux}/skills/coordinator/";
       merge = "${workmux}/skills/merge/";
       open-pr = "${workmux}/skills/open-pr/";
       rebase = "${workmux}/skills/rebase/";
       workmux = "${workmux}/skills/workmux/";
       worktree = "${workmux}/skills/worktree/";
-    };
-    home.file = {
-      ".pi/agent/skills/coordinator".source = "${workmux}/skills/coordinator/";
-      ".pi/agent/skills/merge".source = "${workmux}/skills/merge/";
-      ".pi/agent/skills/open-pr".source = "${workmux}/skills/open-pr/";
-      ".pi/agent/skills/rebase".source = "${workmux}/skills/rebase/";
-      ".pi/agent/skills/workmux".source = "${workmux}/skills/workmux/";
-      ".pi/agent/skills/worktree".source = "${workmux}/skills/worktree/";
     };
 
     xdg.configFile."workmux/config.yaml".text =
