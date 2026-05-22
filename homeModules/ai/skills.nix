@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkOption nameValuePair types;
+  inherit (lib) mkOption nameValuePair types;
 
   cfg = config.modules.ai.skills;
   upstreamSkills = {
@@ -16,23 +16,19 @@
       name: source:
         nameValuePair ".pi/agent/skills/${name}" {inherit source;}
     )
-    cfg.registry;
+    cfg;
 in {
-  options.modules.ai.skills = {
-    enable = mkEnableOption "Enable skills module";
-
-    registry = mkOption {
-      type = types.attrsOf (types.either types.path types.str);
-      default = {};
-      description = ''
-        Shared agent skill registry. Add a skill here once and the enabled
-        adapters expose it to opencode, pi, and future agents.
-      '';
-    };
+  options.modules.ai.skills = mkOption {
+    type = types.attrsOf (types.either types.path types.str);
+    default = {};
+    description = ''
+      Shared agent skill registry. Add a skill here once and the enabled
+      adapters expose it to opencode, pi, and future agents.
+    '';
   };
 
-  config = mkIf cfg.enable {
-    modules.ai.skills.registry = {
+  config = {
+    modules.ai.skills = {
       frontend-design = "${upstreamSkills.anthropic}/skills/frontend-design/";
       agent-browser = "${upstreamSkills.agent-browser}/skills/agent-browser/";
     };
@@ -42,7 +38,7 @@ in {
       llm-agents.tuicr
     ];
 
-    programs.opencode.skills = cfg.registry;
+    programs.opencode.skills = cfg;
     home.file = piSkillFiles;
   };
 }

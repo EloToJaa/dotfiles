@@ -36,7 +36,6 @@
       ollama.enable = true;
       opencode.enable = true;
       pi.enable = true;
-      skills.enable = true;
       workmux.enable = true;
     };
     dev = {

@@ -22,7 +22,7 @@ in {
       "opencode/plugins/workmux-status.ts".source = "${workmux}/opencode/plugins/workmux-status.ts";
       "opencode/package.json".source = "${workmux}/opencode/package.json";
     };
-    modules.ai.skills.registry = {
+    modules.ai.skills = {
       coordinator = "${workmux}/skills/coordinator/";
       merge = "${workmux}/skills/merge/";
       open-pr = "${workmux}/skills/open-pr/";

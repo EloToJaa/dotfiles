@@ -34,7 +34,6 @@
       ai = {
         enable = true;
         opencode.enable = true;
-        skills.enable = true;
         workmux.enable = true;
       };
       aoc.enable = false;
