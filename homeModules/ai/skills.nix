@@ -31,6 +31,7 @@ in {
     modules.ai.skills = {
       frontend-design = "${upstreamSkills.anthropic}/skills/frontend-design/";
       agent-browser = "${upstreamSkills.agent-browser}/skills/agent-browser/";
+      btca = ./skills/btca;
     };
 
     home.packages = with pkgs; [
