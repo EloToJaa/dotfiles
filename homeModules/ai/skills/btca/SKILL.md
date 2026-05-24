@@ -1,7 +1,6 @@
----
-name: btca
-description: Invoke this skill when the user says "use btca"
----
+______________________________________________________________________
+
+## name: btca description: Invoke this skill when the user says "use btca"
 
 # BTCA Local
 
@@ -39,9 +38,9 @@ BTCA Local, aka "The Better Context App Local" is a simple app defined as a skil
     </step>
 <workflow>
 
-<end_goal>
+\<end_goal>
 a clear, concise answer to the question with code examples
-</end_goal>
+\</end_goal>
 
 ## Startup Cases:
 
