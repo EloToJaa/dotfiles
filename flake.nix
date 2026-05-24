@@ -29,7 +29,10 @@
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = overlaysList;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = ["nodejs-20.20.2"];
+          };
         };
 
         devshells.default.packages = with pkgs.unstable; [

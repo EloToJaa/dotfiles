@@ -1,11 +1,62 @@
 {
   lib,
   config,
+  pkgs,
+  inputs,
   ...
 }: let
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.hermes;
+  hermesPackage = let
+    hermesVenv = pkgs.callPackage "${inputs.hermes-agent}/nix/python.nix" {
+      inherit (inputs.hermes-agent.inputs) uv2nix pyproject-nix pyproject-build-systems;
+    };
+    bundledSkills = pkgs.lib.cleanSourceWith {
+      src = "${inputs.hermes-agent}/skills";
+      filter = path: _type: !(pkgs.lib.hasInfix "/index-cache/" path);
+    };
+    runtimeDeps = with pkgs; [
+      nodejs_20
+      ripgrep
+      git
+      openssh
+      ffmpeg
+      tirith
+    ];
+    runtimePath = pkgs.lib.makeBinPath runtimeDeps;
+  in
+    pkgs.stdenv.mkDerivation {
+      pname = "hermes-agent";
+      version = (builtins.fromTOML (builtins.readFile "${inputs.hermes-agent}/pyproject.toml")).project.version;
+
+      dontUnpack = true;
+      dontBuild = true;
+      nativeBuildInputs = [pkgs.makeWrapper];
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p $out/share/hermes-agent $out/bin
+        cp -r ${bundledSkills} $out/share/hermes-agent/skills
+
+        ${pkgs.lib.concatMapStringsSep "\n" (name: ''
+          makeWrapper ${hermesVenv}/bin/${name} $out/bin/${name} \
+            --suffix PATH : "${runtimePath}" \
+            --set HERMES_BUNDLED_SKILLS $out/share/hermes-agent/skills
+        '') ["hermes" "hermes-agent" "hermes-acp"]}
+
+        runHook postInstall
+      '';
+
+      meta = with pkgs.lib; {
+        description = "AI agent with advanced tool-calling capabilities";
+        homepage = "https://github.com/NousResearch/hermes-agent";
+        mainProgram = "hermes";
+        license = licenses.mit;
+        platforms = platforms.unix;
+      };
+    };
 in {
   options.modules.homelab.hermes = {
     enable = lib.mkEnableOption "Enable hermes";
@@ -29,6 +80,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.hermes-agent = {
       enable = true;
+      package = hermesPackage;
       addToSystemPackages = true;
       stateDir = cfg.dataDir;
       environmentFiles = [config.sops.templates."${cfg.name}.env".path];
