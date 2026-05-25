@@ -121,7 +121,6 @@ in {
                 "from b"
               ];
               metadata = [
-                "color"
                 "displayname"
               ];
             };

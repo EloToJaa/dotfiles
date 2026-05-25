@@ -41,13 +41,5 @@ in {
         cp $in/dav/passwd $out/dav-passwd
       '';
     };
-    # borgbackup = lib.mkIf isServer {
-    #   files."borgbackup.ssh" = {
-    #     inherit owner group;
-    #   };
-    #   files."borgbackup.repokey" = {
-    #     inherit owner group;
-    #   };
-    # };
   };
 }
