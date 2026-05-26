@@ -1,4 +1,23 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  prettierd-treefmt = pkgs.writeShellApplication {
+    name = "prettierd-treefmt";
+    runtimeInputs = [pkgs.prettierd];
+    text = ''
+      for file in "$@"; do
+        [ -f "$file" ] || continue
+
+        tmpdir="$(mktemp -d)"
+        input="$tmpdir/input"
+        output="$tmpdir/output"
+
+        cp "$file" "$input"
+        prettierd "$file" < "$input" > "$output"
+        mv "$output" "$file"
+        rm -r "$tmpdir"
+      done
+    '';
+  };
+in {
   projectRootFile = "flake.nix";
 
   programs = {
@@ -11,7 +30,14 @@
     };
     yamlfmt.enable = true;
     taplo.enable = true;
-    mdformat.enable = true;
+  };
+
+  settings.formatter.prettierd = {
+    command = "${prettierd-treefmt}/bin/prettierd-treefmt";
+    includes = [
+      "*.md"
+      "*.mdx"
+    ];
   };
 
   settings.global.excludes = [
@@ -20,8 +46,6 @@
     # Encrypted secrets
     "secrets/**"
     "sops/**"
-    # Markdown with YAML frontmatter (mdformat doesn't support frontmatter)
-    "homeModules/dev/ai/commands/*.md"
     # Generated or external files
     ".luacheckrc"
   ];
