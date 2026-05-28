@@ -22,8 +22,6 @@ in {
       "udiskie --automount --notify --smart-tray"
       "hyprctl setcursor Bibata-Modern-Ice 22"
       "init-wallpaper"
-
-      # "kdeconnect-indicator"
     ];
   };
 }

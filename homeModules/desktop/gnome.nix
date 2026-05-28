@@ -19,7 +19,7 @@ in {
 
     services.kdeconnect = {
       enable = true;
-      package = pkgs.unstable.kdePackages.kdeconnect-kde;
+      package = pkgs.unstable.valent;
     };
 
     dconf.settings = {

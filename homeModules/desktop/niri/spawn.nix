@@ -15,6 +15,7 @@ in {
       {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
       {command = [discord];}
       # {command = ["opencloud"];}
+      {command = ["valent" "--gapplication-service"];}
     ];
   };
 }
