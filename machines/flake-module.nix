@@ -36,6 +36,10 @@ in {
           deploy.targetHost = "${username}@100.120.221.4";
           tags = ["server"];
         };
+        miro = {
+          deploy.targetHost = "${username}@100.97.22.118";
+          tags = ["server"];
+        };
       };
 
       instances = {
