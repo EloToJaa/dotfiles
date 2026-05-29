@@ -17,7 +17,7 @@ tab_size = 2
 [plugin]
 prepend_previewers = [
   { mime = "audio/*", run = "exifaudio" },
-  { name = "*.md", run = "glow" },
+  { url = "*.md", run = "glow" },
   { mime = "application/*zip", run = "ouch" },
   { mime = "application/x-tar", run = "ouch" },
   { mime = "application/x-bzip2", run = "ouch" },
@@ -27,11 +27,11 @@ prepend_previewers = [
   { mime = "application/xz", run = "ouch" },
 ]
 
-append_previewers = [{ name = "*", run = "hexyl" }]
+append_previewers = [{ url = "*", run = "hexyl" }]
 
 prepend_fetchers = [
-  { id = "git", name = "*", run = "git" },
-  { id = "git", name = "*/", run = "git" },
+  { id = "git", url = "*", run = "git", group = "git" },
+  { id = "git", url = "*/", run = "git", group = "git" },
 ]
 
 [opener]
