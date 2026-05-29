@@ -68,13 +68,11 @@ in {
     };
     dns = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = ["192.168.0.32" "9.9.9.9" "149.112.112.112"];
-      # default = ["10.11.0.32" "9.9.9.9" "149.112.112.112"];
+      default = ["10.11.0.32" "9.9.9.9" "149.112.112.112"];
     };
     nfs.local = lib.mkOption {
       type = lib.types.str;
-      default = "192.168.0.41";
-      # default = "10.11.0.34";
+      default = "10.11.0.34";
     };
     nfs.remote = lib.mkOption {
       type = lib.types.str;
