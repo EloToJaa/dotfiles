@@ -90,6 +90,17 @@ def get_current_version(file_path: str) -> str | None:
     return version
 
 
+def get_current_rev(file_path: str) -> str | None:
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    rev_match = re.search(r"rev = \"(.*?)\";", content)
+    if rev_match is None:
+        return None
+
+    return rev_match.group(1)
+
+
 def get_new_version() -> str:
     date_now = datetime.datetime.now()
     date_string = date_now.strftime("%Y-%m-%d")
@@ -132,6 +143,15 @@ def process_file(file_path: str):
     hash, rev = get_hash_and_rev(owner, repo)
     if hash is None or rev is None:
         print(f"{file_path}: Could not get hash or rev")
+        return
+
+    current_rev = get_current_rev(file_path)
+    if current_rev is None:
+        print(f"{file_path}: Could not get current rev")
+        return
+
+    if rev == current_rev:
+        print(f"{file_path}: No update detected")
         return
 
     new_version = get_new_version()

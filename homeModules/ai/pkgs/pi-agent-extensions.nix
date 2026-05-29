@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "pi-agent-extensions";
-  version = "unstable-2026-05-21";
+  version = "unstable-2026-05-29";
 
   src = fetchFromGitHub {
     owner = "rytswd";
     repo = "pi-agent-extensions";
-    rev = "2dcb77a2caaf247699d3804eef3b02614b008ccf";
-    hash = "sha256-2zX7bt+gI6GUG7l1RveanBwYJI1RwkbLJeZRonYnUMA=";
+    rev = "2380efc4b3f8789dfce8ee2317ce5d7c50d0d10e";
+    hash = "sha256-MHmOkbm/BeRwu2amrU6ABdtNtpoWfonVRXXAcQm/TEs=";
   };
 
   buildPhase = ''
