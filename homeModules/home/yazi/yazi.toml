@@ -17,17 +17,15 @@ tab_size = 2
 [plugin]
 prepend_previewers = [
   { mime = "audio/*", run = "exifaudio" },
-  { url = "*.md", run = "glow" },
-  { mime = "application/*zip", run = "ouch" },
-  { mime = "application/x-tar", run = "ouch" },
-  { mime = "application/x-bzip2", run = "ouch" },
-  { mime = "application/x-7z-compressed", run = "ouch" },
-  { mime = "application/x-rar", run = "ouch" },
-  { mime = "application/x-xz", run = "ouch" },
-  { mime = "application/xz", run = "ouch" },
+  { url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { url = "*.csv", run = 'piper -- bat -p --color=always "$1"' },
+  { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch" },
+  { mime = "application/sqlite3", run = 'piper -- sqlite3 "$1" ".schema --indent"' },
 ]
 
-append_previewers = [{ url = "*", run = "hexyl" }]
+append_previewers = [
+  { url = "*", run = 'piper -- hexyl --border=none --terminal-width=$w "$1"' },
+]
 
 prepend_fetchers = [
   { id = "git", url = "*", run = "git", group = "git" },

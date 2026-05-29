@@ -50,8 +50,7 @@ in {
       "yazi/plugins/system-clipboard.yazi".source = pkgs.callPackage ./pkgs/system-clipboard.nix {};
       "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./pkgs/exifaudio.nix {};
       "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./pkgs/ouch.nix {};
-      "yazi/plugins/glow.yazi".source = pkgs.callPackage ./pkgs/glow.nix {};
-      "yazi/plugins/hexyl.yazi".source = pkgs.callPackage ./pkgs/hexyl.nix {};
+      "yazi/plugins/piper.yazi".source = pkgs.callPackage ./pkgs/piper.nix {};
       "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ./pkgs/relative-motions.nix {};
       "yazi/plugins/toggle-pane.yazi".source = pkgs.callPackage ./pkgs/toggle-pane.nix {};
     };
