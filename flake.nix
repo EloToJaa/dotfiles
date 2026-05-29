@@ -46,7 +46,7 @@
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nur.url = "github:nix-community/NUR";
     flake-parts.url = "github:hercules-ci/flake-parts";
     terranix.url = "github:terranix/terranix";
@@ -55,7 +55,7 @@
     srvos.url = "github:nix-community/srvos";
 
     clan-core = {
-      url = "https://git.clan.lol/clan/clan-core/archive/25.11.tar.gz";
+      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
