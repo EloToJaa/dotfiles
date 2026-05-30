@@ -12,6 +12,12 @@
 
         cp "$file" "$input"
         prettierd "$file" < "$input" > "$output"
+
+        if cmp -s "$input" "$output"; then
+          rm -r "$tmpdir"
+          continue
+        fi
+
         mv "$output" "$file"
         rm -r "$tmpdir"
       done
