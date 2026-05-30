@@ -12,8 +12,10 @@ Commit the changes using this style:
 - when writing commit messages focus on the WHY rather than the WHAT.
 - imperative mood
 - concise, no conventional commit prefixes
-- optionally use a context prefix when it adds clarity (e.g., "docs:", "cli:")
+- always use a context prefix to add clarity (e.g., "docs:", "cli:")
 - paragraphs instead of bullet points
+
+Example: feat(cli): add --help flag
 
 If nothing is staged, stage all changes first (\`git add -A\`).
 If there are untracked files relevant to the change, include them.
