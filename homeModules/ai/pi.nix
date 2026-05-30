@@ -14,24 +14,27 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      pkgs.llm-agents.pi
+      pkgs.llm-agents.omp
     ];
+    programs.zsh.shellAliases = {
+      pi = "omp";
+    };
     home.file = {
-      ".pi/agent" = {
+      ".omp/agent" = {
         recursive = true;
         source = ./pi;
       };
-      ".pi/agent/AGENTS.md".source = ./AGENTS.md;
-      ".pi/agent/extensions/air".source = "${extensions}/air";
-      ".pi/agent/extensions/direnv".source = "${extensions}/direnv";
-      ".pi/agent/extensions/fetch".source = "${extensions}/fetch";
-      ".pi/agent/extensions/notify".source = "${extensions}/notify";
-      ".pi/agent/extensions/permission-gate".source = "${extensions}/permission-gate";
-      ".pi/agent/extensions/questionnaire".source = "${extensions}/questionnaire";
-      ".pi/agent/extensions/slow-mode".source = "${extensions}/slow-mode";
-      ".pi/agent/extensions/stash".source = "${extensions}/stash";
-      ".pi/agent/extensions/statusline".source = "${extensions}/statusline";
-      ".pi/agent/extensions/pi-vim".source = pi-vim;
+      ".omp/agent/AGENTS.md".source = ./AGENTS.md;
+      ".omp/agent/extensions/air".source = "${extensions}/air";
+      ".omp/agent/extensions/direnv".source = "${extensions}/direnv";
+      # ".omp/agent/extensions/fetch".source = "${extensions}/fetch";
+      ".omp/agent/extensions/notify".source = "${extensions}/notify";
+      # ".omp/agent/extensions/permission-gate".source = "${extensions}/permission-gate";
+      # ".omp/agent/extensions/questionnaire".source = "${extensions}/questionnaire";
+      # ".omp/agent/extensions/slow-mode".source = "${extensions}/slow-mode";
+      ".omp/agent/extensions/stash".source = "${extensions}/stash";
+      # ".omp/agent/extensions/statusline".source = "${extensions}/statusline";
+      ".omp/agent/extensions/pi-vim".source = pi-vim;
     };
   };
 }

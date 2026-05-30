@@ -7,7 +7,7 @@ import { homedir } from "os";
 
 export default function (pi: ExtensionAPI) {
   pi.on("session_start", async () => {
-    const settingsPath = join(homedir(), ".pi", "agent", "settings.json");
+    const settingsPath = join(homedir(), ".omp", "agent", "settings.json");
     try {
       const settings = JSON.parse(readFileSync(settingsPath, "utf-8"));
       settings.lastChangelogVersion = "99.99.99";

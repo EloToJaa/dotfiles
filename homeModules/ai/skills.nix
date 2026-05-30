@@ -13,7 +13,7 @@
   piSkillFiles =
     lib.mapAttrs' (
       name: source:
-        lib.nameValuePair ".pi/agent/skills/${name}" {inherit source;}
+        lib.nameValuePair ".omp/agent/skills/${name}" {inherit source;}
     )
     cfg;
 in {
