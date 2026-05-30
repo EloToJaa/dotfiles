@@ -7,6 +7,10 @@
   cfg = config.modules.ai.pi;
   extensions = pkgs.callPackage ./pkgs/pi-agent-extensions.nix {};
   pi-vim = pkgs.callPackage ./pkgs/pi-vim.nix {};
+  omp-with-runtime = pkgs.writeShellScriptBin "omp" ''
+    export PATH="${lib.makeBinPath [pkgs.unstable.python314 pkgs.unstable.bun]}:$PATH"
+    exec ${pkgs.llm-agents.omp}/bin/omp "$@"
+  '';
 in {
   options.modules.ai.pi = {
     enable = lib.mkEnableOption "Enable pi module";
@@ -14,7 +18,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      pkgs.llm-agents.omp
+      omp-with-runtime
     ];
     programs.zsh.shellAliases = {
       pi = "omp";
