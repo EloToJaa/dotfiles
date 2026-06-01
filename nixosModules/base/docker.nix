@@ -30,6 +30,9 @@ in {
       };
     };
     virtualisation.oci-containers.backend = "podman";
+    environment.systemPackages = with pkgs.unstable; [
+      podman-compose
+    ];
 
     users.users.${username} = {
       extraGroups = ["docker"];
