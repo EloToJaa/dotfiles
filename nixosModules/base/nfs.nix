@@ -31,10 +31,6 @@ in {
         device = "${hostname}:/mnt/Main/Backups";
         inherit fsType options;
       };
-      "/mnt/Photos" = {
-        device = "${hostname}:/mnt/Main/Photos";
-        inherit fsType options;
-      };
       "/mnt/Media" = {
         device = "${hostname}:/mnt/Main/Media";
         inherit fsType options;
