@@ -13,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     catppuccin = {
       enable = true;
+      autoEnable = true;
       inherit (catppuccin) flavor accent;
 
       gtk.icon.enable = false;
