@@ -100,6 +100,10 @@
       url = "github:NousResearch/hermes-agent/v2026.4.16";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    quizer = {
+      url = "github:EloToJaa/Quizer";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     nixvim = {
       url = "github:nix-community/nixvim";
