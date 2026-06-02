@@ -1648,11 +1648,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780350019,
-        "narHash": "sha256-8riVPVIm+nP1V6ISkPIDJadKdhmAVhTgTrrPfXdeH2k=",
+        "lastModified": 1780386632,
+        "narHash": "sha256-uOwHfrIBgzdXxndBcJ/FA2HJU371MkPtQe5jCVP1R9Q=",
         "owner": "EloToJaa",
         "repo": "Quizer",
-        "rev": "38b1894537a474255ee9228db87da6c2e6c85b8f",
+        "rev": "8772405272ae8ddc82820021c922a11bf5bd0cad",
         "type": "github"
       },
       "original": {
