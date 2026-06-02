@@ -60,12 +60,6 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = [cfg.package];
 
-    nixpkgs.overlays = [
-      (_: prev: {
-        qbittorrent = prev.qbittorrent.override {guiSupport = false;};
-      })
-    ];
-
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [cfg.port];
       allowedUDPPorts = [cfg.port];
@@ -78,7 +72,7 @@ in {
       path = [cfg.package];
       serviceConfig = {
         ExecStart = ''
-          ${cfg.package}/bin/qbittorrent \
+          ${lib.getExe cfg.package} \
             --profile=${configDir} \
             --webui-port=${toString cfg.port}
         '';

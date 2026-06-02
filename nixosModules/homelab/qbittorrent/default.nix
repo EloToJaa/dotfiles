@@ -42,7 +42,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.qbittorrent = {
       enable = true;
-      package = pkgs.unstable.qbittorrent;
+      package = pkgs.unstable.qbittorrent-nox;
       user = cfg.name;
       inherit (cfg) port group dataDir;
     };
