@@ -78,7 +78,7 @@ in {
       path = [cfg.package];
       serviceConfig = {
         ExecStart = ''
-          ${cfg.package}/bin/qbittorrent-nox \
+          ${cfg.package}/bin/qbittorrent \
             --profile=${configDir} \
             --webui-port=${toString cfg.port}
         '';
