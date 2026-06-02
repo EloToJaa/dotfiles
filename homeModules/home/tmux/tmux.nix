@@ -74,10 +74,6 @@ in {
           bind-key Tab run-shell "workmux last-agent"
           bind-key b run-shell "workmux sidebar"
 
-          # Alt+j / Alt+k to cycle agents (no prefix needed)
-          bind -n M-j run-shell "workmux sidebar next"
-          bind -n M-k run-shell "workmux sidebar prev"
-
           # Alt+1..9 to jump directly
           bind -n M-1 run-shell "workmux sidebar jump 1"
           bind -n M-2 run-shell "workmux sidebar jump 2"
