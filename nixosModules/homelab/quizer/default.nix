@@ -32,17 +32,16 @@ in {
     users.users.${cfg.name} = {
       isSystemUser = true;
       description = cfg.name;
-      group = cfg.group;
+      inherit (cfg) group;
     };
 
     services.quizer = {
       enable = true;
       package = inputs.quizer.packages.${pkgs.system}.quizer;
+      host = "127.0.0.1";
       user = cfg.name;
-      group = cfg.group;
-      inherit (cfg) port;
+      inherit (cfg) port group;
       environment = {
-        ASPNETCORE_URLS = "http://127.0.0.1:${toString cfg.port}";
       };
     };
 
