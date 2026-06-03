@@ -77,6 +77,7 @@ in {
     ./jellyfin
     ./jellystat
     ./karakeep
+    ./kerberos.nix
     ./loki
     ./minecraft
     ./mysql

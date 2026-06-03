@@ -70,13 +70,15 @@ in {
       type = lib.types.listOf lib.types.str;
       default = ["10.11.0.32" "9.9.9.9" "149.112.112.112"];
     };
-    nfs.local = lib.mkOption {
-      type = lib.types.str;
-      default = "10.11.0.34";
-    };
-    nfs.remote = lib.mkOption {
-      type = lib.types.str;
-      default = "truenas.eagle-perch.ts.net";
+    nfs = {
+      local = lib.mkOption {
+        type = lib.types.str;
+        default = "10.11.0.34";
+      };
+      remote = lib.mkOption {
+        type = lib.types.str;
+        default = "truenas.eagle-perch.ts.net";
+      };
     };
     ssh.keys.user = lib.mkOption {
       type = lib.types.str;
