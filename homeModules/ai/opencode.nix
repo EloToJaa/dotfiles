@@ -27,7 +27,7 @@ in {
         };
       };
       settings = {
-        model = "openai/gpt-5.3-codex";
+        model = "openai/gpt-5.5";
         autoupdate = false;
         autoshare = false;
         plugin = [];

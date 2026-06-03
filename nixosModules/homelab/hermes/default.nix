@@ -95,7 +95,7 @@ in {
       settings = {
         model = {
           provider = "openai-codex";
-          default = "gpt-5.3-codex";
+          default = "gpt-5.5";
         };
         web.backend = "firecrawl";
       };
