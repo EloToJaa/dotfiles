@@ -28,6 +28,9 @@
         old.checkFlags;
     });
 
+    # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
+    khal = prev.unstable.khal;
+
     # karakeep = prev.unstable.karakeep.overrideAttrs {
     #   # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
     #   # The patch was trying to allow NEXT_CACHE_DIR env var for cache directory
