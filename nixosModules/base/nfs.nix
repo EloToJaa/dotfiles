@@ -16,9 +16,9 @@
     "noauto"
     "x-systemd.after=network-online.target"
     "x-systemd.mount-timeout=10"
-    "_netdev"
-    "nfsvers=4.2"
-    "sec=${securityMode}"
+    # "_netdev"
+    # "nfsvers=4.2"
+    # "sec=${securityMode}"
   ];
   fsType = "nfs";
   cfg = config.modules.base.nfs;
@@ -27,39 +27,31 @@ in {
     enable = lib.mkEnableOption "Enable nfs";
   };
   config = lib.mkIf cfg.enable {
-    security.krb5 = {
-      enable = true;
-      settings = {
-        libdefaults.default_realm = kerberos.realm;
-        realms.${kerberos.realm} = {
-          kdc = kerberos.kdc;
-          admin_server = kerberos.adminServer;
-        };
-        domain_realm = kerberos.domainRealms;
-      };
-    };
-
-    services.nfs.idmapd.settings.General.Domain = lib.mkForce kerberos.nfs.idmapDomain;
+    # security.krb5 = {
+    #   enable = true;
+    #   settings = {
+    #     libdefaults.default_realm = kerberos.realm;
+    #     realms.${kerberos.realm} = {
+    #       kdc = kerberos.kdc;
+    #       admin_server = kerberos.adminServer;
+    #     };
+    #     domain_realm = kerberos.domainRealms;
+    #   };
+    # };
+    #
+    # services.nfs.idmapd.settings.General.Domain = lib.mkForce kerberos.nfs.idmapDomain;
 
     fileSystems = {
       "/mnt/Data" = {
-        device = "${hostname}:/mnt/Main/Data";
+        device = "${hostname}:/mnt/Main/Secure/Data";
         inherit fsType options;
       };
       "/mnt/Backups" = {
-        device = "${hostname}:/mnt/Main/Backups";
+        device = "${hostname}:/mnt/Main/Secure/Backups";
         inherit fsType options;
       };
       "/mnt/Media" = {
-        device = "${hostname}:/mnt/Main/Media";
-        inherit fsType options;
-      };
-      "/mnt/ISO" = {
-        device = "${hostname}:/mnt/Main/ISO";
-        inherit fsType options;
-      };
-      "/mnt/Documents" = {
-        device = "${hostname}:/mnt/Main/Documents";
+        device = "${hostname}:/mnt/Main/Secure/Media";
         inherit fsType options;
       };
     };
