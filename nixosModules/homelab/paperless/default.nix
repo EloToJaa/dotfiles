@@ -34,15 +34,11 @@ in {
       type = lib.types.path;
       default = "${homelab.dataDir}docs";
     };
-    consumptionDir = lib.mkOption {
-      type = lib.types.path;
-      default = "/mnt/Documents/";
-    };
   };
   config = lib.mkIf cfg.enable {
     services.paperless = {
       inherit domain;
-      inherit (cfg) port dataDir mediaDir consumptionDir;
+      inherit (cfg) port dataDir mediaDir;
       enable = true;
       package = pkgs.unstable.paperless-ngx;
       user = cfg.name;
