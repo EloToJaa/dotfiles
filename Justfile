@@ -49,7 +49,4 @@ deploy +hosts:
 
 # Deploy all hosts
 deploy-all:
-    @for host in $(just hosts); do \
-        echo "==> Deploying $host"; \
-        clan machines update "$host"; \
-    done
+  clan machines update
