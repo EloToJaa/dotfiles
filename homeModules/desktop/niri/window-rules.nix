@@ -6,29 +6,22 @@
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
-    programs.niri.settings.window-rules = [
+    wayland.windowManager.niri.settings.window-rule = [
       {
-        geometry-corner-radius = let
-          radius = 8.0;
-        in {
-          bottom-left = radius;
-          bottom-right = radius;
-          top-left = radius;
-          top-right = radius;
-        };
+        geometry-corner-radius = 8.0;
         clip-to-geometry = true;
         tiled-state = true;
         draw-border-with-background = false;
       }
       {
-        matches = [{app-id = "^winboat$";}];
+        match._props.app-id._raw = ''r#"^winboat$"#'';
         # clip-to-geometry = false;
         # tiled-state = false;
         # border.enable = false;
         # focus-ring.enable = false;
       }
       {
-        matches = [{app-id = "^winboat-.*";}];
+        match._props.app-id._raw = ''r#"^winboat-.*"#'';
         clip-to-geometry = false;
         tiled-state = false;
         open-floating = true;
@@ -36,45 +29,43 @@ in {
         # focus-ring.enable = false;
       }
       {
-        matches = [
-          {app-id = "^org.gnome.Nautilus$";}
-          {app-id = "^org.gnome.TextEditor$";}
-          {app-id = "^org.gnome.Papers$";}
-          {app-id = "^.virt-manager-wrapped$";}
+        match = [
+          {_props.app-id._raw = ''r#"^org.gnome.Nautilus$"#'';}
+          {_props.app-id._raw = ''r#"^org.gnome.TextEditor$"#'';}
+          {_props.app-id._raw = ''r#"^org.gnome.Papers$"#'';}
+          {_props.app-id._raw = ''r#"^.virt-manager-wrapped$"#'';}
         ];
         default-column-width.proportion = 0.5;
       }
 
       # Floating applications
       {
-        matches = [
-          {app-id = "^audacious$";}
-          {title = ".*Bitwarden Password Manager.*";}
-        ];
+        match._props = {
+          app-id._raw = ''r#"^audacious$"#'';
+          title._raw = ''r#".*Bitwarden Password Manager.*"#'';
+        };
         default-column-width.proportion = 0.5;
         open-floating = true;
       }
       {
-        matches = [
-          {app-id = "^org.pulseaudio.pavucontrol$";}
-        ];
+        match._props.app-id._raw = ''r#"^org.pulseaudio.pavucontrol$"#'';
         default-column-width.fixed = 1200;
         open-floating = true;
       }
       {
-        matches = [{app-id = "^com.interversehq.qView$";}];
+        match._props.app-id._raw = ''r#"^com.interversehq.qView$"#'';
         open-floating = true;
       }
       {
-        matches = [
-          {app-id = "^mpv$";}
-          {app-id = "^.+exe$";}
-          {app-id = "^celluloid$";}
+        match = [
+          {_props.app-id._raw = ''r#"^mpv$"#'';}
+          {_props.app-id._raw = ''r#"^.+exe$"#'';}
+          {_props.app-id._raw = ''r#"^celluloid$"#'';}
           {
-            app-id = "^zen-beta$";
-            title = ".*YouTube.*";
+            _props.app-id._raw = ''r#"^zen-beta$"#'';
+            _props.title._raw = ''r#".*YouTube.*"#'';
           }
-          {title = ".*Bitwarden Password Manager.*";}
+          {_props.title._raw = ''r#".*Bitwarden Password Manager.*"#'';}
         ];
         block-out-from = "screencast";
       }
@@ -87,53 +78,53 @@ in {
       #   open-maximized-to-edges = true;
       # }
       {
-        matches = [
-          {app-id = "^com.mitchellh.ghostty$";}
-          {app-id = "^mpv$";}
+        match = [
+          {_props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';}
+          {_props.app-id._raw = ''r#"^mpv$"#'';}
         ];
         open-maximized = true;
       }
 
       # Picture-in-Picture
       {
-        matches = [{title = "^Picture-in-Picture$";}];
+        match._props.title._raw = ''r#"^Picture-in-Picture$"#'';
         open-floating = true;
         open-on-workspace = "special:overlay";
       }
 
       # File chooser dialogs
       {
-        matches = [
-          {app-id = "^org.gnome.FileRoller$";}
-          {app-id = "^file_progress$";}
-          {app-id = "^confirm$";}
-          {app-id = "^dialog$";}
-          {app-id = "^download$";}
-          {app-id = "^notification$";}
-          {app-id = "^error$";}
-          {app-id = "^confirmreset$";}
-          {title = ".*Open File.*";}
-          {title = ".*File Upload.*";}
-          {title = "^branchdialog$";}
-          {title = "^Confirm to replace files$";}
-          {title = "^File Operation Progress$";}
+        match = [
+          {_props.app-id._raw = ''r#"^org.gnome.FileRoller$"#'';}
+          {_props.app-id._raw = ''r#"^file_progress$"#'';}
+          {_props.app-id._raw = ''r#"^confirm$"#'';}
+          {_props.app-id._raw = ''r#"^dialog$"#'';}
+          {_props.app-id._raw = ''r#"^download$"#'';}
+          {_props.app-id._raw = ''r#"^notification$"#'';}
+          {_props.app-id._raw = ''r#"^error$"#'';}
+          {_props.app-id._raw = ''r#"^confirmreset$"#'';}
+          {_props.title._raw = ''r#".*Open File.*"#'';}
+          {_props.title._raw = ''r#".*File Upload.*"#'';}
+          {_props.title._raw = ''r#"^branchdialog$"#'';}
+          {_props.title._raw = ''r#"^Confirm to replace files$"#'';}
+          {_props.title._raw = ''r#"^File Operation Progress$"#'';}
         ];
         open-floating = true;
       }
 
       # Screen sharing indicators - move to special workspace
       {
-        matches = [
-          {title = "^Firefox — Sharing Indicator$";}
-          {title = "^Zen — Sharing Indicator$";}
-          {title = ".*is sharing (your screen|a window)\.$";}
+        match = [
+          {_props.title._raw = ''r#"^Firefox — Sharing Indicator$"#'';}
+          {_props.title._raw = ''r#"^Zen — Sharing Indicator$"#'';}
+          {_props.title._raw = ''r#".*is sharing (your screen|a window)\.$"#'';}
         ];
         open-on-workspace = "special:screencast";
       }
 
       # xwaylandvideobridge - hide completely
       {
-        matches = [{app-id = "^xwaylandvideobridge$";}];
+        match._props.app-id._raw = ''r#"^xwaylandvideobridge$"#'';
         open-floating = true;
         default-column-width.fixed = 1;
         default-window-height.fixed = 1;

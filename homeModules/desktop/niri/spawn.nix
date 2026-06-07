@@ -8,14 +8,14 @@
   inherit (settings) discord;
 in {
   config = lib.mkIf cfg.enable {
-    programs.niri.settings.spawn-at-startup = [
+    wayland.windowManager.niri.settings.spawn-at-startup = [
       # System tray apps
-      # {command = ["poweralertd"];}
-      # {command = ["wl-clip-persist" "--clipboard" "both"];}
-      {command = ["udiskie" "--automount" "--notify" "--smart-tray"];}
-      {command = [discord];}
-      # {command = ["opencloud"];}
-      {command = ["valent" "--gapplication-service"];}
+      # ["poweralertd"]
+      # ["wl-clip-persist" "--clipboard" "both"]
+      ["udiskie" "--automount" "--notify" "--smart-tray"]
+      [discord]
+      # ["opencloud"]
+      ["valent" "--gapplication-service"]
     ];
   };
 }

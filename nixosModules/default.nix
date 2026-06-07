@@ -5,7 +5,7 @@
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.dms.nixosModules.greeter
-    inputs.niri.nixosModules.niri
+    inputs.niri.nixosModules.default
     inputs.hermes-agent.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin
     inputs.quizer.nixosModules.default

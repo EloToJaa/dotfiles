@@ -21,8 +21,8 @@ in {
           "https://hyprland.cachix.org"
           "https://yazi.cachix.org"
           "https://vicinae.cachix.org"
-          "https://niri.cachix.org"
           "https://cache.numtide.com"
+          "https://niri-nix.cachix.org"
         ];
         trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -30,8 +30,8 @@ in {
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
           "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-          "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
           "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+          "niri-nix.cachix.org-1:SvFtqpDcf7Sm1SMJdby1/+Y+6f3Yt3/3PMcSTKPJNJ0="
         ];
         trusted-users = [username];
       };
@@ -49,7 +49,7 @@ in {
     nixpkgs = {
       overlays = [
         inputs.nur.overlays.default
-        inputs.niri.overlays.niri
+        inputs.niri.overlays.niri-nix
         inputs.llm-agents.overlays.default
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages

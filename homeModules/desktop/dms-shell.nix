@@ -14,27 +14,6 @@ in {
     programs.dank-material-shell = {
       enable = true;
 
-      niri = {
-        enableKeybinds = false;
-        enableSpawn = false;
-
-        includes = {
-          enable = true;
-
-          override = true;
-          originalFileName = "hm";
-          filesToInclude = [
-            "alttab"
-            "colors"
-            # "cursor"
-            # "layout"
-            "outputs"
-            "windowrules"
-            # "wpblur"
-          ];
-        };
-      };
-
       # package = pkgs.unstable.dms-shell;
       quickshell.package = pkgs.unstable.quickshell;
       dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -48,5 +27,14 @@ in {
 
       systemd.enable = true;
     };
+    wayland.windowManager.niri.settings.include = map (path: {_args = [path];}) [
+      "dms/alttab.kdl"
+      "dms/colors.kdl"
+      # "dms/cursor.kdl"
+      # "dms/layout.kdl"
+      "dms/outputs.kdl"
+      "dms/windowrules.kdl"
+      # "dms/wpblur.kdl"
+    ];
   };
 }
