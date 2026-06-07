@@ -70,19 +70,13 @@ in {
         block-out-from = "screencast";
       }
 
-      # https://github.com/sodiboo/niri-flake/pull/1382
-      # {
-      #   matches = [
-      #     {app-id = "^zen-beta$";}
-      #   ];
-      #   open-maximized-to-edges = true;
-      # }
       {
         match = [
+          {_props.app-id._raw = ''r#"^zen-beta$"#'';}
           {_props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';}
           {_props.app-id._raw = ''r#"^mpv$"#'';}
         ];
-        open-maximized = true;
+        open-maximized-to-edges = true;
       }
 
       # Picture-in-Picture

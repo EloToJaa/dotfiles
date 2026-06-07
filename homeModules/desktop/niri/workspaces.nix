@@ -35,27 +35,27 @@ in {
       ];
       window-rule = [
         {
-          match._props.app-id = "^zen-beta$";
+          match._props.app-id._raw = ''r#"^zen-beta$"#'';
           open-on-workspace = "browser";
         }
         {
-          match._props.app-id = "^com.mitchellh.ghostty$";
+          match._props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';
           open-on-workspace = "terminal";
         }
         {
-          match._props.app-id = "^vesktop$";
+          match._props.app-id._raw = ''r#"^vesktop$"#'';
           open-on-workspace = "chat";
         }
         {
-          match._props.app-id = "^spotify$";
+          match._props.app-id._raw = ''r#"^spotify$"#'';
           open-on-workspace = "music";
         }
         {
-          match._props.app-id = "^com.obsproject.Studio$";
+          match._props.app-id._raw = ''r#"^com.obsproject.Studio$"#'';
           open-on-workspace = "misc";
         }
         {
-          match._props.app-id = "^cafe.avery.Delfin$";
+          match._props.app-id._raw = ''r#"^cafe.avery.Delfin$"#'';
           open-on-workspace = "watch";
         }
       ];

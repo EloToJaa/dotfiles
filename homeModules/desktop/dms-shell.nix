@@ -26,6 +26,10 @@ in {
       enableVPN = true;
 
       systemd.enable = true;
+
+      plugins = {
+        dankKDEConnect.enable = true;
+      };
     };
     wayland.windowManager.niri.settings.include = map (path: {_args = [path];}) [
       "dms/alttab.kdl"

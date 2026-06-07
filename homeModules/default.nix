@@ -5,8 +5,10 @@
     inputs.nixvim.homeModules.nixvim
     inputs.hyprland.homeManagerModules.default
     inputs.zen-browser.homeModules.default
+
     inputs.niri.homeModules.default
     inputs.dms.homeModules.dank-material-shell
+    inputs.dms-plugin-registry.modules.default
 
     ./ai
     ./cybersec
