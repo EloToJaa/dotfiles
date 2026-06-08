@@ -29,6 +29,33 @@ in {
         source = ./pi;
       };
       ".omp/agent/AGENTS.md".source = ./AGENTS.md;
+      ".omp/agent/lsp.json".text = builtins.toJSON {
+        servers = {
+          server-name.tsgo = {
+            command = "tsgo";
+            fileTypes = [
+              ".js"
+              ".jsx"
+              ".ts"
+              ".tsx"
+              ".mjs"
+              ".cjs"
+              ".mts"
+              ".cts"
+              ".svelte"
+              ".astro"
+              ".vue"
+            ];
+            rootMarkers = [
+              "tsconfig.json"
+              "jsconfig.json"
+              "package.json"
+              "tsconfig.base.json"
+            ];
+          };
+        };
+        idleTimeoutMs = 300000;
+      };
       ".omp/agent/extensions/air".source = "${extensions}/air";
       ".omp/agent/extensions/direnv".source = "${extensions}/direnv";
       # ".omp/agent/extensions/fetch".source = "${extensions}/fetch";
