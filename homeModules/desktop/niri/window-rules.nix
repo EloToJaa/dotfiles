@@ -75,6 +75,9 @@ in {
           {_props.app-id._raw = ''r#"^zen-beta$"#'';}
           {_props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';}
           {_props.app-id._raw = ''r#"^mpv$"#'';}
+          {_props.app-id._raw = ''r#"^cafe.avery.Delfin$"#'';}
+          {_props.app-id._raw = ''r#"^spotify$"#'';}
+          {_props.app-id._raw = ''r#"^vesktop$"#'';}
         ];
         open-maximized-to-edges = true;
       }
