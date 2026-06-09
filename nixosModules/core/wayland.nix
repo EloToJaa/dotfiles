@@ -51,7 +51,15 @@ in {
     programs.dank-material-shell.greeter = {
       enable = true;
       compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
+      compositor.customConfig = ''
+        hotkey-overlay {
+          skip-at-startup
+        }
 
+        environment {
+          DMS_RUN_GREETER "1"
+        }
+      '';
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
       configHome = "/home/${username}";
 
