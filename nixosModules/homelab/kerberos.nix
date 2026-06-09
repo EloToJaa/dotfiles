@@ -46,7 +46,59 @@ in {
   };
 
   config = lib.mkIf cfg.kdcServer.enable {
-    security.krb5.package = pkgs.krb5;
+    security.krb5 = {
+      enable = true;
+      package = pkgs.krb5;
+      settings = {
+        libdefaults.default_realm = cfg.realm;
+        realms.${cfg.realm} = {
+          kdc = cfg.kdc;
+          admin_server = cfg.adminServer;
+        };
+        domain_realm = cfg.domainRealms;
+      };
+    };
+
+    systemd.services.krb5kdc-init = {
+      description = "Initialize MIT Kerberos KDC database";
+      before = [
+        "kdc.service"
+        "kadmind.service"
+      ];
+      requiredBy = [
+        "kdc.service"
+        "kadmind.service"
+      ];
+      path = [
+        pkgs.coreutils
+        pkgs.krb5
+        pkgs.openssl
+      ];
+      environment.KRB5_KDC_PROFILE = "/etc/krb5kdc/kdc.conf";
+      serviceConfig = {
+        Type = "oneshot";
+        StateDirectory = "krb5kdc";
+      };
+      script = ''
+        set -eu
+
+        database=/var/lib/krb5kdc/principal
+        master_key=/var/lib/krb5kdc/master-key
+
+        if [ -e "$database" ]; then
+          exit 0
+        fi
+
+        if [ ! -e "$master_key" ]; then
+          umask 077
+          openssl rand -base64 48 > "$master_key"
+        fi
+
+        chmod 600 "$master_key"
+        read -r password < "$master_key"
+        kdb5_util -r ${lib.escapeShellArg cfg.realm} -P "$password" create -s
+      '';
+    };
 
     services.kerberos_server = {
       enable = true;
