@@ -8,7 +8,6 @@
     inputs.niri.nixosModules.default
     inputs.hermes-agent.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin
-    inputs.quizer.nixosModules.default
 
     ./../settings.nix
     ./base

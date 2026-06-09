@@ -94,7 +94,6 @@ in {
     ./prowlarr
     ./qbittorrent
     ./radarr
-    ./quizer
     ./xandikos
     ./rustdesk
     ./seerr

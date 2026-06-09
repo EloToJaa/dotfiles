@@ -72,7 +72,6 @@
         enable = true;
         vuetorrent.enable = true;
       };
-      quizer.enable = false;
       radarr.enable = true;
       xandikos.enable = true;
       rustdesk.enable = true;
