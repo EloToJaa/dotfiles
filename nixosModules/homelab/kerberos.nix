@@ -7,6 +7,7 @@
   cfg = config.modules.homelab.kerberos;
 in {
   options.modules.homelab.kerberos = {
+    enable = lib.mkEnableOption "MIT Kerberos KDC for the homelab realm";
     realm = lib.mkOption {
       type = lib.types.str;
       default = "ELOTOJA.COM";
@@ -24,8 +25,6 @@ in {
       default = {
         ".elotoja.com" = cfg.realm;
         "elotoja.com" = cfg.realm;
-        ".eagle-perch.ts.net" = cfg.realm;
-        "eagle-perch.ts.net" = cfg.realm;
       };
     };
     nfs = {
@@ -42,17 +41,16 @@ in {
         default = "krb5p";
       };
     };
-    kdcServer.enable = lib.mkEnableOption "MIT Kerberos KDC for the homelab realm";
   };
 
-  config = lib.mkIf cfg.kdcServer.enable {
+  config = lib.mkIf cfg.enable {
     security.krb5 = {
       enable = true;
       package = pkgs.krb5;
       settings = {
         libdefaults.default_realm = cfg.realm;
         realms.${cfg.realm} = {
-          kdc = cfg.kdc;
+          inherit (cfg) kdc;
           admin_server = cfg.adminServer;
         };
         domain_realm = cfg.domainRealms;
