@@ -79,6 +79,7 @@ in {
           {_props.app-id._raw = ''r#"^spotify$"#'';}
           {_props.app-id._raw = ''r#"^vesktop$"#'';}
         ];
+        open-maximized = true;
         open-maximized-to-edges = true;
       }
 
