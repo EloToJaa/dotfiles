@@ -49,6 +49,7 @@
       karakeep.enable = true;
       kerberos.enable = true;
       loki.enable = false;
+      mosquitto.enable = true;
       n8n.enable = false;
       nextcloud = {
         enable = false;

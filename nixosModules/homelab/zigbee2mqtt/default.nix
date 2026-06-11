@@ -55,6 +55,7 @@ in {
           mqtt = {
             base_topic = cfg.baseTopic;
             server = cfg.mqttServer;
+            user = "zigbee2mqtt";
           };
           serial.port = cfg.serialPort;
           frontend = {
@@ -69,6 +70,8 @@ in {
     systemd.services.zigbee2mqtt = lib.mkIf mqtt.enable {
       after = ["mosquitto.service"];
       wants = ["mosquitto.service"];
+      serviceConfig.EnvironmentFile =
+        config.clan.core.vars.generators.mosquitto-passwords.files.zigbee2mqtt-env.path;
     };
 
     services.nginx.virtualHosts.${domain} = {
