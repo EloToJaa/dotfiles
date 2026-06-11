@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -43,10 +44,12 @@ in {
   config = lib.mkIf cfg.enable {
     services.zigbee2mqtt = {
       enable = true;
+      package = pkgs.unstable.zigbee2mqtt;
       inherit (cfg) dataDir;
       settings = {
         homeassistant.enabled = config.services.home-assistant.enable;
         permit_join = cfg.permitJoin;
+        availability.enabled = true;
         mqtt = {
           base_topic = cfg.baseTopic;
           server = cfg.mqttServer;
@@ -60,6 +63,8 @@ in {
           enabled = true;
           host = "127.0.0.1";
           inherit (cfg) port;
+          url = "https://${domain}";
+          package = "zigbee2mqtt-windfront";
         };
       };
     };

@@ -51,6 +51,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.mosquitto = {
       enable = true;
+      package = pkgs.unstable.mosquitto;
       inherit (cfg) dataDir;
       listeners = [
         {
