@@ -36,11 +36,15 @@ in {
       configDir = cfg.dataDir;
       configWritable = true;
       config = {
-        homeassistant = {
+        homeassistant = let
+          external_url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        in {
           name = "Home";
           unit_system = "metric";
           temperature_unit = "C";
           time_zone = timezone;
+          inherit external_url;
+          internal_url = external_url;
         };
         http = {
           server_host = "127.0.0.1";
@@ -116,6 +120,11 @@ in {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_buffering off;
+          proxy_read_timeout 3600s;
+          proxy_send_timeout 3600s;
+        '';
       };
     };
   };
