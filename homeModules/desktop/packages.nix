@@ -34,6 +34,7 @@ in {
         vaults
         rustdesk-flutter
         prismlauncher
+        mqtt-explorer
         # nextcloud-client
         # opencloud-desktop
         # zoom-us

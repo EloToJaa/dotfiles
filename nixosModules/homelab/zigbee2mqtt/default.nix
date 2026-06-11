@@ -24,7 +24,7 @@ in {
     };
     serialPort = lib.mkOption {
       type = lib.types.str;
-      default = "/dev/ttyACM0";
+      default = "tcp://10.11.0.35:1234";
     };
     permitJoin = lib.mkOption {
       type = lib.types.bool;
@@ -38,33 +38,30 @@ in {
       type = lib.types.str;
       default = "mqtt://127.0.0.1:${toString mqtt.port}";
     };
-    settings = lib.mkOption {
-      type = lib.types.attrs;
-      default = {};
-    };
   };
 
   config = lib.mkIf cfg.enable {
     services.zigbee2mqtt = {
       enable = true;
-      dataDir = cfg.dataDir;
-      settings =
-        lib.recursiveUpdate {
-          homeassistant.enabled = config.services.home-assistant.enable;
-          permit_join = cfg.permitJoin;
-          mqtt = {
-            base_topic = cfg.baseTopic;
-            server = cfg.mqttServer;
-            user = "zigbee2mqtt";
-          };
-          serial.port = cfg.serialPort;
-          frontend = {
-            enabled = true;
-            host = "127.0.0.1";
-            inherit (cfg) port;
-          };
-        }
-        cfg.settings;
+      inherit (cfg) dataDir;
+      settings = {
+        homeassistant.enabled = config.services.home-assistant.enable;
+        permit_join = cfg.permitJoin;
+        mqtt = {
+          base_topic = cfg.baseTopic;
+          server = cfg.mqttServer;
+          user = "zigbee2mqtt";
+        };
+        serial = {
+          port = cfg.serialPort;
+          adapter = "zstack";
+        };
+        frontend = {
+          enabled = true;
+          host = "127.0.0.1";
+          inherit (cfg) port;
+        };
+      };
     };
 
     systemd.services.zigbee2mqtt = lib.mkIf mqtt.enable {
