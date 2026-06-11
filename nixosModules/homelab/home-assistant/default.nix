@@ -77,8 +77,12 @@ in {
         "netatmo"
         "bticino"
 
+        "mqtt"
+
+        "unifi"
+        "unifi_discovery"
+
         # Homelab services
-        "nextcloud"
         "jellyfin"
         "sonarr"
         "radarr"
