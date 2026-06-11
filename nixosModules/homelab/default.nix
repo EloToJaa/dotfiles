@@ -80,6 +80,7 @@ in {
     ./kerberos.nix
     ./loki
     ./minecraft
+    ./mosquitto
     ./mysql
     ./n8n
     ./nextcloud
@@ -95,6 +96,7 @@ in {
     ./qbittorrent
     ./radarr
     ./xandikos
+    ./zigbee2mqtt
     ./rustdesk
     ./seerr
     ./share
