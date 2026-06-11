@@ -74,7 +74,6 @@
         vuetorrent.enable = true;
       };
       radarr.enable = true;
-      xandikos.enable = true;
       rustdesk.enable = true;
       sonarr.enable = true;
       uptime.enable = true;
@@ -83,6 +82,8 @@
         auth.enable = false;
       };
       wireguard.enable = true;
+      xandikos.enable = true;
+      zigbee2mqtt.enable = false;
     };
   };
 }

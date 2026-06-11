@@ -17,7 +17,7 @@ in {
     };
     port = lib.mkOption {
       type = lib.types.port;
-      default = 8080;
+      default = 3007;
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
