@@ -55,7 +55,7 @@
     srvos.url = "github:nix-community/srvos";
 
     clan-core = {
-      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      url = "https://git.clan.lol/clan/clan-core/archive/26.05.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
