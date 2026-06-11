@@ -42,6 +42,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.mosquitto.users.zigbee2mqtt = lib.mkIf mqtt.enable {
+      acl = [
+        "readwrite zigbee2mqtt/#"
+        "write homeassistant/#"
+      ];
+      environment = ["ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD"];
+    };
+
     services.zigbee2mqtt = {
       enable = true;
       package = pkgs.unstable.zigbee2mqtt;

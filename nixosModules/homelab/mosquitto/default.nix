@@ -8,25 +8,21 @@
   cfg = config.modules.homelab.mosquitto;
   passwordGenerator = config.clan.core.vars.generators.mosquitto-passwords;
   passwordFile = user: passwordGenerator.files."${user}-password".path;
-  mqttUsers = {
-    elotoja = {
-      acl = [
-        "readwrite #"
-        "readwrite $SYS/#"
-      ];
-    };
-    zigbee2mqtt = {
-      acl = [
-        "readwrite zigbee2mqtt/#"
-        "write homeassistant/#"
-      ];
-    };
-    hass = {
-      acl = [
-        "readwrite #"
-      ];
-    };
-  };
+  usersWithEnv = lib.filterAttrs (_: user: user.environment != []) cfg.users;
+  shellPasswordVar = name: "$" + name + "_password";
+  passwordScript = name: _: ''
+    ${name}_password=$(pwgen -s 64 1)
+    printf '%s\n' "${shellPasswordVar name}" > "$out/${name}-password"
+  '';
+  envScript = name: user: ''
+    {
+      ${lib.concatStringsSep "\n" (
+      map
+      (variable: ''printf '${variable}=%s\n' "${shellPasswordVar name}"'')
+      user.environment
+    )}
+    } > "$out/${name}-env"
+  '';
 in {
   options.modules.homelab.mosquitto = {
     enable = lib.mkEnableOption "Enable Mosquitto MQTT broker";
@@ -46,9 +42,28 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}mosquitto";
     };
+    users = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          acl = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [];
+          };
+          environment = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [];
+          };
+        };
+      });
+      default = {};
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.mosquitto.users.elotoja.acl = lib.mkDefault [
+      "readwrite #"
+      "readwrite $SYS/#"
+    ];
     services.mosquitto = {
       enable = true;
       package = pkgs.unstable.mosquitto;
@@ -58,8 +73,11 @@ in {
           inherit (cfg) address port;
           users =
             lib.mapAttrs
-            (name: user: user // {passwordFile = passwordFile name;})
-            mqttUsers;
+            (name: user: {
+              inherit (user) acl;
+              passwordFile = passwordFile name;
+            })
+            cfg.users;
           settings.allow_anonymous = false;
         }
       ];
@@ -75,23 +93,20 @@ in {
           };
         })
         mqttUsers
-        // {
-          zigbee2mqtt-env = {
+        // lib.mapAttrs'
+        (name: _: {
+          name = "${name}-env";
+          value = {
             owner = "root";
             group = "root";
           };
-        };
+        })
+        usersWithEnv;
       runtimeInputs = [pkgs.pwgen];
       script = ''
         mkdir -p "$out"
-        elotoja_password=$(pwgen -s 64 1)
-        zigbee2mqtt_password=$(pwgen -s 64 1)
-        hass_password=$(pwgen -s 64 1)
-
-        printf '%s\n' "$elotoja_password" > "$out/elotoja-password"
-        printf '%s\n' "$zigbee2mqtt_password" > "$out/zigbee2mqtt-password"
-        printf '%s\n' "$hass_password" > "$out/hass-password"
-        printf 'ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=%s\n' "$zigbee2mqtt_password" > "$out/zigbee2mqtt-env"
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList passwordScript mqttUsers)}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList envScript usersWithEnv)}
       '';
     };
 

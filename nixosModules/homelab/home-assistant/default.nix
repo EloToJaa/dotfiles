@@ -7,6 +7,7 @@
   inherit (config.settings) timezone;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.home-assistant;
+  mqtt = config.modules.homelab.mosquitto;
 in {
   options.modules.homelab.home-assistant = {
     enable = lib.mkEnableOption "Enable Home Assistant";
@@ -28,6 +29,11 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.mosquitto.users.hass = lib.mkIf mqtt.enable {
+      acl = [
+        "readwrite #"
+      ];
+    };
     services.home-assistant = {
       enable = true;
       package = pkgs.unstable.home-assistant.overrideAttrs (_: {
