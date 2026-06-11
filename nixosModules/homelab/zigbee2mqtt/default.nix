@@ -13,7 +13,7 @@ in {
     enable = lib.mkEnableOption "Enable Zigbee2MQTT";
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "zigbee";
+      default = "z2m";
     };
     port = lib.mkOption {
       type = lib.types.port;

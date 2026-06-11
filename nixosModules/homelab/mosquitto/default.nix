@@ -92,7 +92,7 @@ in {
             group = "root";
           };
         })
-        mqttUsers
+        cfg.users
         // lib.mapAttrs'
         (name: _: {
           name = "${name}-env";
@@ -105,7 +105,7 @@ in {
       runtimeInputs = [pkgs.pwgen];
       script = ''
         mkdir -p "$out"
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList passwordScript mqttUsers)}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList passwordScript cfg.users)}
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList envScript usersWithEnv)}
       '';
     };
