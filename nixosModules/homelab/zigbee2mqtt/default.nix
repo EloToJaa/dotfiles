@@ -80,11 +80,27 @@ in {
       };
     };
 
-    systemd.services.zigbee2mqtt = lib.mkIf mqtt.enable {
-      after = ["mosquitto.service"];
-      wants = ["mosquitto.service"];
+    systemd.services.zigbee2mqtt = {
+      after = lib.mkIf mqtt.enable ["mosquitto.service"];
+      wants = lib.mkIf mqtt.enable ["mosquitto.service"];
       serviceConfig.EnvironmentFile =
+        [
+          config.clan.core.vars.generators.zigbee2mqtt.files.frontend-auth-token-env.path
+        ]
+        ++ lib.optional mqtt.enable
         config.clan.core.vars.generators.mosquitto-passwords.files.zigbee2mqtt-env.path;
+    };
+
+    clan.core.vars.generators.zigbee2mqtt = {
+      files.frontend-auth-token-env = {
+        owner = "root";
+        group = "root";
+      };
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        mkdir -p "$out"
+        printf 'ZIGBEE2MQTT_CONFIG_FRONTEND_AUTH_TOKEN=%s\n' "$(pwgen -s 128 1)" > "$out/frontend-auth-token-env"
+      '';
     };
 
     services.nginx.virtualHosts.${domain} = {
