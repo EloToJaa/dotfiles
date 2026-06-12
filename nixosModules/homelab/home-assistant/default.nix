@@ -61,6 +61,10 @@ in {
         default_config = {};
         mobile_app = {};
       };
+      customComponents = [
+        pkgs.energa-my-meter
+      ];
+
       extraComponents = [
         # Components required to complete the onboarding
         "analytics"
