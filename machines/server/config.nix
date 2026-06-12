@@ -83,7 +83,7 @@
       };
       wireguard.enable = true;
       xandikos.enable = true;
-      zigbee2mqtt.enable = false;
+      zigbee2mqtt.enable = true;
     };
   };
 }

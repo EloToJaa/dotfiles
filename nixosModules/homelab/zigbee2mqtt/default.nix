@@ -25,7 +25,7 @@ in {
     };
     serialPort = lib.mkOption {
       type = lib.types.str;
-      default = "tcp://10.11.0.35:1234";
+      default = "tcp://10.11.0.35:6638";
     };
     permitJoin = lib.mkOption {
       type = lib.types.bool;
@@ -66,7 +66,10 @@ in {
         serial = {
           port = cfg.serialPort;
           adapter = "zstack";
+          disable_led = true;
+          baudrate = 115200;
         };
+        advanced.transmit_power = 20;
         frontend = {
           enabled = true;
           host = "127.0.0.1";
