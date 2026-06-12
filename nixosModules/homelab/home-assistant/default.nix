@@ -83,6 +83,7 @@ in {
         "netatmo"
         "bticino"
 
+        "bluetooth"
         "mqtt"
 
         "unifi"
