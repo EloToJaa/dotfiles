@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -13,6 +14,7 @@ in {
       type = lib.types.str;
       default = "cleanuparr";
     };
+    package = lib.mkPackageOption pkgs "cleanuparr" {};
     domainName = lib.mkOption {
       type = lib.types.str;
       default = "cleanuparr";
@@ -31,31 +33,47 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers.cleanuparr = {
-      image = "ghcr.io/cleanuparr/cleanuparr:latest";
-      autoStart = true;
-      # podman = {
-      #   user = name;
-      #   sdnotify = "container";
-      # };
-      serviceName = cfg.name;
-      extraOptions = [
-        "--network=host"
-      ];
+    systemd.services.${cfg.name} = {
+      description = "Cleanuparr";
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+
       environment = {
+        BIND_ADDRESS = "127.0.0.1";
+        DOTNET_RUNNING_IN_CONTAINER = "true";
+        PGID = toString cfg.id;
         PORT = toString cfg.port;
         PUID = toString cfg.id;
-        PGID = toString cfg.id;
         TZ = timezone;
         UMASK = homelab.defaultUMask;
       };
-      volumes = [
-        "${cfg.dataDir}:/config"
-      ];
-      # ports = ["127.0.0.1:${toString port}:${toString port}"];
+
+      serviceConfig = {
+        User = cfg.name;
+        Group = cfg.name;
+        ExecStart = lib.getExe cfg.package;
+        Restart = "on-failure";
+        RestartSec = 5;
+        UMask = homelab.defaultUMask;
+        BindPaths = ["${cfg.dataDir}:/config"];
+        WorkingDirectory = cfg.dataDir;
+
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ReadWritePaths = [
+          cfg.dataDir
+          "/config"
+        ];
+      };
     };
+
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 770 ${cfg.name} ${cfg.name} - -"
+      # Cleanuparr hard-codes /config when DOTNET_RUNNING_IN_CONTAINER=true.
+      "d /config 000 root root - -"
     ];
 
     clan.core.state.cleanuparr = {
@@ -69,7 +87,7 @@ in {
           ]
         }
 
-        systemctl stop cleanuparr.service
+        systemctl stop ${cfg.name}.service
       '';
 
       postBackupScript = ''
@@ -79,7 +97,7 @@ in {
           ]
         }
 
-        systemctl start cleanuparr.service
+        systemctl start ${cfg.name}.service
       '';
     };
 
@@ -97,6 +115,7 @@ in {
       group = cfg.name;
       description = cfg.name;
       home = cfg.dataDir;
+      isSystemUser = true;
     };
     users.groups.${cfg.name}.gid = cfg.id;
   };
