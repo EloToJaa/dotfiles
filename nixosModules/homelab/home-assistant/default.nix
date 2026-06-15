@@ -80,18 +80,15 @@ in {
 
         # Devices
         "roomba"
-        "xiaomi_miio"
         "home_connect"
         "samsungtv"
-        "legrand"
-        "netatmo"
-        "bticino"
+        "switchbot"
+        "shelly"
+        "unifi"
+        "unifi_discovery"
 
         "bluetooth"
         "mqtt"
-
-        "unifi"
-        "unifi_discovery"
 
         # Homelab services
         "jellyfin"
