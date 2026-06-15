@@ -80,6 +80,7 @@ in {
 
         # Devices
         "roomba"
+        "cookidoo"
         "home_connect"
         "samsungtv"
         "switchbot"
