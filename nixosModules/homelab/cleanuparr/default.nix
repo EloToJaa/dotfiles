@@ -57,7 +57,7 @@ in {
         RestartSec = 5;
         UMask = homelab.defaultUMask;
         BindPaths = ["${cfg.dataDir}:/config"];
-        WorkingDirectory = cfg.dataDir;
+        WorkingDirectory = "${cfg.package}/lib/cleanuparr";
 
         NoNewPrivileges = true;
         PrivateTmp = true;
