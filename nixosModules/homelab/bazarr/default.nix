@@ -52,7 +52,7 @@ in {
       };
     };
     systemd.tmpfiles.rules = [
-      "d ${homelab.dataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {

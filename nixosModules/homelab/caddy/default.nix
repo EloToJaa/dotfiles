@@ -62,8 +62,8 @@ in {
     };
     systemd.services.caddy.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
     systemd.tmpfiles.rules = [
-      "d ${homelab.dataDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
-      "d ${homelab.logDir}${cfg.name} 750 ${cfg.name} ${cfg.group} - -"
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+      "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
     networking.firewall.allowedTCPPorts = [
