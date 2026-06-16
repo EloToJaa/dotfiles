@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.grafana;
+  domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
   options.modules.homelab.grafana = {
     enable = lib.mkEnableOption "Enable grafana";
@@ -39,10 +40,10 @@ in {
         analytics.reporting_enabled = false;
         security.secret_key = "$__file{${cfg.dataDir}/secret_key}";
         server = {
-          domain = "${cfg.domainName}.${homelab.baseDomain}";
+          inherit domain;
           http_addr = "127.0.0.1";
           http_port = cfg.port;
-          root_url = "https://${cfg.domainName}.${homelab.baseDomain}/";
+          root_url = "https://${domain}/";
         };
       };
       provision.datasources.settings = {
@@ -74,7 +75,7 @@ in {
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+    services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
       locations."/" = {
