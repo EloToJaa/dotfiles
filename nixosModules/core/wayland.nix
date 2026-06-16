@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
+  # inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
   inherit (config.settings) username;
   niri = pkgs.niri-unstable;
   cfg = config.modules.core.wayland;
@@ -21,8 +21,8 @@ in {
     programs = {
       hyprland = lib.mkIf cfg.hyprland.enable {
         enable = true;
-        package = hyprland;
-        portalPackage = xdg-desktop-portal-hyprland;
+        # package = hyprland;
+        # portalPackage = xdg-desktop-portal-hyprland;
       };
       niri = lib.mkIf cfg.niri.enable {
         enable = true;

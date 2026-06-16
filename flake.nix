@@ -84,10 +84,10 @@
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
     # };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -126,10 +126,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    wezterm = {
-      url = "github:wezterm/wezterm/main?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # wezterm = {
+    #   url = "github:wezterm/wezterm/main?dir=nix";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

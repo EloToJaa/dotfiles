@@ -19,7 +19,7 @@ in {
     programs = {
       wezterm = {
         enable = true;
-        package = inputs.wezterm.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # package = inputs.wezterm.packages.${pkgs.stdenv.hostPlatform.system}.default;
         enableZshIntegration = true;
         enableBashIntegration = true;
       };
