@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.modules.homelab.prowlarr.flaresolverr;
+  ns = config.services.wireguard-netns.namespace;
 in {
   options.modules.homelab.prowlarr.flaresolverr = {
     enable = lib.mkEnableOption "Enable flaresolverr";
@@ -29,6 +30,14 @@ in {
         HOST = "127.0.0.1";
         PORT = toString cfg.port;
       };
+    };
+    systemd.services.flaresolverr = lib.mkIf config.services.wireguard-netns.enable {
+      bindsTo = ["netns@${ns}.service"];
+      requires = [
+        "network-online.target"
+        "${ns}.service"
+      ];
+      serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
     };
   };
 }

@@ -6,6 +6,11 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.prowlarr;
+  ns = config.services.wireguard-netns.namespace;
+  postgresHost =
+    if config.services.wireguard-netns.enable
+    then config.services.wireguard-netns.hostAddress
+    else "127.0.0.1";
 in {
   options.modules.homelab.prowlarr = {
     enable = lib.mkEnableOption "Enable prowlarr";
@@ -45,14 +50,52 @@ in {
       inherit (cfg) group dataDir;
     };
 
-    systemd = {
-      services.prowlarr.serviceConfig = {
-        UMask = lib.mkForce homelab.defaultUMask;
-      };
-      tmpfiles.rules = [
-        "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-      ];
-    };
+    systemd =
+      {
+        services.${cfg.name}.serviceConfig = {
+          UMask = lib.mkForce homelab.defaultUMask;
+        };
+        tmpfiles.rules = [
+          "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+        ];
+      }
+      // (lib.mkIf config.services.wireguard-netns.enable {
+        services.${cfg.name} = {
+          bindsTo = ["netns@${ns}.service"];
+          requires = [
+            "network-online.target"
+            "${ns}.service"
+          ];
+          serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
+        };
+        sockets."${cfg.name}-proxy" = {
+          enable = true;
+          description = "Socket for Proxy to ${cfg.name}";
+          listenStreams = [(toString cfg.port)];
+          wantedBy = ["sockets.target"];
+        };
+        services."${cfg.name}-proxy" = {
+          enable = true;
+          description = "Proxy to ${cfg.name} in Network Namespace";
+          requires = [
+            "${cfg.name}.service"
+            "${cfg.name}-proxy.socket"
+          ];
+          after = [
+            "${cfg.name}.service"
+            "${cfg.name}-proxy.socket"
+          ];
+          unitConfig = {
+            JoinsNamespaceOf = "${cfg.name}.service";
+          };
+          serviceConfig = {
+            User = cfg.name;
+            Group = cfg.group;
+            ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
+            PrivateNetwork = "yes";
+          };
+        };
+      });
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
@@ -62,6 +105,10 @@ in {
         proxyWebsockets = true;
       };
     };
+
+    services.postgresql.authentication = lib.mkIf config.services.wireguard-netns.enable ''
+      host ${cfg.name}-main,${cfg.name}-log ${cfg.name} ${config.services.wireguard-netns.namespaceVethAddress} md5
+    '';
 
     clan.core.postgresql = {
       databases = {
@@ -130,7 +177,7 @@ in {
           <PostgresUser>${cfg.name}</PostgresUser>
           <PostgresPassword>${config.sops.placeholder."${cfg.name}/pgpassword"}</PostgresPassword>
           <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
-          <PostgresHost>127.0.0.1</PostgresHost>
+          <PostgresHost>${postgresHost}</PostgresHost>
           <AnalyticsEnabled>False</AnalyticsEnabled>
           <Theme>auto</Theme>
         </Config>

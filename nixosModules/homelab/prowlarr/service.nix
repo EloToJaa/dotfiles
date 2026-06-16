@@ -44,7 +44,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     systemd = {
-      services.prowlarr = lib.mkForce {
+      services.prowlarr = {
         description = "Prowlarr";
         after = ["network.target"];
         wantedBy = ["multi-user.target"];
