@@ -35,10 +35,41 @@ in {
       inherit (cfg) dataDir;
       enable = true;
       package = pkgs.unstable.grafana;
-      settings.server = {
-        http_port = cfg.port;
+      settings = {
+        analytics.reporting_enabled = false;
+        security.secret_key = "$__file{${cfg.dataDir}/secret_key}";
+        server = {
+          domain = "${cfg.domainName}.${homelab.baseDomain}";
+          http_addr = "127.0.0.1";
+          http_port = cfg.port;
+          root_url = "https://${cfg.domainName}.${homelab.baseDomain}/";
+        };
+      };
+      provision.datasources.settings = {
+        apiVersion = 1;
+        datasources = [
+          {
+            name = "Prometheus";
+            type = "prometheus";
+            uid = "prometheus";
+            url = "http://127.0.0.1:${toString homelab.prometheus.port}";
+            isDefault = true;
+          }
+          {
+            name = "Loki";
+            type = "loki";
+            uid = "loki";
+            url = "http://127.0.0.1:${toString homelab.loki.port}";
+          }
+        ];
       };
     };
+    systemd.services.grafana.preStart = ''
+      if [ ! -s ${cfg.dataDir}/secret_key ]; then
+        ${pkgs.openssl}/bin/openssl rand -base64 48 > ${cfg.dataDir}/secret_key
+        chmod 600 ${cfg.dataDir}/secret_key
+      fi
+    '';
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];

@@ -35,7 +35,7 @@
       nginx.enable = true;
       cleanuparr.enable = true;
       glance.enable = false;
-      grafana.enable = false;
+      grafana.enable = true;
       groups.enable = true;
       hermes.enable = true;
       home-assistant.enable = true;
@@ -48,7 +48,7 @@
       jellystat.enable = true;
       karakeep.enable = true;
       kerberos.enable = true;
-      loki.enable = false;
+      loki.enable = true;
       mosquitto.enable = true;
       n8n.enable = false;
       nextcloud = {
@@ -64,7 +64,7 @@
         pgadmin.enable = true;
       };
       profilarr.enable = false;
-      prometheus.enable = false;
+      prometheus.enable = true;
       prowlarr = {
         enable = true;
         flaresolverr.enable = false;
