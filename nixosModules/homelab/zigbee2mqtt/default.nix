@@ -31,6 +31,14 @@ in {
       type = lib.types.bool;
       default = false;
     };
+    serialAdapter = lib.mkOption {
+      type = lib.types.enum [
+        "zstack"
+        "ember"
+      ];
+      default = "zstack";
+      description = "Zigbee2MQTT serial adapter type. Use zstack for SLZB-06/CC2652P and ember for SLZB-06M/EFR32.";
+    };
     baseTopic = lib.mkOption {
       type = lib.types.str;
       default = "zigbee2mqtt";
@@ -65,11 +73,14 @@ in {
         };
         serial = {
           port = cfg.serialPort;
-          adapter = "zstack";
+          adapter = cfg.serialAdapter;
           disable_led = true;
           baudrate = 115200;
         };
-        advanced.transmit_power = 20;
+        advanced = {
+          transmit_power = 20;
+          cache_state_send_on_startup = false;
+        };
         frontend = {
           enabled = true;
           host = "127.0.0.1";
@@ -81,8 +92,8 @@ in {
     };
 
     systemd.services.zigbee2mqtt = {
-      after = lib.mkIf mqtt.enable ["mosquitto.service"];
-      wants = lib.mkIf mqtt.enable ["mosquitto.service"];
+      after = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
+      wants = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
       serviceConfig.EnvironmentFile =
         [
           config.clan.core.vars.generators.zigbee2mqtt.files.frontend-auth-token-env.path
