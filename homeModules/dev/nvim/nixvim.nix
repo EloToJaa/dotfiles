@@ -13,6 +13,8 @@ in {
       enableMan = true;
       defaultEditor = true;
 
+      nixpkgs.useGlobalPackages = true;
+
       package = pkgs.unstable.neovim-unwrapped;
     };
   };
