@@ -8,55 +8,6 @@
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.hermes;
-  hermesPackage = let
-    hermesVenv = pkgs.callPackage "${inputs.hermes-agent}/nix/python.nix" {
-      inherit (inputs.hermes-agent.inputs) uv2nix pyproject-nix pyproject-build-systems;
-    };
-    bundledSkills = pkgs.lib.cleanSourceWith {
-      src = "${inputs.hermes-agent}/skills";
-      filter = path: _type: !(pkgs.lib.hasInfix "/index-cache/" path);
-    };
-    runtimeDeps = with pkgs; [
-      nodejs_20
-      ripgrep
-      git
-      openssh
-      ffmpeg
-      tirith
-    ];
-    runtimePath = pkgs.lib.makeBinPath runtimeDeps;
-  in
-    pkgs.stdenv.mkDerivation {
-      pname = "hermes-agent";
-      version = (builtins.fromTOML (builtins.readFile "${inputs.hermes-agent}/pyproject.toml")).project.version;
-
-      dontUnpack = true;
-      dontBuild = true;
-      nativeBuildInputs = [pkgs.makeWrapper];
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p $out/share/hermes-agent $out/bin
-        cp -r ${bundledSkills} $out/share/hermes-agent/skills
-
-        ${pkgs.lib.concatMapStringsSep "\n" (name: ''
-          makeWrapper ${hermesVenv}/bin/${name} $out/bin/${name} \
-            --suffix PATH : "${runtimePath}" \
-            --set HERMES_BUNDLED_SKILLS $out/share/hermes-agent/skills
-        '') ["hermes" "hermes-agent" "hermes-acp"]}
-
-        runHook postInstall
-      '';
-
-      meta = with pkgs.lib; {
-        description = "AI agent with advanced tool-calling capabilities";
-        homepage = "https://github.com/NousResearch/hermes-agent";
-        mainProgram = "hermes";
-        license = licenses.mit;
-        platforms = platforms.unix;
-      };
-    };
 in {
   options.modules.homelab.hermes = {
     enable = lib.mkEnableOption "Enable hermes";
@@ -79,11 +30,16 @@ in {
   };
   config = lib.mkIf cfg.enable {
     services.hermes-agent = {
+      # package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.messaging;
       enable = true;
-      package = hermesPackage;
       addToSystemPackages = true;
       stateDir = cfg.dataDir;
       environmentFiles = [config.sops.templates."${cfg.name}.env".path];
+
+      extraDependencyGroups = [
+        "messaging"
+        "firecrawl"
+      ];
 
       container = {
         enable = true;
@@ -92,7 +48,10 @@ in {
         image = "ubuntu:24.04";
       };
 
+      workingDirectory = "${cfg.dataDir}/workspace";
+
       settings = {
+        # terminal.cwd = "/data/workspace";
         model = {
           provider = "openai-codex";
           default = "gpt-5.5";
@@ -101,6 +60,10 @@ in {
       };
       environment = {
         DISCORD_ALLOWED_USERS = "308939544407834625";
+        # Hermes v0.16 emits a /skill slash-command payload over Discord's
+        # 8000-byte limit. Plain text commands still work; don't sync invalid
+        # native slash commands at startup.
+        # DISCORD_COMMAND_SYNC_POLICY = "off";
         API_SERVER_ENABLED = "true";
         API_SERVER_PORT = toString cfg.port;
         API_SERVER_HOST = "127.0.0.1";
@@ -116,7 +79,7 @@ in {
       };
     };
 
-    clan.core.state.open-webui = {
+    clan.core.state.hermes-agent = {
       folders = [
         cfg.dataDir
       ];

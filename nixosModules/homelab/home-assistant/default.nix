@@ -49,6 +49,8 @@ in {
           unit_system = "metric";
           temperature_unit = "C";
           time_zone = timezone;
+          language = "en-GB";
+          country = "PL";
           inherit external_url;
           internal_url = external_url;
         };
