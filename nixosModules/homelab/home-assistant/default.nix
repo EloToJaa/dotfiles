@@ -85,6 +85,7 @@ in {
         "cookidoo"
         "home_connect"
         "samsungtv"
+        "androidtv_remote"
         "switchbot"
         "shelly"
         "unifi"
