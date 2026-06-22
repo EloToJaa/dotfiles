@@ -47,7 +47,7 @@
       seerr.enable = true;
       jellystat.enable = true;
       karakeep.enable = true;
-      kerberos.enable = true;
+      kerberos.enable = false;
       loki.enable = true;
       mosquitto.enable = true;
       n8n.enable = false;
