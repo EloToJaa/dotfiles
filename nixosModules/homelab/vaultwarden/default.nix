@@ -7,6 +7,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.vaultwarden;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.vaultwarden = {
     enable = lib.mkEnableOption "Enable vaultwarden";
@@ -39,7 +40,7 @@ in {
       enable = true;
       package = pkgs.unstable.vaultwarden;
       dbBackend = "postgresql";
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = vars.files.env.path;
       config = {
         domain = "https://${domain}";
         rocketPort = cfg.port;
@@ -115,24 +116,48 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        admintoken = {
+          owner = cfg.name;
+          secret = true;
+        };
+        client_secret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        env = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-      "${cfg.name}/admintoken" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/client_secret" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        DATABASE_URL=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-        ADMIN_TOKEN=${config.sops.placeholder."${cfg.name}/admintoken"}
-        SSO_CLIENT_SECRET=${config.sops.placeholder."${cfg.name}/client_secret"}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+                mkdir -p "$out"
+                pgpassword=$(pwgen -s 64 1)
+                admintoken=$(pwgen -s 64 1)
+                client_secret=$(pwgen -s 64 1)
+                printf '%s
+        ' "$pgpassword" > "$out/pgpassword"
+                printf '%s
+        ' "$admintoken" > "$out/admintoken"
+                printf '%s
+        ' "$client_secret" > "$out/client_secret"
+                {
+                  printf 'DATABASE_URL=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
+        ' "$pgpassword"
+                  printf 'ADMIN_TOKEN=%s
+        ' "$admintoken"
+                  printf 'SSO_CLIENT_SECRET=%s
+        ' "$client_secret"
+                } > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

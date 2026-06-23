@@ -7,6 +7,7 @@
   inherit (config.modules) homelab;
   inherit (config.settings) username email;
   cfg = config.modules.homelab.lldap;
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.lldap = {
     enable = lib.mkEnableOption "Enable lldap";
@@ -31,7 +32,7 @@ in {
     services.lldap = {
       enable = true;
       package = pkgs.unstable.lldap;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = vars.files.env.path;
       settings = {
         http_host = "127.0.0.1";
         http_port = cfg.port;
@@ -43,8 +44,8 @@ in {
         ldap_user_email = email;
         force_ldap_user_pass_reset = "always";
 
-        jwt_secret_file = config.sops.secrets."${cfg.name}/jwtsecret".path;
-        ldap_user_pass_file = config.sops.secrets."${cfg.name}/password".path;
+        jwt_secret_file = vars.files.jwtsecret.path;
+        ldap_user_pass_file = vars.files.password.path;
       };
     };
     systemd.services.lldap.serviceConfig = {
@@ -84,22 +85,38 @@ in {
     };
     users.groups.${cfg.name} = {};
 
-    sops.secrets = {
-      "${cfg.name}/jwtsecret" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        jwtsecret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        password = {
+          owner = cfg.name;
+          secret = true;
+        };
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        env = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-      "${cfg.name}/password" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        LLDAP_DATABASE_URL=postgres://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+                mkdir -p "$out"
+                pwgen -s 64 1 > "$out/jwtsecret"
+                pwgen -s 64 1 > "$out/password"
+                pgpassword=$(pwgen -s 64 1)
+                printf '%s
+        ' "$pgpassword" > "$out/pgpassword"
+                printf 'LLDAP_DATABASE_URL=postgres://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
+        ' "$pgpassword" > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

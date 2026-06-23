@@ -8,6 +8,8 @@
   inherit (config.settings) username;
   cfg = config.modules.homelab.authelia;
   redisServer = config.services.redis.servers.authelia;
+  vars = config.clan.core.vars.generators.${cfg.name};
+  lldapVars = config.clan.core.vars.generators.${homelab.lldap.name};
 in {
   options.modules.homelab.authelia = {
     enable = lib.mkEnableOption "Enable authelia";
@@ -38,17 +40,17 @@ in {
       package = pkgs.unstable.authelia;
       user = cfg.name;
       secrets = {
-        jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
-        sessionSecretFile = config.sops.secrets."${cfg.name}/sessionsecret".path;
-        storageEncryptionKeyFile = config.sops.secrets."${cfg.name}/storageencryptionkey".path;
-        oidcHmacSecretFile = config.sops.secrets."${cfg.name}/oidchmacsecret".path;
-        oidcIssuerPrivateKeyFile = config.sops.secrets."${cfg.name}/oidcprivatekey".path;
+        jwtSecretFile = vars.files.jwtsecret.path;
+        sessionSecretFile = vars.files.sessionsecret.path;
+        storageEncryptionKeyFile = vars.files.storageencryptionkey.path;
+        oidcHmacSecretFile = vars.files.oidchmacsecret.path;
+        oidcIssuerPrivateKeyFile = vars.files.oidcprivatekey.path;
       };
       environmentVariables = {
-        AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
-        AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.sops.secrets."${cfg.name}/pgpassword".path;
-        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/password".path;
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/smtppassword".path;
+        AUTHELIA_DUO_API_SECRET_KEY_FILE = vars.files.duosecretkey.path;
+        AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = vars.files.pgpassword.path;
+        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = lldapVars.files.password.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = vars.files.smtppassword.path;
       };
       settings = {
         theme = "dark";
@@ -153,34 +155,78 @@ in {
       inherit (cfg) group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/jwtsecret" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      prompts = {
+        duosecretkey = {
+          description = "Authelia Duo API secret key";
+          type = "hidden";
+        };
+        smtppassword = {
+          description = "Authelia SMTP password";
+          type = "hidden";
+        };
       };
-      "${cfg.name}/sessionsecret" = {
-        owner = cfg.name;
+      files = {
+        jwtsecret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        sessionsecret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        storageencryptionkey = {
+          owner = cfg.name;
+          secret = true;
+        };
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        duosecretkey = {
+          owner = cfg.name;
+          secret = true;
+        };
+        oidchmacsecret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        oidcprivatekey = {
+          owner = cfg.name;
+          secret = true;
+        };
+        smtppassword = {
+          owner = cfg.name;
+          secret = true;
+        };
+        jellyfin = {
+          owner = cfg.name;
+          secret = true;
+        };
+        vaultwarden = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-      "${cfg.name}/storageencryptionkey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/duosecretkey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/password" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/oidchmacsecret" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/oidcprivatekey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/smtppassword" = {
-        owner = cfg.name;
-      };
+      runtimeInputs = with pkgs; [
+        openssl
+        pwgen
+      ];
+      script = ''
+        mkdir -p "$out"
+        pwgen -s 64 1 > "$out/jwtsecret"
+        pwgen -s 64 1 > "$out/sessionsecret"
+        pwgen -s 64 1 > "$out/storageencryptionkey"
+        pwgen -s 64 1 > "$out/pgpassword"
+        cat "$prompts/duosecretkey" > "$out/duosecretkey"
+        pwgen -s 64 1 > "$out/oidchmacsecret"
+        openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 > "$out/oidcprivatekey"
+        cat "$prompts/smtppassword" > "$out/smtppassword"
+        pwgen -s 64 1 > "$out/jellyfin"
+        pwgen -s 64 1 > "$out/vaultwarden"
+      '';
     };
   };
 }

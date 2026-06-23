@@ -7,6 +7,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.ntfy;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.ntfy = {
     enable = lib.mkEnableOption "Enable ntfy";
@@ -54,7 +55,7 @@ in {
       serviceConfig = {
         Group = cfg.group;
         UMask = lib.mkForce homelab.defaultUMask;
-        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+        EnvironmentFile = vars.files.env.path;
         StateDirectory = lib.mkForce null;
         DynamicUser = lib.mkForce false;
         ProtectSystem = lib.mkForce "off";
@@ -104,16 +105,20 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/authusers" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      prompts.authusers = {
+        description = "ntfy auth users value";
+        type = "hidden";
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        NTFY_AUTH_USERS=${config.sops.placeholder."${cfg.name}/authusers"}
+      files.env = {
+        owner = cfg.name;
+        secret = true;
+      };
+      script = ''
+                mkdir -p "$out"
+                printf 'NTFY_AUTH_USERS=%s
+        ' "$(cat "$prompts/authusers")" > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

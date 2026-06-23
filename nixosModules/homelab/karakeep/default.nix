@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.karakeep;
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.karakeep = {
     enable = lib.mkEnableOption "Enable karakeep";
@@ -34,7 +35,7 @@ in {
     services.karakeep = {
       enable = true;
       package = pkgs.unstable.karakeep;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = vars.files.env.path;
       browser.enable = true;
       meilisearch.enable = true;
       extraEnvironment = {
@@ -98,16 +99,20 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/openaiapikey" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      prompts.openaiapikey = {
+        description = "Karakeep OpenAI API key";
+        type = "hidden";
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        OPENAI_API_KEY=${config.sops.placeholder."${cfg.name}/openaiapikey"}
+      files.env = {
+        owner = cfg.name;
+        secret = true;
+      };
+      script = ''
+                mkdir -p "$out"
+                printf 'OPENAI_API_KEY=%s
+        ' "$(cat "$prompts/openaiapikey")" > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.jellystat;
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.jellystat = {
     enable = lib.mkEnableOption "Enable jellystat";
@@ -34,7 +35,7 @@ in {
       user = cfg.name;
       group = cfg.name;
 
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = vars.files.env.path;
 
       config = {
         jsListenIp = "127.0.0.1";
@@ -99,20 +100,39 @@ in {
       };
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        jwtsecret = {
+          owner = cfg.name;
+          secret = true;
+        };
+        env = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-      "${cfg.name}/jwtsecret" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        POSTGRES_PASSWORD=${config.sops.placeholder."${cfg.name}/pgpassword"}
-        JWT_SECRET=${config.sops.placeholder."${cfg.name}/jwtsecret"}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+                mkdir -p "$out"
+                pgpassword=$(pwgen -s 64 1)
+                jwtsecret=$(pwgen -s 64 1)
+                printf '%s
+        ' "$pgpassword" > "$out/pgpassword"
+                printf '%s
+        ' "$jwtsecret" > "$out/jwtsecret"
+                {
+                  printf 'POSTGRES_PASSWORD=%s
+        ' "$pgpassword"
+                  printf 'JWT_SECRET=%s
+        ' "$jwtsecret"
+                } > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

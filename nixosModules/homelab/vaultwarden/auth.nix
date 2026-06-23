@@ -38,7 +38,7 @@ in {
           {
             client_id = config.services.vaultwarden.config.ssoClientId;
             client_name = "Vaultwarden";
-            client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/vaultwarden".path}\" }}";
+            client_secret = "{{ secret \"${config.clan.core.vars.generators.authelia.files.vaultwarden.path}\" }}";
             public = false;
             authorization_policy = "two_factor";
             require_pkce = true;
@@ -66,11 +66,6 @@ in {
             token_endpoint_auth_method = "client_secret_basic";
           }
         ];
-      };
-    };
-    sops.secrets = {
-      "authelia/secrets/vaultwarden" = {
-        owner = "authelia";
       };
     };
   };

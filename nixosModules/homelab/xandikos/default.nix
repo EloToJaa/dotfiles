@@ -9,6 +9,7 @@
   cfg = config.modules.homelab.xandikos;
   sonarrEnabled = config.modules.homelab.sonarr.enable;
   radarrEnabled = config.modules.homelab.radarr.enable;
+  vars = config.clan.core.vars.generators.xandikos;
 in {
   options.modules.homelab.xandikos = {
     enable = lib.mkEnableOption "Enable xandikos";
@@ -58,7 +59,7 @@ in {
             basicAuth.user = username;
             basicAuthFile = config.clan.core.vars.generators.xandikos.files.httpd.path;
             extraConfig = ''
-              include ${config.sops.templates."xandikos-sonarr-feed.conf".path};
+              include ${vars.files.sonarr-feed.path};
               proxy_pass $sonarr_feed_url;
             '';
           };
@@ -68,7 +69,7 @@ in {
             basicAuth.user = username;
             basicAuthFile = config.clan.core.vars.generators.xandikos.files.httpd.path;
             extraConfig = ''
-              include ${config.sops.templates."xandikos-radarr-feed.conf".path};
+              include ${vars.files.radarr-feed.path};
               proxy_pass $radarr_feed_url;
             '';
           };
@@ -102,37 +103,47 @@ in {
 
     clan.core.vars.generators.xandikos = {
       share = true;
-      files = {
-        httpd = {
-          owner = "nginx";
-          secret = true;
-          deploy = true;
+      files =
+        {
+          httpd = {
+            owner = "nginx";
+            secret = true;
+            deploy = true;
+          };
+        }
+        // lib.optionalAttrs sonarrEnabled {
+          sonarr-feed = {
+            owner = "nginx";
+            group = "nginx";
+            secret = true;
+          };
+        }
+        // lib.optionalAttrs radarrEnabled {
+          radarr-feed = {
+            owner = "nginx";
+            group = "nginx";
+            secret = true;
+          };
         };
-      };
-      dependencies = [
-        "dav"
-      ];
+      dependencies =
+        ["dav"]
+        ++ lib.optionals sonarrEnabled ["sonarr"]
+        ++ lib.optionals radarrEnabled ["radarr"];
       runtimeInputs = with pkgs; [
         apacheHttpd
       ];
       script = ''
         cat $in/dav/passwd | htpasswd -icB $out/httpd "${username}"
-      '';
-    };
-
-    sops.templates."xandikos-sonarr-feed.conf" = lib.mkIf sonarrEnabled {
-      owner = "nginx";
-      group = "nginx";
-      content = ''
-        set $sonarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.sonarr.port}/feed/v3/calendar/Sonarr.ics?apikey=${config.sops.placeholder."sonarr/apikey"}";
-      '';
-    };
-
-    sops.templates."xandikos-radarr-feed.conf" = lib.mkIf radarrEnabled {
-      owner = "nginx";
-      group = "nginx";
-      content = ''
-        set $radarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.radarr.port}/feed/v3/calendar/Radarr.ics?apikey=${config.sops.placeholder."radarr/apikey"}";
+        ${lib.optionalString sonarrEnabled ''
+                    sonarr_api_key=$(cat "$in/sonarr/apikey")
+                    printf 'set $sonarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.sonarr.port}/feed/v3/calendar/Sonarr.ics?apikey=%s";
+          ' "$sonarr_api_key" > "$out/sonarr-feed"
+        ''}
+        ${lib.optionalString radarrEnabled ''
+                    radarr_api_key=$(cat "$in/radarr/apikey")
+                    printf 'set $radarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.radarr.port}/feed/v3/calendar/Radarr.ics?apikey=%s";
+          ' "$radarr_api_key" > "$out/radarr-feed"
+        ''}
       '';
     };
   };

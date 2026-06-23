@@ -87,7 +87,7 @@ in {
             dnsResolver = "1.1.1.1:53";
             dnsPropagationCheck = true;
             credentialFiles = {
-              CF_DNS_API_TOKEN_FILE = config.sops.secrets."cloudflare/apitoken".path;
+              CF_DNS_API_TOKEN_FILE = config.clan.core.vars.generators.cloudflare-dns.files.apitoken.path;
             };
           };
         })
@@ -95,11 +95,5 @@ in {
     };
 
     users.users.${cfg.name}.extraGroups = [cfg.group];
-
-    sops.secrets = {
-      "cloudflare/apitoken" = {
-        owner = "acme";
-      };
-    };
   };
 }

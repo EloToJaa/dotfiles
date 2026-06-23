@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.paperless;
+  vars = config.clan.core.vars.generators.${cfg.name};
   domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
   options.modules.homelab.paperless = {
@@ -42,7 +43,7 @@ in {
       enable = true;
       package = pkgs.unstable.paperless-ngx;
       user = cfg.name;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = vars.files.env.path;
       settings = {
         PAPERLESS_DBENGINE = "postgresql";
         PAPERLESS_DBHOST = "127.0.0.1";
@@ -130,16 +131,26 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        env = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        PAPERLESS_DBPASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        mkdir -p "$out"
+        pgpassword=$(pwgen -s 64 1)
+        printf '%s\n' "$pgpassword" > "$out/pgpassword"
+        printf 'PAPERLESS_DBPASS=%s\n' "$pgpassword" > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }

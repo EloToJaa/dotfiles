@@ -14,7 +14,7 @@ in {
       {
         client_id = "42VeHabCU9UyRptuVpwJlfd0wKqkpC0mddyY0qDihVhdyeox8wPxA4Tx9X0C30slzEAZOAPo";
         client_name = "Jellyfin";
-        client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/jellyfin".path}\" }}";
+        client_secret = "{{ secret \"${config.clan.core.vars.generators.authelia.files.jellyfin.path}\" }}";
         public = false;
         authorization_policy = "two_factor";
         require_pkce = true;
@@ -38,11 +38,5 @@ in {
         token_endpoint_auth_method = "client_secret_post";
       }
     ];
-
-    sops.secrets = {
-      "authelia/secrets/jellyfin" = {
-        owner = "authelia";
-      };
-    };
   };
 }

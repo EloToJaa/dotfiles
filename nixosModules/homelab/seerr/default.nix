@@ -6,6 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.seerr;
+  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.seerr = {
     enable = lib.mkEnableOption "Enable seerr";
@@ -54,7 +55,7 @@ in {
       serviceConfig = {
         User = cfg.name;
         Group = cfg.group;
-        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+        EnvironmentFile = vars.files.env.path;
         StateDirectory = lib.mkForce null;
         DynamicUser = lib.mkForce false;
         ProtectSystem = lib.mkForce "off";
@@ -121,16 +122,26 @@ in {
       inherit (cfg) group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        pgpassword = {
+          owner = cfg.name;
+          group = "postgres";
+          mode = "0440";
+          secret = true;
+        };
+        env = {
+          owner = cfg.name;
+          secret = true;
+        };
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        DB_PASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        mkdir -p "$out"
+        pgpassword=$(pwgen -s 64 1)
+        printf '%s\n' "$pgpassword" > "$out/pgpassword"
+        printf 'DB_PASS=%s\n' "$pgpassword" > "$out/env"
       '';
-      owner = cfg.name;
     };
   };
 }
