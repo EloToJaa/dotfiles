@@ -10,8 +10,6 @@
   onlyofficeCfg = config.modules.homelab.nextcloud.onlyoffice;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
   onlyofficeDomain = "${onlyofficeCfg.domainName}.${homelab.baseDomain}";
-  vars = config.clan.core.vars.generators.${cfg.name};
-  onlyofficeVars = config.clan.core.vars.generators.${onlyofficeCfg.name};
   occ = "${config.services.nextcloud.occ}/bin/nextcloud-occ";
 in {
   options.modules.homelab.nextcloud = {
@@ -58,12 +56,12 @@ in {
       enableImagemagick = true;
       config = {
         adminuser = username;
-        adminpassFile = vars.files.adminpassword.path;
+        adminpassFile = config.sops.secrets."${cfg.name}/adminpassword".path;
         dbtype = "pgsql";
         dbhost = "127.0.0.1:${toString homelab.postgres.port}";
         dbname = cfg.name;
         dbuser = cfg.name;
-        dbpassFile = vars.files.pgpassword.path;
+        dbpassFile = config.sops.secrets."${cfg.name}/pgpassword".path;
       };
       settings = {
         default_phone_region = "PL";
@@ -115,7 +113,7 @@ in {
         ${occ} config:app:set onlyoffice document_server_url --value="https://${onlyofficeDomain}"
 
         # Configure JWT secret for secure communication
-        ${occ} config:app:set onlyoffice jwt_secret --value="$(cat ${onlyofficeVars.files.jwtsecret.path})"
+        ${occ} config:app:set onlyoffice jwt_secret --value="$(cat ${config.sops.secrets."onlyoffice/jwtsecret".path})"
 
         # Set JWT header
         ${occ} config:app:set onlyoffice jwt_header --value="Authorization"
@@ -185,25 +183,13 @@ in {
       '';
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        adminpassword = {
-          owner = cfg.name;
-          secret = true;
-        };
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/adminpassword" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-        mkdir -p "$out"
-        pwgen -s 64 1 > "$out/adminpassword"
-        pwgen -s 64 1 > "$out/pgpassword"
-      '';
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
     };
   };
 }

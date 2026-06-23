@@ -6,7 +6,6 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.atuin;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.atuin = {
     enable = lib.mkEnableOption "Enable atuin";
@@ -34,7 +33,7 @@ in {
       };
     };
     systemd.services.${cfg.name}.serviceConfig = {
-      EnvironmentFile = vars.files.env.path;
+      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -63,28 +62,11 @@ in {
       users.${cfg.name} = {};
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        env = {
-          owner = cfg.name;
-          secret = true;
-        };
-      };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-                mkdir -p "$out"
-                pgpassword=$(pwgen -s 64 1)
-                printf '%s
-        ' "$pgpassword" > "$out/pgpassword"
-                printf 'ATUIN_DB_URI=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-        ' "$pgpassword" > "$out/env"
-      '';
+    sops.secrets = {
+      "${cfg.name}/pgpassword" = {};
     };
+    sops.templates."${cfg.name}.env".content = ''
+      ATUIN_DB_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
+    '';
   };
 }

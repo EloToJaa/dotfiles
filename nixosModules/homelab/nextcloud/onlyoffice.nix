@@ -7,7 +7,6 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.nextcloud.onlyoffice;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.nextcloud.onlyoffice = {
     enable = lib.mkEnableOption "Enable onlyoffice";
@@ -49,10 +48,10 @@ in {
       postgresHost = "127.0.0.1";
       postgresName = cfg.name;
       postgresUser = cfg.name;
-      postgresPasswordFile = vars.files.pgpassword.path;
+      postgresPasswordFile = config.sops.secrets."${cfg.name}/pgpassword".path;
 
-      jwtSecretFile = vars.files.jwtsecret.path;
-      securityNonceFile = vars.files.nonce.path;
+      jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
+      securityNonceFile = config.sops.templates."${cfg.name}-nonce.conf".path;
     };
 
     services.nginx.virtualHosts.${domain} = {
@@ -78,42 +77,26 @@ in {
       users.${cfg.name} = {};
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        jwtsecret = {
-          owner = cfg.name;
-          secret = true;
-        };
-        link_secret = {
-          owner = cfg.name;
-          group = "nginx";
-          mode = "0440";
-          secret = true;
-        };
-        nonce = {
-          owner = cfg.name;
-          group = "nginx";
-          mode = "0440";
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-                mkdir -p "$out"
-                pwgen -s 64 1 > "$out/pgpassword"
-                pwgen -s 64 1 > "$out/jwtsecret"
-                link_secret=$(pwgen -s 64 1)
-                printf '%s
-        ' "$link_secret" > "$out/link_secret"
-                printf 'set $secure_link_secret "%s";
-        ' "$link_secret" > "$out/nonce"
+      "${cfg.name}/jwtsecret" = {
+        owner = cfg.name;
+      };
+      "${cfg.name}/link_secret" = {
+        mode = "0440";
+        owner = cfg.name;
+        group = "nginx";
+      };
+    };
+    sops.templates."${cfg.name}-nonce.conf" = {
+      content = ''
+        set $secure_link_secret "${config.sops.placeholder."${cfg.name}/link_secret"}";
       '';
+      mode = "0440";
+      owner = cfg.name;
+      group = "nginx";
     };
   };
 }

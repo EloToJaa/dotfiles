@@ -6,7 +6,6 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.n8n;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.n8n = {
     enable = lib.mkEnableOption "Enable n8n";
@@ -42,7 +41,7 @@ in {
       };
     };
     systemd.services.n8n.serviceConfig = {
-      EnvironmentFile = vars.files.env.path;
+      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
       DynamicUser = lib.mkForce false;
       User = cfg.name;
       Group = cfg.group;
@@ -82,26 +81,16 @@ in {
       description = cfg.name;
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        env = {
-          owner = cfg.name;
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-        mkdir -p "$out"
-        pgpassword=$(pwgen -s 64 1)
-        printf '%s\n' "$pgpassword" > "$out/pgpassword"
-        printf 'DB_POSTGRESDB_PASSWORD=%s\n' "$pgpassword" > "$out/env"
+    };
+    sops.templates."${cfg.name}.env" = {
+      content = ''
+        DB_POSTGRESDB_PASSWORD=${config.sops.placeholder."${cfg.name}/pgpassword"}
       '';
+      owner = cfg.name;
     };
   };
 }

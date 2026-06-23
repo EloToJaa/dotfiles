@@ -11,7 +11,6 @@
     if config.services.wireguard-netns.enable
     then config.services.wireguard-netns.hostAddress
     else "127.0.0.1";
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.prowlarr = {
     enable = lib.mkEnableOption "Enable prowlarr";
@@ -51,21 +50,16 @@ in {
       inherit (cfg) group dataDir;
     };
 
-    systemd = lib.mkMerge [
+    systemd =
       {
-        services.${cfg.name} = {
-          preStart = lib.mkBefore ''
-            ${pkgs.coreutils}/bin/install -m 0600 ${vars.files.config.path} ${cfg.dataDir}/config.xml
-          '';
-          serviceConfig = {
-            UMask = lib.mkForce homelab.defaultUMask;
-          };
+        services.${cfg.name}.serviceConfig = {
+          UMask = lib.mkForce homelab.defaultUMask;
         };
         tmpfiles.rules = [
           "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
         ];
       }
-      (lib.mkIf config.services.wireguard-netns.enable {
+      // (lib.mkIf config.services.wireguard-netns.enable {
         services.${cfg.name} = {
           bindsTo = ["netns@${ns}.service"];
           requires = [
@@ -101,8 +95,7 @@ in {
             PrivateNetwork = "yes";
           };
         };
-      })
-    ];
+      });
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
@@ -155,31 +148,17 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        apikey = {
-          owner = cfg.name;
-          secret = true;
-        };
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        config = {
-          owner = cfg.name;
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/apikey" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-                mkdir -p "$out"
-                apikey=$(pwgen -s 64 1)
-                pgpassword=$(pwgen -s 64 1)
-                printf '%s\n' "$apikey" > "$out/apikey"
-                printf '%s\n' "$pgpassword" > "$out/pgpassword"
-                cat > "$out/config" <<EOF
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
+    };
+    sops.templates."config-${cfg.name}.xml" = {
+      restartUnits = ["prowlarr.service"];
+      content = ''
         <Config>
           <LogLevel>info</LogLevel>
           <EnableSsl>False</EnableSsl>
@@ -187,7 +166,7 @@ in {
           <SslPort>6969</SslPort>
           <UrlBase></UrlBase>
           <BindAddress>127.0.0.1</BindAddress>
-          <ApiKey>$apikey</ApiKey>
+          <ApiKey>${config.sops.placeholder."${cfg.name}/apikey"}</ApiKey>
           <AuthenticationMethod>Forms</AuthenticationMethod>
           <LaunchBrowser>True</LaunchBrowser>
           <Branch>master</Branch>
@@ -196,14 +175,15 @@ in {
           <SslCertPath></SslCertPath>
           <SslCertPassword></SslCertPassword>
           <PostgresUser>${cfg.name}</PostgresUser>
-          <PostgresPassword>$pgpassword</PostgresPassword>
+          <PostgresPassword>${config.sops.placeholder."${cfg.name}/pgpassword"}</PostgresPassword>
           <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
           <PostgresHost>${postgresHost}</PostgresHost>
           <AnalyticsEnabled>False</AnalyticsEnabled>
           <Theme>auto</Theme>
         </Config>
-        EOF
       '';
+      path = "${cfg.dataDir}/config.xml";
+      owner = cfg.name;
     };
   };
 }

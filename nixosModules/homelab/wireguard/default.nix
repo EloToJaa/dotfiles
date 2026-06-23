@@ -4,7 +4,6 @@
   ...
 }: let
   cfg = config.modules.homelab.wireguard;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.wireguard = {
     enable = lib.mkEnableOption "Enable wireguard";
@@ -27,38 +26,23 @@ in {
   config = lib.mkIf cfg.enable {
     services."wireguard-netns" = {
       enable = true;
-      configFile = vars.files.wg0-conf.path;
+      configFile = config.sops.templates."wg0.conf".path;
       inherit (cfg) privateIP dnsIP;
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      prompts = {
-        privatekey = {
-          description = "WireGuard private key";
-          type = "hidden";
-        };
-        publickey = {
-          description = "WireGuard peer public key";
-          type = "hidden";
-        };
-        endpoint = {
-          description = "WireGuard peer endpoint hostname or address";
-          type = "hidden";
-        };
-      };
-      files.wg0-conf.secret = true;
-      script = ''
-                mkdir -p "$out"
-                cat > "$out/wg0-conf" <<EOF
-        [Interface]
-        PrivateKey = $(cat "$prompts/privatekey")
-
-        [Peer]
-        PublicKey = $(cat "$prompts/publickey")
-        AllowedIPs = 0.0.0.0/0
-        Endpoint = $(cat "$prompts/endpoint"):51820
-        EOF
-      '';
+    sops.secrets = {
+      "${cfg.name}/privatekey" = {};
+      "${cfg.name}/publickey" = {};
+      "${cfg.name}/endpoint" = {};
     };
+    sops.templates."wg0.conf".content = ''
+      [Interface]
+      PrivateKey = ${config.sops.placeholder."${cfg.name}/privatekey"}
+
+      [Peer]
+      PublicKey = ${config.sops.placeholder."${cfg.name}/publickey"}
+      AllowedIPs = 0.0.0.0/0
+      Endpoint = ${config.sops.placeholder."${cfg.name}/endpoint"}:51820
+    '';
   };
 }

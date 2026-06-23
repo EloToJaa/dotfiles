@@ -33,6 +33,7 @@ in {
       package = pkgs.unstable.open-webui;
       host = "127.0.0.1";
       stateDir = cfg.dataDir;
+      # environmentFile = config.sops.templates."${cfg.name}.env".path;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -68,5 +69,17 @@ in {
         systemctl start open-webui.service
       '';
     };
+
+    # sops.secrets = {
+    #   "${cfg.name}/pgpassword" = {
+    #     owner = cfg.name;
+    #   };
+    # };
+    # sops.templates."${cfg.name}.env" = {
+    #   content = ''
+    #     POSTGRES_PASSWORD=${config.sops.placeholder."${cfg.name}/pgpassword"}
+    #   '';
+    #   owner = cfg.name;
+    # };
   };
 }

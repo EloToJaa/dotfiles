@@ -7,7 +7,6 @@
   inherit (config.settings) email;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres.pgadmin;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.postgres.pgadmin = {
     enable = lib.mkEnableOption "Enable pgadmin";
@@ -30,10 +29,10 @@ in {
       enable = true;
       package = pkgs.unstable.pgadmin4;
       initialEmail = email;
-      initialPasswordFile = vars.files.password.path;
+      initialPasswordFile = config.sops.secrets."pgadmin/password".path;
     };
     systemd.services.pgadmin.serviceConfig = {
-      EnvironmentFile = vars.files.env.path;
+      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -62,33 +61,19 @@ in {
       users.${cfg.name} = {};
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        password = {
-          owner = cfg.name;
-          secret = true;
-        };
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        env = {
-          owner = cfg.name;
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/password" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-                mkdir -p "$out"
-                pwgen -s 64 1 > "$out/password"
-                pgpassword=$(pwgen -s 64 1)
-                printf '%s
-        ' "$pgpassword" > "$out/pgpassword"
-                printf 'CONFIG_DATABASE_URI=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-        ' "$pgpassword" > "$out/env"
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
+      };
+    };
+    sops.templates."${cfg.name}.env" = {
+      content = ''
+        CONFIG_DATABASE_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
       '';
+      owner = cfg.name;
     };
   };
 }

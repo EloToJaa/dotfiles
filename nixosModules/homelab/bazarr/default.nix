@@ -6,7 +6,6 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.bazarr;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.bazarr = {
     enable = lib.mkEnableOption "Enable bazarr";
@@ -48,7 +47,7 @@ in {
         POSTGRES_DATABASE = cfg.name;
       };
       serviceConfig = {
-        EnvironmentFile = vars.files.env.path;
+        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
         UMask = lib.mkForce homelab.defaultUMask;
       };
     };
@@ -112,26 +111,16 @@ in {
       description = cfg.name;
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      files = {
-        pgpassword = {
-          owner = cfg.name;
-          group = "postgres";
-          mode = "0440";
-          secret = true;
-        };
-        env = {
-          owner = cfg.name;
-          secret = true;
-        };
+    sops.secrets = {
+      "${cfg.name}/pgpassword" = {
+        owner = cfg.name;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-        mkdir -p "$out"
-        pgpassword=$(pwgen -s 64 1)
-        printf '%s\n' "$pgpassword" > "$out/pgpassword"
-        printf 'POSTGRES_PASSWORD=%s\n' "$pgpassword" > "$out/env"
+    };
+    sops.templates."${cfg.name}.env" = {
+      content = ''
+        POSTGRES_PASSWORD=${config.sops.placeholder."${cfg.name}/pgpassword"}
       '';
+      owner = cfg.name;
     };
   };
 }

@@ -8,7 +8,6 @@
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.hermes;
-  vars = config.clan.core.vars.generators.${cfg.name};
 in {
   options.modules.homelab.hermes = {
     enable = lib.mkEnableOption "Enable hermes";
@@ -35,7 +34,7 @@ in {
       enable = true;
       addToSystemPackages = true;
       stateDir = cfg.dataDir;
-      environmentFiles = [vars.files.env.path];
+      environmentFiles = [config.sops.templates."${cfg.name}.env".path];
 
       extraDependencyGroups = [
         "messaging"
@@ -105,33 +104,27 @@ in {
       '';
     };
 
-    clan.core.vars.generators.${cfg.name} = {
-      prompts = {
-        firecrawl-api-key = {
-          description = "Hermes Firecrawl API key";
-          type = "hidden";
-        };
-        discord-bot-token = {
-          description = "Hermes Discord bot token";
-          type = "hidden";
-        };
-      };
-      files.env = {
+    sops.secrets = {
+      "${cfg.name}/opencode-api-key" = {
         group = cfg.name;
-        secret = true;
       };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-                mkdir -p "$out"
-                {
-                  printf 'FIRECRAWL_API_KEY=%s
-        ' "$(cat "$prompts/firecrawl-api-key")"
-                  printf 'DISCORD_BOT_TOKEN=%s
-        ' "$(cat "$prompts/discord-bot-token")"
-                  printf 'API_SERVER_KEY=%s
-        ' "$(pwgen -s 64 1)"
-                } > "$out/env"
+      "${cfg.name}/firecrawl-api-key" = {
+        group = cfg.name;
+      };
+      "${cfg.name}/discord-bot-token" = {
+        group = cfg.name;
+      };
+      "${cfg.name}/api-server-key" = {
+        group = cfg.name;
+      };
+    };
+    sops.templates."${cfg.name}.env" = {
+      content = ''
+        FIRECRAWL_API_KEY=${config.sops.placeholder."${cfg.name}/firecrawl-api-key"}
+        DISCORD_BOT_TOKEN=${config.sops.placeholder."${cfg.name}/discord-bot-token"}
+        API_SERVER_KEY=${config.sops.placeholder."${cfg.name}/api-server-key"}
       '';
+      group = cfg.name;
     };
   };
 }

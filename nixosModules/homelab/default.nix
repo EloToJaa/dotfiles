@@ -67,7 +67,6 @@ in {
     ./atuin
     ./authelia
     ./bazarr
-    ./caddy
     ./blocky
     ./cleanuparr
     ./glance
@@ -110,21 +109,4 @@ in {
     ./journald.nix
     ./redis.nix
   ];
-
-  config = lib.mkIf (cfg.enable && (cfg.caddy.enable || cfg.nginx.enable)) {
-    clan.core.vars.generators.cloudflare-dns = {
-      prompts.apitoken = {
-        description = "Cloudflare DNS API token";
-        type = "hidden";
-      };
-      files.apitoken = {
-        owner = "acme";
-        secret = true;
-      };
-      script = ''
-        mkdir -p "$out"
-        cat "$prompts/apitoken" > "$out/apitoken"
-      '';
-    };
-  };
 }
