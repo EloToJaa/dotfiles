@@ -37,11 +37,11 @@ in {
         };
         theme = {
           light = {
-            name = "catppuccin-latte";
+            name = lib.mkForce "catppuccin-latte";
             icon_theme = "Papirus-Light";
           };
           dark = {
-            name = "catppuccin-mocha";
+            name = lib.mkForce "catppuccin-mocha";
             icon_theme = "Papirus-Dark";
           };
         };
