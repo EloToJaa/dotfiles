@@ -18,17 +18,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.vicinae = {
       enable = true;
+      enableFirefoxIntegration = true;
 
       systemd = {
         enable = true;
         autoStart = true;
-        environment = {
-          USE_LAYER_SHELL = "1";
-          QT_SCALE_FACTOR =
-            if isLaptop
-            then "1.2"
-            else "1.1";
-        };
       };
 
       settings = {
@@ -86,5 +80,13 @@ in {
         wifi-commander
       ];
     };
+    systemd.user.services.vicinae.Service.Environment = [
+      "USE_LAYER_SHELL=1"
+      "QT_SCALE_FACTOR=${
+        if isLaptop
+        then "1.2"
+        else "1.1"
+      }"
+    ];
   };
 }
