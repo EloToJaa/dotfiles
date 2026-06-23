@@ -27,7 +27,7 @@ in {
 
     home.packages = with pkgs; [
       llm-agents.agent-browser
-      llm-agents.tuicr
+      llm-agents.hunk
     ];
 
     programs.opencode.skills = cfg;
