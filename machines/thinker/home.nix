@@ -29,13 +29,13 @@
       xdg-mimes.enable = true;
       zen.enable = true;
     };
+    ai = {
+      enable = true;
+      opencode.enable = true;
+      workmux.enable = true;
+    };
     dev = {
       enable = true;
-      ai = {
-        enable = true;
-        opencode.enable = true;
-        workmux.enable = true;
-      };
       aoc.enable = false;
       leetcode.enable = false;
       lazygit.enable = true;
