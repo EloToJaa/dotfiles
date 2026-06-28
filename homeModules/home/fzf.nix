@@ -24,7 +24,7 @@ in {
     };
     catppuccin.fzf = {
       enable = true;
-      inherit (catppuccin) flavor accent;
+      inherit (catppuccin) flavor;
     };
   };
 }
