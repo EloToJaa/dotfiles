@@ -16,7 +16,7 @@ in {
     inputs.vicinae.homeManagerModules.default
   ];
   config = lib.mkIf cfg.enable {
-    services.vicinae = {
+    programs.vicinae = {
       enable = true;
       enableFirefoxIntegration = true;
 
@@ -72,7 +72,7 @@ in {
       extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
         bluetooth
         nix
-        power-profile
+        # power-profile
         niri
         ssh
         it-tools
