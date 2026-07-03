@@ -41,11 +41,11 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Add authelia
 - [x] Setup zen browser config
 - [x] Add forms and onlyoffice to nextcloud
+- [x] Setup wireguard namespace tunnelling for prowlarr & bazarr
+- [x] Add grafana
+- [x] Setup logs in /var/log with loki and promtail
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
-- [ ] Setup wireguard namespace tunnelling for prowlarr & bazarr
-- [ ] Add grafana
 - [ ] Add iwmenu and bzmenu
-- [ ] Setup logs in /var/log with loki and promtail
 
 ### Clan migration
 
@@ -58,8 +58,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Migrate caddy to nginx
 - [x] Migrate state directories from `/opt/` to `/var/lib/`
 - [ ] Migrate sops to clan vars
-- [ ] Setup SMB & NFS servers for nas
-- [ ] Setup nas host with NixOS
 
 ### Low priority
 
@@ -68,4 +66,4 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [ ] Add microbin (pastebin alternative)
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
-- [ ] Add siyuan?
+- [ ] Add siyuan
