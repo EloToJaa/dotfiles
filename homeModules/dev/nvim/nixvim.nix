@@ -14,6 +14,7 @@ in {
       defaultEditor = true;
 
       nixpkgs.useGlobalPackages = true;
+      version.enableNixpkgsReleaseCheck = false;
 
       package = pkgs.unstable.neovim-unwrapped;
     };
