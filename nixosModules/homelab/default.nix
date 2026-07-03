@@ -101,6 +101,7 @@ in {
     ./seerr
     ./share
     ./sonarr
+    ./siyuan
     ./uptime
     ./vaultwarden
     ./wireguard

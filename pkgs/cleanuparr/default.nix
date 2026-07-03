@@ -13,17 +13,17 @@
   platform = builtins.getAttr stdenv.hostPlatform.system {
     x86_64-linux = {
       suffix = "linux-amd64";
-      hash = "sha256-x+Z14bDF2B04fXgBsR/ncsDFyq+FSr/Y8AhGJ2FQ7As=";
+      hash = "sha256-ygn3ugY2m9Y9/CL/bi+uGo4gU2kDZLU/RaALN48HEPo=";
     };
     aarch64-linux = {
       suffix = "linux-arm64";
-      hash = "sha256-IZofgt8BSpvVWwF0JaUPwNcNJpzGA4lxFqXznYcBzrk=";
+      hash = "sha256-1Diatf8ttfnb1WEZzClKnWPH//aBAsYVgdH6Blq3KMc=";
     };
   };
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "cleanuparr";
-    version = "2.9.13";
+    version = "2.9.14";
 
     src = fetchurl {
       url = "https://github.com/Cleanuparr/Cleanuparr/releases/download/v${finalAttrs.version}/Cleanuparr-${finalAttrs.version}-${platform.suffix}.zip";

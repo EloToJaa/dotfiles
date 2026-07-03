@@ -45,6 +45,7 @@
         auth.enable = true;
       };
       seerr.enable = true;
+      siyuan.enable = true;
       jellystat.enable = true;
       karakeep.enable = true;
       kerberos.enable = false;

@@ -6,16 +6,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "jellystat";
-  version = "1.1.10";
+  version = "1.1.11";
 
   src = fetchFromGitHub {
     owner = "CyferShepard";
     repo = "Jellystat";
     tag = finalAttrs.version;
-    hash = "sha256-eMDnQJLGEUlOZupUODXvNQ/TtQyQ7salqeZatR6ieRQ=";
+    hash = "sha256-HuLSXhj90fPfxv5qyCVCY67w07WwTBGp220iG9dGZyk=";
   };
 
-  npmDepsHash = "sha256-Y40ZnpHjEbYOjDrgwjLxCTyGWHGH6Zw8JADUiJc4hl4=";
+  npmDepsHash = "sha256-OduaP6MaTzr/QyqyU8i23kIEhIHr0cdP3AIPoHmebdg=";
 
   # If https://github.com/CyferShepard/Jellystat/pull/346 is ever merged, this can be removed
   # Required for the ability to configure a port in the systemd-service / nixos module
