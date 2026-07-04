@@ -64,13 +64,9 @@ in {
         ];
         providers = {
           clipboard.preferences.monitoring = true;
-          "@Gelei/bluetooth-0".preferences = {
-            connectionToggleable = true;
-          };
         };
       };
       extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
-        bluetooth
         nix
         # power-profile
         niri
