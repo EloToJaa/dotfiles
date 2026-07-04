@@ -16,10 +16,6 @@ in {
       type = lib.types.str;
       default = "music";
     };
-    openFirewall = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
     group = lib.mkOption {
       type = lib.types.str;
       default = homelab.groups.media;
@@ -38,7 +34,7 @@ in {
     };
     musicFolder = lib.mkOption {
       type = lib.types.path;
-      default = "/opt/share/music";
+      default = "/mnt/Media/Music";
     };
   };
 
@@ -46,7 +42,7 @@ in {
     services.navidrome = {
       enable = true;
       user = cfg.name;
-      inherit (cfg) group openFirewall;
+      inherit (cfg) group;
       settings = {
         Address = "127.0.0.1";
         Port = cfg.port;
@@ -60,7 +56,6 @@ in {
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       "d ${cfg.cacheDir} 750 ${cfg.name} ${cfg.group} - -"
-      "d ${cfg.musicFolder} 750 ${cfg.name} ${cfg.group} - -"
     ];
 
     clan.core.state.navidrome = {
