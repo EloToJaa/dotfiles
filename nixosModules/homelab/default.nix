@@ -82,6 +82,7 @@ in {
     ./loki
     ./minecraft
     ./mosquitto
+    ./musicseerr
     ./mysql
     ./n8n
     ./nextcloud
