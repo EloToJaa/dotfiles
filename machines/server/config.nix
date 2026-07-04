@@ -49,6 +49,7 @@
       jellystat.enable = true;
       karakeep.enable = true;
       kerberos.enable = false;
+      lidarr.enable = true;
       loki.enable = true;
       mosquitto.enable = true;
       n8n.enable = false;

@@ -78,6 +78,7 @@ in {
     ./jellystat
     ./karakeep
     ./kerberos.nix
+    ./lidarr
     ./loki
     ./minecraft
     ./mosquitto
