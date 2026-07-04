@@ -24,45 +24,6 @@
     };
     homelab = {
       enable = true;
-      atuin.enable = true;
-      bazarr.enable = true;
-      blocky.enable = true;
-      nginx.enable = true;
-      cleanuparr.enable = true;
-      glance.enable = false;
-      grafana.enable = false;
-      groups.enable = true;
-      home-assistant.enable = false;
-      immich.enable = true;
-      jellyfin.enable = true;
-      seerr.enable = true;
-      jellystat.enable = true;
-      karakeep.enable = true;
-      loki.enable = false;
-      nextcloud.enable = false;
-      navidrome.enable = true;
-      ntfy.enable = true;
-      paperless.enable = true;
-      postgres = {
-        enable = true;
-        pgadmin.enable = true;
-      };
-      prometheus.enable = false;
-      prowlarr = {
-        enable = true;
-        flaresolverr.enable = true;
-      };
-      qbittorrent = {
-        enable = true;
-        vuetorrent.enable = true;
-      };
-      radarr.enable = true;
-      xandikos.enable = false;
-      rustdesk.enable = false;
-      sonarr.enable = true;
-      uptime.enable = true;
-      vaultwarden.enable = true;
-      wireguard.enable = true;
     };
   };
 }
