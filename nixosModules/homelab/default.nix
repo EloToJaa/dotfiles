@@ -85,6 +85,7 @@ in {
     ./mysql
     ./n8n
     ./nextcloud
+    ./navidrome
     ./nginx
     ./ntfy
     ./opencloud

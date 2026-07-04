@@ -40,6 +40,7 @@
       karakeep.enable = true;
       loki.enable = false;
       nextcloud.enable = false;
+      navidrome.enable = true;
       ntfy.enable = true;
       paperless.enable = true;
       postgres = {

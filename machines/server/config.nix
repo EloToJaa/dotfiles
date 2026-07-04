@@ -53,10 +53,7 @@
       loki.enable = true;
       mosquitto.enable = true;
       n8n.enable = false;
-      nextcloud = {
-        enable = false;
-        # onlyoffice.enable = true;
-      };
+      navidrome.enable = true;
       opencloud.enable = false;
       ntfy.enable = false;
       open-webui.enable = false;
