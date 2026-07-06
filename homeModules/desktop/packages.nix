@@ -35,9 +35,9 @@ in {
         rustdesk-flutter
         prismlauncher
         mqtt-explorer
-        # nextcloud-client
         # opencloud-desktop
         # zoom-us
+        nocturne
 
         ## Wayland Utilities
         # grimblast
