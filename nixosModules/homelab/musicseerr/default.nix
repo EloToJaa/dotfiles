@@ -13,29 +13,22 @@ in {
 
   options.modules.homelab.musicseerr = {
     enable = lib.mkEnableOption "Enable MusicSeerr";
-
     name = lib.mkOption {
       type = lib.types.str;
       default = "musicseerr";
     };
-
-    package = lib.mkPackageOption pkgs "musicseerr" {};
-
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "music";
+      default = "ms";
     };
-
     group = lib.mkOption {
       type = lib.types.str;
       default = homelab.groups.media;
     };
-
     port = lib.mkOption {
       type = lib.types.port;
       default = 8688;
     };
-
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
@@ -44,10 +37,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.musicseerr = {
-      inherit (cfg) package port dataDir;
+      inherit (cfg) port dataDir group;
+      package = pkgs.musicseerr;
       enable = true;
       user = cfg.name;
-      group = cfg.group;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {

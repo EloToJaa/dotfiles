@@ -52,6 +52,7 @@
       lidarr.enable = true;
       loki.enable = true;
       mosquitto.enable = true;
+      musicseerr.enable = true;
       n8n.enable = false;
       navidrome.enable = true;
       opencloud.enable = false;

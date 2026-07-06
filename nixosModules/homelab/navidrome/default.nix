@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -43,6 +44,7 @@ in {
       enable = true;
       user = cfg.name;
       inherit (cfg) group;
+      package = pkgs.unstable.navidrome;
       settings = {
         Address = "127.0.0.1";
         Port = cfg.port;
