@@ -40,6 +40,9 @@ in {
         "messaging"
         "firecrawl"
       ];
+      extraPythonPackages = [
+        pkgs.python3Packages.ddgs
+      ];
 
       container = {
         enable = true;
@@ -56,7 +59,10 @@ in {
           provider = "openai-codex";
           default = "gpt-5.5";
         };
-        web.backend = "firecrawl";
+        web = {
+          search_backend = "ddgs";
+          extract_backend = "firecrawl";
+        };
       };
       environment = {
         DISCORD_ALLOWED_USERS = "308939544407834625";
