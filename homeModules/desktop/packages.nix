@@ -19,7 +19,6 @@ in {
         ## GUI Apps
         chromium
         gimp
-        # jellyfin-desktop
         delfin
         # libreoffice
         mpv # video player
@@ -28,16 +27,16 @@ in {
         qalculate-gtk # calculator
         qview # minimal image viewer
         zenity
-        remmina
+        # remmina # remote connection client (vnc, rdp, ssh)
         qbittorrent
         udiskie
-        vaults
+        # vaults
         rustdesk-flutter
-        prismlauncher
+        # prismlauncher # minecraft launcher
         mqtt-explorer
         # opencloud-desktop
         # zoom-us
-        nocturne
+        nocturne # navidrome client
 
         ## Wayland Utilities
         # grimblast
@@ -48,7 +47,7 @@ in {
         wayland
         woomer # zoomer for wayland
         libnotify
-        tesseract
+        tesseract # ocr
       ]);
   };
 }

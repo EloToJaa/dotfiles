@@ -44,6 +44,8 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 - [x] Setup wireguard namespace tunnelling for prowlarr & bazarr
 - [x] Add grafana
 - [x] Setup logs in /var/log with loki and promtail
+- [x] Setup music navidrome/jellyfin & lidarr
+- [x] Add siyuan
 - [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
 - [ ] Add iwmenu and bzmenu
 
@@ -62,8 +64,6 @@ My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.co
 ### Low priority
 
 - [ ] Add goaccess
-- [ ] Setup music navidrome/jellyfin & lidarr
 - [ ] Add microbin (pastebin alternative)
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
-- [ ] Add siyuan
