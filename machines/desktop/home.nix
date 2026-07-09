@@ -41,7 +41,7 @@
     dev = {
       enable = true;
       aoc.enable = false;
-      leetcode.enable = false;
+      leetcode.enable = true;
       lazygit.enable = true;
       rbw.enable = true;
       zed.enable = false;
