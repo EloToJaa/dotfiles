@@ -1,0 +1,3 @@
+lock_file = "flake.lock"
+attribute = "checks"
+flake_dir = "."

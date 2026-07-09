@@ -14,6 +14,7 @@
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
         # ./terranix
+        ./ci/buildbot-nix.nix
         ./lib
         ./settings.nix
         ./machines/flake-module.nix
