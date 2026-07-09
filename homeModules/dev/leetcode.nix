@@ -15,6 +15,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       leetcode-cli
+      gcc
     ];
 
     programs.zsh.zsh-abbr.abbreviations = shellAliases;
@@ -47,9 +48,9 @@ in {
 
             [storage]
             cache = "problems.db"
-            code = "${config.home.homeDirectory}/Projects/leetcode"
+            code = "${config.home.homeDirectory}/Projects/leetcode/main"
             root = "~/.leetcode"
-            scripts = "${config.home.homeDirectory}/Projects/leetcode/scripts"
+            scripts = "${config.home.homeDirectory}/Projects/leetcode/main/scripts"
           '';
         path = "${config.home.homeDirectory}/.leetcode/leetcode.toml";
       };
