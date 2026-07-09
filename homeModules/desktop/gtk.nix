@@ -35,7 +35,12 @@ in {
       sessionVariables = lib.mkIf cfg.applyTheme {
         GTK_THEME = theme;
       };
-      pointerCursor = cursorTheme;
+      pointerCursor = {
+        enable = true;
+        name = lib.mkForce cursorTheme.name;
+        package = lib.mkForce cursorTheme.package;
+        size = lib.mkForce cursorTheme.size;
+      };
     };
 
     gtk = lib.mkIf cfg.applyTheme {
