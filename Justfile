@@ -40,6 +40,9 @@ build-all:
         nix build ".#nixosConfigurations.$host.config.system.build.toplevel"; \
     done
 
+# Build an ISO for one host, e.g. `just iso laptop`
+iso host:
+    nix build --impure --out-link "result-{{ host }}-iso" --expr "let flake = builtins.getFlake (toString ./.); lib = flake.inputs.nixpkgs.lib; cfg = flake.nixosConfigurations.{{ host }}.extendModules { modules = [{ boot.initrd.systemd.emergencyAccess = lib.mkForce true; }]; }; in cfg.config.system.build.images.iso"
 # Deploy one or more hosts, e.g. `just deploy desktop laptop`
 deploy +hosts:
     @for host in {{ hosts }}; do \
@@ -49,4 +52,4 @@ deploy +hosts:
 
 # Deploy all hosts
 deploy-all:
-  clan machines update
+    clan machines update
