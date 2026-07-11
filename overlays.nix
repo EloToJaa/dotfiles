@@ -3,7 +3,15 @@
   # Individual overlay definitions
   localPackages = final: _prev: import ./pkgs/pkgs.nix {pkgs = final;};
 
-  modifiedPackages = _final: prev: {
+  modifiedPackages = _final: prev: let
+    python3Packages = prev.python3Packages.overrideScope (
+      _pyFinal: pyPrev: {
+        click-threading = pyPrev.click-threading.overridePythonAttrs (_old: {
+          enabledTestPaths = ["tests"];
+        });
+      }
+    );
+  in {
     jellyfin-web = prev.unstable.jellyfin-web.overrideAttrs {
       installPhase = ''
         runHook preInstall
@@ -29,6 +37,7 @@
     });
 
     # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
+    inherit (python3Packages) vdirsyncer;
     khal = prev.unstable.khal;
 
     # karakeep = prev.unstable.karakeep.overrideAttrs {
@@ -46,7 +55,19 @@
       config.allowUnfree = true;
       config.allowInsecurePredicate = _: true;
       overlays = [
-        (_final: prev: {
+        (_final: prev: let
+          python3Packages = prev.python3Packages.overrideScope (
+            _pyFinal: pyPrev: {
+              click-threading = pyPrev.click-threading.overridePythonAttrs (_old: {
+                enabledTestPaths = ["tests"];
+              });
+            }
+          );
+        in {
+          inherit (python3Packages) vdirsyncer;
+          khal = prev.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/kh/khal/package.nix" {
+            inherit python3Packages;
+          };
           karakeep = prev.karakeep.overrideAttrs {
             # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
             preInstall = '''';

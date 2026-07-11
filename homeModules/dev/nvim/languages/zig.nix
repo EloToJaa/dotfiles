@@ -20,7 +20,7 @@ in {
         package = null;
       };
       plugins = {
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           zig
         ];
       };

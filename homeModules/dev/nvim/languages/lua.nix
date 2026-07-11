@@ -26,7 +26,7 @@ in {
         conform-nvim.settings.formatters_by_ft = {
           lua = ["stylua"];
         };
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           lua
         ];
       };

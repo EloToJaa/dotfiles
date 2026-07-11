@@ -16,7 +16,7 @@ in {
       nixpkgs.useGlobalPackages = true;
       version.enableNixpkgsReleaseCheck = false;
 
-      package = pkgs.unstable.neovim-unwrapped;
+      package = pkgs.neovim-unwrapped;
     };
   };
 }

@@ -12,7 +12,7 @@ in {
   };
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
-      extraPlugins = with pkgs.unstable.vimPlugins; [substitute-nvim];
+      extraPlugins = with pkgs.vimPlugins; [substitute-nvim];
       extraConfigLua = "require('substitute').setup()";
       keymaps = [
         {

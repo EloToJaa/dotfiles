@@ -33,7 +33,7 @@ in {
           bash = ["shfmt"];
           zsh = ["shfmt"];
         };
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           bash
         ];
       };

@@ -47,7 +47,7 @@ in {
           html = ["prettierd"];
           css = ["prettierd"];
         };
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           javascript
           typescript
           astro

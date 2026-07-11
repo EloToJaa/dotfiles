@@ -26,7 +26,7 @@ in {
           cs = ["csharpier"];
           csproj = ["csharpier"];
         };
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           c_sharp
         ];
       };

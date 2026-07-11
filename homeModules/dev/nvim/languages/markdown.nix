@@ -24,7 +24,7 @@ in {
         conform-nvim.settings.formatters_by_ft = {
           markdown = ["prettierd"];
         };
-        treesitter.grammarPackages = with pkgs.unstable.vimPlugins.nvim-treesitter.builtGrammars; [
+        treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           markdown
         ];
       };
