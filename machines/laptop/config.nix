@@ -77,7 +77,7 @@
       docker.enable = true;
       index.enable = true;
       tailscale.enable = true;
-      nfs.enable = true;
+      nfs.enable = false;
       nh.enable = true;
       ssh.enable = true;
     };
