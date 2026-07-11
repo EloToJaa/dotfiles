@@ -21,7 +21,7 @@ in {
     inventory = {
       machines = {
         laptop = {
-          deploy.targetHost = "${username}@100.110.242.103";
+          deploy.targetHost = "${username}@100.84.67.19";
           tags = ["desktop"];
         };
         thinker = {
