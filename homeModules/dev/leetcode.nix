@@ -20,10 +20,11 @@ in {
 
     programs.zsh.zsh-abbr.abbreviations = shellAliases;
 
-    sops.secrets = {
-      "leetcode/csrftoken" = {};
-      "leetcode/session" = {};
-    };
+    # Disable to sign in using chrome
+    # sops.secrets = {
+    #   "leetcode/csrftoken" = {};
+    #   "leetcode/session" = {};
+    # };
 
     sops.templates = {
       "leetcode.toml" = {
@@ -41,10 +42,10 @@ in {
             inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
             inject_after = [""]
 
-            [cookies]
-            csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
-            session = "${config.sops.placeholder."leetcode/session"}"
-            site = "leetcode.com"
+            # [cookies]
+            # csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
+            # session = "${config.sops.placeholder."leetcode/session"}"
+            # site = "leetcode.com"
 
             [storage]
             cache = "problems.db"
