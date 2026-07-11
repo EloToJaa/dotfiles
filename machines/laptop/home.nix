@@ -9,40 +9,49 @@
     desktop = {
       enable = true;
       niri.enable = true;
+      rider.enable = true;
       satty.enable = true;
       wallpapers.enable = true;
-      audacious.enable = false;
+      audacious.enable = true;
       bluetooth.enable = true;
-      cava.enable = false;
+      cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
+      dms-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
-      gtk.enable = true;
+      gtk = {
+        enable = true;
+        applyTheme = true;
+      };
       nautilus.enable = true;
-      rider.enable = false;
       spotify.enable = true;
       vicinae.enable = true;
+      winboat.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;
     };
     ai = {
       enable = true;
+      ollama.enable = true;
       opencode.enable = true;
+      pi.enable = true;
       workmux.enable = true;
     };
     dev = {
       enable = true;
       aoc.enable = false;
-      leetcode.enable = false;
+      leetcode.enable = true;
       lazygit.enable = true;
       rbw.enable = true;
+      zed.enable = false;
       nvim = {
         enable = true;
         languages = {
           enable = true;
           bash.enable = true;
           c.enable = true;
+          csharp.enable = true;
           go.enable = true;
           javascript.enable = true;
           json.enable = true;
@@ -106,13 +115,13 @@
           zsh-abbr.enable = true;
         };
       };
+      accounts.enable = true;
       bat.enable = true;
       catppuccin.enable = true;
       fastfetch.enable = true;
       fzf.enable = true;
       git.enable = true;
       index.enable = true;
-      accounts.enable = true;
       shell.enable = true;
       tldr.enable = true;
     };
