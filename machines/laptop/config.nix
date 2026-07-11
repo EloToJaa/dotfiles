@@ -89,7 +89,6 @@
       camera.enable = true;
       gnome.enable = true;
       mullvad.enable = true;
-      network.enable = true;
       printing.enable = false;
       security.enable = true;
       steam.enable = false;
