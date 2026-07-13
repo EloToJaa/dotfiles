@@ -1,6 +1,6 @@
 {
   imports = [
-    ./../../homeModules
+    ./default.nix
   ];
   modules = {
     cybersec = {

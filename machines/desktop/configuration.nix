@@ -12,7 +12,7 @@ in {
     ../../homeModules/vars.nix
     {
       home-manager.users.${username}.imports = [
-        ./home.nix
+        ../../homeModules/desktop.nix
       ];
     }
   ];
