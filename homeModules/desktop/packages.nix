@@ -18,6 +18,7 @@ in {
       ++ (with pkgs.unstable; [
         ## Essentials
         chromium
+        # google-chrome
         mpv # video player
         pavucontrol # pulseaudio volume controle (GUI)
         qalculate-gtk # calculator
