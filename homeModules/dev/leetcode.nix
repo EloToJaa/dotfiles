@@ -25,6 +25,10 @@ in {
     #   "leetcode/csrftoken" = {};
     #   "leetcode/session" = {};
     # };
+    # [cookies]
+    # csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
+    # session = "${config.sops.placeholder."leetcode/session"}"
+    # site = "leetcode.com"
 
     sops.templates = {
       "leetcode.toml" = {
@@ -41,11 +45,6 @@ in {
             test = true
             inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
             inject_after = [""]
-
-            # [cookies]
-            # csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
-            # session = "${config.sops.placeholder."leetcode/session"}"
-            # site = "leetcode.com"
 
             [storage]
             cache = "problems.db"
