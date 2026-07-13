@@ -7,7 +7,7 @@
 
   powerManagement.cpuFreqGovernor = "performance";
   imports = [
-    ./../../nixosModules
+    ./default.nix
   ];
 
   modules = {
