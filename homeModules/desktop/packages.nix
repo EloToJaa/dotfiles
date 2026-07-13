@@ -16,38 +16,40 @@ in {
         xdg-utils
       ])
       ++ (with pkgs.unstable; [
-        ## GUI Apps
+        ## Essentials
         chromium
-        gimp
-        delfin
-        # libreoffice
         mpv # video player
-        obs-studio
         pavucontrol # pulseaudio volume controle (GUI)
         qalculate-gtk # calculator
         qview # minimal image viewer
-        zenity
-        # remmina # remote connection client (vnc, rdp, ssh)
-        qbittorrent
         udiskie
-        # vaults
+
+        ## Utilities
+        # libreoffice
+        gimp
+        obs-studio
+        qbittorrent
         rustdesk-flutter
-        # prismlauncher # minecraft launcher
         mqtt-explorer
         # opencloud-desktop
         # zoom-us
+
+        ## GNOME Apps
+        delfin # jellyfin client
         nocturne # navidrome client
+        # newsflash # rss reader
+        # zenity # gnome dialog
+        # vaults # store sensitive files
+        # remmina # remote connection client (vnc, rdp, ssh)
 
         ## Wayland Utilities
-        # grimblast
-        # hyprpicker
-        # grim
-        slurp
-        wf-recorder
-        wayland
-        woomer # zoomer for wayland
+        # wf-recorder # record screen
+        # woomer # zoomer for wayland
         libnotify
         tesseract # ocr
+
+        ## Gaming
+        # prismlauncher # minecraft launcher
       ]);
   };
 }

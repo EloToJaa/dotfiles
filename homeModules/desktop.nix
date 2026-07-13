@@ -9,7 +9,7 @@
     desktop = {
       enable = true;
       niri.enable = true;
-      rider.enable = true;
+      rider.enable = false;
       satty.enable = true;
       wallpapers.enable = true;
       audacious.enable = true;
