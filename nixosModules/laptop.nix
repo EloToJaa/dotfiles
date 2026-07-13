@@ -66,7 +66,7 @@
   };
 
   imports = [
-    ./../../nixosModules
+    ./default.nix
   ];
   modules = {
     base = {
