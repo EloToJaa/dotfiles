@@ -1,89 +1,65 @@
-{lib, ...}: {
-  networking = {
-    useDHCP = lib.mkForce true;
-  };
-
-  settings.isServer = true;
-
-  powerManagement.cpuFreqGovernor = "performance";
+{
   imports = [
-    ./../../nixosModules
+    ./../../nixosModules/server.nix
   ];
 
-  modules = {
-    base = {
+  modules.homelab = {
+    enable = true;
+    atuin.enable = true;
+    authelia.enable = true;
+    lldap.enable = true;
+    bazarr.enable = true;
+    blocky.enable = true;
+    nginx.enable = true;
+    cleanuparr.enable = true;
+    glance.enable = false;
+    grafana.enable = true;
+    hermes.enable = true;
+    home-assistant.enable = true;
+    immich.enable = true;
+    jellyfin = {
       enable = true;
-      bootloader.enable = true;
-      btop.enable = true;
-      catppuccin.enable = true;
-      docker.enable = true;
-      duo.enable = false;
-      index.enable = true;
-      initrd.enable = false;
-      tailscale.enable = true;
-      nfs.enable = true;
-      nh.enable = true;
-      ssh.enable = true;
+      auth.enable = true;
     };
-    homelab = {
+    seerr.enable = true;
+    siyuan.enable = false;
+    jellystat.enable = true;
+    karakeep.enable = true;
+    kerberos.enable = false;
+    lidarr.enable = true;
+    loki.enable = true;
+    mosquitto.enable = true;
+    musicseerr.enable = true;
+    n8n.enable = false;
+    navidrome.enable = true;
+    opencloud.enable = false;
+    ntfy.enable = false;
+    open-webui.enable = false;
+    paperless.enable = true;
+    postgres = {
       enable = true;
-      atuin.enable = true;
-      authelia.enable = true;
-      lldap.enable = true;
-      bazarr.enable = true;
-      blocky.enable = true;
-      nginx.enable = true;
-      cleanuparr.enable = true;
-      glance.enable = false;
-      grafana.enable = true;
-      groups.enable = true;
-      hermes.enable = true;
-      home-assistant.enable = true;
-      immich.enable = true;
-      jellyfin = {
-        enable = true;
-        auth.enable = true;
-      };
-      seerr.enable = true;
-      siyuan.enable = false;
-      jellystat.enable = true;
-      karakeep.enable = true;
-      kerberos.enable = false;
-      lidarr.enable = true;
-      loki.enable = true;
-      mosquitto.enable = true;
-      musicseerr.enable = true;
-      n8n.enable = false;
-      navidrome.enable = true;
-      opencloud.enable = false;
-      ntfy.enable = false;
-      open-webui.enable = false;
-      paperless.enable = true;
-      postgres = {
-        enable = true;
-        pgadmin.enable = true;
-      };
-      profilarr.enable = false;
-      prometheus.enable = true;
-      prowlarr = {
-        enable = true;
-        flaresolverr.enable = true;
-      };
-      qbittorrent = {
-        enable = true;
-        vuetorrent.enable = true;
-      };
-      radarr.enable = true;
-      rustdesk.enable = true;
-      sonarr.enable = true;
-      uptime.enable = true;
-      vaultwarden = {
-        enable = true;
-        auth.enable = false;
-      };
-      wireguard.enable = true;
-      xandikos.enable = true;
-      zigbee2mqtt.enable = true;
+      pgadmin.enable = true;
     };
+    profilarr.enable = false;
+    prometheus.enable = true;
+    prowlarr = {
+      enable = true;
+      flaresolverr.enable = true;
+    };
+    qbittorrent = {
+      enable = true;
+      vuetorrent.enable = true;
+    };
+    radarr.enable = true;
+    rustdesk.enable = true;
+    sonarr.enable = true;
+    uptime.enable = true;
+    vaultwarden = {
+      enable = true;
+      auth.enable = false;
+    };
+    wireguard.enable = true;
+    xandikos.enable = true;
+    zigbee2mqtt.enable = true;
   };
 }
