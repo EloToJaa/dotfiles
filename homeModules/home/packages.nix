@@ -10,9 +10,9 @@ in {
     home.packages = with pkgs.unstable; [
       ## CLI utility
       gtrash # rm replacement, put deleted files in system trash
-      killall
+      # killall
       man-pages # extra man pages
-      openssl
+      # openssl
       usbutils
     ];
   };
