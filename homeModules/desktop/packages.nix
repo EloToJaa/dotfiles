@@ -47,6 +47,7 @@ in {
         # wf-recorder # record screen
         # woomer # zoomer for wayland
         libnotify
+        ntfy-sh
         tesseract # ocr
 
         ## Gaming

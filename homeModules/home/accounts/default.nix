@@ -104,7 +104,7 @@ in {
       contact = {
         basePath = "${localDir}/contacts";
         accounts = {
-          xandikos = {
+          xandikosContacts = {
             khal = {
               enable = true;
               priority = 1;
@@ -154,7 +154,6 @@ in {
       khal = {
         enable = true;
         package = pkgs.unstable.khal;
-        settings.default.default_calendar = "xandikos";
         locale = {
           timeformat = "%H:%M";
           dateformat = "%d/%m/%Y";

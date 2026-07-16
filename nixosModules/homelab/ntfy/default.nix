@@ -43,14 +43,12 @@ in {
         attachment-cache-dir = "${cfg.dataDir}/attachments";
         base-url = "https://${domain}";
         behind-proxy = true;
+        auth-file = "${cfg.dataDir}/auth.db";
+        auth-default-access = "deny-all";
+        enable-login = true;
       };
     };
     systemd.services.ntfy-sh = {
-      environment = {
-        NTFY_AUTH_FILE = "${cfg.dataDir}/auth.db";
-        NTFY_ENABLE_LOGIN = "true";
-        NTFY_AUTH_DEFAULT_ACCESS = "deny-all";
-      };
       serviceConfig = {
         Group = cfg.group;
         UMask = lib.mkForce homelab.defaultUMask;
