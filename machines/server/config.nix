@@ -33,7 +33,7 @@
     n8n.enable = false;
     navidrome.enable = true;
     opencloud.enable = false;
-    ntfy.enable = false;
+    ntfy.enable = true;
     open-webui.enable = false;
     paperless.enable = true;
     postgres = {

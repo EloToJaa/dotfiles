@@ -45,7 +45,7 @@ in {
         behind-proxy = true;
       };
     };
-    systemd.services.paperless = {
+    systemd.services.ntfy-sh = {
       environment = {
         NTFY_AUTH_FILE = "${cfg.dataDir}/auth.db";
         NTFY_ENABLE_LOGIN = "true";
