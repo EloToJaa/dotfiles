@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }: let
   inherit (config.settings) stateVersion;
@@ -48,7 +47,6 @@ in {
         services.immich = {
           inherit (cfg) group host port;
           enable = true;
-          # package = inputs.immich-nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich;
           package = pkgs.unstable.immich;
           user = cfg.name;
           openFirewall = true;
