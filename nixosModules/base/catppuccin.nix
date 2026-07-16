@@ -1,6 +1,8 @@
 {
   config,
   lib,
+  inputs,
+  pkgs,
   ...
 }: let
   inherit (config.settings) catppuccin;
@@ -17,6 +19,9 @@ in {
 
       gtk.icon.enable = false;
       cache.enable = true;
+      sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (_: _: {
+        whiskers = pkgs.unstable.catppuccin-whiskers;
+      });
     };
   };
 }
