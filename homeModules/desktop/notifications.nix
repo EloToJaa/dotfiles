@@ -34,7 +34,7 @@ in {
             - topic: elotoja
               command: notify-send "Important" "$m"
         '';
-      path = "${config.home.homeDirectory}/.config/client.yml";
+      path = "${config.home.homeDirectory}/.config/ntfy/client.yml";
     };
   };
 }

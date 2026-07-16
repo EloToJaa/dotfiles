@@ -16,6 +16,7 @@ in {
       [discord]
       # ["opencloud"]
       ["valent" "--gapplication-service"]
+      ["ntfy" "subscribe" "--from-config"]
     ];
   };
 }
