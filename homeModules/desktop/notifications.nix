@@ -17,17 +17,24 @@ in {
       libnotify
     ];
 
-    xdg.configFile."ntfy/client.yml".text =
-      /*
-      yaml
-      */
-      ''
-        default-host: ${ntfy}
-        default-user: ${username}
+    sops.secrets = {
+      "ntfy-sh/password" = {};
+    };
+    sops.templates."ntfy-client.yml" = {
+      content =
+        /*
+        yaml
+        */
+        ''
+          default-host: ${ntfy}
+          default-user: ${username}
+          default-password: "${config.sops.placeholder."ntfy-sh/password"}"
 
-        subscribe:
-          - topic: elotoja
-            command: notify-send "Important" "$m"
-      '';
+          subscribe:
+            - topic: elotoja
+              command: notify-send "Important" "$m"
+        '';
+      path = "${config.home.homeDirectory}/.config/client.yml";
+    };
   };
 }
