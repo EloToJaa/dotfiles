@@ -48,9 +48,7 @@ in {
         services.immich = {
           inherit (cfg) group host port;
           enable = true;
-          # package = pkgs.unstable.immich;
-          package = inputs.immich-nixpkgs.packages.${pkgs.stdenv.hostPlatform.system}.immich;
-          # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}
+          package = inputs.immich-nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich;
           user = cfg.name;
           openFirewall = true;
           # accelerationDevices = ["/dev/dri/renderD128"];
@@ -83,8 +81,13 @@ in {
           };
         };
         services = {
+          postgresql = {
+            identMap = ''
+              postgres root postgres
+            '';
+            package = pkgs.unstable.postgresql;
+          };
           redis.package = pkgs.unstable.redis;
-          postgresql.package = pkgs.unstable.postgresql;
           resolved.enable = true;
         };
         systemd.services.${cfg.name}.serviceConfig = {

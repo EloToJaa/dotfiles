@@ -19,6 +19,7 @@ in {
 
       gtk.icon.enable = false;
       cache.enable = true;
+      # https://github.com/catppuccin/nix/issues/1012
       sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (_: _: {
         whiskers = pkgs.unstable.catppuccin-whiskers;
       });

@@ -158,6 +158,7 @@
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
 
-    immich-nixpkgs.url = "github:nixos/nixpkgs/9e92285f211dad236540fd617d7e30e0b99bc0e1";
+    # immich-nixpkgs.url = "github:nixos/nixpkgs/9e92285f211dad236540fd617d7e30e0b99bc0e1"; # v2.7.5
+    immich-nixpkgs.url = "github:nixos/nixpkgs/f205b5574fd0cb7da5b702a2da51507b7f4fdd1b"; #v3.0.1
   };
 }
