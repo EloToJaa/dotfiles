@@ -18,7 +18,7 @@ in {
       "Mod+Shift+Tab".focus-monitor-previous = {};
       "Mod+Shift+Slash".spawn = dmsIpc ["keybinds" "toggle" "niri"];
 
-      "Mod+p".spawn = ["sessionizer"];
+      "Mod+p".spawn = ["sessionizer" "--desktop"];
       "Mod+d".spawn = [discord];
       "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
       "Mod+b".spawn = ["zen-beta"];
