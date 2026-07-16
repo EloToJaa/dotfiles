@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   inherit (config.settings) stateVersion;
@@ -47,7 +48,9 @@ in {
         services.immich = {
           inherit (cfg) group host port;
           enable = true;
-          package = pkgs.unstable.immich;
+          # package = pkgs.unstable.immich;
+          package = inputs.immich-nixpkgs.packages.${pkgs.stdenv.hostPlatform.system}.immich;
+          # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}
           user = cfg.name;
           openFirewall = true;
           # accelerationDevices = ["/dev/dri/renderD128"];

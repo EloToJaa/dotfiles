@@ -157,5 +157,7 @@
     llm-agents.url = "github:numtide/llm-agents.nix/6e830faadd81a7b7a03740aaa22cf1fdeeb32f94";
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
+
+    immich-nixpkgs.url = "github:nixos/nixpkgs/9e92285f211dad236540fd617d7e30e0b99bc0e1";
   };
 }
