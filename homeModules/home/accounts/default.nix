@@ -8,6 +8,7 @@
   inherit (settings) timezone username;
   cfg = config.modules.home.accounts;
   localDir = "${config.home.homeDirectory}/.local/share";
+  calendarFeedsDir = "${localDir}/calendar-feeds";
   passwordCommand = [
     "${pkgs.coreutils}/bin/cat"
     "/run/secrets/vars/accounts/dav-passwd"
@@ -73,7 +74,7 @@ in {
             };
             local = {
               type = "filesystem";
-              path = "${localDir}/calendars/sonarr";
+              path = "${calendarFeedsDir}/sonarr";
             };
           };
           radarr = {
@@ -96,7 +97,7 @@ in {
             };
             local = {
               type = "filesystem";
-              path = "${localDir}/calendars/radarr";
+              path = "${calendarFeedsDir}/radarr";
             };
           };
         };
