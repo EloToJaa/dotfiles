@@ -95,7 +95,7 @@ in {
           ]
         }
 
-        systemctl stop grafana-server.service
+        systemctl stop grafana.service
       '';
 
       postBackupScript = ''
@@ -105,7 +105,7 @@ in {
           ]
         }
 
-        systemctl start grafana-server.service
+        systemctl start grafana.service
       '';
     };
   };
