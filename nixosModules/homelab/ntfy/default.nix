@@ -43,25 +43,11 @@ in {
         attachment-cache-dir = "${cfg.dataDir}/attachments";
         base-url = "https://${domain}";
         behind-proxy = true;
-        auth-file = "${cfg.dataDir}/auth.db";
+        auth-file = "${cfg.dataDir}/user.db";
         auth-default-access = "deny-all";
         enable-login = true;
       };
     };
-    systemd.services.ntfy-sh = {
-      serviceConfig = {
-        Group = cfg.group;
-        UMask = lib.mkForce homelab.defaultUMask;
-        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
-        StateDirectory = lib.mkForce null;
-        DynamicUser = lib.mkForce false;
-        ProtectSystem = lib.mkForce "off";
-      };
-    };
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-    ];
-
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
@@ -100,18 +86,6 @@ in {
       isSystemUser = true;
       description = cfg.name;
       group = lib.mkForce cfg.group;
-    };
-
-    sops.secrets = {
-      "${cfg.name}/authusers" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        NTFY_AUTH_USERS=${config.sops.placeholder."${cfg.name}/authusers"}
-      '';
-      owner = cfg.name;
     };
   };
 }
