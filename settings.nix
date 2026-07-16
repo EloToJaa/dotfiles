@@ -88,6 +88,10 @@ in {
       type = lib.types.str;
       default = "https://atuin.server.elotoja.com";
     };
+    ntfy = lib.mkOption {
+      type = lib.types.str;
+      default = "https://ntfy.server.elotoja.com";
+    };
     isLaptop = lib.mkOption {
       type = lib.types.bool;
       default = false;

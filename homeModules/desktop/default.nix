@@ -26,6 +26,7 @@
     ./gtk.nix # gtk theme
     ./hyprlock.nix # lock screen
     ./nautilus.nix # file manager
+    ./notifications.nix # notifications
     ./packages.nix # other packages
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
