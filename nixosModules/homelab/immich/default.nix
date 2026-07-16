@@ -48,7 +48,8 @@ in {
         services.immich = {
           inherit (cfg) group host port;
           enable = true;
-          package = inputs.immich-nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich;
+          # package = inputs.immich-nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich;
+          package = pkgs.unstable.immich;
           user = cfg.name;
           openFirewall = true;
           # accelerationDevices = ["/dev/dri/renderD128"];
