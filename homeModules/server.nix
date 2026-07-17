@@ -47,6 +47,7 @@
           enable = true;
           bash.enable = true;
           json.enable = true;
+          c.enable = true;
           lua.enable = true;
           markdown.enable = true;
           nix.enable = true;
