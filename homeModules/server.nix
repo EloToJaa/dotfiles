@@ -40,6 +40,7 @@
     };
     dev = {
       enable = true;
+      leetcode.enable = true;
       lazygit.enable = true;
       nvim = {
         enable = true;
