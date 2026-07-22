@@ -40,7 +40,7 @@
     };
     dev = {
       enable = true;
-      leetcode.enable = true;
+      leetcode.enable = false;
       lazygit.enable = true;
       nvim = {
         enable = true;
@@ -48,13 +48,13 @@
           enable = true;
           bash.enable = true;
           json.enable = true;
-          c.enable = true;
+          c.enable = false;
           lua.enable = true;
           markdown.enable = true;
           nix.enable = true;
           python.enable = true;
           toml.enable = true;
-          xml.enable = true;
+          xml.enable = false;
           yaml.enable = true;
         };
         plugins = {
