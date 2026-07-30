@@ -28,7 +28,7 @@
       bluetooth.enable = true;
       camera.enable = true;
       gnome.enable = true;
-      mullvad.enable = true;
+      mullvad.enable = false;
       printing.enable = false;
       security.enable = true;
       steam.enable = true;
