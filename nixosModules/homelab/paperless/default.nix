@@ -134,10 +134,14 @@ in {
       "${cfg.name}/pgpassword" = {
         owner = cfg.name;
       };
+      "${cfg.name}/secretkey" = {
+        owner = cfg.name;
+      };
     };
     sops.templates."${cfg.name}.env" = {
       content = ''
         PAPERLESS_DBPASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
+        PAPERLESS_SECRET_KEY=${config.sops.placeholder."${cfg.name}/secretkey"}
       '';
       owner = cfg.name;
     };
