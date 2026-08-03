@@ -11,7 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.niri = {
       enable = true;
-      package = pkgs.niri-unstable;
+      package = pkgs.unstable.niri;
 
       settings = {
         input = {

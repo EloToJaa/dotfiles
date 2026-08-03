@@ -7,7 +7,7 @@
 }: let
   # inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
   inherit (config.settings) username;
-  niri = pkgs.niri-unstable;
+  niri = pkgs.unstable.niri;
   cfg = config.modules.core.wayland;
 in {
   options.modules.core.wayland = {

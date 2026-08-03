@@ -17,8 +17,8 @@ in {
     ./workspaces.nix
   ];
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      xwayland-satellite-unstable
+    home.packages = with pkgs.unstable; [
+      xwayland-satellite
     ];
   };
 }
