@@ -16,7 +16,7 @@ in {
 
       # package = pkgs.unstable.dms-shell;
       quickshell.package = pkgs.unstable.quickshell;
-      dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      # dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
       enableAudioWavelength = true;
       enableCalendarEvents = true;
