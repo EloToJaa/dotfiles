@@ -54,7 +54,7 @@ in {
           "fd24f832-a2e6-4ce9-8b19-7aa888eb7f8e" # Quietify
         ];
 
-        keyboardShortcutsVersion = 19;
+        keyboardShortcutsVersion = 20;
         keyboardShortcuts = [
           {
             id = "zen-compact-mode-toggle";
