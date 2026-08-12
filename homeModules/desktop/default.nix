@@ -28,6 +28,7 @@
     ./nautilus.nix # file manager
     ./notifications.nix # notifications
     ./packages.nix # other packages
+    ./prismlauncher.nix
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client

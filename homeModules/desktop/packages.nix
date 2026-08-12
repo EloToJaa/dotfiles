@@ -49,7 +49,6 @@ in {
         tesseract # ocr
 
         ## Gaming
-        # prismlauncher # minecraft launcher
       ]);
   };
 }
