@@ -51,6 +51,10 @@ in {
           open-on-workspace = "music";
         }
         {
+          match._props.app-id._raw = ''r#"^com.jeffser.Nocturne$"#'';
+          open-on-workspace = "music";
+        }
+        {
           match._props.app-id._raw = ''r#"^com.obsproject.Studio$"#'';
           open-on-workspace = "misc";
         }

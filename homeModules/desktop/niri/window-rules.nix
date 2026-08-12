@@ -77,6 +77,7 @@ in {
           {_props.app-id._raw = ''r#"^mpv$"#'';}
           {_props.app-id._raw = ''r#"^cafe.avery.Delfin$"#'';}
           {_props.app-id._raw = ''r#"^spotify$"#'';}
+          {_props.app-id._raw = ''r#"^com.jeffser.Nocturne$"#'';}
           {_props.app-id._raw = ''r#"^vesktop$"#'';}
         ];
         open-maximized = true;
