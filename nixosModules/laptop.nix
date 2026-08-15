@@ -70,7 +70,6 @@
   ];
   modules = {
     base = {
-      initrd.enable = true;
       enable = true;
       btop.enable = true;
       catppuccin.enable = true;

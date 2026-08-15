@@ -13,7 +13,6 @@
       enable = true;
       bootloader.enable = true;
       btop.enable = true;
-      initrd.enable = true;
       catppuccin.enable = true;
       docker.enable = true;
       index.enable = true;
