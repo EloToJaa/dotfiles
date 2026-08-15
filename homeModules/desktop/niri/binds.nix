@@ -22,6 +22,7 @@ in {
       "Mod+d".spawn = [discord];
       "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
       "Mod+b".spawn = ["zen-beta"];
+      "Mod+Shift+b".spawn = ["bar-visibility" "cycle"];
       "Mod+e".spawn = ["nautilus"];
       "Mod+Space".toggle-window-floating = {};
       "Mod+Shift+s".spawn = ["spotify"];
