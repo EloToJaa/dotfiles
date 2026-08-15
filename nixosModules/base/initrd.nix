@@ -17,10 +17,8 @@ in {
     boot.initrd = {
       systemd = {
         enable = true;
+        users.root.shell = "/bin/systemd-tty-ask-password-agent";
       };
-
-      # uncomment this if you want to be asked for the decryption password on login
-      #users.root.shell = "/bin/systemd-tty-ask-password-agent";
 
       network = {
         enable = true;

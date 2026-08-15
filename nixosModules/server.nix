@@ -18,7 +18,7 @@
       catppuccin.enable = true;
       docker.enable = true;
       index.enable = true;
-      initrd.enable = false;
+      initrd.enable = true;
       tailscale.enable = true;
       nfs.enable = true;
       nh.enable = true;
