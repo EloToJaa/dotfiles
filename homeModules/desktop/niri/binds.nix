@@ -19,6 +19,7 @@ in {
       "Mod+Shift+Slash".spawn = dmsIpc ["keybinds" "toggle" "niri"];
 
       "Mod+p".spawn = ["sessionizer" "--desktop"];
+      "Mod+Ctrl+p".spawn = ["machine-ssh" "--desktop"];
       "Mod+d".spawn = [discord];
       "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
       "Mod+b".spawn = ["zen-beta"];
