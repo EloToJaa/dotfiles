@@ -11,6 +11,7 @@
     "energa-my-meter"
     "jellystat"
     "musicseerr"
+    "dreame-vacuum"
   ];
   packageArgs = lib.escapeShellArgs packageNames;
 

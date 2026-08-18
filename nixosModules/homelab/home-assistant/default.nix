@@ -65,6 +65,7 @@ in {
       };
       customComponents = [
         pkgs.energa-my-meter
+        pkgs.dreame-vacuum
       ];
 
       extraComponents = [
