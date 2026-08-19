@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "pi-vim";
-  version = "unstable-2026-05-29";
+  version = "unstable-2026-08-19";
 
   src = fetchFromGitHub {
     owner = "lajarre";
     repo = "pi-vim";
-    rev = "eaf4933074c39e4b5a76d153d218a6b11c5bbe0a";
-    hash = "sha256-90nDxqbQYYu/bhyYyVWdoxIzE5lyjw1o26g4nXOp4DI=";
+    rev = "2671cf114428bd2f04430cd0dfe86ea4f739586d";
+    hash = "sha256-VorcGMt3H4hGnbGTGUgTmJuXRK2ud+3ozT4glGX29Do=";
   };
 
   buildPhase = ''
