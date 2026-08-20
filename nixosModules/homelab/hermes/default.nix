@@ -8,6 +8,19 @@
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.hermes;
+  homeAssistant = config.modules.homelab.home-assistant;
+  secretEnv =
+    {
+      FIRECRAWL_API_KEY = config.sops.placeholder."${cfg.name}/firecrawl-api-key";
+      DISCORD_BOT_TOKEN = config.sops.placeholder."${cfg.name}/discord-bot-token";
+      API_SERVER_KEY = config.sops.placeholder."${cfg.name}/api-server-key";
+    }
+    // lib.optionalAttrs homeAssistant.enable {
+      HASS_TOKEN = config.sops.placeholder."${cfg.name}/hass-token";
+    };
+  secretEnvContent = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (name: value: "${name}=${value}") secretEnv
+  );
 in {
   options.modules.homelab.hermes = {
     enable = lib.mkEnableOption "Enable hermes";
@@ -38,6 +51,7 @@ in {
 
       extraDependencyGroups = [
         "messaging"
+        "homeassistant"
         "firecrawl"
       ];
       extraPythonPackages = [
@@ -53,27 +67,46 @@ in {
 
       workingDirectory = "${cfg.dataDir}/workspace";
 
-      settings = {
-        # terminal.cwd = "/data/workspace";
-        model = {
-          provider = "openai-codex";
-          default = "gpt-5.5";
+      settings =
+        {
+          # terminal.cwd = "/data/workspace";
+          model = {
+            provider = "openai-codex";
+            default = "gpt-5.5";
+          };
+          web = {
+            search_backend = "ddgs";
+            extract_backend = "firecrawl";
+          };
+        }
+        // lib.optionalAttrs homeAssistant.enable {
+          platforms.homeassistant = {
+            enabled = true;
+            extra = {
+              watch_domains = [
+                "climate"
+                "binary_sensor"
+                "alarm_control_panel"
+                "light"
+              ];
+              cooldown_seconds = 30;
+            };
+          };
         };
-        web = {
-          search_backend = "ddgs";
-          extract_backend = "firecrawl";
+      environment =
+        {
+          DISCORD_ALLOWED_USERS = "308939544407834625";
+          # Hermes v0.16 emits a /skill slash-command payload over Discord's
+          # 8000-byte limit. Plain text commands still work; don't sync invalid
+          # native slash commands at startup.
+          # DISCORD_COMMAND_SYNC_POLICY = "off";
+          API_SERVER_ENABLED = "true";
+          API_SERVER_PORT = toString cfg.port;
+          API_SERVER_HOST = "127.0.0.1";
+        }
+        // lib.optionalAttrs homeAssistant.enable {
+          HASS_URL = "http://127.0.0.1:${toString homeAssistant.port}";
         };
-      };
-      environment = {
-        DISCORD_ALLOWED_USERS = "308939544407834625";
-        # Hermes v0.16 emits a /skill slash-command payload over Discord's
-        # 8000-byte limit. Plain text commands still work; don't sync invalid
-        # native slash commands at startup.
-        # DISCORD_COMMAND_SYNC_POLICY = "off";
-        API_SERVER_ENABLED = "true";
-        API_SERVER_PORT = toString cfg.port;
-        API_SERVER_HOST = "127.0.0.1";
-      };
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -110,26 +143,28 @@ in {
       '';
     };
 
-    sops.secrets = {
-      "${cfg.name}/opencode-api-key" = {
-        group = cfg.name;
+    sops.secrets =
+      {
+        "${cfg.name}/opencode-api-key" = {
+          group = cfg.name;
+        };
+        "${cfg.name}/firecrawl-api-key" = {
+          group = cfg.name;
+        };
+        "${cfg.name}/discord-bot-token" = {
+          group = cfg.name;
+        };
+        "${cfg.name}/api-server-key" = {
+          group = cfg.name;
+        };
+      }
+      // lib.optionalAttrs homeAssistant.enable {
+        "${cfg.name}/hass-token" = {
+          group = cfg.name;
+        };
       };
-      "${cfg.name}/firecrawl-api-key" = {
-        group = cfg.name;
-      };
-      "${cfg.name}/discord-bot-token" = {
-        group = cfg.name;
-      };
-      "${cfg.name}/api-server-key" = {
-        group = cfg.name;
-      };
-    };
     sops.templates."${cfg.name}.env" = {
-      content = ''
-        FIRECRAWL_API_KEY=${config.sops.placeholder."${cfg.name}/firecrawl-api-key"}
-        DISCORD_BOT_TOKEN=${config.sops.placeholder."${cfg.name}/discord-bot-token"}
-        API_SERVER_KEY=${config.sops.placeholder."${cfg.name}/api-server-key"}
-      '';
+      content = secretEnvContent + "\n";
       group = cfg.name;
     };
   };
