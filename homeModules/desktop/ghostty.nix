@@ -77,6 +77,7 @@ in {
 
         auto-update = "off";
         term = "ghostty";
+        mouse-reporting = true;
         clipboard-paste-protection = false;
 
         shell-integration-features = [
