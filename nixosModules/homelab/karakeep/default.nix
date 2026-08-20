@@ -33,7 +33,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.karakeep = {
       enable = true;
-      package = pkgs.karakeep;
+      package = pkgs.unstable.karakeep;
       environmentFile = config.sops.templates."${cfg.name}.env".path;
       browser.enable = true;
       meilisearch.enable = true;
