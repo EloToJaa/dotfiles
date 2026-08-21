@@ -11,6 +11,7 @@
     };
   };
   imports = [
+    ./crash.nix
     ./ollama.nix
     ./codex.nix
     ./opencode.nix

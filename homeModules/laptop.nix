@@ -39,6 +39,7 @@
       opencode.enable = true;
       pi.enable = true;
       workmux.enable = true;
+      crash.enable = true;
     };
     dev = {
       enable = true;
