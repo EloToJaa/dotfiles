@@ -6,6 +6,16 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.karakeep;
+  fontsConf = pkgs.makeFontsConf {
+    fontDirectories = with pkgs; [
+      dejavu_fonts
+      liberation_ttf
+      noto-fonts
+    ];
+  };
+  karakeepPackage = pkgs.unstable.karakeep.override {
+    nodejs = pkgs.unstable.nodejs_22;
+  };
 in {
   options.modules.homelab.karakeep = {
     enable = lib.mkEnableOption "Enable karakeep";
@@ -33,7 +43,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.karakeep = {
       enable = true;
-      package = pkgs.unstable.karakeep;
+      package = karakeepPackage;
       environmentFile = config.sops.templates."${cfg.name}.env".path;
       browser.enable = true;
       meilisearch.enable = true;
@@ -44,11 +54,20 @@ in {
         PORT = toString cfg.port;
       };
     };
-    systemd.services.karakeep.serviceConfig = {
-      User = lib.mkForce cfg.name;
-      Group = lib.mkForce cfg.group;
-      UMask = lib.mkForce homelab.defaultUMask;
-    };
+    systemd.services =
+      {
+        karakeep-browser.environment.FONTCONFIG_FILE = fontsConf;
+      }
+      // lib.genAttrs [
+        "karakeep-init"
+        "karakeep-web"
+        "karakeep-workers"
+      ] (_: {
+        serviceConfig = {
+          Group = lib.mkForce cfg.group;
+          UMask = lib.mkForce homelab.defaultUMask;
+        };
+      });
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
