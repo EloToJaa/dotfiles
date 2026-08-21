@@ -35,6 +35,7 @@
     ai = {
       enable = true;
       ollama.enable = true;
+      codex.enable = true;
       opencode.enable = true;
       pi.enable = true;
       workmux.enable = true;

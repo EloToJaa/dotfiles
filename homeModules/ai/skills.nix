@@ -30,6 +30,7 @@ in {
       llm-agents.hunk
     ];
 
+    programs.codex.skills = cfg;
     programs.opencode.skills = cfg;
     home.file = piSkillFiles;
   };

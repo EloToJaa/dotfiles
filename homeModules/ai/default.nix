@@ -12,6 +12,7 @@
   };
   imports = [
     ./ollama.nix
+    ./codex.nix
     ./opencode.nix
     ./pi.nix
     ./skills.nix
