@@ -27,7 +27,7 @@ in {
         };
       };
       settings = {
-        model = "openai/gpt-5.5";
+        model = "openai/gpt-5.6";
         autoupdate = false;
         autoshare = false;
         plugin = [];

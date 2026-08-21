@@ -26,7 +26,7 @@ Detailed steps:
 4. Parse every JSONL line safely. Ignore malformed lines, but mention if any were skipped, separated by source when useful.
 5. Count only Pi assistant message entries that have model usage data. In Pi session files these are usually entries like:
    - { type: "message", message: { role: "assistant", provider, model, usage, ... } }
-6. Group by source plus a stable model key. Prefer provider + model from the record, for example "openai-codex/gpt-5.5" or "codex-cli/openai/gpt-5.4". If only model is present, use that.
+6. Group by source plus a stable model key. Prefer provider + model from the record, for example "openai-codex/gpt-5.6" or "codex-cli/openai/gpt-5.4". If only model is present, use that.
 7. For each Pi assistant message with usage, add:
    - messages/turns += 1
    - input tokens from usage.input or equivalent

@@ -72,7 +72,7 @@ in {
           # terminal.cwd = "/data/workspace";
           model = {
             provider = "openai-codex";
-            default = "gpt-5.5";
+            default = "gpt-5.6";
           };
           web = {
             search_backend = "ddgs";

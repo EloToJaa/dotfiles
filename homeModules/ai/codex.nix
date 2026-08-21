@@ -19,7 +19,7 @@ in {
       package = pkgs.llm-agents.codex;
       context = ./AGENTS.md;
       settings = {
-        model = "gpt-5.5";
+        model = "gpt-5.6";
         approval_policy = "on-request";
         sandbox_mode = "workspace-write";
       };
