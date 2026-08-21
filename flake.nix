@@ -158,7 +158,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    llm-agents.url = "github:numtide/llm-agents.nix/6e830faadd81a7b7a03740aaa22cf1fdeeb32f94";
+    llm-agents.url = "github:numtide/llm-agents.nix/c488706e4879318cfdbfd2e62f7331b14971ecad";
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
   };
