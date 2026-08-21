@@ -31,6 +31,11 @@ in {
         dankKDEConnect.enable = true;
       };
     };
+    programs.dank-calendar = {
+      enable = true;
+      quickshell.package = pkgs.unstable.quickshell;
+      systemd.enable = true;
+    };
     wayland.windowManager.niri.settings.include = map (path: {_args = [path];}) [
       "dms/alttab.kdl"
       "dms/colors.kdl"
