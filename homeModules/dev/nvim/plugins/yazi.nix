@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.modules.dev.nvim.plugins.yazi;
+  inherit (config.lib.nixvim) mkRaw;
 in {
   options.modules.dev.nvim.plugins.yazi = {
     enable = lib.mkEnableOption "Enable yazi";
@@ -15,7 +16,6 @@ in {
           enable = true;
           settings = {
             enable_mouse_support = true;
-            open_for_directories = true;
           };
         };
         lz-n.keymaps = [
@@ -27,6 +27,16 @@ in {
           }
         ];
       };
+      autoCmd = [
+        {
+          event = "UIEnter";
+          callback = mkRaw ''
+            function()
+              require("yazi").setup({ open_for_directories = true })
+            end
+          '';
+        }
+      ];
       globals.loaded_netrwPlugin = 1;
     };
   };
