@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (config.settings) username;
@@ -72,7 +71,7 @@ in {
           # terminal.cwd = "/data/workspace";
           model = {
             provider = "openai-codex";
-            default = "gpt-5.6";
+            default = "gpt-5.6-luna";
           };
           web = {
             search_backend = "ddgs";

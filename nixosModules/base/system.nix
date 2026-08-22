@@ -57,7 +57,6 @@ in {
       config = {
         allowUnfree = true;
         allowInsecurePredicate = _: true;
-        permittedInsecurePackages = ["nodejs-20.20.2"];
       };
     };
   };

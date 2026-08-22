@@ -34,7 +34,7 @@
     };
     ai = {
       enable = true;
-      codex.enable = true;
+      codex.enable = false;
       opencode.enable = true;
       pi.enable = false;
       workmux.enable = true;

@@ -13,16 +13,18 @@ in {
   config = lib.mkIf cfg.enable {
     programs.zsh.zsh-abbr.abbreviations = {
       cx = "codex";
+      cxr = "codex resume";
     };
-    programs.codex = {
-      enable = true;
-      package = pkgs.llm-agents.codex;
-      context = ./AGENTS.md;
-      settings = {
-        model = "gpt-5.6";
-        approval_policy = "on-request";
-        sandbox_mode = "workspace-write";
-      };
-    };
+    home.packages = [pkgs.llm-agents.codex];
+    # programs.codex = {
+    #   enable = true;
+    #   package = pkgs.llm-agents.codex;
+    #   context = ./AGENTS.md;
+    #   settings = {
+    #     model = "gpt-5.6-sol";
+    #     approval_policy = "on-request";
+    #     sandbox_mode = "workspace-write";
+    #   };
+    # };
   };
 }
