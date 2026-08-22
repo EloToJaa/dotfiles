@@ -33,6 +33,8 @@ in {
           subscribe:
             - topic: elotoja
               command: notify-send "Important" "$m"
+            - topic: uptime
+              command: notify-send "Uptime" "$m"
         '';
       path = "${config.home.homeDirectory}/.config/ntfy/client.yml";
     };
