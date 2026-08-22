@@ -36,7 +36,7 @@
       enable = true;
       codex.enable = true;
       opencode.enable = true;
-      pi.enable = true;
+      pi.enable = false;
       workmux.enable = true;
     };
     dev = {
