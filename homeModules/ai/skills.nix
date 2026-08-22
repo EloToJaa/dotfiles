@@ -31,6 +31,7 @@ in {
     ];
 
     programs.codex.skills = cfg;
+    programs.claude-code.skills = cfg;
     programs.opencode.skills = cfg;
     home.file = piSkillFiles;
   };

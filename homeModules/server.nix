@@ -35,9 +35,9 @@
     ai = {
       enable = true;
       codex.enable = false;
-      opencode.enable = true;
-      pi.enable = false;
-      workmux.enable = true;
+      opencode.enable = false;
+      pi.enable = true;
+      workmux.enable = false;
     };
     dev = {
       enable = true;

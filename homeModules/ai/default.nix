@@ -6,12 +6,13 @@
       default = {};
       description = ''
         Shared agent skill registry. Add a skill here once and the enabled
-        adapters expose it to opencode, pi, and future agents.
+        adapters expose it to Claude Code, opencode, pi, and future agents.
       '';
     };
   };
   imports = [
     ./crash.nix
+    ./claude-code.nix
     ./ollama.nix
     ./codex.nix
     ./opencode.nix
