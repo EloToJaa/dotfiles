@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.ai.claude-code;
+  cfg = config.modules.ai.claude;
 in {
-  options.modules.ai.claude-code = {
+  options.modules.ai.claude = {
     enable = lib.mkEnableOption "Enable Claude Code module";
   };
 
@@ -15,6 +15,7 @@ in {
       enable = true;
       package = pkgs.llm-agents.claude-code;
       context = ./AGENTS.md;
+      settings.tui = "fullscreen";
     };
   };
 }

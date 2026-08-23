@@ -12,7 +12,7 @@
   };
   imports = [
     ./crash.nix
-    ./claude-code.nix
+    ./claude.nix
     ./ollama.nix
     ./codex.nix
     ./opencode.nix

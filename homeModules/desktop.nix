@@ -35,7 +35,7 @@
     };
     ai = {
       enable = true;
-      claude-code.enable = true;
+      claude.enable = true;
       ollama.enable = true;
       codex.enable = true;
       opencode.enable = true;
