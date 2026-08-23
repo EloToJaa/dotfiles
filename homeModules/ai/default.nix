@@ -18,6 +18,7 @@
     ./opencode.nix
     ./pi.nix
     ./skills.nix
+    ./t3-code.nix
     ./workmux.nix
   ];
 }
