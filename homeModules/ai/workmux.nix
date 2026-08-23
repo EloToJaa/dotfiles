@@ -43,7 +43,7 @@ in {
         worktree_dir: ""
         panes:
           - command: nvim
-          - command: pi
+          - command: codex
             split: horizontal
             focus: true
           - split: vertical
