@@ -1,16 +1,17 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.modules.dev.nvim.plugins.yazi;
-  inherit (config.lib.nixvim) mkRaw;
 in {
   options.modules.dev.nvim.plugins.yazi = {
     enable = lib.mkEnableOption "Enable yazi";
   };
   config = lib.mkIf (cfg.enable && config.modules.home.yazi.enable) {
     programs.nixvim = {
+      dependencies.yazi.package = pkgs.unstable.yazi;
       plugins = {
         yazi = {
           enable = true;
@@ -27,16 +28,6 @@ in {
           }
         ];
       };
-      autoCmd = [
-        {
-          event = "UIEnter";
-          callback = mkRaw ''
-            function()
-              require("yazi").setup({ open_for_directories = true })
-            end
-          '';
-        }
-      ];
       globals.loaded_netrwPlugin = 1;
     };
   };
