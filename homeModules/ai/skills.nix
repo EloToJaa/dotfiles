@@ -21,7 +21,6 @@ in {
     modules.ai.skills = {
       frontend-design = "${upstreamSkills.anthropic}/skills/frontend-design/";
       agent-browser = "${upstreamSkills.agent-browser}/skills/agent-browser/";
-      btca = ./skills/btca;
       grill-with-docs = "${upstreamSkills.matt}/skills/engineering/grill-with-docs";
     };
 
@@ -30,9 +29,11 @@ in {
       llm-agents.hunk
     ];
 
-    programs.codex.skills = cfg;
-    programs.claude-code.skills = cfg;
-    programs.opencode.skills = cfg;
+    programs = {
+      codex.skills = cfg;
+      claude-code.skills = cfg;
+      opencode.skills = cfg;
+    };
     home.file = piSkillFiles;
   };
 }
