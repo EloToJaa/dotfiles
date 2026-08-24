@@ -38,7 +38,7 @@
       opencode.enable = false;
       pi.enable = true;
       t3-code.enable = false;
-      workmux.enable = false;
+      workmux.enable = true;
     };
     dev = {
       enable = true;
