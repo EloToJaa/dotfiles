@@ -13,9 +13,6 @@
       noto-fonts
     ];
   };
-  karakeepPackage = pkgs.unstable.karakeep.override {
-    nodejs = pkgs.unstable.nodejs_22;
-  };
 in {
   options.modules.homelab.karakeep = {
     enable = lib.mkEnableOption "Enable karakeep";
@@ -43,7 +40,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.karakeep = {
       enable = true;
-      package = karakeepPackage;
+      package = pkgs.unstable.karakeep;
       environmentFile = config.sops.templates."${cfg.name}.env".path;
       browser.enable = true;
       meilisearch.enable = true;
