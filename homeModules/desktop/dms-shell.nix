@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.modules.desktop.dms-shell;
@@ -10,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable DankMaterialShell";
   };
   config = lib.mkIf cfg.enable {
-    programs.dms-shell = {
+    programs.dank-material-shell = {
       enable = true;
 
       # package = pkgs.unstable.dms-shell;
