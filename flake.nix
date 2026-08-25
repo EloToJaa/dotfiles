@@ -68,10 +68,6 @@
       url = "git+https://codeberg.org/BANanaD3V/niri-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     dms-plugin-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -84,10 +80,6 @@
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # danksearch = {
-    #   url = "github:AvengeMedia/danksearch";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
 
     # hyprland = {
     #   url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
