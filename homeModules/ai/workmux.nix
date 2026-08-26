@@ -2,10 +2,16 @@
   config,
   lib,
   pkgs,
+  settings,
   ...
 }: let
   cfg = config.modules.ai.workmux;
   workmux = pkgs.callPackage ./pkgs/workmux-skills.nix {};
+  inherit (settings) isServer;
+  agent =
+    if isServer
+    then "pi"
+    else "codex";
 in {
   options.modules.ai.workmux = {
     enable = lib.mkEnableOption "Enable workmux module";
@@ -43,7 +49,7 @@ in {
         worktree_dir: ""
         panes:
           - command: nvim
-          - command: codex
+          - command: ${agent}
             split: horizontal
             focus: true
           - split: vertical
