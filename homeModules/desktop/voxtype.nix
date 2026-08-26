@@ -27,6 +27,12 @@ in {
         mode = "push_to_talk";
       };
 
+      audio = {
+        device = "default";
+        sample_rate = 16000;
+        max_duration_secs = 60;
+      };
+
       whisper = {
         model = toString model;
         language = "en";
