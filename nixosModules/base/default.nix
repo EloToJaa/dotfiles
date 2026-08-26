@@ -16,6 +16,7 @@
     ./nfs.nix
     ./nh.nix
     ./program.nix
+    ./plymouth.nix
     ./sops.nix
     ./ssh.nix
     ./system.nix

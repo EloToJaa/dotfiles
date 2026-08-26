@@ -2,6 +2,10 @@
 
 My dotfile repository forked from [Frost-Phoenix/nixos-config](https://github.com/Frost-Phoenix/nixos-config/).
 
+## Boot experience
+
+The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt themed with the configured Catppuccin flavor. Press `Esc` during boot to switch from the splash to the text console if graphical rendering is unavailable or boot diagnostics are needed.
+
 ## Credits
 
 - [Frost-Phoenix/nixos-config](https://github.com/Frost-Phoenix/nixos-config).

@@ -79,6 +79,7 @@
       tailscale.enable = true;
       nfs.enable = false;
       nh.enable = true;
+      plymouth.enable = true;
       ssh.enable = true;
     };
     core = {
