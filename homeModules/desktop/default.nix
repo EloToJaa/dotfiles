@@ -35,6 +35,7 @@
     ./swayosd.nix # brightness / volume wiget
     ./variables.nix
     ./vicinae.nix # launcher
+    ./voxtype.nix # voice dictation
     ./web-apps.nix
     ./waypaper.nix # wallpaper picker
     ./winboat.nix # remote desktop

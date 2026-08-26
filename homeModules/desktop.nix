@@ -29,6 +29,7 @@
       prismlauncher.enable = true;
       spotify.enable = true;
       vicinae.enable = true;
+      voxtype.enable = true;
       winboat.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;
