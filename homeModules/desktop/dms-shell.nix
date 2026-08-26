@@ -28,6 +28,7 @@ in {
       systemd.enable = true;
 
       plugins = {
+        aiOverviewControl.enable = true;
         dankKDEConnect.enable = true;
       };
     };
