@@ -41,7 +41,7 @@
     )
 
     export PATH="${runtimePath}:$PATH"
-    exec ${pkgs.llm-agents.omp}/bin/omp --auto-approve --prompt "$prompt"
+    exec ${pkgs.llm-agents.codex}/bin/codex --dangerously-bypass-approvals-and-sandbox "$prompt"
   '';
 
   crash-watch = pkgs.writeShellScriptBin "ai-crash-watch" ''
