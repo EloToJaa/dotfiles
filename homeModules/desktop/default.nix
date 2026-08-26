@@ -35,6 +35,7 @@
     ./swayosd.nix # brightness / volume wiget
     ./variables.nix
     ./vicinae.nix # launcher
+    ./web-apps.nix
     ./waypaper.nix # wallpaper picker
     ./winboat.nix # remote desktop
     ./wlogout.nix # logout screen

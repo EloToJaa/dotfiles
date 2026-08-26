@@ -1,4 +1,4 @@
-{
+{settings, ...}: {
   imports = [
     ./default.nix
   ];
@@ -32,6 +32,13 @@
       winboat.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;
+      webApps.ntfy = {
+        name = "ntfy";
+        url = settings.ntfy;
+        icon = "preferences-system-notifications";
+        categories = ["Network" "Utility"];
+        comment = "Web push notifications";
+      };
     };
     ai = {
       enable = true;
