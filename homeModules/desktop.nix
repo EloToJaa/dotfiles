@@ -54,7 +54,7 @@
     };
     dev = {
       enable = true;
-      aoc.enable = false;
+      aoc.enable = true;
       leetcode.enable = true;
       lazygit.enable = true;
       rbw.enable = true;
