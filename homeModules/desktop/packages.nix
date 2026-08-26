@@ -47,6 +47,7 @@ in {
         # wf-recorder # record screen
         # woomer # zoomer for wayland
         tesseract # ocr
+        zbar # QR code decoding
 
         ## Gaming
       ]);

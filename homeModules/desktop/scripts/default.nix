@@ -30,5 +30,14 @@
 in {
   config = lib.mkIf cfg.enable {
     home.packages = scripts;
+
+    xdg.desktopEntries.qr-capture = {
+      name = "Scan QR Code";
+      comment = "Select a screen region and copy the decoded QR value";
+      exec = "qr-capture";
+      icon = "camera-photo";
+      terminal = false;
+      categories = ["Utility"];
+    };
   };
 }
