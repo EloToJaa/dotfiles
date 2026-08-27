@@ -34,7 +34,15 @@ in {
           translate = false;
         };
 
-        meeting.enabled = true;
+        meeting = {
+          enabled = true;
+          retain_audio = true;
+          summary.backend = "remote";
+          diarization = {
+            enabled = true;
+            backend = "ml";
+          };
+        };
       };
     };
   };
