@@ -30,6 +30,7 @@ in {
 
       "Mod+Return".spawn = ["ghostty" "+new-window"];
       "Mod+s".spawn = ["vicinae" "toggle"];
+      "Mod+Ctrl+e".spawn = ["vicinae" "vicinae://extensions/vicinae/search-emojis"];
       "Mod+v".spawn = ["vicinae" "vicinae://launch/clipboard/history"];
       "Mod+m".spawn = dmsIpc ["processlist" "focusOrToggle"];
       "Mod+Escape".spawn = dmsIpc ["powermenu" "toggle"];

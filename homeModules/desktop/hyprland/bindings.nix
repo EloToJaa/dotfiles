@@ -21,6 +21,7 @@ in {
         "${mainMod} SHIFT, f, fullscreen, 1"
         "${mainMod}, Space, exec, toggle-float"
         "${mainMod}, s, exec, vicinae toggle"
+        "${mainMod} CTRL, E, exec, vicinae vicinae://extensions/vicinae/search-emojis"
         "${mainMod} SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
         "${mainMod}, d, exec, ${discord}"
         "${mainMod} SHIFT, D, exec, nwg-displays"

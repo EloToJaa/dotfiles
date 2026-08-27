@@ -8,6 +8,7 @@ in {
   _module.args.host = "laptop";
   imports = [
     inputs.srvos.nixosModules.desktop
+    inputs.vicinae.nixosModules.default
     ./../../nixosModules/laptop.nix
     ../../homeModules/vars.nix
     {

@@ -20,7 +20,9 @@ in {
           keyboard = {
             xkb = {
               layout = keyboardLayout;
-              options = "grp:alt_caps_toggle";
+              # Caps Lock is already the established Alt+Caps layout switch.
+              # Menu is the Compose key so the existing convention keeps working.
+              options = "grp:alt_caps_toggle,compose:menu";
             };
             numlock = true;
           };

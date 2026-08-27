@@ -11,7 +11,8 @@ in {
     wayland.windowManager.hyprland.settings = {
       input = {
         kb_layout = keyboardLayout;
-        kb_options = "grp:alt_caps_toggle";
+        # Preserve the established Alt+Caps layout switch; Menu is Compose.
+        kb_options = "grp:alt_caps_toggle,compose:menu";
         numlock_by_default = true;
         follow_mouse = 0;
         float_switch_override_focus = 0;

@@ -40,6 +40,7 @@
     ./waypaper.nix # wallpaper picker
     ./winboat.nix # remote desktop
     ./wlogout.nix # logout screen
+    ./xcompose.nix # Compose sequences and emoji shortcuts
     ./xdg-mimes.nix # xdg config
     ./zen.nix
   ];

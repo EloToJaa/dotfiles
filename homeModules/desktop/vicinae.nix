@@ -78,6 +78,7 @@ in {
     };
     systemd.user.services.vicinae.Service.Environment = [
       "USE_LAYER_SHELL=1"
+      "EMOJI_FONT=Noto Color Emoji"
       "QT_SCALE_FACTOR=${
         if isLaptop
         then "1.2"
