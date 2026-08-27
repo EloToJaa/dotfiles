@@ -17,6 +17,10 @@ in {
       loadModels = ["base.en"];
       settings = {
         state_file = "auto";
+        output = {
+          mode = "type";
+          fallback_to_clipboard = true;
+        };
 
         hotkey = {
           enabled = true;
@@ -29,6 +33,8 @@ in {
           language = "en";
           translate = false;
         };
+
+        meeting.enabled = true;
       };
     };
   };
