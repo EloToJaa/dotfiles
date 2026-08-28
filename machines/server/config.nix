@@ -3,6 +3,22 @@
     ./../../nixosModules/server.nix
   ];
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = ["/"];
+  };
+
+  modules.base.btrfsSnapshots = {
+    enable = true;
+    subvolumes = {
+      root = "/";
+      home = "/home";
+      opt = "/opt";
+      var-lib = "/var/lib";
+    };
+  };
+
   modules.homelab = {
     enable = true;
     atuin.enable = true;
