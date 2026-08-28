@@ -13,6 +13,17 @@
   modules = {
     base = {
       enable = true;
+      btrfs = {
+        scrub.enable = true;
+        snapshots = {
+          enable = true;
+          subvolumes = {
+            home = "/home";
+            opt = "/opt";
+            var-lib = "/var/lib";
+          };
+        };
+      };
       bootloader.enable = true;
       btop.enable = true;
       catppuccin.enable = true;

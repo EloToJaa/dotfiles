@@ -5,7 +5,7 @@
   imports = [
     ./bash.nix
     ./bootloader.nix
-    ./btrfs-snapshots.nix
+    ./btrfs.nix
     ./btop.nix
     ./catppuccin.nix
     ./docker.nix
