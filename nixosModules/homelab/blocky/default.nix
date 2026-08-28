@@ -68,6 +68,7 @@ in {
       settings = {
         Resolve = {
           DNS = ["127.0.0.1"];
+          DNSOverTLS = lib.mkForce "false";
           DNSStubListener = false;
         };
       };
