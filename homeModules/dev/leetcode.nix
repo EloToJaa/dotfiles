@@ -34,12 +34,14 @@ in {
         ''
           [code]
           editor = "nvim"
-          lang = "cpp"
-          comment_leading = "//"
+          #lang = "cpp"
+          lang = "python"
+          #comment_leading = "//"
+          comment_leading = "#"
           comment_problem_desc = true
           test = true
-          inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
-          inject_after = [""]
+          #inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
+          #inject_after = [""]
 
           [cookies]
           csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
@@ -54,31 +56,5 @@ in {
         '';
       path = "${config.home.homeDirectory}/.leetcode/leetcode.toml";
     };
-
-    # home.file.".leetcode/leetcode.toml".text =
-    #   /*
-    #   toml
-    #   */
-    #   ''
-    #     [code]
-    #     editor = "nvim"
-    #     lang = "cpp"
-    #     comment_leading = "//"
-    #     comment_problem_desc = true
-    #     test = true
-    #     inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
-    #     inject_after = [""]
-    #
-    #     [cookies]
-    #     csrf = ""
-    #     session = ""
-    #     site = "leetcode.com"
-    #
-    #     [storage]
-    #     cache = "problems.db"
-    #     code = "${config.home.homeDirectory}/Projects/leetcode/main"
-    #     root = "~/.leetcode"
-    #     scripts = "${config.home.homeDirectory}/Projects/leetcode/main/scripts"
-    #   '';
   };
 }
