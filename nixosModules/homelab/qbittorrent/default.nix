@@ -71,16 +71,14 @@ in {
         services."${cfg.name}-proxy" = {
           enable = true;
           description = "Proxy to ${cfg.name} in Network Namespace";
-          requires = [
-            "${cfg.name}.service"
-            "${cfg.name}-proxy.socket"
-          ];
+          requires = ["${cfg.name}-proxy.socket"];
           after = [
             "${cfg.name}.service"
             "${cfg.name}-proxy.socket"
           ];
           unitConfig = {
             JoinsNamespaceOf = "${cfg.name}.service";
+            Requisite = "${cfg.name}.service";
           };
           serviceConfig = {
             User = cfg.name;
@@ -102,7 +100,11 @@ in {
           ]
         }
 
-        systemctl stop qbittorrent.service
+        ${lib.optionalString config.services.wireguard-netns.enable ''
+          systemctl stop ${cfg.name}-proxy.socket
+          systemctl stop ${cfg.name}-proxy.service
+        ''}
+        systemctl stop ${cfg.name}.service
       '';
 
       postBackupScript = ''
@@ -112,7 +114,10 @@ in {
           ]
         }
 
-        systemctl start qbittorrent.service
+        systemctl start ${cfg.name}.service
+        ${lib.optionalString config.services.wireguard-netns.enable ''
+          systemctl start ${cfg.name}-proxy.socket
+        ''}
       '';
     };
 

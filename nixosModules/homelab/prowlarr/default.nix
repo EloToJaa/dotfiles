@@ -73,16 +73,14 @@ in {
             "${cfg.name}-proxy" = {
               enable = true;
               description = "Proxy to ${cfg.name} in Network Namespace";
-              requires = [
-                "${cfg.name}.service"
-                "${cfg.name}-proxy.socket"
-              ];
+              requires = ["${cfg.name}-proxy.socket"];
               after = [
                 "${cfg.name}.service"
                 "${cfg.name}-proxy.socket"
               ];
               unitConfig = {
                 JoinsNamespaceOf = "${cfg.name}.service";
+                Requisite = "${cfg.name}.service";
               };
               serviceConfig = {
                 User = cfg.name;
