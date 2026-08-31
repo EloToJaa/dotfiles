@@ -22,6 +22,22 @@ fmt-check:
 flake-check:
     nix flake check
 
+# Initialize the local Terranix/OpenTofu working directory
+infra-init:
+    nix develop .#infrastructure -c init
+
+# Import the existing Cloudflare zone once
+infra-import-cloudflare zone_id: infra-init
+    nix develop .#infrastructure -c tofu import cloudflare_zone.elotoja {{ zone_id }}
+
+# Preview infrastructure changes
+infra-plan:
+    nix develop .#infrastructure -c plan
+
+# Apply infrastructure changes
+infra-apply:
+    nix develop .#infrastructure -c apply
+
 # Lint the codebase
 lint: fmt-check flake-check
     just --fmt --check

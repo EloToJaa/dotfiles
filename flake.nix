@@ -13,7 +13,7 @@
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
-        # ./terranix
+        ./terranix
         ./ci/buildbot-nix.nix
         ./lib
         ./settings.nix
