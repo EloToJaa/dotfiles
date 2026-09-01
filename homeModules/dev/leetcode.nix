@@ -35,7 +35,7 @@ in {
           [code]
           editor = "nvim"
           #lang = "cpp"
-          lang = "python"
+          lang = "python3"
           #comment_leading = "//"
           comment_leading = "#"
           comment_problem_desc = true
