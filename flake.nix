@@ -106,7 +106,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hermes-agent = {
-      url = "github:NousResearch/hermes-agent/v2026.7.7.2";
+      url = "github:NousResearch/hermes-agent/v2026.8.31";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -158,7 +158,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    llm-agents.url = "github:numtide/llm-agents.nix/c488706e4879318cfdbfd2e62f7331b14971ecad";
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
   };
