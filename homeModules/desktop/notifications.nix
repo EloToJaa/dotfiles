@@ -6,6 +6,7 @@
   ...
 }: let
   cfg = config.modules.desktop.notifications;
+  yaml = pkgs.formats.yaml {};
   inherit (settings) username ntfy;
 in {
   options.modules.desktop.notifications = {
@@ -21,21 +22,21 @@ in {
       "ntfy-sh/password" = {};
     };
     sops.templates."ntfy-client.yml" = {
-      content =
-        /*
-        yaml
-        */
-        ''
-          default-host: ${ntfy}
-          default-user: ${username}
-          default-password: "${config.sops.placeholder."ntfy-sh/password"}"
-
-          subscribe:
-            - topic: elotoja
-              command: notify-send "Important" "$m"
-            - topic: uptime
-              command: notify-send "Uptime" "$m"
-        '';
+      content = builtins.readFile (yaml.generate "ntfy-client.yml" {
+        "default-host" = ntfy;
+        "default-user" = username;
+        "default-password" = config.sops.placeholder."ntfy-sh/password";
+        subscribe = [
+          {
+            topic = "elotoja";
+            command = ''notify-send "Important" "$message"'';
+          }
+          {
+            topic = "uptime";
+            command = ''notify-send "$topic" "$message"'';
+          }
+        ];
+      });
       path = "${config.home.homeDirectory}/.config/ntfy/client.yml";
     };
   };
