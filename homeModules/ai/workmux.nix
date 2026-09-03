@@ -12,6 +12,7 @@
     if isServer
     then "pi"
     else "codex";
+  yaml = pkgs.formats.yaml {};
 in {
   options.modules.ai.workmux = {
     enable = lib.mkEnableOption "Enable workmux module";
@@ -37,26 +38,26 @@ in {
       worktree = "${workmux}/skills/worktree/";
     };
 
-    xdg.configFile."workmux/config.yaml".text =
-      /*
-      yaml
-      */
-      ''
-        merge_strategy: rebase
-        nerdfont: true
-        theme: dark
-        mode: window
-        worktree_dir: ""
-        panes:
-          - command: nvim
-          - command: ${agent}
-            split: horizontal
-            focus: true
-          - split: vertical
-        status_icons:
-          working: "🤖" # Agent is processing
-          waiting: "💬" # Agent needs input (auto-clears on focus)
-          done: "✅" # Agent finished (auto-clears on focus)
-      '';
+    xdg.configFile."workmux/config.yaml".source = yaml.generate "workmux-config.yaml" {
+      merge_strategy = "rebase";
+      nerdfont = true;
+      theme = "dark";
+      mode = "window";
+      worktree_dir = "";
+      panes = [
+        {command = "nvim";}
+        {
+          command = agent;
+          split = "horizontal";
+          focus = true;
+        }
+        {split = "vertical";}
+      ];
+      status_icons = {
+        working = "🤖";
+        waiting = "💬";
+        done = "✅";
+      };
+    };
   };
 }
