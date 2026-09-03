@@ -29,9 +29,9 @@ in {
         # libreoffice
         gimp
         obs-studio
-        qbittorrent
+        rqbit # qbittorrent
         rustdesk-flutter
-        mqtt-explorer
+        # mqtt-explorer
         # opencloud-desktop
         # zoom-us
         # upscayl
