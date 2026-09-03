@@ -32,6 +32,7 @@ in {
         extraConfig = ''
           set-option -sa terminal-overrides ",xterm*:Tc,ghostty:Tc"
           set -g detach-on-destroy off
+          set -g focus-events on
           set -g renumber-windows on
           set -g set-clipboard on
 
