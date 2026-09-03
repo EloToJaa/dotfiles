@@ -34,6 +34,7 @@ in {
         mqtt-explorer
         # opencloud-desktop
         # zoom-us
+        # upscayl
 
         ## GNOME Apps
         delfin # jellyfin client
