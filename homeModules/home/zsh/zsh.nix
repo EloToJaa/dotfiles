@@ -52,7 +52,10 @@ in {
         # Make zsh-vi-mode be sourced
         ZVM_INIT_MODE = "sourcing";
         # Enable zsh-vi-mode's mode-specific cursor shapes
-        ZVM_CURSOR_STYLE_ENABLED = true;
+        ZVM_CURSOR_STYLE_ENABLED =
+          if config.programs.tmux.terminal == "tmux-256color"
+          then true
+          else false;
         # Prompt message for auto correct
         SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
         # Add more Zsh Autosuggestion strategies
