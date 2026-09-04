@@ -51,8 +51,8 @@ in {
         AUTO_NOTIFY_EXPIRE_TIME = 5000;
         # Make zsh-vi-mode be sourced
         ZVM_INIT_MODE = "sourcing";
-        # Disable zsh-vi-mode's custom cursors
-        ZVM_CURSOR_STYLE_ENABLED = false;
+        # Enable zsh-vi-mode's mode-specific cursor shapes
+        ZVM_CURSOR_STYLE_ENABLED = true;
         # Prompt message for auto correct
         SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
         # Add more Zsh Autosuggestion strategies
