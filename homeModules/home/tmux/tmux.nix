@@ -17,7 +17,7 @@ in {
         shell = "${config.programs.zsh.package}/bin/zsh";
         terminal =
           if isServer
-          then "xterm-256color"
+          then "tmux-256color"
           else "ghostty";
         mouse = true;
         historyLimit = 10000;
