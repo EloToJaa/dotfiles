@@ -122,6 +122,8 @@ in {
         "uptime_kuma"
       ];
     };
+    systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];
+
     clan.core.state.home-assistant = {
       folders = [
         cfg.dataDir
