@@ -124,6 +124,11 @@ in {
     };
     systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];
 
+    networking.firewall = {
+      allowedTCPPorts = [8555];
+      allowedUDPPorts = [8555];
+    };
+
     clan.core.state.home-assistant = {
       folders = [
         cfg.dataDir
