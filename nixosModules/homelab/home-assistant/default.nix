@@ -67,6 +67,11 @@ in {
         pkgs.energa-my-meter
         pkgs.dreame-vacuum
         pkgs.tapo-control
+        pkgs.webrtc
+      ];
+      customLovelaceModules = [
+        pkgs.stack-in-card
+        pkgs.webrtc-camera
       ];
 
       extraComponents = [
@@ -87,6 +92,10 @@ in {
         "network"
         "onvif"
         "stream"
+
+        # WebRTC camera
+        "http"
+        "lovelace"
 
         # Devices
         "roomba"
