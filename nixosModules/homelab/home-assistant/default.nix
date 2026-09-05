@@ -66,6 +66,7 @@ in {
       customComponents = [
         pkgs.energa-my-meter
         pkgs.dreame-vacuum
+        pkgs.tapo-control
       ];
 
       extraComponents = [
@@ -80,6 +81,12 @@ in {
         "isal"
 
         "mobile_app"
+
+        # Tapo camera control
+        "ffmpeg"
+        "network"
+        "onvif"
+        "stream"
 
         # Devices
         "roomba"
