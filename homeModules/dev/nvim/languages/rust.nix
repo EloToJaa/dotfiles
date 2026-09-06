@@ -10,11 +10,11 @@ in {
     enable = lib.mkEnableOption "Enable rust";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      rustfmt
-      rust-analyzer
-      clippy
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   rustfmt
+    #   rust-analyzer
+    #   clippy
+    # ];
 
     programs.nixvim = {
       lsp.servers.rust_analyzer = {
