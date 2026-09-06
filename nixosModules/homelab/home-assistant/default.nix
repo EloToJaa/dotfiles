@@ -42,6 +42,7 @@ in {
       configDir = cfg.dataDir;
       configWritable = true;
       config = {
+        automation = "!include automations.yaml";
         homeassistant = let
           external_url = "https://${cfg.domainName}.${homelab.baseDomain}";
         in {
