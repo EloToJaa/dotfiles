@@ -43,6 +43,7 @@ in {
       nerdfont = true;
       theme = "dark";
       mode = "window";
+      main_branch = "main";
       worktree_dir = "";
       panes = [
         {command = "nvim";}
