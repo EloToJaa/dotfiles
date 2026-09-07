@@ -35,6 +35,7 @@
   };
   cfg = config.modules.home.git;
   clone-bare = pkgs.writeShellScriptBin "clone-bare" (builtins.readFile ./clone-bare.sh);
+  init-bare = pkgs.writeShellScriptBin "init-bare" (builtins.readFile ./init-bare.sh);
 in {
   options.modules.home.git = {
     enable = lib.mkEnableOption "Enable git";
@@ -57,7 +58,8 @@ in {
           pull.ff = "only";
           color.ui = true;
           # remote.origin.fetch = "+refs/heads/*:refs/remotes/origin/*";
-          alias."clone-bare" = "!sh ${clone-bare}/bin/clone-bare";
+          alias."clone-bare" = "!${clone-bare}/bin/clone-bare";
+          alias."init-bare" = "!${init-bare}/bin/init-bare";
         };
 
         signing = {
