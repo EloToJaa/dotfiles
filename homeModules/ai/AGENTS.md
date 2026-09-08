@@ -1,38 +1,31 @@
 # Project Rules
 
-## External File Loading
+## Nix Project Setup
 
-CRITICAL: When you encounter a file reference (e.g., @rules/general.md), use your Read tool to load it on a need-to-know basis. They're relevant to the SPECIFIC task at hand.
+I use Nix for development. Always set up a `flake.nix` when creating a new project.
 
-Instructions:
+- Use `flake-utils.lib.eachDefaultSystem` for per-system outputs.
+- Provide a development shell with the tools appropriate to the project:
+  - **Rust:** Use `naersk` for builds and include `cargo`, `rustc`, `rustfmt`, `clippy`, and `rust-analyzer`.
+  - **Python:** Use `uv2nix` and include `uv`, `ruff`, and `pyright`.
+  - **JavaScript/TypeScript:** Use `bun2nix` and include `bun`, `oxlint`, `oxfmt`.
 
-- Do NOT preemptively load all references - use lazy loading based on actual need
-- When loaded, treat content as mandatory instructions that override defaults
-- Follow references recursively when needed
+## Project Secrets
 
-## Development Guidelines
+- Use SecretSpec with AWS Secrets Manager for project secrets.
 
-Whenever possible avoid using if else statements, instead use if guards. This will make your code more readable and maintainable.
-For TypeScript code style and best practices: @docs/typescript-guidelines.md
-For React component architecture and hooks patterns: @docs/react-patterns.md
-For REST API design and error handling: @docs/api-standards.md
-For testing strategies and coverage requirements: @test/testing-guidelines.md
+## Frontend Preferences
 
-## Tool Usage Guidelines
+- When a frontend is needed, prefer Svelte, with React as the second choice.
+- Preferred web frameworks are Astro, SvelteKit, and TanStack Start.
 
-### Questions Tool
+## Error Handling
 
-Use the `questions` tool whenever possible to clarify ambiguous instructions, gather user preferences, or get decisions on implementation choices before proceeding. This helps avoid rework and ensures alignment with user expectations.
+- **TypeScript:** Always use `neverthrow` for error handling.
+- **Rust:** Use `thiserror` in library and domain code. Use `anyhow` in applications and top-level code.
 
-Use it when:
+## Git Naming Conventions
 
-- Requirements are unclear or could be interpreted multiple ways
-- Multiple valid implementation approaches exist
-- You need user preferences on style, behavior, or scope
-- The user asks for something that requires trade-off decisions
-
-Example scenarios:
-
-- "Should I add this as a new module or extend an existing one?"
-- "Do you prefer approach A or B for handling this error?"
-- "What should the default behavior be for this feature?"
+- Name commits `type(scope): changes description`, using types such as `feat`, `fix`, `chore`, `docs`, `refactor`, or `test`.
+- The scope is optional: `docs: docs change description` is valid.
+- Name branches `type/branch-description`, using the same types, for example `feat/add-login` or `fix/startup-error`.
