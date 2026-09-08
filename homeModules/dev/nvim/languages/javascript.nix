@@ -13,7 +13,7 @@ in {
     home.packages = with pkgs.unstable; [
       eslint_d
       prettierd
-      typescript-go
+      typescript
     ];
 
     programs.nixvim = {
