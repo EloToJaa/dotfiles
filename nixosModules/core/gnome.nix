@@ -30,7 +30,7 @@ in {
       dbus = {
         enable = true;
         packages = with pkgs.unstable; [
-          gcr
+          gcr_3
           gnome-settings-daemon
         ];
       };
