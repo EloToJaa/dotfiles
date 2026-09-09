@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -12,8 +12,10 @@ in {
   config = lib.mkIf cfg.enable {
     services.mullvad-vpn = {
       inherit (cfg) enable;
-      package = pkgs.unstable.mullvad-vpn;
+      package = pkgs.unstable.mullvad;
     };
+    # The unstable packages ship the GUI separately from the daemon and CLI.
+    environment.systemPackages = [pkgs.unstable.mullvad-vpn];
     /*
       Required to get DNS working with mullvad.
     * https://discourse.nixos.org/t/connected-to-mullvadvpn-but-no-internet-connection/35803/15
