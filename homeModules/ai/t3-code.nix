@@ -11,7 +11,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.llm-agents.t3code-desktop];
+    home.packages = [
+      pkgs.llm-agents.t3code-desktop
+      pkgs.unstable.nodejs_26 # remote environments
+    ];
     programs.t3code = {
       enable = true;
       package = pkgs.llm-agents.t3code;
