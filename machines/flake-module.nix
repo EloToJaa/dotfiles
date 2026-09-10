@@ -25,7 +25,7 @@ in {
           tags = ["desktop"];
         };
         thinker = {
-          deploy.targetHost = "${username}@100.114.61.57";
+          deploy.targetHost = "${username}@100.120.221.4";
           tags = ["desktop"];
         };
         desktop = {
