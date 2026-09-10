@@ -6,6 +6,9 @@
   ...
 }: let
   cfg = config.modules.desktop.dms-shell;
+  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs {
+    vendorHash = "sha256-Ls6Dquwt0fzDCEjZ6FfTsZTXDI8408mFdByv/OWHVgI=";
+  };
 in {
   options.modules.desktop.dms-shell = {
     enable = lib.mkEnableOption "Enable DankMaterialShell";
@@ -14,7 +17,7 @@ in {
     programs.dank-material-shell = {
       enable = true;
 
-      # package = pkgs.unstable.dms-shell;
+      package = dmsPackage;
       quickshell.package = pkgs.unstable.quickshell;
       # dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
