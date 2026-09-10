@@ -6,7 +6,8 @@
   ...
 }: let
   # inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
-  inherit (config.settings) username;
+  inherit (config.settings) uid username;
+  avatar = ./assets/avatar.png;
   niri = pkgs.unstable.niri;
   cfg = config.modules.core.wayland;
 in {
@@ -33,6 +34,17 @@ in {
       };
     };
     systemd.user.services.niri-flake-polkit.enable = false;
+
+    systemd.services.set-user-avatar = {
+      description = "Set ${username}'s AccountsService avatar";
+      wantedBy = ["multi-user.target"];
+      after = ["accounts-daemon.service"];
+      requires = ["accounts-daemon.service"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.systemd}/bin/busctl call org.freedesktop.Accounts /org/freedesktop/Accounts/User${toString uid} org.freedesktop.Accounts.User SetIconFile s ${avatar}";
+      };
+    };
 
     services = {
       xserver.displayManager.lightdm.enable = false;
