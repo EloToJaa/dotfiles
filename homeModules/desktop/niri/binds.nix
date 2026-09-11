@@ -20,6 +20,7 @@ in {
 
       "Mod+p".spawn = ["sessionizer" "--desktop"];
       "Mod+Ctrl+p".spawn = ["machine-ssh" "--desktop"];
+      "Mod+Ctrl+t".spawn = ["piper-toggle-selection"];
       "Mod+d".spawn = [discord];
       "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
       "Mod+b".spawn = ["zen-beta"];

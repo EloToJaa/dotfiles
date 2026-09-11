@@ -26,6 +26,7 @@
       };
       nautilus.enable = true;
       notifications.enable = true;
+      piper-tts.enable = true;
       spotify.enable = true;
       vicinae.enable = true;
       winboat.enable = true;

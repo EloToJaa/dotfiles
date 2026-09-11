@@ -27,6 +27,7 @@
     ./hyprlock.nix # lock screen
     ./nautilus.nix # file manager
     ./notifications.nix # notifications
+    ./piper-tts.nix
     ./packages.nix # other packages
     ./prismlauncher.nix
     ./rider.nix # jetbrains rider

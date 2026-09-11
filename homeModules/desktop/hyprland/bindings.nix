@@ -30,6 +30,7 @@ in {
         "${mainMod}, p, pseudo,"
         # "${mainMod}, x, togglesplit,"
         "${mainMod}, t, exec, toggle-opacity"
+        "${mainMod} CTRL, t, exec, piper-toggle-selection"
         "${mainMod}, e, exec, nautilus"
         "${mainMod} SHIFT, e, exec, hyprctl dispatch exec '[float; size 1111 700] nautilus'"
         "${mainMod} SHIFT, B, exec, toggle-waybar"
