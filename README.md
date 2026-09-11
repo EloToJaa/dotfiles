@@ -14,60 +14,21 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 
 ## TODO
 
-### High priority
-
-- [x] Add paperless
-- [x] Add xandikos
-- [x] Add immich
-- [x] Add hoarder
-- [x] Setup home page (glance)
-- [x] Add skip intro plugin to jellyfin
-- [x] Setup postgres backups
-- [x] Setup opt backups
-- [x] Setup wireguard namespace tunnelling for qbittorrent
-- [x] Hash ADMIN_TOKEN in vaultwarden
-- [x] Add uptime kuma
-- [x] Setup discord notifications (maybe notifiarr?)
-- [x] Update nvim config to use nvf for package management
-- [x] Replace rofi with vicinae
-- [x] Replace swappy with Satty
-- [x] Add blocky; setup DNS server & ad blocker
-- [x] Add ntfy
-- [x] Add prometheus
-- [x] Add rustdesk
-- [x] Add homeassistant
-- [x] Add nextcloud
-- [x] Add cleanuparr
-- [x] Restructure the flake using flake-parts
-- [x] Add profilarr
-- [x] Add home-assistant
-- [x] Add redis
-- [x] Add authelia
-- [x] Setup zen browser config
-- [x] Add forms and onlyoffice to nextcloud
-- [x] Setup wireguard namespace tunnelling for prowlarr & bazarr
-- [x] Add grafana
-- [x] Setup logs in /var/log with loki and promtail
-- [x] Setup music navidrome/jellyfin & lidarr
-- [x] Add siyuan
-- [ ] Setup wan access, secure with sshguard, fail2ban and kolide launcher
-- [ ] Add iwmenu and bzmenu
-
-### Clan migration
-
-- [x] Migrate postgresql from v16 to v18
-- [x] Migrate first host to clan
-- [x] Migrate all hosts to clan
-- [x] Migrate postgresql to clan postgresql
-- [x] Migrate backups to clan bordbackups
-- [x] Setup disko for each host
-- [x] Migrate caddy to nginx
-- [x] Migrate state directories from `/opt/` to `/var/lib/`
-- [ ] Migrate sops to clan vars
-
-### Low priority
-
+- [ ] Fix secrets migrate from sops
+- [ ] Finish lazygit setup
+- [ ] Cleanup flake.nix
+- [ ] Remove language tools
 - [ ] Add goaccess
-- [ ] Add microbin (pastebin alternative)
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
+- [ ] Fix theming in dms
+- [ ] Add frigate
+- [ ] Setup zen browser
+- [ ] Config writable for codex/claude?
+- [ ] Migrate from niri to hyprland
+- [ ] Fix nix shell to use unstable packages
+- [ ] Checkout wezterm
+- [ ] Replace dms with omarchy shell?
+- [ ] Cleanup home-assistant dashboard
+- [ ] Replace notifiarr with ntfy.sh in sonarr, radarr, bazarr, prowlarr, jellyfin
+- [ ] Upgrade jellyfin to 12.0
