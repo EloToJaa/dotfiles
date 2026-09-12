@@ -11,6 +11,7 @@
   jellystat = pkgs.callPackage ./jellystat {};
   musicseerr = pkgs.callPackage ./musicseerr {};
   stack-in-card = pkgs.callPackage ./stack-in-card {};
+  streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};
   dreame-vacuum = pkgs.unstable.callPackage ./dreame-vacuum {};
   webrtc = pkgs.unstable.callPackage ./webrtc {};

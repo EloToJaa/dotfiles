@@ -44,6 +44,10 @@
     };
 
   inputs = {
+    bun2nix = {
+      url = "github:nix-community/bun2nix/2.0.8";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
