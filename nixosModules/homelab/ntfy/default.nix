@@ -38,7 +38,7 @@ in {
       package = pkgs.unstable.ntfy-sh;
       user = cfg.name;
       settings = {
-        listen-http = "127.0.0.1:${toString cfg.port}";
+        listen-http = "0.0.0.0:${toString cfg.port}";
         cache-file = "${cfg.dataDir}/cache.db";
         attachment-cache-dir = "${cfg.dataDir}/attachments";
         base-url = "https://${domain}";
@@ -48,6 +48,9 @@ in {
         enable-login = true;
       };
     };
+    networking.firewall.interfaces.wg-host.allowedTCPPorts =
+      lib.mkIf config.services.wireguard-netns.enable [cfg.port];
+
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
