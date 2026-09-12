@@ -32,3 +32,5 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [ ] Cleanup home-assistant dashboard
 - [ ] Replace notifiarr with ntfy.sh in sonarr, radarr, bazarr, prowlarr, jellyfin
 - [ ] Upgrade jellyfin to 12.0
+- [ ] Replace jellystat with jellyglance or something else
+- [ ] Replace trakt with ryot, yamtrack or watcharr
