@@ -23,6 +23,7 @@
     };
     seerr.enable = true;
     siyuan.enable = false;
+    jellystat.enable = true;
     karakeep.enable = true;
     kerberos.enable = false;
     lidarr.enable = true;
@@ -52,7 +53,6 @@
     radarr.enable = true;
     rustdesk.enable = true;
     sonarr.enable = true;
-    streamystats.enable = true;
     uptime.enable = true;
     vaultwarden = {
       enable = true;

@@ -89,7 +89,6 @@
 in {
   # For internal use in perSystem
   _module.args.overlaysList = [
-    inputs.bun2nix.overlays.default
     localPackages
     modifiedPackages
     unstablePackages
@@ -98,6 +97,5 @@ in {
   # For external access via outputs.overlays
   flake.overlays = {
     inherit localPackages modifiedPackages unstablePackages;
-    bun2nix = inputs.bun2nix.overlays.default;
   };
 }
