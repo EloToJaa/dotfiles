@@ -1211,26 +1211,13 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pwndbg": "pwndbg",
-        "pyproject-build-systems": [
-          "hermes-agent",
-          "pyproject-build-systems"
-        ],
-        "pyproject-nix": [
-          "hermes-agent",
-          "pyproject-nix"
-        ],
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "srvos": "srvos",
         "terranix": "terranix",
         "treefmt-nix": "treefmt-nix_3",
-        "uv2nix": [
-          "hermes-agent",
-          "uv2nix"
-        ],
         "vicinae": "vicinae",
         "vicinae-extensions": "vicinae-extensions",
-        "yamtrack-src": "yamtrack-src",
         "zen-browser": "zen-browser"
       }
     },
@@ -1660,23 +1647,6 @@
       "original": {
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
-        "type": "github"
-      }
-    },
-    "yamtrack-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786218900,
-        "narHash": "sha256-9eJHlW+s+9VIKicPCrgHyUtlOqbEDm/LFm0p9iOPc8w=",
-        "owner": "FuzzyGrim",
-        "repo": "Yamtrack",
-        "rev": "85646a36298d61d39544f80eacf541c232c4df7b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FuzzyGrim",
-        "ref": "v0.26.1",
-        "repo": "Yamtrack",
         "type": "github"
       }
     },

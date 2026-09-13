@@ -108,7 +108,6 @@ in {
     ./uptime
     ./vaultwarden
     ./wireguard
-    ./yamtrack
     ./firewall.nix
     ./groups.nix
     ./journald.nix

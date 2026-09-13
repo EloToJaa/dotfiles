@@ -60,7 +60,6 @@
     };
     wireguard.enable = true;
     xandikos.enable = true;
-    yamtrack.enable = true;
     zigbee2mqtt.enable = true;
   };
 }

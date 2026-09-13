@@ -108,13 +108,6 @@
       url = "github:NousResearch/hermes-agent/v2026.8.31";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    pyproject-nix.follows = "hermes-agent/pyproject-nix";
-    pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
-    uv2nix.follows = "hermes-agent/uv2nix";
-    yamtrack-src = {
-      url = "github:FuzzyGrim/Yamtrack/v0.26.1";
-      flake = false;
-    };
 
     nixvim = {
       url = "github:nix-community/nixvim";
