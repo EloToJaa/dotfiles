@@ -23,7 +23,7 @@ in {
 
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "yamtrack";
+      default = "track";
     };
 
     port = lib.mkOption {
@@ -50,6 +50,10 @@ in {
       group = cfg.name;
       inherit (cfg) dataDir port;
       environmentFile = secret.files.env.path;
+      databaseHost = "127.0.0.1";
+      databaseName = cfg.name;
+      databaseUser = cfg.name;
+      databasePort = homelab.postgres.port;
       redisSocket = redisServer.unixSocket;
       inherit timezone;
       url = "https://${cfg.domainName}.${homelab.baseDomain}";
@@ -63,11 +67,28 @@ in {
       })
       // {
         yamtrack-migrate = {
-          after = ["redis-yamtrack.service"];
-          requires = ["redis-yamtrack.service"];
+          after = ["postgresql.service" "redis-yamtrack.service"];
+          requires = ["postgresql.service" "redis-yamtrack.service"];
           serviceConfig.SupplementaryGroups = [redisServer.group];
         };
       };
+
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+            TEMPLATE = "template0";
+          };
+        };
+        restore.stopOnRestore = map (name: "${name}.service") serviceNames;
+      };
+      users.${cfg.name} = {};
+    };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
@@ -89,7 +110,10 @@ in {
       runtimeInputs = [pkgs.pwgen];
       script = ''
         mkdir -p "$out"
-        printf 'SECRET=%s\n' "$(pwgen -s 64 1)" > "$out/env"
+        printf 'SECRET=%s\nDB_PASSWORD=%s\n' \
+          "$(pwgen -s 64 1)" \
+          "$(pwgen -s 64 1)" \
+          > "$out/env"
       '';
     };
 

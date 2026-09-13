@@ -6,14 +6,21 @@
 }: let
   cfg = config.services.yamtrack;
   serviceNames = ["yamtrack" "yamtrack-worker" "yamtrack-beat"];
-  commonEnvironment = {
-    CELERY_REDIS_URL = "redis+socket://${cfg.redisSocket}";
-    DATA_DIR = cfg.dataDir;
-    REDIS_URL = "unix://${cfg.redisSocket}";
-    TZ = cfg.timezone;
-    URLS = cfg.url;
-    VERSION = cfg.package.version;
-  };
+  commonEnvironment =
+    {
+      CELERY_REDIS_URL = "redis+socket://${cfg.redisSocket}";
+      DATA_DIR = cfg.dataDir;
+      REDIS_URL = "unix://${cfg.redisSocket}";
+      TZ = cfg.timezone;
+      URLS = cfg.url;
+      VERSION = cfg.package.version;
+    }
+    // lib.optionalAttrs (cfg.databaseHost != null) {
+      DB_HOST = cfg.databaseHost;
+      DB_NAME = cfg.databaseName;
+      DB_PORT = toString cfg.databasePort;
+      DB_USER = cfg.databaseUser;
+    };
   commonServiceConfig = {
     User = cfg.user;
     Group = cfg.group;
@@ -46,6 +53,30 @@ in {
     environmentFile = lib.mkOption {
       type = lib.types.path;
       description = "Environment file containing Yamtrack secrets.";
+    };
+
+    databaseHost = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+      description = "PostgreSQL hostname, or null to use SQLite.";
+    };
+
+    databaseName = lib.mkOption {
+      type = lib.types.str;
+      default = "yamtrack";
+      description = "PostgreSQL database name.";
+    };
+
+    databaseUser = lib.mkOption {
+      type = lib.types.str;
+      default = "yamtrack";
+      description = "PostgreSQL user name.";
+    };
+
+    databasePort = lib.mkOption {
+      type = lib.types.port;
+      default = 5432;
+      description = "PostgreSQL server port.";
     };
 
     port = lib.mkOption {
