@@ -7,8 +7,9 @@
   cfg = config.services.yamtrack;
   serviceNames = ["yamtrack" "yamtrack-worker" "yamtrack-beat"];
   commonEnvironment = {
+    CELERY_REDIS_URL = "redis+socket://${cfg.redisSocket}";
     DATA_DIR = cfg.dataDir;
-    REDIS_URL = cfg.redisUrl;
+    REDIS_URL = "unix://${cfg.redisSocket}";
     TZ = cfg.timezone;
     URLS = cfg.url;
     VERSION = cfg.package.version;
@@ -53,10 +54,10 @@ in {
       description = "Port used by the Yamtrack web service.";
     };
 
-    redisUrl = lib.mkOption {
-      type = lib.types.str;
-      default = "redis://127.0.0.1:6379";
-      description = "Redis connection URL used by Yamtrack.";
+    redisSocket = lib.mkOption {
+      type = lib.types.path;
+      default = "/run/redis-yamtrack/redis.sock";
+      description = "Unix socket used to connect to Redis.";
     };
 
     timezone = lib.mkOption {
