@@ -18,7 +18,7 @@ in {
     };
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "stats";
+      default = "streamystats";
     };
     dataDir = lib.mkOption {
       type = lib.types.path;
@@ -40,7 +40,7 @@ in {
       package = pkgs.streamystats;
       user = cfg.name;
       group = cfg.name;
-      databaseUrl = null;
+      databaseUrl = "postgresql:///${cfg.name}?host=/run/postgresql";
       inherit environmentFile;
       inherit (cfg) port jobServerPort;
     };
@@ -54,24 +54,14 @@ in {
           Type = "oneshot";
           RemainAfterExit = true;
           ExecStart = pkgs.writeShellScript "streamystats-environment" ''
-            umask 077
-
             if [[ ! -e ${environmentFile} ]]; then
+              umask 077
               {
                 echo "SESSION_SECRET=$(${lib.getExe pkgs.openssl} rand -hex 64)"
                 echo "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=$(${lib.getExe pkgs.openssl} rand -base64 32)"
               } > ${environmentFile}
+              chown ${cfg.name}:${cfg.name} ${environmentFile}
             fi
-
-            if ! ${lib.getExe pkgs.gnugrep} -q '^DATABASE_URL=' ${environmentFile}; then
-              database_password="$(${lib.getExe pkgs.openssl} rand -hex 32)"
-              printf 'POSTGRES_PASSWORD=%s\nDATABASE_URL=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' \
-                "$database_password" \
-                "$database_password" \
-                >> ${environmentFile}
-            fi
-
-            chown ${cfg.name}:${cfg.name} ${environmentFile}
           '';
         };
       };
@@ -104,13 +94,7 @@ in {
       databases.${cfg.name} = {
         create = {
           enable = true;
-          options = {
-            LC_COLLATE = "C";
-            LC_CTYPE = "C";
-            ENCODING = "UTF8";
-            OWNER = cfg.name;
-            TEMPLATE = "template0";
-          };
+          options.OWNER = cfg.name;
         };
         restore.stopOnRestore = [
           "streamystats.service"

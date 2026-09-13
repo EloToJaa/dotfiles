@@ -5,9 +5,6 @@
   ...
 }: let
   cfg = config.services.streamystats;
-  databaseEnvironment = lib.optionalAttrs (cfg.databaseUrl != null) {
-    DATABASE_URL = cfg.databaseUrl;
-  };
 in {
   options.services.streamystats = {
     enable = lib.mkEnableOption "Streamystats, a Jellyfin analytics platform";
@@ -21,9 +18,8 @@ in {
       default = "streamystats";
     };
     databaseUrl = lib.mkOption {
-      type = with lib.types; nullOr str;
+      type = lib.types.str;
       default = "postgresql:///streamystats?host=/run/postgresql";
-      description = "PostgreSQL connection URL, or null when provided by the environment file.";
     };
     environmentFile = lib.mkOption {
       type = lib.types.path;
@@ -59,11 +55,10 @@ in {
           EnvironmentFile = cfg.environmentFile;
           PrivateTmp = true;
         };
-        environment =
-          databaseEnvironment
-          // {
-            NODE_ENV = "production";
-          };
+        environment = {
+          DATABASE_URL = cfg.databaseUrl;
+          NODE_ENV = "production";
+        };
       };
 
       streamystats-job-server = {
@@ -79,13 +74,12 @@ in {
           Restart = "on-failure";
           PrivateTmp = true;
         };
-        environment =
-          databaseEnvironment
-          // {
-            HOST = "127.0.0.1";
-            NODE_ENV = "production";
-            PORT = toString cfg.jobServerPort;
-          };
+        environment = {
+          DATABASE_URL = cfg.databaseUrl;
+          HOST = "127.0.0.1";
+          NODE_ENV = "production";
+          PORT = toString cfg.jobServerPort;
+        };
       };
 
       streamystats = {
@@ -101,15 +95,14 @@ in {
           Restart = "on-failure";
           PrivateTmp = true;
         };
-        environment =
-          databaseEnvironment
-          // {
-            HOSTNAME = "127.0.0.1";
-            JOB_SERVER_URL = "http://127.0.0.1:${toString cfg.jobServerPort}";
-            NEXT_TELEMETRY_DISABLED = "1";
-            NODE_ENV = "production";
-            PORT = toString cfg.port;
-          };
+        environment = {
+          DATABASE_URL = cfg.databaseUrl;
+          HOSTNAME = "127.0.0.1";
+          JOB_SERVER_URL = "http://127.0.0.1:${toString cfg.jobServerPort}";
+          NEXT_TELEMETRY_DISABLED = "1";
+          NODE_ENV = "production";
+          PORT = toString cfg.port;
+        };
       };
     };
   };
