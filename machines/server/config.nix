@@ -52,7 +52,7 @@
     radarr.enable = true;
     rustdesk.enable = true;
     sonarr.enable = true;
-    streamystats.enable = true;
+    streamystats.enable = false;
     uptime.enable = true;
     vaultwarden = {
       enable = true;

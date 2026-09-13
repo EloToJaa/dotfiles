@@ -28,17 +28,12 @@ in {
 
     port = lib.mkOption {
       type = lib.types.port;
-      default = 8000;
+      default = 3008;
     };
 
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
-    };
-
-    id = lib.mkOption {
-      type = lib.types.int;
-      default = 380;
     };
   };
 
@@ -130,9 +125,5 @@ in {
         systemctl start ${lib.concatMapStringsSep " " (name: "${name}.service") serviceNames}
       '';
     };
-    users.users.${cfg.name} = {
-      uid = cfg.id;
-    };
-    users.groups.${cfg.name}.gid = cfg.id;
   };
 }
