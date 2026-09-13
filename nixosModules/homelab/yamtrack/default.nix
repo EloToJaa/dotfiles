@@ -8,7 +8,6 @@
   inherit (config.settings) timezone;
   cfg = config.modules.homelab.yamtrack;
   secret = config.clan.core.vars.generators.yamtrack-secret;
-  redisServer = config.services.redis.servers.yamtrack;
   serviceNames = ["yamtrack" "yamtrack-worker" "yamtrack-beat"];
 in {
   imports = [./service.nix];
@@ -31,6 +30,11 @@ in {
       default = 8000;
     };
 
+    redisPort = lib.mkOption {
+      type = lib.types.port;
+      default = 6381;
+    };
+
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
@@ -50,24 +54,20 @@ in {
       group = cfg.name;
       inherit (cfg) dataDir port;
       environmentFile = secret.files.env.path;
-      redisSocket = redisServer.unixSocket;
+      redisUrl = "redis://127.0.0.1:${toString cfg.redisPort}";
       inherit timezone;
       url = "https://${cfg.domainName}.${homelab.baseDomain}";
     };
 
-    services.redis.servers.yamtrack.enable = true;
+    services.redis.servers.yamtrack = {
+      enable = true;
+      port = cfg.redisPort;
+    };
 
-    systemd.services =
-      lib.genAttrs serviceNames (_: {
-        serviceConfig.SupplementaryGroups = [redisServer.group];
-      })
-      // {
-        yamtrack-migrate = {
-          after = ["redis-yamtrack.service"];
-          requires = ["redis-yamtrack.service"];
-          serviceConfig.SupplementaryGroups = [redisServer.group];
-        };
-      };
+    systemd.services.yamtrack-migrate = {
+      after = ["redis-yamtrack.service"];
+      requires = ["redis-yamtrack.service"];
+    };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
