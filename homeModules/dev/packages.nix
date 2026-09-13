@@ -11,7 +11,7 @@ in {
       ## CLI utility
       just
       xh
-      codecrafters-cli
+      #codecrafters-cli
     ];
   };
 }
