@@ -9,11 +9,23 @@
   cfg = config.modules.homelab.yamtrack;
   secret = config.clan.core.vars.generators.yamtrack-secret;
   serviceNames = ["yamtrack" "yamtrack-worker" "yamtrack-beat"];
+  commonEnvironment = {
+    DATA_DIR = cfg.dataDir;
+    REDIS_URL = "redis://127.0.0.1:${toString cfg.redisPort}";
+    TZ = timezone;
+    URLS = "https://${cfg.domainName}.${homelab.baseDomain}";
+    VERSION = cfg.package.version;
+  };
+  commonServiceConfig = {
+    User = cfg.name;
+    Group = cfg.name;
+    EnvironmentFile = secret.files.env.path;
+  };
 in {
-  imports = [./service.nix];
-
   options.modules.homelab.yamtrack = {
     enable = lib.mkEnableOption "Enable Yamtrack";
+
+    package = lib.mkPackageOption pkgs "yamtrack" {};
 
     name = lib.mkOption {
       type = lib.types.str;
@@ -47,16 +59,63 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.yamtrack = {
-      enable = true;
-      package = pkgs.yamtrack;
-      user = cfg.name;
-      group = cfg.name;
-      inherit (cfg) dataDir port;
-      environmentFile = secret.files.env.path;
-      redisUrl = "redis://127.0.0.1:${toString cfg.redisPort}";
-      inherit timezone;
-      url = "https://${cfg.domainName}.${homelab.baseDomain}";
+    systemd.services = {
+      yamtrack-migrate = {
+        description = "Yamtrack database migration";
+        after = ["redis-yamtrack.service"];
+        requires = ["redis-yamtrack.service"];
+        before = map (name: "${name}.service") serviceNames;
+        environment = commonEnvironment;
+        serviceConfig =
+          commonServiceConfig
+          // {
+            Type = "oneshot";
+            ExecStart = "${cfg.package}/bin/yamtrack-manage migrate --noinput";
+          };
+      };
+
+      yamtrack = {
+        description = "Yamtrack web service";
+        wantedBy = ["multi-user.target"];
+        after = ["yamtrack-migrate.service"];
+        requires = ["yamtrack-migrate.service"];
+        environment = commonEnvironment;
+        serviceConfig =
+          commonServiceConfig
+          // {
+            ExecStart = "${cfg.package}/bin/yamtrack-gunicorn --bind 127.0.0.1:${toString cfg.port} config.wsgi:application";
+            Restart = "on-failure";
+          };
+      };
+
+      yamtrack-worker = {
+        description = "Yamtrack Celery worker";
+        wantedBy = ["multi-user.target"];
+        after = ["yamtrack-migrate.service"];
+        requires = ["yamtrack-migrate.service"];
+        environment = commonEnvironment;
+        serviceConfig =
+          commonServiceConfig
+          // {
+            ExecStart = "${cfg.package}/bin/yamtrack-celery worker --loglevel INFO --without-mingle --without-gossip";
+            Restart = "on-failure";
+          };
+      };
+
+      yamtrack-beat = {
+        description = "Yamtrack Celery scheduler";
+        wantedBy = ["multi-user.target"];
+        after = ["yamtrack-migrate.service"];
+        requires = ["yamtrack-migrate.service"];
+        environment = commonEnvironment;
+        serviceConfig =
+          commonServiceConfig
+          // {
+            ExecStart = "${cfg.package}/bin/yamtrack-celery beat --loglevel INFO --pidfile=/run/yamtrack/celerybeat.pid";
+            Restart = "on-failure";
+            RuntimeDirectory = cfg.name;
+          };
+      };
     };
 
     services.redis.servers.yamtrack = {
@@ -64,10 +123,9 @@ in {
       port = cfg.redisPort;
     };
 
-    systemd.services.yamtrack-migrate = {
-      after = ["redis-yamtrack.service"];
-      requires = ["redis-yamtrack.service"];
-    };
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.name} - -"
+    ];
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
@@ -77,7 +135,7 @@ in {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
           proxyWebsockets = true;
         };
-        "/static/".alias = "${pkgs.yamtrack}/share/yamtrack/staticfiles/";
+        "/static/".alias = "${cfg.package}/share/yamtrack/staticfiles/";
       };
     };
 
@@ -106,8 +164,13 @@ in {
         systemctl start ${lib.concatMapStringsSep " " (name: "${name}.service") serviceNames}
       '';
     };
+
     users.users.${cfg.name} = {
       uid = cfg.id;
+      group = cfg.name;
+      description = cfg.name;
+      home = cfg.dataDir;
+      isSystemUser = true;
     };
     users.groups.${cfg.name}.gid = cfg.id;
   };
