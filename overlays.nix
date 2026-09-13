@@ -1,7 +1,11 @@
 # This file defines overlays
 {inputs, ...}: let
   # Individual overlay definitions
-  localPackages = final: _prev: import ./pkgs/pkgs.nix {pkgs = final;};
+  localPackages = final: _prev:
+    import ./pkgs/pkgs.nix {
+      pkgs = final;
+      inherit (inputs) pyproject-build-systems pyproject-nix uv2nix yamtrack-src;
+    };
 
   modifiedPackages = _final: prev: let
     python3Packages = prev.python3Packages.overrideScope (
