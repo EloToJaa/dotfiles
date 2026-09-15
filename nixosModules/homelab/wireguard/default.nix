@@ -13,13 +13,15 @@ in {
     };
     privateIP = lib.mkOption {
       type = lib.types.str;
-      default = "10.74.89.98";
+      default = "10.71.102.82";
     };
     dnsIP = lib.mkOption {
       type = lib.types.str;
       default = "10.64.0.1";
     };
   };
+  # Device: Sharp Hare
+  # Server: ch-zrh-wg-003
   imports = [
     ./service.nix
   ];
