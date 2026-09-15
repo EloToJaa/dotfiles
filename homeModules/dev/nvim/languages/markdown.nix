@@ -10,10 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable markdown";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      prettierd
-      markdown-oxide
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   prettierd
+    #   markdown-oxide
+    # ];
 
     programs.nixvim = {
       lsp.servers.markdown_oxide = {
@@ -22,7 +22,7 @@ in {
       };
       plugins = {
         conform-nvim.settings.formatters_by_ft = {
-          markdown = ["prettierd"];
+          markdown = ["oxfmt"];
         };
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           markdown

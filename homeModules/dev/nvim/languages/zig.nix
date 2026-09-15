@@ -10,9 +10,9 @@ in {
     enable = lib.mkEnableOption "Enable zig";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      # zls
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   zls
+    # ];
 
     programs.nixvim = {
       lsp.servers.zls = {

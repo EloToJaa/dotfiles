@@ -10,17 +10,18 @@ in {
     enable = lib.mkEnableOption "Enable yaml";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      prettierd
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   prettierd
+    # ];
 
     programs.nixvim = {
       lsp.servers.yamlls = {
         enable = true;
+        package = null;
       };
       plugins = {
         conform-nvim.settings.formatters_by_ft = {
-          yaml = ["prettierd"];
+          yaml = ["oxfmt"];
         };
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           yaml

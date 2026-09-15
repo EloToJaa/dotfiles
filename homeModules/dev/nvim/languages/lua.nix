@@ -10,14 +10,15 @@ in {
     enable = lib.mkEnableOption "Enable lua";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      lua54Packages.luacheck
-      stylua
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   lua54Packages.luacheck
+    #   stylua
+    # ];
 
     programs.nixvim = {
       lsp.servers.lua_ls = {
         enable = true;
+        package = null;
       };
       plugins = {
         lint.lintersByFt = {

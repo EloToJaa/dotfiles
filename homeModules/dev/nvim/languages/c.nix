@@ -11,9 +11,9 @@ in {
     enable = lib.mkEnableOption "Enable c";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      clang-tools
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   clang-tools
+    # ];
 
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 

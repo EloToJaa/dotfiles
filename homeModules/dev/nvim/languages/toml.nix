@@ -13,6 +13,7 @@ in {
     programs.nixvim = {
       lsp.servers.taplo = {
         enable = true;
+        package = null;
       };
       plugins = {
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [

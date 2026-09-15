@@ -10,10 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable go";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      gofumpt
-      gopls
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   gofumpt
+    #   gopls
+    # ];
 
     programs.nixvim = {
       lsp.servers.gopls = {

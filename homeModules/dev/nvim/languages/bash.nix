@@ -10,10 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable bash";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      shfmt
-      bash-language-server
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   shfmt
+    #   bash-language-server
+    # ];
 
     programs.nixvim = {
       lsp.servers.bashls = {

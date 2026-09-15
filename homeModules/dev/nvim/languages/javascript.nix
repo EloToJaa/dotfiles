@@ -10,11 +10,11 @@ in {
     enable = lib.mkEnableOption "Enable javascript";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      eslint_d
-      prettierd
-      typescript
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   oxlint
+    #   oxfmt
+    #   typescript
+    # ];
 
     programs.nixvim = {
       lsp.servers = {
@@ -22,30 +22,48 @@ in {
           enable = true;
           package = null;
         };
-        astro.enable = true;
-        svelte.enable = true;
-        tailwindcss.enable = true;
-        html.enable = true;
-        cssls.enable = true;
+        astro = {
+          enable = true;
+          package = null;
+        };
+        svelte = {
+          enable = true;
+          package = null;
+        };
+        tailwindcss = {
+          enable = true;
+          package = null;
+        };
+        html = {
+          enable = true;
+          package = null;
+        };
+        cssls = {
+          enable = true;
+          package = null;
+        };
       };
-      plugins = {
+      plugins = let
+        formatter = "oxfmt";
+        linter = "oxlint";
+      in {
         lint.lintersByFt = {
-          javascript = ["eslint_d"];
-          typescript = ["eslint_d"];
-          javascriptreact = ["eslint_d"];
-          typescriptreact = ["eslint_d"];
-          svelte = ["eslint_d"];
-          astro = ["eslint_d"];
+          javascript = [linter];
+          typescript = [linter];
+          javascriptreact = [linter];
+          typescriptreact = [linter];
+          svelte = [linter];
+          astro = [linter];
         };
         conform-nvim.settings.formatters_by_ft = {
-          javascript = ["prettierd"];
-          typescript = ["prettierd"];
-          javascriptreact = ["prettierd"];
-          typescriptreact = ["prettierd"];
-          svelte = ["prettierd"];
-          astro = ["prettierd"];
-          html = ["prettierd"];
-          css = ["prettierd"];
+          javascript = [formatter];
+          typescript = [formatter];
+          javascriptreact = [formatter];
+          typescriptreact = [formatter];
+          svelte = [formatter];
+          astro = [formatter];
+          html = [formatter];
+          css = [formatter];
         };
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           javascript

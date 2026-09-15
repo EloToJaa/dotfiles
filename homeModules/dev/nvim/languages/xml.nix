@@ -13,6 +13,7 @@ in {
     programs.nixvim = {
       lsp.servers.lemminx = {
         enable = true;
+        package = null;
       };
       plugins = {
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [

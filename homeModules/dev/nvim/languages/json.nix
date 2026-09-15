@@ -10,17 +10,18 @@ in {
     enable = lib.mkEnableOption "Enable json";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      prettierd
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   prettierd
+    # ];
 
     programs.nixvim = {
       lsp.servers.jsonls = {
         enable = true;
+        package = null;
       };
       plugins = {
         conform-nvim.settings.formatters_by_ft = {
-          json = ["prettierd"];
+          json = ["oxfmt"];
         };
         treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           json

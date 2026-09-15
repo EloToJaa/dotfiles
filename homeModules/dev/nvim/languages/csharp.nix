@@ -10,11 +10,11 @@ in {
     enable = lib.mkEnableOption "Enable c#";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      dotnetCorePackages.sdk_10_0
-      roslyn-ls
-      csharpier
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   dotnetCorePackages.sdk_10_0
+    #   roslyn-ls
+    #   csharpier
+    # ];
 
     programs.nixvim = {
       lsp.servers.roslyn_ls = {

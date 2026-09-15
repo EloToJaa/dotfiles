@@ -10,10 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable python";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      ruff
-      pyright
-    ];
+    # home.packages = with pkgs.unstable; [
+    #   ruff
+    #   pyright
+    # ];
 
     programs.nixvim = {
       lsp.servers.pyright = {
