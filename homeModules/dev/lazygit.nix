@@ -13,6 +13,7 @@ in {
     enable = lib.mkEnableOption "Enable lazygit";
   };
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [aichat];
     programs.lazygit = {
       enable = true;
       package = pkgs.unstable.lazygit;
@@ -51,13 +52,6 @@ in {
           authorColors."*" = "#b4befe";
         };
         customCommands = [
-          {
-            key = "C";
-            command = "git cz";
-            context = "files";
-            loadingText = "opening commitizen commit tool";
-            output = "terminal";
-          }
           {
             key = "E";
             description = "Add empty commit";
