@@ -14,10 +14,13 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 
 ## TODO
 
+- [x] Replace notifiarr with ntfy.sh in sonarr, radarr, bazarr, prowlarr, jellyfin
+- [x] Upgrade jellyfin to 12.0
+- [x] Replace trakt yamtrack
+- [x] Finish lazygit setup
+- [x] Remove language tools
 - [ ] Fix secrets migrate from sops
-- [ ] Finish lazygit setup
 - [ ] Cleanup flake.nix
-- [ ] Remove language tools
 - [ ] Add goaccess
 - [ ] Add url shortner (shlink?)
 - [ ] Add scrutiny
@@ -30,7 +33,4 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [ ] Checkout wezterm
 - [ ] Replace dms with omarchy shell?
 - [ ] Cleanup home-assistant dashboard
-- [ ] Replace notifiarr with ntfy.sh in sonarr, radarr, bazarr, prowlarr, jellyfin
-- [ ] Upgrade jellyfin to 12.0
 - [ ] Replace jellystat with jellyglance or something else
-- [ ] Replace trakt with ryot, yamtrack or watcharr
