@@ -10,10 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable markdown";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = with pkgs.unstable; [
-    #   prettierd
-    #   markdown-oxide
-    # ];
+    home.packages = with pkgs.unstable; [
+      markdown-oxide
+      oxfmt
+    ];
 
     programs.nixvim = {
       lsp.servers.markdown_oxide = {

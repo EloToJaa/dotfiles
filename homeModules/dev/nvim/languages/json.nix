@@ -10,9 +10,9 @@ in {
     enable = lib.mkEnableOption "Enable json";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = with pkgs.unstable; [
-    #   prettierd
-    # ];
+    home.packages = with pkgs.unstable; [
+      oxfmt
+    ];
 
     programs.nixvim = {
       lsp.servers.jsonls = {
