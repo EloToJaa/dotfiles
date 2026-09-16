@@ -92,10 +92,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # hyprland = {
-    #   url = "github:hyprwm/Hyprland/v0.54.2?submodules=true";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.56.2&submodules=1";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

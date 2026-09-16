@@ -90,6 +90,10 @@ in {
       ];
       # No gaps when only
       workspace = [
+        "3, layout:scrolling"
+        "4, layout:scrolling"
+        "5, layout:scrolling"
+        "6, layout:scrolling"
         "w[t1], gapsout:0, gapsin:0"
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"

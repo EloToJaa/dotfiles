@@ -60,6 +60,10 @@ in {
         # no_gaps_when_only = 0;
       };
 
+      scrolling = {
+        fullscreen_on_one_column = true;
+      };
+
       decoration = {
         rounding = 0;
         # active_opacity = 0.90;

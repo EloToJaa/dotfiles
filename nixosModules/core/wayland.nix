@@ -5,7 +5,22 @@
   inputs,
   ...
 }: let
-  # inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}) hyprland xdg-desktop-portal-hyprland;
+  system = pkgs.stdenv.hostPlatform.system;
+  hyprlandPackages = inputs.hyprland.packages.${system};
+  hyprlandNixpkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
+  glaze7 = hyprlandNixpkgs.glaze.overrideAttrs (_: {
+    version = "7.2.0";
+    src = hyprlandNixpkgs.fetchFromGitHub {
+      owner = "stephenberry";
+      repo = "glaze";
+      rev = "v7.2.0";
+      hash = "sha256-f3NVRi3SXKo42hn0WCw7JsOK3EkdOVJIcuzhPorKjFY=";
+    };
+  });
+  hyprland = hyprlandPackages.hyprland.override {
+    "glaze-hyprland" = glaze7.override {enableSSL = false;};
+  };
+  inherit (hyprlandPackages) xdg-desktop-portal-hyprland;
   inherit (config.settings) uid username;
   avatar = ./assets/avatar.png;
   niri = pkgs.unstable.niri;
@@ -22,8 +37,8 @@ in {
     programs = {
       hyprland = lib.mkIf cfg.hyprland.enable {
         enable = true;
-        # package = hyprland;
-        # portalPackage = xdg-desktop-portal-hyprland;
+        package = hyprland;
+        portalPackage = xdg-desktop-portal-hyprland;
       };
       niri = lib.mkIf cfg.niri.enable {
         enable = true;
@@ -33,7 +48,7 @@ in {
         withXDG = true;
       };
     };
-    systemd.user.services.niri-flake-polkit.enable = false;
+    systemd.user.services.niri-flake-polkit.enable = lib.mkIf cfg.niri.enable false;
 
     systemd.services.set-user-avatar = {
       description = "Set ${username}'s AccountsService avatar";
@@ -62,8 +77,12 @@ in {
     };
     programs.dms-greeter = {
       enable = true;
-      compositor.name = "niri"; # Required. Can be also "hyprland" or "sway"
-      compositor.customConfig = ''
+      compositor.name =
+        if cfg.hyprland.enable
+        then "hyprland"
+        else "niri";
+      compositor.package = lib.mkIf cfg.hyprland.enable hyprland;
+      compositor.customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
         hotkey-overlay {
           skip-at-startup
         }

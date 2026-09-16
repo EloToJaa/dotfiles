@@ -4,161 +4,152 @@
   settings,
   ...
 }: let
-  inherit (settings) terminal discord;
-  inherit (config.modules.desktop) mainMod;
+  inherit (settings) discord;
   cfg = config.modules.desktop.hyprland;
+  dms = "dms ipc call";
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = {
       bind = [
-        # keybindings
-        "${mainMod}, Return, exec, ${terminal}"
-        "ALT, Return, exec, [float; size 1111 700] ${terminal}"
-        "${mainMod} SHIFT, Return, exec, [fullscreen] ${terminal}"
-        "${mainMod}, b, exec, hyprctl dispatch exec '[workspace 1 silent] zen-beta'"
-        "${mainMod}, q, killactive,"
-        "${mainMod}, f, fullscreen, 0"
-        "${mainMod} SHIFT, f, fullscreen, 1"
-        "${mainMod}, Space, exec, toggle-float"
-        "${mainMod}, s, exec, vicinae toggle"
-        "${mainMod} CTRL, E, exec, vicinae vicinae://extensions/vicinae/search-emojis"
-        "${mainMod} SHIFT, S, exec, hyprctl dispatch exec '[workspace 6 silent] spotify'"
-        "${mainMod}, d, exec, ${discord}"
-        "${mainMod} SHIFT, D, exec, nwg-displays"
-        "${mainMod}, g, exec, hyprlock"
-        "${mainMod}, Escape, exec, wlogout"
-        "${mainMod}, p, pseudo,"
-        # "${mainMod}, x, togglesplit,"
-        "${mainMod}, t, exec, toggle-opacity"
-        "${mainMod} CTRL, t, exec, piper-toggle-clipboard"
-        "${mainMod} CTRL SHIFT, t, exec, piper-stop-reading"
-        "${mainMod}, e, exec, nautilus"
-        "${mainMod} SHIFT, e, exec, hyprctl dispatch exec '[float; size 1111 700] nautilus'"
-        "${mainMod} SHIFT, B, exec, toggle-waybar"
-        "${mainMod}, c, exec, hyprpicker -a"
-        "${mainMod}, w, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
-        "${mainMod} SHIFT, W, exec, hyprctl dispatch exec '[workspace 2 silent] delfin'"
-        "${mainMod}, n, exec, swaync-client -t -sw"
-        "${mainMod}, equal, exec, woomer"
+        # Applications and DMS. Keep these aligned with the niri bindings.
+        "SUPER, P, exec, sessionizer --desktop"
+        "SUPER CTRL, P, exec, machine-ssh --desktop"
+        "SUPER CTRL, T, exec, piper-toggle-clipboard"
+        "SUPER CTRL SHIFT, T, exec, piper-stop-reading"
+        "SUPER, D, exec, ${discord}"
+        "SUPER SHIFT, D, exec, ${dms} settings toggleWith displays"
+        "SUPER, B, exec, zen-beta"
+        "SUPER SHIFT, B, exec, bar-visibility cycle"
+        "SUPER, E, exec, nautilus"
+        "SUPER, Space, togglefloating"
+        "SUPER SHIFT, S, exec, spotify"
+        "SUPER, Return, exec, ghostty +new-window"
+        "SUPER, S, exec, vicinae toggle"
+        "SUPER CTRL, E, exec, vicinae vicinae://extensions/vicinae/search-emojis"
+        "SUPER, V, exec, vicinae vicinae://launch/clipboard/history"
+        "SUPER, M, exec, ${dms} processlist focusOrToggle"
+        "SUPER, Escape, exec, ${dms} powermenu toggle"
+        "SUPER, A, exec, ${dms} settings focusOrToggle"
+        "SUPER, N, exec, ${dms} notifications toggle"
+        "SUPER SHIFT, N, exec, gnome-text-editor"
+        "SUPER, G, exec, ${dms} lock lock"
+        "SUPER SHIFT, W, exec, ${dms} dash toggle wallpaper"
+        "SUPER, W, exec, delfin"
+        "SUPER SHIFT, Slash, exec, ${dms} keybinds toggle hyprland"
+        "CTRL ALT, Delete, exec, ${dms} processlist focusOrToggle"
+        "SUPER SHIFT, E, exit"
 
-        # screenshot
-        ",Print, exec, screenshot --copy"
-        "${mainMod}, Print, exec, screenshot --save"
-        "${mainMod} SHIFT, Print, exec, screenshot --edit"
-        "${mainMod} CTRL, O, exec, ocr"
+        # Window management.
+        "SUPER, Q, killactive"
+        "SUPER, F, fullscreen, 1"
+        "SUPER SHIFT, F, fullscreen, 0"
+        "SUPER SHIFT, V, exec, hyprctl dispatch cyclenext floating"
+        "SUPER, Left, movefocus, l"
+        "SUPER, Down, movefocus, d"
+        "SUPER, Up, movefocus, u"
+        "SUPER, Right, movefocus, r"
+        "SUPER, H, movefocus, l"
+        "SUPER, J, movefocus, d"
+        "SUPER, K, movefocus, u"
+        "SUPER, L, movefocus, r"
+        "SUPER SHIFT, Left, movewindow, l"
+        "SUPER SHIFT, Down, movewindow, d"
+        "SUPER SHIFT, Up, movewindow, u"
+        "SUPER SHIFT, Right, movewindow, r"
+        "SUPER SHIFT, H, movewindow, l"
+        "SUPER SHIFT, J, movewindow, d"
+        "SUPER SHIFT, K, movewindow, u"
+        "SUPER SHIFT, L, movewindow, r"
 
-        # switch focus
-        "${mainMod}, left, movefocus, l"
-        "${mainMod}, right, movefocus, r"
-        "${mainMod}, up, movefocus, u"
-        "${mainMod}, down, movefocus, d"
-        "${mainMod}, h, movefocus, l"
-        "${mainMod}, j, movefocus, d"
-        "${mainMod}, k, movefocus, u"
-        "${mainMod}, l, movefocus, r"
+        # Monitors and workspaces.
+        "SUPER CTRL, Left, focusmonitor, l"
+        "SUPER CTRL, Right, focusmonitor, r"
+        "SUPER CTRL, Up, focusmonitor, d"
+        "SUPER CTRL, Down, focusmonitor, u"
+        "SUPER CTRL, H, focusmonitor, l"
+        "SUPER CTRL, J, focusmonitor, d"
+        "SUPER CTRL, K, focusmonitor, u"
+        "SUPER CTRL, L, focusmonitor, r"
+        "SUPER CTRL SHIFT, Left, movewindow, mon:l"
+        "SUPER CTRL SHIFT, Down, movewindow, mon:d"
+        "SUPER CTRL SHIFT, Up, movewindow, mon:u"
+        "SUPER CTRL SHIFT, Right, movewindow, mon:r"
+        "SUPER CTRL SHIFT, H, movewindow, mon:l"
+        "SUPER CTRL SHIFT, J, movewindow, mon:d"
+        "SUPER CTRL SHIFT, K, movewindow, mon:u"
+        "SUPER CTRL SHIFT, L, movewindow, mon:r"
+        "SUPER, Comma, movecurrentworkspacetomonitor, l"
+        "SUPER, Period, movecurrentworkspacetomonitor, r"
+        "SUPER, Page_Down, workspace, e+1"
+        "SUPER, Page_Up, workspace, e-1"
+        "SUPER, U, workspace, e+1"
+        "SUPER, I, workspace, e-1"
+        "SUPER CTRL, U, movetoworkspace, e+1"
+        "SUPER CTRL, I, movetoworkspace, e-1"
+        "SUPER SHIFT, Page_Down, movetoworkspace, e+1"
+        "SUPER SHIFT, Page_Up, movetoworkspace, e-1"
+        "SUPER SHIFT, U, movetoworkspace, e+1"
+        "SUPER SHIFT, I, movetoworkspace, e-1"
+        "CTRL SHIFT, R, exec, ${dms} workspace-rename open"
 
-        # switch workspace
-        "${mainMod}, 1, workspace, 1"
-        "${mainMod}, 2, workspace, 2"
-        "${mainMod}, 3, workspace, 3"
-        "${mainMod}, 4, workspace, 4"
-        "${mainMod}, 5, workspace, 5"
-        "${mainMod}, 6, workspace, 6"
-        "${mainMod}, 7, workspace, 7"
-        "${mainMod}, 8, workspace, 8"
-        "${mainMod}, 9, workspace, 9"
-        "${mainMod}, 0, workspace, 10"
+        "SUPER, 1, workspace, 1"
+        "SUPER, 2, workspace, 2"
+        "SUPER, 3, workspace, 3"
+        "SUPER, 4, workspace, 4"
+        "SUPER, 5, workspace, 5"
+        "SUPER, 6, workspace, 6"
+        "SUPER, 7, workspace, 7"
+        "SUPER, 8, workspace, 8"
+        "SUPER, 9, workspace, 9"
+        "SUPER SHIFT, 1, movetoworkspace, 1"
+        "SUPER SHIFT, 2, movetoworkspace, 2"
+        "SUPER SHIFT, 3, movetoworkspace, 3"
+        "SUPER SHIFT, 4, movetoworkspace, 4"
+        "SUPER SHIFT, 5, movetoworkspace, 5"
+        "SUPER SHIFT, 6, movetoworkspace, 6"
+        "SUPER SHIFT, 7, movetoworkspace, 7"
+        "SUPER SHIFT, 8, movetoworkspace, 8"
+        "SUPER SHIFT, 9, movetoworkspace, 9"
 
-        "${mainMod}, bracketleft, workspace, -1"
-        "${mainMod}, bracketright, workspace, +1"
-
-        # same as above, but switch to the workspace
-        "${mainMod} SHIFT, 1, movetoworkspacesilent, 1"
-        "${mainMod} SHIFT, 2, movetoworkspacesilent, 2"
-        "${mainMod} SHIFT, 3, movetoworkspacesilent, 3"
-        "${mainMod} SHIFT, 4, movetoworkspacesilent, 4"
-        "${mainMod} SHIFT, 5, movetoworkspacesilent, 5"
-        "${mainMod} SHIFT, 6, movetoworkspacesilent, 6"
-        "${mainMod} SHIFT, 7, movetoworkspacesilent, 7"
-        "${mainMod} SHIFT, 8, movetoworkspacesilent, 8"
-        "${mainMod} SHIFT, 9, movetoworkspacesilent, 9"
-        "${mainMod} SHIFT, 0, movetoworkspacesilent, 10"
-        "${mainMod} CTRL, c, movetoworkspace, empty"
-
-        "${mainMod} SHIFT, bracketleft, movetoworkspacesilent, -1"
-        "${mainMod} SHIFT, bracketright, movetoworkspacesilent, +1"
-
-        # move workspace to another monitor
-        "${mainMod}, comma, movecurrentworkspacetomonitor, l"
-        "${mainMod}, period, movecurrentworkspacetomonitor, r"
-
-        # change monitor focus
-        "${mainMod}, Tab, focusmonitor, +1"
-        "${mainMod} SHIFT, Tab, focusmonitor, -1"
-
-        # window control
-        "${mainMod} SHIFT, left, movewindow, l"
-        "${mainMod} SHIFT, right, movewindow, r"
-        "${mainMod} SHIFT, up, movewindow, u"
-        "${mainMod} SHIFT, down, movewindow, d"
-        "${mainMod} SHIFT, h, movewindow, l"
-        "${mainMod} SHIFT, j, movewindow, d"
-        "${mainMod} SHIFT, k, movewindow, u"
-        "${mainMod} SHIFT, l, movewindow, r"
-
-        "${mainMod} CTRL, left, resizeactive, -80 0"
-        "${mainMod} CTRL, right, resizeactive, 80 0"
-        "${mainMod} CTRL, up, resizeactive, 0 -80"
-        "${mainMod} CTRL, down, resizeactive, 0 80"
-        "${mainMod} CTRL, h, resizeactive, -80 0"
-        "${mainMod} CTRL, j, resizeactive, 0 80"
-        "${mainMod} CTRL, k, resizeactive, 0 -80"
-        "${mainMod} CTRL, l, resizeactive, 80 0"
-
-        "${mainMod} ALT, left, moveactive,  -80 0"
-        "${mainMod} ALT, right, moveactive, 80 0"
-        "${mainMod} ALT, up, moveactive, 0 -80"
-        "${mainMod} ALT, down, moveactive, 0 80"
-        "${mainMod} ALT, h, moveactive,  -80 0"
-        "${mainMod} ALT, j, moveactive, 0 80"
-        "${mainMod} ALT, k, moveactive, 0 -80"
-        "${mainMod} ALT, l, moveactive, 80 0"
-
-        # media and volume controls
-        # ",XF86AudioMute,exec, pamixer -t"
-        ",XF86AudioPlay,exec, playerctl play-pause"
-        ",XF86AudioNext,exec, playerctl next"
-        ",XF86AudioPrev,exec, playerctl previous"
-        ",XF86AudioStop,exec, playerctl stop"
-
-        "${mainMod}, mouse_down, workspace, e-1"
-        "${mainMod}, mouse_up, workspace, e+1"
-
-        # clipboard manager
-        "${mainMod}, v, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
+        # Layout, screenshots, and display controls.
+        "SUPER, R, togglesplit"
+        "SUPER CTRL, F, fullscreen, 1"
+        "SUPER, Minus, resizeactive, -100 0"
+        "SUPER, Equal, resizeactive, 100 0"
+        "SUPER SHIFT, Minus, resizeactive, 0 -100"
+        "SUPER SHIFT, Equal, resizeactive, 0 100"
+        ", Print, exec, dms screenshot"
+        "CTRL, Print, exec, dms screenshot full"
+        "ALT, Print, exec, dms screenshot window"
+        ", XF86Launch1, exec, dms screenshot"
+        "CTRL, XF86Launch1, exec, dms screenshot full"
+        "ALT, XF86Launch1, exec, dms screenshot window"
+        "SUPER, O, exec, ocr"
+        "SUPER SHIFT, O, exec, qr-capture"
+        "SUPER SHIFT, P, dpms, toggle"
       ];
 
-      # # binds active in lockscreen
-      # bindl = [
-      #   # laptop brigthness
-      #   ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-      #   ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-      #   "${mainMod}, XF86MonBrightnessUp, exec, brightnessctl set 100%+"
-      #   "${mainMod}, XF86MonBrightnessDown, exec, brightnessctl set 100%-"
-      #
-      #   "${mainMod}, Escape, exec, power-menu"
-      # ];
+      bindl = [
+        ", XF86AudioMute, exec, ${dms} audio mute"
+        ", XF86AudioMicMute, exec, ${dms} audio micmute"
+        ", XF86AudioPause, exec, ${dms} mpris playPause"
+        ", XF86AudioPlay, exec, ${dms} mpris playPause"
+        ", XF86AudioPrev, exec, ${dms} mpris previous"
+        ", XF86AudioNext, exec, ${dms} mpris next"
+      ];
 
-      # # binds that repeat when held
-      # binde = [
-      #   ",XF86AudioRaiseVolume,exec, pamixer -i 2"
-      #   ",XF86AudioLowerVolume,exec, pamixer -d 2"
-      # ];
+      bindle = [
+        ", XF86AudioRaiseVolume, exec, ${dms} audio increment 2"
+        ", XF86AudioLowerVolume, exec, ${dms} audio decrement 2"
+        "CTRL, XF86AudioRaiseVolume, exec, ${dms} mpris increment 2"
+        "CTRL, XF86AudioLowerVolume, exec, ${dms} mpris decrement 2"
+        ", XF86MonBrightnessUp, exec, ${dms} brightness increment 5 ''"
+        ", XF86MonBrightnessDown, exec, ${dms} brightness decrement 5 ''"
+      ];
 
-      # mouse binding
       bindm = [
-        "${mainMod}, mouse:272, movewindow"
-        "${mainMod}, mouse:273, resizewindow"
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
       ];
     };
   };

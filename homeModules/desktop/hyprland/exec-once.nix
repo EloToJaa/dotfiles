@@ -1,27 +1,23 @@
 {
   config,
   lib,
+  settings,
   ...
 }: let
+  inherit (settings) discord;
   cfg = config.modules.desktop.hyprland;
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings.exec-once = [
-      # Export all session variables to dbus and systemd
-      "systemctl --user import-environment PATH HOME USER XDG_DATA_DIRS XDG_SESSION_TYPE XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP WAYLAND_DISPLAY GTK_THEME GDK_BACKEND MOZ_ENABLE_WAYLAND QT_QPA_PLATFORM"
-      "dbus-update-activation-environment --systemd PATH HOME USER XDG_DATA_DIRS XDG_SESSION_TYPE XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP WAYLAND_DISPLAY GTK_THEME GDK_BACKEND MOZ_ENABLE_WAYLAND QT_QPA_PLATFORM"
+      # Home Manager's Hyprland target starts DMS and other user services.
+      "systemctl --user import-environment --all"
+      "dbus-update-activation-environment --systemd --all"
 
-      "hyprlock"
-
-      "nm-applet"
-      "poweralertd"
-      "wl-clip-persist --clipboard both"
-      # "wl-paste --watch cliphist store"
-      "waybar"
-      "swaync"
+      # Keep application startup aligned with niri.
       "udiskie --automount --notify --smart-tray"
-      "hyprctl setcursor Bibata-Modern-Ice 22"
-      "init-wallpaper"
+      discord
+      "valent --gapplication-service"
+      "ntfy subscribe --from-config"
     ];
   };
 }
