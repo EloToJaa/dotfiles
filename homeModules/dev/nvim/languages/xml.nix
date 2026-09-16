@@ -10,6 +10,9 @@ in {
     enable = lib.mkEnableOption "Enable xml";
   };
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs.unstable; [
+      lemminx
+    ];
     programs.nixvim = {
       lsp.servers.lemminx = {
         enable = true;

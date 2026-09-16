@@ -12,6 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
       oxfmt
+      vscode-langservers-extracted
     ];
 
     programs.nixvim = {

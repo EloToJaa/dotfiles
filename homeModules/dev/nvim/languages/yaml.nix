@@ -10,9 +10,10 @@ in {
     enable = lib.mkEnableOption "Enable yaml";
   };
   config = lib.mkIf cfg.enable {
-    # home.packages = with pkgs.unstable; [
-    #   prettierd
-    # ];
+    home.packages = with pkgs.unstable; [
+      oxfmt
+      yaml-language-server
+    ];
 
     programs.nixvim = {
       lsp.servers.yamlls = {
