@@ -19,6 +19,7 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [x] Replace trakt yamtrack
 - [x] Finish lazygit setup
 - [x] Remove language tools
+- [ ] Replace jellystat with streamystats
 - [ ] Fix secrets migrate from sops
 - [ ] Cleanup flake.nix
 - [ ] Add goaccess
@@ -33,4 +34,3 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [ ] Checkout wezterm
 - [ ] Replace dms with omarchy shell?
 - [ ] Cleanup home-assistant dashboard
-- [ ] Replace jellystat with jellyglance or something else
