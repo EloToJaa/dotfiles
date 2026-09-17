@@ -39,6 +39,8 @@ in {
         enable = true;
         package = hyprland;
         portalPackage = xdg-desktop-portal-hyprland;
+        withUWSM = false;
+        xwayland.enable = true;
       };
       niri = lib.mkIf cfg.niri.enable {
         enable = true;
@@ -77,20 +79,22 @@ in {
     };
     programs.dms-greeter = {
       enable = true;
-      compositor.name =
-        if cfg.hyprland.enable
-        then "hyprland"
-        else "niri";
-      compositor.package = lib.mkIf cfg.hyprland.enable hyprland;
-      compositor.customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
-        hotkey-overlay {
-          skip-at-startup
-        }
+      compositor = {
+        name =
+          if cfg.hyprland.enable
+          then "hyprland"
+          else "niri";
+        package = lib.mkIf cfg.hyprland.enable hyprland;
+        customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
+          hotkey-overlay {
+            skip-at-startup
+          }
 
-        environment {
-          DMS_RUN_GREETER "1"
-        }
-      '';
+          environment {
+            DMS_RUN_GREETER "1"
+          }
+        '';
+      };
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
       configHome = "/home/${username}";
 
