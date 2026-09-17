@@ -670,6 +670,26 @@
         "type": "github"
       }
     },
+    "hjem": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789234255,
+        "narHash": "sha256-0nvWuRbgL4GEKpR8Y4wsB3kmsVgyd0cW8kLHc2BqlTc=",
+        "owner": "feel-co",
+        "repo": "hjem",
+        "rev": "e5e30b4320a8cbcd6cdfc65f044763669a8f0363",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feel-co",
+        "repo": "hjem",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1682,6 +1702,7 @@
         "dms-plugin-registry": "dms-plugin-registry",
         "flake-parts": "flake-parts_2",
         "hermes-agent": "hermes-agent",
+        "hjem": "hjem",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "llm-agents": "llm-agents",

@@ -26,6 +26,8 @@
   niri = pkgs.unstable.niri;
   cfg = config.modules.core.wayland;
 in {
+  imports = [../../homeModules/desktop/hyprland/hjem.nix];
+
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
     hyprland.enable = lib.mkEnableOption "Enable hyprland";
