@@ -14,6 +14,7 @@ in {
     systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "lua";
       package = null;
       portalPackage = null;
       # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
