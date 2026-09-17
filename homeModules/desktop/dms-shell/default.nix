@@ -51,6 +51,7 @@ in {
         };
       };
     };
+    xdg.configFile."DankMaterialShell/settings.json".source = ./settings.json;
     programs.dank-calendar = {
       enable = true;
       quickshell.package = pkgs.unstable.quickshell;
