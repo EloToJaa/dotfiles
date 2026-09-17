@@ -2,25 +2,8 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: let
-  system = pkgs.stdenv.hostPlatform.system;
-  hyprlandPackages = inputs.hyprland.packages.${system};
-  hyprlandNixpkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
-  glaze7 = hyprlandNixpkgs.glaze.overrideAttrs (_: {
-    version = "7.2.0";
-    src = hyprlandNixpkgs.fetchFromGitHub {
-      owner = "stephenberry";
-      repo = "glaze";
-      rev = "v7.2.0";
-      hash = "sha256-f3NVRi3SXKo42hn0WCw7JsOK3EkdOVJIcuzhPorKjFY=";
-    };
-  });
-  hyprland = hyprlandPackages.hyprland.override {
-    "glaze-hyprland" = glaze7.override {enableSSL = false;};
-  };
-  inherit (hyprlandPackages) xdg-desktop-portal-hyprland;
   inherit (config.settings) uid username;
   avatar = ./assets/avatar.png;
   niri = pkgs.unstable.niri;
@@ -37,8 +20,8 @@ in {
     programs = {
       hyprland = lib.mkIf cfg.hyprland.enable {
         enable = true;
-        package = hyprland;
-        portalPackage = xdg-desktop-portal-hyprland;
+        package = pkgs.unstable.hyprland;
+        portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
         withUWSM = false;
         xwayland.enable = true;
       };
@@ -84,7 +67,7 @@ in {
           if cfg.hyprland.enable
           then "hyprland"
           else "niri";
-        package = lib.mkIf cfg.hyprland.enable hyprland;
+        package = lib.mkIf cfg.hyprland.enable pkgs.unstable.hyprland;
         customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
           hotkey-overlay {
             skip-at-startup
