@@ -1,3 +1,5 @@
+local variables = require("variables")
+
 -- Hyprland Lua window and workspace rules.
 hl.window_rule({ match = { class = "^(audacious)$" }, float = true })
 hl.window_rule({ match = { class = "^(waypaper)$" }, pin = true })
@@ -55,7 +57,7 @@ hl.window_rule({ match = { class = "^(xwaylandvideobridge)$" }, no_blur = true }
 hl.window_rule({ match = { class = "^(zen-beta)$" }, workspace = "1" })
 hl.window_rule({ match = { class = "^(gimp)$" }, workspace = "4" })
 hl.window_rule({ match = { class = "^(Audacious)$" }, workspace = "5" })
-hl.window_rule({ match = { class = "^(@DISCORD@)$" }, workspace = "5" })
+hl.window_rule({ match = { class = "^(" .. variables.discord .. ")$" }, workspace = "5" })
 hl.window_rule({ match = { class = "^(Spotify)$" }, workspace = "6" })
 hl.window_rule({ match = { class = "^(com.obsproject.Studio)$" }, workspace = "8" })
 hl.window_rule({ match = { float = true }, border_size = 0 })

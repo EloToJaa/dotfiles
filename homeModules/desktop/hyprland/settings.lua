@@ -1,6 +1,8 @@
+local variables = require("variables")
+
 hl.config({
 	input = {
-		kb_layout = "@KEYBOARD_LAYOUT@",
+		kb_layout = variables.keyboard_layout,
 		kb_options = "grp:alt_caps_toggle,compose:menu",
 		numlock_by_default = true,
 		follow_mouse = 0,
