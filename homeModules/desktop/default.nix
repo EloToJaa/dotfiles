@@ -8,6 +8,7 @@
     };
   };
   imports = [
+    ./dms-shell # DankMaterialShell
     ./hyprland # window manager
     ./niri
     ./scripts # personal scripts
@@ -20,7 +21,6 @@
     ./cava.nix # audio visualizer
     ./clipboard.nix
     ./discord.nix # discord
-    ./dms-shell.nix # DankMaterialShell
     ./ghostty.nix
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme

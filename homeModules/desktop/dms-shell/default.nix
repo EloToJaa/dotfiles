@@ -1,0 +1,69 @@
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
+  cfg = config.modules.desktop.dms-shell;
+  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs {
+    vendorHash = "sha256-Ls6Dquwt0fzDCEjZ6FfTsZTXDI8408mFdByv/OWHVgI=";
+  };
+in {
+  options.modules.desktop.dms-shell = {
+    enable = lib.mkEnableOption "Enable DankMaterialShell";
+  };
+  config = lib.mkIf cfg.enable {
+    programs.dank-material-shell = {
+      enable = true;
+
+      package = dmsPackage;
+      quickshell.package = pkgs.unstable.quickshell;
+      # dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+      enableAudioWavelength = true;
+      enableCalendarEvents = true;
+      enableClipboardPaste = true;
+      enableDynamicTheming = true;
+      enableSystemMonitoring = true;
+      enableVPN = true;
+
+      systemd.enable = true;
+
+      clipboardSettings = {
+        autoClearDays = 1;
+        clearAtStartup = true;
+        disabled = false;
+        maxEntrySize = 10485760;
+        maxHistory = 25;
+        maxPinned = 25;
+      };
+
+      plugins = {
+        aiOverviewControl.enable = true;
+        dankKDEConnect = {
+          enable = true;
+          settings.selectedDeviceId = "";
+        };
+        dankLauncherKeys = {
+          enable = true;
+          settings = {};
+        };
+      };
+    };
+    programs.dank-calendar = {
+      enable = true;
+      quickshell.package = pkgs.unstable.quickshell;
+      systemd.enable = true;
+    };
+    wayland.windowManager.niri.settings.include = map (path: {_args = [path];}) [
+      "dms/alttab.kdl"
+      "dms/colors.kdl"
+      # "dms/cursor.kdl"
+      # "dms/layout.kdl"
+      "dms/outputs.kdl"
+      "dms/windowrules.kdl"
+      # "dms/wpblur.kdl"
+    ];
+  };
+}
