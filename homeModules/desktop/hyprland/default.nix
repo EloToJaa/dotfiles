@@ -21,6 +21,9 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "lua";
+      extraConfig = ''
+        require("dms.outputs")
+      '';
       package = null;
       portalPackage = null;
       systemd.enable = true;
