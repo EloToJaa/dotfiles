@@ -12,7 +12,9 @@ in {
   options.modules.desktop.hyprland.enable = lib.mkEnableOption "Enable hyprland";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [hyprprop];
+    home.packages = with pkgs.unstable; [
+      hyprprop
+    ];
     systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];
     wayland.windowManager.hyprland = {
       enable = true;
@@ -22,6 +24,7 @@ in {
       '';
       package = null;
       portalPackage = null;
+      xdph.settings.screencopy.custom_picker_binary = "${pkgs.unstable.hyprland-preview-share-picker}/bin/hyprland-preview-share-picker";
       systemd.enable = true;
       extraLuaFiles = {
         animations = ./animations.lua;
