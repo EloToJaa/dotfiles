@@ -13,10 +13,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [hyprprop];
-    home.sessionVariables = {
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_DESKTOP = "Hyprland";
-    };
     systemd.user.targets.hyprland-session.Unit.Wants = ["xdg-desktop-autostart.target"];
     wayland.windowManager.hyprland = {
       enable = true;
