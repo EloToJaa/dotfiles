@@ -5,7 +5,7 @@ hl.config({
 		kb_layout = variables.keyboard_layout,
 		kb_options = "grp:alt_caps_toggle,compose:menu",
 		numlock_by_default = true,
-		follow_mouse = 0,
+		follow_mouse = 1,
 		float_switch_override_focus = 0,
 		mouse_refocus = 0,
 		sensitivity = 0,

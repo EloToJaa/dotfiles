@@ -65,6 +65,7 @@ hl.window_rule({ match = { class = "^()$", title = "^()$" }, opaque = true })
 hl.window_rule({ match = { class = "^()$", title = "^()$" }, no_shadow = true })
 hl.window_rule({ match = { class = "^()$", title = "^()$" }, no_blur = true })
 
+hl.workspace_rule({ workspace = "2", layout = "scrolling" })
 hl.workspace_rule({ workspace = "3", layout = "scrolling" })
 hl.workspace_rule({ workspace = "4", layout = "scrolling" })
 hl.workspace_rule({ workspace = "5", layout = "scrolling" })
