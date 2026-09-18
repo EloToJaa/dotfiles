@@ -59,6 +59,7 @@
       config.allowUnfree = true;
       config.allowInsecurePredicate = _: true;
       overlays = [
+        inputs.llm-agents.overlays.shared-nixpkgs
         (_final: prev: let
           python3Packages = prev.python3Packages.overrideScope (
             _pyFinal: pyPrev: {
