@@ -13,7 +13,6 @@
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
-        # ./terranix
         ./ci/buildbot-nix.nix
         ./lib
         ./settings.nix
@@ -53,7 +52,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nur.url = "github:nix-community/NUR";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    terranix.url = "github:terranix/terranix";
     devshell.url = "github:numtide/devshell";
 
     srvos.url = "github:nix-community/srvos";
