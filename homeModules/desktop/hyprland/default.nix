@@ -8,6 +8,12 @@
   cfg = config.modules.desktop.hyprland;
   inherit (settings) discord keyboardLayout;
   toLua = lib.generators.toLua {};
+  variables = {
+    inherit discord;
+    keyboard_layout = keyboardLayout;
+    main_mod = config.modules.desktop.mainMod;
+  };
+  imports = ["dms.outputs"];
 in {
   options.modules.desktop.hyprland.enable = lib.mkEnableOption "Enable hyprland";
 
@@ -19,9 +25,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "lua";
-      extraConfig = ''
-        require("dms.outputs")
-      '';
+      extraConfig = lib.concatMapStringsSep "\n" (module: "require(${toLua module})") imports;
       package = null;
       portalPackage = null;
       xdph.settings.screencopy.custom_picker_binary = "${pkgs.unstable.hyprland-preview-share-picker}/bin/hyprland-preview-share-picker";
@@ -35,17 +39,7 @@ in {
         windowrules = ./windowrules.lua;
         variables = {
           autoLoad = false;
-          content =
-            /*
-            lua
-            */
-            ''
-              local M = {}
-              M.discord = ${toLua discord}
-              M.keyboard_layout = ${toLua keyboardLayout}
-              M.main_mod = ${toLua config.modules.desktop.mainMod}
-              return M
-            '';
+          content = "return ${toLua variables}";
         };
       };
     };
