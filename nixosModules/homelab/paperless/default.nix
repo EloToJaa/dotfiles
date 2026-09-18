@@ -7,6 +7,12 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.paperless;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
+  paperlessSource = pkgs.unstable.fetchFromGitHub {
+    owner = "paperless-ngx";
+    repo = "paperless-ngx";
+    tag = "v3.1.2";
+    hash = "sha256-uZtGb80oasyqrjafKXx7oXT3+giu+yAT2xgdv+IZ4Tk=";
+  };
 in {
   options.modules.homelab.paperless = {
     enable = lib.mkEnableOption "Enable paperless";
@@ -40,7 +46,39 @@ in {
       inherit domain;
       inherit (cfg) port dataDir mediaDir;
       enable = true;
-      package = pkgs.unstable.paperless-ngx;
+      package =
+        (pkgs.unstable.paperless-ngx.override {
+          extraPythonPackageOverrides = _final: prev: {
+            playwright = prev.playwright.overridePythonAttrs (_old: {
+              src = pkgs.unstable.fetchFromGitHub {
+                owner = "microsoft";
+                repo = "playwright-python";
+                tag = "v1.63.0";
+                hash = "sha256-RwIn+0EcHnStjORVFmT7gp4bGjl+qer1FgtI3+aPF2w=";
+              };
+            });
+            pytest-playwright = prev.pytest-playwright.overridePythonAttrs (_old: {
+              preCheck = "";
+            });
+          };
+        }).overrideAttrs (_final: previous: {
+          version = "3.1.2";
+          src = paperlessSource;
+          passthru =
+            previous.passthru
+            // {
+              frontend = previous.passthru.frontend.overrideAttrs (_frontendFinal: _frontendPrevious: {
+                pnpmDeps = pkgs.unstable.fetchPnpmDeps {
+                  pnpm = pkgs.unstable.pnpm_10;
+                  pname = "paperless-ngx-frontend";
+                  version = "3.1.2";
+                  src = paperlessSource + "/src-ui";
+                  fetcherVersion = 4;
+                  hash = "sha256-14RMkwDGsFLBIUd7ZW0HI9mM5VunZi1n2P+JBU3oZXY=";
+                };
+              });
+            };
+        });
       user = cfg.name;
       environmentFile = config.sops.templates."${cfg.name}.env".path;
       settings = {
