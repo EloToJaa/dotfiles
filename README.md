@@ -19,6 +19,7 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [x] Replace trakt yamtrack
 - [x] Finish lazygit setup
 - [x] Remove language tools
+- [x] Migrate from niri to hyprland
 - [ ] Replace jellystat with streamystats
 - [ ] Fix secrets migrate from sops
 - [ ] Cleanup flake.nix
@@ -29,7 +30,6 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [ ] Add frigate
 - [ ] Setup zen browser
 - [ ] Config writable for codex/claude?
-- [ ] Migrate from niri to hyprland
 - [ ] Fix nix shell to use unstable packages
 - [ ] Checkout wezterm
 - [ ] Replace dms with omarchy shell?
