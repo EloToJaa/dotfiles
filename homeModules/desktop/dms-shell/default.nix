@@ -6,9 +6,7 @@
   ...
 }: let
   cfg = config.modules.desktop.dms-shell;
-  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs {
-    vendorHash = "sha256-Ls6Dquwt0fzDCEjZ6FfTsZTXDI8408mFdByv/OWHVgI=";
-  };
+  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
 in {
   options.modules.desktop.dms-shell = {
     enable = lib.mkEnableOption "Enable DankMaterialShell";
