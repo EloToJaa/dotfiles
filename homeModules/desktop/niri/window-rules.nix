@@ -70,19 +70,19 @@ in {
         block-out-from = "screencast";
       }
 
-      {
-        _children = map (matcher: {match._props = matcher;}) [
-          {app-id = "^zen-beta$";}
-          {app-id = "^com.mitchellh.ghostty$";}
-          {app-id = "^mpv$";}
-          {app-id = "^cafe.avery.Delfin$";}
-          {app-id = "^spotify$";}
-          {app-id = "^com.jeffser.Nocturne$";}
-          {app-id = "^vesktop$";}
-        ];
-        open-maximized = true;
-        open-maximized-to-edges = true;
-      }
+      # {
+      #   _children = map (matcher: {match._props = matcher;}) [
+      #     {app-id = "^zen-beta$";}
+      #     {app-id = "^com.mitchellh.ghostty$";}
+      #     {app-id = "^mpv$";}
+      #     {app-id = "^cafe.avery.Delfin$";}
+      #     {app-id = "^spotify$";}
+      #     {app-id = "^com.jeffser.Nocturne$";}
+      #     {app-id = "^vesktop$";}
+      #   ];
+      #   open-maximized = true;
+      #   open-maximized-to-edges = true;
+      # }
 
       # Picture-in-Picture
       {
