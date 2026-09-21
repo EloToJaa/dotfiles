@@ -10,6 +10,7 @@
   energa-my-meter = pkgs.unstable.callPackage ./energa-my-meter {};
   jellystat = pkgs.callPackage ./jellystat {};
   musicseerr = pkgs.callPackage ./musicseerr {};
+  oniri = pkgs.unstable.callPackage ./oniri {};
   stack-in-card = pkgs.callPackage ./stack-in-card {};
   streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};
