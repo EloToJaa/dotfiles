@@ -29,11 +29,11 @@ in {
         # focus-ring.enable = false;
       }
       {
-        match._children = [
-          {_props.app-id = "^org.gnome.Nautilus$";}
-          {_props.app-id = "^org.gnome.TextEditor$";}
-          {_props.app-id = "^org.gnome.Papers$";}
-          {_props.app-id = "^.virt-manager-wrapped$";}
+        _children = map (matcher: {match._props = matcher;}) [
+          {app-id = "^org.gnome.Nautilus$";}
+          {app-id = "^org.gnome.TextEditor$";}
+          {app-id = "^org.gnome.Papers$";}
+          {app-id = "^.virt-manager-wrapped$";}
         ];
         default-column-width.proportion = 0.5;
       }
@@ -57,28 +57,28 @@ in {
         open-floating = true;
       }
       {
-        match._children = [
-          {_props.app-id = "^mpv$";}
-          {_props.app-id = "^.+exe$";}
-          {_props.app-id = "^celluloid$";}
+        _children = map (matcher: {match._props = matcher;}) [
+          {app-id = "^mpv$";}
+          {app-id = "^.+exe$";}
+          {app-id = "^celluloid$";}
           {
-            _props.app-id = "^zen-beta$";
-            _props.title = ".*YouTube.*";
+            app-id = "^zen-beta$";
+            title = ".*YouTube.*";
           }
-          {_props.title = ".*Bitwarden Password Manager.*";}
+          {title = ".*Bitwarden Password Manager.*";}
         ];
         block-out-from = "screencast";
       }
 
       {
-        match._children = [
-          {_props.app-id = "^zen-beta$";}
-          {_props.app-id = "^com.mitchellh.ghostty$";}
-          {_props.app-id = "^mpv$";}
-          {_props.app-id = "^cafe.avery.Delfin$";}
-          {_props.app-id = "^spotify$";}
-          {_props.app-id = "^com.jeffser.Nocturne$";}
-          {_props.app-id = "^vesktop$";}
+        _children = map (matcher: {match._props = matcher;}) [
+          {app-id = "^zen-beta$";}
+          {app-id = "^com.mitchellh.ghostty$";}
+          {app-id = "^mpv$";}
+          {app-id = "^cafe.avery.Delfin$";}
+          {app-id = "^spotify$";}
+          {app-id = "^com.jeffser.Nocturne$";}
+          {app-id = "^vesktop$";}
         ];
         open-maximized = true;
         open-maximized-to-edges = true;
@@ -93,30 +93,30 @@ in {
 
       # File chooser dialogs
       {
-        match._children = [
-          {_props.app-id = "^org.gnome.FileRoller$";}
-          {_props.app-id = "^file_progress$";}
-          {_props.app-id = "^confirm$";}
-          {_props.app-id = "^dialog$";}
-          {_props.app-id = "^download$";}
-          {_props.app-id = "^notification$";}
-          {_props.app-id = "^error$";}
-          {_props.app-id = "^confirmreset$";}
-          {_props.title = ".*Open File.*";}
-          {_props.title = ".*File Upload.*";}
-          {_props.title = "^branchdialog$";}
-          {_props.title = "^Confirm to replace files$";}
-          {_props.title = "^File Operation Progress$";}
+        _children = map (matcher: {match._props = matcher;}) [
+          {app-id = "^org.gnome.FileRoller$";}
+          {app-id = "^file_progress$";}
+          {app-id = "^confirm$";}
+          {app-id = "^dialog$";}
+          {app-id = "^download$";}
+          {app-id = "^notification$";}
+          {app-id = "^error$";}
+          {app-id = "^confirmreset$";}
+          {title = ".*Open File.*";}
+          {title = ".*File Upload.*";}
+          {title = "^branchdialog$";}
+          {title = "^Confirm to replace files$";}
+          {title = "^File Operation Progress$";}
         ];
         open-floating = true;
       }
 
       # Screen sharing indicators - move to special workspace
       {
-        match._children = [
-          {_props.title = "^Firefox — Sharing Indicator$";}
-          {_props.title = "^Zen — Sharing Indicator$";}
-          {_props.title = ".*is sharing (your screen|a window)\\.";}
+        _children = map (matcher: {match._props = matcher;}) [
+          {title = "^Firefox — Sharing Indicator$";}
+          {title = "^Zen — Sharing Indicator$";}
+          {title = ".*is sharing (your screen|a window)\\.";}
         ];
         open-on-workspace = "special:screencast";
       }
