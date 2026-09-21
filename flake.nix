@@ -65,10 +65,6 @@
       };
     };
 
-    niri = {
-      url = "git+https://codeberg.org/BANanaD3V/niri-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

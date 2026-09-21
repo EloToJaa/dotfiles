@@ -29,8 +29,6 @@ in {
         enable = true;
         package = niri;
         useNautilus = true;
-        withUWSM = false;
-        withXDG = true;
       };
     };
     systemd.user.services.niri-flake-polkit.enable = lib.mkIf cfg.niri.enable false;

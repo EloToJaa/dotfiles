@@ -12,6 +12,8 @@ in {
     wayland.windowManager.niri = {
       enable = true;
       package = pkgs.unstable.niri;
+      xwaylandSatellitePackage = pkgs.unstable.xwayland-satellite;
+      checkConfig = false;
 
       settings = {
         input = {
@@ -47,7 +49,7 @@ in {
             width = 1;
           };
         };
-        layer-rule = [
+        layer-rule._children = [
           {
             match._props.namespace = "dms:blurwallpaper";
             place-within-backdrop = true;

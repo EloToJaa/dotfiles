@@ -55,7 +55,7 @@ in {
       quickshell.package = pkgs.unstable.quickshell;
       systemd.enable = true;
     };
-    wayland.windowManager.niri.settings.include = map (path: {_args = [path];}) [
+    wayland.windowManager.niri.settings._children = map (path: {include._args = [path];}) [
       "dms/alttab.kdl"
       "dms/colors.kdl"
       # "dms/cursor.kdl"

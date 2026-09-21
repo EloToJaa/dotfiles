@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.modules.desktop.niri;
@@ -16,9 +15,4 @@ in {
     ./window-rules.nix
     ./workspaces.nix
   ];
-  config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      xwayland-satellite
-    ];
-  };
 }

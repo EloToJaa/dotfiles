@@ -6,7 +6,7 @@
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.niri.settings.window-rule = [
+    wayland.windowManager.niri.settings._children = map (rule: {window-rule = rule;}) [
       {
         geometry-corner-radius = 8.0;
         clip-to-geometry = true;
@@ -14,14 +14,14 @@ in {
         draw-border-with-background = false;
       }
       {
-        match._props.app-id._raw = ''r#"^winboat$"#'';
+        match._props.app-id = "^winboat$";
         # clip-to-geometry = false;
         # tiled-state = false;
         # border.enable = false;
         # focus-ring.enable = false;
       }
       {
-        match._props.app-id._raw = ''r#"^winboat-.*"#'';
+        match._props.app-id = "^winboat-.*";
         clip-to-geometry = false;
         tiled-state = false;
         open-floating = true;
@@ -29,11 +29,11 @@ in {
         # focus-ring.enable = false;
       }
       {
-        match = [
-          {_props.app-id._raw = ''r#"^org.gnome.Nautilus$"#'';}
-          {_props.app-id._raw = ''r#"^org.gnome.TextEditor$"#'';}
-          {_props.app-id._raw = ''r#"^org.gnome.Papers$"#'';}
-          {_props.app-id._raw = ''r#"^.virt-manager-wrapped$"#'';}
+        match._children = [
+          {_props.app-id = "^org.gnome.Nautilus$";}
+          {_props.app-id = "^org.gnome.TextEditor$";}
+          {_props.app-id = "^org.gnome.Papers$";}
+          {_props.app-id = "^.virt-manager-wrapped$";}
         ];
         default-column-width.proportion = 0.5;
       }
@@ -41,44 +41,44 @@ in {
       # Floating applications
       {
         match._props = {
-          app-id._raw = ''r#"^audacious$"#'';
-          title._raw = ''r#".*Bitwarden Password Manager.*"#'';
+          app-id = "^audacious$";
+          title = ".*Bitwarden Password Manager.*";
         };
         default-column-width.proportion = 0.5;
         open-floating = true;
       }
       {
-        match._props.app-id._raw = ''r#"^org.pulseaudio.pavucontrol$"#'';
+        match._props.app-id = "^org.pulseaudio.pavucontrol$";
         default-column-width.fixed = 1200;
         open-floating = true;
       }
       {
-        match._props.app-id._raw = ''r#"^com.interversehq.qView$"#'';
+        match._props.app-id = "^com.interversehq.qView$";
         open-floating = true;
       }
       {
-        match = [
-          {_props.app-id._raw = ''r#"^mpv$"#'';}
-          {_props.app-id._raw = ''r#"^.+exe$"#'';}
-          {_props.app-id._raw = ''r#"^celluloid$"#'';}
+        match._children = [
+          {_props.app-id = "^mpv$";}
+          {_props.app-id = "^.+exe$";}
+          {_props.app-id = "^celluloid$";}
           {
-            _props.app-id._raw = ''r#"^zen-beta$"#'';
-            _props.title._raw = ''r#".*YouTube.*"#'';
+            _props.app-id = "^zen-beta$";
+            _props.title = ".*YouTube.*";
           }
-          {_props.title._raw = ''r#".*Bitwarden Password Manager.*"#'';}
+          {_props.title = ".*Bitwarden Password Manager.*";}
         ];
         block-out-from = "screencast";
       }
 
       {
-        match = [
-          {_props.app-id._raw = ''r#"^zen-beta$"#'';}
-          {_props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';}
-          {_props.app-id._raw = ''r#"^mpv$"#'';}
-          {_props.app-id._raw = ''r#"^cafe.avery.Delfin$"#'';}
-          {_props.app-id._raw = ''r#"^spotify$"#'';}
-          {_props.app-id._raw = ''r#"^com.jeffser.Nocturne$"#'';}
-          {_props.app-id._raw = ''r#"^vesktop$"#'';}
+        match._children = [
+          {_props.app-id = "^zen-beta$";}
+          {_props.app-id = "^com.mitchellh.ghostty$";}
+          {_props.app-id = "^mpv$";}
+          {_props.app-id = "^cafe.avery.Delfin$";}
+          {_props.app-id = "^spotify$";}
+          {_props.app-id = "^com.jeffser.Nocturne$";}
+          {_props.app-id = "^vesktop$";}
         ];
         open-maximized = true;
         open-maximized-to-edges = true;
@@ -86,44 +86,44 @@ in {
 
       # Picture-in-Picture
       {
-        match._props.title._raw = ''r#"^Picture-in-Picture$"#'';
+        match._props.title = "^Picture-in-Picture$";
         open-floating = true;
         open-on-workspace = "special:overlay";
       }
 
       # File chooser dialogs
       {
-        match = [
-          {_props.app-id._raw = ''r#"^org.gnome.FileRoller$"#'';}
-          {_props.app-id._raw = ''r#"^file_progress$"#'';}
-          {_props.app-id._raw = ''r#"^confirm$"#'';}
-          {_props.app-id._raw = ''r#"^dialog$"#'';}
-          {_props.app-id._raw = ''r#"^download$"#'';}
-          {_props.app-id._raw = ''r#"^notification$"#'';}
-          {_props.app-id._raw = ''r#"^error$"#'';}
-          {_props.app-id._raw = ''r#"^confirmreset$"#'';}
-          {_props.title._raw = ''r#".*Open File.*"#'';}
-          {_props.title._raw = ''r#".*File Upload.*"#'';}
-          {_props.title._raw = ''r#"^branchdialog$"#'';}
-          {_props.title._raw = ''r#"^Confirm to replace files$"#'';}
-          {_props.title._raw = ''r#"^File Operation Progress$"#'';}
+        match._children = [
+          {_props.app-id = "^org.gnome.FileRoller$";}
+          {_props.app-id = "^file_progress$";}
+          {_props.app-id = "^confirm$";}
+          {_props.app-id = "^dialog$";}
+          {_props.app-id = "^download$";}
+          {_props.app-id = "^notification$";}
+          {_props.app-id = "^error$";}
+          {_props.app-id = "^confirmreset$";}
+          {_props.title = ".*Open File.*";}
+          {_props.title = ".*File Upload.*";}
+          {_props.title = "^branchdialog$";}
+          {_props.title = "^Confirm to replace files$";}
+          {_props.title = "^File Operation Progress$";}
         ];
         open-floating = true;
       }
 
       # Screen sharing indicators - move to special workspace
       {
-        match = [
-          {_props.title._raw = ''r#"^Firefox — Sharing Indicator$"#'';}
-          {_props.title._raw = ''r#"^Zen — Sharing Indicator$"#'';}
-          {_props.title._raw = ''r#".*is sharing (your screen|a window)\.$"#'';}
+        match._children = [
+          {_props.title = "^Firefox — Sharing Indicator$";}
+          {_props.title = "^Zen — Sharing Indicator$";}
+          {_props.title = ".*is sharing (your screen|a window)\\.";}
         ];
         open-on-workspace = "special:screencast";
       }
 
       # xwaylandvideobridge - hide completely
       {
-        match._props.app-id._raw = ''r#"^xwaylandvideobridge$"#'';
+        match._props.app-id = "^xwaylandvideobridge$";
         open-floating = true;
         default-column-width.fixed = 1;
         default-window-height.fixed = 1;

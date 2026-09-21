@@ -6,8 +6,8 @@
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.niri.settings = {
-      workspace = [
+    wayland.windowManager.niri.settings._children =
+      (map (workspace: {workspace = workspace;}) [
         {
           _args = ["terminal"];
           open-on-output = "DP-2";
@@ -32,37 +32,36 @@ in {
           _args = ["misc"];
           open-on-output = "DP-1";
         }
-      ];
-      window-rule = [
+      ])
+      ++ (map (rule: {window-rule = rule;}) [
         {
-          match._props.app-id._raw = ''r#"^zen-beta$"#'';
+          match._props.app-id = "^zen-beta$";
           open-on-workspace = "browser";
         }
         {
-          match._props.app-id._raw = ''r#"^com.mitchellh.ghostty$"#'';
+          match._props.app-id = "^com.mitchellh.ghostty$";
           open-on-workspace = "terminal";
         }
         {
-          match._props.app-id._raw = ''r#"^vesktop$"#'';
+          match._props.app-id = "^vesktop$";
           open-on-workspace = "chat";
         }
         {
-          match._props.app-id._raw = ''r#"^spotify$"#'';
+          match._props.app-id = "^spotify$";
           open-on-workspace = "music";
         }
         {
-          match._props.app-id._raw = ''r#"^com.jeffser.Nocturne$"#'';
+          match._props.app-id = "^com.jeffser.Nocturne$";
           open-on-workspace = "music";
         }
         {
-          match._props.app-id._raw = ''r#"^com.obsproject.Studio$"#'';
+          match._props.app-id = "^com.obsproject.Studio$";
           open-on-workspace = "misc";
         }
         {
-          match._props.app-id._raw = ''r#"^cafe.avery.Delfin$"#'';
+          match._props.app-id = "^cafe.avery.Delfin$";
           open-on-workspace = "watch";
         }
-      ];
-    };
+      ]);
   };
 }

@@ -43,7 +43,7 @@
       virtualization.enable = true;
       wayland = {
         enable = true;
-        hyprland.enable = true;
+        hyprland.enable = false;
         niri.enable = true;
       };
     };
