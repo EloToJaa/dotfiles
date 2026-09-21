@@ -26,11 +26,11 @@ in {
     };
     port = lib.mkOption {
       type = lib.types.port;
-      default = 3001;
+      default = 3009;
     };
     jobServerPort = lib.mkOption {
       type = lib.types.port;
-      default = 3005;
+      default = 3010;
     };
   };
 
@@ -128,6 +128,9 @@ in {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_redirect ~^https?://localhost:${toString cfg.port}(/.*)$ https://${cfg.domainName}.${homelab.baseDomain}$1;
+        '';
       };
     };
   };

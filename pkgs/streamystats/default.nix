@@ -56,11 +56,11 @@ in
       bun run build:database
 
       pushd packages/database
-      bun build ./src/migrate-entrypoint.ts --compile --minify --outfile migrate-bin
+      bun build ./src/migrate-entrypoint.ts --target=bun --minify --outfile migrate.js
       popd
 
       pushd apps/job-server
-      bun build ./src/index.ts --compile --minify --outfile server
+      bun build ./src/index.ts --target=bun --minify --outfile server.js
       popd
 
       pushd apps/nextjs-app
@@ -77,9 +77,9 @@ in
       web_dir=$out/lib/streamystats/web
       mkdir -p $out/bin $job_dir $web_dir/apps/nextjs-app/.next
 
-      cp packages/database/migrate-bin $job_dir/
+      cp packages/database/migrate.js $job_dir/
       cp -R packages/database/drizzle $job_dir/
-      cp apps/job-server/server $job_dir/
+      cp apps/job-server/server.js $job_dir/
       mkdir -p $job_dir/node_modules/.bun/geoip-lite@1.4.10/node_modules/geoip-lite
       geoip_data=$(find . -type d -path '*/geoip-lite/data' -print -quit)
       cp -R "$geoip_data" $job_dir/node_modules/.bun/geoip-lite@1.4.10/node_modules/geoip-lite/
@@ -90,10 +90,13 @@ in
       find $web_dir -type l -name '*linuxmusl*' -delete
       find $web_dir -type d -name '*linuxmusl*' -prune -exec rm -rf {} +
 
-      makeWrapper $job_dir/migrate-bin $out/bin/streamystats-migrate \
-        --chdir $job_dir
-      makeWrapper $job_dir/server $out/bin/streamystats-job-server \
-        --chdir $job_dir
+      makeWrapper ${lib.getExe bun} $out/bin/streamystats-migrate \
+        --chdir $job_dir \
+        --add-flags $job_dir/migrate.js
+      makeWrapper ${lib.getExe bun} $out/bin/streamystats-job-server \
+        --chdir $job_dir \
+        --set GEODATADIR $job_dir/node_modules/.bun/geoip-lite@1.4.10/node_modules/geoip-lite/data \
+        --add-flags $job_dir/server.js
       makeWrapper ${lib.getExe nodejs_22} $out/bin/streamystats-web \
         --chdir $web_dir/apps/nextjs-app \
         --add-flags server.js
