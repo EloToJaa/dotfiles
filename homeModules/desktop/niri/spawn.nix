@@ -17,6 +17,7 @@ in {
       # ["opencloud"]
       ["valent" "--gapplication-service"]
       ["ntfy" "subscribe" "--from-config"]
+      ["oniri" "--edges-maximizing"]
     ];
   };
 }

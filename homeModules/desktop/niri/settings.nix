@@ -9,6 +9,7 @@
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [oniri];
     wayland.windowManager.niri = {
       enable = true;
       package = pkgs.unstable.niri;
