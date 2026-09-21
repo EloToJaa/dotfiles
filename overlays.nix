@@ -70,6 +70,18 @@
           );
         in {
           inherit (python3Packages) vdirsyncer;
+          aquamarine = prev.aquamarine.overrideAttrs (old: {
+            # Fix a 0.15.0 null dereference while tearing down multi-output sessions.
+            # https://github.com/hyprwm/aquamarine/issues/383
+            postPatch =
+              (old.postPatch or "")
+              + ''
+                substituteInPlace src/backend/drm/DRM.cpp \
+                  --replace-fail \
+                    "if (connector->output && connector->output->asyncCommitEventPending)" \
+                    "if (connector && connector->output && connector->output->asyncCommitEventPending)"
+              '';
+          });
           khal = prev.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/kh/khal/package.nix" {
             inherit python3Packages;
           };
