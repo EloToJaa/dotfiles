@@ -2,30 +2,54 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.modules.desktop.dms-shell;
+  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
 in {
   options.modules.desktop.dms-shell = {
     enable = lib.mkEnableOption "Enable DankMaterialShell";
   };
   config = lib.mkIf cfg.enable {
-    xdg.configFile."DankMaterialShell/settings.json".source = ./settings.json;
-    xdg.configFile."DankMaterialShell/clsettings.json".text = builtins.toJSON {
-      autoClearDays = 1;
-      clearAtStartup = true;
-      disabled = false;
-      maxEntrySize = 10485760;
-      maxHistory = 25;
-      maxPinned = 25;
-    };
-    xdg.configFile."DankMaterialShell/plugin_settings.json".text = builtins.toJSON {
-      dankKDEConnect = {
-        enabled = true;
-        selectedDeviceId = "";
+    programs.dank-material-shell = {
+      enable = true;
+
+      package = dmsPackage;
+      quickshell.package = pkgs.unstable.quickshell;
+      # dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+      enableAudioWavelength = true;
+      enableCalendarEvents = true;
+      enableClipboardPaste = true;
+      enableDynamicTheming = true;
+      enableSystemMonitoring = true;
+      enableVPN = true;
+
+      systemd.enable = true;
+
+      clipboardSettings = {
+        autoClearDays = 1;
+        clearAtStartup = true;
+        disabled = false;
+        maxEntrySize = 10485760;
+        maxHistory = 25;
+        maxPinned = 25;
       };
-      dankLauncherKeys.enabled = true;
+
+      plugins = {
+        aiOverviewControl.enable = true;
+        dankKDEConnect = {
+          enable = true;
+          settings.selectedDeviceId = "";
+        };
+        dankLauncherKeys = {
+          enable = true;
+          settings = {};
+        };
+      };
     };
+    xdg.configFile."DankMaterialShell/settings.json".source = ./settings.json;
     programs.dank-calendar = {
       enable = true;
       quickshell.package = pkgs.unstable.quickshell;

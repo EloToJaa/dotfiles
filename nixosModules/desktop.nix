@@ -35,7 +35,6 @@
       audio.enable = true;
       bluetooth.enable = true;
       camera.enable = true;
-      dms-shell.enable = true;
       gnome.enable = true;
       mullvad.enable = true;
       printing.enable = false;

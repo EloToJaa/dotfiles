@@ -54,33 +54,39 @@ in {
 
         settings = {
           terminal.vt = 1;
+          default_session.user = username;
         };
       };
-      displayManager.dms-greeter = {
-        enable = true;
-        package = pkgs.unstable.dms-greeter;
-        compositor = {
-          name =
-            if cfg.hyprland.enable
-            then "hyprland"
-            else "niri";
-          customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
-            hotkey-overlay {
-              skip-at-startup
-            }
+    };
+    programs.dms-greeter = {
+      enable = true;
+      compositor = {
+        name =
+          if cfg.hyprland.enable
+          then "hyprland"
+          else "niri";
+        package = lib.mkIf cfg.hyprland.enable pkgs.unstable.hyprland;
+        customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
+          hotkey-overlay {
+            skip-at-startup
+          }
 
-            environment {
-              DMS_RUN_GREETER "1"
-            }
-          '';
-        };
-        configHome = "/home/${username}";
-        logs = {
-          save = true;
-          path = "/tmp/dms-greeter.log";
-        };
-        quickshell.package = pkgs.unstable.quickshell;
+          environment {
+            DMS_RUN_GREETER "1"
+          }
+        '';
       };
+      # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
+      configHome = "/home/${username}";
+
+      # Save the logs to a file
+      logs = {
+        save = true;
+        path = "/tmp/dms-greeter.log";
+      };
+
+      # Custom Quickshell Package
+      quickshell.package = pkgs.unstable.quickshell;
     };
 
     boot.initrd.kernelModules = ["amdgpu"];
