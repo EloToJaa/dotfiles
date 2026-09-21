@@ -7,6 +7,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./camera.nix
+    ./dms-shell.nix
     ./gnome.nix
     ./mullvad.nix
     ./network.nix
