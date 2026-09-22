@@ -35,6 +35,7 @@ in {
         # opencloud-desktop
         # zoom-us
         # upscayl
+        teams-for-linux
 
         ## GNOME Apps
         delfin # jellyfin client
