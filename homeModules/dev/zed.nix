@@ -32,7 +32,7 @@ in {
       extraPackages = with pkgs.unstable; [
         nixd
         rust-analyzer
-        prettierd
+        oxfmt
         stylua
         clang
       ];
@@ -43,6 +43,26 @@ in {
         ui_font_family = "JetBrains Mono";
         vim_mode = true;
         format_on_save = "on";
+        languages =
+          lib.genAttrs [
+            "JavaScript"
+            "JSX"
+            "TypeScript"
+            "TSX"
+            "JSON"
+            "JSONC"
+            "CSS"
+            "HTML"
+            "Markdown"
+            "MDX"
+            "YAML"
+            "TOML"
+          ] (_: {
+            formatter.external = {
+              command = lib.getExe pkgs.unstable.oxfmt;
+              arguments = ["--stdin-filepath" "{buffer_path}"];
+            };
+          });
       };
     };
   };
