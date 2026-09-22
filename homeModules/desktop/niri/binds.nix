@@ -20,18 +20,18 @@ in {
 
       "Mod+p".spawn = ["sessionizer" "--desktop"];
       "Mod+Ctrl+p".spawn = ["machine-ssh" "--desktop"];
-      "Mod+Ctrl+t".spawn = ["piper-toggle-clipboard"];
-      "Mod+Ctrl+Shift+t".spawn = ["piper-stop-reading"];
+      "Mod+t".spawn = ["piper-toggle-clipboard"];
+      "Mod+Shift+t".spawn = ["piper-stop-reading"];
       "Mod+d".spawn = [discord];
       "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
       "Mod+b".spawn = ["zen-beta"];
       "Mod+Shift+b".spawn = ["bar-visibility" "cycle"];
       "Mod+e".spawn = ["nautilus"];
-      "Mod+Space".toggle-window-floating = {};
-      "Mod+Shift+s".spawn = ["spotify"];
+      "Mod+Space".spawn = ["vicinae" "toggle"];
+      "Mod+s".spawn = ["spotify"];
+      "Mod+Shift+Space".toggle-window-floating = {};
 
       "Mod+Return".spawn = ["ghostty" "+new-window"];
-      "Mod+s".spawn = ["vicinae" "toggle"];
       "Mod+Ctrl+e".spawn = ["vicinae" "vicinae://extensions/vicinae/search-emojis"];
       "Mod+v".spawn = ["vicinae" "vicinae://launch/clipboard/history"];
       "Mod+m".spawn = dmsIpc ["processlist" "focusOrToggle"];
