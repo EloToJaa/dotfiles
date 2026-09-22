@@ -48,6 +48,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    niri-session-manager = {
+      url = "github:MTeaHead/niri-session-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nur.url = "github:nix-community/NUR";

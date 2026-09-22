@@ -18,6 +18,7 @@ in {
       ["valent" "--gapplication-service"]
       ["ntfy" "subscribe" "--from-config"]
       ["oniri" "--edges-maximizing"]
+      ["niri-session-manager"]
     ];
   };
 }
