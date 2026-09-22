@@ -12,6 +12,9 @@ in {
     enable = lib.mkEnableOption "Enable bootloader";
   };
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      needsreboot
+    ];
     boot = {
       loader = {
         limine = {
@@ -65,10 +68,6 @@ in {
     '';
 
     systemd.package = pkgs.systemd;
-
-    environment.systemPackages = [
-      needsreboot
-    ];
 
     system.activationScripts.nixos-needsreboot = {
       supportsDryActivation = true;
