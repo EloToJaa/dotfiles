@@ -82,6 +82,17 @@
                     "if (connector && connector->output && connector->output->asyncCommitEventPending)"
               '';
           });
+          xwayland-satellite = prev.xwayland-satellite.overrideAttrs (old: {
+            # Steam menu popups close immediately with xwayland-satellite 0.8.2.
+            patches =
+              (old.patches or [])
+              ++ [
+                (prev.fetchurl {
+                  url = "https://github.com/Supreeeme/xwayland-satellite/pull/494.patch";
+                  hash = "sha256-ZlQKxBF15yEulODrFjCDDwMzqaqzrLxZEl+867cdBO0=";
+                })
+              ];
+          });
           khal = prev.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/kh/khal/package.nix" {
             inherit python3Packages;
           };
