@@ -47,6 +47,8 @@ in {
           set -g extended-keys-format csi-u
           set -as terminal-features 'xterm*:extkeys,ghostty:extkeys'
 
+          bind-key -n S-Enter if-shell -F '#{==:#{pane_current_command},codex}' { send-keys C-j } { send-keys S-Enter }
+
           bind-key [ previous-window
           bind-key ] next-window
           bind-key -n C-[ previous-window
