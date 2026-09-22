@@ -136,7 +136,6 @@
       ],
       "showOnLastDisplay": false,
       "leftWidgets": [
-        "launcherButton",
         "workspaceSwitcher",
         "focusedWindow"
       ],
@@ -232,7 +231,6 @@
       ],
       "showOnLastDisplay": false,
       "leftWidgets": [
-        "launcherButton",
         "workspaceSwitcher",
         "focusedWindow"
       ],
@@ -299,7 +297,7 @@
       "autoHideStrict": false,
       "autoHideDelay": 250,
       "showOnWindowsOpen": false,
-      "openOnOverview": true,
+      "openOnOverview": false,
       "visible": false,
       "popupGapsAuto": true,
       "popupGapsManual": 4,
