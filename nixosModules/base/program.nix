@@ -37,15 +37,6 @@ in {
             }
           ];
         }
-        {
-          users = [username];
-          commands = [
-            {
-              command = "ALL";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
       ];
     };
   };
