@@ -8,6 +8,13 @@
   imports = [
     ./default.nix
   ];
+
+  boot.loader.limine.extraEntries = ''
+    /Windows 10
+      protocol: chainload
+      path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+  '';
+
   modules = {
     base = {
       enable = true;
