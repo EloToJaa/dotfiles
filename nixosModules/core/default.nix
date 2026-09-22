@@ -14,7 +14,7 @@
     ./security.nix
     ./steam.nix
     ./virtualization.nix
-    ./wayland.nix
+    ./wayland
     ./xserver.nix
   ];
 }

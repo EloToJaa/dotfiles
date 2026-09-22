@@ -3,17 +3,13 @@
   lib,
   settings,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (settings) keyboardLayout;
   cfg = config.modules.desktop.niri;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      pkgs.oniri
-      inputs.niri-session-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+    home.packages = [pkgs.oniri];
     wayland.windowManager.niri = {
       enable = true;
       package = pkgs.unstable.niri;
