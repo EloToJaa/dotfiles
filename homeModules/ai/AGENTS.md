@@ -6,6 +6,8 @@ I use Nix for development. Always set up a `flake.nix` when creating a new proje
 
 - Use `flake-utils.lib.eachDefaultSystem` for per-system outputs.
 - Provide a development shell with the tools appropriate to the project:
+  - **C/C++:** Include a C/C++ compiler, `clang-tools` (`clangd`, `clang-format`), and `premake`.
+  - **Go:** Include `go`, `gopls`, `gofumpt`, and `sqlc`.
   - **Rust:** Use `naersk` for builds and include `cargo`, `rustc`, `rustfmt`, `clippy`, and `rust-analyzer`.
   - **Python:** Use `uv2nix` and include `uv`, `ruff`, and `pyright`.
   - **JavaScript/TypeScript:** Use `bun2nix` and include `bun`, `oxlint`, `oxfmt`.
@@ -19,9 +21,24 @@ I use Nix for development. Always set up a `flake.nix` when creating a new proje
 - When a frontend is needed, prefer Svelte, with React as the second choice.
 - Preferred web frameworks are Astro, SvelteKit, and TanStack Start.
 
+## C/C++
+
+- Use `clangd` for language support and `clang-format` for formatting.
+- Prefer `premake` over CMake when feasible.
+
+## Go
+
+- Use `gopls` for language support and `gofumpt` for formatting.
+- Use `sqlc` for SQL queries.
+- Prefer the Go standard library for HTTP and other common functionality over third-party frameworks.
+
+## JavaScript/TypeScript
+
+- Use `effect` throughout the application, not only for error handling.
+
 ## Error Handling
 
-- **TypeScript:** Always use `neverthrow` for error handling.
+- **Python:** Use `returns` for error handling.
 - **Rust:** Use `thiserror` in library and domain code. Use `anyhow` in applications and top-level code.
 
 ## Git Naming Conventions
