@@ -27,6 +27,7 @@
     kerberos.enable = false;
     lidarr.enable = true;
     loki.enable = false;
+    matrix.enable = false;
     mosquitto.enable = true;
     musicseerr.enable = true;
     n8n.enable = false;

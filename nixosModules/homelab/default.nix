@@ -80,6 +80,7 @@ in {
     ./kerberos.nix
     ./lidarr
     ./loki
+    ./matrix
     ./minecraft
     ./mosquitto
     ./musicseerr
