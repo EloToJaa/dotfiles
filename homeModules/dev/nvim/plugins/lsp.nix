@@ -14,6 +14,14 @@ in {
       plugins.lspconfig = {
         enable = true;
       };
+      extraConfigLuaPre = ''
+        local lsp_start = vim.lsp.start
+        vim.lsp.start = function(config, opts)
+          opts = opts or {}
+          opts.silent = true
+          return lsp_start(config, opts)
+        end
+      '';
       lsp = {
         inlayHints.enable = false;
         # servers = {
