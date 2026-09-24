@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -10,6 +11,8 @@ in {
     enable = lib.mkEnableOption "Enable nix";
   };
   config = lib.mkIf cfg.enable {
+    nix.nixPath = ["nixpkgs=${inputs.nixpkgs-unstable.outPath}"];
+
     programs.nix-your-shell = {
       enable = true;
       enableZshIntegration = true;

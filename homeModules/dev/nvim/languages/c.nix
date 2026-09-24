@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
@@ -14,8 +13,6 @@ in {
     # home.packages = with pkgs.unstable; [
     #   clang-tools
     # ];
-
-    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     programs.nixvim = {
       lsp.servers.clangd = {

@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   settings,
   host,
@@ -30,8 +29,6 @@ in {
           "repeated_keys"
         ]
       '';
-
-    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     programs.nixvim = {
       lsp.servers.nixd = {
