@@ -21,6 +21,10 @@ I use Nix for development. Always set up a `flake.nix` when creating a new proje
 - When a frontend is needed, prefer Svelte, with React as the second choice.
 - Preferred web frameworks are Astro, SvelteKit, and TanStack Start.
 
+## Code Style
+
+- Prefer guard clauses and early returns over unnecessary nested `if` statements.
+
 ## C/C++
 
 - Use `clangd` for language support and `clang-format` for formatting.
@@ -34,6 +38,7 @@ I use Nix for development. Always set up a `flake.nix` when creating a new proje
 
 ## JavaScript/TypeScript
 
+- Use `vite+` for JavaScript/TypeScript projects.
 - Use `effect` throughout the application, not only for error handling.
 - Use `vitest` for unit and integration tests and `playwright` for end-to-end tests.
 
