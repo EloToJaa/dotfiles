@@ -21,7 +21,7 @@ in {
       package = pkgs.llm-agents.codex;
       context = ./AGENTS.md;
       # settings = {
-      #   model = "gpt-5.6-sol";
+      #   model = "gpt-6-sol";
       #   model_reasoning_effort = "medium";
       #   approvals_reviewer = "auto_review";
       #
