@@ -35,6 +35,7 @@ I use Nix for development. Always set up a `flake.nix` when creating a new proje
 ## JavaScript/TypeScript
 
 - Use `effect` throughout the application, not only for error handling.
+- Use `vitest` for unit and integration tests and `playwright` for end-to-end tests.
 
 ## Error Handling
 
