@@ -66,6 +66,15 @@ in {
       Group = lib.mkForce cfg.group;
       UMask = lib.mkForce homelab.defaultUMask;
     };
+    # The upstream web startup script replaces the SOPS key with a generated file,
+    # so web uploads fail HMAC verification in the Celery worker.
+    systemd.services.paperless-web.script = lib.mkForce ''
+      if [[ -z "$PAPERLESS_SECRET_KEY" ]]; then
+        echo "PAPERLESS_SECRET_KEY is empty, refusing to start."
+        exit 1
+      fi
+      exec ${lib.getExe config.services.paperless.package.python.pkgs.granian} --interface asginl --ws "paperless.asgi:application"
+    '';
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
