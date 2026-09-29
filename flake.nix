@@ -60,15 +60,6 @@
 
     srvos.url = "github:nix-community/srvos";
 
-    clan-core = {
-      url = "https://git.clan.lol/clan/clan-core/archive/26.05.tar.gz";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-parts.follows = "flake-parts";
-        sops-nix.follows = "sops-nix";
-      };
-    };
-
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -101,17 +92,6 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hermes-agent = {
-      url = "github:NousResearch/hermes-agent/v2026.9.24";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    pyproject-nix.follows = "hermes-agent/pyproject-nix";
-    pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
-    uv2nix.follows = "hermes-agent/uv2nix";
-    yamtrack-src = {
-      url = "github:FuzzyGrim/Yamtrack/v0.26.3";
-      flake = false;
     };
 
     nixvim = {
@@ -165,5 +145,27 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
+
+    pyproject-nix.follows = "hermes-agent/pyproject-nix";
+    pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
+    uv2nix.follows = "hermes-agent/uv2nix";
+
+    # update
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/26.05.tar.gz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        sops-nix.follows = "sops-nix";
+      };
+    };
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent/v2026.9.24";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    yamtrack-src = {
+      url = "github:FuzzyGrim/Yamtrack/v0.26.3";
+      flake = false;
+    };
   };
 }
