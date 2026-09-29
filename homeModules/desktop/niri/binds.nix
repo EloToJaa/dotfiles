@@ -228,7 +228,7 @@ in {
       "Print".spawn = dmsIpc ["niri" "screenshot"];
       "Ctrl+Print".spawn = dmsIpc ["niri" "screenshotScreen"];
       "Alt+Print".spawn = dmsIpc ["niri" "screenshotWindow"];
-      "Mod+o".spawn = ["ocr"];
+      "Mod+o".spawn = ["screenshot-ocr"];
       "Mod+Shift+o".spawn = ["qr-capture"];
 
       "Mod+x".toggle-keyboard-shortcuts-inhibit = {};

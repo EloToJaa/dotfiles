@@ -39,6 +39,7 @@
       ollama.enable = true;
       codex.enable = true;
       opencode.enable = true;
+      open-code-review.enable = true;
       pi.enable = true;
       t3-code.enable = true;
       workmux.enable = true;
