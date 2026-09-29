@@ -9,6 +9,7 @@
     anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
     agent-browser = pkgs.callPackage ./pkgs/agent-browser-skills.nix {};
     matt = pkgs.callPackage ./pkgs/mattpocock-skills.nix {};
+    open-code-review = pkgs.callPackage ./pkgs/open-code-review-skills.nix {};
   };
   piSkillFiles =
     lib.mapAttrs' (
@@ -22,6 +23,7 @@ in {
       frontend-design = "${upstreamSkills.anthropic}/skills/frontend-design/";
       agent-browser = "${upstreamSkills.agent-browser}/skills/agent-browser/";
       grill-with-docs = "${upstreamSkills.matt}/skills/engineering/grill-with-docs";
+      open-code-review = "${upstreamSkills.open-code-review}/skills/open-code-review/";
     };
 
     home.packages = with pkgs; [
