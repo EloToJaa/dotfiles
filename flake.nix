@@ -110,7 +110,7 @@
     pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
     uv2nix.follows = "hermes-agent/uv2nix";
     yamtrack-src = {
-      url = "github:FuzzyGrim/Yamtrack/v0.26.1";
+      url = "github:FuzzyGrim/Yamtrack/v0.26.3";
       flake = false;
     };
 
