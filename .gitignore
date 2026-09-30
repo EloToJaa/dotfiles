@@ -1,1 +1,10 @@
 /result*
+/terraform/.terraform/
+/terraform/*.tfstate*
+/terraform/*.tfvars
+/terraform/*.tfvars.json
+/terraform/crash.log
+/terraform/crash.*.log
+/terraform/plan*.out
+/terraform/*.tfplan
+/terraform/.terraform.tfstate.lock.info

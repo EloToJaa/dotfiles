@@ -36,6 +36,9 @@
 
         devshells.default.packages = with pkgs.unstable; [
           nurl
+          terraform
+          vault
+          jq
         ];
 
         treefmt = import ./treefmt.nix;

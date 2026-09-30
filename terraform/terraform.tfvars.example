@@ -1,0 +1,30 @@
+# Copy to terraform.tfvars (ignored by Git). Leave collections empty until ready to import.
+tailnet = "your-tailnet-id"
+
+cloudflare_zones = {
+  "example.com" = { account_id = "your-cloudflare-account-id" }
+}
+
+cloudflare_dns_records = {
+  www = {
+    zone    = "example.com"
+    name    = "www.example.com"
+    type    = "A"
+    content = "192.0.2.1"
+    proxied = true
+  }
+}
+
+storage_box_subaccounts = {
+  backup = {
+    storage_box_id      = 123456
+    name                = "backup"
+    home_directory      = "backups/"
+    reachable_externally = true
+    ssh_enabled         = true
+  }
+}
+
+# Only after exporting and reviewing the *entire existing* tailnet policy:
+# tailscale_policy_file = "./policy.hujson"
+# Passwords are NOT placed here; see README.md for the Vault KV secret format.
