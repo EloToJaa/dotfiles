@@ -49,7 +49,6 @@ in {
     nixpkgs = {
       overlays = [
         inputs.nur.overlays.default
-        inputs.llm-agents.overlays.shared-nixpkgs
         outputs.overlays.bun2nix
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages
