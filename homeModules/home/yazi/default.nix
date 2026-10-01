@@ -36,23 +36,23 @@ in {
       "yazi/init.lua".source = ./init.lua;
 
       # Theme
-      "yazi/Catppuccin-mocha.tmTheme".source = pkgs.callPackage ./pkgs/theme-bat.nix {};
-      "yazi/theme.toml".source = pkgs.callPackage ./pkgs/theme-yazi.nix {};
+      "yazi/Catppuccin-mocha.tmTheme".source = pkgs.callPackage ../../../pkgs/yazi/theme-bat.nix {};
+      "yazi/theme.toml".source = pkgs.callPackage ../../../pkgs/yazi/theme-yazi.nix {};
 
       # Plugins
-      "yazi/plugins/git.yazi".source = pkgs.callPackage ./pkgs/git.nix {};
-      "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ./pkgs/smart-filter.nix {};
-      "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ./pkgs/smart-enter.nix {};
-      "yazi/plugins/mount.yazi".source = pkgs.callPackage ./pkgs/mount.nix {};
-      "yazi/plugins/chmod.yazi".source = pkgs.callPackage ./pkgs/chmod.nix {};
-      "yazi/plugins/diff.yazi".source = pkgs.callPackage ./pkgs/diff.nix {};
-      "yazi/plugins/copy-file-contents.yazi".source = pkgs.callPackage ./pkgs/copy-file-contents.nix {};
-      "yazi/plugins/system-clipboard.yazi".source = pkgs.callPackage ./pkgs/system-clipboard.nix {};
-      "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ./pkgs/exifaudio.nix {};
-      "yazi/plugins/ouch.yazi".source = pkgs.callPackage ./pkgs/ouch.nix {};
-      "yazi/plugins/piper.yazi".source = pkgs.callPackage ./pkgs/piper.nix {};
-      "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ./pkgs/relative-motions.nix {};
-      "yazi/plugins/toggle-pane.yazi".source = pkgs.callPackage ./pkgs/toggle-pane.nix {};
+      "yazi/plugins/git.yazi".source = pkgs.callPackage ../../../pkgs/yazi/git.nix {};
+      "yazi/plugins/smart-filter.yazi".source = pkgs.callPackage ../../../pkgs/yazi/smart-filter.nix {};
+      "yazi/plugins/smart-enter.yazi".source = pkgs.callPackage ../../../pkgs/yazi/smart-enter.nix {};
+      "yazi/plugins/mount.yazi".source = pkgs.callPackage ../../../pkgs/yazi/mount.nix {};
+      "yazi/plugins/chmod.yazi".source = pkgs.callPackage ../../../pkgs/yazi/chmod.nix {};
+      "yazi/plugins/diff.yazi".source = pkgs.callPackage ../../../pkgs/yazi/diff.nix {};
+      "yazi/plugins/copy-file-contents.yazi".source = pkgs.callPackage ../../../pkgs/yazi/copy-file-contents.nix {};
+      "yazi/plugins/system-clipboard.yazi".source = pkgs.callPackage ../../../pkgs/yazi/system-clipboard.nix {};
+      "yazi/plugins/exifaudio.yazi".source = pkgs.callPackage ../../../pkgs/yazi/exifaudio.nix {};
+      "yazi/plugins/ouch.yazi".source = pkgs.callPackage ../../../pkgs/yazi/ouch.nix {};
+      "yazi/plugins/piper.yazi".source = pkgs.callPackage ../../../pkgs/yazi/piper.nix {};
+      "yazi/plugins/relative-motions.yazi".source = pkgs.callPackage ../../../pkgs/yazi/relative-motions.nix {};
+      "yazi/plugins/toggle-pane.yazi".source = pkgs.callPackage ../../../pkgs/yazi/toggle-pane.nix {};
     };
 
     programs.zsh.initContent =

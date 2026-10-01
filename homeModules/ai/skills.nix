@@ -6,10 +6,10 @@
 }: let
   cfg = config.modules.ai.skills;
   upstreamSkills = {
-    anthropic = pkgs.callPackage ./pkgs/anthropics-skills.nix {};
-    agent-browser = pkgs.callPackage ./pkgs/agent-browser-skills.nix {};
-    matt = pkgs.callPackage ./pkgs/mattpocock-skills.nix {};
-    open-code-review = pkgs.callPackage ./pkgs/open-code-review-skills.nix {};
+    anthropic = pkgs.callPackage ../../pkgs/ai/anthropics-skills.nix {};
+    agent-browser = pkgs.callPackage ../../pkgs/ai/agent-browser-skills.nix {};
+    matt = pkgs.callPackage ../../pkgs/ai/mattpocock-skills.nix {};
+    open-code-review = pkgs.callPackage ../../pkgs/ai/open-code-review-skills.nix {};
   };
   piSkillFiles =
     lib.mapAttrs' (
