@@ -72,6 +72,24 @@
           );
         in {
           inherit (python3Packages) vdirsyncer;
+          pythonPackagesExtensions =
+            prev.pythonPackagesExtensions
+            ++ [
+              (_pyFinal: pyPrev: {
+                torchcodec = pyPrev.torchcodec.overridePythonAttrs (old: {
+                  # FFmpeg's 8 kHz MP3 resampling differs slightly from TorchCodec.
+                  # Keep all other encoder comparisons and the rest of the suite.
+                  disabledTests =
+                    (old.disabledTests or [])
+                    ++ prev.lib.concatMap (
+                      output:
+                        map (
+                          channels: "test_audio_against_cli[${output}-mp3-8000-${channels}-asset1]"
+                        ) ["None-None" "None-0" "1-None" "1-0"]
+                    ) ["to_file" "to_file_like"];
+                });
+              })
+            ];
           aquamarine = prev.aquamarine.overrideAttrs (old: {
             # Fix a 0.15.0 null dereference while tearing down multi-output sessions.
             # https://github.com/hyprwm/aquamarine/issues/383
