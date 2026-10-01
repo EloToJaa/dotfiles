@@ -42,7 +42,7 @@ pushable checkout. Effects run only on the default branch, never on PRs.
 
 At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix`
 (and all Yazi plugin/theme and AI skill/extension packages in `pkgs/yazi` and
-`pkgs/ai`, exported by `pkgs/home-packages.nix`)
+`pkgs/ai`, explicitly exported by `pkgs/pkgs.nix`)
 (except Yamtrack, handled by its source input) and each tagged input below the
 `# update` comment: `clan-core`, `hermes-agent`, and `yamtrack-src`. Each has its own
 lock, branch and PR; an individual failure does not prevent the others running.
