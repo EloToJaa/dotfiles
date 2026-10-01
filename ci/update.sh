@@ -100,13 +100,19 @@ else
 fi
 
 # Avoid rewriting an open PR when the generated tree is unchanged.
+push_required=true
 if git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"; then
-  if [[ $(git write-tree) == "$(git rev-parse "origin/$branch^{tree}")" ]]; then exit 0; fi
+  if [[ $(git write-tree) == "$(git rev-parse "origin/$branch^{tree}")" ]]; then
+    push_required=false
+  fi
 fi
 title="chore($name): update $name"
-git commit -m "$title"
-git push --force-with-lease origin "HEAD:refs/heads/$branch"
-if [[ $(gh pr list --head "$branch" --state open --repo "$repo" --json number --jq length) == 0 ]]; then
+if [[ $push_required == true ]]; then
+  git commit -m "$title"
+  git push --force-with-lease origin "HEAD:refs/heads/$branch"
+fi
+open_prs=$(gh pr list --head "$branch" --state open --repo "$repo" --json number --jq length)
+if [[ $open_prs == 0 ]]; then
   gh pr create --repo "$repo" --base "$base" --head "$branch" --title "$title" \
     --body "Automated tagged update from the daily Nixbot effect. Formatting and relevant builds passed before publishing. Host and package checks run on this PR."
 fi
