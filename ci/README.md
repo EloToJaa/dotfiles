@@ -57,9 +57,14 @@ Hermes, Bun2nix and Yamtrack select numeric stable release tags. Clan currently 
 numeric release branches (`26.05`), not release tags: its updater selects the
 latest numeric release branch. Development branches and demo tags are excluded.
 
-Nixbot changes release input URLs and locks only those inputs when the selected
-release changes. The old GitHub Actions lock updater was removed; no general lock
-refresh or submodule update is scheduled. Review every automated PR before merging.
+At 02:00 UTC, a separate effect runs `nix flake update` without input arguments to
+refresh all locked inputs, replacing the removed GitHub Actions lock updater.
+It maintains one `chore/update-flake-lock` branch and PR titled
+`chore: update flake.lock`, requiring formatting and server, desktop and laptop
+builds before publishing. Unchanged locks do not create PRs. It keeps the input
+URLs in `flake.nix`; the 03:00 release effects select newer release references and
+lock those individual inputs. No submodule update is scheduled. Review every
+automated PR before merging.
 
 Nixbot evaluates all existing package checks plus server, desktop and laptop
 system checks on PRs. The old GitHub Actions host-build workflow was removed.

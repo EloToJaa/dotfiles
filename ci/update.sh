@@ -10,7 +10,9 @@ branch="chore/update-$name"
 git fetch origin "$base"
 git switch -C "$branch" "origin/$base"
 
-if [[ $kind == input ]]; then
+if [[ $kind == lock ]]; then
+  nix flake update
+elif [[ $kind == input ]]; then
   ref_kind=tags
   case "$name" in
   clan-core)
@@ -117,6 +119,9 @@ if git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"; then
   fi
 fi
 title="chore($name): update $name"
+if [[ $kind == lock ]]; then
+  title="chore: update flake.lock"
+fi
 if [[ $push_required == true ]]; then
   git commit -m "$title"
   git push --force-with-lease origin "HEAD:refs/heads/$branch"
@@ -124,5 +129,5 @@ fi
 open_prs=$(gh pr list --head "$branch" --state open --repo "$repo" --json number --jq length)
 if [[ $open_prs == 0 ]]; then
   gh pr create --repo "$repo" --base "$base" --head "$branch" --title "$title" \
-    --body "Automated tagged update from the daily Nixbot effect. Formatting and relevant builds passed before publishing. Host and package checks run on this PR."
+    --body "Automated dependency update from a daily Nixbot effect. Formatting and relevant builds passed before publishing. Host and package checks run on this PR."
 fi

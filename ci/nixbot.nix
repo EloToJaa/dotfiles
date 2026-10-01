@@ -35,6 +35,13 @@ in {
   };
   flake.herculesCI = {...}: {
     ciSystems = [system];
+    onSchedule.flake-lock-updates = {
+      when = {
+        hour = 2;
+        minute = 0;
+      };
+      outputs.effects.update-flake-lock = mkUpdate "lock" "flake-lock";
+    };
     onSchedule.package-updates = {
       when = {
         hour = 3;
