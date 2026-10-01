@@ -179,6 +179,6 @@ def process_directory(directory: str):
 
 
 if __name__ == "__main__":
-    process_directory("homeModules/home/yazi/pkgs")
-    process_directory("homeModules/ai/pkgs")
+    process_directory("pkgs/yazi")
+    process_directory("pkgs/ai")
     # process_directory("pkgs")

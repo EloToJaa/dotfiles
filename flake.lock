@@ -778,6 +778,29 @@
         "url": "https://git.clan.lol/clan/nix-select/archive/main.tar.gz"
       }
     },
+    "nixbot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790351552,
+        "narHash": "sha256-zv74q37ytXYgZY+HPXVAIEPMmy2WxJUck8MT2u9jSFA=",
+        "owner": "Mic92",
+        "repo": "nixbot",
+        "rev": "2626aa2ca80b76ef894f4558635a3fdda1edd8b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nixbot",
+        "type": "github"
+      }
+    },
     "nixos-needsreboot": {
       "inputs": {
         "flake-schemas": "flake-schemas",
@@ -1227,6 +1250,7 @@
         "niri-session-manager": "niri-session-manager",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
+        "nixbot": "nixbot",
         "nixos-needsreboot": "nixos-needsreboot",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-master": "nixpkgs-master",

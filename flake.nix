@@ -13,7 +13,7 @@
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
-        ./ci/buildbot-nix.nix
+        ./ci/nixbot.nix
         ./lib
         ./settings.nix
         ./machines/flake-module.nix
@@ -46,6 +46,11 @@
     };
 
   inputs = {
+    nixbot = {
+      url = "github:Mic92/nixbot";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
     bun2nix = {
       url = "github:nix-community/bun2nix/2.0.8";
       inputs.nixpkgs.follows = "nixpkgs";
