@@ -16,6 +16,11 @@ buildHomeAssistantComponent (finalAttrs: {
     hash = "sha256-1FNFdtoXyrZ6ng06LiODsxMfP4MtpqiSJofTekq0TUE=";
   };
 
+  postPatch = ''
+    substituteInPlace custom_components/tapo_control/manifest.json \
+      --replace-fail 'pytapo==3.4.18' 'pytapo==${home-assistant.python3Packages.pytapo.version}'
+  '';
+
   dependencies = with home-assistant.python3Packages;
     [
       pytapo
