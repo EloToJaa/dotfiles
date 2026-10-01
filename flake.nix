@@ -51,10 +51,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
-    bun2nix = {
-      url = "github:nix-community/bun2nix/2.0.8";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-session-manager = {
       url = "github:MTeaHead/niri-session-manager";
@@ -170,6 +166,10 @@
     hermes-agent = {
       url = "github:NousResearch/hermes-agent/v2026.9.24";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    bun2nix = {
+      url = "github:nix-community/bun2nix/2.0.8";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     yamtrack-src = {
       url = "github:FuzzyGrim/Yamtrack/v0.26.3";

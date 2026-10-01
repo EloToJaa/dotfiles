@@ -44,26 +44,25 @@ At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix
 (and all Yazi plugin/theme and AI skill/extension packages in `pkgs/yazi` and
 `pkgs/ai`, explicitly exported by `pkgs/pkgs.nix`)
 (except Yamtrack, handled by its source input) and each tagged input below the
-`# update` comment: `clan-core`, `hermes-agent`, and `yamtrack-src`. Each has its own
+`# update` comment: `clan-core`, `hermes-agent`, `bun2nix`, and `yamtrack-src`. Each has its own
 lock, branch and PR; an individual failure does not prevent the others running.
 Unchanged updates do not create PRs or rewrite an identical existing PR tree.
 Updates require successful `nix fmt` and package builds (or all three host builds
-for Clan/Hermes inputs) before publishing. Streamystats regenerates `bun.nix`;
+for Clan/Hermes/Bun2nix inputs) before publishing. Bun2nix input updates also build
+Streamystats to validate its Bun dependencies and build hooks. Streamystats regenerates `bun.nix`;
 Yazi and AI skill packages follow their upstream default branch revisions.
 Yamtrack's package version and changelog follow its source tag. Dreame updates are
 restricted to stable `v2.*.*` release tags; v1 releases and betas are excluded.
-Hermes and Yamtrack select numeric stable release tags. Clan currently publishes
+Hermes, Bun2nix and Yamtrack select numeric stable release tags. Clan currently publishes
 numeric release branches (`26.05`), not release tags: its updater selects the
-latest numeric release branch while the existing lock updater refreshes that
-branch's revision. Development branches and demo tags are excluded.
+latest numeric release branch. Development branches and demo tags are excluded.
 
-The existing GitHub Actions daily lock updater remains responsible for refreshing
-already-selected inputs. Nixbot changes tagged input URLs and locks only those
-inputs when the selected release changes; it does not schedule a second general
-lock update or submodule update. Review every automated PR before merging.
+Nixbot changes release input URLs and locks only those inputs when the selected
+release changes. The old GitHub Actions lock updater was removed; no general lock
+refresh or submodule update is scheduled. Review every automated PR before merging.
 
 Nixbot evaluates all existing package checks plus server, desktop and laptop
-system checks on PRs. GitHub Actions host builds also trigger on Nix and package
-changes, not just `flake.lock`. Successful CI builds validate configuration;
+system checks on PRs. The old GitHub Actions host-build workflow was removed.
+Successful CI builds validate configuration;
 GitHub webhooks, scheduled effects and service runtime require external setup and
 deployment before they can be tested end to end.

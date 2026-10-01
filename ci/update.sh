@@ -27,6 +27,12 @@ if [[ $kind == input ]]; then
     prefix=github:NousResearch/hermes-agent/
     suffix=
     ;;
+  bun2nix)
+    upstream=https://github.com/nix-community/bun2nix.git
+    pattern='^[0-9]+\.[0-9]+\.[0-9]+$'
+    prefix=github:nix-community/bun2nix/
+    suffix=
+    ;;
   yamtrack-src)
     upstream=https://github.com/FuzzyGrim/Yamtrack.git
     pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
@@ -46,11 +52,13 @@ if [[ $kind == input ]]; then
     sed -i -E "s|https://git.clan.lol/clan/clan-core/archive/[^\"]+|$url|" flake.nix
   elif [[ $name == hermes-agent ]]; then
     sed -i -E "s|github:NousResearch/hermes-agent/[^\"]+|$url|" flake.nix
+  elif [[ $name == bun2nix ]]; then
+    sed -i -E "s|github:nix-community/bun2nix/[^\"]+|$url|" flake.nix
   else
     sed -i -E "s|github:FuzzyGrim/Yamtrack/[^\"]+|$url|" flake.nix
     sed -i -E "s|version = \"[^\"]+\";|version = \"${tag#v}\";|; s|/releases/tag/[^\"]+|/releases/tag/$tag|" pkgs/yamtrack/default.nix
   fi
-  # Leave ordinary flake.lock refreshes to update-flake-lock.yml.
+  # Only refresh the selected release input when its reference changes.
   if git diff --quiet; then exit 0; fi
   nix flake update "$name"
 else
@@ -95,6 +103,8 @@ if [[ $kind == package ]]; then
   nix build --no-link ".#$name"
 elif [[ $name == yamtrack-src ]]; then
   nix build --no-link .#yamtrack
+elif [[ $name == bun2nix ]]; then
+  nix build --no-link .#streamystats .#nixosConfigurations.server.config.system.build.toplevel .#nixosConfigurations.desktop.config.system.build.toplevel .#nixosConfigurations.laptop.config.system.build.toplevel
 else
   nix build --no-link .#nixosConfigurations.server.config.system.build.toplevel .#nixosConfigurations.desktop.config.system.build.toplevel .#nixosConfigurations.laptop.config.system.build.toplevel
 fi

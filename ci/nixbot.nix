@@ -9,7 +9,7 @@
   effects = inputs.nixbot.lib.effects {inherit pkgs;};
   # Yamtrack's source is a flake input; update it and package metadata together.
   packages = builtins.filter (name: name != "yamtrack") (builtins.attrNames self.packages.${system});
-  taggedInputs = ["clan-core" "hermes-agent" "yamtrack-src"];
+  taggedInputs = ["clan-core" "hermes-agent" "bun2nix" "yamtrack-src"];
   mkUpdate = kind: name:
     effects.mkEffect {
       name = "update-${kind}-${name}";
