@@ -2,6 +2,6 @@ lock_file = "flake.lock"
 attribute = "checks"
 flake_dir = "."
 
-# Effects receive GitHub installation tokens only on the default branch.
+# PRs build checks and validate effect dependencies without executing effects.
 effects_on_pull_requests = false
 effects_branches = []

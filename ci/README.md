@@ -66,8 +66,28 @@ URLs in `flake.nix`; the 03:00 release effects select newer release references a
 lock those individual inputs. No submodule update is scheduled. Review every
 automated PR before merging.
 
-Nixbot evaluates all existing package checks plus server, desktop and laptop
-system checks on PRs. The old GitHub Actions host-build workflow was removed.
-Successful CI builds validate configuration;
-GitHub webhooks, scheduled effects and service runtime require external setup and
-deployment before they can be tested end to end.
+## Pull request CI
+
+Every PR builds the `desktop`, `laptop` and `server` system checks alongside all
+exported package checks selected by `attribute = "checks"` in `nixbot.toml`.
+Nixbot publishes GitHub checks with build status and links to its build logs.
+The GitHub App must have Checks read/write permission and receive Pull request
+webhooks, as described above.
+
+Nixbot also evaluates the PR's effect definitions and builds their dependencies,
+including both scheduled update groups. These validations contribute to the
+GitHub effects status. `effects_on_pull_requests = false` keeps the update
+scripts from executing on PRs while allowing this validation.
+
+When a PR closes without merging, Nixbot cancels its unfinished work, removes
+pending approval requests and supersedes queued changes. On merge it preserves
+the PR build so the default-branch push can reuse the same tree. Nixbot's normal
+retention cleanup removes old build records and logs; periodic repository cleanup
+prunes stale PR refs and orphaned worktrees.
+There are no PR preview deployments or other PR resources requiring a custom
+`pull_request_closed` teardown effect.
+
+The old GitHub Actions host-build workflow was removed. Successful CI builds
+validate configuration; GitHub checks, close/merge handling, scheduled effects
+and service runtime require external setup and deployment before they can be
+tested end to end.
