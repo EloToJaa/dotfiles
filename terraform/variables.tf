@@ -38,6 +38,18 @@ variable "cloudflare_dns_records" {
   }
 }
 
+variable "worker_enabled" {
+  description = "Create the Hetzner Cloud worker server for AI tasks, CLIProxy, and Nixbot builds."
+  type        = bool
+  default     = false
+}
+
+variable "worker_ssh_keys" {
+  description = "Existing Hetzner Cloud SSH key names or IDs for the worker. Required when worker_enabled is true."
+  type        = list(string)
+  default     = []
+}
+
 variable "storage_box_subaccounts" {
   description = "Hetzner Storage Box subaccounts, keyed by a stable local identifier. Import existing accounts before apply."
   type = map(object({

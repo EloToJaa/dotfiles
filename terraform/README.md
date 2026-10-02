@@ -1,6 +1,6 @@
 # Terraform infrastructure
 
-This directory manages Cloudflare zones and DNS records, the **entire** Tailscale tailnet policy, and Hetzner Storage Box subaccounts. It does not manage domain registration or the Storage Box itself. No resources are enabled by default; existing resources must be imported before applying their configuration.
+This directory manages Cloudflare zones and DNS records, the **entire** Tailscale tailnet policy, a Hetzner Cloud worker server, and Hetzner Storage Box subaccounts. It does not manage domain registration or the Storage Box itself. No resources are enabled by default; existing resources must be imported before applying their configuration.
 
 ## Local tools and state
 
@@ -35,5 +35,11 @@ The last secret/path is only needed when managing subaccounts. Set these **path 
    Cloudflare record IDs and zone IDs are available in Cloudflare; Hetzner uses the numeric Storage Box ID (not the `u...` username). Import only the resources you actually own. When creating a **new** resource, no import is needed.
 
 4. Run `./with-vault.sh plan` and inspect all proposed changes, especially policy replacement and password rotation, **before** `./with-vault.sh apply`. If the policy diff is unexpected, stop and reconcile the exported policy. Terraform will validate policy against Tailscale during planning. Never run `apply` just to discover drift.
+
+## Hetzner worker (opt-in)
+
+`hcloud_server.worker` is disabled by default. It uses `cx23` (the small, cost-optimized x86 plan), `fsn1`, and public IPv4 and IPv6 addresses. Hetzner charges extra for IPv4; check current pricing and availability before applying. Set `worker_enabled = true` and `worker_ssh_keys = ["your-existing-hetzner-key-name"]` in the ignored `terraform.tfvars`, then review `./with-vault.sh plan` before applying. The key must already exist in the Hetzner Cloud project; SSH keys cannot be changed on the server without replacement. If the server already exists, import it as `hcloud_server.worker[0]` before applying.
+
+Terraform creates a Debian bootstrap host only. Install NixOS separately and configure the `worker` Clan machine, AI runner, CLIProxy, and Nixbot remote builds there; do not store application credentials in Terraform. The worker is publicly reachable over IPv4 and IPv6 until its firewall and host access are configured.
 
 The repository's existing NixOS/Clan SOPS secrets are unaffected; Vault here is only for Terraform credentials and subaccount passwords.
