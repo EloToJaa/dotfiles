@@ -18,6 +18,7 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 
 ## TODO
 
+- [ ] Set up a Hetzner box with NixOS for a Matrix server and Nixbot
 - [x] Replace notifiarr with ntfy.sh in sonarr, radarr, bazarr, prowlarr, jellyfin
 - [x] Upgrade jellyfin to 12.0
 - [x] Replace trakt yamtrack
