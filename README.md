@@ -18,6 +18,7 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 
 ## TODO
 
+- [ ] Verify Nix daemon trust for `elotoja` and `@wheel`, assess root-equivalent access, and test Clan deployments without user trust before changing the policy
 - [ ] Set up a Hetzner box with NixOS for a Matrix server and Nixbot
 - [ ] Add a `worker` machine as the main AI runner, hosting CLIProxy and handling Nix builds for Nixbot
 - [ ] Set up the Dreame vacuum card and buy the licence
