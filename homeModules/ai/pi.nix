@@ -5,8 +5,8 @@
   ...
 }: let
   cfg = config.modules.ai.pi;
-  extensions = pkgs.callPackage ../../pkgs/ai/pi-agent-extensions.nix {};
-  pi-vim = pkgs.callPackage ../../pkgs/ai/pi-vim.nix {};
+  extensions = pkgs.ai-pi-agent-extensions;
+  pi-vim = pkgs.ai-pi-vim;
 in {
   options.modules.ai.pi = {
     enable = lib.mkEnableOption "Enable pi module";
