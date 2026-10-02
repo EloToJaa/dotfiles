@@ -18,6 +18,13 @@ in {
   config = lib.mkIf cfg.enable {
     programs.vicinae = {
       enable = true;
+      package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+        # Keep Numen on Vicinae's GCC 15 toolchain to avoid newer libstdc++ symbols.
+        numen = inputs.vicinae.inputs.numen.packages.${pkgs.stdenv.hostPlatform.system}.numen.override {
+          stdenv = pkgs.unstable.gcc15Stdenv;
+          withRepl = false;
+        };
+      };
       enableFirefoxIntegration = true;
 
       systemd = {
