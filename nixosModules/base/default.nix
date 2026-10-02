@@ -20,6 +20,7 @@
     ./plymouth.nix
     ./sops.nix
     ./ssh.nix
+    ./sudo.nix
     ./system.nix
     ./user.nix
   ];
