@@ -34,6 +34,7 @@
       nfs.enable = true;
       nh.enable = true;
       ssh.enable = true;
+      sudo.enable = true;
     };
     homelab = {
       enable = true;

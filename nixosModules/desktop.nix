@@ -35,6 +35,7 @@
       nh.enable = true;
       plymouth.enable = true;
       ssh.enable = true;
+      sudo.enable = true;
     };
     core = {
       enable = true;
