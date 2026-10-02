@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -21,9 +20,10 @@ in {
     services.smartd.enable = true;
 
     security.rtkit.enable = true;
-    security.sudo-rs = {
+    security.sudo-rs.enable = false;
+    security.sudo = {
       enable = true;
-      package = pkgs.unstable.sudo-rs;
+      execWheelOnly = lib.mkForce false;
       extraConfig = ''
         Defaults pwfeedback
       '';
