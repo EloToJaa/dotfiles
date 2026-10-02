@@ -15,6 +15,7 @@
     ./claude.nix
     ./ollama.nix
     ./codex.nix
+    ./hermes-desktop.nix
     ./opencode.nix
     ./open-code-review.nix
     ./pi.nix
