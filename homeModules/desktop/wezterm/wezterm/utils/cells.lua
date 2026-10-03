@@ -82,7 +82,7 @@ function Cells:add_segment(segment_id, text, color, attributes)
 		table.insert(items, { Background = { Color = color.bg } })
 	end
 	if color.fg then
-		assert(color.bg ~= "UNSET", "Cannot use UNSET when adding new segment")
+		assert(color.fg ~= "UNSET", "Cannot use UNSET when adding new segment")
 		table.insert(items, { Foreground = { Color = color.fg } })
 	end
 	if attributes and #attributes > 0 then
@@ -176,7 +176,7 @@ function Cells:render(ids)
 	for _, id in ipairs(ids) do
 		self:_check_segment(id)
 
-		for _, item in pairs(self.segments[id].items) do
+		for _, item in ipairs(self.segments[id].items) do
 			table.insert(cells, item)
 		end
 	end
@@ -187,7 +187,7 @@ end
 function Cells:render_all()
 	local cells = {}
 	for _, segment in pairs(self.segments) do
-		for _, item in pairs(segment.items) do
+		for _, item in ipairs(segment.items) do
 			table.insert(cells, item)
 		end
 	end

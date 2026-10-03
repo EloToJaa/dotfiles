@@ -86,7 +86,7 @@ M.keys = {
 		action = act.ActivateKeyTable({
 			name = "resize_font",
 			one_shot = false,
-			timemout_miliseconds = 1000,
+			timeout_milliseconds = 1000,
 		}),
 	},
 
@@ -107,7 +107,7 @@ M.keys = {
 	{ key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
 
 	-- Lastly, workspace
-	{ key = "f", mods = "LEADER|SHIFT", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+	{ key = "w", mods = "LEADER|SHIFT", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 
 	{ key = "c", mods = "LEADER|SHIFT", action = act.ReloadConfiguration },
 

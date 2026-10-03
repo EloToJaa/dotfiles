@@ -97,15 +97,15 @@ in {
               actions = [
                 {
                   label = "  Record screen";
-                  command = "record screen & ; swaync-client -t";
+                  command = "record screen & swaync-client -t";
                 }
                 {
                   label = "  Record selection";
-                  command = "record area & ; swaync-client -t";
+                  command = "record area & swaync-client -t";
                 }
                 {
                   label = "  Record GIF";
-                  command = "record gif & ; swaync-client -t";
+                  command = "record gif & swaync-client -t";
                 }
                 {
                   label = "󰻃  Stop";
