@@ -41,7 +41,7 @@
       claude.enable = true;
       ollama.enable = true;
       codex.enable = true;
-      hermes-desktop.enable = true;
+      hermes-desktop.enable = false;
       opencode.enable = true;
       open-code-review.enable = true;
       pi.enable = false;

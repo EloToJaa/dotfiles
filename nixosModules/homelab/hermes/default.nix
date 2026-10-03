@@ -7,6 +7,7 @@
   inherit (config.settings) username;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.hermes;
+  proxyBaseUrl = "http://127.0.0.1:${toString homelab.cliproxyapi.port}/v1";
   homeAssistant = config.modules.homelab.home-assistant;
   secretEnv =
     {
@@ -41,12 +42,38 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = homelab.cliproxyapi.enable;
+        message = "modules.homelab.hermes requires modules.homelab.cliproxyapi.enable = true;";
+      }
+    ];
+
+    clan.core.vars.generators.hermes-cliproxyapi = {
+      dependencies = ["cliproxyapi"];
+      files.env = {
+        owner = config.services.hermes-agent.user;
+        group = config.services.hermes-agent.group;
+      };
+      script = ''
+        printf 'OPENAI_API_KEY=%s\n' "$(cat "$in/cliproxyapi/api-key")" > "$out/env"
+      '';
+    };
+
+    systemd.services.hermes-agent = {
+      after = ["cliproxyapi.service"];
+      requires = ["cliproxyapi.service"];
+    };
+
     services.hermes-agent = {
       # package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.messaging;
       enable = true;
       addToSystemPackages = true;
       stateDir = cfg.dataDir;
-      environmentFiles = [config.sops.templates."${cfg.name}.env".path];
+      environmentFiles = [
+        config.sops.templates."${cfg.name}.env".path
+        config.clan.core.vars.generators.hermes-cliproxyapi.files.env.path
+      ];
 
       extraDependencyGroups = [
         "messaging"
@@ -70,7 +97,8 @@ in {
         {
           # terminal.cwd = "/data/workspace";
           model = {
-            provider = "openai-codex";
+            provider = "custom";
+            base_url = proxyBaseUrl;
             default = "gpt-6-luna";
           };
           web = {
@@ -94,6 +122,7 @@ in {
         };
       environment =
         {
+          OPENAI_BASE_URL = proxyBaseUrl;
           DISCORD_ALLOWED_USERS = "308939544407834625";
           # Hermes v0.16 emits a /skill slash-command payload over Discord's
           # 8000-byte limit. Plain text commands still work; don't sync invalid
