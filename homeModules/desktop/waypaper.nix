@@ -11,7 +11,10 @@ in {
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
-      waypaper
+      (waypaper.overrideAttrs (old: {
+        # Waypaper 2.8 substitutes paths into shell=True commands; quote them as data.
+        patches = (old.patches or []) ++ [./waypaper-post-command.patch];
+      }))
       awww
     ];
 
@@ -32,7 +35,7 @@ in {
         subfolders = False
         show_hidden = False
         show_gifs_only = False
-        post_command = pkill .waypaper-wrap && wall-change $wallpaper
+        post_command = pkill .waypaper-wrap || true; wall-change $wallpaper
         number_of_columns = 3
         awww_transition_type = any
         awww_transition_step = 90
