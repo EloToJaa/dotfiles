@@ -5,7 +5,7 @@
     ./catppuccin.nix
     ./containers.nix
     ./cpu
-    ./graphics.nix
+    ./graphics
     ./index.nix
     ./nfs.nix
     ./nh.nix
