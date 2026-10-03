@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.modules.base.plymouth;
+  cfg = config.modules.core.plymouth;
 in {
-  options.modules.base.plymouth = {
+  options.modules.core.plymouth = {
     enable = lib.mkEnableOption "themed Plymouth boot splash and graphical disk unlock prompt";
 
     flavor = lib.mkOption {

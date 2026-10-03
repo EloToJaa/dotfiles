@@ -10,7 +10,6 @@
     ./initrd.nix
     ./network.nix
     ./program.nix
-    ./plymouth.nix
     ./sops.nix
     ./ssh.nix
     ./sudo.nix
