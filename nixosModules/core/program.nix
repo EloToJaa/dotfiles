@@ -16,5 +16,9 @@ in {
       enable = true;
       enableSSHSupport = true;
     };
+    modules.shared.graphics = {
+      enable = lib.mkDefault true;
+      enable32Bit = lib.mkDefault true;
+    };
   };
 }
