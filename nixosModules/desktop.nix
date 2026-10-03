@@ -22,7 +22,6 @@
       tailscale.enable = true;
       ssh.enable = true;
       sudo.enable = true;
-      plymouth.enable = true;
     };
     shared = {
       btrfs = {
@@ -41,6 +40,7 @@
     };
     core = {
       enable = true;
+      plymouth.enable = true;
       adb.enable = false;
       audio.enable = true;
       bluetooth.enable = true;
