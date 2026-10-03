@@ -35,7 +35,6 @@ in {
     ];
 
     users.users.${username} = {
-      extraGroups = ["docker"];
       linger = true;
     };
   };
