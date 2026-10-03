@@ -71,6 +71,13 @@
   modules = {
     base = {
       enable = true;
+      bootloader.enable = true;
+      tailscale.enable = true;
+      ssh.enable = true;
+      sudo.enable = true;
+      plymouth.enable = true;
+    };
+    shared = {
       btrfs = {
         scrub.enable = true;
         snapshots = {
@@ -80,15 +87,10 @@
       };
       btop.enable = true;
       catppuccin.enable = true;
-      bootloader.enable = true;
-      docker.enable = true;
+      containers.enable = true;
       index.enable = true;
-      tailscale.enable = true;
       nfs.enable = false;
       nh.enable = true;
-      plymouth.enable = true;
-      ssh.enable = true;
-      sudo.enable = true;
     };
     core = {
       enable = true;

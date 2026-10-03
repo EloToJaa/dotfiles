@@ -5,10 +5,10 @@
   ...
 }: let
   inherit (config.settings) username;
-  cfg = config.modules.base.docker;
+  cfg = config.modules.shared.containers;
 in {
-  options.modules.base.docker = {
-    enable = lib.mkEnableOption "Enable docker";
+  options.modules.shared.containers = {
+    enable = lib.mkEnableOption "Enable Podman containers";
   };
   config = lib.mkIf cfg.enable {
     virtualisation.podman = {

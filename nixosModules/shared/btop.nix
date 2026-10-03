@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.base.btop;
+  cfg = config.modules.shared.btop;
   inherit (config.settings) username;
 in {
-  options.modules.base.btop = {
+  options.modules.shared.btop = {
     enable = lib.mkEnableOption "Enable btop with Intel GPU sysfs permissions";
   };
 

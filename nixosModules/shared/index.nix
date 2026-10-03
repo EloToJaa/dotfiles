@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.base.index;
+  cfg = config.modules.shared.index;
 in {
-  options.modules.base.index = {
+  options.modules.shared.index = {
     enable = lib.mkEnableOption "Enable nix-index";
   };
   config = lib.mkIf cfg.enable {

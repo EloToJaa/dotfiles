@@ -21,9 +21,9 @@
     # "sec=${securityMode}"
   ];
   fsType = "nfs";
-  cfg = config.modules.base.nfs;
+  cfg = config.modules.shared.nfs;
 in {
-  options.modules.base.nfs = {
+  options.modules.shared.nfs = {
     enable = lib.mkEnableOption "Enable nfs";
   };
   config = lib.mkIf cfg.enable {

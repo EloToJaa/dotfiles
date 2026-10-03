@@ -13,6 +13,13 @@
   modules = {
     base = {
       enable = true;
+      bootloader.enable = true;
+      initrd.enable = false;
+      tailscale.enable = true;
+      ssh.enable = true;
+      sudo.enable = true;
+    };
+    shared = {
       btrfs = {
         scrub.enable = true;
         snapshots = {
@@ -24,17 +31,12 @@
           };
         };
       };
-      bootloader.enable = true;
       btop.enable = true;
       catppuccin.enable = true;
-      docker.enable = true;
+      containers.enable = true;
       index.enable = true;
-      initrd.enable = false;
-      tailscale.enable = true;
       nfs.enable = true;
       nh.enable = true;
-      ssh.enable = true;
-      sudo.enable = true;
     };
     homelab = {
       enable = true;
