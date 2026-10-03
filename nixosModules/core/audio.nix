@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
@@ -10,7 +9,6 @@ in {
   options.modules.core.audio = {
     enable = lib.mkEnableOption "Enable audio module";
   };
-  imports = [];
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     security.rtkit.enable = true;
     services.pulseaudio.enable = false;
@@ -23,7 +21,7 @@ in {
     };
     hardware.alsa.enablePersistence = true;
     environment.systemPackages = with pkgs; [
-      pulseaudioFull
+      pulseaudio # PulseAudio client tools for PipeWire
       # unstable.pwmenu
     ];
   };
