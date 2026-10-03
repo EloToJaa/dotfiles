@@ -6,6 +6,7 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "server";
+  modules.shared.cpu.vendor = "intel";
   imports = [
     inputs.srvos.nixosModules.server
     ./config.nix

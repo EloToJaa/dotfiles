@@ -6,6 +6,7 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "laptop";
+  modules.shared.cpu.vendor = "amd";
   boot.initrd.kernelModules = ["amdgpu"];
   services.xserver.videoDrivers = ["amdgpu"];
   programs.vicinae.input-server.package = config.home-manager.users.${username}.programs.vicinae.package;
