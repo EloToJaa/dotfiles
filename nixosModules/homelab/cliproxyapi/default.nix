@@ -53,6 +53,7 @@ in {
           secret-key._secret = secrets.files.management-key.path;
         };
         observability.logs = {
+          logging-to-file = true;
           request-log = true;
           logs-max-total-size-mb = 10024;
         };
