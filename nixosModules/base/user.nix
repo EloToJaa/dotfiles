@@ -59,9 +59,7 @@ in {
         description = username;
         group = username;
         extraGroups = [
-          "input"
           "wheel"
-          "kvm"
         ];
         shell = pkgs.unstable.zsh;
         hashedPasswordFile =
