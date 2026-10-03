@@ -52,6 +52,10 @@ in {
           allow-remote = true;
           secret-key._secret = secrets.files.management-key.path;
         };
+        observability.logs = {
+          request-log = true;
+          logs-max-total-size-mb = 10024;
+        };
       };
     };
 
