@@ -90,6 +90,7 @@ in {
     ./nextcloud
     ./navidrome
     ./nginx
+    ./nixbot
     ./ntfy
     ./opencloud
     ./open-webui

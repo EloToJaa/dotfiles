@@ -11,6 +11,7 @@
     bazarr.enable = true;
     blocky.enable = true;
     nginx.enable = true;
+    nixbot.enable = true;
     cleanuparr.enable = true;
     glance.enable = false;
     grafana.enable = true;

@@ -5,7 +5,10 @@
   uv2nix,
   yamtrack-src,
   ...
-}: {
+}:
+(import ./ai {inherit pkgs;})
+// (import ./yazi {inherit pkgs;})
+// {
   cleanuparr = pkgs.callPackage ./cleanuparr {};
   energa-my-meter = pkgs.unstable.callPackage ./energa-my-meter {};
   jellystat = pkgs.callPackage ./jellystat {};

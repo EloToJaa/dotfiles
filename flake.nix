@@ -13,7 +13,7 @@
         inputs.clan-core.flakeModules.default
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
-        ./ci/buildbot-nix.nix
+        ./ci/nixbot.nix
         ./lib
         ./settings.nix
         ./machines/flake-module.nix
@@ -46,9 +46,10 @@
     };
 
   inputs = {
-    bun2nix = {
-      url = "github:nix-community/bun2nix/2.0.8";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixbot = {
+      url = "github:Mic92/nixbot";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     niri-session-manager = {
@@ -165,6 +166,10 @@
     hermes-agent = {
       url = "github:NousResearch/hermes-agent/v2026.9.24";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    bun2nix = {
+      url = "github:nix-community/bun2nix/2.0.8";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     yamtrack-src = {
       url = "github:FuzzyGrim/Yamtrack/v0.26.3";
