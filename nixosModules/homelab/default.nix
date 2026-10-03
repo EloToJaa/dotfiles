@@ -69,6 +69,7 @@ in {
     ./bazarr
     ./blocky
     ./cleanuparr
+    ./cliproxyapi
     ./glance
     ./grafana
     ./hermes
