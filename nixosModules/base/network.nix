@@ -14,7 +14,7 @@ in {
     enable = lib.mkEnableOption "Enable tailscale";
   };
   config = lib.mkIf cfg.enable {
-    clan.core.vars.generators.tailscale = {
+    clan.core.vars.generators.tailscale = lib.mkIf cfg.tailscale.enable {
       prompts.auth-key = {
         description = "Tailscale auth key";
         type = "hidden";
@@ -61,9 +61,9 @@ in {
         DNSOverTLS = "opportunistic";
       };
     };
-    networking.firewall.trustedInterfaces = [interfaceName];
-    services.tailscale = {
-      inherit (cfg.tailscale) enable;
+    networking.firewall.trustedInterfaces = lib.mkIf cfg.tailscale.enable [interfaceName];
+    services.tailscale = lib.mkIf cfg.tailscale.enable {
+      enable = true;
       inherit interfaceName;
       package = pkgs.unstable.tailscale;
       # Enable caddy to acquire certificates from the tailscale daemon

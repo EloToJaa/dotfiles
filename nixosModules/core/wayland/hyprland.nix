@@ -6,7 +6,7 @@
 }: let
   cfg = config.modules.core.wayland;
 in {
-  config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable && cfg.hyprland.enable) {
     programs.hyprland = {
       enable = true;
       package = pkgs.unstable.hyprland;

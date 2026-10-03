@@ -9,7 +9,7 @@ in {
   options.modules.core.security = {
     enable = lib.mkEnableOption "Enable security module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     security.pam.services.hyprlock = {};
   };
 }

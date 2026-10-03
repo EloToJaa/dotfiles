@@ -9,7 +9,7 @@ in {
   options.modules.core.printing = {
     enable = lib.mkEnableOption "Enable printing";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     services = {
       avahi = {
         enable = true;

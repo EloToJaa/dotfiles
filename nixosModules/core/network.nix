@@ -9,7 +9,7 @@ in {
   options.modules.core.network = {
     enable = lib.mkEnableOption "Enable network managment";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     environment.systemPackages = with pkgs; [
       networkmanagerapplet
       # unstable.iwmenu

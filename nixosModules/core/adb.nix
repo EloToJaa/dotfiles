@@ -9,7 +9,7 @@ in {
   options.modules.core.adb = {
     enable = lib.mkEnableOption "Enable adb module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     programs.adb = {
       enable = true;
     };

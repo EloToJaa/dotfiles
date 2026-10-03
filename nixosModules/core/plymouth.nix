@@ -27,7 +27,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     boot = {
       initrd.systemd.enable = true;
       kernelParams = lib.optional cfg.quiet "quiet";

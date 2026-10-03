@@ -9,7 +9,7 @@ in {
   options.modules.core.camera = {
     enable = lib.mkEnableOption "Enable camera module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     environment.systemPackages = with pkgs; [
       v4l-utils
     ];

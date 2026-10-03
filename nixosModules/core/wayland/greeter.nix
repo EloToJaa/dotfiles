@@ -8,7 +8,7 @@
   cfg = config.modules.core.wayland;
   avatar = ../assets/avatar.png;
 in {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     systemd.services.set-user-avatar = {
       description = "Set ${username}'s AccountsService avatar";
       wantedBy = ["multi-user.target"];

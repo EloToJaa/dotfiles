@@ -9,7 +9,7 @@
 in {
   imports = [inputs.niri-session-manager.nixosModules.niri-session-manager];
 
-  config = lib.mkIf (cfg.enable && cfg.niri.enable) {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable && cfg.niri.enable) {
     programs.niri = {
       enable = true;
       package = pkgs.unstable.niri;

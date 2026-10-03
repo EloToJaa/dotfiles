@@ -9,7 +9,7 @@ in {
     enable = lib.mkEnableOption "Enable sudo with password authentication and shared credential caching";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.base.enable && cfg.enable) {
     security.sudo-rs.enable = false;
     security.sudo = {
       enable = true;

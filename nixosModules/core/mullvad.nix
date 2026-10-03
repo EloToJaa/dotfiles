@@ -9,7 +9,7 @@ in {
   options.modules.core.mullvad = {
     enable = lib.mkEnableOption "Enable mullvad";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     services.mullvad-vpn = {
       inherit (cfg) enable;
       package = pkgs.unstable.mullvad;

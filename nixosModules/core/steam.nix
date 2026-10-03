@@ -9,7 +9,7 @@ in {
   options.modules.core.steam = {
     enable = lib.mkEnableOption "Enable steam";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     # https://nixos.wiki/wiki/Steam
     programs = {
       steam = {
