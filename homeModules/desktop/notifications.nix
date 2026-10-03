@@ -13,9 +13,9 @@ in {
     enable = lib.mkEnableOption "Enable notifications";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      ntfy-sh
-      libnotify
+    home.packages = [
+      pkgs.unstable.ntfy-sh
+      pkgs.libnotify
     ];
 
     sops.secrets = {

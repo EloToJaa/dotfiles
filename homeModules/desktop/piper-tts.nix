@@ -35,8 +35,8 @@
     runtimeInputs = [
       pkgs.libnotify
       piper
-      pkgs.pipewire
-      pkgs.wl-clipboard
+      pkgs.unstable.pipewire
+      pkgs.unstable.wl-clipboard
     ];
     text = ''
       text="$(wl-paste --no-newline 2>/dev/null || true)"
