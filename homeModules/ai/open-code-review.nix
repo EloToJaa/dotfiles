@@ -14,7 +14,7 @@ in {
       language = "English";
       provider = "openai-responses";
       providers."openai-responses" = {
-        url = "https://ai.server.elotoja.com/v1";
+        url = "https://hub.server.elotoja.com/v1";
         model = "gpt-6.1-sol";
       };
     };
