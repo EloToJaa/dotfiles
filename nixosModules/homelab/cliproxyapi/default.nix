@@ -20,7 +20,7 @@ in {
 
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "cliproxyapi";
+      default = "ai";
     };
 
     port = lib.mkOption {

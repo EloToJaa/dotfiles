@@ -12,6 +12,7 @@
     blocky.enable = true;
     nginx.enable = true;
     cleanuparr.enable = true;
+    cliproxyapi.enable = true;
     glance.enable = false;
     grafana.enable = true;
     hermes.enable = true;
