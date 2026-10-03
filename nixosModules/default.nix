@@ -11,6 +11,7 @@
     ./../settings.nix
     ./base
     ./core
+    ./shared
     ./homelab
   ];
 }

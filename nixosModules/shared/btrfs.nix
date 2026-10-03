@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
-  cfg = config.modules.base.btrfs;
+  cfg = config.modules.shared.btrfs;
 
   snapshotDir = subvolume: "${lib.removeSuffix "/" (toString subvolume)}/.snapshots";
   mkSnapshotConfig = subvolume: {
@@ -18,7 +18,7 @@
     TIMELINE_LIMIT_YEARLY = 0;
   };
 in {
-  options.modules.base.btrfs = {
+  options.modules.shared.btrfs = {
     snapshots = {
       enable = mkEnableOption "Btrfs snapshots";
       subvolumes = mkOption {

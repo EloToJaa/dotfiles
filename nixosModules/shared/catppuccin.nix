@@ -6,9 +6,9 @@
   ...
 }: let
   inherit (config.settings) catppuccin;
-  cfg = config.modules.base.catppuccin;
+  cfg = config.modules.shared.catppuccin;
 in {
-  options.modules.base.catppuccin = {
+  options.modules.shared.catppuccin = {
     enable = lib.mkEnableOption "Enable catppuccin";
   };
   config = lib.mkIf cfg.enable {

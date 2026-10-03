@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (config.settings) dotfilesDirectory;
-  cfg = config.modules.base.nh;
+  cfg = config.modules.shared.nh;
 in {
-  options.modules.base.nh = {
+  options.modules.shared.nh = {
     enable = lib.mkEnableOption "Enable nh";
   };
   config = lib.mkIf cfg.enable {
