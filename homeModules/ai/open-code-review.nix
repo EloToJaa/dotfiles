@@ -13,7 +13,10 @@ in {
     home.file.".opencodereview/config.json".text = builtins.toJSON {
       language = "English";
       provider = "openai-responses";
-      providers."openai-responses".model = "gpt-6-luna";
+      providers."openai-responses" = {
+        url = "https://ai.server.elotoja.com/v1";
+        model = "gpt-6.1-sol";
+      };
     };
   };
 }
