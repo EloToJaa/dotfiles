@@ -56,6 +56,7 @@ in {
       mutableUsers = false;
       users.${username} = {
         isNormalUser = true;
+        inherit uid;
         description = username;
         group = username;
         extraGroups = [
