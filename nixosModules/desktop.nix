@@ -41,6 +41,7 @@
     core = {
       enable = true;
       gnupg.enable = true;
+      nix-ld.enable = true;
       plymouth.enable = true;
       adb.enable = false;
       audio.enable = true;

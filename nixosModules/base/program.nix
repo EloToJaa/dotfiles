@@ -7,7 +7,6 @@
 in {
   config = lib.mkIf cfg.enable {
     programs = {
-      nix-ld.enable = true;
       zsh.enable = true;
     };
 
