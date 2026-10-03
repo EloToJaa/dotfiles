@@ -20,7 +20,7 @@ in {
 
         swapfile = false;
         backup = false;
-        # undodir = { os.getenv("HOME") .. "/.vim/undodir" }
+        undodir = "${config.home.homeDirectory}/.vim/undodir";
         undofile = true;
         autoread = true;
 
@@ -42,7 +42,7 @@ in {
       };
 
       extraConfigLuaPost = ''
-        undodir = { "${config.home.homeDirectory}/.vim/undodir" }
+        vim.fn.mkdir(vim.o.undodir, "p", 448)
 
         local refresh_group = vim.api.nvim_create_augroup("refresh_external_changes", { clear = true })
         vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {

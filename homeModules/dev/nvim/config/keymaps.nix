@@ -47,13 +47,13 @@ in {
           mode = "n";
           key = "<leader>v";
           action = "<C-w>s";
-          options.desc = "Split window vertically";
+          options.desc = "Split window horizontally";
         }
         {
           mode = "n";
           key = "<leader>s";
           action = "<C-w>v";
-          options.desc = "Split window horizontally";
+          options.desc = "Split window vertically";
         }
         {
           mode = "n";
@@ -172,7 +172,33 @@ in {
         {
           mode = "n";
           key = "<M-q>";
-          action = "<cmd>cdo del<CR>";
+          action = mkRaw ''
+            function()
+              local win = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1]
+              if win.loclist == 1 then
+                return
+              end
+
+              local qf = vim.fn.getqflist({ id = 0, idx = 0, items = 0 })
+              local selected = win.quickfix == 1 and vim.api.nvim_win_get_cursor(0)[1] or qf.idx
+              if selected < 1 or selected > #qf.items then
+                return
+              end
+
+              table.remove(qf.items, selected)
+              local idx = qf.idx
+              if selected < idx then
+                idx = idx - 1
+              end
+              idx = math.min(idx, #qf.items)
+
+              -- Replace this list in place, retaining its title, context and text formatter.
+              vim.fn.setqflist({}, "r", { id = qf.id, items = qf.items, idx = idx })
+              if win.quickfix == 1 and #qf.items > 0 then
+                vim.api.nvim_win_set_cursor(0, { math.min(selected, #qf.items), 0 })
+              end
+            end
+          '';
           options.desc = "Delete quickfix item";
         }
         {
