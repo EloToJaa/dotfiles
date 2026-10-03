@@ -116,9 +116,9 @@ if color.fg then
 guarantee numeric iteration order. Rendering can scramble these format items and change the
 resulting styling or text. Use `ipairs` to preserve their sequence.
 
-- for _, item in pairs(self.segments[id].items) do
+- `for _, item in pairs(self.segments[id].items) do`
 
-* for _, item in ipairs(self.segments[id].items) do
+* `for _, item in ipairs(self.segments[id].items) do`
   table.insert(cells, item)
   end
 
@@ -128,10 +128,10 @@ segment order; this can reorder the composed status output. If all segments shou
 insertion order, track that order (the map's string/number keys do not preserve it). Also use
 `ipairs` for the ordered item array.
 
-- for _, segment in pairs(self.segments) do
+- `for _, segment in pairs(self.segments) do`
 -       for _, item in pairs(segment.items) do
 
-* for _, segment in ipairs(self.segments) do
+* `for _, segment in ipairs(self.segments) do`
 *       for _, item in ipairs(segment.items) do
 
 ─── homeModules/desktop/wezterm/wezterm/events/right-status.lua:24-26 ───
@@ -1271,7 +1271,7 @@ from the alternatives directly).
 
 - wallpaper_list=($(ls "$wallpapers_folder"))
 
-* wallpaper_list=("$wallpapers_folder"/*)
+* `wallpaper_list=("$wallpapers_folder"/*)`
   wallpaper_count=${#wallpaper_list[@]}
 
 -
@@ -1290,7 +1290,7 @@ using a quoted glob (with `nullglob` if the empty-directory case is handled) or 
 - wallpaper_list=($(ls "$wallpapers_folder"))
 
 * shopt -s nullglob
-* wallpaper_list=("$wallpapers_folder"/*)
+* `wallpaper_list=("$wallpapers_folder"/*)`
 
 ─── homeModules/desktop/scripts/scripts/random-wallpaper.sh:20-21 ───
 [bug · low] Neither operation's failure is checked. If the symlink cannot be updated, the script
@@ -1626,11 +1626,11 @@ nested Terraform working directory (for example `terraform/env/prod/`) can still
 files to version control, including files containing secrets. If nested Terraform configurations are
 part of this repository, use recursive patterns or add corresponding rules for those directories.
 
-- /terraform/*.tfvars
-- /terraform/*.tfvars.json
+- `/terraform/*.tfvars`
+- `/terraform/*.tfvars.json`
 
-* /terraform/**/*.tfvars
-* /terraform/**/*.tfvars.json
+* `/terraform/**/*.tfvars`
+* `/terraform/**/*.tfvars.json`
 
 ─── Justfile:30-34 ───
 [security · high] Raw `hosts` interpolation becomes shell program text, so a crafted host argument
