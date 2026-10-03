@@ -15,7 +15,7 @@ in {
   };
   config = lib.mkIf cfg.enable {
     # Add user to libvirtd group
-    users.users.${username}.extraGroups = ["libvirtd"];
+    users.users.${username}.extraGroups = ["libvirtd" "kvm"];
 
     # Install necessary packages
     environment.systemPackages = with pkgs.unstable; [
