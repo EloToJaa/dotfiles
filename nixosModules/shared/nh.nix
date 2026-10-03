@@ -22,7 +22,6 @@ in {
     };
 
     environment.systemPackages = with pkgs.unstable; [
-      nix-update
       nvd
     ];
   };

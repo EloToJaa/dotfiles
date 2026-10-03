@@ -42,6 +42,7 @@
       enable = true;
       gnupg.enable = true;
       nix-ld.enable = true;
+      developer.enable = true;
       plymouth.enable = true;
       adb.enable = false;
       audio.enable = true;

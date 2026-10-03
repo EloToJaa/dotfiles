@@ -23,7 +23,6 @@ in {
       dbus.implementation = "broker";
       power-profiles-daemon.enable = true;
     };
-    boot.initrd.kernelModules = ["amdgpu"];
     users.users.${config.settings.username}.extraGroups = ["input"];
   };
 }

@@ -4,7 +4,8 @@
     ./btop.nix
     ./catppuccin.nix
     ./containers.nix
-    ./graphics.nix
+    ./cpu
+    ./graphics
     ./index.nix
     ./nfs.nix
     ./nh.nix
