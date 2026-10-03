@@ -59,7 +59,6 @@
     unstable = import inputs.nixpkgs-unstable {
       inherit (final.stdenv.hostPlatform) system;
       config.allowUnfree = true;
-      config.allowInsecurePredicate = _: true;
       overlays = [
         inputs.llm-agents.overlays.shared-nixpkgs
         (_final: prev: let
@@ -116,7 +115,6 @@
     master = import inputs.nixpkgs-master {
       inherit (final.stdenv.hostPlatform) system;
       config.allowUnfree = true;
-      config.allowInsecurePredicate = _: true;
     };
   };
 in {

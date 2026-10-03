@@ -56,7 +56,6 @@ in {
       ];
       config = {
         allowUnfree = true;
-        allowInsecurePredicate = _: true;
       };
     };
   };
