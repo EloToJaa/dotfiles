@@ -15,7 +15,7 @@ in {
       description = "ssh port";
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.base.enable && cfg.enable) {
     # SSH Certificate Authority (shared)
     # clan.core.vars.generators.ssh-ca = {
     #   share = true;

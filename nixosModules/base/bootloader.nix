@@ -11,7 +11,7 @@ in {
   options.modules.base.bootloader = {
     enable = lib.mkEnableOption "Enable bootloader";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.base.enable && cfg.enable) {
     environment.systemPackages = [
       needsreboot
     ];

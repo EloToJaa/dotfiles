@@ -13,7 +13,7 @@ in {
   options.modules.core.virtualization = {
     enable = lib.mkEnableOption "Enable virtualization module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     # Add user to libvirtd group
     users.users.${username}.extraGroups = ["libvirtd" "kvm"];
 

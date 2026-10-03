@@ -11,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable audio module";
   };
   imports = [];
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     security.rtkit.enable = true;
     services.pulseaudio.enable = false;
     services.pipewire = {

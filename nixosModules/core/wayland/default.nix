@@ -17,7 +17,7 @@ in {
     niri.enable = lib.mkEnableOption "Enable niri";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
     services = {
       dbus.implementation = "broker";

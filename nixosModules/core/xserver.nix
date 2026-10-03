@@ -9,7 +9,7 @@ in {
   options.modules.core.xserver = {
     enable = lib.mkEnableOption "Enable xserver module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     services = {
       xserver = {
         enable = true;

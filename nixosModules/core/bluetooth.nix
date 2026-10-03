@@ -9,7 +9,7 @@ in {
   options.modules.core.bluetooth = {
     enable = lib.mkEnableOption "Enable bluetooth module";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
