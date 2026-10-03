@@ -17,7 +17,5 @@ in {
     };
 
     services.smartd.enable = true;
-
-    security.rtkit.enable = true;
   };
 }
