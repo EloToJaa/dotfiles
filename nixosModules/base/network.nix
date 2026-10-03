@@ -28,7 +28,19 @@ in {
       '';
     };
     environment.systemPackages = [
-      inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli
+      # Clan otherwise chooses Zenity whenever a graphical session is present,
+      # even in a terminal. Prefer dialog for terminal input, retaining the GUI fallback.
+      (inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli.overrideAttrs (old: {
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            # Prefer terminal askpass when Clan is launched interactively.
+            substituteInPlace clan_lib/ssh/remote.py \
+              --replace-fail \
+                'elif os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):' \
+                'elif not sys.stdin.isatty() and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):'
+          '';
+      }))
     ];
     networking = {
       hostName = host;
