@@ -6,6 +6,8 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "laptop";
+  boot.initrd.kernelModules = ["amdgpu"];
+  services.xserver.videoDrivers = ["amdgpu"];
   programs.vicinae.input-server.package = config.home-manager.users.${username}.programs.vicinae.package;
   imports = [
     inputs.srvos.nixosModules.desktop

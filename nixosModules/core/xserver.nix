@@ -13,7 +13,6 @@ in {
     services = {
       xserver = {
         enable = true;
-        videoDrivers = ["amdgpu"];
         xkb.layout = keyboardLayout;
       };
 
