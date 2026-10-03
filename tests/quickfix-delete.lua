@@ -11,17 +11,13 @@ local function setup(idx, count)
 	for i = 1, count do
 		items[i] = { bufnr = buf, lnum = i, text = tostring(i), user_data = { entry = i } }
 	end
-	vim.fn.setqflist(
-		{},
-		" ",
-		{
-			items = items,
-			idx = idx,
-			title = "review test",
-			context = { origin = "review" },
-			quickfixtextfunc = "v:lua.ReviewQuickfixText",
-		}
-	)
+	vim.fn.setqflist({}, " ", {
+		items = items,
+		idx = idx,
+		title = "review test",
+		context = { origin = "review" },
+		quickfixtextfunc = "v:lua.ReviewQuickfixText",
+	})
 	return vim.fn.getqflist({ all = 0 })
 end
 local function check(before, expected, idx)
