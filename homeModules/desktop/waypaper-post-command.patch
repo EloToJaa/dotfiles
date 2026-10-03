@@ -1,0 +1,13 @@
+diff --git a/waypaper/changer.py b/waypaper/changer.py
+--- a/waypaper/changer.py
++++ b/waypaper/changer.py
+@@ -3,1 +3,2 @@
++import shlex
+ import subprocess
+@@ -405,4 +406,3 @@
+         if cf.post_command and cf.use_post_command:
+-            modified_image_path = str(image_path).replace(" ", "\\ ")
+-            post_command = cf.post_command.replace("$wallpaper", modified_image_path)
+-            post_command = post_command.replace("$monitor", monitor)
++            post_command = cf.post_command.replace("$monitor", shlex.quote(monitor))
++            post_command = post_command.replace("$wallpaper", shlex.quote(str(image_path)))

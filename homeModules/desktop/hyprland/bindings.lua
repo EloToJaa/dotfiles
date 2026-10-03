@@ -51,8 +51,8 @@ hl.bind(variables.main_mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "
 hl.bind(variables.main_mod .. " + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
 hl.bind(variables.main_mod .. " + CTRL + Left", hl.dsp.focus({ monitor = "l" }))
 hl.bind(variables.main_mod .. " + CTRL + Right", hl.dsp.focus({ monitor = "r" }))
-hl.bind(variables.main_mod .. " + CTRL + Up", hl.dsp.focus({ monitor = "d" }))
-hl.bind(variables.main_mod .. " + CTRL + Down", hl.dsp.focus({ monitor = "u" }))
+hl.bind(variables.main_mod .. " + CTRL + Up", hl.dsp.focus({ monitor = "u" }))
+hl.bind(variables.main_mod .. " + CTRL + Down", hl.dsp.focus({ monitor = "d" }))
 hl.bind(variables.main_mod .. " + CTRL + H", hl.dsp.focus({ monitor = "l" }))
 hl.bind(variables.main_mod .. " + CTRL + J", hl.dsp.focus({ monitor = "d" }))
 hl.bind(variables.main_mod .. " + CTRL + K", hl.dsp.focus({ monitor = "u" }))
@@ -120,24 +120,24 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd(dms .. " mpris next"), { locked = true 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(dms .. " audio increment 2"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(dms .. " audio decrement 2"), { locked = true, repeating = true })
 hl.bind(
-	"CTRL + XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd(dms .. " mpris increment 2"),
-	{ locked = true, repeating = true }
+  "CTRL + XF86AudioRaiseVolume",
+  hl.dsp.exec_cmd(dms .. " mpris increment 2"),
+  { locked = true, repeating = true }
 )
 hl.bind(
-	"CTRL + XF86AudioLowerVolume",
-	hl.dsp.exec_cmd(dms .. " mpris decrement 2"),
-	{ locked = true, repeating = true }
+  "CTRL + XF86AudioLowerVolume",
+  hl.dsp.exec_cmd(dms .. " mpris decrement 2"),
+  { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86MonBrightnessUp",
-	hl.dsp.exec_cmd(dms .. " brightness increment 5 ''"),
-	{ locked = true, repeating = true }
+  "XF86MonBrightnessUp",
+  hl.dsp.exec_cmd(dms .. " brightness increment 5 ''"),
+  { locked = true, repeating = true }
 )
 hl.bind(
-	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd(dms .. " brightness decrement 5 ''"),
-	{ locked = true, repeating = true }
+  "XF86MonBrightnessDown",
+  hl.dsp.exec_cmd(dms .. " brightness decrement 5 ''"),
+  { locked = true, repeating = true }
 )
 hl.bind(variables.main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(variables.main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })

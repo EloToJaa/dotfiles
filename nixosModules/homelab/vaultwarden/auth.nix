@@ -23,7 +23,7 @@ in {
     };
 
     services.authelia.instances.main.settings = {
-      definitions.user_attibutes.vaultwarden_roles.expression = ''
+      definitions.user_attributes.vaultwarden_roles.expression = ''
         "vaultwarden_admins" in groups ? ["admin"] : "vaultwarden_users" in groups ? ["user"] : [""]
       '';
       identity_providers.oidc = {

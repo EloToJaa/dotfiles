@@ -51,19 +51,18 @@ in {
       modules-center = [
         "clock"
       ];
-      modules-right = [
-        "cpu"
-        "memory"
-        (
-          if (host == "desktop")
-          then "disk"
-          else ""
-        )
-        "pulseaudio"
-        "network"
-        "battery"
-        "custom/notification"
-      ];
+      modules-right =
+        [
+          "cpu"
+          "memory"
+        ]
+        ++ lib.optional (host == "desktop") "disk"
+        ++ [
+          "pulseaudio"
+          "network"
+          "battery"
+          "custom/notification"
+        ];
       clock = {
         calendar = {
           format = {today = "<span color='${green}'><b>{}</b></span>";};
