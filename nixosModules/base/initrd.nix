@@ -8,6 +8,11 @@
 in {
   options.modules.base.initrd = {
     enable = lib.mkEnableOption "Enable initrd module";
+    kernelModules = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Network drivers needed for remote initrd access.";
+    };
     port = lib.mkOption {
       type = lib.types.int;
       default = 7172;
@@ -39,8 +44,7 @@ in {
         "xhci_pci"
       ];
 
-      # Find out the required network card driver by running `lspci -k` on the target machine
-      kernelModules = ["r8169"];
+      inherit (cfg) kernelModules;
     };
   };
 }
