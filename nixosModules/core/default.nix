@@ -11,6 +11,7 @@
     ./mullvad.nix
     ./network.nix
     ./plymouth.nix
+    ./program.nix
     ./printing.nix
     ./security.nix
     ./steam.nix
