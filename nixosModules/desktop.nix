@@ -40,6 +40,7 @@
     };
     core = {
       enable = true;
+      gnupg.enable = true;
       plymouth.enable = true;
       adb.enable = false;
       audio.enable = true;
