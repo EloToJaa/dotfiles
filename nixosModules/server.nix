@@ -37,6 +37,7 @@
       index.enable = true;
       nfs.enable = true;
       nh.enable = true;
+      graphics.enable = true;
     };
     homelab = {
       enable = true;
