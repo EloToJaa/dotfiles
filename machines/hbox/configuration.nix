@@ -8,7 +8,6 @@
 in {
   imports = [
     inputs.srvos.nixosModules.server
-    ../../nixosModules/vm.nix
     ./config.nix
     ./disko.nix
     ../../homeModules/vars.nix

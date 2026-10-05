@@ -3,6 +3,9 @@
   modulesPath,
   ...
 }: {
+  # The VM profile supplies GRUB; do not also enable Limine Secure Boot.
+  modules.base.bootloader.enable = lib.mkForce false;
+
   # Opt-in QEMU/virtio VM profile; import only on virtual machines.
   imports = ["${modulesPath}/profiles/qemu-guest.nix"];
 
