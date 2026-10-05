@@ -11,7 +11,6 @@
     bazarr.enable = true;
     blocky.enable = true;
     nginx.enable = true;
-    nixbot.enable = true;
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
     glance.enable = false;
@@ -29,7 +28,6 @@
     kerberos.enable = false;
     lidarr.enable = true;
     loki.enable = false;
-    matrix.enable = false;
     mosquitto.enable = true;
     musicseerr.enable = true;
     n8n.enable = false;
