@@ -1,6 +1,6 @@
 {lib, ...}: {
   networking = {
-    useDHCP = lib.mkForce true;
+    useDHCP = lib.mkDefault true;
   };
 
   settings.isServer = true;
@@ -20,17 +20,6 @@
       sudo.enable = true;
     };
     shared = {
-      btrfs = {
-        scrub.enable = true;
-        snapshots = {
-          enable = true;
-          subvolumes = {
-            home = "/home";
-            opt = "/opt";
-            var-lib = "/var/lib";
-          };
-        };
-      };
       btop.enable = true;
       catppuccin.enable = true;
       containers.enable = true;

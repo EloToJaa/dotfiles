@@ -6,11 +6,13 @@
 }: let
   inherit (config.modules) homelab;
   cfg = homelab.matrix;
-  domain = "${cfg.domainName}.${homelab.baseDomain}";
-  serverCertificate =
-    if cfg.serverName == homelab.baseDomain || lib.hasSuffix ".${homelab.baseDomain}" cfg.serverName
+  domain = cfg.endpointDomain;
+  certificateFor = name:
+    if name == homelab.baseDomain || lib.hasSuffix ".${homelab.baseDomain}" name
     then homelab.baseDomain
     else homelab.mainDomain;
+  serverCertificate = certificateFor cfg.serverName;
+  endpointCertificate = certificateFor domain;
   wellKnownHeaders = ''
     default_type application/json;
     add_header Access-Control-Allow-Origin "*" always;
@@ -25,6 +27,11 @@ in {
       type = lib.types.str;
       default = "matrix";
       description = "Subdomain under the homelab base domain used for the homeserver URL.";
+    };
+    endpointDomain = lib.mkOption {
+      type = lib.types.str;
+      default = "${cfg.domainName}.${homelab.baseDomain}";
+      description = "Full homeserver endpoint domain, independent of the Matrix user ID domain.";
     };
     serverName = lib.mkOption {
       type = lib.types.str;
@@ -46,6 +53,12 @@ in {
           || cfg.serverName == homelab.baseDomain
           || lib.hasSuffix ".${homelab.mainDomain}" cfg.serverName;
         message = "Matrix serverName must be covered by the homelab ACME certificates.";
+      }
+      {
+        assertion = lib.any (base:
+          domain == base || lib.hasSuffix ".${base}" domain)
+        [homelab.mainDomain homelab.baseDomain];
+        message = "Matrix endpointDomain must be covered by the homelab ACME certificates.";
       }
     ];
 
@@ -78,7 +91,7 @@ in {
       {
         ${domain} = {
           forceSSL = true;
-          useACMEHost = homelab.baseDomain;
+          useACMEHost = endpointCertificate;
           locations."/_matrix/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.port}";
             extraConfig = ''

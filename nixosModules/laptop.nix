@@ -77,13 +77,6 @@
       sudo.enable = true;
     };
     shared = {
-      btrfs = {
-        scrub.enable = true;
-        snapshots = {
-          enable = true;
-          subvolumes.home = "/home";
-        };
-      };
       btop.enable = true;
       catppuccin.enable = true;
       containers.enable = true;

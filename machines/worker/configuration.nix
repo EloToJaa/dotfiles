@@ -5,19 +5,8 @@
 }: let
   inherit (config.settings) username;
 in {
-  _module.args.host = "server";
+  _module.args.host = "worker";
   modules.shared = {
-    btrfs = {
-      scrub.enable = true;
-      snapshots = {
-        enable = true;
-        subvolumes = {
-          home = "/home";
-          opt = "/opt";
-          var-lib = "/var/lib";
-        };
-      };
-    };
     cpu.vendor = "intel";
     graphics = {
       vendor = "intel";
@@ -27,6 +16,7 @@ in {
   imports = [
     inputs.srvos.nixosModules.server
     ./config.nix
+    ./disko.nix
     ../../homeModules/vars.nix
     {
       home-manager.users.${username}.imports = [

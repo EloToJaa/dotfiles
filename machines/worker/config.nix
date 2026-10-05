@@ -1,0 +1,3 @@
+{
+  imports = [../../nixosModules/server.nix];
+}
