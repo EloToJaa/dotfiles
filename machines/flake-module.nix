@@ -20,6 +20,9 @@ in {
 
     inventory = {
       machines = {
+        # Set deploy.targetHost to the verified SSH destination before deployment.
+        worker.tags = ["server"];
+        hbox.tags = ["server"];
         laptop = {
           deploy.targetHost = "${username}@100.84.67.19";
           tags = ["desktop"];
