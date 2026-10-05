@@ -26,12 +26,12 @@
     siyuan.enable = false;
     karakeep.enable = true;
     kerberos.enable = false;
-    lidarr.enable = true;
+    lidarr.enable = false;
     loki.enable = false;
     mosquitto.enable = true;
-    musicseerr.enable = true;
+    musicseerr.enable = false;
     n8n.enable = false;
-    navidrome.enable = true;
+    navidrome.enable = false;
     opencloud.enable = false;
     ntfy.enable = true;
     open-webui.enable = false;
