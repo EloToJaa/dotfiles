@@ -1,44 +1,22 @@
-{
-  lib,
-  config,
-  ...
-}: let
-  inherit (config.settings) username uid ssh;
-in {
-  # Unlike server/config.nix, do not import the heavyweight server profile.
-  imports = [../../nixosModules];
+{lib, ...}: {
+  imports = [../../nixosModules/server.nix];
 
-  settings.isServer = true;
-  system.stateVersion = "26.05";
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  # The VM profile supplies GRUB; do not also enable Limine Secure Boot.
+  modules.base.bootloader.enable = lib.mkForce false;
+
+  settings.dns = ["1.1.1.1" "9.9.9.9"];
   networking = {
+    networkmanager.enable = lib.mkForce false;
     useNetworkd = true;
     useDHCP = false;
-    nameservers = ["1.1.1.1" "9.9.9.9"];
   };
   systemd.network.networks."10-uplink" = {
     matchConfig.Name = "en* eth*";
     networkConfig.DHCP = "ipv4";
     networkConfig.IPv6AcceptRA = true;
   };
-  services.resolved.enable = true;
-  services.fstrim.enable = true;
-  users.users.${username} = {
-    isNormalUser = true;
-    inherit uid;
-    extraGroups = ["wheel"];
-    hashedPassword = "!";
-    openssh.authorizedKeys.keys = [ssh.keys.user];
-  };
-  # Key-only administration; srvos provides passwordless wheel sudo.
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    KbdInteractiveAuthentication = false;
-    PermitRootLogin = "no";
-  };
 
   modules.homelab = {
-    enable = true;
     nginx = {
       enable = true;
       group = "nginx";
@@ -52,8 +30,7 @@ in {
 
   # Reuse the existing encrypted ACME credential; provision its age key separately.
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
-    age.keyFile = "/var/lib/sops-nix/key.txt";
+    age.keyFile = lib.mkForce "/var/lib/sops-nix/key.txt";
     age.generateKey = false;
   };
 

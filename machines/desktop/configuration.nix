@@ -7,6 +7,13 @@
 in {
   _module.args.host = "desktop";
   modules.shared = {
+    btrfs = {
+      scrub.enable = true;
+      snapshots = {
+        enable = true;
+        subvolumes.home = "/home";
+      };
+    };
     cpu.vendor = "amd";
     graphics.vendor = "amd";
   };

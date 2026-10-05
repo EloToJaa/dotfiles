@@ -6,6 +6,13 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "thinker";
+  modules.shared.btrfs = {
+    scrub.enable = true;
+    snapshots = {
+      enable = true;
+      subvolumes.home = "/home";
+    };
+  };
   imports = [
     inputs.srvos.nixosModules.desktop
     ./../../nixosModules/laptop.nix

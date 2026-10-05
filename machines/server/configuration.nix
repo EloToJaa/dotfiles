@@ -7,6 +7,17 @@
 in {
   _module.args.host = "server";
   modules.shared = {
+    btrfs = {
+      scrub.enable = true;
+      snapshots = {
+        enable = true;
+        subvolumes = {
+          home = "/home";
+          opt = "/opt";
+          var-lib = "/var/lib";
+        };
+      };
+    };
     cpu.vendor = "intel";
     graphics = {
       vendor = "intel";

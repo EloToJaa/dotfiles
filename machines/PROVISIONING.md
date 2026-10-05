@@ -1,9 +1,18 @@
 # worker and hbox provisioning
 
-Both machines follow server's `configuration.nix` → `config.nix` structure,
-but keep the heavyweight server profile disabled. They enable srvos, key-only
-SSH, passwordless wheel sudo, networkd and public DNS. No desktop, containers, NFS,
-rich home-manager profile, snapshots or swap are enabled.
+Both machines follow server's `configuration.nix` → `config.nix` structure and
+import `nixosModules/server.nix` alongside srvos. This enables the repository's
+base user/home-manager setup, password-authenticated sudo, Tailscale, Podman,
+NFS automounts, graphics support and homelab groups. Both use the server
+home-manager profile. SSH remains key-only. Networking uses networkd and public
+DNS instead of NetworkManager/private DNS; the profile's Limine bootloader is
+disabled in favor of worker's systemd-boot and hbox's VM GRUB profile.
+
+Btrfs scrub/snapshot policy lives in machine configurations, not generic
+server/desktop/laptop profiles. worker uses XFS with no Btrfs services. hbox
+scrubs Btrfs and snapshots its actual `/`, `/nix` and `/var/lib` subvolumes.
+Existing Btrfs machines retain their policies; ext4 miro/tester no longer
+inherit inappropriate Btrfs jobs. No swap is configured on these new hosts.
 
 - **worker:** x86_64 Intel, single disk, XFS root, UEFI/systemd-boot.
   Confirm UEFI boot is available and Secure Boot is disabled before installing.
@@ -27,7 +36,8 @@ rich home-manager profile, snapshots or swap are enabled.
    username (`settings.username`, currently `elotoja`). No deployment IPs are
    supplied here. Installation/rescue SSH access is separate from the final
    key-only admin account; verify `settings.ssh.keys.user` is your key. The
-   account's password is locked; wheel sudo is passwordless, as in srvos.
+   account's password comes from the base profile's Clan password generator;
+   sudo requires that password. SSH password login and root SSH are disabled.
 3. Networking assumes a wired `en*`/`eth*` uplink, DHCPv4 and IPv6 RA. Confirm
    interface names and DHCP availability from the target/rescue environment.
    Hetzner public IPv4 normally supports DHCP; configure the actual assigned
@@ -37,8 +47,12 @@ rich home-manager profile, snapshots or swap are enabled.
    DNS uses public resolvers, not the repository's private LAN resolver.
 4. Provision Clan SOPS recipients and generate vars for each host with
    `clan vars generate worker` and `clan vars generate hbox`. This includes
-   inventory-provided root/emergency credentials and hbox's
-   `matrix-registration/token`; inspect `clan vars list hbox` and retrieve the
+   inventory-provided root/emergency credentials, the shared
+   `${settings.username}-password` hash (currently `elotoja-password`), the
+   shared Tailscale auth key and hbox's `matrix-registration/token`. Have the
+   operator password and Tailscale enrollment credentials ready; review any
+   other generators contributed by home-manager. Inspect `clan vars list hbox`
+   and retrieve the
    registration token securely via Clan when creating accounts. Never commit
    plaintext credentials. Verify generated host access and recovery credentials
    before installation.
