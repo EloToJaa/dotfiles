@@ -9,7 +9,9 @@ rich home-manager profile, snapshots or swap are enabled.
   Confirm UEFI boot is available and Secure Boot is disabled before installing.
 - **hbox:** x86_64 Hetzner **Cloud** VM (not dedicated hardware), Btrfs root,
   `/nix` and `/var/lib` subvolumes, GRUB with BIOS and removable UEFI support,
-  virtio drivers and QEMU guest agent. Select an x86_64, not ARM, instance.
+  virtio drivers and QEMU guest agent via the opt-in `nixosModules/vm.nix`
+  profile. That profile defaults GRUB's disk to `/dev/sda`; hbox overrides it
+  with its disko device. Select an x86_64, not ARM, instance.
 
 ## Before installation
 
@@ -17,8 +19,9 @@ rich home-manager profile, snapshots or swap are enabled.
    `disko.nix` files default to `/dev/sda`. Inspect `lsblk -o NAME,SIZE,MODEL,SERIAL`
    and `/dev/disk/by-id` on each target, verify the disk, and change
    `disko.devices.disk.main.device` if necessary (prefer a stable by-id path for
-   worker). hbox GRUB follows that setting. No hardware reports are fabricated:
-   inspect real hardware with nixos-facter and adjust drivers if needed.
+   worker). hbox GRUB follows that setting. `facter.json` reports for both hosts
+   are intentionally deferred for the user to generate later. No reports are
+   fabricated; review the real reports and adjust drivers before installation.
 2. Fill in `deploy.targetHost` for each inventory entry in
    `machines/flake-module.nix`, using the actual address and configured admin
    username (`settings.username`, currently `elotoja`). No deployment IPs are

@@ -2,12 +2,11 @@
   lib,
   config,
   inputs,
-  modulesPath,
   ...
 }: {
   imports = [
     inputs.srvos.nixosModules.server
-    "${modulesPath}/profiles/qemu-guest.nix"
+    ../../nixosModules/vm.nix
     ./config.nix
     ./disko.nix
   ];
@@ -16,12 +15,6 @@
   networking.hostName = "hbox";
   nixpkgs.hostPlatform = "x86_64-linux";
   # Hetzner Cloud x86_64 VM, not Hetzner dedicated hardware.
-  services.qemuGuest.enable = true;
-  boot.loader.grub = {
-    enable = true;
-    devices = [config.disko.devices.disk.main.device];
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-  };
-  boot.loader.efi.canTouchEfiVariables = false;
+  # Disko also contributes a GRUB device for the BIOS partition; keep one entry.
+  boot.loader.grub.devices = lib.mkForce [config.disko.devices.disk.main.device];
 }
