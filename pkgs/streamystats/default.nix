@@ -28,6 +28,17 @@ in
     pname = "streamystats";
     inherit version src;
 
+    # Expose the fetcher separately from the source wrapper for nix-update.
+    passthru = {
+      inherit upstreamSrc;
+      updateSource = {
+        name = "streamystats-update-source-${version}";
+        pname = "streamystats";
+        inherit version;
+        src = upstreamSrc;
+      };
+    };
+
     bunDeps = bun2nix.fetchBunDeps {
       bunNix = "${src}/bun.nix";
     };

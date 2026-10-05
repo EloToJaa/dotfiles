@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.modules.ai.workmux;
-  workmux = pkgs.callPackage ./pkgs/workmux-skills.nix {};
+  workmux = pkgs.ai-workmux-skills;
   inherit (settings) isServer;
   agent =
     if isServer
