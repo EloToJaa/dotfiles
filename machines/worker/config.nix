@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{config, ...}: let
   inherit (config.settings) username uid ssh;
 in {
   # Unlike server/config.nix, do not import the heavyweight server profile.
