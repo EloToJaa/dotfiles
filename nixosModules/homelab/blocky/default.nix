@@ -57,6 +57,7 @@ in {
           mapping = {
             "kvm.${homelab.mainDomain}" = "10.11.0.31";
             "server.${homelab.mainDomain}" = "10.11.0.32";
+            "worker.${homelab.mainDomain}" = "10.11.0.36";
             "nas.${homelab.mainDomain}" = "10.11.0.34";
             "pve.${homelab.mainDomain}" = "10.11.0.33";
           };
