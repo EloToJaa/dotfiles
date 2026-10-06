@@ -72,6 +72,7 @@ in {
       openFirewall = true;
       useRoutingFeatures = "both";
       authKeyFile = config.clan.core.vars.generators.tailscale.files.auth-key.path;
+      extraSetFlags = ["--operator=${username}"];
     };
     users.users.${username}.extraGroups = [
       "networkmanager"
