@@ -40,7 +40,6 @@ nix fmt
 - `server` - Homelab server
 - `nas` - NAS/storage server
 - `miro` - Additional machine
-- `tester` - Testing environment
 
 ### Testing/Linting
 

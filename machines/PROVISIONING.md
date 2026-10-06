@@ -11,8 +11,8 @@ disabled in favor of worker's systemd-boot and hbox's VM GRUB profile.
 Btrfs scrub/snapshot policy lives in machine configurations, not generic
 server/desktop/laptop profiles. worker uses XFS with no Btrfs services. hbox
 scrubs Btrfs and snapshots its actual `/`, `/nix` and `/var/lib` subvolumes.
-Existing Btrfs machines retain their policies; ext4 miro/tester no longer
-inherit inappropriate Btrfs jobs. No swap is configured on these new hosts.
+Existing Btrfs machines retain their policies; ext4 miro no longer inherits
+inappropriate Btrfs jobs. No swap is configured on these new hosts.
 
 - **worker:** x86_64 Intel, single disk, XFS root, UEFI/systemd-boot.
   Confirm UEFI boot is available and Secure Boot is disabled before installing.
