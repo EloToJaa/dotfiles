@@ -20,7 +20,7 @@ in {
     ../../homeModules/vars.nix
     {
       home-manager.users.${username}.imports = [
-        ../../homeModules/server.nix
+        ./home.nix
       ];
     }
   ];
