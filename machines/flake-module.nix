@@ -20,8 +20,6 @@ in {
 
     inventory = {
       machines = {
-        # Set deploy.targetHost to the verified SSH destination before deployment.
-        worker.tags = ["server"];
         hbox.tags = ["server"];
         laptop = {
           deploy.targetHost = "${username}@100.84.67.19";
@@ -37,6 +35,10 @@ in {
         };
         server = {
           deploy.targetHost = "${username}@100.120.221.4";
+          tags = ["server"];
+        };
+        worker = {
+          deploy.targetHost = "${username}@10.11.0.36";
           tags = ["server"];
         };
         miro = {
