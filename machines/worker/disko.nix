@@ -16,12 +16,18 @@
             mountOptions = ["umask=0077"];
           };
         };
-        root = {
+        luks = {
           size = "100%";
           content = {
-            type = "filesystem";
-            format = "xfs";
-            mountpoint = "/";
+            type = "luks";
+            name = "crypted";
+            # Leave key files unset for interactive password entry.
+            settings.allowDiscards = true;
+            content = {
+              type = "filesystem";
+              format = "xfs";
+              mountpoint = "/";
+            };
           };
         };
       };
