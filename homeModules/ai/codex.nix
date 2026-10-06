@@ -32,7 +32,7 @@ in {
       #     prevent_idle_sleep = true;
       #   };
       #
-      #   projects."/home/elotoja/Projects/dotfiles/main".trust_level = "trusted";
+      #   projects."/home/elotoja/code/dotfiles/main".trust_level = "trusted";
       #
       #   memories = {
       #     use_memories = true;

@@ -3,7 +3,7 @@
 set -euo pipefail
 
 dirs=(
-  /home/elotoja/Projects
+  /home/elotoja/code
 )
 
 list_projects() {

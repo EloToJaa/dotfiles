@@ -20,7 +20,7 @@ in {
     };
     dotfilesDirectory = lib.mkOption {
       type = lib.types.path;
-      default = "${cfg.homeDirectory}/Projects/dotfiles/main";
+      default = "${cfg.homeDirectory}/code/dotfiles/main";
     };
     uid = lib.mkOption {
       type = lib.types.int;

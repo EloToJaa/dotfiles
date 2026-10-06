@@ -43,7 +43,7 @@ in {
       file://${home}/Desktop
       file://${home}/Documents
       file://${home}/Pictures
-      file://${home}/Projects
+      file://${home}/code
       file://${home}/Videos
       file:///
       file:///mnt

@@ -50,9 +50,9 @@ in {
 
           [storage]
           cache = "problems.db"
-          code = "${config.home.homeDirectory}/Projects/leetcode/main"
+          code = "${config.home.homeDirectory}/code/leetcode/main"
           root = "~/.leetcode"
-          scripts = "${config.home.homeDirectory}/Projects/leetcode/main/scripts"
+          scripts = "${config.home.homeDirectory}/code/leetcode/main/scripts"
         '';
       path = "${config.home.homeDirectory}/.leetcode/leetcode.toml";
     };
