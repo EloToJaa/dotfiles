@@ -18,6 +18,7 @@
   modules = {
     base = {
       enable = true;
+      nix-ld.enable = true;
       bootloader.enable = true;
       tailscale.enable = true;
       ssh.enable = true;
@@ -34,7 +35,6 @@
     core = {
       enable = true;
       gnupg.enable = true;
-      nix-ld.enable = true;
       developer.enable = true;
       plymouth.enable = true;
       adb.enable = false;

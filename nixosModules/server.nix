@@ -13,6 +13,7 @@
   modules = {
     base = {
       enable = true;
+      nix-ld.enable = true;
       bootloader.enable = true;
       initrd.enable = false;
       tailscale.enable = true;
