@@ -38,7 +38,7 @@ in {
           tags = ["server"];
         };
         worker = {
-          deploy.targetHost = "${username}@10.11.0.36";
+          deploy.targetHost = "${username}@100.71.230.21";
           tags = ["server"];
         };
         miro = {

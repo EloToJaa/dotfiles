@@ -8,6 +8,7 @@ machines=(
   "desktop elotoja@100.112.233.120"
   "server elotoja@100.120.221.4"
   "miro elotoja@100.97.22.118"
+  "worker elotoja@100.71.230.21"
 )
 
 list_machines() {
