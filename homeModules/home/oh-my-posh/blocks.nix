@@ -97,6 +97,11 @@ in {
               fetch_upstream_icon = true;
             };
           })
+          (internals.mkPowerlineSeg "text" {
+            foreground = "transparent";
+            background = "4";
+            template = " {{ .HostName }} ";
+          })
         ];
       }
 
