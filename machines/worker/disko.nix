@@ -2,7 +2,7 @@
   disko.devices.disk.main = {
     type = "disk";
     # DESTRUCTIVE: verify/change this on the target before installation.
-    device = "/dev/sda";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S649NX0T144624B";
     content = {
       type = "gpt";
       partitions = {
