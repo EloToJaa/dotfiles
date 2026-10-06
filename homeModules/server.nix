@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   imports = [
     ./default.nix
   ];
@@ -34,11 +34,9 @@
     };
     ai = {
       enable = true;
-      codex.enable = false;
-      opencode.enable = false;
-      pi.enable = true;
-      t3-code.enable = false;
-      workmux.enable = true;
+      pi.enable = lib.mkDefault true;
+      t3-code.enable = lib.mkDefault false;
+      workmux.enable = lib.mkDefault true;
     };
     dev = {
       enable = true;
