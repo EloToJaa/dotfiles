@@ -116,12 +116,13 @@ also manages the default `hbox.elotoja.com` apex/wildcard certificate; neither
 certificate is duplicated. Verify both well-known URLs, certificates, client
 login and federation after installation.
 
-## Deferred nixbot integration
+## Nixbot integration
 
-`machines/hbox/config.nix` contains the explicit integration point.
-After the user merges the real nixbot module, import/enable it there and add
-only its actual required dependencies, secrets and firewall rules. No nixbot
-service or dependency is assumed here.
+hbox enables `modules.homelab.nixbot`, serving `https://nixbot.hbox.elotoja.com`
+once its GitHub App credentials are provisioned. Run
+`clan vars generate hbox --generator nixbot-github` and follow `ci/README.md`
+for GitHub App and DNS setup. Until the public App/OAuth IDs exist, the service
+remains disabled and evaluation emits a provisioning warning.
 
 ## Verification and deployment
 

@@ -23,7 +23,7 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      warnings = lib.optional (!ready) "Nixbot awaits GitHub App provisioning: run clan vars generate server --generator nixbot-github; see ci/README.md. The service remains disabled until its public App/OAuth IDs exist.";
+      warnings = lib.optional (!ready) "Nixbot awaits GitHub App provisioning: run clan vars generate ${config.networking.hostName} --generator nixbot-github; see ci/README.md. The service remains disabled until its public App/OAuth IDs exist.";
       clan.core.vars.generators.nixbot-github = {
         prompts = {
           app-id = {

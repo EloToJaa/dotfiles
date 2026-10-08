@@ -12,6 +12,7 @@
   };
 
   modules.homelab = {
+    nixbot.enable = true;
     nginx = {
       enable = true;
       group = "nginx";
@@ -22,7 +23,4 @@
       endpointDomain = "matrix.elotoja.com";
     };
   };
-
-  # Nixbot integration point: import/enable the user's module here after merging it.
-  # No nixbot service or flake dependency is defined until that integration exists.
 }
