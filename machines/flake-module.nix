@@ -20,7 +20,6 @@ in {
 
     inventory = {
       machines = {
-        hbox.tags = ["server"];
         laptop = {
           deploy.targetHost = "${username}@100.84.67.19";
           tags = ["desktop"];
@@ -39,6 +38,10 @@ in {
         };
         worker = {
           deploy.targetHost = "${username}@100.71.230.21";
+          tags = ["server"];
+        };
+        hbox = {
+          deploy.targetHost = "${username}@2.31.31.198";
           tags = ["server"];
         };
         miro = {
