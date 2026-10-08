@@ -1398,18 +1398,6 @@ failure explicitly.
 it as a valid package total. Check the query's status and show an unavailable/error value instead of
 silently reporting a misleading count.
 
-─── homeModules/home/git/clone-bare.sh:10-10 ───
-[security · medium] Both values are passed as Git command arguments without an option terminator. A
-URL or destination beginning with `-` can be interpreted as a `git clone` option rather than as the
-intended operand, potentially changing clone behavior or causing unexpected failures. Pass `--`
-before the operands (and validate/normalize the destination as appropriate).
-
-─── homeModules/home/git/clone-bare.sh:6-8 ───
-[bug · low] There is no check that a URL was supplied. With no arguments, this derives an empty
-destination and only fails later in `git clone`, producing a Git usage/error rather than a clear
-argument diagnostic. Validate the required argument (and reject an empty URL) before deriving the
-destination.
-
 ─── homeModules/home/tmux/tmux-smart-launch.sh:10-11 ───
 [bug · medium] The script ignores both tmux exit statuses and proceeds to `$SHELL` even if session
 creation and attachment fail (for example, when the tmux server cannot start or is unavailable).
@@ -1460,14 +1448,6 @@ no-op case).
 being initialized. If the assumed storage-root layout is not guaranteed, unrelated or sensitive
 files in that parent can be included in the initial commit. Restrict staging to the intended storage
 contents or validate the repository root/layout before initializing and staging.
-
-─── homeModules/home/git/init-bare.sh:12-12 ───
-[bug · high] This leaves other repository-redirection variables inherited from the caller,
-especially `GIT_OBJECT_DIRECTORY` and `GIT_ALTERNATE_OBJECT_DIRECTORIES`. If either is set, object
-creation can be redirected outside this new repository (or depend on an external object store),
-while refs are written here; the resulting bare repository may fail to resolve its initial commit
-when used independently. Clear these variables as well, or run the initialization commands with a
-sanitized Git environment.
 
 ─── terraform/with-vault.sh:28-30 ───
 [bug · high] Bash `export NAME="$(...)"` can return success even when the command substitution
