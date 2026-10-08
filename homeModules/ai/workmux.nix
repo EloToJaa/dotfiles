@@ -44,7 +44,8 @@ in {
       theme = "dark";
       mode = "window";
       main_branch = "main";
-      worktree_dir = "";
+      worktree_dir = "~/.worktrees/{project}";
+      worktree_naming = "basename";
       panes = [
         {command = "nvim";}
         {
