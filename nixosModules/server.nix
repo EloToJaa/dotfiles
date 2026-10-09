@@ -14,6 +14,7 @@
     base = {
       enable = true;
       nix-ld.enable = true;
+      smartd.enable = lib.mkDefault true;
       bootloader.enable = true;
       initrd.enable = false;
       tailscale.enable = true;

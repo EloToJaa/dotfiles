@@ -12,7 +12,5 @@ in {
       nix-ld.enable = cfg.nix-ld.enable;
       zsh.enable = true;
     };
-
-    services.smartd.enable = true;
   };
 }

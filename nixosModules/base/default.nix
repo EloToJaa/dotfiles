@@ -10,6 +10,7 @@
     ./initrd.nix
     ./network.nix
     ./program.nix
+    ./smartd.nix
     ./sops.nix
     ./ssh.nix
     ./sudo.nix
