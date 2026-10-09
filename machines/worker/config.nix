@@ -6,6 +6,8 @@
     nginx.enable = true;
   };
 
+  services.nixbot.evalMaxMemorySize = 16 * 1024;
+
   swapDevices = [
     {
       device = "/swapfile";
