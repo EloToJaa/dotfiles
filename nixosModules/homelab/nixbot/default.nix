@@ -9,7 +9,7 @@
   cfg = homelab.nixbot;
   credentials = config.clan.core.vars.generators.nixbot-github.files;
   ready = credentials.app-id.exists && credentials.oauth-id.exists;
-  domain = "${cfg.domainName}.${homelab.baseDomain}";
+  domain = "${cfg.domainName}.${homelab.mainDomain}";
 in {
   imports = [inputs.nixbot.nixosModules.nixbot];
 
@@ -87,7 +87,7 @@ in {
       };
       services.nginx.virtualHosts.${domain} = {
         forceSSL = true;
-        useACMEHost = homelab.baseDomain;
+        useACMEHost = homelab.mainDomain;
       };
       clan.core.postgresql.databases.nixbot = {
         create.enable = false;

@@ -2,8 +2,8 @@
 
 The hbox machine opts into `modules.homelab.nixbot`. The upstream NixOS module provides
 Nixbot, PostgreSQL, systemd credentials, a Unix socket and its nginx proxy. The
-proxy uses the existing `hbox.elotoja.com` wildcard certificate at
-`https://nixbot.hbox.elotoja.com`. No deployment is performed by this change.
+proxy uses the existing `elotoja.com` wildcard certificate at
+`https://nixbot.elotoja.com`. No deployment is performed by this change.
 
 The service remains disabled until real GitHub App/OAuth IDs have been generated.
 This lets the configuration build without inventing credentials. Public IDs are
@@ -15,9 +15,9 @@ secret are encrypted by Clan's SOPS backend and loaded with systemd credentials.
 Follow [Nixbot's GitHub App guide](https://github.com/Mic92/nixbot/blob/main/docs/GITHUB.md):
 
 1. Create an App for EloToJaa. Set its homepage to
-   `https://nixbot.hbox.elotoja.com`, active webhook to
-   `https://nixbot.hbox.elotoja.com/webhooks/github`, and OAuth callback to
-   `https://nixbot.hbox.elotoja.com/auth/github/callback`.
+   `https://nixbot.elotoja.com`, active webhook to
+   `https://nixbot.elotoja.com/webhooks/github`, and OAuth callback to
+   `https://nixbot.elotoja.com/auth/github/callback`.
 2. Grant repository Contents, Pull requests and Checks read/write, Metadata and
    Issues read. Subscribe to Push, Pull request, Check run, Check suite and Issue
    comment. Install it **only** on `EloToJaa/dotfiles`. Enable user authorization
