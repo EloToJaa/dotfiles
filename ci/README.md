@@ -38,6 +38,27 @@ No PAT or per-repository effect secret is needed: `git.type = "GitToken"` obtain
 an App installation token and `checkout = true` supplies an authenticated,
 pushable checkout. Effects run only on the default branch, never on PRs.
 
+## Remote builds
+
+hbox's Nix daemon prefers worker at `100.71.230.21` over Tailscale, with six
+remote build slots and one local slot available when worker is busy or
+unreachable. This also applies to Nixbot's `nix build` commands. Evaluation and
+effect execution still run on hbox. Builds needing features hbox cannot provide,
+such as KVM, require a reachable compatible builder.
+
+`modules.shared.nix-builder.client` configures hbox's builders and local capacity;
+`modules.shared.nix-builder.server` enables worker's dedicated `nix-ssh` account.
+The account is restricted to the Nix daemon protocol, without shell or forwarding
+access. Clan generates the encrypted private key only for hbox:
+
+```bash
+clan vars generate hbox --generator nix-builder-ssh
+```
+
+worker consumes the corresponding public variable. Deploy worker before hbox
+when setting this up or rotating the key. hbox pins worker's SSH host key in its
+configuration; update that pin after reinstalling worker.
+
 ## Scheduled updates and validation
 
 At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix`

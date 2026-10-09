@@ -9,5 +9,6 @@
     ./index.nix
     ./nfs.nix
     ./nh.nix
+    ./nix-builder.nix
   ];
 }
