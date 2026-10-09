@@ -40,4 +40,10 @@
     nginx.enable = true;
     matrix.enable = true;
   };
+
+  services.nixbot = {
+    # Evaluate large NixOS configurations serially within hbox's memory budget.
+    evalWorkerCount = 1;
+    evalMaxMemorySize = 3072;
+  };
 }
