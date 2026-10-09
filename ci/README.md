@@ -1,6 +1,6 @@
 # Nixbot update automation
 
-The hbox machine opts into `modules.homelab.nixbot`. The upstream NixOS module provides
+The worker machine opts into `modules.homelab.nixbot`. The upstream NixOS module provides
 Nixbot, PostgreSQL, systemd credentials, a Unix socket and its nginx proxy. The
 proxy uses the existing `elotoja.com` wildcard certificate at
 `https://nixbot.elotoja.com`. No deployment is performed by this change.
@@ -22,14 +22,14 @@ Follow [Nixbot's GitHub App guide](https://github.com/Mic92/nixbot/blob/main/doc
    Issues read. Subscribe to Push, Pull request, Check run, Check suite and Issue
    comment. Install it **only** on `EloToJaa/dotfiles`. Enable user authorization
    and generate its OAuth client secret and PEM key.
-3. Run `clan vars generate hbox --generator nixbot-github`. Supply the App ID,
+3. Run `clan vars generate worker --generator nixbot-github`. Supply the App ID,
    OAuth client ID, the PEM encoded with `base64 -w0`, and OAuth secret. Do not
    commit unencrypted secrets. Set the generated webhook secret in the App
    settings (retrieve it privately with Clan's vars tooling). Regenerating this
    generator rotates the webhook secret; update the App settings accordingly.
 4. Commit the public variables and encrypted secret outputs, rerun formatting and
-   the hbox build, and deploy separately when ready. Ensure public DNS and the
-   existing ingress route reach hbox's nginx. This PR does not deploy.
+   the worker build, and deploy separately when ready. Ensure public DNS and the
+   existing ingress route reach worker's nginx. This PR does not deploy.
 5. Sign in as `EloToJaa` and enable the discovered repository in Nixbot's UI. The
    service allowlist is restricted to `EloToJaa/dotfiles`. Configure required
    GitHub status checks after the first successful build.
@@ -38,26 +38,21 @@ No PAT or per-repository effect secret is needed: `git.type = "GitToken"` obtain
 an App installation token and `checkout = true` supplies an authenticated,
 pushable checkout. Effects run only on the default branch, never on PRs.
 
-## Remote builds
+## Moving an existing installation to worker
 
-hbox's Nix daemon prefers worker at `100.71.230.21` over Tailscale, with six
-remote build slots and one local slot available when worker is busy or
-unreachable. This also applies to Nixbot's `nix build` commands. Evaluation and
-effect execution still run on hbox. Builds needing features hbox cannot provide,
-such as KVM, require a reachable compatible builder.
+The existing GitHub credentials have been moved to worker and re-encrypted for
+its machine key; the webhook secret and GitHub App settings remain unchanged.
+Before deploying, stop Nixbot on hbox and migrate its PostgreSQL `nixbot` database
+and `/var/lib/nixbot` state to worker. Deploy both configurations and direct the
+public DNS/ingress for `nixbot.elotoja.com` to worker's nginx. Verify login,
+webhooks and a build after the switch. Keep a backup of the database and state
+until the migration is verified.
 
-`modules.shared.nix-builder.client` configures hbox's builders and local capacity;
-`modules.shared.nix-builder.server` enables worker's dedicated `nix-ssh` account.
-The account is restricted to the Nix daemon protocol, without shell or forwarding
-access. Clan generates the encrypted private key only for hbox:
+## Builds
 
-```bash
-clan vars generate hbox --generator nix-builder-ssh
-```
-
-worker consumes the corresponding public variable. Deploy worker before hbox
-when setting this up or rotating the key. hbox pins worker's SSH host key in its
-configuration; update that pin after reinstalling worker.
+Nixbot evaluates configurations, builds and runs effects locally on worker.
+The previous hbox-to-worker remote builder configuration is no longer needed;
+hbox's builder client and worker's dedicated `nix-ssh` server are disabled.
 
 ## Scheduled updates and validation
 

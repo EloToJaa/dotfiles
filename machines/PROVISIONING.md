@@ -118,10 +118,10 @@ login and federation after installation.
 
 ## Nixbot integration
 
-hbox enables `modules.homelab.nixbot`, serving `https://nixbot.elotoja.com`
+worker enables `modules.homelab.nixbot`, serving `https://nixbot.elotoja.com`
 once its GitHub App credentials are provisioned. Run
-`clan vars generate hbox --generator nixbot-github` and follow `ci/README.md`
-for GitHub App and DNS setup. Until the public App/OAuth IDs exist, the service
+`clan vars generate worker --generator nixbot-github` and follow `ci/README.md`
+for GitHub App and DNS setup, and migration of existing hbox database/state. Until the public App/OAuth IDs exist, the service
 remains disabled and evaluation emits a provisioning warning.
 
 ## Verification and deployment
