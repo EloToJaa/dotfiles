@@ -13,14 +13,7 @@
 
   modules.homelab = {
     nixbot.enable = true;
-    nginx = {
-      enable = true;
-      group = "nginx";
-    };
-    matrix = {
-      enable = true;
-      serverName = "elotoja.com";
-      endpointDomain = "matrix.elotoja.com";
-    };
+    nginx.enable = true;
+    matrix.enable = true;
   };
 }

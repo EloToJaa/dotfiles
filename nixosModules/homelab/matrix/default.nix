@@ -26,11 +26,11 @@ in {
     domainName = lib.mkOption {
       type = lib.types.str;
       default = "matrix";
-      description = "Subdomain under the homelab base domain used for the homeserver URL.";
+      description = "Subdomain under the homelab main domain used for the homeserver URL.";
     };
     endpointDomain = lib.mkOption {
       type = lib.types.str;
-      default = "${cfg.domainName}.${homelab.baseDomain}";
+      default = "${cfg.domainName}.${homelab.mainDomain}";
       description = "Full homeserver endpoint domain, independent of the Matrix user ID domain.";
     };
     serverName = lib.mkOption {
