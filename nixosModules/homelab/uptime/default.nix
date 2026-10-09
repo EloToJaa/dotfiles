@@ -33,7 +33,15 @@ in {
   config = lib.mkIf cfg.enable {
     services.uptime-kuma = {
       enable = true;
-      package = pkgs.unstable.uptime-kuma;
+      package = pkgs.unstable.uptime-kuma.overrideAttrs (old: {
+        npmDeps = old.npmDeps.overrideAttrs (deps: {
+          # Bypass the npm-deps path that fails hash verification during import.
+          # Keep the upstream output hash to verify the rebuilt dependencies.
+          name = "${deps.name}-rebuilt";
+          allowSubstitutes = false;
+          preferLocalBuild = true;
+        });
+      });
       settings = {
         DATA_DIR = lib.mkForce cfg.dataDir;
         PORT = lib.mkForce (toString cfg.port);

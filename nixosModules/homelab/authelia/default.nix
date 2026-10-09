@@ -35,7 +35,14 @@ in {
     services.authelia.instances.main = {
       inherit (cfg) group;
       enable = true;
-      package = pkgs.unstable.authelia;
+      package = pkgs.unstable.authelia.override {
+        authelia-web = pkgs.unstable.authelia.web.overrideAttrs (old: {
+          # Correct the dependency hash for the pinned 4.39.28 web source.
+          pnpmDeps = old.pnpmDeps.overrideAttrs {
+            outputHash = "sha256-zIaVEjbh/LIQMqnryrgVm+46GP+9gM91WCMyAqeDnaA=";
+          };
+        });
+      };
       user = cfg.name;
       secrets = {
         jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
