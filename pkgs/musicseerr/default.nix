@@ -5,7 +5,7 @@
   fetchPypi,
   makeWrapper,
   nodejs,
-  pnpm_10,
+  pnpm_10_latest,
   pnpmConfigHook,
   fetchPnpmDeps,
   python313,
@@ -73,7 +73,7 @@ in
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
-      pnpm = pnpm_10;
+      pnpm = pnpm_10_latest;
       sourceRoot = "${finalAttrs.src.name}/frontend";
       fetcherVersion = 4;
       hash = "sha256-n+o22hQ4aVBJ4e2cvgRnUbm50MtCiddOEH+lhooqJgY=";
@@ -85,7 +85,7 @@ in
       makeWrapper
       nodejs
       pnpmConfigHook
-      pnpm_10
+      pnpm_10_latest
     ];
 
     buildPhase = ''
