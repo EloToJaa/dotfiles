@@ -1,4 +1,4 @@
-{lib, ...}: {
+{
   imports = [../../nixosModules/server.nix];
 
   modules.homelab = {
