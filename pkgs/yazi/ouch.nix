@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-ouch";
-  version = "unstable-2026-08-19";
+  version = "0.7.2-unstable-2026-09-12";
 
   src = fetchFromGitHub {
     owner = "ndtoan96";
     repo = "ouch.yazi";
-    rev = "8e70ec74efbec63c7d7db3b1e567b56763affc09";
-    hash = "sha256-CSthsFIiIa81xHgs2Szoy9atRouRESHOPxUt/pOtvl0=";
+    rev = "596b66697f40fd8b36f1063fed22f64354f74c1f";
+    hash = "sha256-RW49EJiEyPodkKpUd0Ad0ztr/obODpC6ShWIee8aT3Q=";
   };
 
   buildPhase = ''
