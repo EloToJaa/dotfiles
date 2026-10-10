@@ -18,6 +18,7 @@
   streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};
   dreame-vacuum = pkgs.unstable.callPackage ./dreame-vacuum {};
+  zsh-auto-notify = pkgs.callPackage ./zsh-auto-notify {};
   webrtc = pkgs.unstable.callPackage ./webrtc {};
   webrtc-camera = pkgs.callPackage ./webrtc-camera {};
   yamtrack = pkgs.callPackage ./yamtrack {

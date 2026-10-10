@@ -32,13 +32,7 @@ in {
         ++ (lib.optionals plugins.zsh-auto-notify.enable [
           {
             name = "auto-notify";
-            #file = "auto-notify.plugin.zsh";
-            src = pkgs.fetchFromGitHub {
-              owner = "MichaelAquilina";
-              repo = "zsh-auto-notify";
-              rev = "b51c934d88868e56c1d55d0a2a36d559f21cb2ee";
-              hash = "sha256-s3TBAsXOpmiXMAQkbaS5de0t0hNC1EzUUb0ZG+p9keE=";
-            };
+            src = "${pkgs.zsh-auto-notify}/share/zsh/zsh-auto-notify";
           }
         ])
         ++ (lib.optionals plugins.zsh-autosuggestions-abbreviations-strategy.enable [
