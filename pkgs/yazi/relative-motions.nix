@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziPlugins-relative-motions";
-  version = "unstable-2026-05-21";
+  version = "0-unstable-2025-07-09";
 
   src = fetchFromGitHub {
     owner = "dedukun";
