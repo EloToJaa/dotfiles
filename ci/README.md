@@ -76,11 +76,14 @@ latest numeric release branch. Development branches and demo tags are excluded.
 At 02:00 UTC, a separate effect runs `nix flake update` without input arguments to
 refresh all locked inputs, replacing the removed GitHub Actions lock updater.
 It maintains one `chore/update-flake-lock` branch and PR titled
-`chore: update flake.lock`, requiring formatting and server, desktop and laptop
-builds before publishing. Unchanged locks do not create PRs. It keeps the input
-URLs in `flake.nix`; the 03:00 release effects select newer release references and
-lock those individual inputs. No submodule update is scheduled. Review every
-automated PR before merging.
+`chore: update flake.lock`, requiring formatting but, unlike the 03:00 effects,
+building nothing before publishing: the PR's own checks already cover every host
+and package, so a lock that breaks a build arrives as red checks on a readable
+PR instead of as an effect failure with no PR to show for it. Unchanged locks do
+not create PRs. It keeps the input URLs in `flake.nix`; the 03:00 release effects
+select newer release references and lock those individual inputs. No submodule
+update is scheduled. Review every automated PR before merging, and expect to
+land lock updates that need a fix alongside them.
 
 ## Pull request CI
 
