@@ -23,6 +23,7 @@
     ./discord.nix # discord
     ./ghostty.nix
     ./gnome.nix # gnome apps
+    ./helium.nix # chromium-based browser
     ./gtk.nix # gtk theme
     ./hyprlock.nix # lock screen
     ./nautilus.nix # file manager

@@ -50,6 +50,7 @@ in {
       overlays = [
         inputs.nur.overlays.default
         outputs.overlays.bun2nix
+        outputs.overlays.helium
         outputs.overlays.unstablePackages
         outputs.overlays.modifiedPackages
         outputs.overlays.localPackages

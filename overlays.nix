@@ -121,6 +121,7 @@ in {
   # For internal use in perSystem
   _module.args.overlaysList = [
     inputs.bun2nix.overlays.default
+    inputs.helium.overlays.default
     localPackages
     modifiedPackages
     unstablePackages
@@ -130,5 +131,6 @@ in {
   flake.overlays = {
     inherit localPackages modifiedPackages unstablePackages;
     bun2nix = inputs.bun2nix.overlays.default;
+    helium = inputs.helium.overlays.default;
   };
 }

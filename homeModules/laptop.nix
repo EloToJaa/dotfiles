@@ -20,6 +20,7 @@
       dms-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
+      helium.enable = true;
       gtk = {
         enable = true;
         applyTheme = true;
