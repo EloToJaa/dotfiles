@@ -15,7 +15,7 @@
     cliproxyapi.enable = true;
     glance.enable = false;
     grafana.enable = true;
-    hermes.enable = true;
+    hermes.enable = false;
     home-assistant.enable = true;
     immich.enable = true;
     jellyfin = {
