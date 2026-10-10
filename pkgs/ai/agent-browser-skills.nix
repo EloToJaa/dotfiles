@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "agent-browser-skills";
-  version = "unstable-2026-05-29";
+  version = "0.39.0-unstable-2026-10-09";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
-    rev = "b4f2f37d7b4f954022bc77f8d6dce70e07072b00";
-    hash = "sha256-mPtY6X0WwtX6pna47aQr4Rn+dLIWbMzXkObpUTp6Zy8=";
+    rev = "44af39842650f0bb9c1afb7354df9a82921d4f09";
+    hash = "sha256-8Og2ruMaY+ObT9WiYqCyoXAcwZ/6t2g6SeU3+wF15ck=";
   };
 
   buildPhase = ''
