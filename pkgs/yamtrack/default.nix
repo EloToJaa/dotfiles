@@ -22,7 +22,7 @@
 in
   stdenvNoCC.mkDerivation {
     pname = "yamtrack";
-    version = "0.26.1";
+    version = "0.26.3";
     src = yamtrack-src;
 
     nativeBuildInputs = [makeWrapper];
@@ -59,7 +59,7 @@ in
     meta = {
       description = "Self-hosted media tracker";
       homepage = "https://github.com/FuzzyGrim/Yamtrack";
-      changelog = "https://github.com/FuzzyGrim/Yamtrack/releases/tag/v0.26.1";
+      changelog = "https://github.com/FuzzyGrim/Yamtrack/releases/tag/v0.26.3";
       license = lib.licenses.agpl3Only;
       mainProgram = "yamtrack-manage";
       platforms = lib.platforms.linux;
