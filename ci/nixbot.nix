@@ -13,7 +13,11 @@
   # smart-splits.tmux file this plugin loads. mkTmuxPlugin only builds an rtp
   # path and never checks that the file exists, so such a bump would build and
   # pass these checks while leaving tmux navigation dead at runtime.
-  unmanaged = ["yamtrack" "tmux-smart-splits"];
+  # tapo-control cannot move past 7.1.25 yet: 7.2.7 requires pytapo 3.4.26 and
+  # imports modules added after the 3.4.19 nixpkgs carries, which its own guard
+  # in pkgs/tapo-control refuses to paper over. Updating it daily only produced
+  # a failing effect, so hold it until nixpkgs ships a new enough pytapo.
+  unmanaged = ["yamtrack" "tmux-smart-splits" "tapo-control"];
   packages = builtins.filter (name: !builtins.elem name unmanaged) (builtins.attrNames self.packages.${system});
   taggedInputs = ["clan-core" "hermes-agent" "bun2nix" "yamtrack-src"];
   mkUpdate = kind: name:
