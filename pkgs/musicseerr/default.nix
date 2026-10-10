@@ -62,13 +62,13 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "musicseerr";
-    version = "1.4.2";
+    version = "2.15.0";
 
     src = fetchFromGitHub {
       owner = "HabiRabbu";
       repo = "MusicSeerr";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-LSFf7vHs44Xvc6IKR7ZFR8ENXINQgMeKbtl0FQ9Y3Qs=";
+      hash = "sha256-qj7R8UnCVwsO5YkmsM3KiyS8gsaNrkmee3KypW72o2M=";
     };
 
     pnpmDeps = fetchPnpmDeps {
@@ -76,7 +76,7 @@ in
       pnpm = pnpm_10_latest;
       sourceRoot = "${finalAttrs.src.name}/frontend";
       fetcherVersion = 4;
-      hash = "sha256-n+o22hQ4aVBJ4e2cvgRnUbm50MtCiddOEH+lhooqJgY=";
+      hash = "sha256-ntbEbiy+Gp5YHtOr++ykioBgIN6d7MyTTZ8z7GN3u9k=";
     };
 
     pnpmRoot = "frontend";
