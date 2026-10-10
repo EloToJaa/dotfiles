@@ -6,17 +6,6 @@
   ...
 }: let
   inherit (settings) catppuccin;
-  smart-splits = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "smart-splits";
-    rtpFilePath = "smart-splits.tmux";
-    version = "unstable-2026-03-18";
-    src = pkgs.fetchFromGitHub {
-      owner = "mrjones2014";
-      repo = "smart-splits.nvim";
-      rev = "0ab2e4928dc867dfea3ff1da186e69f289d8a532";
-      hash = "sha256-bll6wUkGrk3xJfNXR1Hvpb9s0B7vAQQoesBJZgYmfgg=";
-    };
-  };
   cfg = config.modules.home.tmux;
 in {
   config = lib.mkIf cfg.enable {
@@ -65,7 +54,7 @@ in {
         '';
       }
       {
-        plugin = smart-splits;
+        plugin = pkgs.tmux-smart-splits;
         extraConfig = ''
           set -g @smart-splits_move_left_key  'C-h' # key-mapping for navigation.
           set -g @smart-splits_move_down_key  'C-j' #  --"--

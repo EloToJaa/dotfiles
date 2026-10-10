@@ -8,7 +8,13 @@
   pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
   effects = inputs.nixbot.lib.effects {inherit pkgs;};
   # Yamtrack's source is a flake input; update it and package metadata together.
-  packages = builtins.filter (name: name != "yamtrack") (builtins.attrNames self.packages.${system});
+  # tmux-smart-splits cannot follow its upstream: smart-splits.nvim v3.0.0 moved
+  # every multiplexer backend into a separate repository and deleted the
+  # smart-splits.tmux file this plugin loads. mkTmuxPlugin only builds an rtp
+  # path and never checks that the file exists, so such a bump would build and
+  # pass these checks while leaving tmux navigation dead at runtime.
+  unmanaged = ["yamtrack" "tmux-smart-splits"];
+  packages = builtins.filter (name: !builtins.elem name unmanaged) (builtins.attrNames self.packages.${system});
   taggedInputs = ["clan-core" "hermes-agent" "bun2nix" "yamtrack-src"];
   mkUpdate = kind: name:
     effects.mkEffect {
