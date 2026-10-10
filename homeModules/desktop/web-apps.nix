@@ -39,13 +39,13 @@
       browserArguments = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "Additional arguments passed to Chromium before the app URL.";
+        description = "Additional arguments passed to Helium before the app URL.";
       };
       isolatedProfile = mkOption {
         type = types.bool;
         default = false;
         description = ''
-          Use a profile dedicated to this web app instead of Chromium's shared
+          Use a profile dedicated to this web app instead of Helium's shared
           profile. The profile is stored below XDG_DATA_HOME.
         '';
       };
@@ -60,7 +60,7 @@
         data_home="''${XDG_DATA_HOME:-$HOME/.local/share}"
         profile_args+=("--user-data-dir=$data_home/web-apps/${id}")
       ''}
-      exec ${lib.getExe pkgs.unstable.chromium} \
+      exec ${lib.getExe pkgs.helium} \
         "''${profile_args[@]}" \
         "''${browser_args[@]}" \
         ${lib.escapeShellArg "--app=${app.url}"}
@@ -80,7 +80,7 @@ in {
     type = types.attrsOf webAppType;
     default = {};
     description = ''
-      Web apps exposed as native desktop entries and launched in Chromium app
+      Web apps exposed as native desktop entries and launched in Helium app
       windows. Attribute names become deterministic desktop entry IDs. URLs
       must not contain credentials, tokens, or other secrets.
     '';

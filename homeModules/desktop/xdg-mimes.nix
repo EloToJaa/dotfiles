@@ -24,10 +24,9 @@ with lib; let
     image = [
       "gimp.desktop"
       "swappy.desktop"
-      "chromium-browser.desktop"
     ];
     video = ["umpv.desktop"];
-    browser = ["chromium-browser.desktop"];
+    browser = ["helium.desktop"];
   };
 
   mimeMap = {
