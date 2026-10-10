@@ -87,7 +87,6 @@ in {
     ./musicseerr
     ./mysql
     ./n8n
-    ./nextcloud
     ./navidrome
     ./nginx
     ./nixbot

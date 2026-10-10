@@ -980,24 +980,6 @@ Configure its external URL from `cfg.domainName` and `homelab.baseDomain`.
           N8N_PORT = cfg.port;
           DB_TYPE = "postgresdb";
 
-─── nixosModules/homelab/nextcloud/service.nix:333-335 ───
-[bug · high] On every docservice start where `task_result` exists, this explicitly runs
-`removetbl.sql` before recreating the schema. That can delete existing OnlyOffice tables/data during
-routine restarts or upgrades. Initialization should be idempotent or use a migration path that
-preserves existing data; do not remove the schema merely because a table exists.
-
-─── nixosModules/homelab/nextcloud/service.nix:305-308 ───
-[security · high] These option values and secret-file contents are inserted directly into a
-shell-quoted jq program. A quote or jq syntax in a value can break configuration generation, and
-apostrophes in option values can escape the shell quoting and execute commands in the prestart
-script. Pass values to jq as arguments (for example `--arg`) and treat file contents as data rather
-than embedding them in the filter.
-
-─── nixosModules/homelab/nextcloud/service.nix:315-317 ───
-[security · high] JWT secret contents are interpolated into the jq program without JSON/jq escaping.
-Secrets containing quotes, backslashes, or jq syntax can corrupt the generated config; use
-`--arg`/`--argfile` so the secret is supplied as data.
-
 ─── nixosModules/homelab/postgres/pgadmin.nix:36-36 ───
 [bug · medium] This path is fixed to `pgadmin/password`, but the declared secret below is
 `${cfg.name}/password`. If `cfg.name` is changed, the SOPS secret created by this module no longer
@@ -1023,14 +1005,6 @@ actual service, so its data may be inconsistent; derive the service unit name fr
 port because `PORT` is commented out. Changing `cfg.port` therefore changes only the proxy target,
 and requests will fail unless the image independently happens to use the same port. Pass the
 supported port setting to the container or make the proxy target match the application's fixed port.
-
-─── nixosModules/homelab/nextcloud/onlyoffice.nix:49-51 ───
-[bug · high] `cfg.name` is configurable, but the imported replacement service module hardcodes
-PostgreSQL provisioning and its pre-start `psql -d onlyoffice` connection to the literal
-`onlyoffice`, and runs the service as the `onlyoffice` user. Setting `name` to anything else
-therefore leaves the configured database/user unprovisioned and the SOPS password file owned by a
-different account, so OnlyOffice cannot start/connect. Either make the replacement service module
-consistently use these configured values or constrain `name` to `onlyoffice`.
 
 ─── nixosModules/homelab/paperless/default.nix:51-51 ───
 [bug · medium] The database name is fixed to `paperless`, while the PostgreSQL database below is
@@ -1694,11 +1668,11 @@ hash also omits an explicit `rounds=` parameter, so SHA-512-crypt uses its relat
 
 1. **Unsafe secret handling and committed credential material.** Several modules expose secrets through the Nix store, source files, process arguments, or tracked hashes. Examples include Duo credentials in `nixosModules/base/duo/default.nix`, secret-bearing path options in `nixosModules/homelab/cliproxyapi/service.nix` and `nixosModules/homelab/yamtrack/service.nix`, Kerberos passwords passed as arguments in `nixosModules/homelab/kerberos.nix`, and tracked password verifiers under `vars/per-machine/*` and `vars/shared/elotoja-password/`. Rotate exposed credentials and move secrets to protected runtime mechanisms.
 
-2. **Command injection and unsafe execution from user-controlled input.** Shell source is assembled from values that can contain shell syntax in `homeModules/dev/lazygit.nix` and `homeModules/cybersec/scripts/scripts/ghidra-auto.py`; `Justfile` interpolates host arguments into shell and Nix source. `nixosModules/homelab/mosquitto/default.nix` and `nixosModules/homelab/nextcloud/service.nix` also embed configuration values into generated shell or jq programs. Pass values as data/arguments, escape for the target format, and validate identifiers before use.
+2. **Command injection and unsafe execution from user-controlled input.** Shell source is assembled from values that can contain shell syntax in `homeModules/dev/lazygit.nix` and `homeModules/cybersec/scripts/scripts/ghidra-auto.py`; `Justfile` interpolates host arguments into shell and Nix source. `nixosModules/homelab/mosquitto/default.nix` also embeds configuration values into generated shell or jq programs. Pass values as data/arguments, escape for the target format, and validate identifiers before use.
 
 3. **High-impact privilege and network exposure.** `homeModules/ai/crash.nix` disables Codex approval and sandbox protections while processing potentially attacker-controlled core-dump content. `nixosModules/shared/btop.nix` grants a broad filesystem-bypass capability, `nixosModules/homelab/uptime/default.nix` disables filesystem write protection host-wide, and `nixosModules/homelab/home-assistant/default.nix` grants MQTT access to every topic. Reduce each permission to the minimum required.
 
-4. **Destructive or unreliable persistence and restore behavior.** `nixosModules/base/bootloader.nix` deletes active Secure Boot keys before validating replacement keys. `nixosModules/homelab/nextcloud/service.nix` removes OnlyOffice tables on routine starts, and `homeModules/desktop/disko.nix` forces filesystem creation over existing signatures. `homeModules/desktop/wezterm/wezterm/utils/session-manager.lua` replays writable saved TTY data as shell input and restores malformed state without sufficient validation. Make updates atomic, validate state before changes, and avoid executing persisted data.
+4. **Destructive or unreliable persistence and restore behavior.** `nixosModules/base/bootloader.nix` deletes active Secure Boot keys before validating replacement keys. `homeModules/desktop/disko.nix` forces filesystem creation over existing signatures. `homeModules/desktop/wezterm/wezterm/utils/session-manager.lua` replays writable saved TTY data as shell input and restores malformed state without sufficient validation. Make updates atomic, validate state before changes, and avoid executing persisted data.
 
 5. **Core module evaluation failures and ineffective feature switches.** Enabling `homeModules/desktop/ghostty.nix` or `nixosModules/homelab/default.nix` fails due to overlapping attribute definitions. The `modules.base.enable` and plugin enable switches in `nixosModules/base/default.nix` and `homeModules/dev/nvim/plugins/default.nix` do not actually gate configuration. Fix evaluation blockers first, then make declared switches control imports and settings.
 
@@ -1710,7 +1684,7 @@ hash also omits an explicit `rounds=` parameter, so SHA-512-crypt uses its relat
 
 ### Module Hotspots
 
-- **`nixosModules/homelab/`** — Highest concentration of service correctness and security issues: mismatched ports, users, groups, service names, database credentials, backup hooks, secret handling, and systemd dependencies. Representative paths: `nextcloud/service.nix`, `prowlarr/default.nix`, `streamystats/service.nix`, `wireguard/default.nix`, `home-assistant/default.nix`.
+- **`nixosModules/homelab/`** — Highest concentration of service correctness and security issues: mismatched ports, users, groups, service names, database credentials, backup hooks, secret handling, and systemd dependencies. Representative paths: `prowlarr/default.nix`, `streamystats/service.nix`, `wireguard/default.nix`, `home-assistant/default.nix`.
 - **`homeModules/desktop/wezterm/wezterm/`** — Many independent runtime failures and unsafe state handling, especially in `utils/session-manager.lua`; additional callback and rendering issues span `utils/cells.lua`, `events/tab-title.lua`, and `events/right-status.lua`.
 - **`homeModules/dev/nvim/`** — Repeated missing executable dependencies across language integrations, plus ineffective switches and conflicting mappings. Representative paths: `languages/python.nix`, `languages/javascript.nix`, `plugins/default.nix`, `plugins/git.nix`.
 - **`homeModules/desktop/scripts/scripts/` and `homeModules/dev/scripts/scripts/`** — Recurrent input validation, temporary-file safety, failure propagation, and race-condition problems in utility scripts. Representative paths: `bar-visibility.sh`, `screenshot-ocr.sh`, `random-wallpaper.sh`, `find-port.sh`, `machine-ssh.sh`.
@@ -1719,7 +1693,7 @@ hash also omits an explicit `rounds=` parameter, so SHA-512-crypt uses its relat
 
 ### Cross-Cutting Concerns
 
-- **Values are interpolated into executable or structured formats without context-aware escaping.** This recurs in shell construction (`homeModules/dev/lazygit.nix`, `homeModules/cybersec/scripts/scripts/ghidra-auto.py`), generated Nix/shell command text (`Justfile`, `nixosModules/homelab/mosquitto/default.nix`), jq (`nixosModules/homelab/nextcloud/service.nix`), SQL connection URIs (`nixosModules/homelab/lldap.nix`, `vaultwarden/default.nix`), and XML (`nixosModules/homelab/lidarr/default.nix`). Use argument passing and format-specific encoders rather than manual quoting.
+- **Values are interpolated into executable or structured formats without context-aware escaping.** This recurs in shell construction (`homeModules/dev/lazygit.nix`, `homeModules/cybersec/scripts/scripts/ghidra-auto.py`), generated Nix/shell command text (`Justfile`, `nixosModules/homelab/mosquitto/default.nix`), SQL connection URIs (`nixosModules/homelab/lldap.nix`, `vaultwarden/default.nix`), and XML (`nixosModules/homelab/lidarr/default.nix`). Use argument passing and format-specific encoders rather than manual quoting.
 
 - **Failure handling often reports success or leaves services/state inconsistent.** Shell pipelines mask failures in `homeModules/ai/crash.nix`, `homeModules/desktop/scripts/scripts/screenshot-ocr.sh`, and `terraform/with-vault.sh`; several backup hooks can leave services stopped (`nixosModules/homelab/open-webui/default.nix`, `cliproxyapi/default.nix`); other hooks restart services that were initially stopped (`musicseerr/default.nix`). Check statuses explicitly and use cleanup paths that run on failure and interruption.
 
