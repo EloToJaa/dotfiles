@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "yaziTheme-yazi";
-  version = "unstable-2026-08-19";
+  version = "0-unstable-2026-08-20";
 
   src = fetchFromGitHub {
     owner = "catppuccin";
     repo = "yazi";
-    rev = "baaf5d1c9427b836fbefd126aa855f9eab7a9d0d";
-    hash = "sha256-L6SApM07CSQk0znEsFP8WaxW+ZHcindXo612r1XcwIg=";
+    rev = "d62802be39210ea10e54b3e3b09735c6cb9e57c1";
+    hash = "sha256-bwzEO8exoBwa19q+jnYjHkaamGl2mhfukIEhDfUCRGI=";
   };
 
   buildPhase = ''
