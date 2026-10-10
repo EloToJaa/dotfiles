@@ -168,7 +168,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     bun2nix = {
-      url = "github:nix-community/bun2nix/2.0.8";
+      url = "github:nix-community/bun2nix/2.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yamtrack-src = {
