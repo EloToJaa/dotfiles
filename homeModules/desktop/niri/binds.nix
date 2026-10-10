@@ -201,25 +201,41 @@ in {
       "Mod+Ctrl+Shift+WheelScrollDown".move-column-right = {};
       "Mod+Ctrl+Shift+WheelScrollUp".move-column-left = {};
 
-      "Mod+1".focus-workspace = [1];
-      "Mod+2".focus-workspace = [2];
-      "Mod+3".focus-workspace = [3];
-      "Mod+4".focus-workspace = [4];
-      "Mod+5".focus-workspace = [5];
-      "Mod+6".focus-workspace = [6];
-      "Mod+7".focus-workspace = [7];
-      "Mod+8".focus-workspace = [8];
-      "Mod+9".focus-workspace = [9];
+      # Mod+N targets the named workspaces from modules.desktop.niri workspaces.nix,
+      # Mod+Alt+N keeps the positional index-based switching.
+      "Mod+1".focus-workspace = ["w1"];
+      "Mod+2".focus-workspace = ["w2"];
+      "Mod+3".focus-workspace = ["w3"];
+      "Mod+4".focus-workspace = ["w4"];
+      "Mod+5".focus-workspace = ["w5"];
+      "Mod+6".focus-workspace = ["w6"];
 
-      "Mod+Shift+1".move-column-to-workspace = [1];
-      "Mod+Shift+2".move-column-to-workspace = [2];
-      "Mod+Shift+3".move-column-to-workspace = [3];
-      "Mod+Shift+4".move-column-to-workspace = [4];
-      "Mod+Shift+5".move-column-to-workspace = [5];
-      "Mod+Shift+6".move-column-to-workspace = [6];
-      "Mod+Shift+7".move-column-to-workspace = [7];
-      "Mod+Shift+8".move-column-to-workspace = [8];
-      "Mod+Shift+9".move-column-to-workspace = [9];
+      "Mod+Shift+1".move-column-to-workspace = ["w1"];
+      "Mod+Shift+2".move-column-to-workspace = ["w2"];
+      "Mod+Shift+3".move-column-to-workspace = ["w3"];
+      "Mod+Shift+4".move-column-to-workspace = ["w4"];
+      "Mod+Shift+5".move-column-to-workspace = ["w5"];
+      "Mod+Shift+6".move-column-to-workspace = ["w6"];
+
+      "Mod+Alt+1".focus-workspace = [1];
+      "Mod+Alt+2".focus-workspace = [2];
+      "Mod+Alt+3".focus-workspace = [3];
+      "Mod+Alt+4".focus-workspace = [4];
+      "Mod+Alt+5".focus-workspace = [5];
+      "Mod+Alt+6".focus-workspace = [6];
+      "Mod+Alt+7".focus-workspace = [7];
+      "Mod+Alt+8".focus-workspace = [8];
+      "Mod+Alt+9".focus-workspace = [9];
+
+      "Mod+Alt+Shift+1".move-column-to-workspace = [1];
+      "Mod+Alt+Shift+2".move-column-to-workspace = [2];
+      "Mod+Alt+Shift+3".move-column-to-workspace = [3];
+      "Mod+Alt+Shift+4".move-column-to-workspace = [4];
+      "Mod+Alt+Shift+5".move-column-to-workspace = [5];
+      "Mod+Alt+Shift+6".move-column-to-workspace = [6];
+      "Mod+Alt+Shift+7".move-column-to-workspace = [7];
+      "Mod+Alt+Shift+8".move-column-to-workspace = [8];
+      "Mod+Alt+Shift+9".move-column-to-workspace = [9];
 
       "Mod+BracketLeft".consume-or-expel-window-left = {};
       "Mod+BracketRight".consume-or-expel-window-right = {};
