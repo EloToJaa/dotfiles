@@ -8,6 +8,21 @@
   cfg = config.modules.desktop.niri;
 
   dmsIpc = command: ["dms" "ipc" "call"] ++ command;
+
+  screenshot_dir = "${config.home.homeDirectory}/Pictures/Screenshots";
+  # dms saves the capture to screenshot_dir and copies it to the clipboard.
+  dmsScreenshot = mode: ["dms" "screenshot" mode "--dir" screenshot_dir];
+  # Let dms write the untouched original under a known name, then open that
+  # file in satty, which copies and saves the edited version itself (see
+  # modules.desktop.satty). Chained on && so cancelling the capture does not
+  # open an empty editor. dms does not create --dir, hence the mkdir.
+  dmsScreenshotEdit = mode: let
+    name = "screenshot_$(date +%Y-%m-%d_%H-%M-%S).png";
+  in [
+    "sh"
+    "-c"
+    "mkdir -p ${screenshot_dir} && name=${name} && dms screenshot ${mode} --dir ${screenshot_dir} --filename $name --no-clipboard --no-notify && satty --filename ${screenshot_dir}/$name"
+  ];
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.niri.settings.binds = {
@@ -215,6 +230,7 @@ in {
       "Mod+Ctrl+r".reset-window-height = {};
       "Mod+Ctrl+f".expand-column-to-available-width = {};
       "Mod+c".center-column = {};
+      "Mod+Shift+c".spawn = dmsIpc ["color-picker" "toggle"];
       "Mod+Ctrl+c".center-visible-columns = {};
 
       "Mod+Minus".set-column-width = ["-10%"];
@@ -222,12 +238,18 @@ in {
       "Mod+Shift+Minus".set-window-height = ["-10%"];
       "Mod+Shift+Equal".set-window-height = ["+10%"];
 
-      "XF86Launch1".spawn = dmsIpc ["niri" "screenshot"];
-      "Ctrl+XF86Launch1".spawn = dmsIpc ["niri" "screenshotScreen"];
-      "Alt+XF86Launch1".spawn = dmsIpc ["niri" "screenshotWindow"];
-      "Print".spawn = dmsIpc ["niri" "screenshot"];
-      "Ctrl+Print".spawn = dmsIpc ["niri" "screenshotScreen"];
-      "Alt+Print".spawn = dmsIpc ["niri" "screenshotWindow"];
+      "XF86Launch1".spawn = dmsScreenshot "region";
+      "Ctrl+XF86Launch1".spawn = dmsScreenshot "window";
+      "Alt+XF86Launch1".spawn = dmsScreenshot "scroll";
+      "Mod+XF86Launch1".spawn = dmsScreenshotEdit "region";
+      "Mod+Ctrl+XF86Launch1".spawn = dmsScreenshotEdit "window";
+      "Mod+Alt+XF86Launch1".spawn = dmsScreenshotEdit "scroll";
+      "Print".spawn = dmsScreenshot "region";
+      "Ctrl+Print".spawn = dmsScreenshot "window";
+      "Alt+Print".spawn = dmsScreenshot "scroll";
+      "Mod+Print".spawn = dmsScreenshotEdit "region";
+      "Mod+Ctrl+Print".spawn = dmsScreenshotEdit "window";
+      "Mod+Alt+Print".spawn = dmsScreenshotEdit "scroll";
       "Mod+o".spawn = ["screenshot-ocr"];
       "Mod+Shift+o".spawn = ["qr-capture"];
 

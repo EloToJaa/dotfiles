@@ -16,12 +16,17 @@ in {
       settings = {
         general = {
           fullscreen = true;
-          early-exit = true;
+          # Only exit after the file save; `true` means "exit on copy too",
+          # which cut the Enter action list short before save-to-file ran.
+          early-exit = ["save"];
           corner-roundness = 12;
           initial-tool = "brush";
           copy-command = "wl-copy";
           annotation-size-factor = 2;
-          output-filename = "/tmp/test-%Y-%m-%d_%H:%M:%S.png";
+          # Negative because satty multiplies the raw scroll delta by this and
+          # only inverts it for touchpads, so a mouse wheel pans backwards.
+          pan-step-size = -50;
+          output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/satty-%Y-%m-%d_%H-%M-%S.png";
           save-after-copy = false;
           default-hide-toolbars = false;
           # focus-toggles-toolbars = false;
@@ -29,7 +34,8 @@ in {
           primary-highlighter = "block";
           disable-notifications = false;
           actions-on-right-click = [];
-          actions-on-enter = ["save-to-clipboard"];
+          # Keep the edited image in both places, like a plain dms capture.
+          actions-on-enter = ["save-to-clipboard" "save-to-file"];
           actions-on-escape = ["exit"];
           no-window-decoration = true;
           brush-smooth-history-size = 10;

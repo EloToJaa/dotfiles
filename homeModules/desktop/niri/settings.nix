@@ -71,8 +71,6 @@ in {
           XDG_CURRENT_DESKTOP = "niri";
           XDG_SESSION_DESKTOP = "niri";
           GTK_USE_PORTAL = "1";
-
-          DMS_SCREENSHOT_EDITOR = "satty";
         };
 
         # Misc settings - mirrors hyprland misc section
