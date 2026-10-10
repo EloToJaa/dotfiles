@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "mattpocock-skills";
-  version = "unstable-2026-08-19";
+  version = "1.3.1-unstable-2026-10-09";
 
   src = fetchFromGitHub {
     owner = "mattpocock";
     repo = "skills";
-    rev = "9c9f36ccd3995266cd675468af71639c8dde1ec5";
-    hash = "sha256-CJNC5fORkc+FGd+FlCXG6rZcVv2MCqCNHCVC0AW623Q=";
+    rev = "49dd158d1076134a641b33efb035946536778336";
+    hash = "sha256-NljCSZNI3sZ+vbCw7pRdrwR7try4BxOFp4gdjuWYtzs=";
   };
 
   buildPhase = ''
