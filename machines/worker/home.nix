@@ -9,8 +9,5 @@
         tailscaleServe.enable = true;
       };
     };
-    codex.enable = true;
-    claude.enable = true;
-    pi.enable = true;
   };
 }

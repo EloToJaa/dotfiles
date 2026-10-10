@@ -2,16 +2,11 @@
   config,
   lib,
   pkgs,
-  settings,
   ...
 }: let
   cfg = config.modules.ai.workmux;
   workmux = pkgs.ai-workmux-skills;
-  inherit (settings) isServer;
-  agent =
-    if isServer
-    then "pi"
-    else "codex";
+  agent = "claude";
   yaml = pkgs.formats.yaml {};
 in {
   options.modules.ai.workmux = {

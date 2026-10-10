@@ -40,11 +40,7 @@
       enable = true;
       claude.enable = true;
       ollama.enable = true;
-      codex.enable = true;
       hermes-desktop.enable = false;
-      opencode.enable = true;
-      open-code-review.enable = true;
-      pi.enable = false;
       t3-code = {
         enable = true;
         desktop.enable = true;
