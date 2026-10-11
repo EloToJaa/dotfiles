@@ -1,20 +1,15 @@
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
 }: let
-  needsreboot = inputs.nixos-needsreboot.packages.${pkgs.stdenv.hostPlatform.system}.default;
   cfg = config.modules.base.bootloader;
 in {
   options.modules.base.bootloader = {
     enable = lib.mkEnableOption "Enable bootloader";
   };
   config = lib.mkIf (config.modules.base.enable && cfg.enable) {
-    environment.systemPackages = [
-      needsreboot
-    ];
     boot = {
       loader = {
         limine = {
@@ -69,12 +64,6 @@ in {
 
     systemd.package = pkgs.systemd;
 
-    system.activationScripts.nixos-needsreboot = {
-      supportsDryActivation = true;
-      text = "${
-        lib.getExe needsreboot
-      } \"$systemConfig\" || true";
-    };
     # To prevent getting stuck at shutdown
     systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
   };
