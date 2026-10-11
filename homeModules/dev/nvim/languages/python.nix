@@ -27,6 +27,21 @@ in {
         };
       };
       plugins = {
+        # pyright reports progress on every re-analysis, flooding the noice mini view
+        noice.settings.routes = [
+          {
+            filter = {
+              event = "lsp";
+              kind = "progress";
+              cond = config.lib.nixvim.mkRaw ''
+                function(message)
+                  return vim.tbl_get(message.opts, "progress", "client") == "pyright"
+                end
+              '';
+            };
+            opts.skip = true;
+          }
+        ];
         lint.lintersByFt = {
           python = ["ruff"];
         };
