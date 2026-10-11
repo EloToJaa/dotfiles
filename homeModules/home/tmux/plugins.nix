@@ -9,8 +9,9 @@
   cfg = config.modules.home.tmux;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      sesh
+    home.packages = [
+      # go-mockery 3.8.0 cannot read Go 1.27 export data; sesh only needs Go 1.26
+      (pkgs.unstable.sesh.override {buildGo127Module = pkgs.unstable.buildGo126Module;})
     ];
     catppuccin.tmux = {
       inherit (catppuccin) flavor;
