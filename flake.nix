@@ -152,8 +152,6 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
-    nixos-needsreboot.url = "https://flakehub.com/f/wimpysworld/nixos-needsreboot/*.tar.gz";
-
     pyproject-nix.follows = "hermes-agent/pyproject-nix";
     pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
     uv2nix.follows = "hermes-agent/uv2nix";
