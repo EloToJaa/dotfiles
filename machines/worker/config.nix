@@ -2,6 +2,7 @@
   imports = [../../nixosModules/server.nix];
 
   modules.homelab = {
+    harmonia.enable = true;
     nixbot.enable = true;
     nginx.enable = true;
   };

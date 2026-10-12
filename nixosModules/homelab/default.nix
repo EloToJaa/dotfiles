@@ -72,6 +72,7 @@ in {
     ./cliproxyapi
     ./glance
     ./grafana
+    ./harmonia
     ./hermes
     ./home-assistant
     ./immich
