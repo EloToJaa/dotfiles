@@ -14,6 +14,8 @@ in {
     programs.zsh.zsh-abbr.abbreviations = {
       cc = "claude";
     };
+    # use the terminal cursor instead of a painted block, so the shape follows vi mode
+    home.sessionVariables.CLAUDE_CODE_NATIVE_CURSOR = "1";
     programs.claude-code = {
       enable = true;
       package = pkgs.llm-agents.claude-code;
