@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "open-code-review-skills";
-  version = "1.12.13-unstable-2026-10-10";
+  version = "1.12.13-unstable-2026-10-12";
 
   src = fetchFromGitHub {
     owner = "alibaba";
     repo = "open-code-review";
-    rev = "357c3f09a264563ab64d8f4fc3b25b186cd3c4a4";
-    hash = "sha256-fLYgY7oh/D9e1SxDnpnDcTBZzIi9V/fVFfe/8Z34BoI=";
+    rev = "f32dace4dc5674bcb3f6ef0aefd5a9522e07e873";
+    hash = "sha256-IDfuP8JNxNr1M6o/kHR+6a1HPNmBgGZrYquoFRs69P8=";
   };
 
   dontBuild = true;
