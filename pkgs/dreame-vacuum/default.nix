@@ -23,13 +23,13 @@ in
   buildHomeAssistantComponent (finalAttrs: {
     owner = "Tasshack";
     domain = "dreame_vacuum";
-    version = "2.0.1";
+    version = "2.0.2";
 
     src = fetchFromGitHub {
       owner = finalAttrs.owner;
       repo = "dreame-vacuum";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-NMB2zwtYrmMVAutTsziX0wJssQAf8Mq4KuCk79Fyr5A=";
+      hash = "sha256-ZMfmtRNCyTs2F9Yl5rh27AUuCkJokE70VhqbFTAzE/E=";
     };
 
     dependencies =
