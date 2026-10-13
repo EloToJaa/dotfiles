@@ -3,15 +3,15 @@
   stdenv,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mattpocock-skills";
-  version = "1.3.1-unstable-2026-10-09";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "mattpocock";
     repo = "skills";
-    rev = "49dd158d1076134a641b33efb035946536778336";
-    hash = "sha256-NljCSZNI3sZ+vbCw7pRdrwR7try4BxOFp4gdjuWYtzs=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-/mAmj7QFdyOWhLmy3Rt2/Hfsh5qwirTRax7hmQffFdo=";
   };
 
   buildPhase = ''
@@ -26,4 +26,4 @@ stdenv.mkDerivation {
     maintainers = [];
     platforms = platforms.all;
   };
-}
+})

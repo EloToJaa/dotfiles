@@ -3,15 +3,15 @@
   stdenv,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "agent-browser-skills";
-  version = "0.39.0-unstable-2026-10-11";
+  version = "0.39.0";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
-    rev = "d9570915f4dd6504dee4070379d2c4f79d81dbb2";
-    hash = "sha256-OZ8nKcn0+OqimKlQcUTZxAqzHAHNOKE1L5Cd495iP3o=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-8Og2ruMaY+ObT9WiYqCyoXAcwZ/6t2g6SeU3+wF15ck=";
   };
 
   buildPhase = ''
@@ -26,4 +26,4 @@ stdenv.mkDerivation {
     maintainers = [];
     platforms = platforms.all;
   };
-}
+})

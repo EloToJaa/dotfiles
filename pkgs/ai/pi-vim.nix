@@ -3,14 +3,14 @@
   stdenv,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pi-vim";
-  version = "0.14.2-unstable-2026-09-04";
+  version = "0.14.2";
 
   src = fetchFromGitHub {
     owner = "lajarre";
     repo = "pi-vim";
-    rev = "e55b07c05b648f3bbccf656c2b0c6ec63f1a91d1";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-y8qsUKdzAM2yQyNDKWqGBHA139tDDYJlefvT+nVhGKQ=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation {
     maintainers = [];
     platforms = platforms.all;
   };
-}
+})
