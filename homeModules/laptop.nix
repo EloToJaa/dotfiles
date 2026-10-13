@@ -46,7 +46,7 @@
       leetcode.enable = true;
       lazygit.enable = true;
       rbw.enable = true;
-      zed.enable = false;
+      zed.enable = true;
       nvim = {
         enable = true;
         languages = {
