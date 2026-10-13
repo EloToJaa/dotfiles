@@ -42,7 +42,6 @@ in {
         # newsflash # rss reader
         # zenity # gnome dialog
         # vaults # store sensitive files
-        # remmina # remote connection client (vnc, rdp, ssh)
 
         ## Wayland Utilities
         # wf-recorder # record screen

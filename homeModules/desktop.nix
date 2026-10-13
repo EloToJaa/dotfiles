@@ -30,6 +30,7 @@
       notifications.enable = true;
       piper-tts.enable = true;
       prismlauncher.enable = true;
+      remmina.enable = true;
       spotify.enable = true;
       vicinae.enable = true;
       voxtype.enable = true;

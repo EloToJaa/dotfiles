@@ -28,6 +28,7 @@
     ./piper-tts.nix
     ./packages.nix # other packages
     ./prismlauncher.nix
+    ./remmina.nix # remote desktop client (rdp, vnc, ssh)
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
