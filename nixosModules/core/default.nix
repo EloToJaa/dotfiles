@@ -13,7 +13,6 @@
     ./plymouth.nix
     ./program.nix
     ./printing.nix
-    ./security.nix
     ./steam.nix
     ./virtualization.nix
     ./wayland

@@ -2,7 +2,6 @@ local variables = require("variables")
 
 -- Hyprland Lua window and workspace rules.
 hl.window_rule({ match = { class = "^(audacious)$" }, float = true })
-hl.window_rule({ match = { class = "^(waypaper)$" }, pin = true })
 hl.window_rule({ match = { class = "^(org.pulseaudio.pavucontrol)$" }, float = true })
 hl.window_rule({ match = { class = "^(org.pulseaudio.pavucontrol)$" }, size = { 1200, 725 } })
 hl.window_rule({ match = { class = "^(org.pulseaudio.pavucontrol)$" }, center = true })

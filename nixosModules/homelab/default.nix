@@ -77,7 +77,6 @@ in {
     ./home-assistant
     ./immich
     ./jellyfin
-    ./jellystat
     ./karakeep
     ./kerberos.nix
     ./lidarr

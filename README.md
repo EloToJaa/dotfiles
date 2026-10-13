@@ -28,7 +28,6 @@ The encrypted desktop and laptop profiles use a Plymouth LUKS password prompt th
 - [x] Finish lazygit setup
 - [x] Remove language tools
 - [x] Migrate from niri to hyprland
-- [ ] Replace jellystat with streamystats
 - [ ] Fix secrets migrate from sops
 - [ ] Cleanup flake.nix
 - [ ] Add goaccess

@@ -45,7 +45,6 @@
       gnome.enable = true;
       mullvad.enable = true;
       printing.enable = false;
-      security.enable = true;
       steam.enable = true;
       virtualization.enable = true;
       wayland = {

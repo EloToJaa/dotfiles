@@ -12,9 +12,7 @@
     ./hyprland # window manager
     ./niri
     ./scripts # personal scripts
-    ./swaync # notification deamon
     ./wallpapers
-    ./waybar # status bar
     ./wezterm
     ./audacious.nix # music player
     ./bluetooth.nix
@@ -25,7 +23,6 @@
     ./gnome.nix # gnome apps
     ./helium.nix # chromium-based browser
     ./gtk.nix # gtk theme
-    ./hyprlock.nix # lock screen
     ./nautilus.nix # file manager
     ./notifications.nix # notifications
     ./piper-tts.nix
@@ -34,14 +31,11 @@
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
-    ./swayosd.nix # brightness / volume wiget
     ./variables.nix
     ./vicinae.nix # launcher
     ./voxtype.nix # voice dictation
     ./web-apps.nix
-    ./waypaper.nix # wallpaper picker
     ./winboat.nix # remote desktop
-    ./wlogout.nix # logout screen
     ./xcompose.nix # Compose sequences and emoji shortcuts
     ./xdg-mimes.nix # xdg config
     ./zen.nix
