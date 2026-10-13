@@ -14,11 +14,18 @@ in {
     programs.zsh.zsh-abbr.abbreviations = {
       cc = "claude";
     };
-    # use the terminal cursor instead of a painted block, so the shape follows vi mode
-    home.sessionVariables.CLAUDE_CODE_NATIVE_CURSOR = "1";
     programs.claude-code = {
       enable = true;
-      package = pkgs.llm-agents.claude-code;
+      # use the terminal cursor instead of a painted block, so the shape follows vi mode;
+      # set on the binary since hm-session-vars is only sourced once per login
+      package = pkgs.symlinkJoin {
+        inherit (pkgs.llm-agents.claude-code) pname version meta;
+        paths = [pkgs.llm-agents.claude-code];
+        nativeBuildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/claude --set CLAUDE_CODE_NATIVE_CURSOR 1
+        '';
+      };
       context = ./AGENTS.md;
       # settings = {
       #   model = "claude-fable-5[1m]";
