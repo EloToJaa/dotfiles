@@ -46,6 +46,11 @@ buildHomeAssistantComponent (finalAttrs: {
       custom_components/tapo_control/manifest.json
     sed -i -E "s|PYTAPO_REQUIRED_VERSION = .*|PYTAPO_REQUIRED_VERSION = \"$have\"|" \
       custom_components/tapo_control/const.py
+
+    # The component never imports kasa itself, and upstream relaxed this exact
+    # pin to a lower bound in 7.2.8, so accept the newer python-kasa nixpkgs ships.
+    sed -i -E 's|(python-kasa\[speedups\])==|\1>=|' \
+      custom_components/tapo_control/manifest.json
   '';
 
   dependencies = with home-assistant.python3Packages;
