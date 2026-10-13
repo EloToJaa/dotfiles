@@ -76,6 +76,10 @@ else
   dreame-vacuum)
     "${update[@]}" --version=stable --version-regex '^v(2\.[0-9]+\.[0-9]+)$'
     ;;
+  ai-workmux-skills | ai-open-code-review-skills)
+    # Pinned to stable release tags; skip development commits between releases.
+    "${update[@]}" --version=stable --version-regex '^v([0-9]+\.[0-9]+\.[0-9]+)$'
+    ;;
   yazi-* | ai-*)
     # These definitions pin git revisions rather than tagged releases.
     "${update[@]}" --version=branch

@@ -3,14 +3,14 @@
   stdenv,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "workmux-skills";
-  version = "0.1.275-unstable-2026-10-12";
+  version = "0.1.275";
 
   src = fetchFromGitHub {
     owner = "raine";
     repo = "workmux";
-    rev = "664101c02e7321286f8d8db5f92e840dc939bff8";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-FXMxDt/50t9MemSae8xswZf0R3QVX+KgxjV6TgMdlIA=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation {
     maintainers = [];
     platforms = platforms.all;
   };
-}
+})
