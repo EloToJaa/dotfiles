@@ -32,6 +32,12 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
     };
+
+    archiveDir = lib.mkOption {
+      type = lib.types.path;
+      default = "${homelab.varDataDir}${cfg.name}-archive";
+      description = "Directory where compressed request logs are archived.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -55,8 +61,42 @@ in {
         observability.logs = {
           logging-to-file = true;
           request-log = true;
-          logs-max-total-size-mb = 10024;
+          # safety net only; request logs are moved to archiveDir hourly
+          logs-max-total-size-mb = 10240;
         };
+        observability.usage.usage-statistics-enabled = true;
+      };
+    };
+
+    systemd.tmpfiles.rules = [
+      "d ${cfg.archiveDir} 0700 ${cfg.name} ${cfg.name} - -"
+    ];
+
+    # Move finished request logs out of the size cleaner's reach into dated, compressed archives
+    systemd.services.cliproxyapi-log-archive = {
+      description = "Archive CLIProxyAPI request logs";
+      startAt = "hourly";
+      path = [pkgs.coreutils pkgs.findutils pkgs.zstd];
+      script = ''
+        find ${lib.escapeShellArg "${cfg.dataDir}/logs"} -maxdepth 1 -type f -name '*.log' \
+          ! -name main.log -mmin +30 -print0 |
+          while IFS= read -r -d "" file; do
+            dest=${lib.escapeShellArg cfg.archiveDir}/"$(date -r "$file" +%Y/%m/%d)"
+            mkdir -p "$dest"
+            zstd -q -19 --rm -o "$dest/$(basename "$file").zst" "$file"
+          done
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        User = cfg.name;
+        Group = cfg.name;
+        UMask = "0077";
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ReadWritePaths = ["-${cfg.dataDir}/logs" cfg.archiveDir];
       };
     };
 
@@ -102,5 +142,7 @@ in {
         ${config.systemd.package}/bin/systemctl start cliproxyapi.service
       '';
     };
+
+    clan.core.state.cliproxyapi-archive.folders = [cfg.archiveDir];
   };
 }
