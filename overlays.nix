@@ -71,6 +71,26 @@
           );
         in {
           inherit (python3Packages) vdirsyncer;
+          llm-agents =
+            prev.llm-agents
+            // {
+              # Upstream still names the entry "T3 Code (Alpha)" after the 0.1.0 rename.
+              t3code-desktop = prev.symlinkJoin {
+                inherit (prev.llm-agents.t3code-desktop) name passthru meta;
+                paths = [prev.llm-agents.t3code-desktop];
+                postBuild = ''
+                  # The upstream package symlinks all of share/, so rebuild it as a real directory.
+                  src=$(readlink -f "$out/share")
+                  rm "$out/share"
+                  mkdir -p "$out/share/applications"
+                  for entry in "$src"/*; do
+                    [ "$(basename "$entry")" = applications ] || ln -s "$entry" "$out/share/"
+                  done
+                  sed 's/^Name=T3 Code (Alpha)$/Name=T3 Code (Beta)/' \
+                    "$src/applications/t3code.desktop" > "$out/share/applications/t3code.desktop"
+                '';
+              };
+            };
           pythonPackagesExtensions =
             prev.pythonPackagesExtensions
             ++ [
