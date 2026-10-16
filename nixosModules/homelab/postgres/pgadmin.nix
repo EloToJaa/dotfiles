@@ -27,11 +27,7 @@ in {
     services.pgadmin = {
       inherit (cfg) port;
       enable = true;
-      # Backport upstream's encoding fix for the newer psycopg API.
-      # https://github.com/pgadmin-org/pgadmin4/blob/master/web/pgadmin/utils/driver/psycopg3/encoding.py
-      package = pkgs.unstable.pgadmin4.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [./pgadmin-psycopg-encodings.patch];
-      });
+      package = pkgs.unstable.pgadmin4;
       initialEmail = email;
       initialPasswordFile = config.sops.secrets."pgadmin/password".path;
     };
