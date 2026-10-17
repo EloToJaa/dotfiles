@@ -94,7 +94,6 @@ in {
     ./opencloud
     ./open-webui
     ./paperless
-    ./plex
     ./postgres
     ./profilarr
     ./prometheus
