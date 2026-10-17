@@ -36,6 +36,7 @@
     ntfy.enable = true;
     open-webui.enable = false;
     paperless.enable = true;
+    plex.enable = false;
     postgres = {
       enable = true;
       pgadmin.enable = true;
