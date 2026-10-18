@@ -3,6 +3,8 @@
     ./../../nixosModules/server.nix
   ];
 
+  modules.base.initrd.enable = true;
+
   modules.homelab = {
     enable = true;
     atuin.enable = true;

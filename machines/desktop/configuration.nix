@@ -6,6 +6,7 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "desktop";
+  modules.base.initrd.enable = true;
   modules.shared = {
     btrfs = {
       scrub.enable = true;

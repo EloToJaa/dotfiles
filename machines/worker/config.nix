@@ -1,6 +1,8 @@
 {
   imports = [../../nixosModules/server.nix];
 
+  modules.base.initrd.enable = true;
+
   modules.homelab = {
     harmonia.enable = true;
     nixbot.enable = true;
