@@ -29,17 +29,6 @@
       '';
     };
 
-    tailscale = prev.unstable.tailscale.overrideAttrs (old: {
-      checkFlags =
-        map (
-          flag:
-            if prev.lib.hasPrefix "-skip=" flag
-            then flag + "|^TestGetList$|^TestIgnoreLocallyBoundPorts$|^TestPoller$|^TestBreakWatcherConnRecv$"
-            else flag
-        )
-        old.checkFlags;
-    });
-
     # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
     inherit (python3Packages) vdirsyncer;
     khal = prev.unstable.khal;
