@@ -7,15 +7,7 @@
       inherit (inputs) pyproject-build-systems pyproject-nix uv2nix yamtrack-src;
     };
 
-  modifiedPackages = _final: prev: let
-    python3Packages = prev.python3Packages.overrideScope (
-      _pyFinal: pyPrev: {
-        click-threading = pyPrev.click-threading.overridePythonAttrs (_old: {
-          enabledTestPaths = ["tests"];
-        });
-      }
-    );
-  in {
+  modifiedPackages = _final: prev: {
     jellyfin-web = prev.unstable.jellyfin-web.overrideAttrs {
       installPhase = ''
         runHook preInstall
@@ -30,7 +22,6 @@
     };
 
     # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
-    inherit (python3Packages) vdirsyncer;
     khal = prev.unstable.khal;
   };
 
@@ -44,19 +35,7 @@
       config.allowUnfree = true;
       overlays = [
         inputs.llm-agents.overlays.shared-nixpkgs
-        (_final: prev: let
-          python3Packages = prev.python3Packages.overrideScope (
-            _pyFinal: pyPrev: {
-              click-threading = pyPrev.click-threading.overridePythonAttrs (_old: {
-                enabledTestPaths = ["tests"];
-              });
-            }
-          );
-        in {
-          inherit (python3Packages) vdirsyncer;
-          khal = prev.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/kh/khal/package.nix" {
-            inherit python3Packages;
-          };
+        (_final: prev: {
           btop = prev.btop.override {rocmSupport = true;};
         })
       ];
