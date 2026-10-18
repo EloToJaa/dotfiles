@@ -20,15 +20,20 @@
     command = lib.getExe' pkgs.unstable.clang-tools "clang-format";
     arguments = ["--assume-filename={buffer_path}"];
   };
-  oxfmtFormatter = external pkgs.unstable.oxfmt ["--stdin-filepath" "{buffer_path}"];
-  tsServers = [
-    "typescript-ls" # tsgo extension
-    "oxlint"
-    "!vtsls"
-    "!typescript-language-server"
-    "!eslint"
-    "..."
-  ];
+  # oxfmt replaces prettier
+  oxfmtFormatter =
+    external pkgs.unstable.oxfmt ["--stdin-filepath" "{buffer_path}"]
+    // {prettier.allowed = false;};
+  # oxlint replaces eslint
+  lintServers = ["oxlint" "!eslint"];
+  tsServers =
+    [
+      "typescript-ls" # tsgo extension
+      "!vtsls"
+      "!typescript-language-server"
+    ]
+    ++ lintServers
+    ++ ["..."];
   flake = ''(builtins.getFlake "${dotfilesDirectory}")'';
 in {
   options.modules.dev.zed = {
@@ -51,11 +56,13 @@ in {
         "basher"
         "csharp"
         "html"
+        "just"
         "lua"
         "markdown-oxide"
         "nix"
         "oxc"
         "svelte"
+        "terraform"
         "toml"
         "tsgo"
         "xml"
@@ -81,6 +88,8 @@ in {
         vscode-langservers-extracted
         oxlint
         oxfmt
+        # just
+        just-lsp
         # lua
         lua-language-server
         stylua
@@ -93,9 +102,14 @@ in {
         pyright
         ruff
         # rust
+        cargo
+        rustc
         rust-analyzer
         rustfmt
         clippy
+        # terraform
+        terraform
+        terraform-ls
         # toml
         taplo
         # xml
@@ -113,19 +127,31 @@ in {
         vim_mode = true;
         format_on_save = "on";
 
+        project_panel.dock = "left";
+        outline_panel.dock = "left";
+        git_panel.dock = "left";
+        agent = {
+          dock = "right";
+          button = false;
+        };
+
         languages =
           lib.genAttrs [
             "JSON"
             "JSONC"
+            "JSON5"
             "CSS"
+            "SCSS"
+            "LESS"
             "HTML"
-            "Svelte"
-            "Astro"
+            "GraphQL"
+            "Handlebars"
             "Markdown"
             "MDX"
             "YAML"
             "TOML"
           ] (_: oxfmtFormatter)
+          // lib.genAttrs ["Svelte" "Astro" "Vue.js"] (_: oxfmtFormatter // {language_servers = lintServers ++ ["..."];})
           // lib.genAttrs ["JavaScript" "JSX" "TypeScript" "TSX"] (_: oxfmtFormatter // {language_servers = tsServers;})
           // {
             "Shell Script" = external pkgs.unstable.shfmt ["--filename" "{buffer_path}"];
