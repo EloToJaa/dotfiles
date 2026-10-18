@@ -7,7 +7,7 @@
   inherit (config.modules) homelab;
   cfg = homelab.harmonia;
   signingKey = config.clan.core.vars.generators.harmonia-signing-key.files;
-  domain = "${cfg.domainName}.${homelab.mainDomain}";
+  domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
   options.modules.homelab.harmonia = {
     enable = lib.mkEnableOption "Enable harmonia binary cache";
@@ -45,7 +45,7 @@ in {
 
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
-      useACMEHost = homelab.mainDomain;
+      useACMEHost = homelab.baseDomain;
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         extraConfig = ''
