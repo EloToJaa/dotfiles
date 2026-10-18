@@ -54,42 +54,8 @@
           );
         in {
           inherit (python3Packages) vdirsyncer;
-          pythonPackagesExtensions =
-            prev.pythonPackagesExtensions
-            ++ [
-              (_pyFinal: pyPrev: {
-                torchcodec = pyPrev.torchcodec.overridePythonAttrs (old: {
-                  # FFmpeg's 8 kHz MP3 resampling differs slightly from TorchCodec.
-                  # Keep all other encoder comparisons and the rest of the suite.
-                  disabledTests =
-                    (old.disabledTests or [])
-                    ++ prev.lib.concatMap (
-                      output:
-                        map (
-                          channels: "test_audio_against_cli[${output}-mp3-8000-${channels}-asset1]"
-                        ) ["None-None" "None-0" "1-None" "1-0"]
-                    ) ["to_file" "to_file_like"];
-                });
-              })
-            ];
-          aquamarine = prev.aquamarine.overrideAttrs (old: {
-            # Fix a 0.15.0 null dereference while tearing down multi-output sessions.
-            # https://github.com/hyprwm/aquamarine/issues/383
-            postPatch =
-              (old.postPatch or "")
-              + ''
-                substituteInPlace src/backend/drm/DRM.cpp \
-                  --replace-fail \
-                    "if (connector->output && connector->output->asyncCommitEventPending)" \
-                    "if (connector && connector->output && connector->output->asyncCommitEventPending)"
-              '';
-          });
           khal = prev.callPackage "${inputs.nixpkgs-unstable}/pkgs/by-name/kh/khal/package.nix" {
             inherit python3Packages;
-          };
-          karakeep = prev.karakeep.overrideAttrs {
-            # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
-            preInstall = '''';
           };
           btop = prev.btop.override {rocmSupport = true;};
         })
