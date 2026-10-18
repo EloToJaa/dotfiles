@@ -8,3 +8,4 @@
 /terraform/plan*.out
 /terraform/*.tfplan
 /terraform/.terraform.tfstate.lock.info
+/.direnv/
