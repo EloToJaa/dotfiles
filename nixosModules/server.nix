@@ -16,7 +16,7 @@
       nix-ld.enable = true;
       smartd.enable = lib.mkDefault true;
       bootloader.enable = true;
-      initrd.enable = false;
+      initrd.enable = true;
       tailscale.enable = true;
       ssh.enable = true;
       sudo.enable = true;
