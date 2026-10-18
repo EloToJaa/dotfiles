@@ -43,12 +43,6 @@
     # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
     inherit (python3Packages) vdirsyncer;
     khal = prev.unstable.khal;
-
-    # karakeep = prev.unstable.karakeep.overrideAttrs {
-    #   # Remove the failing patch - Next.js 15 changed the image-optimizer.js file structure
-    #   # The patch was trying to allow NEXT_CACHE_DIR env var for cache directory
-    #   preInstall = '''';
-    # };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
@@ -71,26 +65,6 @@
           );
         in {
           inherit (python3Packages) vdirsyncer;
-          llm-agents =
-            prev.llm-agents
-            // {
-              # Upstream still names the entry "T3 Code (Alpha)" after the 0.1.0 rename.
-              t3code-desktop = prev.symlinkJoin {
-                inherit (prev.llm-agents.t3code-desktop) name passthru meta;
-                paths = [prev.llm-agents.t3code-desktop];
-                postBuild = ''
-                  # The upstream package symlinks all of share/, so rebuild it as a real directory.
-                  src=$(readlink -f "$out/share")
-                  rm "$out/share"
-                  mkdir -p "$out/share/applications"
-                  for entry in "$src"/*; do
-                    [ "$(basename "$entry")" = applications ] || ln -s "$entry" "$out/share/"
-                  done
-                  sed 's/^Name=T3 Code (Alpha)$/Name=T3 Code (Beta)/' \
-                    "$src/applications/t3code.desktop" > "$out/share/applications/t3code.desktop"
-                '';
-              };
-            };
           pythonPackagesExtensions =
             prev.pythonPackagesExtensions
             ++ [
