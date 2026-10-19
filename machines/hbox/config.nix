@@ -15,5 +15,6 @@
     nginx.enable = true;
     matrix.enable = true;
     forgejo.enable = true;
+    stalwart.enable = true;
   };
 }
