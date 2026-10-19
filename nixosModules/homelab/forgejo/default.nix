@@ -6,7 +6,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.forgejo;
-  domain = "${cfg.domainName}.${homelab.baseDomain}";
+  domain = "${cfg.domainName}.${homelab.mainDomain}";
 in {
   options.modules.homelab.forgejo = {
     enable = lib.mkEnableOption "Enable forgejo";
@@ -53,7 +53,7 @@ in {
 
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
-      useACMEHost = homelab.baseDomain;
+      useACMEHost = homelab.mainDomain;
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
