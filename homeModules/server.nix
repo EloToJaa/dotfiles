@@ -43,6 +43,7 @@
     dev = {
       enable = true;
       leetcode.enable = false;
+      jujutsu.enable = true;
       lazygit.enable = true;
       nvim = {
         enable = true;
