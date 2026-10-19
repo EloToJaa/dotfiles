@@ -6,6 +6,7 @@
     ./nvim
     ./scripts # personal scripts
     ./aoc.nix
+    ./jujutsu.nix
     ./lazygit.nix
     ./leetcode.nix
     ./packages.nix # other packages
