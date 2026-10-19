@@ -70,6 +70,7 @@ in {
     ./blocky
     ./cleanuparr
     ./cliproxyapi
+    ./forgejo
     ./glance
     ./grafana
     ./harmonia

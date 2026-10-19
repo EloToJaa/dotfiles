@@ -14,5 +14,6 @@
   modules.homelab = {
     nginx.enable = true;
     matrix.enable = true;
+    forgejo.enable = true;
   };
 }
