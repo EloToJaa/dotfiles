@@ -107,6 +107,7 @@ in {
     ./share
     ./sonarr
     ./siyuan
+    ./stalwart
     ./streamystats
     ./uptime
     ./vaultwarden
