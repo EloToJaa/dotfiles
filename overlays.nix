@@ -37,6 +37,35 @@
         inputs.llm-agents.overlays.shared-nixpkgs
         (_final: prev: {
           btop = prev.btop.override {rocmSupport = true;};
+
+          # With structured attrs, sphinx-hook's "$sphinxBuilders" only expands the first
+          # array element, so the man builder never runs. Pass the builders as a string.
+          khal = prev.khal.overrideAttrs {
+            sphinxBuilders = "html man";
+          };
+          todoman = prev.todoman.overrideAttrs {
+            sphinxBuilders = "singlehtml man";
+            preInstallSphinx = ''
+              rm -rf .sphinx/man/man/_static/
+            '';
+          };
+
+          pythonPackagesExtensions =
+            prev.pythonPackagesExtensions
+            ++ [
+              (_pyfinal: pyprev: {
+                # TypeError message changed upstream: "Expected str, got int".
+                pyopenjtalk-plus = pyprev.pyopenjtalk-plus.overrideAttrs (old: {
+                  disabledTests =
+                    (old.disabledTests or [])
+                    ++ ["test_run_njd_from_mecab_invalid_input_should_not_break_next_call"];
+                });
+                # Timing-based test, flaky on loaded builders.
+                ocrmypdf = pyprev.ocrmypdf.overrideAttrs (old: {
+                  disabledTests = (old.disabledTests or []) ++ ["test_validation_performance"];
+                });
+              })
+            ];
         })
       ];
     };
