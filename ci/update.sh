@@ -107,10 +107,10 @@ nix fmt
 git add -A
 if [[ $kind == lock ]]; then
   # No local gate for lock updates: the pull request's checks already build
-  # desktop, laptop, server and every package, a superset of anything gated
-  # here. Gating instead hid a broken lock inside the effect's own log, where
-  # the absence of a PR was the only symptom. Publishing first turns the same
-  # breakage into red checks on a PR that can be read and fixed.
+  # desktop, laptop, server, worker, hbox and every package, a superset of
+  # anything gated here. Gating instead hid a broken lock inside the effect's
+  # own log, where the absence of a PR was the only symptom. Publishing first
+  # turns the same breakage into red checks on a PR that can be read and fixed.
   :
 elif [[ $kind == package ]]; then
   nix build --no-link ".#$name"

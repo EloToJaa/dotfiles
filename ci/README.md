@@ -87,8 +87,9 @@ land lock updates that need a fix alongside them.
 
 ## Pull request CI
 
-Every PR builds the `desktop`, `laptop` and `server` system checks alongside all
-exported package checks selected by `attribute = "checks"` in `nixbot.toml`.
+Every PR builds the `desktop`, `laptop`, `server`, `worker` and `hbox` system
+checks alongside all exported package checks selected by
+`attribute = "checks"` in `nixbot.toml`.
 Nixbot publishes GitHub checks with build status and links to its build logs.
 The GitHub App must have Checks read/write permission and receive Pull request
 webhooks, as described above.
