@@ -41,7 +41,7 @@
     };
 in {
   perSystem = {system, ...}: {
-    checks = lib.genAttrs ["server" "desktop" "laptop"] (host: self.nixosConfigurations.${host}.config.system.build.toplevel);
+    checks = lib.genAttrs ["server" "desktop" "laptop" "worker" "hbox"] (host: self.nixosConfigurations.${host}.config.system.build.toplevel);
   };
   flake.herculesCI = {...}: {
     ciSystems = [system];
