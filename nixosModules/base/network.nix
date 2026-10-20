@@ -31,6 +31,16 @@ in {
       # Clan otherwise chooses Zenity whenever a graphical session is present,
       # even in a terminal. Prefer dialog for terminal input, retaining the GUI fallback.
       (inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli.overrideAttrs (old: {
+        # nixpkgs no longer word-splits makeWrapperArgs, so clan-core's "--unset VAR"
+        # entries must be split into separate arguments.
+        makeWrapperArgs =
+          lib.concatMap (
+            arg:
+              if lib.hasPrefix "--unset " arg
+              then lib.splitString " " arg
+              else [arg]
+          )
+          old.makeWrapperArgs;
         postPatch =
           (old.postPatch or "")
           + ''
