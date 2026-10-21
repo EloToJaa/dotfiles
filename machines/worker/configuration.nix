@@ -6,6 +6,7 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "worker";
+  srvos.boot.consoles = ["tty0"]; # no serial port; srvos default spawns a failing serial-getty@ttyS0
   modules.shared = {
     cpu.vendor = "intel";
     graphics = {
