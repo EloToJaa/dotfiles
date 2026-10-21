@@ -18,7 +18,9 @@ in {
     graphics.vendor = "amd";
   };
   programs.vicinae.input-server.package = config.home-manager.users.${username}.programs.vicinae.package;
+  programs.craftapps.enable = true; # links /usr/share/fonts for the artcraft apps' text tools
   imports = [
+    inputs.craftapps.nixosModules.default
     inputs.srvos.nixosModules.desktop
     inputs.vicinae.nixosModules.default
     ./../../nixosModules/desktop.nix

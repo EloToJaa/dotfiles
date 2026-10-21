@@ -108,6 +108,26 @@
         "url": "https://git.clan.lol/clan/clan-core/archive/26.05.tar.gz"
       }
     },
+    "craftapps": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792560622,
+        "narHash": "sha256-vL5p3x6TafjYYgYQ/YN4t3Usz4hBBXxLutCuNvfhM+c=",
+        "owner": "olafkfreund",
+        "repo": "nix-craftapps",
+        "rev": "bf77ab436cae3026fd77d67341fc1242acc5406f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "olafkfreund",
+        "repo": "nix-craftapps",
+        "type": "github"
+      }
+    },
     "dank-greeter": {
       "inputs": {
         "dank-qml-common": "dank-qml-common",
@@ -1198,6 +1218,7 @@
         "bun2nix": "bun2nix",
         "catppuccin": "catppuccin",
         "clan-core": "clan-core",
+        "craftapps": "craftapps",
         "dank-greeter": "dank-greeter",
         "dankcalendar": "dankcalendar",
         "devshell": "devshell",

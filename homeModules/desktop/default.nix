@@ -14,6 +14,7 @@
     ./scripts # personal scripts
     ./wallpapers
     ./wezterm
+    ./artcraft.nix # ArtCraft creative apps
     ./audacious.nix # music player
     ./bluetooth.nix
     ./cava.nix # audio visualizer
