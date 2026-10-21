@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: let
+{config, ...}: let
   inherit (config.settings) username;
 in {
   _module.args.host = "worker";
@@ -14,7 +10,6 @@ in {
     };
   };
   imports = [
-    inputs.srvos.nixosModules.server
     ./config.nix
     ./disko.nix
     ../../homeModules/vars.nix

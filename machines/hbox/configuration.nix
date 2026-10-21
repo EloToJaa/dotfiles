@@ -1,13 +1,11 @@
 {
   lib,
   config,
-  inputs,
   ...
 }: let
   inherit (config.settings) username;
 in {
   imports = [
-    inputs.srvos.nixosModules.server
     ./config.nix
     ./disko.nix
     ../../homeModules/vars.nix
