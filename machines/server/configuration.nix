@@ -6,7 +6,6 @@
   inherit (config.settings) username;
 in {
   _module.args.host = "server";
-  srvos.boot.consoles = ["tty0"]; # no serial port; srvos default spawns a failing serial-getty@ttyS0
   modules.shared = {
     btrfs = {
       scrub.enable = true;

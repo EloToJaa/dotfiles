@@ -8,6 +8,12 @@
   powerManagement.cpuFreqGovernor = "performance";
   imports = [
     ./default.nix
+    # no serial ports; srvos default spawns a failing serial-getty@ttyS0
+    ({options, ...}: {
+      config = lib.optionalAttrs (options ? srvos) {
+        srvos.boot.consoles = ["tty0"];
+      };
+    })
   ];
 
   modules = {

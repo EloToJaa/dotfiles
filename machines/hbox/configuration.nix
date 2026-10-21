@@ -17,7 +17,6 @@ in {
   ];
 
   _module.args.host = "hbox";
-  srvos.boot.consoles = ["tty0"]; # no serial port; srvos default spawns a failing serial-getty@ttyS0
   networking.hostName = "hbox";
   nixpkgs.hostPlatform = "x86_64-linux";
   modules.shared.btrfs = {
