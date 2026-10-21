@@ -15,7 +15,8 @@ in {
         limine = {
           enable = true;
           enableEditor = false;
-          maxGenerations = 20;
+          # 512M ESP; each linuxPackages_latest kernel+initrd is ~85M
+          maxGenerations = 4;
           secureBoot.enable = true;
         };
         efi.canTouchEfiVariables = true;
