@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: {
   networking = {
     useDHCP = lib.mkDefault true;
   };
@@ -7,8 +11,11 @@
 
   powerManagement.cpuFreqGovernor = "performance";
   imports = [
+    inputs.srvos.nixosModules.server
     ./default.nix
   ];
+
+  srvos.boot.consoles = ["tty0"]; # no serial ports; srvos default spawns a failing serial-getty@ttyS0
 
   modules = {
     base = {
