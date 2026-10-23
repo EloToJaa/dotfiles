@@ -138,7 +138,11 @@ if [[ $push_required == true ]]; then
   git push --force-with-lease origin "HEAD:refs/heads/$branch"
 fi
 open_prs=$(gh pr list --head "$branch" --state open --repo "$repo" --json number --jq length)
+# The labels let .github/workflows/auto-merge.yml enable GitHub auto-merge;
+# the main ruleset holds the merge until the required checks pass.
 if [[ $open_prs == 0 ]]; then
-  gh pr create --repo "$repo" --base "$base" --head "$branch" --title "$title" \
-    --body "Automated dependency update from a daily Nixbot effect. Formatting and relevant builds passed before publishing. Host and package checks run on this PR."
+  gh pr create --repo "$repo" --base "$base" --head "$branch" --title "$title" --label dependencies,auto-merge \
+    --body "Automated dependency update from a daily Nixbot effect. Host, package and formatting checks run on this PR; it merges automatically once they pass."
+else
+  gh pr edit "$branch" --repo "$repo" --add-label dependencies,auto-merge
 fi

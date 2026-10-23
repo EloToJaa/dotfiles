@@ -82,8 +82,17 @@ and package, so a lock that breaks a build arrives as red checks on a readable
 PR instead of as an effect failure with no PR to show for it. Unchanged locks do
 not create PRs. It keeps the input URLs in `flake.nix`; the 03:00 release effects
 select newer release references and lock those individual inputs. No submodule
-update is scheduled. Review every automated PR before merging, and expect to
-land lock updates that need a fix alongside them.
+update is scheduled.
+
+## Auto-merge
+
+Every update PR is labelled `dependencies` and `auto-merge`. On
+`pull_request_target`, `.github/workflows/auto-merge.yml` runs
+`Mic92/auto-merge`, which approves labelled PRs and enables GitHub auto-merge
+(squash). The `main` ruleset requires `nixbot/nix-eval`, `nixbot/nix-build` and
+`Formatting Check 🧹`, so GitHub merges only once all of them pass. A failing
+check leaves the PR open; land lock updates that need a fix alongside them.
+Remove the `auto-merge` label to keep a PR for manual review.
 
 ## Pull request CI
 

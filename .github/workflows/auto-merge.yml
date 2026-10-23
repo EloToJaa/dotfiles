@@ -1,0 +1,19 @@
+name: Auto Merge Dependency Updates
+on:
+  - pull_request_target
+jobs:
+  auto-merge-dependency-updates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: "auto-merge:${{ github.head_ref }}"
+      cancel-in-progress: true
+    steps:
+      # Enables GitHub auto-merge on PRs labelled dependencies or auto-merge.
+      # The main ruleset's required checks gate the actual merge.
+      - uses: Mic92/auto-merge@main
+        with:
+          use-auto-merge: true
+          merge-method: squash
