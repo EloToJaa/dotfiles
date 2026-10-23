@@ -74,6 +74,9 @@ in {
         enable = true;
         inherit domain;
         admins = ["github:EloToJaa"];
+        # Parallel host checks wait silently on shared derivations (e.g. LTO
+        # links), which the 20 minute default kills.
+        buildMaxSilentTime = 60 * 60;
         github = {
           enable = true;
           appId = builtins.fromJSON credentials.app-id.value;
