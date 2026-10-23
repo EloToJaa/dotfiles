@@ -13,7 +13,7 @@ jobs:
     steps:
       # Enables GitHub auto-merge on PRs labelled dependencies or auto-merge.
       # The main ruleset's required checks gate the actual merge.
-      - uses: Mic92/auto-merge@d34420c6e2ac1fc931fde8d46a0858d0fcf9506f # main
+      - uses: Mic92/auto-merge@main
         with:
           use-auto-merge: true
           merge-method: squash
