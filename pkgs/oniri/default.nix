@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oniri";
-  version = "1.3.8";
+  version = "1.3.9";
 
   src = fetchFromGitHub {
     owner = "Antiz96";
     repo = "oniri";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8mWlXGI2xzYllnChmOM/jF00W0s0yeaWDHnHKcXb4+s=";
+    hash = "sha256-QpdSa7ae9tzSX5qwcJpZAA7zSmV2upWaon1fYugGZu0=";
   };
 
-  cargoHash = "sha256-PHNWCbN3iq2TVyDmR+2pjfpvbYritEljCzmrtXLlP+U=";
+  cargoHash = "sha256-sBdcKJcdNt9HRiWI9/WlaGsvvhBBLoJ+znK6bQB5V1w=";
 
   nativeBuildInputs = [scdoc];
 
