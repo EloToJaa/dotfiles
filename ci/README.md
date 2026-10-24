@@ -62,6 +62,9 @@ At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix
 (except Yamtrack, handled by its source input) and each tagged input below the
 `# update` comment: `clan-core`, `hermes-agent`, `bun2nix`, and `yamtrack-src`. Each has its own
 lock, branch and PR; an individual failure does not prevent the others running.
+PRs are titled `<name>: <old version> -> <new version>` like numtide/llm-agents.nix,
+using the package's `version` or the input's release reference without a leading
+`v`; reruns retitle an open PR.
 Unchanged updates do not create PRs or rewrite an identical existing PR tree.
 Updates require successful `nix fmt` and package builds (or all three host builds
 for Clan/Hermes/Bun2nix inputs) before publishing. Bun2nix input updates also build
@@ -76,7 +79,7 @@ latest numeric release branch. Development branches and demo tags are excluded.
 At 02:00 UTC, a separate effect runs `nix flake update` without input arguments to
 refresh all locked inputs, replacing the removed GitHub Actions lock updater.
 It maintains one `chore/update-flake-lock` branch and PR titled
-`chore: update flake.lock`, requiring formatting but, unlike the 03:00 effects,
+`flake.lock: Update`, requiring formatting but, unlike the 03:00 effects,
 building nothing before publishing: the PR's own checks already cover every host
 and package, so a lock that breaks a build arrives as red checks on a readable
 PR instead of as an effect failure with no PR to show for it. Unchanged locks do
