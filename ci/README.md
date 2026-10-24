@@ -69,7 +69,8 @@ Streamystats to validate its Bun dependencies and build hooks. Streamystats rege
 Yazi and AI skill packages follow their upstream default branch revisions.
 Yamtrack's package version and changelog follow its source tag. Dreame updates are
 restricted to stable `v2.*.*` release tags; v1 releases and betas are excluded.
-Hermes, Bun2nix and Yamtrack select numeric stable release tags. Clan currently publishes
+Hermes, Bun2nix and Yamtrack select numeric stable release tags (Hermes ignores its
+legacy `v2026.x.y` date tags, which would otherwise outsort its semver releases). Clan currently publishes
 numeric release branches (`26.05`), not release tags: its updater selects the
 latest numeric release branch. Development branches and demo tags are excluded.
 

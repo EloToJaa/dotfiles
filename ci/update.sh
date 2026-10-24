@@ -25,7 +25,9 @@ elif [[ $kind == input ]]; then
     ;;
   hermes-agent)
     upstream=https://github.com/NousResearch/hermes-agent.git
-    pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
+    # Hermes switched from date tags (v2026.9.24) to semver (v0.22.5); exclude
+    # the legacy date tags, which would otherwise always sort as newest.
+    pattern='^v[0-9]{1,3}\.[0-9]+\.[0-9]+$'
     prefix=github:NousResearch/hermes-agent/
     suffix=
     ;;
