@@ -46,9 +46,13 @@ elif [[ $kind == input ]]; then
     exit 1
     ;;
   esac
+  old_version=$(grep -oE "${prefix}[^\"]+" flake.nix | head -1)
+  old_version=${old_version#"$prefix"}
+  old_version=${old_version%"$suffix"}
   # Only stable release references, never development branches or prereleases.
   tag=$(git ls-remote --refs "--$ref_kind" "$upstream" | sed "s|.*refs/$ref_kind/||" | grep -E "$pattern" | sort -V | tail -1)
   test -n "$tag"
+  new_version=$tag
   url="$prefix$tag$suffix"
   if [[ $name == clan-core ]]; then
     sed -i -E "s|https://git.clan.lol/clan/clan-core/archive/[^\"]+|$url|" flake.nix
@@ -69,6 +73,7 @@ else
   ai-*) package_file="pkgs/ai/${name#ai-}.nix" ;;
   *) package_file="pkgs/$name/default.nix" ;;
   esac
+  old_version=$(nix eval --raw ".#$name.version")
   # Wrapped builders (e.g. Home Assistant components) report positions in
   # nixpkgs. Always direct nix-update to the repository's package definition.
   update=(nix-update --flake "$name" --override-filename "$package_file")
@@ -105,6 +110,9 @@ if git diff --quiet; then exit 0; fi
 nix fmt
 # New source/dependency lockfiles must be visible to the Git flake.
 git add -A
+if [[ $kind == package ]]; then
+  new_version=$(nix eval --raw ".#$name.version")
+fi
 if [[ $kind == lock ]]; then
   # No local gate for lock updates: the pull request's checks already build
   # desktop, laptop, server, worker, hbox and every package, a superset of
@@ -129,9 +137,10 @@ if git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"; then
     push_required=false
   fi
 fi
-title="chore($name): update $name"
 if [[ $kind == lock ]]; then
   title="chore: update flake.lock"
+else
+  title="$name: $old_version -> $new_version"
 fi
 if [[ $push_required == true ]]; then
   git commit -m "$title"
@@ -144,5 +153,6 @@ if [[ $open_prs == 0 ]]; then
   gh pr create --repo "$repo" --base "$base" --head "$branch" --title "$title" --label dependencies,auto-merge \
     --body "Automated dependency update from a daily Nixbot effect. Host, package and formatting checks run on this PR; it merges automatically once they pass."
 else
-  gh pr edit "$branch" --repo "$repo" --add-label dependencies,auto-merge
+  # A later run may have moved the open PR to a newer version.
+  gh pr edit "$branch" --repo "$repo" --title "$title" --add-label dependencies,auto-merge
 fi
