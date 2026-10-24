@@ -49,10 +49,11 @@ elif [[ $kind == input ]]; then
   old_version=$(grep -oE "${prefix}[^\"]+" flake.nix | head -1)
   old_version=${old_version#"$prefix"}
   old_version=${old_version%"$suffix"}
+  old_version=${old_version#v}
   # Only stable release references, never development branches or prereleases.
   tag=$(git ls-remote --refs "--$ref_kind" "$upstream" | sed "s|.*refs/$ref_kind/||" | grep -E "$pattern" | sort -V | tail -1)
   test -n "$tag"
-  new_version=$tag
+  new_version=${tag#v}
   url="$prefix$tag$suffix"
   if [[ $name == clan-core ]]; then
     sed -i -E "s|https://git.clan.lol/clan/clan-core/archive/[^\"]+|$url|" flake.nix
@@ -138,7 +139,7 @@ if git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"; then
   fi
 fi
 if [[ $kind == lock ]]; then
-  title="chore: update flake.lock"
+  title="flake.lock: Update"
 else
   title="$name: $old_version -> $new_version"
 fi
