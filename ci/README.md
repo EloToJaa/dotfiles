@@ -94,6 +94,12 @@ Every update PR is labelled `dependencies` and `auto-merge`. On
 check leaves the PR open; land lock updates that need a fix alongside them.
 Remove the `auto-merge` label to keep a PR for manual review.
 
+Once an `auto-merge` PR from a `chore/update-*` branch merges, the
+`pull_request_closed` event effect `delete-update-branch` deletes that branch.
+It leaves the branch alone if a later run has already pushed a new head. The
+next run of the same update finds no remote branch, pushes a fresh one and opens
+a new PR.
+
 ## Pull request CI
 
 Every PR builds the `desktop`, `laptop`, `server`, `worker` and `hbox` system
