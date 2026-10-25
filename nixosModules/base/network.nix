@@ -30,27 +30,30 @@ in {
     environment.systemPackages = [
       # Clan otherwise chooses Zenity whenever a graphical session is present,
       # even in a terminal. Prefer dialog for terminal input, retaining the GUI fallback.
-      (inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli.overrideAttrs (old: {
-        # nixpkgs no longer word-splits makeWrapperArgs, so clan-core's "--unset VAR"
-        # entries must be split into separate arguments.
-        makeWrapperArgs =
-          lib.concatMap (
-            arg:
-              if lib.hasPrefix "--unset " arg
-              then lib.splitString " " arg
-              else [arg]
-          )
-          old.makeWrapperArgs;
-        postPatch =
-          (old.postPatch or "")
-          + ''
-            # Prefer terminal askpass when Clan is launched interactively.
-            substituteInPlace clan_lib/ssh/remote.py \
-              --replace-fail \
-                'elif os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):' \
-                'elif not sys.stdin.isatty() and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):'
-          '';
-      }))
+      ((inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli.override {
+          # clan-core pins nix_2_31, which nixpkgs has removed.
+          nix = pkgs.unstable.nixVersions.nix_2_34;
+        }).overrideAttrs (old: {
+          # nixpkgs no longer word-splits makeWrapperArgs, so clan-core's "--unset VAR"
+          # entries must be split into separate arguments.
+          makeWrapperArgs =
+            lib.concatMap (
+              arg:
+                if lib.hasPrefix "--unset " arg
+                then lib.splitString " " arg
+                else [arg]
+            )
+            old.makeWrapperArgs;
+          postPatch =
+            (old.postPatch or "")
+            + ''
+              # Prefer terminal askpass when Clan is launched interactively.
+              substituteInPlace clan_lib/ssh/remote.py \
+                --replace-fail \
+                  'elif os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):' \
+                  'elif not sys.stdin.isatty() and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):'
+            '';
+        }))
     ];
     networking = {
       hostName = host;
