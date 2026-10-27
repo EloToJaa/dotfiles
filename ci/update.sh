@@ -37,7 +37,7 @@ elif [[ $kind == input ]]; then
     prefix=github:nix-community/bun2nix/
     suffix=
     ;;
-  yamtrack-src)
+  yamtrack)
     upstream=https://github.com/FuzzyGrim/Yamtrack.git
     pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
     prefix=github:FuzzyGrim/Yamtrack/
@@ -125,7 +125,7 @@ if [[ $kind == lock ]]; then
   :
 elif [[ $kind == package ]]; then
   nix build --no-link ".#$name"
-elif [[ $name == yamtrack-src ]]; then
+elif [[ $name == yamtrack ]]; then
   nix build --no-link .#yamtrack
 elif [[ $name == bun2nix ]]; then
   nix build --no-link .#streamystats .#nixosConfigurations.server.config.system.build.toplevel .#nixosConfigurations.desktop.config.system.build.toplevel .#nixosConfigurations.laptop.config.system.build.toplevel

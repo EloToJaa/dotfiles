@@ -1259,7 +1259,7 @@
         ],
         "vicinae": "vicinae",
         "vicinae-extensions": "vicinae-extensions",
-        "yamtrack-src": "yamtrack-src",
+        "yamtrack": "yamtrack",
         "zen-browser": "zen-browser"
       }
     },
@@ -1722,7 +1722,7 @@
         "type": "github"
       }
     },
-    "yamtrack-src": {
+    "yamtrack": {
       "flake": false,
       "locked": {
         "lastModified": 1787519788,

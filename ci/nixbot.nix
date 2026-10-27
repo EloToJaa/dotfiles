@@ -19,7 +19,7 @@
   # a failing effect, so hold it until nixpkgs ships a new enough pytapo.
   unmanaged = ["yamtrack" "tmux-smart-splits" "tapo-control"];
   packages = builtins.filter (name: !builtins.elem name unmanaged) (builtins.attrNames self.packages.${system});
-  taggedInputs = ["clan-core" "hermes-agent" "bun2nix" "yamtrack-src"];
+  taggedInputs = ["clan-core" "hermes-agent" "bun2nix" "yamtrack"];
   mkUpdate = kind: name:
     effects.mkEffect {
       name = "update-${kind}-${name}";

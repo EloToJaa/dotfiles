@@ -4,7 +4,8 @@
   localPackages = final: _prev:
     import ./pkgs/pkgs.nix {
       pkgs = final;
-      inherit (inputs) pyproject-build-systems pyproject-nix uv2nix yamtrack-src;
+      inherit (inputs) pyproject-build-systems pyproject-nix uv2nix;
+      yamtrack-src = inputs.yamtrack;
     };
 
   modifiedPackages = _final: prev: {
