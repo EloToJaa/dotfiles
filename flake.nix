@@ -177,7 +177,7 @@
       url = "github:nix-community/bun2nix/2.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    yamtrack-src = {
+    yamtrack = {
       url = "github:FuzzyGrim/Yamtrack/v0.26.3";
       flake = false;
     };

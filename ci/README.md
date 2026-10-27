@@ -60,7 +60,7 @@ At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix
 (and all Yazi plugin/theme and AI skill/extension packages in `pkgs/yazi` and
 `pkgs/ai`, explicitly exported by `pkgs/pkgs.nix`)
 (except Yamtrack, handled by its source input) and each tagged input below the
-`# update` comment: `clan-core`, `hermes-agent`, `bun2nix`, and `yamtrack-src`. Each has its own
+`# update` comment: `clan-core`, `hermes-agent`, `bun2nix`, and `yamtrack`. Each has its own
 lock, branch and PR; an individual failure does not prevent the others running.
 PRs are titled `<name>: <old version> -> <new version>` like numtide/llm-agents.nix,
 using the package's `version` or the input's release reference without a leading
