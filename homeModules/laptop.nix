@@ -27,6 +27,7 @@
       };
       nautilus.enable = true;
       notifications.enable = true;
+      omnissa-horizon.enable = true;
       piper-tts.enable = true;
       spotify.enable = true;
       vicinae.enable = true;

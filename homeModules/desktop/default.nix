@@ -26,6 +26,7 @@
     ./gtk.nix # gtk theme
     ./nautilus.nix # file manager
     ./notifications.nix # notifications
+    ./omnissa-horizon.nix # vdi client
     ./piper-tts.nix
     ./packages.nix # other packages
     ./prismlauncher.nix

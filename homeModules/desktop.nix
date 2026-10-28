@@ -32,6 +32,7 @@
       };
       nautilus.enable = true;
       notifications.enable = true;
+      omnissa-horizon.enable = true;
       piper-tts.enable = true;
       prismlauncher.enable = true;
       remmina.enable = true;
