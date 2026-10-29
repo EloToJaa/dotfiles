@@ -12,10 +12,18 @@
   workspace = uv2nix.lib.workspace.loadWorkspace {
     workspaceRoot = yamtrack-src;
   };
+  # nixpkgs wraps uv with UV_SYSTEM_CERTS=1, which fails in the sandbox where no CA certs exist
+  uv = pkgs.runCommand "uv-no-system-certs" {nativeBuildInputs = [makeWrapper];} ''
+    makeWrapper ${pkgs.buildPackages.uv}/bin/uv $out/bin/uv --set UV_SYSTEM_CERTS 0
+  '';
   pythonSet = (pkgs.callPackage pyproject-nix.build.packages {python = python312;}).overrideScope (
     lib.composeManyExtensions [
       pyproject-build-systems.overlays.default
       (workspace.mkPyprojectOverlay {sourcePreference = "wheel";})
+      (_: prev: {
+        pyprojectBuildHook = prev.pyprojectBuildHook.override {inherit uv;};
+        pyprojectInstallHook = prev.pyprojectInstallHook.override {inherit uv;};
+      })
     ]
   );
   venv = pythonSet.mkVirtualEnv "yamtrack-env" workspace.deps.default;
