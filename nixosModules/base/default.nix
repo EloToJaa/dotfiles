@@ -5,7 +5,6 @@
   imports = [
     ./bash.nix
     ./bootloader.nix
-    ./duo
     ./hardware.nix
     ./initrd.nix
     ./network.nix
