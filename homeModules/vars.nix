@@ -51,5 +51,54 @@ in {
       };
       files.session = {inherit owner group;};
     };
+    leetcode = lib.mkIf hm.modules.dev.leetcode.enable {
+      share = true;
+      prompts = {
+        csrftoken = {
+          description = "LeetCode csrftoken cookie";
+          type = "hidden";
+          persist = true;
+        };
+        session = {
+          description = "LeetCode LEETCODE_SESSION cookie";
+          type = "hidden";
+          persist = true;
+        };
+      };
+      files = {
+        csrftoken.deploy = false;
+        session.deploy = false;
+      };
+    };
+    leetcode-config = lib.mkIf hm.modules.dev.leetcode.enable {
+      share = true;
+      dependencies = ["leetcode"];
+      files."leetcode.toml" = {inherit owner group;};
+      script = ''
+        cat > "$out/leetcode.toml" <<EOF
+        [code]
+        editor = "nvim"
+        #lang = "cpp"
+        lang = "python3"
+        #comment_leading = "//"
+        comment_leading = "#"
+        comment_problem_desc = true
+        test = true
+        #inject_before = ["#include<bits/stdc++.h>\\n", "using namespace std;\\n"]
+        #inject_after = [""]
+
+        [cookies]
+        csrf = "$(cat "$in/leetcode/csrftoken")"
+        session = "$(cat "$in/leetcode/session")"
+        site = "leetcode.com"
+
+        [storage]
+        cache = "problems.db"
+        code = "${hm.home.homeDirectory}/code/leetcode"
+        root = "~/.leetcode"
+        scripts = "${hm.home.homeDirectory}/code/leetcode/scripts"
+        EOF
+      '';
+    };
   };
 }
