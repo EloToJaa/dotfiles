@@ -3,8 +3,10 @@
   config,
   pkgs,
   inputs,
+  settings,
   ...
 }: let
+  inherit (settings) catppuccin;
   cfg = config.modules.desktop.dms-shell;
   dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
 in {
@@ -28,6 +30,22 @@ in {
 
       systemd.enable = true;
 
+      settings =
+        import ./settings.nix
+        // {
+          # Load the registry theme from the store instead of a UI-installed copy
+          currentThemeName = "custom";
+          currentThemeCategory = "registry";
+          customThemeFile = "${inputs.dms-plugin-registry}/themes/catppuccin/theme.json";
+          registryThemeVariants.catppuccin = {
+            dark = {inherit (catppuccin) flavor accent;};
+            light = {
+              flavor = "latte";
+              inherit (catppuccin) accent;
+            };
+          };
+        };
+
       clipboardSettings = {
         autoClearDays = 1;
         clearAtStartup = true;
@@ -49,7 +67,6 @@ in {
         };
       };
     };
-    xdg.configFile."DankMaterialShell/settings.json".source = ./settings.json;
     programs.dank-calendar = {
       enable = true;
       quickshell.package = pkgs.unstable.quickshell;
