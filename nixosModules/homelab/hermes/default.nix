@@ -11,16 +11,22 @@
   homeAssistant = config.modules.homelab.home-assistant;
   secretEnv =
     {
-      FIRECRAWL_API_KEY = config.sops.placeholder."${cfg.name}/firecrawl-api-key";
-      DISCORD_BOT_TOKEN = config.sops.placeholder."${cfg.name}/discord-bot-token";
-      API_SERVER_KEY = config.sops.placeholder."${cfg.name}/api-server-key";
+      FIRECRAWL_API_KEY = "firecrawl-api-key";
+      DISCORD_BOT_TOKEN = "discord-bot-token";
+      API_SERVER_KEY = "api-server-key";
     }
     // lib.optionalAttrs homeAssistant.enable {
-      HASS_TOKEN = config.sops.placeholder."${cfg.name}/hass-token";
+      HASS_TOKEN = "hass-token";
     };
-  secretEnvContent = lib.concatStringsSep "\n" (
-    lib.mapAttrsToList (name: value: "${name}=${value}") secretEnv
-  );
+  externalSecrets =
+    {
+      opencode-api-key = "OpenCode API key";
+      firecrawl-api-key = "Firecrawl API key";
+      discord-bot-token = "Discord bot token";
+    }
+    // lib.optionalAttrs homeAssistant.enable {
+      hass-token = "Home Assistant long-lived access token";
+    };
 in {
   options.modules.homelab.hermes = {
     enable = lib.mkEnableOption "Enable hermes";
@@ -71,7 +77,7 @@ in {
       addToSystemPackages = true;
       stateDir = cfg.dataDir;
       environmentFiles = [
-        config.sops.templates."${cfg.name}.env".path
+        config.clan.core.vars.generators."${cfg.name}-env".files.env.path
         config.clan.core.vars.generators.hermes-cliproxyapi.files.env.path
       ];
 
@@ -171,29 +177,31 @@ in {
       '';
     };
 
-    sops.secrets =
-      {
-        "${cfg.name}/opencode-api-key" = {
-          group = cfg.name;
-        };
-        "${cfg.name}/firecrawl-api-key" = {
-          group = cfg.name;
-        };
-        "${cfg.name}/discord-bot-token" = {
-          group = cfg.name;
-        };
-        "${cfg.name}/api-server-key" = {
-          group = cfg.name;
-        };
-      }
-      // lib.optionalAttrs homeAssistant.enable {
-        "${cfg.name}/hass-token" = {
-          group = cfg.name;
-        };
-      };
-    sops.templates."${cfg.name}.env" = {
-      content = secretEnvContent + "\n";
-      group = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      prompts =
+        lib.mapAttrs (_: description: {
+          inherit description;
+          type = "hidden";
+          persist = true;
+        })
+        externalSecrets;
+      files =
+        {opencode-api-key.group = cfg.name;}
+        // lib.genAttrs (lib.attrValues secretEnv) (_: {deploy = false;});
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        pwgen -s 64 1 | tr -d '\n' > "$out/api-server-key"
+      '';
+    };
+    clan.core.vars.generators."${cfg.name}-env" = {
+      dependencies = [cfg.name];
+      files.env.group = cfg.name;
+      script = lib.concatStrings (
+        lib.mapAttrsToList (name: file: ''
+          printf '%s=%s\n' ${name} "$(cat "$in/${cfg.name}/${file}")" >> "$out/env"
+        '')
+        secretEnv
+      );
     };
   };
 }
