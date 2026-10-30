@@ -25,6 +25,7 @@
     ./helium.nix # chromium-based browser
     ./gtk.nix # gtk theme
     ./nautilus.nix # file manager
+    ./noctalia-shell.nix # Noctalia shell (DankMaterialShell replacement)
     ./notifications.nix # notifications
     ./omnissa-horizon.nix # vdi client
     ./piper-tts.nix
