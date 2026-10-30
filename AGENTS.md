@@ -211,10 +211,9 @@ Only proceed to the next step if the previous one succeeds.
 
 CI runs on [Nixbot](https://github.com/Mic92/nixbot), a self-hosted Hercules-CI-compatible service on `worker` (configured in `nixbot.toml` and `ci/nixbot.nix`; setup notes in `ci/README.md`):
 
-- **Checks** - every PR builds the flake `checks`: all packages, the treefmt check, and the toplevels of server, desktop, laptop, worker and hbox
+- **Checks** - every PR builds the flake `checks`: all packages, the treefmt formatting check (`checks.treefmt`, the only formatting gate), and the toplevels of server, desktop, laptop, worker and hbox
 - **Scheduled effects** - daily jobs update `flake.lock` and each package (`ci/update.sh`) and open `chore/update-*` PRs; those branches are deleted after merge
 
 GitHub Actions in `.github/workflows/`:
 
-- `format-check.yml` - Verifies all files are formatted with treefmt
 - `auto-merge.yml` - Enables auto-merge on PRs labelled `dependencies` or `auto-merge`
