@@ -9,7 +9,7 @@ This is a Nix-based dotfiles and homelab management repository using Clan.lol fo
 - **Nix/NixOS**: Primary build system and package manager (flakes-based)
 - **Clan.lol**: Infrastructure management and deployment (`nixos-anywhere`, `disko`, `nixos-facter`)
 - **Home Manager**: User environment configuration
-- **SOPS**: Secrets management with age encryption
+- **Clan vars**: Secrets management (SOPS + age backend)
 - **flake-parts**: Modular flake composition
 
 ## Build/Development Commands
@@ -159,10 +159,12 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 
 ## Secrets Management
 
-Two mechanisms coexist:
+All secrets are Clan vars. Declare a generator with `clan.core.vars.generators.<name>` next to the module that uses it and run `clan vars generate <machine>`. Public values land in `vars/per-machine/<machine>/` or `vars/shared/`; secret values are encrypted with Clan's SOPS backend, whose machine and user keys live in `sops/`.
 
-- **Clan vars** (preferred for new machine secrets): declare a generator with `clan.core.vars.generators.<name>` and run `clan vars generate <machine>`. Public values land in `vars/per-machine/<machine>/` or `vars/shared/`; secret values are encrypted with Clan's SOPS backend, whose machine and user keys live in `sops/`.
-- **sops-nix** (`secrets/secrets.yaml`): the `defaultSopsFile` for both `nixosModules/base/sops.nix` and `homeModules/home/sops.nix`. Edit with `sops secrets/secrets.yaml`. `.sops.yaml` encrypts files matching `secrets/[^/]+\.(yaml|json|env|ini)$` to the age key `age1n2ct0ecqtnhpcf8q27f0yvf6n3y0jjcuwer9rhxv9fqkfj0ktdfsycxfu0`.
+- Generate internal secrets (passwords, API keys) in the generator `script`; ask for external ones (third-party tokens) with `prompts.<file>.persist = true`.
+- Build env/config files that embed secrets in a separate generator that lists the base generator in `dependencies` and reads `$in/<generator>/<file>`.
+- Set a value by hand with `clan vars set <machine> <generator>/<file>` and read it with `clan vars get`.
+- Home Manager modules use NixOS-level generators (`homeModules/vars.nix`) through `osConfig.clan.core.vars.generators`.
 
 Never commit plaintext secrets.
 
