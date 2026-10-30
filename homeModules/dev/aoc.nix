@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   lib,
   ...
 }: let
@@ -14,15 +15,7 @@ in {
       aoc-cli
     ];
 
-    sops.secrets = {
-      "aoc/session" = {};
-    };
-
-    sops.templates = {
-      "adventofcode.session" = {
-        content = "${config.sops.placeholder."aoc/session"}";
-        path = "${config.home.homeDirectory}/.config/adventofcode.session";
-      };
-    };
+    home.file.".config/adventofcode.session".source =
+      config.lib.file.mkOutOfStoreSymlink osConfig.clan.core.vars.generators.aoc.files.session.path;
   };
 }
