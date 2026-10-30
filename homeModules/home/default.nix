@@ -21,7 +21,6 @@
     ./nix.nix # nix
     ./packages.nix # other packages
     ./shell.nix # shell programs
-    ./sops.nix # secrets
     ./tldr.nix # tldr
     ./variables.nix # environment variables
   ];
