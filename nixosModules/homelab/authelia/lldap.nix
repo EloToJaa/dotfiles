@@ -31,7 +31,7 @@ in {
     services.lldap = {
       enable = true;
       package = pkgs.unstable.lldap;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       settings = {
         http_host = "127.0.0.1";
         http_port = cfg.port;
@@ -43,8 +43,8 @@ in {
         ldap_user_email = email;
         force_ldap_user_pass_reset = "always";
 
-        jwt_secret_file = config.sops.secrets."${cfg.name}/jwtsecret".path;
-        ldap_user_pass_file = config.sops.secrets."${cfg.name}/password".path;
+        jwt_secret_file = config.clan.core.vars.generators.${cfg.name}.files.jwtsecret.path;
+        ldap_user_pass_file = config.clan.core.vars.generators.${cfg.name}.files.password.path;
       };
     };
     systemd.services.lldap.serviceConfig = {
@@ -84,22 +84,28 @@ in {
     };
     users.groups.${cfg.name} = {};
 
-    sops.secrets = {
-      "${cfg.name}/jwtsecret" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 | tr -d '\n' > "$out/jwtsecret"
+          pwgen -s 32 1 | tr -d '\n' > "$out/password"
+          pwgen -s 32 1 | tr -d '\n' > "$out/pgpassword"
+        '';
+        files = {
+          jwtsecret.owner = cfg.name;
+          password.owner = cfg.name;
+          pgpassword.deploy = false;
+        };
       };
-      "${cfg.name}/password" = {
-        owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        script = ''
+          printf 'LLDAP_DATABASE_URL=postgres://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' \
+            "$(cat "$in/${cfg.name}/pgpassword")" > "$out/env"
+        '';
+        files.env.owner = cfg.name;
       };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        LLDAP_DATABASE_URL=postgres://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-      '';
-      owner = cfg.name;
     };
   };
 }
