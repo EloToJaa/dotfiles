@@ -58,7 +58,7 @@ in {
             basicAuth.user = username;
             basicAuthFile = config.clan.core.vars.generators.xandikos.files.httpd.path;
             extraConfig = ''
-              include ${config.sops.templates."xandikos-sonarr-feed.conf".path};
+              include ${config.clan.core.vars.generators.xandikos-sonarr-feed.files.conf.path};
               proxy_pass $sonarr_feed_url;
             '';
           };
@@ -120,11 +120,16 @@ in {
       '';
     };
 
-    sops.templates."xandikos-sonarr-feed.conf" = lib.mkIf sonarrEnabled {
-      owner = "nginx";
-      group = "nginx";
-      content = ''
-        set $sonarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.sonarr.port}/feed/v3/calendar/Sonarr.ics?apikey=${config.sops.placeholder."sonarr/apikey"}";
+    clan.core.vars.generators.xandikos-sonarr-feed = lib.mkIf sonarrEnabled {
+      dependencies = [config.modules.homelab.sonarr.name];
+      files.conf = {
+        owner = "nginx";
+        group = "nginx";
+      };
+      script = ''
+        cat > $out/conf <<EOF
+        set \$sonarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.sonarr.port}/feed/v3/calendar/Sonarr.ics?apikey=$(cat $in/${config.modules.homelab.sonarr.name}/apikey)";
+        EOF
       '';
     };
 
