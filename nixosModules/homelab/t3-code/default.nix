@@ -35,10 +35,11 @@ in {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
-        # keep long-lived agent websocket sessions open
+        # keep long-lived agent websocket sessions open; cookies are HTTPS-only
         extraConfig = ''
           proxy_read_timeout 1d;
           proxy_send_timeout 1d;
+          proxy_cookie_flags ~ secure;
         '';
       };
     };
