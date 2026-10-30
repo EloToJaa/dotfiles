@@ -28,23 +28,44 @@ in {
   config = lib.mkIf cfg.enable {
     services."wireguard-netns" = {
       enable = true;
-      configFile = config.sops.templates."wg0.conf".path;
+      configFile = config.clan.core.vars.generators."${cfg.name}-config".files."wg0.conf".path;
       inherit (cfg) privateIP dnsIP;
     };
 
-    sops.secrets = {
-      "${cfg.name}/privatekey" = {};
-      "${cfg.name}/publickey" = {};
-      "${cfg.name}/endpoint" = {};
+    clan.core.vars.generators.${cfg.name} = {
+      prompts = {
+        privatekey = {
+          description = "WireGuard client private key";
+          type = "hidden";
+          persist = true;
+        };
+        publickey = {
+          description = "WireGuard server public key";
+          type = "hidden";
+          persist = true;
+        };
+        endpoint = {
+          description = "WireGuard server IP address";
+          type = "hidden";
+          persist = true;
+        };
+      };
+      files = {
+        privatekey.deploy = false;
+        publickey.deploy = false;
+        endpoint.deploy = false;
+      };
     };
-    sops.templates."wg0.conf".content = ''
-      [Interface]
-      PrivateKey = ${config.sops.placeholder."${cfg.name}/privatekey"}
-
-      [Peer]
-      PublicKey = ${config.sops.placeholder."${cfg.name}/publickey"}
-      AllowedIPs = 0.0.0.0/0
-      Endpoint = ${config.sops.placeholder."${cfg.name}/endpoint"}:51820
-    '';
+    clan.core.vars.generators."${cfg.name}-config" = {
+      dependencies = [cfg.name];
+      files."wg0.conf" = {};
+      script = ''
+        printf '[Interface]\nPrivateKey = %s\n\n[Peer]\nPublicKey = %s\nAllowedIPs = 0.0.0.0/0\nEndpoint = %s:51820\n' \
+          "$(cat "$in/${cfg.name}/privatekey")" \
+          "$(cat "$in/${cfg.name}/publickey")" \
+          "$(cat "$in/${cfg.name}/endpoint")" \
+          > "$out/wg0.conf"
+      '';
+    };
   };
 }
