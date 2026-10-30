@@ -35,11 +35,17 @@ nix fmt
 
 ### Available Machines
 
-- `desktop` - Main desktop workstation
-- `laptop` - Laptop configuration
-- `server` - Homelab server
-- `nas` - NAS/storage server
-- `miro` - Additional machine
+Defined in the `machines/flake-module.nix` inventory:
+
+- `desktop` - Main desktop workstation (tag `desktop`)
+- `laptop` - Laptop (tag `desktop`)
+- `thinker` - Second laptop (tag `desktop`)
+- `server` - Main homelab server: media, auth, monitoring and other services (tag `server`)
+- `worker` - Build and CI host: Nixbot, Harmonia binary cache, T3 Code (tag `server`)
+- `hbox` - Public VPS: Matrix, Forgejo, Stalwart mail (tag `server`)
+- `miro` - Secondary homelab server: Home Assistant, Jellyfin, Blocky (tag `server`)
+
+List them with `just hosts`. The `Justfile` also wraps building (`just build <host>...`) and deploying (`just deploy <host>...`).
 
 ### Testing/Linting
 
@@ -57,7 +63,12 @@ nix flake check
 
 # Lint Lua files (for Neovim configs)
 luacheck <file>
+
+# Neovim quickfix tests (need Python and Neovim on PATH)
+python3 tests/review-quick-fixes.py
 ```
+
+`nix flake check` builds every package and every host in the CI list in `ci/nixbot.nix`, so it is slow; prefer targeted builds while iterating.
 
 ## Code Style Guidelines
 
@@ -148,18 +159,18 @@ def function_name(param: str) -> tuple[str | None, str | None]:
 
 ## Secrets Management
 
-- Secrets are encrypted using SOPS (Secrets OPerationS) with age
-- Key location: `age1n2ct0ecqtnhpcf8q27f0yvf6n3y0jjcuwer9rhxv9fqkfj0ktdfsycxfu0`
-- Pattern: `secrets/[^/]+\.(yaml|json|env|ini)$`
-- Store in `sops/` directory (not `secrets/` which is deprecated)
-- Never commit plaintext secrets
+Two mechanisms coexist:
+
+- **Clan vars** (preferred for new machine secrets): declare a generator with `clan.core.vars.generators.<name>` and run `clan vars generate <machine>`. Public values land in `vars/per-machine/<machine>/` or `vars/shared/`; secret values are encrypted with Clan's SOPS backend, whose machine and user keys live in `sops/`.
+- **sops-nix** (`secrets/secrets.yaml`): the `defaultSopsFile` for both `nixosModules/base/sops.nix` and `homeModules/home/sops.nix`. Edit with `sops secrets/secrets.yaml`. `.sops.yaml` encrypts files matching `secrets/[^/]+\.(yaml|json|env|ini)$` to the age key `age1n2ct0ecqtnhpcf8q27f0yvf6n3y0jjcuwer9rhxv9fqkfj0ktdfsycxfu0`.
+
+Never commit plaintext secrets.
 
 ## Git Workflow
 
 - Main branch: `main`
-- Use meaningful commit messages
-- CI builds all machine configurations on PRs affecting `flake.lock`
-- Supported hosts: server, desktop, laptop
+- Commits: `type(scope): description` (e.g. `feat(worker): ...`, `fix(dms): ...`); branches: `type/description`
+- Nixbot builds the flake `checks` on every PR (see [CI/CD](#cicd))
 
 ## AI Agent Workflow
 
@@ -177,10 +188,11 @@ Only proceed to the next step if the previous one succeeds.
 ### Adding a New Machine
 
 1. Create directory in `machines/<name>/`
-1. Add `default.nix` with machine-specific configuration
-1. Add `disko.nix` for disk partitioning (if needed)
-1. Add to `machines/flake-module.nix` inventory
-1. Generate SSH host keys in `vars/per-machine/<name>/`
+1. Add `configuration.nix` (Clan picks it up automatically); servers keep their `modules.homelab` service toggles in `config.nix`
+1. Add `disko.nix` for disk partitioning and generate `facter.json` with `nixos-facter`
+1. Add the machine to the `machines/flake-module.nix` inventory with its `deploy.targetHost` (Tailscale IP, see `tailscale status`) and tags
+1. Add the host to the `checks` list in `ci/nixbot.nix` so CI builds it
+1. Run `clan vars generate <name>` to create its keys and vars under `vars/per-machine/<name>/` and `sops/`
 
 ### Adding a Home Module
 
@@ -191,15 +203,18 @@ Only proceed to the next step if the previous one succeeds.
 
 ### Adding a Custom Package
 
-1. Create package definition in `pkgs/<name>.nix`
+1. Create package definition in `pkgs/<name>/default.nix` (or add to a group such as `pkgs/ai/` or `pkgs/yazi/`)
 1. Add to `pkgs/pkgs.nix` exports
-1. Update package versions using `nurl` or `nix-update`
+1. Update package versions using `nurl` or `nix-update`. Nixbot updates packages automatically unless they are listed in `unmanaged` in `ci/nixbot.nix`
 
 ## CI/CD
 
-GitHub Actions workflows in `.github/workflows/`:
+CI runs on [Nixbot](https://github.com/Mic92/nixbot), a self-hosted Hercules-CI-compatible service on `worker` (configured in `nixbot.toml` and `ci/nixbot.nix`; setup notes in `ci/README.md`):
 
-- `build.yml` - Builds all machine configurations
+- **Checks** - every PR builds the flake `checks`: all packages, the treefmt check, and the toplevels of server, desktop, laptop, worker and hbox
+- **Scheduled effects** - daily jobs update `flake.lock` and each package (`ci/update.sh`) and open `chore/update-*` PRs; those branches are deleted after merge
+
+GitHub Actions in `.github/workflows/`:
+
 - `format-check.yml` - Verifies all files are formatted with treefmt
-- `update-flake-lock.yml` - Updates flake.lock automatically
-- `opencode.yml` - OpenCode integration
+- `auto-merge.yml` - Enables auto-merge on PRs labelled `dependencies` or `auto-merge`
