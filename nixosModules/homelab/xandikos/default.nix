@@ -68,7 +68,7 @@ in {
             basicAuth.user = username;
             basicAuthFile = config.clan.core.vars.generators.xandikos.files.httpd.path;
             extraConfig = ''
-              include ${config.sops.templates."xandikos-radarr-feed.conf".path};
+              include ${config.clan.core.vars.generators.xandikos-radarr-feed.files.conf.path};
               proxy_pass $radarr_feed_url;
             '';
           };
@@ -133,11 +133,16 @@ in {
       '';
     };
 
-    sops.templates."xandikos-radarr-feed.conf" = lib.mkIf radarrEnabled {
-      owner = "nginx";
-      group = "nginx";
-      content = ''
-        set $radarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.radarr.port}/feed/v3/calendar/Radarr.ics?apikey=${config.sops.placeholder."radarr/apikey"}";
+    clan.core.vars.generators.xandikos-radarr-feed = lib.mkIf radarrEnabled {
+      dependencies = [config.modules.homelab.radarr.name];
+      files.conf = {
+        owner = "nginx";
+        group = "nginx";
+      };
+      script = ''
+        cat > $out/conf <<EOF
+        set \$radarr_feed_url "http://127.0.0.1:${toString config.modules.homelab.radarr.port}/feed/v3/calendar/Radarr.ics?apikey=$(cat $in/${config.modules.homelab.radarr.name}/apikey)";
+        EOF
       '';
     };
   };
