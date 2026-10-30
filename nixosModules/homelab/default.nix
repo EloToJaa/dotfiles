@@ -107,6 +107,7 @@ in {
     ./seerr
     ./share
     ./sonarr
+    ./t3-code
     ./siyuan
     ./stalwart
     ./streamystats

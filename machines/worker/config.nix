@@ -4,6 +4,7 @@
   modules.homelab = {
     harmonia.enable = true;
     nixbot.enable = true;
+    t3-code.enable = true;
     nginx.enable = true;
   };
 
