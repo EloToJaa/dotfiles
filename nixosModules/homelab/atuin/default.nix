@@ -33,7 +33,7 @@ in {
       };
     };
     systemd.services.${cfg.name}.serviceConfig = {
-      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+      EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -62,11 +62,21 @@ in {
       users.${cfg.name} = {};
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {};
+    clan.core.vars.generators.${cfg.name} = {
+      files.pgpassword.deploy = false;
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        pwgen -s 64 1 | tr -d '\n' > "$out/pgpassword"
+      '';
     };
-    sops.templates."${cfg.name}.env".content = ''
-      ATUIN_DB_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-    '';
+    clan.core.vars.generators."${cfg.name}-env" = {
+      dependencies = [cfg.name];
+      files.env = {};
+      script = ''
+        printf 'ATUIN_DB_URI=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' \
+          "$(cat "$in/${cfg.name}/pgpassword")" \
+          > "$out/env"
+      '';
+    };
   };
 }
