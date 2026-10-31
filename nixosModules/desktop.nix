@@ -52,6 +52,7 @@
         enable = true;
         hyprland.enable = false;
         niri.enable = true;
+        umbriel.enable = false;
       };
     };
     homelab.groups.enable = true;

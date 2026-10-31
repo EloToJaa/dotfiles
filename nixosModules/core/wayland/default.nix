@@ -9,12 +9,14 @@ in {
     ./greeter.nix
     ./hyprland.nix
     ./niri.nix
+    ./umbriel.nix
   ];
 
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
     hyprland.enable = lib.mkEnableOption "Enable hyprland";
     niri.enable = lib.mkEnableOption "Enable niri";
+    umbriel.enable = lib.mkEnableOption "Enable umbriel";
   };
 
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
