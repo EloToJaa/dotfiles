@@ -35,6 +35,7 @@
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
+    ./umbriel.nix # umbriel compositor (niri alternative)
     ./variables.nix
     ./vicinae.nix # launcher
     ./voxtype.nix # voice dictation
