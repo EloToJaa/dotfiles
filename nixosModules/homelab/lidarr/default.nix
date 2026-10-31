@@ -40,6 +40,7 @@ in {
     systemd.services.lidarr.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+      "L+ ${cfg.dataDir}/config.xml - - - - ${config.clan.core.vars.generators."${cfg.name}-config".files.config.path}"
     ];
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -89,42 +90,51 @@ in {
       inherit (cfg) group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/apikey" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        files = {
+          apikey.deploy = false;
+          pgpassword.deploy = false;
+        };
+        runtimeInputs = with pkgs; [
+          openssl
+          pwgen
+        ];
+        script = ''
+          openssl rand -hex 16 | tr -d '\n' > $out/apikey
+          pwgen -s 32 1 | tr -d '\n' > $out/pgpassword
+        '';
       };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+      "${cfg.name}-config" = {
+        dependencies = [cfg.name];
+        files.config.owner = cfg.name;
+        script = ''
+          cat > $out/config <<EOF
+          <Config>
+            <LogLevel>info</LogLevel>
+            <EnableSsl>False</EnableSsl>
+            <Port>${toString cfg.port}</Port>
+            <SslPort>6868</SslPort>
+            <UrlBase></UrlBase>
+            <BindAddress>127.0.0.1</BindAddress>
+            <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
+            <AuthenticationMethod>Forms</AuthenticationMethod>
+            <LaunchBrowser>True</LaunchBrowser>
+            <Branch>master</Branch>
+            <InstanceName>Lidarr</InstanceName>
+            <AuthenticationRequired>Enabled</AuthenticationRequired>
+            <SslCertPath></SslCertPath>
+            <SslCertPassword></SslCertPassword>
+            <PostgresUser>${cfg.name}</PostgresUser>
+            <PostgresPassword>$(cat $in/${cfg.name}/pgpassword)</PostgresPassword>
+            <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
+            <PostgresHost>127.0.0.1</PostgresHost>
+            <AnalyticsEnabled>False</AnalyticsEnabled>
+            <Theme>auto</Theme>
+          </Config>
+          EOF
+        '';
       };
-    };
-    sops.templates."config-${cfg.name}.xml" = {
-      restartUnits = ["lidarr.service"];
-      content = ''
-        <Config>
-          <LogLevel>info</LogLevel>
-          <EnableSsl>False</EnableSsl>
-          <Port>${toString cfg.port}</Port>
-          <SslPort>6868</SslPort>
-          <UrlBase></UrlBase>
-          <BindAddress>127.0.0.1</BindAddress>
-          <ApiKey>${config.sops.placeholder."${cfg.name}/apikey"}</ApiKey>
-          <AuthenticationMethod>Forms</AuthenticationMethod>
-          <LaunchBrowser>True</LaunchBrowser>
-          <Branch>master</Branch>
-          <InstanceName>Lidarr</InstanceName>
-          <AuthenticationRequired>Enabled</AuthenticationRequired>
-          <SslCertPath></SslCertPath>
-          <SslCertPassword></SslCertPassword>
-          <PostgresUser>${cfg.name}</PostgresUser>
-          <PostgresPassword>${config.sops.placeholder."${cfg.name}/pgpassword"}</PostgresPassword>
-          <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
-          <PostgresHost>127.0.0.1</PostgresHost>
-          <AnalyticsEnabled>False</AnalyticsEnabled>
-          <Theme>auto</Theme>
-        </Config>
-      '';
-      path = "${cfg.dataDir}/config.xml";
-      owner = cfg.name;
     };
   };
 }
