@@ -38,7 +38,7 @@ in {
           {
             client_id = config.services.vaultwarden.config.ssoClientId;
             client_name = "Vaultwarden";
-            client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/vaultwarden".path}\" }}";
+            client_secret = "{{ secret \"${config.clan.core.vars.generators."${homelab.authelia.name}-clients".files.vaultwarden.path}\" }}";
             public = false;
             authorization_policy = "two_factor";
             require_pkce = true;
@@ -68,10 +68,13 @@ in {
         ];
       };
     };
-    sops.secrets = {
-      "authelia/secrets/vaultwarden" = {
-        owner = "authelia";
+    clan.core.vars.generators."${homelab.authelia.name}-clients" = {
+      prompts.vaultwarden = {
+        description = "Authelia OIDC client secret for Vaultwarden (must match the Vaultwarden side)";
+        type = "hidden";
+        persist = true;
       };
+      files.vaultwarden.owner = homelab.authelia.name;
     };
   };
 }

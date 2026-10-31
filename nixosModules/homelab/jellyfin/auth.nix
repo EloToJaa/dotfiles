@@ -14,7 +14,7 @@ in {
       {
         client_id = "42VeHabCU9UyRptuVpwJlfd0wKqkpC0mddyY0qDihVhdyeox8wPxA4Tx9X0C30slzEAZOAPo";
         client_name = "Jellyfin";
-        client_secret = "{{ secret \"${config.sops.secrets."authelia/secrets/jellyfin".path}\" }}";
+        client_secret = "{{ secret \"${config.clan.core.vars.generators."${homelab.authelia.name}-clients".files.jellyfin.path}\" }}";
         public = false;
         authorization_policy = "two_factor";
         require_pkce = true;
@@ -39,10 +39,13 @@ in {
       }
     ];
 
-    sops.secrets = {
-      "authelia/secrets/jellyfin" = {
-        owner = "authelia";
+    clan.core.vars.generators."${homelab.authelia.name}-clients" = {
+      prompts.jellyfin = {
+        description = "Authelia OIDC client secret for Jellyfin (must match the Jellyfin side)";
+        type = "hidden";
+        persist = true;
       };
+      files.jellyfin.owner = homelab.authelia.name;
     };
   };
 }
