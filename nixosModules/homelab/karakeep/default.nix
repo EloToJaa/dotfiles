@@ -41,7 +41,7 @@ in {
     services.karakeep = {
       enable = true;
       package = pkgs.unstable.karakeep;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       browser.enable = true;
       meilisearch.enable = true;
       extraEnvironment = {
@@ -114,16 +114,22 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/openaiapikey" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        prompts.openaiapikey = {
+          description = "OpenAI API key for karakeep";
+          type = "hidden";
+          persist = true;
+        };
+        files.openaiapikey.deploy = false;
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        OPENAI_API_KEY=${config.sops.placeholder."${cfg.name}/openaiapikey"}
-      '';
-      owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        files.env.owner = cfg.name;
+        script = ''
+          printf 'OPENAI_API_KEY=%s\n' "$(cat "$in/${cfg.name}/openaiapikey")" > "$out/env"
+        '';
+      };
     };
   };
 }
