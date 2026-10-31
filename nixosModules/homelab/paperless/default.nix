@@ -42,7 +42,7 @@ in {
       enable = true;
       package = pkgs.unstable.paperless-ngx;
       user = cfg.name;
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       settings = {
         # Paperless 3 removed NLTK; the stable NixOS module still defaults to enabling it.
         PAPERLESS_ENABLE_NLTK = false;
@@ -68,7 +68,7 @@ in {
       Group = lib.mkForce cfg.group;
       UMask = lib.mkForce homelab.defaultUMask;
     };
-    # The upstream web startup script replaces the SOPS key with a generated file,
+    # The upstream web startup script replaces the clan vars key with a generated file,
     # so web uploads fail HMAC verification in the Celery worker.
     systemd.services.paperless-web.script = lib.mkForce ''
       if [[ -z "$PAPERLESS_SECRET_KEY" ]]; then
@@ -141,20 +141,28 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        files = {
+          pgpassword.deploy = false;
+          secretkey.deploy = false;
+        };
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 > "$out/pgpassword"
+          pwgen -s 64 1 > "$out/secretkey"
+        '';
       };
-      "${cfg.name}/secretkey" = {
-        owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        files.env.owner = cfg.name;
+        script = ''
+          {
+            printf 'PAPERLESS_DBPASS=%s\n' "$(cat "$in/${cfg.name}/pgpassword")"
+            printf 'PAPERLESS_SECRET_KEY=%s\n' "$(cat "$in/${cfg.name}/secretkey")"
+          } > "$out/env"
+        '';
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        PAPERLESS_DBPASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
-        PAPERLESS_SECRET_KEY=${config.sops.placeholder."${cfg.name}/secretkey"}
-      '';
-      owner = cfg.name;
     };
   };
 }
