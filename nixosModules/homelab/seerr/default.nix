@@ -54,7 +54,7 @@ in {
       serviceConfig = {
         User = cfg.name;
         Group = cfg.group;
-        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+        EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
         StateDirectory = lib.mkForce null;
         DynamicUser = lib.mkForce false;
         ProtectSystem = lib.mkForce "off";
@@ -121,16 +121,21 @@ in {
       inherit (cfg) group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        files.pgpassword.deploy = false;
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 > "$out/pgpassword"
+        '';
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        DB_PASS=${config.sops.placeholder."${cfg.name}/pgpassword"}
-      '';
-      owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        files.env.owner = cfg.name;
+        script = ''
+          printf 'DB_PASS=%s\n' "$(cat "$in/${cfg.name}/pgpassword")" > "$out/env"
+        '';
+      };
     };
   };
 }
