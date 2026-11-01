@@ -69,6 +69,10 @@ in {
     };
     programs.dank-calendar = {
       enable = true;
+      # TODO: drop once upstream bumps its stale vendorHash (broken at 07cd4c3)
+      package = inputs.dankcalendar.packages.${pkgs.stdenv.hostPlatform.system}.dankcalendar.overrideAttrs {
+        vendorHash = "sha256-JT6mHK52mIJh4lzVWYVpqNY2S2oeinSWBIKaI3TiY34=";
+      };
       quickshell.package = pkgs.unstable.quickshell;
       systemd.enable = true;
     };
