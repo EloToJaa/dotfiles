@@ -1291,12 +1291,14 @@
         "spicetify-nix": "spicetify-nix",
         "srvos": "srvos",
         "treefmt-nix": "treefmt-nix_5",
+        "umbriel": "umbriel",
         "uv2nix": [
           "hermes-agent",
           "uv2nix"
         ],
         "vicinae": "vicinae",
         "vicinae-extensions": "vicinae-extensions",
+        "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel",
         "yamtrack": "yamtrack",
         "zen-browser": "zen-browser"
       }
@@ -1621,6 +1623,29 @@
         "type": "github"
       }
     },
+    "umbriel": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "xdg-desktop-portal-umbriel": [
+          "xdg-desktop-portal-umbriel"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793419709,
+        "narHash": "sha256-16BeMBjCuMxFjeWO2e97DDej6hOiFtDVW1gKRIH6+eo=",
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "rev": "2952bbcbbb4669953abc67dd74f4cd9711dbce6b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "type": "github"
+      }
+    },
     "utils": {
       "inputs": {
         "systems": "systems_3"
@@ -1757,6 +1782,26 @@
       "original": {
         "owner": "vicinaehq",
         "repo": "vicinae",
+        "type": "github"
+      }
+    },
+    "xdg-desktop-portal-umbriel": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793360888,
+        "narHash": "sha256-9slx9KEkSo013x0RtdLkdwMrAOiyn4rWd9Ys2YVUv3A=",
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
+        "rev": "17739df892537e4c9a89eb60dd8a1f1eadf750e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
         "type": "github"
       }
     },

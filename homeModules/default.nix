@@ -9,6 +9,7 @@
     inputs.dms-plugin-registry.homeModules.default
     inputs.dankcalendar.homeModules.dank-calendar
     inputs.noctalia.homeModules.default
+    inputs.umbriel.homeModules.default
 
     ./ai
     ./cybersec
