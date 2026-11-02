@@ -1,6 +1,9 @@
 name: Auto Merge Dependency Updates
 on:
-  - pull_request_target
+  # labeled: nixbot adds labels after opening the PR, so the opened event's
+  # payload may not include them yet.
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled]
 jobs:
   auto-merge-dependency-updates:
     runs-on: ubuntu-latest
