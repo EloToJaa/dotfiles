@@ -33,7 +33,11 @@
     llm-agents = final.unstable.llm-agents;
     unstable = import inputs.nixpkgs-unstable {
       inherit (final.stdenv.hostPlatform) system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        # gtk2 is marked broken pending removal; omnissa-horizon-client still needs it.
+        problems.handlers."gtk+".broken = "warn";
+      };
       overlays = [
         inputs.llm-agents.overlays.shared-nixpkgs
         (_final: prev: {
