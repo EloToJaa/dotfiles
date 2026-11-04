@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-code-review-skills";
-  version = "1.13.4";
+  version = "1.13.5";
 
   src = fetchFromGitHub {
     owner = "alibaba";
     repo = "open-code-review";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JYu47lpFVzP+dsq5EkhPzBYz37D6tc260dd/56LQXNo=";
+    hash = "sha256-ZEpfbzAMVSsrN+tFhZ6Ua/YbX+fRdGaw50BESwFwLa8=";
   };
 
   dontBuild = true;
