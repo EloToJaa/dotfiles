@@ -183,7 +183,7 @@
       };
     };
     hermes-agent = {
-      url = "github:NousResearch/hermes-agent/v0.22.6";
+      url = "github:NousResearch/hermes-agent/v0.22.7";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     bun2nix = {
