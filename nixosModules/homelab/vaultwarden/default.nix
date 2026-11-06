@@ -39,7 +39,7 @@ in {
       enable = true;
       package = pkgs.unstable.vaultwarden;
       dbBackend = "postgresql";
-      environmentFile = config.sops.templates."${cfg.name}.env".path;
+      environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       config = {
         domain = "https://${domain}";
         rocketPort = cfg.port;
@@ -115,24 +115,35 @@ in {
       group = lib.mkForce cfg.group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        prompts.client_secret = {
+          description = "Vaultwarden OIDC client secret (must match the authelia client)";
+          type = "hidden";
+          persist = true;
+        };
+        files = {
+          pgpassword.deploy = false;
+          admintoken.deploy = false;
+          client_secret.deploy = false;
+        };
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 > "$out/pgpassword"
+          pwgen -s 64 1 > "$out/admintoken"
+        '';
       };
-      "${cfg.name}/admintoken" = {
-        owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        files.env.owner = cfg.name;
+        script = ''
+          {
+            printf 'DATABASE_URL=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' "$(cat "$in/${cfg.name}/pgpassword")"
+            printf 'ADMIN_TOKEN=%s\n' "$(cat "$in/${cfg.name}/admintoken")"
+            printf 'SSO_CLIENT_SECRET=%s\n' "$(cat "$in/${cfg.name}/client_secret")"
+          } > "$out/env"
+        '';
       };
-      "${cfg.name}/client_secret" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        DATABASE_URL=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
-        ADMIN_TOKEN=${config.sops.placeholder."${cfg.name}/admintoken"}
-        SSO_CLIENT_SECRET=${config.sops.placeholder."${cfg.name}/client_secret"}
-      '';
-      owner = cfg.name;
     };
   };
 }
