@@ -38,17 +38,17 @@ in {
       package = pkgs.unstable.authelia;
       user = cfg.name;
       secrets = {
-        jwtSecretFile = config.sops.secrets."${cfg.name}/jwtsecret".path;
-        sessionSecretFile = config.sops.secrets."${cfg.name}/sessionsecret".path;
-        storageEncryptionKeyFile = config.sops.secrets."${cfg.name}/storageencryptionkey".path;
-        oidcHmacSecretFile = config.sops.secrets."${cfg.name}/oidchmacsecret".path;
-        oidcIssuerPrivateKeyFile = config.sops.secrets."${cfg.name}/oidcprivatekey".path;
+        jwtSecretFile = config.clan.core.vars.generators.${cfg.name}.files.jwtsecret.path;
+        sessionSecretFile = config.clan.core.vars.generators.${cfg.name}.files.sessionsecret.path;
+        storageEncryptionKeyFile = config.clan.core.vars.generators.${cfg.name}.files.storageencryptionkey.path;
+        oidcHmacSecretFile = config.clan.core.vars.generators.${cfg.name}.files.oidchmacsecret.path;
+        oidcIssuerPrivateKeyFile = config.clan.core.vars.generators.${cfg.name}.files.oidcprivatekey.path;
       };
       environmentVariables = {
-        AUTHELIA_DUO_API_SECRET_KEY_FILE = config.sops.secrets."${cfg.name}/duosecretkey".path;
-        AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.sops.secrets."${cfg.name}/pgpassword".path;
-        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/password".path;
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets."${cfg.name}/smtppassword".path;
+        AUTHELIA_DUO_API_SECRET_KEY_FILE = config.clan.core.vars.generators.${cfg.name}.files.duosecretkey.path;
+        AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE = config.clan.core.vars.generators.${cfg.name}.files.pgpassword.path;
+        AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.clan.core.vars.generators.${cfg.name}.files.password.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.clan.core.vars.generators.${cfg.name}.files.smtppassword.path;
       };
       settings = {
         theme = "dark";
@@ -153,34 +153,44 @@ in {
       inherit (cfg) group;
     };
 
-    sops.secrets = {
-      "${cfg.name}/jwtsecret" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      runtimeInputs = [pkgs.pwgen pkgs.openssl];
+      prompts = {
+        duosecretkey = {
+          description = "Duo API secret key for Authelia";
+          type = "hidden";
+          persist = true;
+        };
+        password = {
+          description = "LDAP bind password for Authelia (must match the lldap admin password)";
+          type = "hidden";
+          persist = true;
+        };
+        smtppassword = {
+          description = "SMTP (Resend) password for Authelia notifications";
+          type = "hidden";
+          persist = true;
+        };
       };
-      "${cfg.name}/sessionsecret" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/storageencryptionkey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/duosecretkey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/password" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/oidchmacsecret" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/oidcprivatekey" = {
-        owner = cfg.name;
-      };
-      "${cfg.name}/smtppassword" = {
-        owner = cfg.name;
-      };
+      script = ''
+        pwgen -s 64 1 | tr -d '\n' > "$out/jwtsecret"
+        pwgen -s 64 1 | tr -d '\n' > "$out/sessionsecret"
+        pwgen -s 64 1 | tr -d '\n' > "$out/storageencryptionkey"
+        pwgen -s 64 1 | tr -d '\n' > "$out/oidchmacsecret"
+        pwgen -s 32 1 | tr -d '\n' > "$out/pgpassword"
+        openssl genrsa -out "$out/oidcprivatekey" 4096
+      '';
+      files = lib.genAttrs [
+        "jwtsecret"
+        "sessionsecret"
+        "storageencryptionkey"
+        "pgpassword"
+        "duosecretkey"
+        "password"
+        "oidchmacsecret"
+        "oidcprivatekey"
+        "smtppassword"
+      ] (_: {owner = cfg.name;});
     };
   };
 }
