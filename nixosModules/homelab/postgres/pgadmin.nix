@@ -29,10 +29,10 @@ in {
       enable = true;
       package = pkgs.unstable.pgadmin4;
       initialEmail = email;
-      initialPasswordFile = config.sops.secrets."pgadmin/password".path;
+      initialPasswordFile = config.clan.core.vars.generators.${cfg.name}.files.password.path;
     };
     systemd.services.pgadmin.serviceConfig = {
-      EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+      EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
@@ -61,19 +61,25 @@ in {
       users.${cfg.name} = {};
     };
 
-    sops.secrets = {
-      "${cfg.name}/password" = {
-        owner = cfg.name;
+    clan.core.vars.generators.${cfg.name} = {
+      files = {
+        password.owner = cfg.name;
+        pgpassword.deploy = false;
       };
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
-      };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        CONFIG_DATABASE_URI=postgresql://${cfg.name}:${config.sops.placeholder."${cfg.name}/pgpassword"}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}
+      runtimeInputs = [pkgs.pwgen];
+      script = ''
+        pwgen -s 32 1 | tr -d '\n' > "$out/password"
+        pwgen -s 64 1 | tr -d '\n' > "$out/pgpassword"
       '';
-      owner = cfg.name;
+    };
+    clan.core.vars.generators."${cfg.name}-env" = {
+      dependencies = [cfg.name];
+      files.env.owner = cfg.name;
+      script = ''
+        printf 'CONFIG_DATABASE_URI=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' \
+          "$(cat "$in/${cfg.name}/pgpassword")" \
+          > "$out/env"
+      '';
     };
   };
 }
