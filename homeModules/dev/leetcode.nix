@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   lib,
   ...
 }: let
@@ -21,40 +22,7 @@ in {
     programs.zsh.zsh-abbr.abbreviations = shellAliases;
 
     # Disable to sign in using chrome
-    sops.secrets = {
-      "leetcode/csrftoken" = {};
-      "leetcode/session" = {};
-    };
-
-    sops.templates."leetcode.toml" = {
-      content =
-        /*
-        toml
-        */
-        ''
-          [code]
-          editor = "nvim"
-          #lang = "cpp"
-          lang = "python3"
-          #comment_leading = "//"
-          comment_leading = "#"
-          comment_problem_desc = true
-          test = true
-          #inject_before = ["#include<bits/stdc++.h>\n", "using namespace std;\n"]
-          #inject_after = [""]
-
-          [cookies]
-          csrf = "${config.sops.placeholder."leetcode/csrftoken"}"
-          session = "${config.sops.placeholder."leetcode/session"}"
-          site = "leetcode.com"
-
-          [storage]
-          cache = "problems.db"
-          code = "${config.home.homeDirectory}/code/leetcode"
-          root = "~/.leetcode"
-          scripts = "${config.home.homeDirectory}/code/leetcode/scripts"
-        '';
-      path = "${config.home.homeDirectory}/.leetcode/leetcode.toml";
-    };
+    home.file.".leetcode/leetcode.toml".source =
+      config.lib.file.mkOutOfStoreSymlink osConfig.clan.core.vars.generators.leetcode-config.files."leetcode.toml".path;
   };
 }
