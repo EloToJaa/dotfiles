@@ -17,7 +17,7 @@ in {
 
         settings = {
           sources = {
-            default = ["lazydev" "lsp" "path" "snippets" "buffer" "supermaven"];
+            default = ["lazydev" "lsp" "path" "snippets" "supermaven"];
             providers = {
               lazydev = {
                 name = "lazydev";
@@ -39,7 +39,7 @@ in {
                 name = "Path";
                 module = "blink.cmp.sources.path";
                 score_offset = 25;
-                fallbacks = ["snippets" "buffer"];
+                fallbacks = ["snippets"];
                 min_keyword_length = 1;
                 opts = {
                   trailing_slash = false;
