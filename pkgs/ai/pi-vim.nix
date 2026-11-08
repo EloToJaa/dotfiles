@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pi-vim";
-  version = "0.14.2";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "lajarre";
     repo = "pi-vim";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-y8qsUKdzAM2yQyNDKWqGBHA139tDDYJlefvT+nVhGKQ=";
+    hash = "sha256-RmRLzuVb3y8TKgWOLH3SLnnMo8njhgm08ll+XXWOaUU=";
   };
 
   # The extension resolves @earendil-works/pi-coding-agent through
