@@ -1,10 +1,15 @@
 {
   imports = [../../homeModules/server.nix];
 
-  modules.ai = {
-    t3-code = {
-      enable = true;
-      service.enable = true;
+  modules = {
+    ai = {
+      t3-code = {
+        enable = true;
+        service.enable = true;
+      };
+    };
+    dev = {
+      leetcode.enable = true;
     };
   };
 }
