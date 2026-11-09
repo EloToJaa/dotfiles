@@ -64,7 +64,7 @@
             codex = prev.llm-agents.codex.overrideAttrs (old: {
               buildInputs =
                 (old.buildInputs or [])
-                ++ (with prev; [aws-lc zstd sqlite zlib rust-jemalloc-sys]);
+                ++ (with prev; [aws-lc zstd sqlite zlib rust-jemalloc-sys oniguruma]);
             });
             t3code = prev.llm-agents.t3code.override {inherit codex;};
           in
