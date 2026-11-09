@@ -75,8 +75,9 @@ in {
         inherit domain;
         admins = ["github:EloToJaa"];
         # Parallel host checks wait silently on shared derivations (e.g. LTO
-        # links), which the 20 minute default kills.
-        buildMaxSilentTime = 60 * 60;
+        # links, Rust builds without a binary cache), which the 20 minute
+        # default kills. Flake updates can rebuild several of these at once.
+        buildMaxSilentTime = 3 * 60 * 60;
         github = {
           enable = true;
           appId = builtins.fromJSON credentials.app-id.value;
