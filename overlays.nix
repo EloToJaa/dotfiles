@@ -43,6 +43,37 @@
         (_final: prev: {
           btop = prev.btop.override {rocmSupport = true;};
 
+          # cargoSetupHook now forces system libraries (RUSTONIG_SYSTEM_LIBONIG,
+          # AWS_LC_SYS_USE_SYSTEM), so these packages need them in buildInputs.
+          # https://github.com/NixOS/nixpkgs/issues/570938
+          aichat = prev.aichat.overrideAttrs (old: {
+            buildInputs = (old.buildInputs or []) ++ [prev.oniguruma];
+          });
+          rqbit = prev.rqbit.overrideAttrs (old: {
+            buildInputs = (old.buildInputs or []) ++ [prev.aws-lc];
+          });
+          rustdesk-flutter = prev.rustdesk-flutter.overrideAttrs (old: {
+            buildInputs =
+              (old.buildInputs or [])
+              ++ (with prev; [libsodium zstd libgit2 zlib]);
+          });
+          voxtype-vulkan = prev.voxtype-vulkan.overrideAttrs (old: {
+            buildInputs = (old.buildInputs or []) ++ [prev.sqlite];
+          });
+          llm-agents = let
+            codex = prev.llm-agents.codex.overrideAttrs (old: {
+              buildInputs =
+                (old.buildInputs or [])
+                ++ (with prev; [aws-lc zstd sqlite zlib rust-jemalloc-sys]);
+            });
+            t3code = prev.llm-agents.t3code.override {inherit codex;};
+          in
+            prev.llm-agents
+            // {
+              inherit codex t3code;
+              t3code-desktop = prev.llm-agents.t3code-desktop.override {inherit t3code;};
+            };
+
           # With structured attrs, sphinx-hook's "$sphinxBuilders" only expands the first
           # array element, so the man builder never runs. Pass the builders as a string.
           khal = prev.khal.overrideAttrs {
