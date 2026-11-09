@@ -45,22 +45,33 @@ in {
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      virtualHosts = builtins.listToAttrs (lib.concatMap (domain: [
-          {
-            name = domain;
-            value = {
-              forceSSL = true;
-              useACMEHost = domain;
-              locations."/".return = "444";
-              extraConfig = ''
-                add_header X-Frame-Options SAMEORIGIN always;
-                add_header X-Content-Type-Options nosniff always;
-                add_header X-XSS-Protection "1; mode=block" always;
-              '';
-            };
-          }
-        ])
-        cfg.baseDomains);
+      virtualHosts =
+        builtins.listToAttrs (lib.concatMap (domain: [
+            {
+              name = domain;
+              value = {
+                forceSSL = true;
+                useACMEHost = domain;
+                locations."/".return = "444";
+                extraConfig = ''
+                  add_header X-Frame-Options SAMEORIGIN always;
+                  add_header X-Content-Type-Options nosniff always;
+                  add_header X-XSS-Protection "1; mode=block" always;
+                '';
+              };
+            }
+          ])
+          cfg.baseDomains)
+        // {
+          # Explicit default server so hostnames without a vhost get a 404
+          # instead of whichever vhost happens to sort first.
+          "_" = {
+            default = true;
+            forceSSL = true;
+            useACMEHost = homelab.baseDomain; # wildcard cert covers *.<host>.<mainDomain>
+            locations."/".return = "404";
+          };
+        };
     };
 
     systemd.services.nginx.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
