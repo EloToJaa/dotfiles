@@ -17,6 +17,11 @@ in {
     hyprland.enable = lib.mkEnableOption "Enable hyprland";
     niri.enable = lib.mkEnableOption "Enable niri";
     umbriel.enable = lib.mkEnableOption "Enable umbriel";
+    greeter = lib.mkOption {
+      type = lib.types.enum ["dms" "noctalia"];
+      default = "noctalia";
+      description = "greetd greeter to use: DankMaterialShell's or Noctalia's";
+    };
   };
 
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {

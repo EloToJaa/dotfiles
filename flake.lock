@@ -1063,6 +1063,26 @@
         "type": "github"
       }
     },
+    "noctalia-greeter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794107768,
+        "narHash": "sha256-Stfs8SW50HfVScrXiL8+L77Dxvx82cAmhK1qFatnzz8=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "rev": "74dd931bf9b8f3bd9c1852a95ed87e70e7317b1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "type": "github"
+      }
+    },
     "numen": {
       "inputs": {
         "nixpkgs": [
@@ -1255,6 +1275,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
+        "noctalia-greeter": "noctalia-greeter",
         "nur": "nur",
         "pwndbg": "pwndbg",
         "pyproject-build-systems": [

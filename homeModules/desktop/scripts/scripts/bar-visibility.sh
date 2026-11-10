@@ -4,7 +4,27 @@ set -euo pipefail
 
 state_file="${XDG_RUNTIME_DIR:-/tmp}/bar-visibility.mode"
 
+use_dms=false
+if command -v dms >/dev/null; then
+  use_dms=true
+fi
+
+# Noctalia runs a single bar, so it has no privacy bar: main shows it and both
+# privacy and hide hide it.
+set_noctalia_mode() {
+  case "$1" in
+  main) noctalia msg bar-show ;;
+  privacy | hide) noctalia msg bar-hide ;;
+  esac
+}
+
 set_mode() {
+  if ! $use_dms; then
+    set_noctalia_mode "$1"
+    printf '%s\n' "$1" >"$state_file"
+    return
+  fi
+
   case "$1" in
   main)
     dms ipc call bar reveal name "Main Bar"
@@ -34,7 +54,7 @@ cycle)
   fi
 
   case "$current" in
-  main) set_mode privacy ;;
+  main) if $use_dms; then set_mode privacy; else set_mode hide; fi ;;
   privacy) set_mode hide ;;
   hide | *) set_mode main ;;
   esac

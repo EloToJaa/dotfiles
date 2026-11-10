@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+# Without dms, Noctalia runs the OCR itself once a region is picked: it pipes
+# the capture as PNG on stdin and skips the command when selection is cancelled.
+if ! command -v dms >/dev/null; then
+  exec noctalia msg screenshot-region \
+    --no-annotate \
+    --no-save-to-file \
+    --no-copy-to-clipboard \
+    --pipe-to-command \
+    --pipe-command 'tesseract stdin stdout 2>/dev/null | wl-copy'
+fi
+
 file_name="ocr-screenshot-$(
   LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6
   echo

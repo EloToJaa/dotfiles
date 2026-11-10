@@ -2,21 +2,25 @@
 set -euo pipefail
 
 show_help() {
-  cat <<'EOF'
-Usage: qr-capture
+  cat <<'HELP'
+Usage: qr-capture [--stdin]
 
 Select a screen region, decode one QR code, and copy its value to the
 clipboard as sensitive content. The QR value is never printed or included in
 notifications.
-EOF
+
+  --stdin  decode a PNG read from stdin instead of capturing a region
+HELP
 }
 
 notify() {
   notify-send --app-name="Capture toolbox" "$1" "$2"
 }
 
+from_stdin=false
 case "${1:-}" in
 "") ;;
+--stdin) from_stdin=true ;;
 -h | --help)
   show_help
   exit 0
@@ -27,17 +31,37 @@ case "${1:-}" in
   ;;
 esac
 
+# Without dms, Noctalia captures the region and pipes the PNG back into this
+# script; it skips the command when the selection is cancelled.
+if ! $from_stdin && ! command -v dms >/dev/null; then
+  exec noctalia msg screenshot-region \
+    --no-annotate \
+    --no-save-to-file \
+    --no-copy-to-clipboard \
+    --pipe-to-command \
+    --pipe-command 'qr-capture --stdin'
+fi
+
 temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/qr-capture.XXXXXX")"
 image="$temp_dir/capture.png"
 payload="$temp_dir/payload"
 trap 'rm -rf -- "$temp_dir"' EXIT HUP INT TERM
 
-if ! dms screenshot region \
-  --dir "$temp_dir" \
-  --filename "capture.png" \
-  --no-notify \
-  --no-clipboard \
-  --cursor off >/dev/null 2>&1; then
+capture_region() {
+  if $from_stdin; then
+    cat >"$image"
+    return
+  fi
+
+  dms screenshot region \
+    --dir "$temp_dir" \
+    --filename "capture.png" \
+    --no-notify \
+    --no-clipboard \
+    --cursor off
+}
+
+if ! capture_region >/dev/null 2>&1; then
   notify "QR capture failed" "No screen region was captured."
   exit 1
 fi

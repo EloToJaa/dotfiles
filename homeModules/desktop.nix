@@ -23,7 +23,8 @@
       cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
-      dms-shell.enable = true;
+      dms-shell.enable = false; # temporarily replaced by noctalia-shell
+      noctalia-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
       helium.enable = true;
