@@ -32,12 +32,23 @@ image="$temp_dir/capture.png"
 payload="$temp_dir/payload"
 trap 'rm -rf -- "$temp_dir"' EXIT HUP INT TERM
 
-if ! dms screenshot region \
-  --dir "$temp_dir" \
-  --filename "capture.png" \
-  --no-notify \
-  --no-clipboard \
-  --cursor off >/dev/null 2>&1; then
+capture_region() {
+  if command -v dms >/dev/null; then
+    dms screenshot region \
+      --dir "$temp_dir" \
+      --filename "capture.png" \
+      --no-notify \
+      --no-clipboard \
+      --cursor off
+    return
+  fi
+
+  local region
+  region="$(slurp)" || return 1
+  grim -g "$region" "$image"
+}
+
+if ! capture_region >/dev/null 2>&1; then
   notify "QR capture failed" "No screen region was captured."
   exit 1
 fi

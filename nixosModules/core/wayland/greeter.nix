@@ -7,6 +7,10 @@
   inherit (config.settings) uid username;
   cfg = config.modules.core.wayland;
   avatar = ../assets/avatar.png;
+  defaultSession =
+    if cfg.hyprland.enable
+    then "hyprland"
+    else "niri";
 in {
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     systemd.services.set-user-avatar = {
@@ -32,13 +36,21 @@ in {
       };
     };
 
+    services.displayManager.noctalia-greeter = {
+      enable = cfg.greeter == "noctalia";
+      # Lets the shell's "Sync Greeter" copy wallpaper and palette without a polkit prompt
+      passwordless-sync-users = [username];
+      settings = {
+        session.default = defaultSession;
+        user.default = username;
+        appearance.theme_mode = "dark";
+      };
+    };
+
     programs.dms-greeter = {
-      enable = true;
+      enable = cfg.greeter == "dms";
       compositor = {
-        name =
-          if cfg.hyprland.enable
-          then "hyprland"
-          else "niri";
+        name = defaultSession;
         package = lib.mkIf cfg.hyprland.enable pkgs.unstable.hyprland;
         customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
           hotkey-overlay {

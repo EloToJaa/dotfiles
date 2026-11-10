@@ -88,6 +88,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     umbriel = {
       url = "github:noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

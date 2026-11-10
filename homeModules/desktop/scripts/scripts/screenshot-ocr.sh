@@ -7,8 +7,13 @@ file_name="ocr-screenshot-$(
 dir_name="/tmp/"
 temp_image="$dir_name$file_name"
 
-# Capture screen area
-dms screenshot region --dir "$dir_name" --filename "$file_name" --no-notify --no-clipboard --cursor off
+# Capture screen area; fall back to grim + slurp when dms is not running the shell
+if command -v dms >/dev/null; then
+  dms screenshot region --dir "$dir_name" --filename "$file_name" --no-notify --no-clipboard --cursor off
+else
+  region="$(slurp)" || exit 1
+  grim -g "$region" "$temp_image"
+fi
 
 # Perform OCR and copy to clipboard
 tesseract "$temp_image" stdout 2>/dev/null | wl-copy
