@@ -70,14 +70,14 @@ in {
     onEvent.pull_request_closed.delete-update-branch = deleteUpdateBranch;
     onSchedule.flake-lock-updates = {
       when = {
-        hour = 2;
+        hour = 4;
         minute = 0;
       };
       outputs.effects.update-flake-lock = mkUpdate "lock" "flake-lock";
     };
     onSchedule.package-updates = {
       when = {
-        hour = 3;
+        hour = 5;
         minute = 0;
       };
       outputs.effects =
