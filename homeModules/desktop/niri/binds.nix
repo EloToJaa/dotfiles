@@ -71,38 +71,35 @@
   };
 
   noctaliaIpc = command: ["noctalia" "msg"] ++ command;
-  # Noctalia has no scrolling capture, so the Alt variants take the focused output.
-  noctaliaScreenshotCommand = mode:
-    {
-      region = "screenshot-region";
-      window = "screenshot-window";
-      full = "screenshot-fullscreen";
-    }.${
-      mode
+  # Noctalia has no scrolling capture, so the Alt variants capture a whole
+  # output picked on screen. The target goes after the options.
+  noctaliaScreenshotCommands = {
+    region = {
+      command = "screenshot-region";
+      target = [];
     };
-  noctaliaScreenshot = mode:
-    noctaliaIpc [
-      (noctaliaScreenshotCommand mode)
-      "--no-annotate"
-      "--save-to-file"
-      "--copy-to-clipboard"
-      "--directory"
-      screenshot_dir
-    ];
+    window = {
+      command = "screenshot-window";
+      target = [];
+    };
+    full = {
+      command = "screenshot-fullscreen";
+      target = ["pick"];
+    };
+  };
+  noctaliaScreenshotWith = options: mode: let
+    inherit (noctaliaScreenshotCommands.${mode}) command target;
+  in
+    noctaliaIpc ([command "--no-annotate" "--save-to-file" "--directory" screenshot_dir] ++ options ++ target);
+  noctaliaScreenshot = noctaliaScreenshotWith ["--copy-to-clipboard"];
   # Save the untouched original, then hand the capture to satty, which copies
   # and saves the edited version itself (see modules.desktop.satty).
-  noctaliaScreenshotEdit = mode:
-    noctaliaIpc [
-      (noctaliaScreenshotCommand mode)
-      "--no-annotate"
-      "--save-to-file"
-      "--no-copy-to-clipboard"
-      "--directory"
-      screenshot_dir
-      "--pipe-to-command"
-      "--pipe-command"
-      "satty --filename -"
-    ];
+  noctaliaScreenshotEdit = noctaliaScreenshotWith [
+    "--no-copy-to-clipboard"
+    "--pipe-to-command"
+    "--pipe-command"
+    "satty --filename -"
+  ];
 
   # Noctalia has no process list, workspace rename or color picker, so those
   # binds are left unbound until DMS comes back.

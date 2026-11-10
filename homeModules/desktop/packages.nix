@@ -48,8 +48,6 @@ in {
         # woomer # zoomer for wayland
         tesseract # ocr
         zbar # QR code decoding
-        grim # region capture for scripts when dms is disabled
-        slurp # region picker for grim
 
         ## Gaming
       ]);
