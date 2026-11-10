@@ -235,9 +235,7 @@ in {
           pwgen -s 32 1 | tr -d '\n' > $out/pgpassword
         '';
       };
-      "${cfg.name}-config" = {
-        dependencies = [cfg.name];
-        files.config.owner = cfg.name;
+      "${cfg.name}-config" = let
         script = ''
           cat > $out/config <<EOF
           <Config>
@@ -266,6 +264,12 @@ in {
           </Config>
           EOF
         '';
+      in {
+        dependencies = [cfg.name];
+        files.config.owner = cfg.name;
+        inherit script;
+        # Re-run the generator whenever the config template changes.
+        validation = {inherit script;};
       };
     };
   };
