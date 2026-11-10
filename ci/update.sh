@@ -141,7 +141,7 @@ if git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"; then
   fi
 fi
 if [[ $kind == lock ]]; then
-  title="flake.lock: Update"
+  title="flake.lock: update"
 else
   title="$name: $old_version -> $new_version"
 fi

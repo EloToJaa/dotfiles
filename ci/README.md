@@ -56,7 +56,7 @@ hbox's builder client and worker's dedicated `nix-ssh` server are disabled.
 
 ## Scheduled updates and validation
 
-At 03:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix`
+At 05:00 UTC, independent effects update each package exported by `pkgs/pkgs.nix`
 (and all Yazi plugin/theme and AI skill/extension packages in `pkgs/yazi` and
 `pkgs/ai`, explicitly exported by `pkgs/pkgs.nix`)
 (except Yamtrack, handled by its source input) and each tagged input below the
@@ -77,14 +77,14 @@ legacy `v2026.x.y` date tags, which would otherwise outsort its semver releases)
 numeric release branches (`26.05`), not release tags: its updater selects the
 latest numeric release branch. Development branches and demo tags are excluded.
 
-At 02:00 UTC, a separate effect runs `nix flake update` without input arguments to
+At 04:00 UTC, a separate effect runs `nix flake update` without input arguments to
 refresh all locked inputs, replacing the removed GitHub Actions lock updater.
 It maintains one `chore/update-flake-lock` branch and PR titled
-`flake.lock: Update`, requiring formatting but, unlike the 03:00 effects,
+`flake.lock: update`, requiring formatting but, unlike the 05:00 effects,
 building nothing before publishing: the PR's own checks already cover every host
 and package, so a lock that breaks a build arrives as red checks on a readable
 PR instead of as an effect failure with no PR to show for it. Unchanged locks do
-not create PRs. It keeps the input URLs in `flake.nix`; the 03:00 release effects
+not create PRs. It keeps the input URLs in `flake.nix`; the 05:00 release effects
 select newer release references and lock those individual inputs. No submodule
 update is scheduled.
 
