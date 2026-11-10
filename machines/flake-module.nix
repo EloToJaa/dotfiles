@@ -1,11 +1,8 @@
 {
   inputs,
   self,
-  config,
   ...
-}: let
-  inherit (config.settings) username;
-in {
+}: {
   flake.clan = {
     meta = {
       name = "elotoja";
@@ -21,31 +18,31 @@ in {
     inventory = {
       machines = {
         laptop = {
-          deploy.targetHost = "${username}@100.84.67.19";
+          deploy.targetHost = "root@100.84.67.19";
           tags = ["desktop"];
         };
         thinker = {
-          deploy.targetHost = "${username}@100.122.133.42";
+          deploy.targetHost = "root@100.122.133.42";
           tags = ["desktop"];
         };
         desktop = {
-          deploy.targetHost = "${username}@100.112.233.120";
+          deploy.targetHost = "root@100.112.233.120";
           tags = ["desktop"];
         };
         server = {
-          deploy.targetHost = "${username}@100.120.221.4";
+          deploy.targetHost = "root@100.120.221.4";
           tags = ["server"];
         };
         worker = {
-          deploy.targetHost = "${username}@100.71.230.21";
+          deploy.targetHost = "root@100.71.230.21";
           tags = ["server"];
         };
         hbox = {
-          deploy.targetHost = "${username}@2.31.31.198";
+          deploy.targetHost = "root@2.31.31.198";
           tags = ["server"];
         };
         miro = {
-          deploy.targetHost = "${username}@100.97.22.118";
+          deploy.targetHost = "root@100.97.22.118";
           tags = ["server"];
         };
       };
