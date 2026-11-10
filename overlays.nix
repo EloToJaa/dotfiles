@@ -66,7 +66,12 @@
                 (old.buildInputs or [])
                 ++ (with prev; [aws-lc zstd sqlite zlib rust-jemalloc-sys oniguruma]);
             });
-            t3code = prev.llm-agents.t3code.override {inherit codex;};
+            # The web UI only enables T3 Connect when the Clerk JWT template is baked in
+            # alongside the relay URL and publishable key, which the package leaves out.
+            t3code-unwrapped = prev.llm-agents.t3code.unwrapped.overrideAttrs (old: {
+              env = old.env // {T3CODE_CLERK_JWT_TEMPLATE = "t3-relay";};
+            });
+            t3code = prev.llm-agents.t3code.override {inherit codex t3code-unwrapped;};
           in
             prev.llm-agents
             // {
