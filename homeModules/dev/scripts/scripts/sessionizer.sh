@@ -14,8 +14,8 @@ select_project_fzf() {
   list_projects | fzf --prompt="Select project> "
 }
 
-select_project_vicinae() {
-  list_projects | vicinae dmenu --placeholder "Select project"
+select_project_noctalia() {
+  list_projects | noctalia dmenu --prompt "Select project"
 }
 
 connect_selected_project() {
@@ -29,7 +29,7 @@ case "${1:---terminal}" in
   connect_selected_project "$selected"
   ;;
 --desktop)
-  selected="$(select_project_vicinae)" || exit 0
+  selected="$(select_project_noctalia)" || exit 0
   [ -n "$selected" ] || exit 0
   exec ghostty +new-window -e sesh connect "$selected"
   ;;

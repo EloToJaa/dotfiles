@@ -1,7 +1,7 @@
 local variables = require("variables")
 
 hl.on("hyprland.start", function()
-  -- Home Manager's Hyprland target starts DMS and other user services.
+  -- Home Manager's Hyprland target starts Noctalia and other user services.
   hl.exec_cmd("systemctl --user import-environment --all")
   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
 

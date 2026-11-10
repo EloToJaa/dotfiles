@@ -50,12 +50,6 @@ in {
             width = 1;
           };
         };
-        layer-rule._children = [
-          {
-            match._props.namespace = "dms:blurwallpaper";
-            place-within-backdrop = true;
-          }
-        ];
 
         gestures.hot-corners.off = [];
 
