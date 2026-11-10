@@ -71,7 +71,11 @@
             t3code-unwrapped = prev.llm-agents.t3code.unwrapped.overrideAttrs (old: {
               env = old.env // {T3CODE_CLERK_JWT_TEMPLATE = "t3-relay";};
             });
-            t3code = prev.llm-agents.t3code.override {inherit codex t3code-unwrapped;};
+            # Don't bundle every agent CLI; T3 Code finds the installed ones on PATH.
+            t3code = prev.llm-agents.t3code.override {
+              inherit t3code-unwrapped;
+              providerPackages = [];
+            };
           in
             prev.llm-agents
             // {
