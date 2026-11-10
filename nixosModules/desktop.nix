@@ -52,7 +52,7 @@
         enable = true;
         hyprland.enable = false;
         niri.enable = true;
-        umbriel.enable = false;
+        umbriel.enable = true;
       };
     };
     homelab.groups.enable = true;
