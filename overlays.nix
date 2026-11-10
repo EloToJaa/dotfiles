@@ -68,8 +68,16 @@
             });
             # The web UI only enables T3 Connect when the Clerk JWT template is baked in
             # alongside the relay URL and publishable key, which the package leaves out.
+            # OAuth sign-in returns through t3code:// links; declare the scheme so the
+            # browser can hand the callback back to the desktop app.
             t3code-unwrapped = prev.llm-agents.t3code.unwrapped.overrideAttrs (old: {
               env = old.env // {T3CODE_CLERK_JWT_TEMPLATE = "t3-relay";};
+              postInstall =
+                (old.postInstall or "")
+                + ''
+                  chmod u+w "$desktop/share/applications/t3code.desktop"
+                  echo 'MimeType=x-scheme-handler/t3code;' >> "$desktop/share/applications/t3code.desktop"
+                '';
             });
             # Don't bundle every agent CLI; T3 Code finds the installed ones on PATH.
             # Point T3 Connect at nixpkgs' cloudflared so it doesn't download its own.
