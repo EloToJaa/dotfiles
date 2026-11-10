@@ -7,10 +7,13 @@
   inherit (config.settings) uid username;
   cfg = config.modules.core.wayland;
   avatar = ../assets/avatar.png;
+  # Compositors stay selectable in the greeter; this only picks the preselected one.
   defaultSession =
-    if cfg.hyprland.enable
-    then "hyprland"
-    else "niri";
+    if cfg.umbriel.enable
+    then "umbriel"
+    else if cfg.niri.enable
+    then "niri"
+    else "hyprland";
 in {
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     systemd.services.set-user-avatar = {

@@ -10,7 +10,7 @@
       enable = true;
       hyprland.enable = false;
       niri.enable = true;
-      umbriel.enable = false;
+      umbriel.enable = true;
       rider.enable = false;
       satty.enable = true;
       wallpapers.enable = true;
