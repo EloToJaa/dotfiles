@@ -64,26 +64,6 @@
 
     srvos.url = "github:nix-community/srvos";
 
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    dank-greeter = {
-      url = "github:AvengeMedia/dank-greeter";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    dankcalendar = {
-      url = "github:AvengeMedia/dankcalendar";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -121,14 +101,6 @@
     };
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    vicinae-extensions = {
-      url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

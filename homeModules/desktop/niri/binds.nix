@@ -7,67 +7,12 @@
   inherit (settings) discord;
   cfg = config.modules.desktop.niri;
 
-  dmsIpc = command: ["dms" "ipc" "call"] ++ command;
-
   screenshot_dir = "${config.home.homeDirectory}/Pictures/Screenshots";
-  # dms saves the capture to screenshot_dir and copies it to the clipboard.
-  dmsScreenshot = mode: ["dms" "screenshot" mode "--dir" screenshot_dir];
-  # Let dms write the untouched original under a known name, then open that
-  # file in satty, which copies and saves the edited version itself (see
-  # modules.desktop.satty). Chained on && so cancelling the capture does not
-  # open an empty editor. dms does not create --dir, hence the mkdir.
-  dmsScreenshotEdit = mode: let
-    name = "screenshot_$(date +%Y-%m-%d_%H-%M-%S).png";
-  in [
-    "sh"
-    "-c"
-    "mkdir -p ${screenshot_dir} && name=${name} && dms screenshot ${mode} --dir ${screenshot_dir} --filename $name --no-clipboard --no-notify && satty --filename ${screenshot_dir}/$name"
-  ];
 
   # Media and brightness keys keep working on the lockscreen.
   locked = spawn: {
     _props.allow-when-locked = true;
     inherit spawn;
-  };
-
-  dmsBinds = {
-    "Mod+Shift+Slash".spawn = dmsIpc ["keybinds" "toggle" "niri"];
-    "Mod+Shift+d".spawn = dmsIpc ["settings" "toggleWith" "displays"];
-    "Mod+m".spawn = dmsIpc ["processlist" "focusOrToggle"];
-    "Mod+Escape".spawn = dmsIpc ["powermenu" "toggle"];
-    "Mod+a".spawn = dmsIpc ["settings" "focusOrToggle"];
-    "Mod+n".spawn = dmsIpc ["notifications" "toggle"];
-    "Mod+g".spawn = dmsIpc ["lock" "lock"];
-    "Mod+Shift+w".spawn = dmsIpc ["dankdash" "wallpaper"];
-    "Ctrl+Alt+Delete".spawn = dmsIpc ["processlist" "focusOrToggle"];
-    "Ctrl+Shift+r".spawn = dmsIpc ["workspace-rename" "open"];
-    "Mod+Shift+c".spawn = dmsIpc ["color-picker" "toggle"];
-
-    "XF86AudioRaiseVolume" = locked (dmsIpc ["audio" "increment" "2"]);
-    "XF86AudioLowerVolume" = locked (dmsIpc ["audio" "decrement" "2"]);
-    "XF86AudioMute" = locked (dmsIpc ["audio" "mute"]);
-    "XF86AudioMicMute" = locked (dmsIpc ["audio" "micmute"]);
-    "XF86AudioPause" = locked (dmsIpc ["mpris" "playPause"]);
-    "XF86AudioPlay" = locked (dmsIpc ["mpris" "playPause"]);
-    "XF86AudioPrev" = locked (dmsIpc ["mpris" "previous"]);
-    "XF86AudioNext" = locked (dmsIpc ["mpris" "next"]);
-    "Ctrl+XF86AudioRaiseVolume" = locked (dmsIpc ["mpris" "increment" "2"]);
-    "Ctrl+XF86AudioLowerVolume" = locked (dmsIpc ["mpris" "decrement" "2"]);
-    "XF86MonBrightnessUp" = locked (dmsIpc ["brightness" "increment" "5" ""]);
-    "XF86MonBrightnessDown" = locked (dmsIpc ["brightness" "decrement" "5" ""]);
-
-    "XF86Launch1".spawn = dmsScreenshot "region";
-    "Ctrl+XF86Launch1".spawn = dmsScreenshot "window";
-    "Alt+XF86Launch1".spawn = dmsScreenshot "scroll";
-    "Mod+XF86Launch1".spawn = dmsScreenshotEdit "region";
-    "Mod+Ctrl+XF86Launch1".spawn = dmsScreenshotEdit "window";
-    "Mod+Alt+XF86Launch1".spawn = dmsScreenshotEdit "scroll";
-    "Print".spawn = dmsScreenshot "region";
-    "Ctrl+Print".spawn = dmsScreenshot "window";
-    "Alt+Print".spawn = dmsScreenshot "scroll";
-    "Mod+Print".spawn = dmsScreenshotEdit "region";
-    "Mod+Ctrl+Print".spawn = dmsScreenshotEdit "window";
-    "Mod+Alt+Print".spawn = dmsScreenshotEdit "scroll";
   };
 
   noctaliaIpc = command: ["noctalia" "msg"] ++ command;
@@ -101,9 +46,8 @@
     "satty --filename -"
   ];
 
-  # Noctalia has no process list, workspace rename or color picker, so those
-  # binds are left unbound until DMS comes back.
-  noctaliaBinds = {
+  # Noctalia has no process list, workspace rename or color picker.
+  shellBinds = {
     "Mod+Shift+Slash".show-hotkey-overlay = {};
     "Mod+Shift+d".spawn = noctaliaIpc ["settings-toggle"];
     "Mod+Escape".spawn = noctaliaIpc ["panel-toggle" "session"];
@@ -111,6 +55,9 @@
     "Mod+n".spawn = noctaliaIpc ["panel-toggle" "control-center" "notifications"];
     "Mod+g".spawn = noctaliaIpc ["session" "lock"];
     "Mod+Shift+w".spawn = noctaliaIpc ["panel-toggle" "wallpaper"];
+    "Mod+Space".spawn = noctaliaIpc ["panel-toggle" "launcher"];
+    "Mod+Ctrl+e".spawn = noctaliaIpc ["panel-toggle" "launcher" "/emo "];
+    "Mod+v".spawn = noctaliaIpc ["panel-toggle" "clipboard"];
 
     "XF86AudioRaiseVolume" = locked (noctaliaIpc ["volume-up" "2"]);
     "XF86AudioLowerVolume" = locked (noctaliaIpc ["volume-down" "2"]);
@@ -138,11 +85,6 @@
     "Mod+Ctrl+Print".spawn = noctaliaScreenshotEdit "window";
     "Mod+Alt+Print".spawn = noctaliaScreenshotEdit "full";
   };
-
-  shellBinds =
-    if config.modules.desktop.noctalia-shell.enable
-    then noctaliaBinds
-    else dmsBinds;
 in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.niri.settings.binds =
@@ -162,13 +104,10 @@ in {
         "Mod+b".spawn = ["zen-beta"];
         "Mod+Shift+b".spawn = ["bar-visibility" "cycle"];
         "Mod+e".spawn = ["nautilus"];
-        "Mod+Space".spawn = ["vicinae" "toggle"];
         "Mod+s".spawn = ["spotify"];
         "Mod+Shift+Space".toggle-window-floating = {};
 
         "Mod+Return".spawn = ["ghostty" "+new-window"];
-        "Mod+Ctrl+e".spawn = ["vicinae" "vicinae://extensions/vicinae/search-emojis"];
-        "Mod+v".spawn = ["vicinae" "vicinae://launch/clipboard/history"];
         "Mod+Comma".move-workspace-to-monitor-left = {};
         "Mod+Period".move-workspace-to-monitor-right = {};
         "Mod+Shift+n".spawn = ["gnome-text-editor"];

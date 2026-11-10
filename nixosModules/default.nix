@@ -3,7 +3,6 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nix-gaming.nixosModules.pipewireLowLatency
-    inputs.dank-greeter.nixosModules.default
     inputs.noctalia-greeter.nixosModules.default
     inputs.hermes-agent.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin

@@ -19,8 +19,8 @@ select_machine_fzf() {
   list_machines | fzf --prompt="Select machine> " --with-nth=1
 }
 
-select_machine_vicinae() {
-  list_machines | vicinae dmenu --placeholder "Select machine"
+select_machine_noctalia() {
+  list_machines | noctalia dmenu --prompt "Select machine"
 }
 
 ssh_target_for_machine() {
@@ -82,7 +82,7 @@ case "${1:---terminal}" in
   connect_selected_machine "$selected"
   ;;
 --desktop)
-  selected="$(select_machine_vicinae)" || exit 0
+  selected="$(select_machine_noctalia)" || exit 0
   open_selected_machine "$selected"
   ;;
 --list)

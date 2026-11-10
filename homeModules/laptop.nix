@@ -18,7 +18,6 @@
       cava.enable = true;
       clipboard.enable = true;
       discord.enable = true;
-      dms-shell.enable = false; # temporarily replaced by noctalia-shell
       noctalia-shell.enable = true;
       ghostty.enable = true;
       gnome.enable = true;
@@ -32,7 +31,6 @@
       omnissa-horizon.enable = true;
       piper-tts.enable = true;
       spotify.enable = true;
-      vicinae.enable = true;
       winboat.enable = true;
       xdg-mimes.enable = true;
       zen.enable = true;

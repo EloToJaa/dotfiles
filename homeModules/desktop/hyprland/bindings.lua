@@ -1,33 +1,30 @@
 local variables = require("variables")
-local dms = "dms ipc call"
+local noctalia = "noctalia msg"
 
 -- Hyprland Lua keybindings.
 hl.bind(variables.main_mod .. " + P", hl.dsp.exec_cmd("sessionizer --desktop"))
 hl.bind(variables.main_mod .. " + CTRL + P", hl.dsp.exec_cmd("machine-ssh --desktop"))
 hl.bind(variables.main_mod .. " + CTRL + T", hl.dsp.exec_cmd("piper-toggle-clipboard"))
 hl.bind(variables.main_mod .. " + CTRL + SHIFT + T", hl.dsp.exec_cmd("piper-stop-reading"))
-hl.bind(variables.main_mod .. " + Tab", hl.dsp.exec_cmd(dms .. " hypr toggleOverview"))
+hl.bind(variables.main_mod .. " + Tab", hl.dsp.exec_cmd(noctalia .. " window-switcher"))
 hl.bind(variables.main_mod .. " + D", hl.dsp.exec_cmd(variables.discord))
-hl.bind(variables.main_mod .. " + SHIFT + D", hl.dsp.exec_cmd(dms .. " settings toggleWith displays"))
+hl.bind(variables.main_mod .. " + SHIFT + D", hl.dsp.exec_cmd(noctalia .. " settings-toggle"))
 hl.bind(variables.main_mod .. " + B", hl.dsp.exec_cmd("zen-beta"))
 hl.bind(variables.main_mod .. " + SHIFT + B", hl.dsp.exec_cmd("bar-visibility cycle"))
 hl.bind(variables.main_mod .. " + E", hl.dsp.exec_cmd("nautilus"))
 hl.bind(variables.main_mod .. " + Space", hl.dsp.window.float())
 hl.bind(variables.main_mod .. " + SHIFT + S", hl.dsp.exec_cmd("spotify"))
 hl.bind(variables.main_mod .. " + Return", hl.dsp.exec_cmd("ghostty +new-window"))
-hl.bind(variables.main_mod .. " + S", hl.dsp.exec_cmd("vicinae toggle"))
-hl.bind(variables.main_mod .. " + CTRL + E", hl.dsp.exec_cmd("vicinae vicinae://extensions/vicinae/search-emojis"))
-hl.bind(variables.main_mod .. " + V", hl.dsp.exec_cmd("vicinae vicinae://launch/clipboard/history"))
-hl.bind(variables.main_mod .. " + M", hl.dsp.exec_cmd(dms .. " processlist focusOrToggle"))
-hl.bind(variables.main_mod .. " + Escape", hl.dsp.exec_cmd(dms .. " powermenu toggle"))
-hl.bind(variables.main_mod .. " + A", hl.dsp.exec_cmd(dms .. " settings focusOrToggle"))
-hl.bind(variables.main_mod .. " + N", hl.dsp.exec_cmd(dms .. " notifications toggle"))
+hl.bind(variables.main_mod .. " + S", hl.dsp.exec_cmd(noctalia .. " panel-toggle launcher"))
+hl.bind(variables.main_mod .. " + CTRL + E", hl.dsp.exec_cmd(noctalia .. " panel-toggle launcher '/emo '"))
+hl.bind(variables.main_mod .. " + V", hl.dsp.exec_cmd(noctalia .. " panel-toggle clipboard"))
+hl.bind(variables.main_mod .. " + Escape", hl.dsp.exec_cmd(noctalia .. " panel-toggle session"))
+hl.bind(variables.main_mod .. " + A", hl.dsp.exec_cmd(noctalia .. " panel-toggle control-center"))
+hl.bind(variables.main_mod .. " + N", hl.dsp.exec_cmd(noctalia .. " panel-toggle control-center notifications"))
 hl.bind(variables.main_mod .. " + SHIFT + N", hl.dsp.exec_cmd("gnome-text-editor"))
-hl.bind(variables.main_mod .. " + G", hl.dsp.exec_cmd(dms .. " lock lock"))
-hl.bind(variables.main_mod .. " + SHIFT + W", hl.dsp.exec_cmd(dms .. " dash toggle wallpaper"))
+hl.bind(variables.main_mod .. " + G", hl.dsp.exec_cmd(noctalia .. " session lock"))
+hl.bind(variables.main_mod .. " + SHIFT + W", hl.dsp.exec_cmd(noctalia .. " panel-toggle wallpaper"))
 hl.bind(variables.main_mod .. " + W", hl.dsp.exec_cmd("delfin"))
-hl.bind(variables.main_mod .. " + SHIFT + Slash", hl.dsp.exec_cmd(dms .. " keybinds toggle hyprland"))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(dms .. " processlist focusOrToggle"))
 hl.bind(variables.main_mod .. " + SHIFT + E", hl.dsp.exit())
 hl.bind(variables.main_mod .. " + Q", hl.dsp.window.close())
 hl.bind(variables.main_mod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
@@ -77,7 +74,6 @@ hl.bind(variables.main_mod .. " + SHIFT + Page_Down", hl.dsp.window.move({ works
 hl.bind(variables.main_mod .. " + SHIFT + Page_Up", hl.dsp.window.move({ workspace = "e-1", follow = true }))
 hl.bind(variables.main_mod .. " + SHIFT + U", hl.dsp.window.move({ workspace = "e+1", follow = true }))
 hl.bind(variables.main_mod .. " + SHIFT + I", hl.dsp.window.move({ workspace = "e-1", follow = true }))
-hl.bind("CTRL + SHIFT + R", hl.dsp.exec_cmd(dms .. " workspace-rename open"))
 hl.bind(variables.main_mod .. " + 1", hl.dsp.focus({ workspace = "1" }))
 hl.bind(variables.main_mod .. " + 2", hl.dsp.focus({ workspace = "2" }))
 hl.bind(variables.main_mod .. " + 3", hl.dsp.focus({ workspace = "3" }))
@@ -102,41 +98,41 @@ hl.bind(variables.main_mod .. " + Minus", hl.dsp.window.resize({ x = -100, y = 0
 hl.bind(variables.main_mod .. " + Equal", hl.dsp.window.resize({ x = 100, y = 0, relative = true }))
 hl.bind(variables.main_mod .. " + SHIFT + Minus", hl.dsp.window.resize({ x = 0, y = -100, relative = true }))
 hl.bind(variables.main_mod .. " + SHIFT + Equal", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))
-hl.bind("Print", hl.dsp.exec_cmd("dms screenshot"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("dms screenshot full"))
-hl.bind("ALT + Print", hl.dsp.exec_cmd("dms screenshot window"))
-hl.bind("XF86Launch1", hl.dsp.exec_cmd("dms screenshot"))
-hl.bind("CTRL + XF86Launch1", hl.dsp.exec_cmd("dms screenshot full"))
-hl.bind("ALT + XF86Launch1", hl.dsp.exec_cmd("dms screenshot window"))
+hl.bind("Print", hl.dsp.exec_cmd(noctalia .. " screenshot-region"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd(noctalia .. " screenshot-fullscreen"))
+hl.bind("ALT + Print", hl.dsp.exec_cmd(noctalia .. " screenshot-window"))
+hl.bind("XF86Launch1", hl.dsp.exec_cmd(noctalia .. " screenshot-region"))
+hl.bind("CTRL + XF86Launch1", hl.dsp.exec_cmd(noctalia .. " screenshot-fullscreen"))
+hl.bind("ALT + XF86Launch1", hl.dsp.exec_cmd(noctalia .. " screenshot-window"))
 hl.bind(variables.main_mod .. " + O", hl.dsp.exec_cmd("ocr"))
 hl.bind(variables.main_mod .. " + SHIFT + O", hl.dsp.exec_cmd("qr-capture"))
 hl.bind(variables.main_mod .. " + SHIFT + P", hl.dsp.dpms({ action = "toggle" }))
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(dms .. " audio mute"), { locked = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(dms .. " audio micmute"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd(dms .. " mpris playPause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(dms .. " mpris playPause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(dms .. " mpris previous"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd(dms .. " mpris next"), { locked = true })
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(dms .. " audio increment 2"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(dms .. " audio decrement 2"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(noctalia .. " volume-mute"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(noctalia .. " mic-mute"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd(noctalia .. " media toggle"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(noctalia .. " media toggle"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(noctalia .. " media previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(noctalia .. " media next"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(noctalia .. " volume-up 2"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(noctalia .. " volume-down 2"), { locked = true, repeating = true })
 hl.bind(
   "CTRL + XF86AudioRaiseVolume",
-  hl.dsp.exec_cmd(dms .. " mpris increment 2"),
+  hl.dsp.exec_cmd(noctalia .. " media volume-up 2"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "CTRL + XF86AudioLowerVolume",
-  hl.dsp.exec_cmd(dms .. " mpris decrement 2"),
+  hl.dsp.exec_cmd(noctalia .. " media volume-down 2"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "XF86MonBrightnessUp",
-  hl.dsp.exec_cmd(dms .. " brightness increment 5 ''"),
+  hl.dsp.exec_cmd(noctalia .. " brightness-up '*' 5%"),
   { locked = true, repeating = true }
 )
 hl.bind(
   "XF86MonBrightnessDown",
-  hl.dsp.exec_cmd(dms .. " brightness decrement 5 ''"),
+  hl.dsp.exec_cmd(noctalia .. " brightness-down '*' 5%"),
   { locked = true, repeating = true }
 )
 hl.bind(variables.main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

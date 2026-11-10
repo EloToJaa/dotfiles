@@ -21,9 +21,6 @@
         runHook postInstall
       '';
     };
-
-    # Temporary fix for https://github.com/AvengeMedia/DankMaterialShell/blob/59431869dc14ab1cb2d05bbbf81839d95e4724cd/distro/nix/common.nix#L21
-    khal = prev.unstable.khal;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

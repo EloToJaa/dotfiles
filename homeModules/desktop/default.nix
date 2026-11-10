@@ -8,7 +8,6 @@
     };
   };
   imports = [
-    ./dms-shell # DankMaterialShell
     ./hyprland # window manager
     ./niri
     ./scripts # personal scripts
@@ -25,7 +24,7 @@
     ./helium.nix # chromium-based browser
     ./gtk.nix # gtk theme
     ./nautilus.nix # file manager
-    ./noctalia-shell.nix # Noctalia shell (DankMaterialShell replacement)
+    ./noctalia-shell.nix # desktop shell, launcher and clipboard history
     ./notifications.nix # notifications
     ./omnissa-horizon.nix # vdi client
     ./piper-tts.nix
@@ -37,7 +36,6 @@
     ./spotify.nix # spotify client
     ./umbriel.nix # umbriel compositor (niri alternative)
     ./variables.nix
-    ./vicinae.nix # launcher
     ./voxtype.nix # voice dictation
     ./web-apps.nix
     ./winboat.nix # remote desktop

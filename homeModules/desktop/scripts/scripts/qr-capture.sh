@@ -31,9 +31,9 @@ case "${1:-}" in
   ;;
 esac
 
-# Without dms, Noctalia captures the region and pipes the PNG back into this
-# script; it skips the command when the selection is cancelled.
-if ! $from_stdin && ! command -v dms >/dev/null; then
+# Noctalia captures the region and pipes the PNG back into this script; it
+# skips the command when the selection is cancelled.
+if ! $from_stdin; then
   exec noctalia msg screenshot-region \
     --no-annotate \
     --no-save-to-file \
@@ -47,21 +47,7 @@ image="$temp_dir/capture.png"
 payload="$temp_dir/payload"
 trap 'rm -rf -- "$temp_dir"' EXIT HUP INT TERM
 
-capture_region() {
-  if $from_stdin; then
-    cat >"$image"
-    return
-  fi
-
-  dms screenshot region \
-    --dir "$temp_dir" \
-    --filename "capture.png" \
-    --no-notify \
-    --no-clipboard \
-    --cursor off
-}
-
-if ! capture_region >/dev/null 2>&1; then
+if ! cat >"$image"; then
   notify "QR capture failed" "No screen region was captured."
   exit 1
 fi

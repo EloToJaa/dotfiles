@@ -34,7 +34,7 @@ in {
           primary-highlighter = "block";
           disable-notifications = false;
           actions-on-right-click = [];
-          # Keep the edited image in both places, like a plain dms capture.
+          # Keep the edited image in both places, like a plain screenshot.
           actions-on-enter = ["save-to-clipboard" "save-to-file"];
           actions-on-escape = ["exit"];
           no-window-decoration = true;

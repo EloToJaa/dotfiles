@@ -37,7 +37,7 @@ in {
     };
 
     services.displayManager.noctalia-greeter = {
-      enable = cfg.greeter == "noctalia";
+      enable = true;
       # Lets the shell's "Sync Greeter" copy wallpaper and palette without a polkit prompt
       passwordless-sync-users = [username];
       settings = {
@@ -45,29 +45,6 @@ in {
         user.default = username;
         appearance.theme_mode = "dark";
       };
-    };
-
-    programs.dms-greeter = {
-      enable = cfg.greeter == "dms";
-      compositor = {
-        name = defaultSession;
-        package = lib.mkIf cfg.hyprland.enable pkgs.unstable.hyprland;
-        customConfig = lib.optionalString (cfg.niri.enable && !cfg.hyprland.enable) ''
-          hotkey-overlay {
-            skip-at-startup
-          }
-
-          environment {
-            DMS_RUN_GREETER "1"
-          }
-        '';
-      };
-      configHome = "/home/${username}";
-      logs = {
-        save = true;
-        path = "/tmp/dms-greeter.log";
-      };
-      quickshell.package = pkgs.unstable.quickshell;
     };
   };
 }

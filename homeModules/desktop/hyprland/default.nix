@@ -13,7 +13,6 @@
     keyboard_layout = keyboardLayout;
     main_mod = config.modules.desktop.mainMod;
   };
-  imports = ["dms.outputs"];
 in {
   options.modules.desktop.hyprland.enable = lib.mkEnableOption "Enable hyprland";
 
@@ -25,7 +24,6 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "lua";
-      extraConfig = lib.concatMapStringsSep "\n" (module: "require(${toLua module})") imports;
       package = null;
       portalPackage = null;
       xdph.settings.screencopy.custom_picker_binary = "${pkgs.unstable.hyprland-preview-share-picker}/bin/hyprland-preview-share-picker";
@@ -33,7 +31,6 @@ in {
       extraLuaFiles = {
         animations = ./animations.lua;
         bindings = ./bindings.lua;
-        layers = ./layers.lua;
         settings = ./settings.lua;
         startup = ./startup.lua;
         windowrules = ./windowrules.lua;
