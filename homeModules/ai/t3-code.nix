@@ -52,6 +52,12 @@ in {
       package = t3codePackages.t3code;
     };
 
+    # Electron can't register itself in the read-only Home Manager mimeapps.list,
+    # so browsers never route T3 Connect's t3code:// OAuth callback to the app.
+    xdg.mimeApps.defaultApplications = lib.mkIf cfg.desktop.enable {
+      "x-scheme-handler/t3code" = "t3code.desktop";
+    };
+
     systemd.user.services.t3code = lib.mkIf cfg.service.enable {
       Unit.Description = "T3 Code backend";
       Service = {
