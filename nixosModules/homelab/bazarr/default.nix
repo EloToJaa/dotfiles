@@ -47,7 +47,7 @@ in {
         POSTGRES_DATABASE = cfg.name;
       };
       serviceConfig = {
-        EnvironmentFile = config.sops.templates."${cfg.name}.env".path;
+        EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
         UMask = lib.mkForce homelab.defaultUMask;
       };
     };
@@ -111,16 +111,21 @@ in {
       description = cfg.name;
     };
 
-    sops.secrets = {
-      "${cfg.name}/pgpassword" = {
-        owner = cfg.name;
+    clan.core.vars.generators = {
+      ${cfg.name} = {
+        files.pgpassword.deploy = false;
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 > "$out/pgpassword"
+        '';
       };
-    };
-    sops.templates."${cfg.name}.env" = {
-      content = ''
-        POSTGRES_PASSWORD=${config.sops.placeholder."${cfg.name}/pgpassword"}
-      '';
-      owner = cfg.name;
+      "${cfg.name}-env" = {
+        dependencies = [cfg.name];
+        files.env.owner = cfg.name;
+        script = ''
+          printf 'POSTGRES_PASSWORD=%s\n' "$(cat "$in/${cfg.name}/pgpassword")" > "$out/env"
+        '';
+      };
     };
   };
 }
