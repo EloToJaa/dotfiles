@@ -23,7 +23,7 @@ in {
     #   HOST = "127.0.0.1";
     # };
     virtualisation.oci-containers.containers.flaresolverr = {
-      image = "flaresolverr/flaresolverr:v3.5.0";
+      image = "flaresolverr/flaresolverr:v3.5.2";
       extraOptions = ["--network=host"];
       serviceName = "flaresolverr";
       environment = {
