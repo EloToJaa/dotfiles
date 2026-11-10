@@ -72,10 +72,21 @@
               env = old.env // {T3CODE_CLERK_JWT_TEMPLATE = "t3-relay";};
             });
             # Don't bundle every agent CLI; T3 Code finds the installed ones on PATH.
-            t3code = prev.llm-agents.t3code.override {
-              inherit t3code-unwrapped;
-              providerPackages = [];
-            };
+            # Point T3 Connect at nixpkgs' cloudflared so it doesn't download its own.
+            t3code =
+              (prev.llm-agents.t3code.override {
+                inherit t3code-unwrapped;
+                providerPackages = [];
+              }).overrideAttrs (old: {
+                postInstall =
+                  (old.postInstall or "")
+                  + ''
+                    for bin in "$out/bin/t3" "$desktop/bin/t3code-desktop"; do
+                      wrapProgram "$bin" \
+                        --set-default T3CODE_CLOUDFLARED_PATH ${prev.lib.getExe prev.cloudflared}
+                    done
+                  '';
+              });
           in
             prev.llm-agents
             // {
