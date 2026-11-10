@@ -247,6 +247,8 @@ in {
             <SslPort>6969</SslPort>
             <UrlBase></UrlBase>
             <BindAddress>127.0.0.1</BindAddress>
+            <AllowedHosts></AllowedHosts>
+            <TrustedNetworks></TrustedNetworks>
             <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
             <AuthenticationMethod>Forms</AuthenticationMethod>
             <LaunchBrowser>True</LaunchBrowser>
