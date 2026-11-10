@@ -4,10 +4,25 @@
   lib,
   ...
 }: let
-  inherit (config.settings) username isServer;
+  inherit (config.settings) username isServer ntfy;
   owner = username;
   group = username;
   hm = config.home-manager.users.${username};
+  ntfyClient = (pkgs.formats.yaml {}).generate "ntfy-client.yml" {
+    "default-host" = ntfy;
+    "default-user" = username;
+    "default-password" = "NTFY_PASSWORD_PLACEHOLDER";
+    subscribe = [
+      {
+        topic = "elotoja";
+        command = ''notify-send "Important" "$message"'';
+      }
+      {
+        topic = "uptime";
+        command = ''notify-send "$topic" "$message"'';
+      }
+    ];
+  };
 in {
   clan.core.vars.generators = {
     dav = {
@@ -98,6 +113,25 @@ in {
         root = "~/.leetcode"
         scripts = "${hm.home.homeDirectory}/code/leetcode/scripts"
         EOF
+      '';
+    };
+    ntfy-sh = lib.mkIf hm.modules.desktop.notifications.enable {
+      share = true;
+      prompts.password = {
+        description = "ntfy password for ${username}";
+        type = "hidden";
+        persist = true;
+      };
+      files.password.deploy = false;
+    };
+    ntfy-client = lib.mkIf hm.modules.desktop.notifications.enable {
+      share = true;
+      dependencies = ["ntfy-sh"];
+      files."client.yml" = {inherit owner group;};
+      script = ''
+        template=$(cat ${ntfyClient})
+        password=$(cat "$in/ntfy-sh/password")
+        printf '%s\n' "''${template//NTFY_PASSWORD_PLACEHOLDER/"$password"}" > "$out/client.yml"
       '';
     };
   };
