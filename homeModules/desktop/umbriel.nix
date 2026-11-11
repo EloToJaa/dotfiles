@@ -309,6 +309,16 @@
     "^com.obsproject.Studio$" = "4";
     "^cafe.avery.Delfin$" = "2";
   };
+  # Same set niri opened maximized to the edges.
+  maximizedApps = [
+    "^zen-beta$"
+    "^com.mitchellh.ghostty$"
+    "^mpv$"
+    "^cafe.avery.Delfin$"
+    "^spotify$"
+    "^com.jeffser.Nocturne$"
+    "^vesktop$"
+  ];
   floatingApps = [
     "^winboat-.*"
     "^com.interversehq.qView$"
@@ -405,6 +415,11 @@ in {
           })
           appWorkspaces
           ++ [
+            {
+              match.app_id = maximizedApps;
+              default_maximize = true;
+              default_maximize_to_edges = true;
+            }
             {
               match.app_id = floatingApps;
               default_floating = true;
