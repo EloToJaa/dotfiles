@@ -347,11 +347,23 @@ in {
           [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
         ];
 
-        input.keyboard = {
-          layout = keyboardLayout;
-          # Same as niri: Alt+Caps switches layout and Menu is the Compose key.
-          options = "grp:alt_caps_toggle,compose:menu";
-          numlock_toggle = true;
+        input = {
+          keyboard = {
+            layout = keyboardLayout;
+            # Same as niri: Alt+Caps switches layout and Menu is the Compose key.
+            options = "grp:alt_caps_toggle,compose:menu";
+            numlock_toggle = true;
+          };
+          focus = {
+            follows_mouse = true;
+            hover_raises = false; # Hover only focuses, like niri
+          };
+          cursor = {
+            theme = "Bibata-Modern-Ice";
+            size = 24;
+            follows_focus = true; # Like niri's warp-mouse-to-focus
+          };
+          touchpad.natural_scroll = true;
         };
 
         # Static workspaces, so they never get pruned or reordered.
@@ -360,17 +372,6 @@ in {
           (lib.groupBy (workspace: workspace.output) named_workspaces);
 
         general.show_cheatsheet = false;
-
-        input.focus = {
-          follows_mouse = true;
-          hover_raises = false; # Hover only focuses, like niri
-        };
-        input.cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-          follows_focus = true; # Like niri's warp-mouse-to-focus
-        };
-        input.touchpad.natural_scroll = true;
 
         layout = {
           # Pinned so every workspace scrolls, like niri, whatever the packaged default becomes.
