@@ -341,10 +341,10 @@ in {
         include.optional.files = ["~/.config/umbriel/monitors.toml"];
 
         general.autostart = map lib.escapeShellArgs [
-          [(lib.getExe' pkgs.udiskie "udiskie") "--automount" "--notify" "--smart-tray"]
+          [(lib.getExe' pkgs.unstable.udiskie "udiskie") "--automount" "--notify" "--smart-tray"]
           [discord]
-          [(lib.getExe pkgs.unstable.valent) "--gapplication-service"]
-          [(lib.getExe pkgs.ntfy-sh) "subscribe" "--from-config"]
+          [(lib.getExe' pkgs.unstable.valent) "--gapplication-service"]
+          [(lib.getExe' pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
         ];
 
         input.keyboard = {
