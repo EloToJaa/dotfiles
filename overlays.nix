@@ -58,11 +58,9 @@
             buildInputs = (old.buildInputs or []) ++ [prev.sqlite];
           });
           llm-agents = let
-            codex = prev.llm-agents.codex.overrideAttrs (old: {
-              buildInputs =
-                (old.buildInputs or [])
-                ++ (with prev; [aws-lc zstd sqlite zlib rust-jemalloc-sys oniguruma]);
-            });
+            # openssl-sys builds against aws-lc's compat openssl.pc, which only the
+            # llm-agents nixpkgs pin ships; use its (cached) build directly.
+            inherit (inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}) codex;
             # The web UI only enables T3 Connect when the Clerk JWT template is baked in
             # alongside the relay URL and publishable key, which the package leaves out.
             # OAuth sign-in returns through t3code:// links; declare the scheme so the
