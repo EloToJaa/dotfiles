@@ -234,31 +234,47 @@
     "Mod+Ctrl+Shift+WheelUp" = "column-move-left";
   };
 
-  # Mod+N targets the named workspaces below, Mod+Alt+N keeps the positional switching
-  # (positions are per output, so it only reaches the first workspaces of each).
+  # Mod+N targets the named workspaces below (Mod+0 is workspace 10), Mod+Alt+N keeps the
+  # positional switching (positions are per output, so it only reaches the first workspaces of each).
   named_workspaces = [
     {
-      name = "w1"; # browser
+      name = "1"; # browser
       output = "DP-1";
     }
     {
-      name = "w2"; # watch
+      name = "2"; # watch
       output = "DP-2";
     }
     {
-      name = "w3"; # terminal
+      name = "3"; # terminal
       output = "DP-2";
     }
     {
-      name = "w4"; # misc
+      name = "4"; # misc
       output = "DP-1";
     }
     {
-      name = "w5"; # chat
+      name = "5"; # chat
       output = "HDMI-A-1";
     }
     {
-      name = "w6"; # music
+      name = "6"; # music
+      output = "HDMI-A-1";
+    }
+    {
+      name = "7";
+      output = "HDMI-A-1";
+    }
+    {
+      name = "8";
+      output = "DP-1";
+    }
+    {
+      name = "9";
+      output = "DP-2";
+    }
+    {
+      name = "10";
       output = "HDMI-A-1";
     }
   ];
@@ -266,10 +282,14 @@
   workspaceBinds = lib.listToAttrs (
     lib.concatMap (workspace: let
       inherit (workspace) name;
-      key = lib.removePrefix "w" name;
+      key =
+        if name == "10"
+        then "0"
+        else name;
+      # Bare digits select a position, so force name lookup.
     in [
-      (lib.nameValuePair "Mod+${key}" "workspace-switch ${name}")
-      (lib.nameValuePair "Mod+Shift+${key}" "column-move-to-workspace ${name}")
+      (lib.nameValuePair "Mod+${key}" "workspace-switch --name ${name}")
+      (lib.nameValuePair "Mod+Shift+${key}" "column-move-to-workspace --name ${name}")
     ])
     named_workspaces
     ++ lib.concatMap (n: [
@@ -280,13 +300,14 @@
   );
 
   appWorkspaces = {
-    "^zen-beta$" = "w1";
-    "^com.mitchellh.ghostty$" = "w3";
-    "^vesktop$" = "w5";
-    "^spotify$" = "w6";
-    "^com.jeffser.Nocturne$" = "w6";
-    "^com.obsproject.Studio$" = "w4";
-    "^cafe.avery.Delfin$" = "w2";
+    # Strings select by name; an integer would select a position.
+    "^zen-beta$" = "1";
+    "^com.mitchellh.ghostty$" = "3";
+    "^vesktop$" = "5";
+    "^spotify$" = "6";
+    "^com.jeffser.Nocturne$" = "6";
+    "^com.obsproject.Studio$" = "4";
+    "^cafe.avery.Delfin$" = "2";
   };
   floatingApps = [
     "^winboat-.*"
