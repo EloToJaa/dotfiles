@@ -47,6 +47,7 @@
       claude.enable = true;
       ollama.enable = true;
       hermes-desktop.enable = false;
+      grok-bot.enable = true;
       t3-code = {
         enable = true;
         desktop.enable = true;
