@@ -8,7 +8,6 @@
     };
     desktop = {
       enable = true;
-      hyprland.enable = false;
       niri.enable = true;
       umbriel.enable = true;
       rider.enable = false;

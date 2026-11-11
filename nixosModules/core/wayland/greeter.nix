@@ -11,9 +11,7 @@
   defaultSession =
     if cfg.umbriel.enable
     then "umbriel"
-    else if cfg.niri.enable
-    then "niri"
-    else "hyprland";
+    else "niri";
 in {
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     systemd.services.set-user-avatar = {

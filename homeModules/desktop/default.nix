@@ -1,14 +1,6 @@
 {lib, ...}: {
-  options.modules.desktop = {
-    enable = lib.mkEnableOption "Enable desktop module";
-    mainMod = lib.mkOption {
-      type = lib.types.str;
-      default = "SUPER";
-      description = "The main modifier key";
-    };
-  };
+  options.modules.desktop.enable = lib.mkEnableOption "Enable desktop module";
   imports = [
-    ./hyprland # window manager
     ./niri
     ./scripts # personal scripts
     ./wallpapers
