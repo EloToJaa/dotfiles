@@ -13,6 +13,8 @@ in {
     programs.vesktop = {
       enable = true;
       package = pkgs.unstable.vesktop;
+      # Vesktop/Vencord write their settings at runtime; read-only store symlinks give EROFS
+      mutableSettings = true;
       settings = {
         appBadge = false;
         arRPC = true;
@@ -30,6 +32,7 @@ in {
       };
       vencord = {
         useSystem = true;
+        mutableSettings = true;
         settings = {
           autoUpdate = false;
           autoUpdateNotification = false;
