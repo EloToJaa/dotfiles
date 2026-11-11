@@ -31,7 +31,9 @@ in {
         discordBranch = "stable";
       };
       vencord = {
-        useSystem = true;
+        # The nixpkgs Vencord lags behind Discord client updates and leaves the window blank
+        # ("i.A is not a constructor"), so use the Vencord that Vesktop downloads itself
+        useSystem = false;
         mutableSettings = true;
         settings = {
           autoUpdate = false;
