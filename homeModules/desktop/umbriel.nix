@@ -316,8 +316,6 @@ in {
       # (including the Noctalia launcher and media keys) and the Noctalia window and layer rules.
       settings = {
         include.files = ["${umbriel}/share/umbriel/config.toml"];
-        # Written by the Save button of the noctalia-monitors plugin; ignored while missing.
-        include.optional.files = ["~/.config/umbriel/monitors.toml"];
 
         general.autostart = map lib.escapeShellArgs [
           [(lib.getExe' pkgs.udiskie "udiskie") "--automount" "--notify" "--smart-tray"]

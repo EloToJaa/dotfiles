@@ -908,11 +908,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794393733,
-        "narHash": "sha256-yYTtdlCzLbrPC0RDnyug7nQAgTBykSi1fBLm1AZMNXo=",
+        "lastModified": 1794395232,
+        "narHash": "sha256-ZnE17s8reUa8dfJKRembPVhfFdZX5s+6xAMdjhrTbuM=",
         "owner": "EloToJaa",
         "repo": "noctalia-monitors",
-        "rev": "2370e5e362a8633aadc469d0202932b89d4c8046",
+        "rev": "ca52f3a0d3d1e25dac5708efd31273dac2b2b3ed",
         "type": "github"
       },
       "original": {
