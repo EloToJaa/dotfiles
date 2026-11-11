@@ -29,6 +29,22 @@
     cooldown_ms = 150;
   };
 
+  # The packaged config spells letter keys in uppercase ("Mod+Q"). Umbriel only
+  # overrides an included bind with the exact same spelling, and reports "Mod+q"
+  # as a duplicate that makes the config invalid, so match its case.
+  normalizeKey = key: let
+    parts = lib.splitString "+" key;
+    keysym = lib.last parts;
+  in
+    lib.concatStringsSep "+" (lib.init parts
+      ++ [
+        (
+          if lib.stringLength keysym == 1
+          then lib.toUpper keysym
+          else keysym
+        )
+      ]);
+
   # Noctalia has no scrolling capture, so the Alt variants capture a whole
   # output picked on screen. The target goes after the options.
   screenshotModes = {
@@ -333,7 +349,11 @@ in {
         };
         input.touchpad.natural_scroll = true;
 
-        layout.gap = 2;
+        layout = {
+          # Pinned so every workspace scrolls, like niri, whatever the packaged default becomes.
+          mode = "scrolling";
+          gap = 2;
+        };
         appearance = {
           prefer_no_csd = true;
           border_width = 1;
@@ -351,7 +371,9 @@ in {
         };
 
         # Keys set here override the packaged binds of the same name; the rest stay as defaults.
-        keybinds = shellBinds // appBinds // windowBinds // navigationBinds // workspaceBinds;
+        keybinds =
+          lib.mapAttrs' (key: lib.nameValuePair (normalizeKey key))
+          (shellBinds // appBinds // windowBinds // navigationBinds // workspaceBinds);
 
         window_rule =
           lib.mapAttrsToList (app_id: workspace: {
