@@ -38,7 +38,7 @@ in {
           xcursor-size = 24;
         };
 
-        # Layout configuration - mirrors hyprland general settings
+        # Layout configuration
         layout = {
           gaps = 2;
           border = {
@@ -53,7 +53,7 @@ in {
 
         gestures.hot-corners.off = [];
 
-        # Environment variables - mirrors hyprland exec-once exports
+        # Environment variables
         environment = {
           # Critical for electron apps
           NIXOS_OZONE_WL = "1";
@@ -67,7 +67,7 @@ in {
           GTK_USE_PORTAL = "1";
         };
 
-        # Misc settings - mirrors hyprland misc section
+        # Misc settings
         prefer-no-csd = true;
         hotkey-overlay.skip-at-startup = true;
       };
