@@ -81,6 +81,10 @@
       url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    noctalia-monitors = {
+      url = "github:EloToJaa/noctalia-monitors";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
