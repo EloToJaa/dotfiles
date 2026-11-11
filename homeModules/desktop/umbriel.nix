@@ -349,7 +349,11 @@ in {
         };
         input.touchpad.natural_scroll = true;
 
-        layout.gap = 2;
+        layout = {
+          # Pinned so every workspace scrolls, like niri, whatever the packaged default becomes.
+          mode = "scrolling";
+          gap = 2;
+        };
         appearance = {
           prefer_no_csd = true;
           border_width = 1;
