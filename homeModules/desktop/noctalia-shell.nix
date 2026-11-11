@@ -56,7 +56,10 @@ in {
     };
 
     # Monitor layout panel; it only supports Umbriel
-    programs.noctalia-monitors.enable = lib.mkDefault config.modules.desktop.umbriel.enable;
+    programs.noctalia-monitors = {
+      enable = lib.mkDefault config.modules.desktop.umbriel.enable;
+      layoutFiles = ["umbriel"];
+    };
 
     # Niri integration recommended by https://docs.noctalia.dev/noctalia/compositor-settings/niri/
     wayland.windowManager.niri.settings = lib.mkIf config.modules.desktop.niri.enable {
