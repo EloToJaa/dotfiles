@@ -20,6 +20,10 @@
     url = "https://registry.npmjs.org/@ai-sdk/gateway/-/gateway-2.0.151.tgz";
     hash = "sha512-FVTfQkpMNrVLsEVkeLwft+f9dJQhi6R0qNkfvKi81nupqDqW6NFXKNnpjslNrM4+VCrxeibBk+6RM5VYYJfecA==";
   };
+  "@ai-sdk/google@2.0.97" = fetchurl {
+    url = "https://registry.npmjs.org/@ai-sdk/google/-/google-2.0.97.tgz";
+    hash = "sha512-IGv9wGvbeuNBUVXzqwuOZTHXZUUEuO/aUKfSw2iv7smhalBC1FFuth5WLapJQHb1nusoDup5nELopzXV28vcxA==";
+  };
   "@ai-sdk/openai@2.0.127" = fetchurl {
     url = "https://registry.npmjs.org/@ai-sdk/openai/-/openai-2.0.127.tgz";
     hash = "sha512-OOPG5ye47p4ljynkV2x9KaliuAT/vTndxyCPvQm0kelxMVBXTONa9BN3j/Fiy2soxiVjwd1IYJ3wU6JFEApsrQ==";
