@@ -309,6 +309,16 @@
     "^com.obsproject.Studio$" = "4";
     "^cafe.avery.Delfin$" = "2";
   };
+  # Same set niri opened maximized to the edges.
+  maximizedApps = [
+    "^zen-beta$"
+    "^com.mitchellh.ghostty$"
+    "^mpv$"
+    "^cafe.avery.Delfin$"
+    "^spotify$"
+    "^com.jeffser.Nocturne$"
+    "^vesktop$"
+  ];
   floatingApps = [
     "^winboat-.*"
     "^com.interversehq.qView$"
@@ -341,7 +351,7 @@ in {
         include.optional.files = ["~/.config/umbriel/monitors.toml"];
 
         general.autostart = map lib.escapeShellArgs [
-          [(lib.getExe' pkgs.unstable.udiskie "udiskie") "--automount" "--notify" "--smart-tray"]
+          [(lib.getExe pkgs.unstable.udiskie) "--automount" "--notify" "--smart-tray"]
           [discord]
           [(lib.getExe pkgs.unstable.valent) "--gapplication-service"]
           [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
@@ -406,6 +416,11 @@ in {
           })
           appWorkspaces
           ++ [
+            {
+              match.app_id = maximizedApps;
+              default_maximize = true;
+              default_maximize_to_edges = true;
+            }
             {
               match.app_id = floatingApps;
               default_floating = true;
