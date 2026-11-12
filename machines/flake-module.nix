@@ -48,6 +48,10 @@ in {
           deploy.targetHost = "${username}@100.97.22.118";
           tags = ["server"];
         };
+        wsl = {
+          deploy.targetHost = "${username}@wsl";
+          tags = ["server"];
+        };
       };
 
       instances = {
