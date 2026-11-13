@@ -76,9 +76,11 @@ in {
         PasswordAuthentication = false;
         AllowUsers = null;
         KbdInteractiveAuthentication = false;
-        PermitRootLogin = "no";
+        # Key-only root login so `clan machines update` deploys without a sudo prompt.
+        PermitRootLogin = "prohibit-password";
       };
     };
+    users.users.root.openssh.authorizedKeys.keys = [ssh.keys.user];
     users.users.${username}.openssh.authorizedKeys.keys = [
       ssh.keys.user
     ];
