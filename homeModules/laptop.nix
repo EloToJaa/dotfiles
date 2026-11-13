@@ -44,7 +44,6 @@
     dev = {
       enable = true;
       aoc.enable = false;
-      leetcode.enable = true;
       jujutsu.enable = true;
       lazygit.enable = true;
       rbw.enable = true;

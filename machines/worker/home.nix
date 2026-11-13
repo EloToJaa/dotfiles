@@ -8,8 +8,5 @@
         service.enable = true;
       };
     };
-    dev = {
-      leetcode.enable = true;
-    };
   };
 }

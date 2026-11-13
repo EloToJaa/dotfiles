@@ -58,7 +58,6 @@
     dev = {
       enable = true;
       aoc.enable = true;
-      leetcode.enable = true;
       jujutsu.enable = true;
       lazygit.enable = true;
       rbw.enable = true;
