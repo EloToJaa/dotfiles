@@ -352,12 +352,13 @@ in {
         # Written by the Save button of the noctalia-monitors plugin; ignored while missing.
         include.optional.files = ["~/.config/umbriel/monitors.toml"];
 
-        general.autostart = map lib.escapeShellArgs [
-          [(lib.getExe pkgs.unstable.udiskie) "--automount" "--notify" "--smart-tray"]
-          [discord]
-          [(lib.getExe pkgs.unstable.valent) "--gapplication-service"]
-          [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
-        ];
+        general.autostart = map lib.escapeShellArgs ([
+            [(lib.getExe pkgs.unstable.udiskie) "--automount" "--notify" "--smart-tray"]
+            [discord]
+            [(lib.getExe pkgs.unstable.valent) "--gapplication-service"]
+            [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
+          ]
+          ++ lib.optional (with config.modules.ai.t3-code; enable && desktop.enable) ["t3code-desktop"]);
 
         input = {
           keyboard = {
