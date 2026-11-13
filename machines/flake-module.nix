@@ -49,7 +49,7 @@ in {
           tags = ["server"];
         };
         wsl = {
-          deploy.targetHost = "${username}@wsl";
+          deploy.targetHost = "${username}@100.65.253.30";
           tags = ["server"];
         };
       };
