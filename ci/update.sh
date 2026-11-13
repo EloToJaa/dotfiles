@@ -92,6 +92,16 @@ else
     # These definitions pin git revisions rather than tagged releases.
     "${update[@]}" --version=branch
     ;;
+  delfin)
+    # nix-update's branch mode requests Codeberg's nonexistent commits/<branch>.atom
+    # feed, so resolve the fork's head commit through the API and only let it refresh
+    # the hashes.
+    head=$(curl -fsS https://codeberg.org/api/v1/repos/Fisch/delfin/branches/main)
+    rev=$(jq -er .commit.id <<<"$head")
+    date=$(jq -er '.commit.timestamp[0:10]' <<<"$head")
+    sed -i -E "s|rev = \"[0-9a-f]{40}\";|rev = \"$rev\";|; s|(version = \"[^\"]*-unstable-)[0-9-]+\";|\1$date\";|" "$package_file"
+    "${update[@]}" --version=skip
+    ;;
   streamystats)
     # src wraps the upstream fetcher to inject the vendored Bun lockfile.
     nix-update --flake "$name.updateSource" --override-filename pkgs/streamystats/default.nix

@@ -10,6 +10,7 @@
 // (import ./yazi {inherit pkgs;})
 // {
   cleanuparr = pkgs.callPackage ./cleanuparr {};
+  delfin = pkgs.unstable.callPackage ./delfin {};
   energa-my-meter = pkgs.unstable.callPackage ./energa-my-meter {};
   musicseerr = pkgs.callPackage ./musicseerr {};
   oniri = pkgs.unstable.callPackage ./oniri {};
