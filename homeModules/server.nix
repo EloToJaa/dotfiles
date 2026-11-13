@@ -42,7 +42,6 @@
     };
     dev = {
       enable = lib.mkDefault true;
-      leetcode.enable = lib.mkDefault false;
       jujutsu.enable = lib.mkDefault true;
       lazygit.enable = lib.mkDefault true;
       nvim = {

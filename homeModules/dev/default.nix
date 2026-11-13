@@ -8,7 +8,6 @@
     ./aoc.nix
     ./jujutsu.nix
     ./lazygit.nix
-    ./leetcode.nix
     ./packages.nix # other packages
     ./rbw.nix
     ./zed.nix
