@@ -65,7 +65,7 @@ in {
           (internals.mkPowerlineSegCorner "os" {
             foreground = "transparent";
             background = "4";
-            template = " {{ if .WSL }}WSL {{ end }}{{.Icon}} ";
+            template = " {{.Icon}} ";
             properties.windows = "${internals.ucode "E70F"}";
           })
           (internals.mkPowerlineSeg "path" {

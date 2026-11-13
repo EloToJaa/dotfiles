@@ -10,6 +10,8 @@ in {
   wsl = {
     enable = true;
     defaultUser = username;
+    # systemd-resolved (with Tailscale MagicDNS) owns resolv.conf, as on the other hosts.
+    wslConf.network.generateResolvConf = false;
   };
 
   # WSL boots through the Windows host: no bootloader, initrd, disks or GPU setup.
