@@ -307,6 +307,7 @@
     "^spotify$" = "6";
     "^com.jeffser.Nocturne$" = "6";
     "^com.obsproject.Studio$" = "4";
+    "^(com.t3tools.T3Code|t3code)$" = "4";
     "^cafe.avery.Delfin$" = "2";
   };
   # Same set niri opened maximized to the edges.
@@ -318,6 +319,7 @@
     "^spotify$"
     "^com.jeffser.Nocturne$"
     "^vesktop$"
+    "^(com.t3tools.T3Code|t3code)$"
   ];
   floatingApps = [
     "^winboat-.*"
