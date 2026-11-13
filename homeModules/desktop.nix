@@ -20,6 +20,7 @@
       audacious.enable = true;
       bluetooth.enable = true;
       cava.enable = true;
+      chromium.enable = true;
       clipboard.enable = true;
       discord.enable = true;
       noctalia-shell.enable = true;
