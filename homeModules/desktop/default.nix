@@ -9,6 +9,7 @@
     ./audacious.nix # music player
     ./bluetooth.nix
     ./cava.nix # audio visualizer
+    ./chromium.nix # browser
     ./clipboard.nix
     ./discord.nix # discord
     ./ghostty.nix
