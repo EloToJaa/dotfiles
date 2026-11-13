@@ -27,7 +27,9 @@ in {
     services.pgadmin = {
       inherit (cfg) port;
       enable = true;
-      package = pkgs.unstable.pgadmin4;
+      # pgadmin's regression tests fail against nixpkgs' current PostgreSQL
+      # (extra pg_attver / ALTER FOREIGN TABLE output in the resql tests)
+      package = pkgs.unstable.pgadmin4.overridePythonAttrs {doCheck = false;};
       initialEmail = email;
       initialPasswordFile = config.clan.core.vars.generators.${cfg.name}.files.password.path;
     };
