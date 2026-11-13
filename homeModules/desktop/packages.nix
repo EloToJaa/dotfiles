@@ -14,6 +14,9 @@ in {
         playerctl # controller for media players
         poweralertd
         xdg-utils
+
+        ## GNOME Apps
+        delfin # jellyfin client (Fisch fork, pkgs/delfin)
       ])
       ++ (with pkgs.unstable; [
         ## Essentials
@@ -37,7 +40,6 @@ in {
         teams-for-linux
 
         ## GNOME Apps
-        delfin # jellyfin client
         nocturne # navidrome client
         # newsflash # rss reader
         # zenity # gnome dialog

@@ -26,7 +26,7 @@
       checkout = true;
       lock = "dotfiles-update-${kind}-${name}";
       secretsMap.git.type = "GitToken";
-      inputs = with pkgs; [git gh nix nix-update coreutils gnugrep gnused gnutar gzip] ++ [inputs.bun2nix.packages.${system}.default];
+      inputs = with pkgs; [git gh nix nix-update coreutils gnugrep gnused gnutar gzip curl jq] ++ [inputs.bun2nix.packages.${system}.default];
       effectScript = ''
         set -euo pipefail
         export NIX_CONFIG="experimental-features = nix-command flakes"
