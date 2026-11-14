@@ -371,7 +371,7 @@ in {
             numlock_toggle = true;
           };
           focus = {
-            follows_mouse = true;
+            follows_mouse = "sloppy"; # Pointer motion focuses; keybind focus sticks
             hover_raises = false; # Hover only focuses
           };
           cursor = {
