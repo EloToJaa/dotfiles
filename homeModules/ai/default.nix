@@ -12,7 +12,7 @@
   };
   imports = [
     ./crash.nix
-    ./claude.nix
+    ./claude
     ./ollama.nix
     ./codex.nix
     ./grok-bot.nix

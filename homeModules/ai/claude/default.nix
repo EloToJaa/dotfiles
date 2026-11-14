@@ -26,7 +26,7 @@ in {
           wrapProgram $out/bin/claude --set CLAUDE_CODE_NATIVE_CURSOR 1
         '';
       };
-      context = ./AGENTS.md;
+      context = ../AGENTS.md;
       settings = {
         # ANTHROPIC_AUTH_TOKEN is a secret and stays out of the store; keep it in the
         # environment or a local-only config instead
@@ -74,6 +74,6 @@ in {
         };
       };
     };
-    home.file.".claude/keybindings.json".source = ./claude-keybindings.json;
+    home.file.".claude/keybindings.json".source = ./keybindings.json;
   };
 }
