@@ -7,6 +7,7 @@
   cfg = config.modules.ai.crash;
   stateDir = "${config.home.homeDirectory}/.local/state/ai-crash";
   skill = ./skills/diagnose-crash/SKILL.md;
+  t3 = lib.getExe' config.programs.t3code.package "t3";
   runtimePath = lib.makeBinPath [pkgs.unstable.python314 pkgs.unstable.bun];
 
   diagnose-crash = pkgs.writeShellScriptBin "diagnose-crash" ''
@@ -41,7 +42,13 @@
     )
 
     export PATH="${runtimePath}:$PATH"
-    exec ${pkgs.llm-agents.claude-code}/bin/claude --dangerously-skip-permissions "$prompt"
+    workspace=${stateDir}/workspace
+    mkdir -p "$workspace"
+
+    # Adding an existing project may fail; the thread start below is what matters.
+    ${t3} project add --title "Crash diagnosis" "$workspace" >/dev/null 2>&1 || true
+    ${t3} thread start --title "Diagnose crash: $comm ($pid)" "$workspace" "$prompt"
+    exec ${t3} app "$workspace"
   '';
 
   crash-watch = pkgs.writeShellScriptBin "ai-crash-watch" ''
