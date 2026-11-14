@@ -77,8 +77,8 @@ in {
       default = true;
       description = ''
         Install `computer-use-linux` (screenshots, AT-SPI trees, window targeting and input over MCP)
-        and register it as the `desktop` MCP server in the enabled agents
-        (Claude Code, Codex and opencode).
+        and register it as the `desktop` server in the shared `programs.mcp.servers` registry,
+        which every enabled agent harness reads.
       '';
     };
   };
@@ -98,24 +98,11 @@ in {
 
     home.sessionVariables = session_env;
 
-    # One `desktop` server for every enabled agent; they inherit nothing from a login session
-    programs = lib.mkIf cfg.mcp.enable {
-      claude-code.mcpServers.desktop = lib.mkIf config.programs.claude-code.enable {
-        command = mcp_exe;
-        args = ["mcp"];
-        env = mcp_env;
-      };
-      codex.settings.mcp_servers.desktop = lib.mkIf config.programs.codex.enable {
-        command = mcp_exe;
-        args = ["mcp"];
-        env = mcp_env;
-      };
-      opencode.settings.mcp.desktop = lib.mkIf config.programs.opencode.enable {
-        type = "local";
-        command = [mcp_exe "mcp"];
-        environment = mcp_env;
-        enabled = true;
-      };
+    # Shared registry (./mcp.nix) fans it out to every agent; they inherit nothing from a login session
+    programs.mcp.servers.desktop = lib.mkIf cfg.mcp.enable {
+      command = mcp_exe;
+      args = ["mcp"];
+      env = mcp_env;
     };
 
     systemd.user.services = {

@@ -17,6 +17,7 @@
     ./codex.nix
     ./grok-bot.nix
     ./hermes-desktop.nix
+    ./mcp.nix
     ./opencode.nix
     ./open-code-review.nix
     ./pi.nix
