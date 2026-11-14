@@ -19,7 +19,6 @@
     ./hermes-desktop.nix
     ./mcp.nix
     ./opencode.nix
-    ./open-code-review.nix
     ./pi.nix
     ./skills.nix
     ./t3-code.nix
