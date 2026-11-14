@@ -27,6 +27,14 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
     };
+    tailscaleServe = {
+      enable = lib.mkEnableOption "Expose Home Assistant on the node's MagicDNS name via Tailscale Serve";
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 8443;
+        description = "HTTPS port Tailscale Serve listens on";
+      };
+    };
   };
   config = lib.mkIf cfg.enable {
     modules.homelab.mosquitto.users.hass = lib.mkIf mqtt.enable {
@@ -87,6 +95,8 @@ in {
         "isal"
 
         "mobile_app"
+        # MCP server for LLM clients; config flow only, so it is added from the UI
+        "mcp_server"
 
         # Tapo camera control
         "ffmpeg"
@@ -124,6 +134,25 @@ in {
       ];
     };
     systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];
+
+    # Serve proxies from loopback, which http.trusted_proxies already trusts.
+    systemd.services.home-assistant-tailscale-serve = lib.mkIf cfg.tailscaleServe.enable (let
+      tailscale = lib.getExe config.services.tailscale.package;
+      port = toString cfg.tailscaleServe.port;
+    in {
+      description = "Expose Home Assistant via Tailscale Serve";
+      after = ["tailscaled.service" "home-assistant.service"];
+      wants = ["tailscaled.service"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        TimeoutStartSec = 120;
+        ExecStartPre = "${tailscale} wait --timeout=60s";
+        ExecStart = "${tailscale} serve --bg --https=${port} http://127.0.0.1:${toString cfg.port}";
+        ExecStop = "${tailscale} serve --https=${port} off";
+      };
+    });
 
     networking.firewall = {
       allowedTCPPorts = [8555];
