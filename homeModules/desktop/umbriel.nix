@@ -138,7 +138,7 @@
     "Mod+Shift+v" = "window-focus-switch-floating";
     "Mod+f" = "window-toggle-maximize";
     "Mod+Shift+f" = "window-toggle-maximize-to-edges";
-    # Niri expands the column to the available width here; fullscreen is the closest.
+    # Closest equivalent to expanding the column to the available width.
     "Mod+Ctrl+f" = once "window-toggle-fullscreen";
     "Mod+Shift+e" = "session-quit";
     "Mod+x" = {
@@ -310,7 +310,7 @@
     "^(com.t3tools.T3Code|t3code)$" = "4";
     "^cafe.avery.Delfin$" = "2";
   };
-  # Same set niri opened maximized to the edges.
+  # Opened maximized to the edges.
   maximizedApps = [
     "^zen-beta$"
     "^com.mitchellh.ghostty$"
@@ -363,18 +363,18 @@ in {
         input = {
           keyboard = {
             layout = keyboardLayout;
-            # Same as niri: Alt+Caps switches layout and Menu is the Compose key.
+            # Alt+Caps switches layout and Menu is the Compose key.
             options = "grp:alt_caps_toggle,compose:menu";
             numlock_toggle = true;
           };
           focus = {
             follows_mouse = true;
-            hover_raises = false; # Hover only focuses, like niri
+            hover_raises = false; # Hover only focuses
           };
           cursor = {
             theme = "Bibata-Modern-Ice";
             size = 24;
-            follows_focus = true; # Like niri's warp-mouse-to-focus
+            follows_focus = true; # Warp the cursor to the focused window
           };
           touchpad.natural_scroll = true;
         };
@@ -387,7 +387,7 @@ in {
         general.show_cheatsheet = false;
 
         layout = {
-          # Pinned so every workspace scrolls, like niri, whatever the packaged default becomes.
+          # Pinned so every workspace scrolls, whatever the packaged default becomes.
           mode = "scrolling";
           gap = 2;
         };

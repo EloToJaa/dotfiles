@@ -7,13 +7,11 @@
 in {
   imports = [
     ./greeter.nix
-    ./niri.nix
     ./umbriel.nix
   ];
 
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
-    niri.enable = lib.mkEnableOption "Enable niri";
     umbriel.enable = lib.mkEnableOption "Enable umbriel";
   };
 

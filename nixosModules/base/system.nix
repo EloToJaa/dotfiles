@@ -23,7 +23,6 @@ in {
             "https://nix-gaming.cachix.org"
             "https://yazi.cachix.org"
             "https://cache.numtide.com"
-            "https://niri-nix.cachix.org"
           ]
           ++ lib.optional useHarmonia "https://cache.worker.elotoja.com";
         trusted-public-keys =
@@ -32,7 +31,6 @@ in {
             "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
             "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
             "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-            "niri-nix.cachix.org-1:SvFtqpDcf7Sm1SMJdby1/+Y+6f3Yt3/3PMcSTKPJNJ0="
           ]
           # public half of worker's harmonia-signing-key clan var
           ++ lib.optional useHarmonia "cache.worker.elotoja.com-1:/j0avO/0fPyVfujJ7ztFCccoBY+jPorCrtGfsmyZNeg=";

@@ -102,7 +102,6 @@
       virtualization.enable = true;
       wayland = {
         enable = true;
-        niri.enable = true;
         umbriel.enable = true;
       };
     };

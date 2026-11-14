@@ -1,7 +1,6 @@
 {lib, ...}: {
   options.modules.desktop.enable = lib.mkEnableOption "Enable desktop module";
   imports = [
-    ./niri
     ./scripts # personal scripts
     ./wallpapers
     ./wezterm
@@ -27,7 +26,7 @@
     ./rider.nix # jetbrains rider
     ./satty.nix # screenshot annotate tool
     ./spotify.nix # spotify client
-    ./umbriel.nix # umbriel compositor (niri alternative)
+    ./umbriel.nix # umbriel compositor
     ./variables.nix
     ./voxtype.nix # voice dictation
     ./web-apps.nix

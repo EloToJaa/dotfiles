@@ -171,7 +171,7 @@ Never commit plaintext secrets.
 ## Git Workflow
 
 - Main branch: `main`
-- Commits: `type(scope): description` (e.g. `feat(worker): ...`, `fix(niri): ...`); branches: `type/description`
+- Commits: `type(scope): description` (e.g. `feat(worker): ...`, `fix(umbriel): ...`); branches: `type/description`
 - Nixbot builds the flake `checks` on every PR (see [CI/CD](#cicd))
 
 ## AI Agent Workflow
