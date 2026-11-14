@@ -76,7 +76,7 @@ in
       pnpm = pnpm_10_latest;
       sourceRoot = "${finalAttrs.src.name}/frontend";
       fetcherVersion = 4;
-      hash = "sha256-ntbEbiy+Gp5YHtOr++ykioBgIN6d7MyTTZ8z7GN3u9k=";
+      hash = "sha256-6uP5YG+X6UhN/Y99eiIFRJQ6nA0yZMRaq+xDPXcyM/8=";
     };
 
     pnpmRoot = "frontend";
