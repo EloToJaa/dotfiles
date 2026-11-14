@@ -108,6 +108,7 @@ in {
     ./share
     ./sonarr
     ./t3-code
+    ./virtual-display
     ./siyuan
     ./stalwart
     ./streamystats
