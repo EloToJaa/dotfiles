@@ -66,6 +66,15 @@ in {
       };
       files.session = {inherit owner group;};
     };
+    anthropic = lib.mkIf hm.modules.ai.claude.enable {
+      share = true;
+      prompts.auth-token = {
+        description = "ANTHROPIC_AUTH_TOKEN for Claude Code";
+        type = "hidden";
+        persist = true;
+      };
+      files.auth-token = {inherit owner group;};
+    };
     ntfy-sh = lib.mkIf hm.modules.desktop.notifications.enable {
       share = true;
       prompts.password = {

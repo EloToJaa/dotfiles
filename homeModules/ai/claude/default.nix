@@ -1,10 +1,12 @@
 {
   config,
+  osConfig,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.modules.ai.claude;
+  token_path = osConfig.clan.core.vars.generators.anthropic.files.auth-token.path;
 in {
   options.modules.ai.claude = {
     enable = lib.mkEnableOption "Enable Claude Code module";
@@ -23,13 +25,15 @@ in {
         paths = [pkgs.llm-agents.claude-code];
         nativeBuildInputs = [pkgs.makeWrapper];
         postBuild = ''
-          wrapProgram $out/bin/claude --set CLAUDE_CODE_NATIVE_CURSOR 1
+          wrapProgram $out/bin/claude \
+            --set CLAUDE_CODE_NATIVE_CURSOR 1 \
+            --run 'export ANTHROPIC_AUTH_TOKEN="$(cat ${token_path})"'
         '';
       };
       context = ../AGENTS.md;
       settings = {
-        # ANTHROPIC_AUTH_TOKEN is a secret and stays out of the store; keep it in the
-        # environment or a local-only config instead
+        # ANTHROPIC_AUTH_TOKEN is a secret: the claude wrapper reads it from the
+        # `anthropic` clan vars generator at runtime so it stays out of the store
         env = {
           ANTHROPIC_BASE_URL = "https://hub.server.elotoja.com";
           CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY = "1";
