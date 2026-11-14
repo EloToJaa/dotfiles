@@ -27,12 +27,53 @@ in {
         '';
       };
       context = ./AGENTS.md;
-      # settings = {
-      #   model = "claude-fable-5[1m]";
-      #   effortLevel = "medium";
-      #   modelSettings.claude-fable-5.effortLevel = "medium";
-      #   tui = "fullscreen";
-      # };
+      settings = {
+        # ANTHROPIC_AUTH_TOKEN is a secret and stays out of the store; keep it in the
+        # environment or a local-only config instead
+        env = {
+          ANTHROPIC_BASE_URL = "https://hub.server.elotoja.com";
+          CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY = "1";
+          API_TIMEOUT_MS = "600000";
+          BASH_DEFAULT_TIMEOUT_MS = "600000";
+          BASH_MAX_TIMEOUT_MS = "600000";
+          CLAUDE_API_TIMEOUT = "600000";
+          CLAUDE_CODE_MAX_CONTEXT_TOKENS = "200000";
+          CLAUDE_AUTOCOMPACT_PCT_OVERRIDE = "95";
+          DISABLE_TELEMETRY = "1";
+          MCP_TIMEOUT = "30000";
+          MCP_TOOL_TIMEOUT = "600000";
+        };
+        permissions.defaultMode = "auto";
+        model = "sonnet";
+        effortLevel = "high";
+        tui = "fullscreen";
+        editorMode = "vim";
+        verbose = true;
+        autoCompactEnabled = true;
+        skipDangerousModePermissionPrompt = true;
+        skipWorkflowUsageWarning = true;
+        worktree.baseRef = "fresh";
+        enabledPlugins."pyright-lsp@claude-plugins-official" = true;
+        hooks = let
+          workmux = matcher: command:
+            lib.optionalAttrs (matcher != null) {inherit matcher;}
+            // {
+              hooks = [
+                {
+                  type = "command";
+                  inherit command;
+                }
+              ];
+            };
+        in {
+          Notification = [(workmux "permission_prompt|elicitation_dialog" "workmux set-window-status waiting")];
+          PostToolUse = [(workmux null "workmux set-window-status working")];
+          SessionStart = [(workmux "startup|resume|clear|fork" "workmux register-agent")];
+          Stop = [(workmux null "workmux set-window-status done")];
+          UserPromptSubmit = [(workmux null "workmux set-window-status working")];
+        };
+      };
     };
+    home.file.".claude/keybindings.json".source = ./claude-keybindings.json;
   };
 }
