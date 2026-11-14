@@ -321,12 +321,6 @@ and again via `programs.ghostty` below. Nix rejects the overlapping attribute pa
 module fails evaluation. Merge the Ghostty settings into the existing `programs` attrset (or combine
 both under one `programs = { ...; };`).
 
-─── homeModules/desktop/niri/window-rules.nix:43-48 ───
-[bug · medium] This matcher requires the same window to have both app-id `audacious` and a title
-containing `Bitwarden Password Manager`. Those identify unrelated applications, so the rule will not
-float Bitwarden (and is unlikely to match any window). If the intent is to float Bitwarden, remove
-or correct the app-id constraint; if these are separate targets, use separate rules.
-
 ─── homeModules/desktop/piper-tts.nix:65-69 ───
 [bug · medium] The state check and the asynchronous start/stop are not atomic. If this command is
 invoked again before the first `--no-block` request takes effect, both invocations can observe the

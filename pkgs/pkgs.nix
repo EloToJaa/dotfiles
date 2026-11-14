@@ -13,7 +13,6 @@
   delfin = pkgs.unstable.callPackage ./delfin {};
   energa-my-meter = pkgs.unstable.callPackage ./energa-my-meter {};
   musicseerr = pkgs.callPackage ./musicseerr {};
-  oniri = pkgs.unstable.callPackage ./oniri {};
   stack-in-card = pkgs.callPackage ./stack-in-card {};
   streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};

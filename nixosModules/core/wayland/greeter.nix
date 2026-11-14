@@ -7,11 +7,6 @@
   inherit (config.settings) uid username;
   cfg = config.modules.core.wayland;
   avatar = ../assets/avatar.png;
-  # Compositors stay selectable in the greeter; this only picks the preselected one.
-  defaultSession =
-    if cfg.umbriel.enable
-    then "umbriel"
-    else "niri";
 in {
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {
     systemd.services.set-user-avatar = {
@@ -42,7 +37,7 @@ in {
       # Lets the shell's "Sync Greeter" copy wallpaper and palette without a polkit prompt
       passwordless-sync-users = [username];
       settings = {
-        session.default = defaultSession;
+        session.default = "umbriel";
         user.default = username;
         appearance.theme_mode = "dark";
       };
