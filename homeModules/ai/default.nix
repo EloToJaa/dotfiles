@@ -22,6 +22,7 @@
     ./pi.nix
     ./skills.nix
     ./t3-code.nix
+    ./virtual-display.nix
     ./workmux.nix
   ];
 }
