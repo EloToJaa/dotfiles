@@ -53,7 +53,9 @@ in {
     modules.homelab.mosquitto.users.zigbee2mqtt = lib.mkIf mqtt.enable {
       acl = [
         "readwrite zigbee2mqtt/#"
-        "write homeassistant/#"
+        # read is needed for HA's birth message on homeassistant/status, which
+        # makes Z2M republish device states after HA restarts
+        "readwrite homeassistant/#"
       ];
       environment = ["ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD"];
     };
