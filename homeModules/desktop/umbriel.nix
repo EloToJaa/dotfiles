@@ -308,6 +308,7 @@
     "^com.jeffser.Nocturne$" = "6";
     "^com.obsproject.Studio$" = "4";
     "^(com.t3tools.T3Code|t3code)$" = "4";
+    "^grok-bot$" = "4";
     "^cafe.avery.Delfin$" = "2";
   };
   # Opened maximized to the edges.
@@ -320,6 +321,7 @@
     "^com.jeffser.Nocturne$"
     "^vesktop$"
     "^(com.t3tools.T3Code|t3code)$"
+    "^grok-bot$"
   ];
   floatingApps = [
     "^winboat-.*"
@@ -358,7 +360,8 @@ in {
             [(lib.getExe pkgs.unstable.valent) "--gapplication-service"]
             [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
           ]
-          ++ lib.optional (with config.modules.ai.t3-code; enable && desktop.enable) ["t3code-desktop"]);
+          ++ lib.optional (with config.modules.ai.t3-code; enable && desktop.enable) ["t3code-desktop"]
+          ++ lib.optional config.modules.ai.grok-bot.enable ["grok-bot"]);
 
         input = {
           keyboard = {
