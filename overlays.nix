@@ -38,7 +38,16 @@
       overlays = [
         inputs.llm-agents.overlays.shared-nixpkgs
         (_final: prev: {
-          btop = prev.btop.override {rocmSupport = true;};
+          # Pinned to 1.4.7: 1.4.8 balloons to 20+ GB of RAM within seconds of starting.
+          btop = (prev.btop.override {rocmSupport = true;}).overrideAttrs (old: rec {
+            version = "1.4.7";
+            src = prev.fetchFromGitHub {
+              owner = "aristocratos";
+              repo = "btop";
+              tag = "v${version}";
+              hash = "sha256-3gECGBSWcGTYQkUlD4X2zrxZVvH2x2xfh5zdZ2jJbDQ=";
+            };
+          });
 
           # cargoSetupHook now forces system libraries (RUSTONIG_SYSTEM_LIBONIG,
           # AWS_LC_SYS_USE_SYSTEM), so these packages need them in buildInputs.
