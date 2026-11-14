@@ -41,7 +41,7 @@
     )
 
     export PATH="${runtimePath}:$PATH"
-    exec ${pkgs.llm-agents.codex}/bin/codex --dangerously-bypass-approvals-and-sandbox "$prompt"
+    exec ${pkgs.llm-agents.claude-code}/bin/claude --dangerously-skip-permissions "$prompt"
   '';
 
   crash-watch = pkgs.writeShellScriptBin "ai-crash-watch" ''
