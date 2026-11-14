@@ -431,6 +431,11 @@ in {
               match.app_id = floatingApps;
               default_floating = true;
             }
+            {
+              match.app_id = "^com.elotoja.btop-popup$";
+              default_floating = true;
+              default_size = [1200 800];
+            }
           ];
       };
     };

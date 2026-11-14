@@ -7,6 +7,7 @@
 }: let
   cfg = config.modules.desktop.noctalia-shell;
   noctaliaPackage = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  btop_popup = "exec ghostty --class=com.elotoja.btop-popup --title=btop -e btop";
 in {
   options.modules.desktop.noctalia-shell = {
     enable = lib.mkEnableOption "Enable Noctalia shell";
@@ -51,6 +52,11 @@ in {
           start = ["workspaces"];
           center = ["media" "clock" "weather"];
           end = ["cpu" "ram" "tray" "notifications" "battery" "network" "bluetooth" "volume" "session"];
+        };
+        # Right click opens btop in a floating terminal (floated by a window rule in umbriel.nix)
+        widget = {
+          cpu.actions.right = btop_popup;
+          ram.actions.right = btop_popup;
         };
       };
     };
