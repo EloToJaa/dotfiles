@@ -11,7 +11,6 @@ in {
       ## CLI utility
       just
       xh
-      google-cloud-sdk
       #codecrafters-cli
     ];
   };

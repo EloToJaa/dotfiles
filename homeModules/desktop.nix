@@ -16,7 +16,6 @@
         photocraft.enable = true;
         wordcraft.enable = true;
       };
-      audacious.enable = true;
       bluetooth.enable = true;
       cava.enable = true;
       chromium.enable = true;

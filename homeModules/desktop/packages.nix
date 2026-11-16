@@ -29,7 +29,6 @@ in {
 
         ## Utilities
         # libreoffice
-        gimp
         obs-studio
         rqbit # qbittorrent
         rustdesk-flutter
