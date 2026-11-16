@@ -14,7 +14,6 @@ in {
       papers # pdf
       file-roller # archive
       gnome-text-editor # gedit
-      switcheroo
     ];
 
     services.kdeconnect = {
