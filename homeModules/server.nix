@@ -36,6 +36,8 @@
       enable = true;
       pi.enable = lib.mkDefault false;
       codex.enable = lib.mkDefault false;
+      cursor.enable = lib.mkDefault false;
+      grok.enable = lib.mkDefault false;
       claude.enable = lib.mkDefault true;
       t3-code.enable = lib.mkDefault false;
       workmux.enable = lib.mkDefault true;

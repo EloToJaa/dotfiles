@@ -48,6 +48,8 @@
       ollama.enable = true;
       hermes-desktop.enable = false;
       grok-bot.enable = true;
+      grok.enable = true;
+      cursor.enable = true;
       t3-code = {
         enable = true;
         desktop.enable = true;
