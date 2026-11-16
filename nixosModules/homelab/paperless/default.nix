@@ -40,7 +40,12 @@ in {
       inherit domain;
       inherit (cfg) port dataDir mediaDir;
       enable = true;
-      package = pkgs.unstable.paperless-ngx;
+      # nixpkgs ships torch 2.15 but paperless-ngx 3.4.2 pins torch<2.15.
+      # makeOverridable keeps `.override`, which the NixOS module calls.
+      package = lib.makeOverridable (args:
+        (pkgs.unstable.paperless-ngx.override args).overridePythonAttrs (old: {
+          pythonRelaxDeps = old.pythonRelaxDeps ++ ["torch"];
+        })) {};
       user = cfg.name;
       environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       settings = {
