@@ -66,7 +66,7 @@ in {
       };
       files.session = {inherit owner group;};
     };
-    anthropic = lib.mkIf hm.modules.ai.claude.enable {
+    anthropic = lib.mkIf (hm.modules.ai.claude.enable || hm.modules.ai.grok.enable) {
       share = true;
       prompts.auth-token = {
         description = "ANTHROPIC_AUTH_TOKEN for Claude Code";
