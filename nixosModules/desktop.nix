@@ -10,7 +10,7 @@
   ];
 
   boot.loader.limine.extraEntries = ''
-    /Windows 10
+    /Windows 11
       protocol: efi
       path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
   '';
