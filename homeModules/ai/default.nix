@@ -12,10 +12,12 @@
   };
   imports = [
     ./crash.nix
+    ./cursor.nix
     ./claude
     ./ollama.nix
     ./codex.nix
     ./grok-bot.nix
+    ./grok.nix
     ./hermes-desktop.nix
     ./mcp.nix
     ./opencode.nix
