@@ -23,7 +23,7 @@
     ./opencode.nix
     ./pi.nix
     ./skills.nix
-    ./t3-code.nix
+    ./t3-code
     ./virtual-display.nix
     ./workmux.nix
   ];
