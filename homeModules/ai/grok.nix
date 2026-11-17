@@ -46,7 +46,12 @@ in {
       endpoints = {
         models_base_url = hub_url;
         models_list_url = "${hub_url}/models";
+        # grok only trusts XAI_API_KEY on x.ai hosts or this URL; without it the key
+        # probe fails and every run reports "Not signed in"
+        xai_api_base_url = hub_url;
       };
+      # the first listed model (claude-3-5-haiku) is not served by the hub (404)
+      models.default = "grok-4.7";
     };
   };
 }
