@@ -389,6 +389,9 @@ in {
 
         general.show_cheatsheet = false;
 
+        # The packaged config opens the overview from the top-left corner; turn it off.
+        hot_corners.top_left.enabled = false;
+
         layout = {
           # Pinned so every workspace scrolls, whatever the packaged default becomes.
           mode = "scrolling";
