@@ -50,6 +50,10 @@ in {
     programs.t3code = {
       enable = true;
       package = t3codePackages.t3code;
+      # merged into the live files on activation so T3 can still edit them
+      userSettings = lib.importJSON ./settings.json;
+      clientSettings = lib.importJSON ./client-settings.json;
+      keybindings = lib.importJSON ./keybindings.json;
     };
 
     # Electron can't register itself in the read-only Home Manager mimeapps.list,
