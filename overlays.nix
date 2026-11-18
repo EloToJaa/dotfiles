@@ -52,19 +52,8 @@
           # cargoSetupHook now forces system libraries (RUSTONIG_SYSTEM_LIBONIG,
           # AWS_LC_SYS_USE_SYSTEM), so these packages need them in buildInputs.
           # https://github.com/NixOS/nixpkgs/issues/570938
-          aichat = prev.aichat.overrideAttrs (old: {
-            buildInputs = (old.buildInputs or []) ++ [prev.oniguruma];
-          });
           rqbit = prev.rqbit.overrideAttrs (old: {
             buildInputs = (old.buildInputs or []) ++ [prev.aws-lc];
-          });
-          rustdesk-flutter = prev.rustdesk-flutter.overrideAttrs (old: {
-            buildInputs =
-              (old.buildInputs or [])
-              ++ (with prev; [libsodium zstd libgit2 zlib]);
-          });
-          voxtype-vulkan = prev.voxtype-vulkan.overrideAttrs (old: {
-            buildInputs = (old.buildInputs or []) ++ [prev.sqlite];
           });
           llm-agents = let
             # openssl-sys builds against aws-lc's compat openssl.pc, which only the
@@ -108,32 +97,6 @@
 
           # With structured attrs, sphinx-hook's "$sphinxBuilders" only expands the first
           # array element, so the man builder never runs. Pass the builders as a string.
-          khal = prev.khal.overrideAttrs {
-            sphinxBuilders = "html man";
-          };
-          todoman = prev.todoman.overrideAttrs {
-            sphinxBuilders = "singlehtml man";
-            preInstallSphinx = ''
-              rm -rf .sphinx/man/man/_static/
-            '';
-          };
-
-          pythonPackagesExtensions =
-            prev.pythonPackagesExtensions
-            ++ [
-              (_pyfinal: pyprev: {
-                # TypeError message changed upstream: "Expected str, got int".
-                pyopenjtalk-plus = pyprev.pyopenjtalk-plus.overrideAttrs (old: {
-                  disabledTests =
-                    (old.disabledTests or [])
-                    ++ ["test_run_njd_from_mecab_invalid_input_should_not_break_next_call"];
-                });
-                # Timing-based test, flaky on loaded builders.
-                ocrmypdf = pyprev.ocrmypdf.overrideAttrs (old: {
-                  disabledTests = (old.disabledTests or []) ++ ["test_validation_performance"];
-                });
-              })
-            ];
         })
       ];
     };
