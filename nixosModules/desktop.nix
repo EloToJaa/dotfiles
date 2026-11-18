@@ -17,42 +17,42 @@
 
   modules = {
     base = {
-      enable = true;
-      nix-ld.enable = true;
+      enable = lib.mkDefault true;
+      nix-ld.enable = lib.mkDefault true;
       smartd.enable = lib.mkDefault true;
-      bootloader.enable = true;
-      initrd.enable = true;
-      tailscale.enable = true;
-      ssh.enable = true;
-      sudo.enable = true;
+      bootloader.enable = lib.mkDefault true;
+      initrd.enable = lib.mkDefault true;
+      tailscale.enable = lib.mkDefault true;
+      ssh.enable = lib.mkDefault true;
+      sudo.enable = lib.mkDefault true;
     };
     shared = {
-      btop.enable = true;
-      catppuccin.enable = true;
-      containers.enable = true;
-      index.enable = true;
-      nfs.enable = true;
-      nh.enable = true;
+      btop.enable = lib.mkDefault true;
+      catppuccin.enable = lib.mkDefault true;
+      containers.enable = lib.mkDefault true;
+      index.enable = lib.mkDefault true;
+      nfs.enable = lib.mkDefault true;
+      nh.enable = lib.mkDefault true;
     };
     core = {
-      enable = true;
-      gnupg.enable = true;
-      developer.enable = true;
-      plymouth.enable = true;
-      adb.enable = false;
-      audio.enable = true;
-      bluetooth.enable = true;
-      camera.enable = true;
-      gnome.enable = true;
-      mullvad.enable = true;
-      printing.enable = false;
-      steam.enable = true;
-      virtualization.enable = true;
+      enable = lib.mkDefault true;
+      gnupg.enable = lib.mkDefault true;
+      developer.enable = lib.mkDefault true;
+      plymouth.enable = lib.mkDefault true;
+      adb.enable = lib.mkDefault false;
+      audio.enable = lib.mkDefault true;
+      bluetooth.enable = lib.mkDefault true;
+      camera.enable = lib.mkDefault true;
+      gnome.enable = lib.mkDefault true;
+      mullvad.enable = lib.mkDefault true;
+      printing.enable = lib.mkDefault false;
+      steam.enable = lib.mkDefault true;
+      virtualization.enable = lib.mkDefault true;
       wayland = {
-        enable = true;
-        umbriel.enable = true;
+        enable = lib.mkDefault true;
+        umbriel.enable = lib.mkDefault true;
       };
     };
-    homelab.groups.enable = true;
+    homelab.groups.enable = lib.mkDefault true;
   };
 }

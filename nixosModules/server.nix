@@ -19,27 +19,27 @@
 
   modules = {
     base = {
-      enable = true;
-      nix-ld.enable = true;
+      enable = lib.mkDefault true;
+      nix-ld.enable = lib.mkDefault true;
       smartd.enable = lib.mkDefault true;
-      bootloader.enable = true;
-      initrd.enable = true;
-      tailscale.enable = true;
-      ssh.enable = true;
-      sudo.enable = true;
+      bootloader.enable = lib.mkDefault true;
+      initrd.enable = lib.mkDefault true;
+      tailscale.enable = lib.mkDefault true;
+      ssh.enable = lib.mkDefault true;
+      sudo.enable = lib.mkDefault true;
     };
     shared = {
-      btop.enable = true;
-      catppuccin.enable = true;
-      containers.enable = true;
-      index.enable = true;
-      nfs.enable = true;
-      nh.enable = true;
-      graphics.enable = true;
+      btop.enable = lib.mkDefault true;
+      catppuccin.enable = lib.mkDefault true;
+      containers.enable = lib.mkDefault true;
+      index.enable = lib.mkDefault true;
+      nfs.enable = lib.mkDefault true;
+      nh.enable = lib.mkDefault true;
+      graphics.enable = lib.mkDefault true;
     };
     homelab = {
-      enable = true;
-      groups.enable = true;
+      enable = lib.mkDefault true;
+      groups.enable = lib.mkDefault true;
     };
   };
 }
