@@ -59,7 +59,7 @@
     dev = {
       enable = true;
       aoc.enable = true;
-      jujutsu.enable = true;
+      jujutsu.enable = false;
       lazygit.enable = true;
       rbw.enable = true;
       zed.enable = true;
