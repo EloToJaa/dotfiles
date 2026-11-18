@@ -43,19 +43,14 @@ in {
       "ai-memory/auth-token".source = config.lib.file.mkOutOfStoreSymlink token_path;
     };
 
-    # MCP tools (search, read/write pages, handoffs) for every harness in the shared registry
+    # MCP tools (search, read/write pages, handoffs) for every harness in the shared registry;
+    # session-less, since the session-aware bridge refuses to start outside Claude Code
     programs.mcp.servers.ai-memory = {
       command = bin;
       args = ["--data-dir" dataDir "mcp-bridge" "--no-session-id"];
     };
 
-    # Claude Code gets the session-aware bridge and the capture hooks
     programs.claude-code = {
-      mcpServers.ai-memory = {
-        type = "stdio";
-        command = bin;
-        args = ["--data-dir" dataDir "mcp-bridge"];
-      };
       settings.hooks = {
         SessionStart = [(claudeHook "session-start" {})];
         UserPromptSubmit = [(claudeHook "user-prompt-submit" {})];
