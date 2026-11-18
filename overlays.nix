@@ -49,12 +49,9 @@
             };
           });
 
-          # cargoSetupHook now forces system libraries (RUSTONIG_SYSTEM_LIBONIG,
-          # AWS_LC_SYS_USE_SYSTEM), so these packages need them in buildInputs.
+          # cargoSetupHook now forces system libraries
+          # (AWS_LC_SYS_USE_SYSTEM), so these packages need them in buildInputs.
           # https://github.com/NixOS/nixpkgs/issues/570938
-          aichat = prev.aichat.overrideAttrs (old: {
-            buildInputs = (old.buildInputs or []) ++ [prev.oniguruma];
-          });
           rqbit = prev.rqbit.overrideAttrs (old: {
             buildInputs = (old.buildInputs or []) ++ [prev.aws-lc];
           });
