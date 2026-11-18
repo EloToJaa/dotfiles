@@ -4,5 +4,6 @@
   ai-mattpocock-skills = pkgs.callPackage ./mattpocock-skills.nix {};
   ai-pi-agent-extensions = pkgs.callPackage ./pi-agent-extensions.nix {};
   ai-pi-vim = pkgs.callPackage ./pi-vim.nix {};
+  ai-tstack-skills = pkgs.callPackage ./tstack-skills.nix {};
   ai-workmux-skills = pkgs.callPackage ./workmux-skills.nix {};
 }
