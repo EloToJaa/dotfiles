@@ -39,6 +39,7 @@
       cursor.enable = lib.mkDefault false;
       grok.enable = lib.mkDefault false;
       claude.enable = lib.mkDefault true;
+      memory.enable = lib.mkDefault true;
       t3-code.enable = lib.mkDefault false;
       workmux.enable = lib.mkDefault true;
     };

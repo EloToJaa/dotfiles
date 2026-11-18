@@ -64,6 +64,7 @@ in {
     };
   };
   imports = [
+    ./ai-memory
     ./atuin
     ./authelia
     ./bazarr

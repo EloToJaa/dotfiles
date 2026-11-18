@@ -5,6 +5,7 @@
 
   modules.homelab = {
     enable = true;
+    ai-memory.enable = true;
     atuin.enable = true;
     authelia.enable = true;
     lldap.enable = true;

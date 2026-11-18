@@ -35,6 +35,7 @@
     };
     ai = {
       enable = lib.mkDefault true;
+      memory.enable = lib.mkDefault true;
       t3-code.enable = lib.mkDefault true;
       workmux.enable = lib.mkDefault true;
       crash.enable = lib.mkDefault true;

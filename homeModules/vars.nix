@@ -75,6 +75,24 @@ in {
       };
       files.auth-token = {inherit owner group;};
     };
+    # bearer token shared by the ai-memory server and every client; derived
+    # generators deploy it as the server env file and the user's token file
+    ai-memory = lib.mkIf (hm.modules.ai.memory.enable || config.modules.homelab.ai-memory.enable) {
+      share = true;
+      files.auth-token.deploy = false;
+      runtimeInputs = [pkgs.openssl];
+      script = ''
+        openssl rand -hex 32 > "$out/auth-token"
+      '';
+    };
+    ai-memory-client = lib.mkIf hm.modules.ai.memory.enable {
+      share = true;
+      dependencies = ["ai-memory"];
+      files.auth-token = {inherit owner group;};
+      script = ''
+        cp "$in/ai-memory/auth-token" "$out/auth-token"
+      '';
+    };
     t3code-hub = lib.mkIf hm.modules.ai.t3-code.enable {
       share = true;
       prompts.management-key = {
