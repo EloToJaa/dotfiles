@@ -75,6 +75,15 @@ in {
       };
       files.auth-token = {inherit owner group;};
     };
+    t3code-hub = lib.mkIf hm.modules.ai.t3-code.enable {
+      share = true;
+      prompts.management-key = {
+        description = "CLIProxyAPI management key (clan vars get server cliproxyapi/management-key)";
+        type = "hidden";
+        persist = true;
+      };
+      files.management-key = {inherit owner group;};
+    };
     ntfy-sh = lib.mkIf hm.modules.desktop.notifications.enable {
       share = true;
       prompts.password = {

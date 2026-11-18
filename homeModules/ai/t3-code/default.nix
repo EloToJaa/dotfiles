@@ -1,11 +1,16 @@
 {
   config,
+  osConfig,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.modules.ai.t3-code;
   t3codePackages = pkgs.unstable.llm-agents;
+  settings_path = "${config.home.homeDirectory}/.t3/userdata/settings.json";
+  hub_url = "https://hub.server.elotoja.com";
+  hub_source = "cliproxy-hub.server.elotoja.com";
+  hub_key_path = osConfig.clan.core.vars.generators.t3code-hub.files.management-key.path;
   service_args =
     [
       "serve"
@@ -51,10 +56,38 @@ in {
       enable = true;
       package = t3codePackages.t3code;
       # merged into the live files on activation so T3 can still edit them
-      userSettings = lib.importJSON ./settings.json;
+      userSettings = lib.recursiveUpdate (lib.importJSON ./settings.json) {
+        # the management key is a secret, written by t3codeHubManagementKey below
+        usageLimitSources.${hub_source} = {
+          kind = "cliproxy";
+          url = hub_url;
+          enabled = true;
+        };
+      };
       clientSettings = lib.importJSON ./client-settings.json;
       keybindings = lib.importJSON ./keybindings.json;
     };
+
+    # Inject the CLIProxyAPI management key from clan vars so it stays out of the store
+    home.activation.t3codeHubManagementKey = lib.hm.dag.entryAfter ["t3codeSettingsActivation"] ''
+      key_file=${lib.escapeShellArg hub_key_path}
+      settings=${lib.escapeShellArg settings_path}
+      if [ ! -r "$key_file" ]; then
+        echo "T3 Code: $key_file is not readable, skipping hub management key" >&2
+      elif [[ -v DRY_RUN ]]; then
+        echo "Would set the T3 Code hub management key in $settings"
+      else
+        tmp=$(${lib.getExe' pkgs.coreutils "mktemp"} "$settings.XXXXXXXX")
+        ${lib.getExe' pkgs.coreutils "chmod"} 600 "$tmp"
+        if ${lib.getExe pkgs.jq} --rawfile key "$key_file" --arg id ${lib.escapeShellArg hub_source} \
+          '.usageLimitSources[$id].managementKey = ($key | sub("\\s+$"; ""))' "$settings" > "$tmp"; then
+          ${lib.getExe' pkgs.coreutils "mv"} -f "$tmp" "$settings"
+        else
+          ${lib.getExe' pkgs.coreutils "rm"} -f "$tmp"
+          echo "T3 Code: failed to set the hub management key in $settings" >&2
+        fi
+      fi
+    '';
 
     # Electron can't register itself in the read-only Home Manager mimeapps.list,
     # so browsers never route T3 Connect's t3code:// OAuth callback to the app.
