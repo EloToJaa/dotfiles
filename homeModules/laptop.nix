@@ -101,6 +101,10 @@
       nix.enable = lib.mkDefault true;
       oh-my-posh.enable = lib.mkDefault true;
       tmux.enable = lib.mkDefault true;
+      rex = {
+        enable = lib.mkDefault true;
+        server.enable = lib.mkDefault true;
+      };
       yazi.enable = lib.mkDefault true;
       zsh = {
         enable = lib.mkDefault true;

@@ -8,6 +8,7 @@
     inputs.noctalia.homeModules.default
     inputs.umbriel.homeModules.default
     inputs.noctalia-monitors.homeModules.default
+    inputs.rex.homeManagerModules.default
 
     ./ai
     ./cybersec
