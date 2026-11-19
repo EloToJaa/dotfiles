@@ -44,6 +44,7 @@
     ai = {
       enable = lib.mkDefault true;
       claude.enable = lib.mkDefault true;
+      memory.enable = lib.mkDefault true;
       ollama.enable = lib.mkDefault true;
       hermes-desktop.enable = lib.mkDefault false;
       grok-bot.enable = lib.mkDefault true;

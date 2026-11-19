@@ -20,6 +20,7 @@
     ./grok.nix
     ./hermes-desktop.nix
     ./mcp.nix
+    ./memory.nix
     ./opencode.nix
     ./pi.nix
     ./skills.nix
