@@ -21,6 +21,9 @@ in {
       flake = dotfilesDirectory;
     };
 
+    # nh from unstable activates with `systemd-run --output=cat`, which needs systemd >= 261
+    systemd.package = pkgs.unstable.systemd;
+
     environment.systemPackages = with pkgs.unstable; [
       nvd
     ];
