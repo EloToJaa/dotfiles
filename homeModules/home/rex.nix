@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -26,6 +27,10 @@ in {
       sshGuard = lib.mkDefault config.programs.ssh.enable;
     };
     services.rex.enable = cfg.server.enable;
+    # The host enables lingering for this user (nixosModules/base/user.nix), so the
+    # module's unconditional `loginctl enable-linger` warning does not apply.
+    # This also drops any other home-manager warnings, because they cannot be filtered.
+    warnings = lib.mkIf (cfg.server.enable && (osConfig.users.users.${config.home.username}.linger or false)) (lib.mkForce []);
     home.packages = lib.optionals cfg.client.enable [
       inputs.rex-rune.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];

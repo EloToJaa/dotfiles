@@ -8,6 +8,8 @@
 }: let
   inherit (config.settings) username stateVersion uid homeDirectory;
   cfg = config.modules.base;
+  rex_cfg = config.home-manager.users.${username}.modules.home.rex;
+  rex_server = rex_cfg.enable && rex_cfg.server.enable;
 in {
   config = lib.mkIf cfg.enable {
     clan.core.vars.generators."${username}-password" = {
@@ -63,6 +65,8 @@ in {
           "wheel"
         ];
         shell = pkgs.unstable.zsh;
+        # keep the user's systemd services (e.g. the rex server) running after logout
+        linger = lib.mkIf rex_server true;
         hashedPasswordFile =
           config.clan.core.vars.generators."${username}-password".files.password-hash.path;
       };
