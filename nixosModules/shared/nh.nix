@@ -21,8 +21,6 @@ in {
       flake = dotfilesDirectory;
     };
 
-    systemd.package = pkgs.unstable.systemd;
-
     environment.systemPackages = with pkgs.unstable; [
       nvd
     ];
