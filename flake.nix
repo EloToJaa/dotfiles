@@ -86,6 +86,7 @@
       url = "https://pkgs.superlogical.com/rex/nix/preview.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    rex-rune.url = "github:shuv1337/rex-rune"; # unofficial Linux client; keep its own nixpkgs pin (needs newer Rust and Zig)
     noctalia-monitors = {
       url = "github:EloToJaa/noctalia-monitors";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

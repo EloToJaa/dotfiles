@@ -1,6 +1,8 @@
 {
   config,
+  inputs,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkOption mkEnableOption types;
@@ -9,6 +11,7 @@ in {
   options.modules.home.rex = {
     enable = mkEnableOption "Enable rex terminal multiplexer";
     server.enable = mkEnableOption "Run a personal rex server as a systemd user service";
+    client.enable = mkEnableOption "Install the unofficial Rex Rune desktop client";
     config = mkOption {
       type = types.nullOr (types.either types.lines types.path);
       default = null;
@@ -23,5 +26,8 @@ in {
       sshGuard = lib.mkDefault config.programs.ssh.enable;
     };
     services.rex.enable = cfg.server.enable;
+    home.packages = lib.optionals cfg.client.enable [
+      inputs.rex-rune.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
   };
 }

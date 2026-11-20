@@ -122,6 +122,7 @@
       rex = {
         enable = lib.mkDefault true;
         server.enable = lib.mkDefault true;
+        client.enable = lib.mkDefault true;
       };
       yazi.enable = lib.mkDefault true;
       zsh = {
