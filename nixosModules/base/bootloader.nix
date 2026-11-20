@@ -63,7 +63,7 @@ in {
       chmod -R u+rw /var/lib/sbctl/keys
     '';
 
-    systemd.package = pkgs.unstable.systemd;
+    systemd.package = pkgs.systemd;
 
     # To prevent getting stuck at shutdown
     systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
