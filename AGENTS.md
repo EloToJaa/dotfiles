@@ -72,6 +72,15 @@ python3 tests/review-quick-fixes.py
 
 ## Code Style Guidelines
 
+### Comments
+
+Use as few comments as possible, in every language. Write clear names and code instead of explaining code with comments. Only add a comment when it is necessary:
+
+- Function, module or option documentation (docstrings, `description` fields)
+- Context the code can't express: a workaround for a specific bug or upstream issue, or a link to the feature or issue it belongs to
+
+Don't add comments that restate the code, label sections, or describe what changed.
+
 ### Nix (.nix files)
 
 **Formatting:**
@@ -112,12 +121,6 @@ python3 tests/review-quick-fixes.py
 - Use `inherit (lib) mkOption mkEnableOption types;` for frequently used functions
 - Follow inputs with `inputs` attribute for flake inputs
 - Use `specialArgs` to pass additional arguments to modules
-
-**Comments:**
-
-- Inline comments after option definitions: `# brief description`
-- Avoid redundant comments that repeat the code
-- Use comments for non-obvious behavior or rationale
 
 ### Python
 
