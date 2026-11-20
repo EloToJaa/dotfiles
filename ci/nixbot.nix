@@ -7,6 +7,20 @@
   system = "x86_64-linux";
   pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
   effects = inputs.nixbot.lib.effects {inherit pkgs;};
+  # Nix 2.35 no longer copies a dirty flake into the store on `nix flake metadata`,
+  # so nix-update 1.16.0 fails every version bump while prefetching hashes.
+  # Drop once https://github.com/Mic92/nix-update/pull/692 is released.
+  nix-update = pkgs.nix-update.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        (pkgs.fetchpatch {
+          url = "https://github.com/Mic92/nix-update/commit/d545c1fad667e573128cad0db55fdc77134a4d3c.patch";
+          includes = ["nix_update/options.py"];
+          hash = "sha256-SLxMCM1T5ymd3r5X7Fvz8z/LCUyQcCUvNu1+Y773Tvg=";
+        })
+      ];
+  });
   # Yamtrack's source is a flake input; update it and package metadata together.
   # tmux-smart-splits cannot follow its upstream: smart-splits.nvim v3.0.0 moved
   # every multiplexer backend into a separate repository and deleted the
@@ -26,7 +40,7 @@
       checkout = true;
       lock = "dotfiles-update-${kind}-${name}";
       secretsMap.git.type = "GitToken";
-      inputs = with pkgs; [git gh nix nix-update coreutils gnugrep gnused gnutar gzip curl jq] ++ [inputs.bun2nix.packages.${system}.default];
+      inputs = with pkgs; [git gh nix coreutils gnugrep gnused gnutar gzip curl jq] ++ [nix-update inputs.bun2nix.packages.${system}.default];
       effectScript = ''
         set -euo pipefail
         export NIX_CONFIG="experimental-features = nix-command flakes"
