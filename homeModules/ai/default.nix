@@ -13,6 +13,7 @@
   imports = [
     ./crash.nix
     ./cursor.nix
+    ./grafana.nix
     ./claude
     ./ollama.nix
     ./codex.nix

@@ -93,6 +93,15 @@ in {
         cp "$in/ai-memory/auth-token" "$out/auth-token"
       '';
     };
+    grafana-mcp = lib.mkIf hm.modules.ai.grafana.enable {
+      share = true;
+      prompts.token = {
+        description = "Grafana service account token (Viewer role) for the Grafana MCP server";
+        type = "hidden";
+        persist = true;
+      };
+      files.token = {inherit owner group;};
+    };
     t3code-hub = lib.mkIf hm.modules.ai.t3-code.enable {
       share = true;
       prompts.management-key = {
