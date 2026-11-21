@@ -20,6 +20,7 @@
         "--skip=ssh::install::tests::stop_sweeps_a_term_ignoring_group_member_without_terminal_fds"
       ];
   });
+  workspace_path = "${config.xdg.configHome}/rex-rune/workspace.json";
 in {
   options.modules.home.rex = {
     enable = mkEnableOption "Enable rex terminal multiplexer";
@@ -27,7 +28,7 @@ in {
     client.enable = mkEnableOption "Install the unofficial Rex Rune desktop client";
     config = mkOption {
       type = types.nullOr (types.either types.lines types.path);
-      default = null;
+      default = ./rex.lua;
       description = "Lua configuration written to ~/.config/rex/init.lua";
     };
   };
@@ -44,5 +45,22 @@ in {
     # This also drops any other home-manager warnings, because they cannot be filtered.
     warnings = lib.mkIf (cfg.server.enable && (osConfig.users.users.${config.home.username}.linger or false)) (lib.mkForce []);
     home.packages = lib.optionals cfg.client.enable [rexRunePackage];
+
+    # Merged into the live file so the client can keep writing its own state (sessions, window size)
+    home.activation.rexRuneWorkspace = lib.mkIf cfg.client.enable (lib.hm.dag.entryAfter ["writeBoundary"] ''
+      workspace=${lib.escapeShellArg workspace_path}
+      if [[ -v DRY_RUN ]]; then
+        echo "Would merge the Rex Rune settings into $workspace"
+      else
+        ${lib.getExe' pkgs.coreutils "mkdir"} -p "$(${lib.getExe' pkgs.coreutils "dirname"} "$workspace")"
+        tmp=$(${lib.getExe' pkgs.coreutils "mktemp"} "$workspace.XXXXXXXX")
+        if ${lib.getExe pkgs.jq} -s '.[0] * .[1]' <([ -s "$workspace" ] && ${lib.getExe' pkgs.coreutils "cat"} "$workspace" || echo '{}') ${./rex-rune.json} > "$tmp"; then
+          ${lib.getExe' pkgs.coreutils "mv"} -f "$tmp" "$workspace"
+        else
+          ${lib.getExe' pkgs.coreutils "rm"} -f "$tmp"
+          echo "Rex Rune: failed to merge settings into $workspace" >&2
+        fi
+      fi
+    '');
   };
 }
