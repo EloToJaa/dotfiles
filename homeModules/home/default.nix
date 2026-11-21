@@ -6,7 +6,7 @@
     ./accounts
     ./git # version control
     ./oh-my-posh # shell prompt
-    ./rex.nix # rex terminal multiplexer
+    ./rex # rex terminal multiplexer
     ./tmux
     ./yazi
     ./zsh # shell
