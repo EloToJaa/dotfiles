@@ -14,30 +14,20 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    # services.flaresolverr = {
-    #   enable = true;
-    #   package = pkgs.unstable.flaresolverr;
-    #   inherit (cfg) port;
-    # };
-    # systemd.services.flaresolverr.environment = {
-    #   HOST = "127.0.0.1";
-    # };
-    virtualisation.oci-containers.containers.flaresolverr = {
-      image = "flaresolverr/flaresolverr:v3.5.2";
-      extraOptions = ["--network=host"];
-      serviceName = "flaresolverr";
-      environment = {
-        HOST = "127.0.0.1";
-        PORT = toString cfg.port;
-      };
+    services.flaresolverr = {
+      enable = true;
+      inherit (cfg) port;
     };
-    systemd.services.flaresolverr = lib.mkIf config.services.wireguard-netns.enable {
-      bindsTo = ["netns@${ns}.service"];
-      requires = [
-        "network-online.target"
-        "${ns}.service"
-      ];
-      serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
-    };
+    systemd.services.flaresolverr = lib.mkMerge [
+      {environment.HOST = "127.0.0.1";}
+      (lib.mkIf config.services.wireguard-netns.enable {
+        bindsTo = ["netns@${ns}.service"];
+        requires = [
+          "network-online.target"
+          "${ns}.service"
+        ];
+        serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
+      })
+    ];
   };
 }
