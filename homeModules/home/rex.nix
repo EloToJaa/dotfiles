@@ -8,6 +8,18 @@
 }: let
   inherit (lib) mkOption mkEnableOption types;
   cfg = config.modules.home.rex;
+  # Upstream's preCheck runs clippy with -D warnings and src/platform/fs.rs trips
+  # clippy::byte_char_slices; the skipped tests shell out to /bin/ps, which the
+  # build sandbox lacks.
+  rexRunePackage = inputs.rex-rune.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+    preCheck = builtins.replaceStrings ["-- -D warnings"] ["-- -D warnings -A clippy::byte_char_slices"] old.preCheck;
+    checkFlags =
+      (old.checkFlags or [])
+      ++ [
+        "--skip=ssh::install::tests::stop_kills_group_and_drop_kills_without_waiting_for_a_question"
+        "--skip=ssh::install::tests::stop_sweeps_a_term_ignoring_group_member_without_terminal_fds"
+      ];
+  });
 in {
   options.modules.home.rex = {
     enable = mkEnableOption "Enable rex terminal multiplexer";
@@ -31,8 +43,6 @@ in {
     # module's unconditional `loginctl enable-linger` warning does not apply.
     # This also drops any other home-manager warnings, because they cannot be filtered.
     warnings = lib.mkIf (cfg.server.enable && (osConfig.users.users.${config.home.username}.linger or false)) (lib.mkForce []);
-    home.packages = lib.optionals cfg.client.enable [
-      inputs.rex-rune.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+    home.packages = lib.optionals cfg.client.enable [rexRunePackage];
   };
 }
