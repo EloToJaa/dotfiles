@@ -51,6 +51,7 @@ in {
       settings = {
         # Paperless 3 removed NLTK; the stable NixOS module still defaults to enabling it.
         PAPERLESS_ENABLE_NLTK = false;
+        PAPERLESS_ALLOWED_HOSTS = "127.0.0.1";
         PAPERLESS_DBENGINE = "postgresql";
         PAPERLESS_DBHOST = "127.0.0.1";
         PAPERLESS_DBNAME = "paperless";
