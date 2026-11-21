@@ -28,7 +28,7 @@ in {
     client.enable = mkEnableOption "Install the unofficial Rex Rune desktop client";
     config = mkOption {
       type = types.nullOr (types.either types.lines types.path);
-      default = null;
+      default = ./rex.lua;
       description = "Lua configuration written to ~/.config/rex/init.lua";
     };
   };
