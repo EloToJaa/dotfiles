@@ -8,6 +8,8 @@
     nginx.enable = true;
   };
 
+  modules.shared.nfs.enable = false;
+
   services.nixbot.evalMaxMemorySize = 16 * 1024;
 
   swapDevices = [
