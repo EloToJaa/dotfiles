@@ -42,8 +42,8 @@ in {
       {
         name = "Karakeep";
         group = "apps";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/health";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

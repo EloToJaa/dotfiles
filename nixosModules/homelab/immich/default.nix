@@ -40,8 +40,8 @@ in {
       {
         name = "Immich";
         group = "apps";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/server/ping";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

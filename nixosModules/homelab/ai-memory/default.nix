@@ -39,8 +39,8 @@ in {
       {
         name = "ai-memory";
         group = "apps";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/healthz";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

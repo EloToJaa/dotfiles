@@ -39,8 +39,8 @@ in {
       {
         name = "Vaultwarden";
         group = "apps";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/alive";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

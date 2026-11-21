@@ -28,8 +28,8 @@ in {
       {
         name = "pgAdmin";
         group = "infrastructure";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/misc/ping";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

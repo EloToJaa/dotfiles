@@ -36,7 +36,7 @@ in {
         name = "Xandikos";
         group = "apps";
         url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        conditions = ["[STATUS] == any(200, 401)"];
       }
     ];
 

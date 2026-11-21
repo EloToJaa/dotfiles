@@ -47,8 +47,8 @@ in {
       {
         name = "Prowlarr";
         group = "media";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/ping";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

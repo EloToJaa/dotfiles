@@ -32,8 +32,8 @@ in {
       {
         name = "lldap";
         group = "auth";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/health";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 

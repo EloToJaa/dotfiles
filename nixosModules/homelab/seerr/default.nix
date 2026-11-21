@@ -38,8 +38,8 @@ in {
       {
         name = "Seerr";
         group = "media";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/v1/status";
+        conditions = ["[STATUS] == 200"];
       }
     ];
 
