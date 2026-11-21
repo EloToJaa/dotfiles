@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "workmux-skills";
-  version = "0.1.282";
+  version = "0.1.283";
 
   src = fetchFromGitHub {
     owner = "raine";
     repo = "workmux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pcS9uL918u9A8zcWoQrzLVC/pjchq1MzV4h3CA99OdA=";
+    hash = "sha256-ka7tEJswtVYIRlpv0bel/ph7aGzE9ijtzc3QIYu7mig=";
   };
 
   buildPhase = ''
