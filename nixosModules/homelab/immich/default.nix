@@ -138,7 +138,15 @@ in {
       locations."/" = {
         proxyPass = "http://${cfg.host}:${toString cfg.port}";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_request_buffering off;
+          proxy_read_timeout 600s;
+          proxy_send_timeout 600s;
+        '';
       };
+      extraConfig = ''
+        client_max_body_size 50G;
+      '';
     };
     clan.core.state.immich = {
       folders = [
