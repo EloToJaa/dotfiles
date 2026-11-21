@@ -44,6 +44,7 @@ in {
       package = pkgs.unstable.prometheus;
       inherit (cfg) port stateDir;
       listenAddress = "127.0.0.1";
+      extraFlags = ["--web.enable-remote-write-receiver"];
       scrapeConfigs = [
         {
           job_name = "prometheus";
@@ -62,6 +63,7 @@ in {
               targets = [
                 "127.0.0.1:${toString cfg.nodeExporterPort}"
               ];
+              labels.host = config.networking.hostName;
             }
           ];
         }

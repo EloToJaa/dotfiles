@@ -29,6 +29,11 @@ in {
       type = lib.types.port;
       default = 3100;
     };
+    retention = lib.mkOption {
+      type = lib.types.str;
+      default = "744h";
+      description = "How long Loki keeps log lines";
+    };
   };
   config = lib.mkIf cfg.enable {
     services.loki = {
@@ -50,6 +55,12 @@ in {
             chunks_directory = "${cfg.dataDir}/chunks";
             rules_directory = "${cfg.dataDir}/rules";
           };
+        };
+        limits_config.retention_period = cfg.retention;
+        compactor = {
+          working_directory = "${cfg.dataDir}/compactor";
+          retention_enabled = true;
+          delete_request_store = "filesystem";
         };
         schema_config.configs = [
           {

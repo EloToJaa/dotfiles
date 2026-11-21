@@ -65,6 +65,7 @@ in {
   };
   imports = [
     ./ai-memory
+    ./alloy
     ./atuin
     ./authelia
     ./bazarr

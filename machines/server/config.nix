@@ -31,7 +31,7 @@
     karakeep.enable = true;
     kerberos.enable = false;
     lidarr.enable = false;
-    loki.enable = false;
+    loki.enable = true;
     mosquitto.enable = true;
     musicseerr.enable = false;
     n8n.enable = false;
