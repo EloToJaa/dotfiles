@@ -44,6 +44,7 @@ in {
       hostAddress6 = "fc00::1";
       localAddress6 = "fc00::2";
       config = {
+        imports = [../postgres/collation.nix];
         services.immich = {
           inherit (cfg) group host port;
           enable = true;
