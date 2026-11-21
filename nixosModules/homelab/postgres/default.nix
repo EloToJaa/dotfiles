@@ -19,6 +19,7 @@ in {
     };
   };
   imports = [
+    ./collation.nix
     ./pgadmin.nix
   ];
   config = lib.mkIf cfg.enable {
