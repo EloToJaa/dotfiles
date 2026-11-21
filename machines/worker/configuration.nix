@@ -9,6 +9,12 @@ in {
       earlyBoot = false;
     };
   };
+
+  # The kernel command line only changes on reboot, so a worker that booted
+  # before srvos.boot.consoles dropped ttyS0 keeps getting a generated
+  # serial-getty@ttyS0 that fails in a loop. Masking it fixes that without one.
+  systemd.services."serial-getty@ttyS0".enable = false;
+
   imports = [
     ./config.nix
     ./disko.nix
