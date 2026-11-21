@@ -28,6 +28,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "lldap";
+        group = "auth";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.lldap = {
       enable = true;
       package = pkgs.unstable.lldap;

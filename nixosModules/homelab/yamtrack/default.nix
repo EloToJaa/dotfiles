@@ -38,6 +38,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Yamtrack";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.yamtrack = {
       enable = true;
       package = pkgs.yamtrack;

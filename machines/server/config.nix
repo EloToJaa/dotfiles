@@ -15,6 +15,7 @@
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
     glance.enable = false;
+    gatus.enable = true;
     grafana.enable = true;
     hermes.enable = false;
     home-assistant = {
@@ -58,7 +59,7 @@
     rustdesk.enable = true;
     sonarr.enable = true;
     streamystats.enable = false;
-    uptime.enable = true;
+    uptime.enable = false;
     vaultwarden = {
       enable = true;
       auth.enable = false;

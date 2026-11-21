@@ -37,6 +37,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Home Assistant";
+        group = "home";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     modules.homelab.mosquitto.users.hass = lib.mkIf mqtt.enable {
       acl = [
         "readwrite #"

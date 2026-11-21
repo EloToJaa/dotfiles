@@ -39,6 +39,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Prometheus";
+        group = "monitoring";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.prometheus = {
       enable = true;
       package = pkgs.unstable.prometheus;

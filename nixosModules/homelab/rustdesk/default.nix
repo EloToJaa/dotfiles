@@ -15,6 +15,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "RustDesk signal";
+        group = "infrastructure";
+        url = "tcp://127.0.0.1:21116";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+
     services.rustdesk-server = {
       enable = true;
       package = pkgs.unstable.rustdesk-server;

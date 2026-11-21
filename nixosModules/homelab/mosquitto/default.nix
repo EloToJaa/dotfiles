@@ -60,6 +60,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "MQTT";
+        group = "home";
+        url = "tcp://127.0.0.1:${toString cfg.port}";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+
     modules.homelab.mosquitto.users.elotoja.acl = lib.mkDefault [
       "readwrite #"
       "readwrite $SYS/#"

@@ -15,6 +15,19 @@ in {
     enable = lib.mkEnableOption "Enable blocky";
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Blocky";
+        group = "infrastructure";
+        url = "127.0.0.1";
+        dns = {
+          query-name = "${homelab.mainDomain}";
+          query-type = "A";
+        };
+        conditions = ["[DNS_RCODE] == NOERROR"];
+      }
+    ];
+
     services.blocky = {
       enable = true;
       package = pkgs.unstable.blocky;

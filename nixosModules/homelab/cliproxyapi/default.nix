@@ -41,6 +41,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "CLI Proxy API";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.cliproxyapi = {
       enable = true;
       package = pkgs.llm-agents.cli-proxy-api;

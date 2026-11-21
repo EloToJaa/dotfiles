@@ -32,6 +32,15 @@ in {
     ./lldap.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Authelia";
+        group = "auth";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.authelia.instances.main = {
       inherit (cfg) group;
       enable = true;

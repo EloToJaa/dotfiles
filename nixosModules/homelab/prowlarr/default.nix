@@ -43,6 +43,15 @@ in {
     ./flaresolverr.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Prowlarr";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.prowlarr = {
       enable = true;
       package = pkgs.unstable.prowlarr;

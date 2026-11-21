@@ -34,6 +34,15 @@ in {
   #   ./service.nix
   # ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Seerr";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.seerr = {
       inherit (cfg) port configDir;
       enable = true;

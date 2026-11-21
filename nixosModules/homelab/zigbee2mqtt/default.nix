@@ -50,6 +50,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Zigbee2MQTT";
+        group = "home";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     modules.homelab.mosquitto.users.zigbee2mqtt = lib.mkIf mqtt.enable {
       acl = [
         "readwrite zigbee2mqtt/#"
