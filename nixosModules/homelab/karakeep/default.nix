@@ -38,6 +38,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Karakeep";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/health";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.karakeep = {
       enable = true;
       package = pkgs.unstable.karakeep;

@@ -31,6 +31,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Radarr";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/ping";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.radarr = {
       enable = true;
       package = pkgs.unstable.radarr;

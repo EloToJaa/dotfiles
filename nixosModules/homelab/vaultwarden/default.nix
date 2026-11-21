@@ -35,6 +35,15 @@ in {
     ./auth.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Vaultwarden";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/alive";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.vaultwarden = {
       enable = true;
       package = pkgs.unstable.vaultwarden;

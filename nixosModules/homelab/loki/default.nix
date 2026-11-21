@@ -36,6 +36,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Loki";
+        group = "monitoring";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/ready";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.loki = {
       inherit (cfg) dataDir group;
       enable = true;

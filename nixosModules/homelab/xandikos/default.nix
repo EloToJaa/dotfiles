@@ -31,6 +31,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Xandikos";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] == any(200, 401)"];
+      }
+    ];
+
     services.xandikos = {
       inherit (cfg) port;
       enable = true;

@@ -36,6 +36,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Paperless-ngx";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.paperless = {
       inherit domain;
       inherit (cfg) port dataDir mediaDir;

@@ -33,6 +33,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Cleanuparr";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/health";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     systemd.services.${cfg.name} = {
       description = "Cleanuparr";
       after = ["network-online.target"];

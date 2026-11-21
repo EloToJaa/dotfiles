@@ -32,6 +32,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "ntfy";
+        group = "monitoring";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/v1/health";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.ntfy-sh = {
       inherit (cfg) group;
       enable = true;

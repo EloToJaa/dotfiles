@@ -40,6 +40,15 @@ in {
     ./vuetorrent.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "qBittorrent";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     services.qbittorrent = {
       enable = true;
       package = pkgs.unstable.qbittorrent-nox;

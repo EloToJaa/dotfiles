@@ -73,6 +73,7 @@ in {
     ./cleanuparr
     ./cliproxyapi
     ./forgejo
+    ./gatus
     ./glance
     ./grafana
     ./harmonia

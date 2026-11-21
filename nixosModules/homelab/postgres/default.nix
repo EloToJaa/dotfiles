@@ -23,6 +23,15 @@ in {
     ./pgadmin.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "PostgreSQL";
+        group = "infrastructure";
+        url = "tcp://127.0.0.1:${toString cfg.port}";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+
     services.postgresql = {
       enable = true;
       package = pkgs.unstable.postgresql_18;

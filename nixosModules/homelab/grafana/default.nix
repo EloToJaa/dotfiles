@@ -32,6 +32,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Grafana";
+        group = "monitoring";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/health";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.grafana = {
       inherit (cfg) dataDir;
       enable = true;

@@ -36,6 +36,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Immich";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/server/ping";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     containers.immich = {
       autoStart = true;
       privateNetwork = true;

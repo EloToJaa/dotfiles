@@ -23,6 +23,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Atuin";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/healthz";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.atuin = {
       enable = true;
       package = pkgs.atuin;

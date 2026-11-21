@@ -42,6 +42,15 @@ in {
     ./auth.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Jellyfin";
+        group = "media";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/health";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.jellyfin = {
       enable = true;
       package = pkgs.unstable.jellyfin;

@@ -24,6 +24,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "pgAdmin";
+        group = "infrastructure";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/misc/ping";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.pgadmin = {
       inherit (cfg) port;
       enable = true;

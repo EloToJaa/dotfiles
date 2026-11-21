@@ -35,6 +35,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "ai-memory";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/healthz";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.ai-memory = {
       enable = true;
       user = cfg.name;
