@@ -1,0 +1,77 @@
+{
+  "hosts": [
+    {
+      "label": "desktop",
+      "endpoint": "unix:///run/user/1000/rex/server.sock",
+      "remote_control": true,
+      "collapsed": false
+    },
+    {
+      "label": "worker",
+      "endpoint": "ssh://elotoja@worker.eagle-perch.ts.net",
+      "remote_control": true,
+      "collapsed": false
+    },
+    {
+      "label": "server",
+      "endpoint": "ssh://elotoja@server.eagle-perch.ts.net",
+      "collapsed": false
+    }
+  ],
+  "client_label": null,
+  "interface": {
+    "toolbar": "always",
+    "tabs_fill_available_space": false,
+    "tab_icon_count": 1,
+    "tab_icon_color": "never",
+    "fade_inactive_pane_headers": false,
+    "fade_pane_headers_in_inactive_window": false
+  },
+  "vertical_tabs": false,
+  "pane_density": "comfortable",
+  "pane_header": "auto",
+  "pane_padding": 8.0,
+  "font_size": 12.0,
+  "terminal": {
+    "font": {
+      "style": "regular",
+      "line_height": 0,
+      "spacing": 0,
+      "spacing_unit": "px",
+      "bold_italic": "both"
+    },
+    "cursor_style": "bar",
+    "cursor_force": false,
+    "key_sequence_hints": true,
+    "copy_on_selection": false,
+    "primary_selection": false,
+    "selection_foreground": "theme",
+    "selection_background": "theme",
+    "selection_rounded": false
+  },
+  "font_family": "JetBrainsMono Nerd Font",
+  "font_fallbacks": [],
+  "ui_scale": 1.0,
+  "notice_position": "top_right",
+  "notifications": {
+    "show_in_tabs": true,
+    "system_notifications": true,
+    "play_sounds": true,
+    "working": false,
+    "blocked": true,
+    "error": true,
+    "done": true,
+    "program_messages": true
+  },
+  "updates": {
+    "check": false,
+    "install_automatically": false
+  },
+  "downloads": {},
+  "agent_session_naming": true,
+  "chrome_theme": "midnight",
+  "terminal_theme": "follow_server",
+  "terminal_theme_chosen": false,
+  "terminal_theme_declared": false,
+  "generated_titles": false
+}
