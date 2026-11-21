@@ -36,13 +36,12 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    # Paperless has no unauthenticated health endpoint; /api/status/ rejects anonymous requests with 401 once the API is up.
     modules.homelab.gatus.endpoints = [
       {
         name = "Paperless-ngx";
         group = "apps";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}/api/status/";
-        conditions = ["[STATUS] == 401"];
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
       }
     ];
 
