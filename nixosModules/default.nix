@@ -4,7 +4,6 @@
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.noctalia-greeter.nixosModules.default
-    inputs.hermes-agent.nixosModules.default
     inputs.catppuccin.nixosModules.catppuccin
 
     ./../settings.nix

@@ -14,13 +14,11 @@
     nginx.enable = true;
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
-    glance.enable = false;
     gatus = {
       enable = true;
       hosts = ["worker"];
     };
     grafana.enable = true;
-    hermes.enable = false;
     home-assistant = {
       enable = true;
       tailscaleServe.enable = true;
@@ -31,24 +29,20 @@
       auth.enable = true;
     };
     seerr.enable = true;
-    siyuan.enable = false;
     karakeep.enable = true;
     kerberos.enable = false;
     lidarr.enable = false;
     loki.enable = true;
     mosquitto.enable = true;
     musicseerr.enable = false;
-    n8n.enable = false;
     navidrome.enable = false;
     opencloud.enable = false;
     ntfy.enable = true;
-    open-webui.enable = false;
     paperless.enable = true;
     postgres = {
       enable = true;
       pgadmin.enable = true;
     };
-    profilarr.enable = false;
     prometheus.enable = true;
     prowlarr = {
       enable = true;

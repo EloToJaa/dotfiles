@@ -816,13 +816,6 @@ world-readable store, exposing secrets and making deployments depend on the copi
 string/path-like option that preserves the external runtime path rather than importing the file into
 the store.
 
-─── nixosModules/homelab/glance/default.nix:62-65 ───
-[bug · medium] `cfg.name` only controls the account created here; it is never assigned to
-`services.glance.user`. If `name` is changed from its default, Glance continues running as the
-service module's configured/default user, while this custom account and its forced group are unused.
-Set `services.glance.user = cfg.name` (and ensure the service group is configured consistently), or
-remove this misleading user option/account.
-
 ─── nixosModules/homelab/default.nix:36-36 ───
 [high] This defines `options.modules.homelab` a second time after the earlier assignment to that
 same path. Nix rejects overlapping attribute-path definitions in one attrset, so importing this
@@ -840,14 +833,6 @@ unless unrestricted broker access is an explicit requirement.
 leaves `services.grafana.user` at its default (`grafana`). If `name` is overridden, tmpfiles gives
 the directory to a different user and Grafana cannot write its data or secret key. Keep the owner
 aligned with the configured Grafana service user, or set that service user from the same option.
-
-─── nixosModules/homelab/hermes/default.nix:10-10 ───
-[bug · high] Hermes is explicitly run in a Podman container below, so `127.0.0.1` normally refers to
-the container's own network namespace, not the host. Consequently the model proxy URL (and, when
-enabled, `HASS_URL`) will not reach the host services. The API server is also bound to container
-loopback while host Nginx proxies to the host's loopback port, so that endpoint will likewise be
-unreachable unless this container is configured for host networking/port publishing. Configure host
-networking or use a host-reachable address and publish/bind the API port accordingly.
 
 ─── nixosModules/homelab/immich/default.nix:92-94 ───
 [bug · medium] This targets `immich.service` by default, but the Immich NixOS module runs the server
@@ -937,11 +922,6 @@ leaves an unintended extra state directory and can mislead operators about which
 active. Consider deriving `StateDirectory` from the configured directory when it is under
 `/var/lib`, or removing it in favor of the existing tmpfiles setup.
 
-─── nixosModules/homelab/open-webui/default.nix:69-69 ───
-[medium] If the backup fails or is interrupted after this pre-hook stops the service, the
-post-backup hook may not run, leaving the service stopped indefinitely. Use a backup-hook mechanism
-that guarantees cleanup on failure, or otherwise arrange a failure-safe restart.
-
 ─── nixosModules/homelab/navidrome/default.nix:64-66 ───
 [performance · low] Because the default `cacheDir` is `${cfg.dataDir}/cache`, backing up all of
 `cfg.dataDir` also captures Navidrome's regenerable cache. This can substantially increase backup
@@ -955,25 +935,6 @@ nginx will not run as the account provisioned here, which can cause ownership/pe
 for nginx-managed files. Either set the nginx user from `cfg.name` (and configure any required group
 consistently) or avoid using this option as the service-account name.
 
-─── nixosModules/homelab/n8n/default.nix:75-75 ───
-[bug · high] The service connects to PostgreSQL over TCP and supplies `DB_POSTGRESDB_PASSWORD` from
-SOPS, but this role is provisioned with no password or reference to that secret. Unless the clan
-PostgreSQL module separately provisions this role's password, PostgreSQL password authentication
-will reject the connection. Ensure the role gets the same SOPS-managed password (or configure an
-authentication method that does not require one).
-
-─── nixosModules/homelab/n8n/default.nix:34-35 ───
-[bug · medium] The reverse proxy exposes n8n on the configured public domain, but the service does
-not set `N8N_HOST`/`N8N_PROTOCOL` or `WEBHOOK_URL`. n8n may therefore generate editor links and
-webhook callback URLs using its localhost/default address rather than the public HTTPS URL.
-Configure its external URL from `cfg.domainName` and `homelab.baseDomain`.
-
--         N8N_HOST = "${cfg.domainName}.${homelab.baseDomain}";
--         N8N_PROTOCOL = "https";
--         WEBHOOK_URL = "https://${cfg.domainName}.${homelab.baseDomain}/";
-          N8N_PORT = cfg.port;
-          DB_TYPE = "postgresdb";
-
 ─── nixosModules/homelab/postgres/pgadmin.nix:36-36 ───
 [bug · medium] This path is fixed to `pgadmin/password`, but the declared secret below is
 `${cfg.name}/password`. If `cfg.name` is changed, the SOPS secret created by this module no longer
@@ -983,22 +944,6 @@ failure or preventing account initialization. Derive this path from `cfg.name` a
 -       initialPasswordFile = config.sops.secrets."pgadmin/password".path;
 
 *       initialPasswordFile = config.sops.secrets."${cfg.name}/password".path;
-
-─── nixosModules/homelab/profilarr/default.nix:35-35 ───
-[other · medium] The mutable `latest` tag makes this deployment non-reproducible: rebuilding or
-restarting at a later time can pull a different Profilarr image without any configuration change.
-Pin this image to a version tag or immutable digest so deployments remain predictable.
-
-─── nixosModules/homelab/profilarr/default.nix:65-72 ───
-[bug · medium] The container's systemd service name is configurable via `cfg.name`, but the backup
-hooks always stop and start `profilarr.service`. If `name` is changed, backups will not stop the
-actual service, so its data may be inconsistent; derive the service unit name from `cfg.name`.
-
-─── nixosModules/homelab/profilarr/default.nix:46-47 ───
-[bug · medium] The nginx upstream uses `cfg.port`, but this container never receives that configured
-port because `PORT` is commented out. Changing `cfg.port` therefore changes only the proxy target,
-and requests will fail unless the image independently happens to use the same port. Pass the
-supported port setting to the container or make the proxy target match the application's fixed port.
 
 ─── nixosModules/homelab/paperless/default.nix:51-51 ───
 [bug · medium] The database name is fixed to `paperless`, while the PostgreSQL database below is
@@ -1118,13 +1063,6 @@ peer routes all IPv4 destinations through `wg0`, and the namespace's default rou
 therefore be routed back into the tunnel, preventing reliable handshakes or connectivity after
 endpoint changes. Add an endpoint-specific bypass route through the uplink before installing the
 default route, or implement suitable policy routing/marking.
-
-─── nixosModules/homelab/siyuan/service.nix:51-52 ───
-[bug · high] The default `user` and `group` are `siyuan`, but this module never creates either
-account. On a fresh system with only this module enabled, systemd cannot start the service because
-the configured user/group do not exist, and the tmpfiles ownership rule also cannot assign
-ownership. Add matching `users.groups` and `users.users` entries (or otherwise ensure account
-provisioning is part of this module).
 
 ─── nixosModules/homelab/wireguard/service.nix:19-25 ───
 [security · high] This option feeds the config (including `PrivateKey`) directly to `wg setconf`,
@@ -1681,7 +1619,7 @@ hash also omits an explicit `rounds=` parameter, so SHA-512-crypt uses its relat
 
 - **Values are interpolated into executable or structured formats without context-aware escaping.** This recurs in shell construction (`homeModules/dev/lazygit.nix`, `homeModules/cybersec/scripts/scripts/ghidra-auto.py`), generated Nix/shell command text (`Justfile`, `nixosModules/homelab/mosquitto/default.nix`), SQL connection URIs (`nixosModules/homelab/lldap.nix`, `vaultwarden/default.nix`), and XML (`nixosModules/homelab/lidarr/default.nix`). Use argument passing and format-specific encoders rather than manual quoting.
 
-- **Failure handling often reports success or leaves services/state inconsistent.** Shell pipelines mask failures in `homeModules/ai/crash.nix`, `homeModules/desktop/scripts/scripts/screenshot-ocr.sh`, and `terraform/with-vault.sh`; several backup hooks can leave services stopped (`nixosModules/homelab/open-webui/default.nix`, `cliproxyapi/default.nix`); other hooks restart services that were initially stopped (`musicseerr/default.nix`). Check statuses explicitly and use cleanup paths that run on failure and interruption.
+- **Failure handling often reports success or leaves services/state inconsistent.** Shell pipelines mask failures in `homeModules/ai/crash.nix`, `homeModules/desktop/scripts/scripts/screenshot-ocr.sh`, and `terraform/with-vault.sh`; a backup hook can leave its service stopped (`nixosModules/homelab/cliproxyapi/default.nix`); other hooks restart services that were initially stopped (`musicseerr/default.nix`). Check statuses explicitly and use cleanup paths that run on failure and interruption.
 
 - **Options are declared but not consistently connected to behavior.** Ports, names, data paths, and enable flags are frequently only partially applied. Examples include `nixosModules/homelab/jellyfin/default.nix`, `paperless/default.nix`, `xandikos/default.nix`, `glance/default.nix`, and `nixosModules/base/default.nix`. Add module-level tests or evaluation checks for non-default option values.
 

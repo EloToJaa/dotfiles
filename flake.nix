@@ -155,9 +155,25 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
-    pyproject-nix.follows = "hermes-agent/pyproject-nix";
-    pyproject-build-systems.follows = "hermes-agent/pyproject-build-systems";
-    uv2nix.follows = "hermes-agent/uv2nix";
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        pyproject-nix.follows = "pyproject-nix";
+      };
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+      };
+    };
 
     # update
     clan-core = {
@@ -167,10 +183,6 @@
         flake-parts.follows = "flake-parts";
         sops-nix.follows = "sops-nix";
       };
-    };
-    hermes-agent = {
-      url = "github:NousResearch/hermes-agent/v0.23.3";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     bun2nix = {
       url = "github:nix-community/bun2nix/2.1.2";
