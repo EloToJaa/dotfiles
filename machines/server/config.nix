@@ -18,7 +18,10 @@
       enable = true;
       hosts = ["worker"];
     };
-    grafana.enable = true;
+    grafana = {
+      enable = true;
+      auth.enable = true;
+    };
     home-assistant = {
       enable = true;
       tailscaleServe.enable = true;
