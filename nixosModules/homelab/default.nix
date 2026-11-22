@@ -107,6 +107,7 @@ in {
     ./share
     ./sonarr
     ./t3-code
+    ./tempo
     ./virtual-display
     ./stalwart
     ./streamystats

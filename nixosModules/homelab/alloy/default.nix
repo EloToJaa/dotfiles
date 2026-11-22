@@ -24,7 +24,7 @@
 in {
   options.modules.homelab.alloy = {
     enable =
-      lib.mkEnableOption "Grafana Alloy, shipping the systemd journal to Loki and host metrics to Prometheus"
+      lib.mkEnableOption "Grafana Alloy, shipping the systemd journal to Loki, host metrics to Prometheus and OTLP traces to Tempo"
       // {default = homelab.enable;};
     lokiUrl = lib.mkOption {
       type = lib.types.str;
@@ -33,6 +33,24 @@ in {
         then "http://127.0.0.1:${toString homelab.loki.port}"
         else "https://loki.${monitoringHost}";
       description = "Base URL of the Loki instance that receives the journal";
+    };
+    tempoUrl = lib.mkOption {
+      type = lib.types.str;
+      default =
+        if homelab.tempo.enable
+        then "http://127.0.0.1:${toString homelab.tempo.otlpHttpPort}"
+        else "https://tempo.${monitoringHost}";
+      description = "Base URL of the Tempo OTLP HTTP endpoint that receives traces";
+    };
+    otlpGrpcPort = lib.mkOption {
+      type = lib.types.port;
+      default = 4317;
+      description = "Local OTLP gRPC port where applications send traces";
+    };
+    otlpHttpPort = lib.mkOption {
+      type = lib.types.port;
+      default = 4318;
+      description = "Local OTLP HTTP port where applications send traces";
     };
     prometheusUrl = lib.mkOption {
       type = lib.types.str;
@@ -83,6 +101,46 @@ in {
       loki.write "default" {
         endpoint {
           url = "${cfg.lokiUrl}/loki/api/v1/push"
+        }
+      }
+    '';
+
+    environment.etc."alloy/traces.alloy".text = ''
+      otelcol.receiver.otlp "default" {
+        grpc {
+          endpoint = "127.0.0.1:${toString cfg.otlpGrpcPort}"
+        }
+
+        http {
+          endpoint = "127.0.0.1:${toString cfg.otlpHttpPort}"
+        }
+
+        output {
+          traces = [otelcol.processor.resourcedetection.default.input]
+        }
+      }
+
+      otelcol.processor.resourcedetection "default" {
+        detectors = ["system"]
+
+        system {
+          hostname_sources = ["os"]
+        }
+
+        output {
+          traces = [otelcol.processor.batch.default.input]
+        }
+      }
+
+      otelcol.processor.batch "default" {
+        output {
+          traces = [otelcol.exporter.otlphttp.tempo.input]
+        }
+      }
+
+      otelcol.exporter.otlphttp "tempo" {
+        client {
+          endpoint = "${cfg.tempoUrl}"
         }
       }
     '';

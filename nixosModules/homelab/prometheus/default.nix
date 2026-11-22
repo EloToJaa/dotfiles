@@ -101,7 +101,10 @@ in {
         package = pkgs.unstable.prometheus;
         inherit (cfg) port stateDir;
         listenAddress = "127.0.0.1";
-        extraFlags = ["--web.enable-remote-write-receiver"];
+        extraFlags = [
+          "--web.enable-remote-write-receiver"
+          "--enable-feature=exemplar-storage"
+        ];
         scrapeConfigs =
           [
             {

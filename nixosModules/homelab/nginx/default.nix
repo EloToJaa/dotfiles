@@ -33,6 +33,9 @@ in {
         homelab.baseDomain
       ];
     };
+    tracing.enable =
+      lib.mkEnableOption "OpenTelemetry tracing of every request, sent to the local Alloy"
+      // {default = homelab.alloy.enable;};
   };
 
   config = lib.mkIf cfg.enable {
@@ -50,7 +53,28 @@ in {
 
     services.nginx = {
       enable = true;
-      package = pkgs.nginx;
+      # nginxModules.otel is only packaged in nixpkgs-unstable
+      package =
+        if cfg.tracing.enable
+        then pkgs.unstable.nginx
+        else pkgs.nginx;
+      additionalModules = lib.optional cfg.tracing.enable pkgs.unstable.nginxModules.otel;
+      prependConfig = lib.mkIf cfg.tracing.enable ''
+        load_module ${config.services.nginx.package}/modules/ngx_otel_module.so;
+      '';
+      appendHttpConfig = lib.mkIf cfg.tracing.enable ''
+        map $uri $otel_trace_enabled {
+          /nginx_status off;
+          default on;
+        }
+
+        otel_exporter {
+          endpoint 127.0.0.1:${toString homelab.alloy.otlpGrpcPort};
+        }
+        otel_service_name nginx;
+        otel_trace $otel_trace_enabled;
+        otel_trace_context propagate;
+      '';
       statusPage = true;
 
       recommendedGzipSettings = true;

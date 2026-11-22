@@ -33,6 +33,7 @@
     kerberos.enable = false;
     lidarr.enable = false;
     loki.enable = true;
+    tempo.enable = true;
     mosquitto.enable = true;
     musicseerr.enable = false;
     navidrome.enable = false;
