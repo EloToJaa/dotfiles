@@ -10,6 +10,15 @@
   monitoringHost = "server.${homelab.mainDomain}";
   shipMetrics = !homelab.prometheus.enable;
   alloyString = builtins.toJSON;
+  redactStages =
+    lib.concatMapStrings (pattern: ''
+
+      ${"  "}stage.replace {
+          expression = `${pattern}`
+          replace    = "<redacted>"
+        }
+    '')
+    cfg.redactPatterns;
   scrapeBlock = target: let
     labels = {__address__ = target.address;} // target.labels;
     targetObject = lib.concatStringsSep ", " (lib.mapAttrsToList (name: value: "${alloyString name} = ${alloyString value}") labels);
@@ -57,6 +66,16 @@ in {
       default = "https://prometheus.${monitoringHost}";
       description = "Base URL of the Prometheus instance that receives host metrics through remote_write, on hosts without a local Prometheus";
     };
+    redactPatterns = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        ''(?i)(?:^|[?&\s])[a-z0-9_.-]*(?:key|token|secret|password|passwd|signature)=([^&\s"',;]+)''
+        ''(?i)[?&](?:sig|auth|code)=([^&\s"',;]+)''
+        ''(?i)"[a-z0-9_.-]*(?:key|token|secret|password|passwd)"\s*:\s*"([^"]+)"''
+        ''(?i)\b(?:bearer|basic)\s+([a-z0-9._~+/=-]{8,})''
+      ];
+      description = "RE2 regexes applied to every journal line before it reaches Loki. Each pattern's capture groups are replaced with <redacted>, so capture only the secret value.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -95,7 +114,12 @@ in {
         max_age       = "12h"
         relabel_rules = loki.relabel.journal.rules
         labels        = {job = "systemd-journal", host = "${hostName}"}
-        forward_to    = [loki.write.default.receiver]
+        forward_to    = [loki.process.redact.receiver]
+      }
+
+      loki.process "redact" {
+        forward_to = [loki.write.default.receiver]
+      ${redactStages}
       }
 
       loki.write "default" {

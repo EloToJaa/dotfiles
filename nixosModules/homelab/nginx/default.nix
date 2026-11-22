@@ -33,9 +33,30 @@ in {
         homelab.baseDomain
       ];
     };
-    tracing.enable =
-      lib.mkEnableOption "OpenTelemetry tracing of every request, sent to the local Alloy"
-      // {default = homelab.alloy.enable;};
+    tracing = {
+      enable =
+        lib.mkEnableOption "OpenTelemetry tracing of every request, sent to the local Alloy"
+        // {default = homelab.alloy.enable;};
+      secretArgs = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [
+          "[a-z0-9_.-]*(key|token|secret|password|passwd|signature)"
+          "sig"
+          "auth"
+          "code"
+        ];
+        example = ["X-Plex-Token"];
+        description = "Case-insensitive regexes matching query parameter names that carry secrets. Requests with any of them are not traced, because the span records the full request URI.";
+      };
+      secretPaths = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [
+          "/webhooks?/"
+          "/share/"
+        ];
+        description = "Case-insensitive regexes matching URI paths that embed secrets, such as webhook tokens or share links. Matching requests are not traced.";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -63,9 +84,15 @@ in {
         load_module ${config.services.nginx.package}/modules/ngx_otel_module.so;
       '';
       appendHttpConfig = lib.mkIf cfg.tracing.enable ''
+        map $args $otel_trace_args {
+          "~*(^|&)(${lib.concatStringsSep "|" cfg.tracing.secretArgs})=" off;
+          default on;
+        }
+
         map $uri $otel_trace_enabled {
           /nginx_status off;
-          default on;
+          "~*(${lib.concatStringsSep "|" cfg.tracing.secretPaths})" off;
+          default $otel_trace_args;
         }
 
         otel_exporter {
