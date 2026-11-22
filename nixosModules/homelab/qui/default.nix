@@ -39,14 +39,61 @@ in {
       settings = {
         host = "127.0.0.1";
         inherit (cfg) port;
+        databaseEngine = "postgres";
       };
     };
 
+    systemd.services.qui = {
+      after = ["postgresql.service"];
+      requires = ["postgresql.service"];
+      serviceConfig = {
+        LoadCredential = lib.mkForce [
+          "sessionSecret:${config.clan.core.vars.generators.${cfg.name}.files.session-secret.path}"
+          "databaseDsn:${config.clan.core.vars.generators."${cfg.name}-dsn".files.dsn.path}"
+        ];
+        Environment = ["QUI__DATABASE_DSN_FILE=%d/databaseDsn"];
+      };
+    };
+
+    clan.core.postgresql = {
+      databases.${cfg.name} = {
+        create = {
+          enable = true;
+          options = {
+            LC_COLLATE = "C";
+            LC_CTYPE = "C";
+            ENCODING = "UTF8";
+            OWNER = cfg.name;
+            TEMPLATE = "template0";
+          };
+        };
+        restore.stopOnRestore = ["qui.service"];
+      };
+      users.${cfg.name} = {};
+    };
+
     clan.core.vars.generators.${cfg.name} = {
-      files.session-secret = {};
-      runtimeInputs = [pkgs.openssl];
+      files = {
+        session-secret = {};
+        pgpassword.deploy = false;
+      };
+      runtimeInputs = with pkgs; [
+        openssl
+        pwgen
+      ];
       script = ''
         openssl rand -hex 32 | tr -d '\n' > $out/session-secret
+        pwgen -s 64 1 | tr -d '\n' > $out/pgpassword
+      '';
+    };
+
+    clan.core.vars.generators."${cfg.name}-dsn" = {
+      dependencies = [cfg.name];
+      files.dsn = {};
+      script = ''
+        printf 'postgres://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}?sslmode=disable' \
+          "$(cat "$in/${cfg.name}/pgpassword")" \
+          > "$out/dsn"
       '';
     };
 
