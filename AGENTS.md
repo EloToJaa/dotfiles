@@ -168,6 +168,7 @@ All secrets are Clan vars. Declare a generator with `clan.core.vars.generators.<
 - Build env/config files that embed secrets in a separate generator that lists the base generator in `dependencies` and reads `$in/<generator>/<file>`.
 - Set a value by hand with `clan vars set <machine> <generator>/<file>` and read it with `clan vars get`.
 - Home Manager modules use NixOS-level generators (`homeModules/vars.nix`) through `osConfig.clan.core.vars.generators`.
+- Don't add systemd services or scripts that set PostgreSQL role passwords (`ALTER ROLE ... PASSWORD`). Generate the `pgpassword` var and leave applying it to the role to the user.
 
 Never commit plaintext secrets.
 
