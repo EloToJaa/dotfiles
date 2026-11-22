@@ -8,6 +8,40 @@
   inherit (config.networking) hostName;
   cfg = config.modules.homelab.prometheus;
   jobNames = map (target: target.job_name) cfg.scrapeTargets;
+  scrapeConfigs =
+    [
+      {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:${toString cfg.port}"
+            ];
+          }
+        ];
+      }
+      {
+        job_name = "node";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:${toString cfg.nodeExporterPort}"
+            ];
+            labels.host = hostName;
+          }
+        ];
+      }
+    ]
+    ++ map (target: {
+      inherit (target) job_name metrics_path;
+      static_configs = [
+        {
+          targets = [target.address];
+          labels = target.labels // {host = hostName;};
+        }
+      ];
+    })
+    cfg.scrapeTargets;
 in {
   imports = [
     ./exportarr.nix
@@ -48,6 +82,11 @@ in {
       type = lib.types.listOf lib.types.str;
       default = ["systemd"];
       description = "Extra node exporter collectors, shared by the node exporter on the Prometheus host and Alloy's embedded one on the other hosts.";
+    };
+    outOfOrderTimeWindow = lib.mkOption {
+      type = lib.types.str;
+      default = "30m";
+      description = "How far behind the newest sample of a series Prometheus still accepts samples, so remote-writing hosts can replay their buffer after a network outage. Written as storage.tsdb.out_of_order_time_window in the generated config, because the NixOS module has no option for it and a flag does not exist.";
     };
     scrapeTargets = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
@@ -105,40 +144,10 @@ in {
           "--web.enable-remote-write-receiver"
           "--enable-feature=exemplar-storage"
         ];
-        scrapeConfigs =
-          [
-            {
-              job_name = "prometheus";
-              static_configs = [
-                {
-                  targets = [
-                    "127.0.0.1:${toString cfg.port}"
-                  ];
-                }
-              ];
-            }
-            {
-              job_name = "node";
-              static_configs = [
-                {
-                  targets = [
-                    "127.0.0.1:${toString cfg.nodeExporterPort}"
-                  ];
-                  labels.host = hostName;
-                }
-              ];
-            }
-          ]
-          ++ map (target: {
-            inherit (target) job_name metrics_path;
-            static_configs = [
-              {
-                targets = [target.address];
-                labels = target.labels // {host = hostName;};
-              }
-            ];
-          })
-          cfg.scrapeTargets;
+        configText = builtins.toJSON {
+          scrape_configs = scrapeConfigs;
+          storage.tsdb.out_of_order_time_window = cfg.outOfOrderTimeWindow;
+        };
         exporters.node = {
           enable = true;
           listenAddress = "127.0.0.1";
