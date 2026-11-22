@@ -303,6 +303,7 @@
     # Strings select by name; an integer would select a position.
     "^zen-beta$" = "1";
     "^com.mitchellh.ghostty$" = "3";
+    "^dev.shuv.rex-rune$" = "3";
     "^vesktop$" = "5";
     "^spotify$" = "6";
     "^com.jeffser.Nocturne$" = "6";
@@ -322,6 +323,7 @@
     "^vesktop$"
     "^(com.t3tools.T3Code|t3code)$"
     "^grok-bot$"
+    "^dev.shuv.rex-rune$"
   ];
   floatingApps = [
     "^winboat-.*"
@@ -361,7 +363,8 @@ in {
             [(lib.getExe pkgs.unstable.ntfy-sh) "subscribe" "--from-config"]
           ]
           ++ lib.optional (with config.modules.ai.t3-code; enable && desktop.enable) ["t3code-desktop"]
-          ++ lib.optional config.modules.ai.grok-bot.enable ["grok-bot"]);
+          ++ lib.optional config.modules.ai.grok-bot.enable ["grok-bot"]
+          ++ lib.optional (with config.modules.home.rex; enable && client.enable) ["rex-rune"]);
 
         input = {
           keyboard = {
