@@ -99,13 +99,18 @@ in {
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      locations = {
-        "/" = {
+      locations =
+        {
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyWebsockets = true;
+          };
+          "= /metrics".return = "404";
+        }
+        // lib.genAttrs ["= /loki/api/v1/push" "= /api/prom/push" "^~ /otlp/"] (_: {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          proxyWebsockets = true;
-        };
-        "= /metrics".return = "404";
-      };
+          basicAuthFile = config.clan.core.vars.generators.alloy-ingest-htpasswd.files.htpasswd.path;
+        });
     };
 
     clan.core.state.loki = {

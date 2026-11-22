@@ -152,7 +152,10 @@ in {
       useACMEHost = homelab.baseDomain;
       locations = {
         "/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        "= /v1/traces".proxyPass = "http://127.0.0.1:${toString cfg.otlpHttpPort}";
+        "= /v1/traces" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.otlpHttpPort}";
+          basicAuthFile = config.clan.core.vars.generators.alloy-ingest-htpasswd.files.htpasswd.path;
+        };
         "= /metrics".return = "404";
       };
     };
