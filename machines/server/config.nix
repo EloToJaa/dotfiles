@@ -16,7 +16,7 @@
     cliproxyapi.enable = true;
     gatus = {
       enable = true;
-      hosts = ["worker" "hbox"];
+      hosts = ["worker"];
     };
     grafana = {
       enable = true;
