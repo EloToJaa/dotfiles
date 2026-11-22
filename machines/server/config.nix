@@ -51,7 +51,7 @@
       enable = true;
       alerting = {
         enable = true;
-        hosts = ["server" "worker" "hbox" "miro"];
+        hosts = ["server" "worker"];
       };
     };
     prowlarr = {
