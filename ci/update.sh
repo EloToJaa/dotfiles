@@ -23,14 +23,6 @@ elif [[ $kind == input ]]; then
     prefix=https://git.clan.lol/clan/clan-core/archive/
     suffix=.tar.gz
     ;;
-  hermes-agent)
-    upstream=https://github.com/NousResearch/hermes-agent.git
-    # Hermes switched from date tags (v2026.9.24) to semver (v0.22.5); exclude
-    # the legacy date tags, which would otherwise always sort as newest.
-    pattern='^v[0-9]{1,3}\.[0-9]+\.[0-9]+$'
-    prefix=github:NousResearch/hermes-agent/
-    suffix=
-    ;;
   bun2nix)
     upstream=https://github.com/nix-community/bun2nix.git
     pattern='^[0-9]+\.[0-9]+\.[0-9]+$'
@@ -59,8 +51,6 @@ elif [[ $kind == input ]]; then
   url="$prefix$tag$suffix"
   if [[ $name == clan-core ]]; then
     sed -i -E "s|https://git.clan.lol/clan/clan-core/archive/[^\"]+|$url|" flake.nix
-  elif [[ $name == hermes-agent ]]; then
-    sed -i -E "s|github:NousResearch/hermes-agent/[^\"]+|$url|" flake.nix
   elif [[ $name == bun2nix ]]; then
     sed -i -E "s|github:nix-community/bun2nix/[^\"]+|$url|" flake.nix
   else

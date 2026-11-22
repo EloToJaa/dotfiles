@@ -139,7 +139,6 @@ in {
         "qbittorrent"
         "ntfy"
         "paperless_ngx"
-        "uptime_kuma"
       ];
     };
     systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];

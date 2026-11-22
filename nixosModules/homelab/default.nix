@@ -74,10 +74,8 @@ in {
     ./cliproxyapi
     ./forgejo
     ./gatus
-    ./glance
     ./grafana
     ./harmonia
-    ./hermes
     ./home-assistant
     ./immich
     ./jellyfin
@@ -90,16 +88,13 @@ in {
     ./mosquitto
     ./musicseerr
     ./mysql
-    ./n8n
     ./navidrome
     ./nginx
     ./nixbot
     ./ntfy
     ./opencloud
-    ./open-webui
     ./paperless
     ./postgres
-    ./profilarr
     ./prometheus
     ./prowlarr
     ./qbittorrent
@@ -112,10 +107,8 @@ in {
     ./sonarr
     ./t3-code
     ./virtual-display
-    ./siyuan
     ./stalwart
     ./streamystats
-    ./uptime
     ./vaultwarden
     ./wireguard
     ./yamtrack
