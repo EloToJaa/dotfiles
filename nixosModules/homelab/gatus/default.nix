@@ -77,24 +77,8 @@ in {
       };
     };
     systemd.services.gatus = {
-      after = ["${cfg.name}-db-password.service"];
-      requires = ["${cfg.name}-db-password.service"];
-    };
-    systemd.services."${cfg.name}-db-password" = {
-      description = "Set the ${cfg.name} PostgreSQL role password";
       after = ["postgresql.target"];
-      requires = ["postgresql.target"];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        User = "postgres";
-        LoadCredential = "env:${config.clan.core.vars.generators."${cfg.name}-env".files.env.path}";
-      };
-      script = ''
-        . "$CREDENTIALS_DIRECTORY/env"
-        printf "ALTER ROLE \"${cfg.name}\" PASSWORD '%s';\n" "$GATUS_POSTGRES_PASSWORD" \
-          | ${lib.getExe' config.services.postgresql.finalPackage "psql"} --no-psqlrc --quiet --dbname=postgres
-      '';
+      wants = ["postgresql.target"];
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
