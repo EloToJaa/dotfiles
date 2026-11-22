@@ -51,8 +51,17 @@ in {
       enable = true;
       # nixpkgs ships torch 2.15 but paperless-ngx 3.4.2 pins torch<2.15.
       # makeOverridable keeps `.override`, which the NixOS module calls.
+      # Paperless's own ocrmypdf build isn't cached, and its validation timing test
+      # fails when the build host is busy.
       package = lib.makeOverridable (args:
-        (pkgs.unstable.paperless-ngx.override args).overridePythonAttrs (old: {
+        (pkgs.unstable.paperless-ngx.override (args
+          // {
+            extraPythonPackageOverrides = _final: prev: {
+              ocrmypdf = prev.ocrmypdf.overridePythonAttrs (old: {
+                disabledTests = (old.disabledTests or []) ++ ["test_validation_performance"];
+              });
+            };
+          })).overridePythonAttrs (old: {
           pythonRelaxDeps = old.pythonRelaxDeps ++ ["torch"];
         })) {};
       user = cfg.name;
