@@ -140,7 +140,7 @@ in {
             <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
             <AuthenticationMethod>Forms</AuthenticationMethod>
             <LaunchBrowser>True</LaunchBrowser>
-            <Branch>main</Branch>
+            <Branch>develop</Branch>
             <InstanceName>Sonarr</InstanceName>
             <AuthenticationRequired>Enabled</AuthenticationRequired>
             <SslCertPath></SslCertPath>
