@@ -11,12 +11,12 @@
   runCommand,
   ...
 }: let
-  version = "2.22.2";
+  version = "2.22.3";
   upstreamSrc = fetchFromGitHub {
     owner = "fredrikburmester";
     repo = "streamystats";
     tag = "v${version}";
-    hash = "sha256-XNmaNVUy0UEkpksj5D+vUTKooJi4nldYBq6WmsFF2tk=";
+    hash = "sha256-cPVRUXOt477TS+UqZCLvIe8hgZ7zC2F4FojATNMKhu0=";
   };
   src = runCommand "streamystats-${version}-source" {} ''
     cp -R ${upstreamSrc}/. $out
