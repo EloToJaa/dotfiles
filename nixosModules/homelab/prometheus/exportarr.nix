@@ -34,7 +34,10 @@ in {
         inherit (exporter) port url apiKeyFile;
         listenAddress = "127.0.0.1";
         package = pkgs.unstable.exportarr;
-        environment.INTERFACE = "127.0.0.1";
+        environment = {
+          INTERFACE = "127.0.0.1";
+          LOG_LEVEL = "warn";
+        };
       })
     cfg;
 

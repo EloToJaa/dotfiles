@@ -61,14 +61,14 @@ in {
       user = cfg.name;
       inherit (cfg) port group dataDir;
     };
-    systemd =
+    systemd = lib.mkMerge [
       {
         services.qbittorrent.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
         tmpfiles.rules = [
           "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
         ];
       }
-      // (lib.mkIf config.services.wireguard-netns.enable {
+      (lib.mkIf config.services.wireguard-netns.enable {
         services.${cfg.name} = {
           bindsTo = ["netns@${ns}.service"];
           requires = [
@@ -102,7 +102,8 @@ in {
             PrivateNetwork = "yes";
           };
         };
-      });
+      })
+    ];
 
     clan.core.state.qbittorrent = {
       folders = [
