@@ -71,6 +71,7 @@ in {
     clan.core.vars.generators."${cfg.name}-oidc" = {
       runtimeInputs = [
         pkgs.pwgen
+        pkgs.gnused
         pkgs.unstable.authelia
       ];
       files = {
