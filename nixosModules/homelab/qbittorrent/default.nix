@@ -27,6 +27,11 @@ in {
       type = lib.types.port;
       default = 8181;
     };
+    exporterPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9715;
+      description = "Loopback port of the Prometheus exporter";
+    };
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
@@ -36,6 +41,7 @@ in {
     "services/torrent/qbittorrent.nix"
   ];
   imports = [
+    ./exporter.nix
     ./service.nix
     ./vuetorrent.nix
   ];

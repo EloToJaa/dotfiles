@@ -45,6 +45,13 @@ in {
       }
     ];
 
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "loki";
+        address = "127.0.0.1:${toString cfg.port}";
+      }
+    ];
+
     services.loki = {
       inherit (cfg) dataDir group;
       enable = true;

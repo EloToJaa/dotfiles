@@ -45,21 +45,32 @@ in {
           HTTP_PORT = cfg.port;
           SSH_DOMAIN = domain;
         };
+        metrics.ENABLED = true;
         service.DISABLE_REGISTRATION = true;
         session.COOKIE_SECURE = true;
       };
     };
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "forgejo";
+        address = "127.0.0.1:${toString cfg.port}";
+      }
+    ];
+
     systemd.services.forgejo.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
 
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       useACMEHost = homelab.mainDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-        extraConfig = ''
-          client_max_body_size 512M;
-        '';
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            client_max_body_size 512M;
+          '';
+        };
+        "= /metrics".return = "404";
       };
     };
 

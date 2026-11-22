@@ -79,8 +79,17 @@ in {
           user = "admin";
           secret = "%{file:${credentialsDir}/admin_password}%";
         };
+        metrics.prometheus.enable = true;
       };
     };
+
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "stalwart";
+        address = "127.0.0.1:${toString cfg.port}";
+        metrics_path = "/metrics/prometheus";
+      }
+    ];
 
     # HTTP (web admin, JMAP) stays on localhost behind nginx.
     networking.firewall.allowedTCPPorts = [25 465 587 993 4190];
@@ -103,12 +112,15 @@ in {
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       useACMEHost = certificate;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-        extraConfig = ''
-          client_max_body_size 50M;
-        '';
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            client_max_body_size 50M;
+          '';
+        };
+        "= /metrics/prometheus".return = "404";
       };
     };
 

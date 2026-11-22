@@ -30,6 +30,11 @@ in {
       type = lib.types.port;
       default = 9696;
     };
+    exporterPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9713;
+      description = "Loopback port of the Exportarr instance for prowlarr";
+    };
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
@@ -43,6 +48,12 @@ in {
     ./flaresolverr.nix
   ];
   config = lib.mkIf cfg.enable {
+    modules.homelab.prometheus.exportarr.prowlarr = {
+      port = cfg.exporterPort;
+      url = "http://127.0.0.1:${toString cfg.port}";
+      apiKeyFile = config.clan.core.vars.generators.${cfg.name}.files.apikey.path;
+    };
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Prowlarr";
@@ -232,7 +243,7 @@ in {
     clan.core.vars.generators = {
       ${cfg.name} = {
         files = {
-          apikey.deploy = false;
+          apikey = {};
           pgpassword.deploy = false;
         };
         runtimeInputs = with pkgs; [

@@ -5,8 +5,15 @@
   ...
 }: let
   inherit (config.modules) homelab;
+  inherit (config.networking) hostName;
   cfg = config.modules.homelab.prometheus;
+  jobNames = map (target: target.job_name) cfg.scrapeTargets;
 in {
+  imports = [
+    ./exportarr.nix
+    ./exporters.nix
+  ];
+
   options.modules.homelab.prometheus = {
     enable = lib.mkEnableOption "Enable prometheus";
     name = lib.mkOption {
@@ -37,111 +44,142 @@ in {
       type = lib.types.port;
       default = 9100;
     };
+    nodeCollectors = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["systemd"];
+      description = "Extra node exporter collectors, shared by the node exporter on the Prometheus host and Alloy's embedded one on the other hosts.";
+    };
+    scrapeTargets = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          job_name = lib.mkOption {
+            type = lib.types.str;
+            description = "Prometheus job name, unique per host.";
+          };
+          address = lib.mkOption {
+            type = lib.types.str;
+            example = "127.0.0.1:9187";
+            description = "host:port of the metrics endpoint.";
+          };
+          metrics_path = lib.mkOption {
+            type = lib.types.str;
+            default = "/metrics";
+            description = "HTTP path of the metrics endpoint.";
+          };
+          labels = lib.mkOption {
+            type = lib.types.attrsOf lib.types.str;
+            default = {};
+            description = "Extra labels attached to every sample of the target.";
+          };
+        };
+      });
+      default = [];
+      description = "Metrics endpoints on this host. Each homelab module appends its own. Prometheus scrapes them directly on its own host, Alloy scrapes and remote-writes them on the others.";
+    };
   };
-  config = lib.mkIf cfg.enable {
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Prometheus";
-        group = "monitoring";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}/-/healthy";
-        conditions = ["[STATUS] == 200"];
-      }
-    ];
-
-    services.prometheus = {
-      enable = true;
-      package = pkgs.unstable.prometheus;
-      inherit (cfg) port stateDir;
-      listenAddress = "127.0.0.1";
-      extraFlags = ["--web.enable-remote-write-receiver"];
-      scrapeConfigs = [
+  config = lib.mkMerge [
+    {
+      assertions = [
         {
-          job_name = "prometheus";
-          static_configs = [
-            {
-              targets = [
-                "127.0.0.1:${toString cfg.port}"
-              ];
-            }
-          ];
-        }
-        {
-          job_name = "node";
-          static_configs = [
-            {
-              targets = [
-                "127.0.0.1:${toString cfg.nodeExporterPort}"
-              ];
-              labels.host = config.networking.hostName;
-            }
-          ];
-        }
-        {
-          job_name = "grafana";
-          static_configs = [
-            {
-              targets = [
-                "127.0.0.1:${toString homelab.grafana.port}"
-              ];
-            }
-          ];
-        }
-        {
-          job_name = "loki";
-          static_configs = [
-            {
-              targets = [
-                "127.0.0.1:${toString homelab.loki.port}"
-              ];
-            }
-          ];
+          assertion = lib.length jobNames == lib.length (lib.unique jobNames);
+          message = "modules.homelab.prometheus.scrapeTargets must use unique job_name values per host, got: ${lib.concatStringsSep ", " jobNames}";
         }
       ];
-      exporters.node = {
+    }
+    (lib.mkIf cfg.enable {
+      modules.homelab.gatus.endpoints = [
+        {
+          name = "Prometheus";
+          group = "monitoring";
+          url = "https://${cfg.domainName}.${homelab.baseDomain}/-/healthy";
+          conditions = ["[STATUS] == 200"];
+        }
+      ];
+
+      services.prometheus = {
         enable = true;
+        package = pkgs.unstable.prometheus;
+        inherit (cfg) port stateDir;
         listenAddress = "127.0.0.1";
-        port = cfg.nodeExporterPort;
-        enabledCollectors = [
-          "systemd"
-        ];
+        extraFlags = ["--web.enable-remote-write-receiver"];
+        scrapeConfigs =
+          [
+            {
+              job_name = "prometheus";
+              static_configs = [
+                {
+                  targets = [
+                    "127.0.0.1:${toString cfg.port}"
+                  ];
+                }
+              ];
+            }
+            {
+              job_name = "node";
+              static_configs = [
+                {
+                  targets = [
+                    "127.0.0.1:${toString cfg.nodeExporterPort}"
+                  ];
+                  labels.host = hostName;
+                }
+              ];
+            }
+          ]
+          ++ map (target: {
+            inherit (target) job_name metrics_path;
+            static_configs = [
+              {
+                targets = [target.address];
+                labels = target.labels // {host = hostName;};
+              }
+            ];
+          })
+          cfg.scrapeTargets;
+        exporters.node = {
+          enable = true;
+          listenAddress = "127.0.0.1";
+          port = cfg.nodeExporterPort;
+          enabledCollectors = cfg.nodeCollectors;
+        };
       };
-    };
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-    ];
-
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-      };
-    };
-
-    clan.core.state.prometheus = {
-      folders = [
-        cfg.dataDir
+      systemd.tmpfiles.rules = [
+        "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       ];
-      preBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
 
-        systemctl stop prometheus.service
-      '';
+      services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
+        forceSSL = true;
+        useACMEHost = homelab.baseDomain;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
 
-      postBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
+      clan.core.state.prometheus = {
+        folders = [
+          cfg.dataDir
+        ];
+        preBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-        systemctl start prometheus.service
-      '';
-    };
-  };
+          systemctl stop prometheus.service
+        '';
+
+        postBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
+
+          systemctl start prometheus.service
+        '';
+      };
+    })
+  ];
 }

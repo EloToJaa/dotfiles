@@ -19,6 +19,11 @@ in {
       type = lib.types.str;
       default = "nixbot";
     };
+    metricsPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9010;
+      description = "Loopback port that proxies Nixbot's /metrics, which the service only serves on a unix socket";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -97,10 +102,27 @@ in {
           topic = null;
         };
       };
-      services.nginx.virtualHosts.${domain} = {
-        forceSSL = true;
-        useACMEHost = homelab.mainDomain;
+      services.nginx.virtualHosts = {
+        ${domain} = {
+          forceSSL = true;
+          useACMEHost = homelab.mainDomain;
+        };
+        nixbot-metrics = {
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = cfg.metricsPort;
+            }
+          ];
+          locations."= /metrics".proxyPass = "http://unix:/run/nixbot/web.sock";
+        };
       };
+      modules.homelab.prometheus.scrapeTargets = [
+        {
+          job_name = "nixbot";
+          address = "127.0.0.1:${toString cfg.metricsPort}";
+        }
+      ];
       clan.core.postgresql.databases.nixbot = {
         create.enable = false;
         restore.stopOnRestore = ["nixbot"];

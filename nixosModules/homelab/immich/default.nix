@@ -34,6 +34,16 @@ in {
       type = lib.types.str;
       default = "192.168.100.11";
     };
+    apiMetricsPort = lib.mkOption {
+      type = lib.types.port;
+      default = 8081;
+      description = "Port of the Immich API telemetry endpoint inside the container";
+    };
+    microservicesMetricsPort = lib.mkOption {
+      type = lib.types.port;
+      default = 8082;
+      description = "Port of the Immich microservices telemetry endpoint inside the container";
+    };
   };
   config = lib.mkIf cfg.enable {
     modules.homelab.gatus.endpoints = [
@@ -42,6 +52,17 @@ in {
         group = "apps";
         url = "https://${cfg.domainName}.${homelab.baseDomain}/api/server/ping";
         conditions = ["[STATUS] == 200"];
+      }
+    ];
+
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "immich-api";
+        address = "${cfg.host}:${toString cfg.apiMetricsPort}";
+      }
+      {
+        job_name = "immich-microservices";
+        address = "${cfg.host}:${toString cfg.microservicesMetricsPort}";
       }
     ];
 
@@ -73,6 +94,11 @@ in {
             port = 0; # disable tcp
           };
           machine-learning.enable = true;
+          environment = {
+            IMMICH_TELEMETRY_INCLUDE = "all";
+            IMMICH_API_METRICS_PORT = toString cfg.apiMetricsPort;
+            IMMICH_MICROSERVICES_METRICS_PORT = toString cfg.microservicesMetricsPort;
+          };
           settings = {
             newVersionCheck.enabled = false;
             server.externalDomain = "https://${cfg.domainName}.${homelab.baseDomain}";
@@ -109,7 +135,13 @@ in {
         system.stateVersion = stateVersion;
 
         networking = {
-          firewall.enable = true;
+          firewall = {
+            enable = true;
+            allowedTCPPorts = [
+              cfg.apiMetricsPort
+              cfg.microservicesMetricsPort
+            ];
+          };
           # Use systemd-resolved inside the container
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
           useHostResolvConf = lib.mkForce false;

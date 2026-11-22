@@ -36,9 +36,22 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    services.prometheus.exporters.nginx = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      scrapeUri = "http://127.0.0.1/nginx_status";
+    };
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "nginx";
+        address = "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}";
+      }
+    ];
+
     services.nginx = {
       enable = true;
       package = pkgs.nginx;
+      statusPage = true;
 
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
