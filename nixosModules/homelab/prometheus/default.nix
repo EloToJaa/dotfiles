@@ -40,6 +40,16 @@ in {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.stateDir}";
     };
+    retention = lib.mkOption {
+      type = lib.types.str;
+      default = "90d";
+      description = "How long Prometheus keeps samples";
+    };
+    retentionSize = lib.mkOption {
+      type = lib.types.str;
+      default = "10GB";
+      description = "Upper bound for the TSDB on disk, oldest blocks are dropped first when it is exceeded";
+    };
     nodeExporterPort = lib.mkOption {
       type = lib.types.port;
       default = 9100;
@@ -101,7 +111,9 @@ in {
         package = pkgs.unstable.prometheus;
         inherit (cfg) port stateDir;
         listenAddress = "127.0.0.1";
+        retentionTime = cfg.retention;
         extraFlags = [
+          "--storage.tsdb.retention.size=${cfg.retentionSize}"
           "--web.enable-remote-write-receiver"
           "--enable-feature=exemplar-storage"
         ];

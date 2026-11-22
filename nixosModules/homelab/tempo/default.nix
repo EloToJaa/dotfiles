@@ -97,7 +97,7 @@ in {
     };
     retention = lib.mkOption {
       type = lib.types.str;
-      default = "336h";
+      default = "744h";
       description = "How long Tempo keeps traces";
     };
   };
