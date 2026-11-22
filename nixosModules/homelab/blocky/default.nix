@@ -40,24 +40,9 @@ in {
         logRetentionDays = cfg.queryLog.retentionDays;
       };
       systemd.services.blocky = {
-        after = ["postgresql.target" "${cfg.name}-db-password.service"];
-        wants = ["postgresql.target" "${cfg.name}-db-password.service"];
-        serviceConfig.LoadCredential = "dsn:${config.clan.core.vars.generators."${cfg.name}-dsn".files.dsn.path}";
-      };
-      systemd.services."${cfg.name}-db-password" = {
-        description = "Set the ${cfg.name} PostgreSQL role password";
         after = ["postgresql.target"];
-        requires = ["postgresql.target"];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          User = "postgres";
-          LoadCredential = "pgpassword:${config.clan.core.vars.generators.${cfg.name}.files.pgpassword.path}";
-        };
-        script = ''
-          printf "ALTER ROLE \"${cfg.name}\" PASSWORD '%s';\n" "$(cat "$CREDENTIALS_DIRECTORY/pgpassword")" \
-            | ${lib.getExe' config.services.postgresql.finalPackage "psql"} --no-psqlrc --quiet --dbname=postgres
-        '';
+        wants = ["postgresql.target"];
+        serviceConfig.LoadCredential = "dsn:${config.clan.core.vars.generators."${cfg.name}-dsn".files.dsn.path}";
       };
 
       clan.core.postgresql = {
@@ -79,7 +64,7 @@ in {
 
       clan.core.vars.generators = {
         ${cfg.name} = {
-          files.pgpassword = {};
+          files.pgpassword.deploy = false;
           runtimeInputs = [pkgs.pwgen];
           script = ''
             pwgen -s 64 1 | tr -d '\n' > "$out/pgpassword"
