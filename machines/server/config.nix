@@ -15,7 +15,10 @@
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
     glance.enable = false;
-    gatus.enable = true;
+    gatus = {
+      enable = true;
+      hosts = ["worker"];
+    };
     grafana.enable = true;
     hermes.enable = false;
     home-assistant = {

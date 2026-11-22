@@ -22,6 +22,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Harmonia";
+        group = "ci";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}/nix-cache-info";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.harmonia.cache = {
       enable = true;
       signKeyPaths = [signingKey.secret-key.path];
