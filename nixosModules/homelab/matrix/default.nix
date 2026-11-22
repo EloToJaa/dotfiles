@@ -62,6 +62,15 @@ in {
       }
     ];
 
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Matrix";
+        group = "apps";
+        url = "https://${domain}/_matrix/client/versions";
+        conditions = ["[STATUS] == 200"];
+      }
+    ];
+
     services.matrix-tuwunel = {
       enable = true;
       settings.global = {

@@ -50,6 +50,18 @@ in {
         session.COOKIE_SECURE = true;
       };
     };
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Forgejo";
+        group = "apps";
+        url = "https://${domain}/api/healthz";
+        conditions = [
+          "[STATUS] == 200"
+          "[BODY].status == pass"
+        ];
+      }
+    ];
+
     modules.homelab.prometheus.scrapeTargets = [
       {
         job_name = "forgejo";

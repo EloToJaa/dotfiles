@@ -22,6 +22,18 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "FlareSolverr";
+        group = "media";
+        url = "http://127.0.0.1:${toString cfg.port}/health";
+        conditions = [
+          "[STATUS] == 200"
+          "[BODY].status == ok"
+        ];
+      }
+    ];
+
     services.flaresolverr = {
       enable = true;
       package = pkgs.unstable.flaresolverr;
@@ -44,5 +56,28 @@ in {
         serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
       })
     ];
+
+    systemd.services.flaresolverr-proxy = lib.mkIf config.services.wireguard-netns.enable {
+      description = "Proxy to flaresolverr in Network Namespace";
+      requires = ["flaresolverr-proxy.socket"];
+      after = [
+        "flaresolverr.service"
+        "flaresolverr-proxy.socket"
+      ];
+      unitConfig = {
+        JoinsNamespaceOf = "flaresolverr.service";
+        Requisite = "flaresolverr.service";
+      };
+      serviceConfig = {
+        DynamicUser = true;
+        ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
+        PrivateNetwork = "yes";
+      };
+    };
+    systemd.sockets.flaresolverr-proxy = lib.mkIf config.services.wireguard-netns.enable {
+      description = "Socket for Proxy to flaresolverr";
+      listenStreams = ["127.0.0.1:${toString cfg.port}"];
+      wantedBy = ["sockets.target"];
+    };
   };
 }
