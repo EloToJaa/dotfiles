@@ -17,6 +17,7 @@
             targets = [
               "127.0.0.1:${toString cfg.port}"
             ];
+            labels.host = hostName;
           }
         ];
       }
@@ -44,6 +45,7 @@
     cfg.scrapeTargets;
 in {
   imports = [
+    ./alerting.nix
     ./exportarr.nix
     ./exporters.nix
   ];
@@ -159,6 +161,8 @@ in {
         configText = builtins.toJSON {
           scrape_configs = scrapeConfigs;
           storage.tsdb.out_of_order_time_window = cfg.outOfOrderTimeWindow;
+          rule_files = config.services.prometheus.ruleFiles;
+          alerting = {inherit (config.services.prometheus) alertmanagers;};
         };
         exporters.node = {
           enable = true;
