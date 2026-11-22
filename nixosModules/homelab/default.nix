@@ -115,7 +115,6 @@ in {
     ./siyuan
     ./stalwart
     ./streamystats
-    ./uptime
     ./vaultwarden
     ./wireguard
     ./yamtrack

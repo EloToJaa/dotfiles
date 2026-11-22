@@ -62,7 +62,6 @@
     rustdesk.enable = true;
     sonarr.enable = true;
     streamystats.enable = false;
-    uptime.enable = false;
     vaultwarden = {
       enable = true;
       auth.enable = false;

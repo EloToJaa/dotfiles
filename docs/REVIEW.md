@@ -1096,14 +1096,6 @@ generated/rotated PostgreSQL password containing reserved characters such as `@`
 startup. Ensure the secret is URI-encoded (or use a connection-string mechanism that safely handles
 arbitrary passwords).
 
-─── nixosModules/homelab/uptime/default.nix:48-48 ───
-[security · medium] This disables systemd's filesystem write protection for the entire host
-filesystem, not just Uptime Kuma's data directory. Since `StateDirectory` is disabled and the
-service only needs to write to `cfg.dataDir`, prefer retaining a restrictive `ProtectSystem` setting
-and explicitly granting write access to that directory (for example with `ReadWritePaths`). As
-written, a compromise of the service can modify any host-writable path accessible to its system
-user.
-
 ─── nixosModules/homelab/streamystats/service.nix:52-53 ───
 [bug · high] `streamystats-environment.service` is not defined anywhere in this module (nor
 elsewhere in the repository). Because it is a hard `Requires=` dependency, starting the migration
@@ -1664,7 +1656,7 @@ hash also omits an explicit `rounds=` parameter, so SHA-512-crypt uses its relat
 
 2. **Command injection and unsafe execution from user-controlled input.** Shell source is assembled from values that can contain shell syntax in `homeModules/dev/lazygit.nix` and `homeModules/cybersec/scripts/scripts/ghidra-auto.py`; `Justfile` interpolates host arguments into shell and Nix source. `nixosModules/homelab/mosquitto/default.nix` also embeds configuration values into generated shell or jq programs. Pass values as data/arguments, escape for the target format, and validate identifiers before use.
 
-3. **High-impact privilege and network exposure.** `homeModules/ai/crash.nix` disables Codex approval and sandbox protections while processing potentially attacker-controlled core-dump content. `nixosModules/shared/btop.nix` grants a broad filesystem-bypass capability, `nixosModules/homelab/uptime/default.nix` disables filesystem write protection host-wide, and `nixosModules/homelab/home-assistant/default.nix` grants MQTT access to every topic. Reduce each permission to the minimum required.
+3. **High-impact privilege and network exposure.** `homeModules/ai/crash.nix` disables Codex approval and sandbox protections while processing potentially attacker-controlled core-dump content. `nixosModules/shared/btop.nix` grants a broad filesystem-bypass capability, and `nixosModules/homelab/home-assistant/default.nix` grants MQTT access to every topic. Reduce each permission to the minimum required.
 
 4. **Destructive or unreliable persistence and restore behavior.** `nixosModules/base/bootloader.nix` deletes active Secure Boot keys before validating replacement keys. `homeModules/desktop/disko.nix` forces filesystem creation over existing signatures. `homeModules/desktop/wezterm/wezterm/utils/session-manager.lua` replays writable saved TTY data as shell input and restores malformed state without sufficient validation. Make updates atomic, validate state before changes, and avoid executing persisted data.
 
