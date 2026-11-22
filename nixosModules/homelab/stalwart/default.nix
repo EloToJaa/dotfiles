@@ -83,6 +83,21 @@ in {
       };
     };
 
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "Stalwart";
+        group = "apps";
+        url = "https://${domain}/healthz/ready";
+        conditions = ["[STATUS] == 200"];
+      }
+      {
+        name = "Stalwart SMTP";
+        group = "apps";
+        url = "starttls://${domain}:587";
+        conditions = ["[CONNECTED] == true"];
+      }
+    ];
+
     modules.homelab.prometheus.scrapeTargets = [
       {
         job_name = "stalwart";
