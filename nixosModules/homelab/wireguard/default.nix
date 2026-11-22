@@ -4,6 +4,8 @@
   ...
 }: let
   cfg = config.modules.homelab.wireguard;
+  exporter = config.services.prometheus.exporters.wireguard;
+  ns = config.services.wireguard-netns.namespace;
 in {
   options.modules.homelab.wireguard = {
     enable = lib.mkEnableOption "Enable wireguard";
@@ -26,6 +28,51 @@ in {
     ./service.nix
   ];
   config = lib.mkIf cfg.enable {
+    services.prometheus.exporters.wireguard = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+    };
+
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "wireguard";
+        address = "127.0.0.1:${toString exporter.port}";
+      }
+    ];
+
+    systemd.services.prometheus-wireguard-exporter = {
+      bindsTo = ["netns@${ns}.service"];
+      requires = [
+        "network-online.target"
+        "${ns}.service"
+      ];
+      after = ["${ns}.service"];
+      serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
+    };
+
+    systemd.sockets.prometheus-wireguard-exporter-proxy = {
+      description = "Socket for proxy to the WireGuard exporter in the network namespace";
+      listenStreams = ["127.0.0.1:${toString exporter.port}"];
+      wantedBy = ["sockets.target"];
+    };
+    systemd.services.prometheus-wireguard-exporter-proxy = {
+      description = "Proxy to the WireGuard exporter in the network namespace";
+      requires = ["prometheus-wireguard-exporter-proxy.socket"];
+      after = [
+        "prometheus-wireguard-exporter.service"
+        "prometheus-wireguard-exporter-proxy.socket"
+      ];
+      unitConfig = {
+        JoinsNamespaceOf = "prometheus-wireguard-exporter.service";
+        Requisite = "prometheus-wireguard-exporter.service";
+      };
+      serviceConfig = {
+        DynamicUser = true;
+        ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString exporter.port}";
+        PrivateNetwork = "yes";
+      };
+    };
+
     services."wireguard-netns" = {
       enable = true;
       configFile = config.clan.core.vars.generators."${cfg.name}-config".files."wg0.conf".path;

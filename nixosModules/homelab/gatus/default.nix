@@ -50,6 +50,7 @@ in {
       enable = true;
       environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       settings = {
+        metrics = true;
         web = {
           address = "127.0.0.1";
           inherit (cfg) port;
@@ -76,6 +77,13 @@ in {
         );
       };
     };
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "gatus";
+        address = "127.0.0.1:${toString cfg.port}";
+      }
+    ];
+
     systemd.services.gatus = {
       after = ["postgresql.target"];
       wants = ["postgresql.target"];
@@ -84,9 +92,12 @@ in {
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+        "= /metrics".return = "404";
       };
     };
 

@@ -41,6 +41,13 @@ in {
       }
     ];
 
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "grafana";
+        address = "127.0.0.1:${toString cfg.port}";
+      }
+    ];
+
     services.grafana = {
       inherit (cfg) dataDir;
       enable = true;

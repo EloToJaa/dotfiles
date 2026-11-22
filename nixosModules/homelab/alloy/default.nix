@@ -9,6 +9,18 @@
   cfg = config.modules.homelab.alloy;
   monitoringHost = "server.${homelab.mainDomain}";
   shipMetrics = !homelab.prometheus.enable;
+  alloyString = builtins.toJSON;
+  scrapeBlock = target: let
+    labels = {__address__ = target.address;} // target.labels;
+    targetObject = lib.concatStringsSep ", " (lib.mapAttrsToList (name: value: "${alloyString name} = ${alloyString value}") labels);
+  in ''
+    prometheus.scrape ${alloyString (lib.replaceStrings ["-"] ["_"] target.job_name)} {
+      targets      = [{${targetObject}}]
+      job_name     = ${alloyString target.job_name}
+      metrics_path = ${alloyString target.metrics_path}
+      forward_to   = [prometheus.relabel.host.receiver]
+    }
+  '';
 in {
   options.modules.homelab.alloy = {
     enable =
@@ -78,7 +90,7 @@ in {
     environment.etc."alloy/metrics.alloy" = lib.mkIf shipMetrics {
       text = ''
         prometheus.exporter.unix "node" {
-          enable_collectors = ["systemd"]
+          enable_collectors = [${lib.concatMapStringsSep ", " alloyString homelab.prometheus.nodeCollectors}]
         }
 
         prometheus.scrape "node" {
@@ -86,6 +98,8 @@ in {
           job_name   = "node"
           forward_to = [prometheus.relabel.host.receiver]
         }
+
+        ${lib.concatMapStringsSep "\n" scrapeBlock homelab.prometheus.scrapeTargets}
 
         prometheus.relabel "host" {
           forward_to = [prometheus.remote_write.default.receiver]

@@ -32,6 +32,23 @@ in {
       }
     ];
 
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "postgres";
+        address = "127.0.0.1:${toString config.services.prometheus.exporters.postgres.port}";
+      }
+    ];
+
+    services.prometheus.exporters.postgres = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      runAsLocalSuperUser = true;
+    };
+    systemd.services.prometheus-postgres-exporter = {
+      after = ["postgresql.target"];
+      wants = ["postgresql.target"];
+    };
+
     services.postgresql = {
       enable = true;
       package = pkgs.unstable.postgresql_18;

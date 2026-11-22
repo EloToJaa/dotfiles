@@ -23,6 +23,11 @@ in {
       type = lib.types.port;
       default = 9091;
     };
+    metricsPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9959;
+      description = "Loopback port of Authelia's telemetry listener, which serves /metrics";
+    };
     group = lib.mkOption {
       type = lib.types.str;
       default = homelab.groups.main;
@@ -41,6 +46,12 @@ in {
       }
     ];
 
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "authelia";
+        address = "127.0.0.1:${toString cfg.metricsPort}";
+      }
+    ];
     services.authelia.instances.main = {
       inherit (cfg) group;
       enable = true;
@@ -68,6 +79,10 @@ in {
             enable_pprof = false;
             enable_expvars = false;
           };
+        };
+        telemetry.metrics = {
+          enabled = true;
+          address = "tcp://127.0.0.1:${toString cfg.metricsPort}/metrics";
         };
         log.level = "info";
         totp.issuer = homelab.mainDomain;

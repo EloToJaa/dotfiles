@@ -21,6 +21,11 @@ in {
       type = lib.types.port;
       default = 6767;
     };
+    exporterPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9714;
+      description = "Loopback port of the Exportarr instance for bazarr";
+    };
     group = lib.mkOption {
       type = lib.types.str;
       default = homelab.groups.media;
@@ -31,6 +36,12 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.prometheus.exportarr.bazarr = {
+      port = cfg.exporterPort;
+      url = "http://127.0.0.1:${toString cfg.port}";
+      apiKeyFile = config.clan.core.vars.generators."${cfg.name}-apikey".files.apikey.path;
+    };
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Bazarr";
@@ -127,6 +138,14 @@ in {
         script = ''
           pwgen -s 64 1 > "$out/pgpassword"
         '';
+      };
+      "${cfg.name}-apikey" = {
+        prompts.apikey = {
+          description = "Bazarr API key for Exportarr (Settings > General > Security)";
+          type = "hidden";
+          persist = true;
+        };
+        files.apikey = {};
       };
       "${cfg.name}-env" = {
         dependencies = [cfg.name];

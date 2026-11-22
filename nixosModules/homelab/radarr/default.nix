@@ -25,12 +25,23 @@ in {
       type = lib.types.port;
       default = 7878;
     };
+    exporterPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9712;
+      description = "Loopback port of the Exportarr instance for radarr";
+    };
     dataDir = lib.mkOption {
       type = lib.types.path;
       default = "${homelab.varDataDir}${cfg.name}";
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.prometheus.exportarr.radarr = {
+      port = cfg.exporterPort;
+      url = "http://127.0.0.1:${toString cfg.port}";
+      apiKeyFile = config.clan.core.vars.generators.${cfg.name}.files.apikey.path;
+    };
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Radarr";
@@ -102,7 +113,7 @@ in {
     clan.core.vars.generators = {
       ${cfg.name} = {
         files = {
-          apikey.deploy = false;
+          apikey = {};
           pgpassword.deploy = false;
         };
         runtimeInputs = with pkgs; [

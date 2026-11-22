@@ -17,6 +17,11 @@ in {
       type = lib.types.str;
       default = "blocky";
     };
+    metricsPort = lib.mkOption {
+      type = lib.types.port;
+      default = 4000;
+      description = "Loopback port of Blocky's HTTP listener, which serves /metrics";
+    };
     queryLog = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -94,6 +99,13 @@ in {
         }
       ];
 
+      modules.homelab.prometheus.scrapeTargets = [
+        {
+          job_name = "blocky";
+          address = "127.0.0.1:${toString cfg.metricsPort}";
+        }
+      ];
+
       services.blocky = {
         enable = true;
         package = pkgs.unstable.blocky;
@@ -101,7 +113,9 @@ in {
           ports = {
             dns = 53;
             tls = 853;
+            http = "127.0.0.1:${toString cfg.metricsPort}";
           };
+          prometheus.enable = true;
           upstreams.groups.default = [
             dns.quad9
             dns.cloudflare
