@@ -48,10 +48,8 @@
       enable = true;
       flaresolverr.enable = true;
     };
-    qbittorrent = {
-      enable = true;
-      vuetorrent.enable = true;
-    };
+    qbittorrent.enable = true;
+    qui.enable = true;
     radarr.enable = true;
     rustdesk.enable = true;
     sonarr.enable = true;

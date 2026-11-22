@@ -98,6 +98,7 @@ in {
     ./prometheus
     ./prowlarr
     ./qbittorrent
+    ./qui
     ./radarr
     ./xandikos
     ./zigbee2mqtt
