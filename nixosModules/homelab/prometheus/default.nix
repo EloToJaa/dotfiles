@@ -165,9 +165,15 @@ in {
       services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
         forceSSL = true;
         useACMEHost = homelab.baseDomain;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          proxyWebsockets = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyWebsockets = true;
+          };
+          "= /api/v1/write" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            basicAuthFile = config.clan.core.vars.generators.alloy-ingest-htpasswd.files.htpasswd.path;
+          };
         };
       };
 

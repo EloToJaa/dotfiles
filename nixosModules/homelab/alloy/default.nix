@@ -9,6 +9,19 @@
   cfg = config.modules.homelab.alloy;
   monitoringHost = "server.${homelab.mainDomain}";
   shipMetrics = !homelab.prometheus.enable;
+  shipLogs = !homelab.loki.enable;
+  shipTraces = !homelab.tempo.enable;
+  needsIngestAuth = shipMetrics || shipLogs || shipTraces;
+  ingestUser = "alloy";
+  ingestServer = homelab.loki.enable || homelab.tempo.enable || homelab.prometheus.enable;
+  ingestPasswordCredential = "ingest-password";
+  ingestPassword = config.clan.core.vars.generators.alloy-ingest.files.password.path;
+  basicAuthBlock = ''
+    basic_auth {
+          username = "${ingestUser}"
+          password = local.file.ingest_password.content
+        }
+  '';
   alloyString = builtins.toJSON;
   redactStages =
     lib.concatMapStrings (pattern: ''
@@ -88,157 +101,208 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    services.alloy = {
-      enable = true;
-      package = pkgs.unstable.grafana-alloy;
-      extraFlags = [
-        "--disable-reporting"
-        "--server.http.listen-addr=${cfg.listenAddress}:${toString cfg.port}"
+  config = lib.mkMerge [
+    (lib.mkIf (cfg.enable || ingestServer) {
+      clan.core.vars.generators.alloy-ingest = {
+        share = true;
+        files.password.secret = true;
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          pwgen -s 64 1 | tr -d '\n' > "$out/password"
+        '';
+      };
+    })
+
+    (lib.mkIf ingestServer {
+      clan.core.vars.generators.alloy-ingest-htpasswd = {
+        dependencies = ["alloy-ingest"];
+        files.htpasswd = {
+          secret = true;
+          owner = homelab.nginx.name;
+        };
+        runtimeInputs = [pkgs.apacheHttpd];
+        script = ''
+          htpasswd -icB $out/htpasswd "${ingestUser}" < $in/alloy-ingest/password
+        '';
+      };
+    })
+
+    (lib.mkIf cfg.enable {
+      services.alloy = {
+        enable = true;
+        package = pkgs.unstable.grafana-alloy;
+        extraFlags = [
+          "--disable-reporting"
+          "--server.http.listen-addr=${cfg.listenAddress}:${toString cfg.port}"
+        ];
+      };
+
+      systemd.services.alloy.serviceConfig.LoadCredential = lib.mkIf needsIngestAuth [
+        "${ingestPasswordCredential}:${ingestPassword}"
       ];
-    };
 
-    modules.homelab.prometheus.scrapeTargets = [
-      {
-        job_name = "alloy";
-        address = "${cfg.listenAddress}:${toString cfg.port}";
-      }
-    ];
-
-    environment.etc."alloy/logs.alloy".text = ''
-      loki.relabel "journal" {
-        forward_to = []
-
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label  = "unit"
-        }
-
-        rule {
-          source_labels = ["__journal__systemd_user_unit"]
-          target_label  = "user_unit"
-        }
-
-        rule {
-          source_labels = ["__journal_syslog_identifier"]
-          target_label  = "syslog_identifier"
-        }
-
-        rule {
-          source_labels = ["__journal_priority_keyword"]
-          target_label  = "level"
-        }
-      }
-
-      loki.source.journal "journal" {
-        max_age       = "12h"
-        relabel_rules = loki.relabel.journal.rules
-        labels        = {job = "systemd-journal", host = "${hostName}"}
-        forward_to    = [loki.process.redact.receiver]
-      }
-
-      loki.process "redact" {
-        forward_to = [loki.write.default.receiver]
-
-        stage.match {
-          selector = "{syslog_identifier=\"${homelab.nginx.accessLogTag}\"}"
-
-          stage.static_labels {
-            values = {job = "nginx"}
+      environment.etc."alloy/ingest.alloy" = lib.mkIf needsIngestAuth {
+        text = ''
+          local.file "ingest_password" {
+            filename  = sys.env("CREDENTIALS_DIRECTORY") + "/${ingestPasswordCredential}"
+            is_secret = true
           }
+        '';
+      };
 
-          stage.json {
-            expressions = {vhost = ""}
-          }
-
-          stage.labels {
-            values = {vhost = ""}
-          }
+      modules.homelab.prometheus.scrapeTargets = [
+        {
+          job_name = "alloy";
+          address = "${cfg.listenAddress}:${toString cfg.port}";
         }
-      ${redactStages}
-      }
+      ];
 
-      loki.write "default" {
-        endpoint {
-          url = "${cfg.lokiUrl}/loki/api/v1/push"
-        }
-      }
-    '';
-
-    environment.etc."alloy/traces.alloy".text = ''
-      otelcol.receiver.otlp "default" {
-        grpc {
-          endpoint = "127.0.0.1:${toString cfg.otlpGrpcPort}"
-        }
-
-        http {
-          endpoint = "127.0.0.1:${toString cfg.otlpHttpPort}"
-        }
-
-        output {
-          traces = [otelcol.processor.resourcedetection.default.input]
-        }
-      }
-
-      otelcol.processor.resourcedetection "default" {
-        detectors = ["system"]
-
-        system {
-          hostname_sources = ["os"]
-        }
-
-        output {
-          traces = [otelcol.processor.batch.default.input]
-        }
-      }
-
-      otelcol.processor.batch "default" {
-        output {
-          traces = [otelcol.exporter.otlphttp.tempo.input]
-        }
-      }
-
-      otelcol.exporter.otlphttp "tempo" {
-        client {
-          endpoint = "${cfg.tempoUrl}"
-        }
-      }
-    '';
-
-    environment.etc."alloy/metrics.alloy" = lib.mkIf shipMetrics {
-      text = ''
-        prometheus.exporter.unix "node" {
-          enable_collectors = [${lib.concatMapStringsSep ", " alloyString homelab.prometheus.nodeCollectors}]
-        }
-
-        prometheus.scrape "node" {
-          targets    = prometheus.exporter.unix.node.targets
-          job_name   = "node"
-          forward_to = [prometheus.relabel.host.receiver]
-        }
-
-        ${lib.concatMapStringsSep "\n" scrapeBlock homelab.prometheus.scrapeTargets}
-
-        prometheus.relabel "host" {
-          forward_to = [prometheus.remote_write.default.receiver]
+      environment.etc."alloy/logs.alloy".text = ''
+        loki.relabel "journal" {
+          forward_to = []
 
           rule {
-            target_label = "host"
-            replacement  = "${hostName}"
+            source_labels = ["__journal__systemd_unit"]
+            target_label  = "unit"
           }
 
           rule {
-            target_label = "instance"
-            replacement  = "${hostName}"
+            source_labels = ["__journal__systemd_user_unit"]
+            target_label  = "user_unit"
+          }
+
+          rule {
+            source_labels = ["__journal_syslog_identifier"]
+            target_label  = "syslog_identifier"
+          }
+
+          rule {
+            source_labels = ["__journal_priority_keyword"]
+            target_label  = "level"
           }
         }
 
-        prometheus.remote_write "default" {
+        loki.source.journal "journal" {
+          max_age       = "12h"
+          relabel_rules = loki.relabel.journal.rules
+          labels        = {job = "systemd-journal", host = "${hostName}"}
+          forward_to    = [loki.process.redact.receiver]
+        }
+
+        loki.process "redact" {
+          forward_to = [loki.write.default.receiver]
+
+          stage.match {
+            selector = "{syslog_identifier=\"${homelab.nginx.accessLogTag}\"}"
+
+            stage.static_labels {
+              values = {job = "nginx"}
+            }
+
+            stage.json {
+              expressions = {vhost = ""}
+            }
+
+            stage.labels {
+              values = {vhost = ""}
+            }
+          }
+        ${redactStages}
+        }
+
+        loki.write "default" {
           endpoint {
-            url = "${cfg.prometheusUrl}/api/v1/write"
+            url = "${cfg.lokiUrl}/loki/api/v1/push"
+            ${lib.optionalString shipLogs basicAuthBlock}
           }
         }
       '';
-    };
-  };
+
+      environment.etc."alloy/traces.alloy".text = ''
+        otelcol.receiver.otlp "default" {
+          grpc {
+            endpoint = "127.0.0.1:${toString cfg.otlpGrpcPort}"
+          }
+
+          http {
+            endpoint = "127.0.0.1:${toString cfg.otlpHttpPort}"
+          }
+
+          output {
+            traces = [otelcol.processor.resourcedetection.default.input]
+          }
+        }
+
+        otelcol.processor.resourcedetection "default" {
+          detectors = ["system"]
+
+          system {
+            hostname_sources = ["os"]
+          }
+
+          output {
+            traces = [otelcol.processor.batch.default.input]
+          }
+        }
+
+        otelcol.processor.batch "default" {
+          output {
+            traces = [otelcol.exporter.otlphttp.tempo.input]
+          }
+        }
+
+        ${lib.optionalString shipTraces ''
+          otelcol.auth.basic "ingest" {
+            client_auth {
+              username = "${ingestUser}"
+              password = local.file.ingest_password.content
+            }
+          }
+        ''}
+        otelcol.exporter.otlphttp "tempo" {
+          client {
+            endpoint = "${cfg.tempoUrl}"
+            ${lib.optionalString shipTraces "auth     = otelcol.auth.basic.ingest.handler"}
+          }
+        }
+      '';
+
+      environment.etc."alloy/metrics.alloy" = lib.mkIf shipMetrics {
+        text = ''
+          prometheus.exporter.unix "node" {
+            enable_collectors = [${lib.concatMapStringsSep ", " alloyString homelab.prometheus.nodeCollectors}]
+          }
+
+          prometheus.scrape "node" {
+            targets    = prometheus.exporter.unix.node.targets
+            job_name   = "node"
+            forward_to = [prometheus.relabel.host.receiver]
+          }
+
+          ${lib.concatMapStringsSep "\n" scrapeBlock homelab.prometheus.scrapeTargets}
+
+          prometheus.relabel "host" {
+            forward_to = [prometheus.remote_write.default.receiver]
+
+            rule {
+              target_label = "host"
+              replacement  = "${hostName}"
+            }
+
+            rule {
+              target_label = "instance"
+              replacement  = "${hostName}"
+            }
+          }
+
+          prometheus.remote_write "default" {
+            endpoint {
+              url = "${cfg.prometheusUrl}/api/v1/write"
+              ${lib.optionalString shipMetrics basicAuthBlock}
+            }
+          }
+        '';
+      };
+    })
+  ];
 }
