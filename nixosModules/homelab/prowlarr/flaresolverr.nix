@@ -24,6 +24,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.flaresolverr = {
       enable = true;
+      package = pkgs.unstable.flaresolverr;
       inherit (cfg) port;
     };
     systemd.services.flaresolverr = lib.mkMerge [
