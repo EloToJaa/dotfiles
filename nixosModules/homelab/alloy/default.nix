@@ -253,10 +253,8 @@ in {
 
         ${lib.optionalString shipTraces ''
           otelcol.auth.basic "ingest" {
-            client_auth {
-              username = "${ingestUser}"
-              password = local.file.ingest_password.content
-            }
+            username = "${ingestUser}"
+            password = local.file.ingest_password.content
           }
         ''}
         otelcol.exporter.otlphttp "tempo" {
