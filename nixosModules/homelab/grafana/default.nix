@@ -31,6 +31,9 @@ in {
       default = 3002;
     };
   };
+  imports = [
+    ./auth.nix
+  ];
   config = lib.mkIf cfg.enable {
     modules.homelab.gatus.endpoints = [
       {
@@ -54,7 +57,10 @@ in {
       package = pkgs.unstable.grafana;
       settings = {
         analytics.reporting_enabled = false;
-        security.secret_key = "$__file{${cfg.dataDir}/secret_key}";
+        security = {
+          secret_key = "$__file{${config.clan.core.vars.generators."${cfg.name}-secret-key".files.secret-key.path}}";
+          admin_password = "$__file{${config.clan.core.vars.generators."${cfg.name}-admin".files.password.path}}";
+        };
         server = {
           inherit domain;
           http_addr = "127.0.0.1";
@@ -150,12 +156,22 @@ in {
         ];
       };
     };
-    systemd.services.grafana.preStart = ''
-      if [ ! -s ${cfg.dataDir}/secret_key ]; then
-        ${pkgs.openssl}/bin/openssl rand -base64 48 > ${cfg.dataDir}/secret_key
-        chmod 600 ${cfg.dataDir}/secret_key
-      fi
-    '';
+    clan.core.vars.generators."${cfg.name}-secret-key" = {
+      runtimeInputs = [pkgs.openssl];
+      files.secret-key.owner = cfg.name;
+      script = ''
+        openssl rand -base64 48 | tr -d '\n' > "$out/secret-key"
+      '';
+    };
+
+    clan.core.vars.generators."${cfg.name}-admin" = {
+      runtimeInputs = [pkgs.pwgen];
+      files.password.owner = cfg.name;
+      script = ''
+        pwgen -s 48 1 | tr -d '\n' > "$out/password"
+      '';
+    };
+
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
     ];
