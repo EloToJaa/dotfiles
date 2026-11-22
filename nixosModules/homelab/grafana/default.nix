@@ -64,21 +64,76 @@ in {
       };
       provision.datasources.settings = {
         apiVersion = 1;
-        datasources = [
-          {
-            name = "Prometheus";
-            type = "prometheus";
-            uid = "prometheus";
-            url = "http://127.0.0.1:${toString homelab.prometheus.port}";
-            isDefault = true;
-          }
-          {
-            name = "Loki";
-            type = "loki";
-            uid = "loki";
-            url = "http://127.0.0.1:${toString homelab.loki.port}";
-          }
-        ];
+        datasources =
+          [
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              uid = "prometheus";
+              url = "http://127.0.0.1:${toString homelab.prometheus.port}";
+              isDefault = true;
+              jsonData.exemplarTraceIdDestinations = lib.optional homelab.tempo.enable {
+                name = "trace_id";
+                datasourceUid = "tempo";
+              };
+            }
+            {
+              name = "Loki";
+              type = "loki";
+              uid = "loki";
+              url = "http://127.0.0.1:${toString homelab.loki.port}";
+              jsonData.derivedFields = lib.optional homelab.tempo.enable {
+                name = "TraceID";
+                matcherRegex = "(?:trace_id|traceID|traceId)[=:\"\\s]+(\\w+)";
+                url = "$${__value.raw}";
+                datasourceUid = "tempo";
+              };
+            }
+          ]
+          ++ lib.optional homelab.tempo.enable {
+            name = "Tempo";
+            type = "tempo";
+            uid = "tempo";
+            url = "http://127.0.0.1:${toString homelab.tempo.port}";
+            jsonData = {
+              streamingEnabled = {
+                search = true;
+                metrics = true;
+              };
+              serviceMap.datasourceUid = "prometheus";
+              nodeGraph.enabled = true;
+              tracesToLogsV2 = {
+                datasourceUid = "loki";
+                spanStartTimeShift = "-5m";
+                spanEndTimeShift = "5m";
+                tags = [
+                  {
+                    key = "host.name";
+                    value = "host";
+                  }
+                ];
+              };
+              tracesToMetrics = {
+                datasourceUid = "prometheus";
+                tags = [
+                  {
+                    key = "service.name";
+                    value = "service";
+                  }
+                ];
+                queries = [
+                  {
+                    name = "Request rate";
+                    query = "sum(rate(traces_spanmetrics_calls_total{$$__tags}[5m]))";
+                  }
+                  {
+                    name = "p95 latency";
+                    query = "histogram_quantile(0.95, sum by (le) (rate(traces_spanmetrics_latency_bucket{$$__tags}[5m])))";
+                  }
+                ];
+              };
+            };
+          };
       };
       provision.dashboards.settings = {
         apiVersion = 1;
