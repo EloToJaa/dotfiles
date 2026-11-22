@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -20,6 +21,11 @@ in {
     port = lib.mkOption {
       type = lib.types.port;
       default = 3011;
+    };
+    hosts = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Other hosts whose Gatus endpoints are monitored from this instance.";
     };
     endpoints = lib.mkOption {
       type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
@@ -40,12 +46,33 @@ in {
           type = "postgres";
           path = "postgres://${cfg.name}:\${GATUS_POSTGRES_PASSWORD}@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}?sslmode=disable";
         };
-        inherit (cfg) endpoints;
+        endpoints =
+          cfg.endpoints
+          ++ lib.concatMap (
+            host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.gatus.endpoints
+          )
+          cfg.hosts;
       };
     };
     systemd.services.gatus = {
-      after = ["postgresql.service"];
-      requires = ["postgresql.service"];
+      after = ["${cfg.name}-db-password.service"];
+      requires = ["${cfg.name}-db-password.service"];
+    };
+    systemd.services."${cfg.name}-db-password" = {
+      description = "Set the ${cfg.name} PostgreSQL role password";
+      after = ["postgresql.target"];
+      requires = ["postgresql.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        User = "postgres";
+        LoadCredential = "env:${config.clan.core.vars.generators."${cfg.name}-env".files.env.path}";
+      };
+      script = ''
+        . "$CREDENTIALS_DIRECTORY/env"
+        printf "ALTER ROLE \"${cfg.name}\" PASSWORD '%s';\n" "$GATUS_POSTGRES_PASSWORD" \
+          | ${lib.getExe' config.services.postgresql.finalPackage "psql"} --no-psqlrc --quiet --dbname=postgres
+      '';
     };
 
     services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {

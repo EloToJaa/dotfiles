@@ -22,6 +22,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.gatus.endpoints = [
+      {
+        name = "T3 Code";
+        group = "ci";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        conditions = ["[STATUS] < 400"];
+      }
+    ];
+
     assertions = [
       {
         assertion = user_cfg.enable && user_cfg.service.enable;
