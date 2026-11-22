@@ -15,7 +15,7 @@ in {
     };
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "qui";
+      default = "download";
     };
     port = lib.mkOption {
       type = lib.types.port;
