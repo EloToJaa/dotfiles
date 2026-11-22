@@ -61,6 +61,16 @@ in {
       default = 4318;
       description = "Local OTLP HTTP port where applications send traces";
     };
+    listenAddress = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1";
+      description = "Address of Alloy's HTTP server, which serves its UI and its own metrics";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 12345;
+      description = "Port of Alloy's HTTP server, which serves its UI and its own metrics";
+    };
     prometheusUrl = lib.mkOption {
       type = lib.types.str;
       default = "https://prometheus.${monitoringHost}";
@@ -82,8 +92,18 @@ in {
     services.alloy = {
       enable = true;
       package = pkgs.unstable.grafana-alloy;
-      extraFlags = ["--disable-reporting"];
+      extraFlags = [
+        "--disable-reporting"
+        "--server.http.listen-addr=${cfg.listenAddress}:${toString cfg.port}"
+      ];
     };
+
+    modules.homelab.prometheus.scrapeTargets = [
+      {
+        job_name = "alloy";
+        address = "${cfg.listenAddress}:${toString cfg.port}";
+      }
+    ];
 
     environment.etc."alloy/logs.alloy".text = ''
       loki.relabel "journal" {
@@ -119,6 +139,22 @@ in {
 
       loki.process "redact" {
         forward_to = [loki.write.default.receiver]
+
+        stage.match {
+          selector = "{syslog_identifier=\"${homelab.nginx.accessLogTag}\"}"
+
+          stage.static_labels {
+            values = {job = "nginx"}
+          }
+
+          stage.json {
+            expressions = {vhost = ""}
+          }
+
+          stage.labels {
+            values = {vhost = ""}
+          }
+        }
       ${redactStages}
       }
 

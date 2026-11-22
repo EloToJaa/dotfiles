@@ -16,4 +16,4 @@ Vendored dashboards use the fixed data source uids `prometheus` and `loki`. Inst
 
 ## Written for this repo
 
-`Logs/journal.json`, `Monitoring/{prometheus,grafana,loki,gatus}.json`, `Services/{postgresql,forgejo}.json` and `Media/exportarr.json`. Their metric names come from the exporters' source: Gatus `metrics/metrics.go`, exportarr `internal/arr/collector`, postgres_exporter v0.20.1 `collector`, Forgejo `modules/metrics/collector.go`.
+`Logs/journal.json`, `Monitoring/{prometheus,grafana,loki,gatus,alloy}.json`, `Services/{postgresql,forgejo}.json` and `Media/exportarr.json`. Their metric names come from the exporters' source: Gatus `metrics/metrics.go`, Alloy's own `/metrics` endpoint, exportarr `internal/arr/collector`, postgres_exporter v0.20.1 `collector`, Forgejo `modules/metrics/collector.go`.
