@@ -47,7 +47,13 @@
       enable = true;
       pgadmin.enable = true;
     };
-    prometheus.enable = true;
+    prometheus = {
+      enable = true;
+      alerting = {
+        enable = true;
+        hosts = ["server" "worker"];
+      };
+    };
     prowlarr = {
       enable = true;
       flaresolverr.enable = true;
