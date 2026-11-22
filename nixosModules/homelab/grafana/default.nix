@@ -80,6 +80,20 @@ in {
           }
         ];
       };
+      provision.dashboards.settings = {
+        apiVersion = 1;
+        providers = [
+          {
+            name = "homelab";
+            type = "file";
+            allowUiUpdates = false;
+            options = {
+              path = ./dashboards;
+              foldersFromFilesStructure = true;
+            };
+          }
+        ];
+      };
     };
     systemd.services.grafana.preStart = ''
       if [ ! -s ${cfg.dataDir}/secret_key ]; then
