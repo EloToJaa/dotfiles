@@ -6,17 +6,6 @@
   ...
 }: let
   cfg = config.modules.desktop.noctalia-shell;
-  # sdbus-cpp 2.2.1 only matches async reply callbacks taking std::optional<sdbus::Error>
-  # by value; upstream's wpa_supplicant BSS callback takes it by const reference.
-  noctaliaPackage = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace src/dbus/network/wpa_supplicant_service.cpp \
-          --replace-fail "[this](const std::optional<sdbus::Error>& error, const sdbus::Variant& value)" \
-            "[this](std::optional<sdbus::Error> error, const sdbus::Variant& value)"
-      '';
-  });
   btop_popup = "exec ghostty --class=com.elotoja.btop-popup --title=btop -e btop";
 in {
   options.modules.desktop.noctalia-shell = {
@@ -25,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.noctalia = {
       enable = true;
-      package = noctaliaPackage;
+      package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
       systemd.enable = true;
 
       settings = {
