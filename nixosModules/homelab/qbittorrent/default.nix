@@ -17,7 +17,7 @@ in {
     };
     domainName = lib.mkOption {
       type = lib.types.str;
-      default = "download";
+      default = "qbit";
     };
     group = lib.mkOption {
       type = lib.types.str;
