@@ -94,9 +94,12 @@ in {
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
       useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+        "= /metrics".return = "404";
       };
     };
 
