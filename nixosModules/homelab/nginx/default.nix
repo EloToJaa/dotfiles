@@ -145,6 +145,7 @@ in {
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedProxySettings = true;
+      proxyTimeout = "600s";
       recommendedTlsSettings = true;
 
       virtualHosts =
