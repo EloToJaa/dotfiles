@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -9,8 +10,6 @@
   domain = "${cfg.domainName}.${homelab.baseDomain}";
   issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
   clientId = "arYY6TpVj0RYcfhpdC0zqbULh2o8xw47LvjQZEZqodcqR6I8tmnZvmB9Cbr3Epci";
-  oidcGenerator = config.clan.core.vars.generators."${cfg.name}-oidc";
-  envGenerator = config.clan.core.vars.generators."${cfg.name}-oidc-env";
 in {
   options.modules.homelab.radarr.auth = {
     enable = lib.mkEnableOption "Enable radarr single sign-on through authelia";
@@ -20,70 +19,34 @@ in {
       description = "Verified email (or OIDC subject) of the only user allowed to sign in";
     };
   };
-  config = lib.mkIf (cfg.enable && cfg.auth.enable) {
-    systemd.services.radarr = {
-      environment = {
-        RADARR__AUTH__METHOD = "Oidc";
-        RADARR__AUTH__OIDCAUTHORITY = issuer;
-        RADARR__AUTH__OIDCCLIENTID = clientId;
-        RADARR__AUTH__OIDCUSERIDENTIFIER = cfg.auth.userIdentifier;
+  config = lib.mkIf (cfg.enable && cfg.auth.enable) (lib.mkMerge [
+    (outputs.lib.homelab.mkLocalOidcClient {
+      inherit lib config pkgs;
+      inherit (cfg) name;
+      env = {
+        var = "RADARR__AUTH__OIDCCLIENTSECRET";
+        owner = cfg.name;
       };
-      serviceConfig.EnvironmentFile = [envGenerator.files.env.path];
-    };
-
-    services.authelia.instances.main.settings.identity_providers.oidc.clients = [
-      {
+      client = {
         client_id = clientId;
         client_name = "Radarr";
-        client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
-        public = false;
         authorization_policy = homelab.authelia.oidcAdminPolicy;
-        require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = [
-          "https://${domain}/signin-oidc"
-        ];
-        scopes = [
-          "openid"
-          "profile"
-          "email"
-        ];
-        response_types = [
-          "code"
-        ];
-        grant_types = [
-          "authorization_code"
-        ];
-        access_token_signed_response_alg = "none";
-        userinfo_signed_response_alg = "none";
+        redirect_uris = ["https://${domain}/signin-oidc"];
         token_endpoint_auth_method = "client_secret_post";
-      }
-    ];
-
-    clan.core.vars.generators = {
-      "${cfg.name}-oidc" = {
-        runtimeInputs = [
-          pkgs.pwgen
-          pkgs.gnused
-          pkgs.unstable.authelia
-        ];
-        files = {
-          client-secret.deploy = false;
-          client-secret-hash.owner = homelab.authelia.name;
+      };
+    })
+    {
+      systemd.services.radarr = {
+        environment = {
+          RADARR__AUTH__METHOD = "Oidc";
+          RADARR__AUTH__OIDCAUTHORITY = issuer;
+          RADARR__AUTH__OIDCCLIENTID = clientId;
+          RADARR__AUTH__OIDCUSERIDENTIFIER = cfg.auth.userIdentifier;
         };
-        script = ''
-          pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
-          authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
-            | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
-        '';
+        serviceConfig.EnvironmentFile = [
+          config.clan.core.vars.generators."${cfg.name}-oidc-env".files.env.path
+        ];
       };
-      "${cfg.name}-oidc-env" = {
-        dependencies = ["${cfg.name}-oidc"];
-        files.env.owner = cfg.name;
-        script = ''
-          echo "RADARR__AUTH__OIDCCLIENTSECRET=$(cat "$in/${cfg.name}-oidc/client-secret")" > "$out/env"
-        '';
-      };
-    };
-  };
+    }
+  ]);
 }

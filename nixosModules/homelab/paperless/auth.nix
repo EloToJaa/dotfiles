@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -10,67 +11,29 @@
   issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
   clientId = "AbSuaWOfsZfDjQFd6viSYt9g8TselL0RQVWNqMx4FYk19wjk0laCylGxR0UXn8uW";
   providerId = "authelia";
-  oidcGenerator = config.clan.core.vars.generators."${cfg.name}-oidc";
-  oidcEnvGenerator = config.clan.core.vars.generators."${cfg.name}-oidc-env";
 in {
   options.modules.homelab.paperless.auth = {
     enable = lib.mkEnableOption "Enable paperless single sign-on through authelia";
   };
-  config = lib.mkIf (cfg.enable && cfg.auth.enable) {
-    services.paperless.settings.PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
-
-    systemd.services.paperless-web.serviceConfig.EnvironmentFile = [
-      oidcEnvGenerator.files.env.path
-    ];
-
-    services.authelia.instances.main.settings.identity_providers.oidc.clients = [
-      {
+  config = lib.mkIf (cfg.enable && cfg.auth.enable) (lib.mkMerge [
+    (outputs.lib.homelab.mkLocalOidcClient {
+      inherit lib config pkgs;
+      inherit (cfg) name;
+      client = {
         client_id = clientId;
         client_name = "Paperless";
-        client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
-        public = false;
-        authorization_policy = "two_factor";
-        require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = [
-          "https://${domain}/accounts/oidc/${providerId}/login/callback/"
-        ];
-        scopes = [
-          "openid"
-          "profile"
-          "email"
-          "groups"
-        ];
-        response_types = [
-          "code"
-        ];
-        grant_types = [
-          "authorization_code"
-        ];
-        access_token_signed_response_alg = "none";
-        userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = "client_secret_basic";
-      }
-    ];
-
-    clan.core.vars.generators = {
-      "${cfg.name}-oidc" = {
-        runtimeInputs = [
-          pkgs.pwgen
-          pkgs.gnused
-          pkgs.unstable.authelia
-        ];
-        files = {
-          client-secret.deploy = false;
-          client-secret-hash.owner = homelab.authelia.name;
-        };
-        script = ''
-          pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
-          authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
-            | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
-        '';
+        redirect_uris = ["https://${domain}/accounts/oidc/${providerId}/login/callback/"];
+        scopes = ["openid" "profile" "email" "groups"];
       };
-      "${cfg.name}-oidc-env" = {
+    })
+    {
+      services.paperless.settings.PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
+
+      systemd.services.paperless-web.serviceConfig.EnvironmentFile = [
+        config.clan.core.vars.generators."${cfg.name}-oidc-env".files.env.path
+      ];
+
+      clan.core.vars.generators."${cfg.name}-oidc-env" = {
         dependencies = ["${cfg.name}-oidc"];
         runtimeInputs = [pkgs.jq];
         files.env.owner = cfg.name;
@@ -94,6 +57,6 @@ in {
           printf "PAPERLESS_SOCIALACCOUNT_PROVIDERS='%s'\n" "$providers" > "$out/env"
         '';
       };
-    };
-  };
+    }
+  ]);
 }
