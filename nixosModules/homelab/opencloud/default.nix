@@ -20,10 +20,14 @@
     };
   };
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  oidcIssuer = "https://auth.${homelab.baseDomain}";
+  oidcIssuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
   oidcClientId = "web";
 in {
   options.modules.homelab.opencloud = service.options;
+
+  imports = [
+    ./auth.nix
+  ];
 
   config = lib.mkMerge [
     service.config
@@ -53,7 +57,7 @@ in {
           OC_OIDC_ISSUER = oidcIssuer;
           PROXY_OIDC_ISSUER = oidcIssuer;
           PROXY_OIDC_REWRITE_WELLKNOWN = "false";
-          PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none";
+          PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "jwt";
           PROXY_OIDC_SKIP_USER_INFO = "false";
 
           WEB_OIDC_CLIENT_ID = oidcClientId;
