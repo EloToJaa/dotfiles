@@ -15,7 +15,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.lazygit = {
       enable = true;
-      package = pkgs.unstable.lazygit;
+      package = pkgs.lazygit;
       settings = {
         keybinding.universal = {
           jumpToBlock = ["1" "2" "3" "4" "6"];

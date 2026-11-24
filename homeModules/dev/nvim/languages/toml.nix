@@ -10,9 +10,9 @@ in {
     enable = lib.mkEnableOption "Enable toml";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      taplo
-      oxfmt
+    home.packages = [
+      pkgs.taplo
+      pkgs.unstable.oxfmt
     ];
     programs.nixvim = {
       lsp.servers.taplo = {

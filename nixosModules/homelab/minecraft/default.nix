@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.minecraft-server = {
       enable = true;
-      package = pkgs.unstable.papermcServers.papermc-1_21_9;
+      package = pkgs.papermcServers.papermc-1_21_9;
       eula = true;
       openFirewall = true;
       declarative = false;

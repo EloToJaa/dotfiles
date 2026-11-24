@@ -8,7 +8,7 @@
   stateDir = "${config.home.homeDirectory}/.local/state/ai-crash";
   skill = ./skills/diagnose-crash/SKILL.md;
   t3 = lib.getExe' config.programs.t3code.package "t3";
-  runtimePath = lib.makeBinPath [pkgs.unstable.python314 pkgs.unstable.bun];
+  runtimePath = lib.makeBinPath [pkgs.python314 pkgs.unstable.bun];
 
   diagnose-crash = pkgs.writeShellScriptBin "diagnose-crash" ''
     set -euo pipefail

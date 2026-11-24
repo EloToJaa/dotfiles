@@ -67,7 +67,7 @@ in {
 
       gh = {
         enable = true;
-        package = pkgs.unstable.gh;
+        package = pkgs.gh;
         extensions = with pkgs.unstable; [
           gh-dash
           gh-stack
@@ -101,11 +101,11 @@ in {
       inherit (catppuccin) flavor accent;
     };
 
-    home.packages = with pkgs.unstable; [
-      act
-      gh
-      serie
-      onefetch
+    home.packages = [
+      pkgs.gh
+      pkgs.unstable.act
+      pkgs.unstable.serie
+      pkgs.unstable.onefetch
     ];
 
     programs.zsh.zsh-abbr.abbreviations = shellAliases;

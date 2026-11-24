@@ -18,13 +18,13 @@ in {
   config = lib.mkIf cfg.enable {
     programs.bat = {
       enable = true;
-      package = pkgs.unstable.bat;
+      package = pkgs.bat;
 
       config = {
         pager = "less -FR";
       };
 
-      extraPackages = with pkgs.unstable.bat-extras; [
+      extraPackages = with pkgs.bat-extras; [
         # batman
         batpipe
         # batgrep

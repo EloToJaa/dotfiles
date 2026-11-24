@@ -11,7 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable opencode";
   };
   config = lib.mkIf (cfg.enable && config.modules.ai.opencode.enable) {
-    home.packages = with pkgs.unstable; [lsof];
+    home.packages = with pkgs; [lsof];
     programs.nixvim = {
       keymaps = [
         {

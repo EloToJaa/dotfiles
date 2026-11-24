@@ -39,7 +39,7 @@ in {
 
     services.lldap = {
       enable = true;
-      package = pkgs.unstable.lldap;
+      package = pkgs.lldap;
       environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
       settings = {
         http_host = "127.0.0.1";

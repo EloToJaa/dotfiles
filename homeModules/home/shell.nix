@@ -48,7 +48,7 @@ in {
       };
       eza = {
         enable = true;
-        package = pkgs.unstable.eza;
+        package = pkgs.eza;
 
         enableZshIntegration = true;
 

@@ -50,7 +50,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages =
-      [pkgs.unstable.nodejs_26] # remote environments
+      [pkgs.nodejs_26] # remote environments
       ++ lib.optionals cfg.desktop.enable [t3codePackages.t3code-desktop];
     programs.t3code = {
       enable = true;

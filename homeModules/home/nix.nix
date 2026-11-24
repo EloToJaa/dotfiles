@@ -16,10 +16,10 @@ in {
     programs.nix-your-shell = {
       enable = true;
       enableZshIntegration = true;
-      package = pkgs.unstable.nix-your-shell;
+      package = pkgs.nix-your-shell;
       nix-output-monitor = {
         enable = true;
-        package = pkgs.unstable.nix-output-monitor;
+        package = pkgs.nix-output-monitor;
       };
     };
   };

@@ -22,7 +22,7 @@ in {
           pkgs.unstable.quickshell
           pkgs.coreutils
           pkgs.which
-          pkgs.unstable.wl-clipboard
+          pkgs.wl-clipboard
           pkgs.wtype
         ];
       };

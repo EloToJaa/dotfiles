@@ -8,11 +8,11 @@
   inherit (settings) catppuccin;
   theme = "adw-gtk3-dark";
   cfg = config.modules.desktop.gtk;
-  pointerPackage = pkgs.unstable.bibata-cursors;
-  iconsPackage = pkgs.unstable.catppuccin-papirus-folders.override {
+  pointerPackage = pkgs.bibata-cursors;
+  iconsPackage = pkgs.catppuccin-papirus-folders.override {
     inherit (catppuccin) flavor accent;
   };
-  themePackage = pkgs.unstable.adw-gtk3;
+  themePackage = pkgs.adw-gtk3;
   cursorTheme = {
     name = "Bibata-Modern-Ice";
     package = pointerPackage;

@@ -100,10 +100,6 @@
         })
       ];
     };
-    master = import inputs.nixpkgs-master {
-      inherit (final.stdenv.hostPlatform) system;
-      config.allowUnfree = true;
-    };
   };
 in {
   # For internal use in perSystem

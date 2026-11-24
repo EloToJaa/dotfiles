@@ -13,11 +13,11 @@ in {
   config = lib.mkIf cfg.enable {
     programs.rbw = {
       enable = true;
-      package = pkgs.unstable.rbw;
+      package = pkgs.rbw;
       settings = {
         email = "lukaszbudziak122@gmail.com";
         base_url = "https://pwd.server.elotoja.com";
-        pinentry = pkgs.unstable.pinentry-gnome3;
+        pinentry = pkgs.pinentry-gnome3;
       };
     };
   };

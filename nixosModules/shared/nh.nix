@@ -21,8 +21,6 @@ in {
       flake = dotfilesDirectory;
     };
 
-    environment.systemPackages = with pkgs.unstable; [
-      nvd
-    ];
+    environment.systemPackages = [pkgs.nvd];
   };
 }

@@ -34,12 +34,13 @@
           };
         };
 
-        devshells.default.packages = with pkgs.unstable; [
-          nurl
-          terraform
-          vault
-          jq
-        ];
+        devshells.default.packages =
+          [pkgs.jq]
+          ++ (with pkgs.unstable; [
+            nurl
+            terraform
+            vault
+          ]);
 
         treefmt = import ./treefmt.nix;
       };
@@ -52,7 +53,6 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nur.url = "github:nix-community/NUR";
     flake-parts.url = "github:hercules-ci/flake-parts";

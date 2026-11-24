@@ -12,6 +12,8 @@ in {
         ## CLI utility
         pamixer # pulseaudio command line mixer
         playerctl # controller for media players
+        pavucontrol # pulseaudio volume controle (GUI)
+        qview # minimal image viewer
         poweralertd
         xdg-utils
 
@@ -22,9 +24,7 @@ in {
         ## Essentials
         # google-chrome
         mpv # video player
-        pavucontrol # pulseaudio volume controle (GUI)
         qalculate-gtk # calculator
-        qview # minimal image viewer
         udiskie
 
         ## Utilities

@@ -13,11 +13,11 @@ in {
     enable = lib.mkEnableOption "Enable nix";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      alejandra
-      deadnix
-      statix
-      nixd
+    home.packages = [
+      pkgs.deadnix
+      pkgs.unstable.alejandra
+      pkgs.unstable.statix
+      pkgs.unstable.nixd
     ];
 
     xdg.configFile."statix/statix.toml".text =

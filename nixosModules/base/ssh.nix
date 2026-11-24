@@ -61,7 +61,7 @@ in {
     #   '';
     # };
 
-    programs.ssh.package = pkgs.unstable.openssh;
+    programs.ssh.package = pkgs.openssh;
     services.openssh = {
       enable = true;
       ports = [cfg.port];

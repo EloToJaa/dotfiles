@@ -171,7 +171,7 @@ in {
       };
       todoman = {
         enable = true;
-        package = pkgs.unstable.todoman;
+        package = pkgs.todoman;
         extraConfig = ''
           date_format = "%d/%m/%Y";
           time_format = "%H:%M";

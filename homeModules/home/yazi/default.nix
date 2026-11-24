@@ -11,22 +11,22 @@ in {
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
-      exiftool
-      jq
+      pkgs.exiftool
+      pkgs.jq
       ffmpeg
       ffmpegthumbnailer
-      imagemagick
-      poppler
+      pkgs.imagemagick
+      pkgs.poppler
       ripgrep # grep replacement
-      ripgrep-all # rg for more file types, optional
+      pkgs.ripgrep-all # rg for more file types, optional
       fd # find replacement
-      file # Show file information
+      pkgs.file # Show file information
       resvg
       (ouch.override {enableUnfree = true;})
       glow
       mediainfo
-      hexyl
-      udisks
+      pkgs.hexyl
+      pkgs.udisks
       yazi
     ];
 

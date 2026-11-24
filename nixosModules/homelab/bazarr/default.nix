@@ -44,7 +44,7 @@ in {
       services.bazarr = {
         inherit (cfg) group dataDir;
         enable = true;
-        package = pkgs.unstable.bazarr;
+        package = pkgs.bazarr;
         user = cfg.name;
         listenPort = cfg.port;
       };

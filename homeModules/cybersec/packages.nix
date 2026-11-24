@@ -8,24 +8,27 @@
   cfg = config.modules.cybersec;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
-      # Recon
-      nmap
-      rustscan
-      ffuf
-      gobuster
-      feroxbuster
-      caido
-      wpscan
+    home.packages =
+      (with pkgs; [
+        rustscan
+        gobuster
+        bettercap
+      ])
+      ++ (with pkgs.unstable; [
+        # Recon
+        nmap
+        ffuf
+        feroxbuster
+        caido
+        wpscan
 
-      # Exploit
-      sqlmap
-      bettercap
-      metasploit
+        # Exploit
+        sqlmap
+        metasploit
 
-      # Reverse Engineering
-      ghidra
-      inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.pwndbg
-    ];
+        # Reverse Engineering
+        ghidra
+        inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.pwndbg
+      ]);
   };
 }

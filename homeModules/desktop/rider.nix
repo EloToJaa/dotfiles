@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  extra-path = with pkgs.unstable; [
+  extra-path = with pkgs; [
     dotnetCorePackages.sdk_10_0-bin
     # dotnetCorePackages.sdk_8_0-bin
     dotnetPackages.Nuget
@@ -22,7 +22,7 @@
     libglvnd
   ];
 
-  _rider = pkgs.unstable.jetbrains.rider.overrideAttrs (attrs: {
+  _rider = pkgs.jetbrains.rider.overrideAttrs (attrs: {
     postInstall =
       ''
         # Wrap rider with extra tools and libraries
@@ -48,11 +48,10 @@ in {
     enable = lib.mkEnableOption "Enable rider";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.unstable; [
+    home.packages = [
       _rider
-      icu
-      dotnet-sdk_10
-      # dotnet-sdk
+      pkgs.unstable.icu
+      pkgs.dotnet-sdk_10
     ];
 
     # Unity Rider plugin looks here for a .desktop file,

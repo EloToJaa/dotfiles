@@ -38,7 +38,7 @@ in {
       };
     };
 
-    environment.systemPackages = with pkgs.unstable; [
+    environment.systemPackages = with pkgs; [
       wget
       neovim
     ];

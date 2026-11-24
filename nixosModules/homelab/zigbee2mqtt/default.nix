@@ -72,7 +72,7 @@ in {
 
       services.zigbee2mqtt = {
         enable = true;
-        package = pkgs.unstable.zigbee2mqtt;
+        package = pkgs.zigbee2mqtt;
         inherit (cfg) dataDir;
         settings = {
           homeassistant.enabled = config.services.home-assistant.enable;

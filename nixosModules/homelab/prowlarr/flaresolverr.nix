@@ -36,7 +36,7 @@ in {
 
     services.flaresolverr = {
       enable = true;
-      package = pkgs.unstable.flaresolverr;
+      package = pkgs.flaresolverr;
       inherit (cfg) port;
     };
     systemd.services.flaresolverr = lib.mkMerge [

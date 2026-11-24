@@ -37,7 +37,7 @@ in {
     (lib.mkIf cfg.enable {
       services.vaultwarden = {
         enable = true;
-        package = pkgs.unstable.vaultwarden;
+        package = pkgs.vaultwarden;
         dbBackend = "postgresql";
         environmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
         config = {

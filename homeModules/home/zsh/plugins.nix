@@ -6,7 +6,7 @@
 }: let
   inherit (config.modules.home.zsh) plugins;
 in {
-  config = with pkgs.unstable;
+  config = with pkgs;
     lib.mkIf plugins.enable {
       programs.zsh.plugins =
         (lib.optionals plugins.zsh-vi-mode.enable [

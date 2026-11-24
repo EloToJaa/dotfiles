@@ -40,7 +40,7 @@ in {
         enable = true;
         user = cfg.name;
         inherit (cfg) group;
-        package = pkgs.unstable.navidrome;
+        package = pkgs.navidrome;
         settings = {
           Address = "127.0.0.1";
           Port = cfg.port;

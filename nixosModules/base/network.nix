@@ -32,7 +32,7 @@ in {
       # even in a terminal. Prefer dialog for terminal input, retaining the GUI fallback.
       ((inputs.clan-core.packages.${pkgs.stdenv.hostPlatform.system}.clan-cli.override {
           # clan-core pins nix_2_31, which nixpkgs has removed.
-          nix = pkgs.unstable.nixVersions.nix_2_34;
+          nix = pkgs.nixVersions.nix_2_34;
         }).overrideAttrs (old: {
           # nixpkgs no longer word-splits makeWrapperArgs, so clan-core's "--unset VAR"
           # entries must be split into separate arguments.

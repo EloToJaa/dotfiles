@@ -75,7 +75,7 @@ in {
     ];
     services.mosquitto = {
       enable = true;
-      package = pkgs.unstable.mosquitto;
+      package = pkgs.mosquitto;
       inherit (cfg) dataDir;
       listeners = [
         {

@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.prismlauncher = {
       enable = true;
-      package = pkgs.unstable.prismlauncher;
+      package = pkgs.prismlauncher;
       settings = {
         ConsoleMaxLines = 100000;
         ShowConsole = true;

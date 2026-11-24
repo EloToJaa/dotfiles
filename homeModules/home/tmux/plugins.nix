@@ -35,7 +35,7 @@ in {
         set -g @catppuccin_window_current_text " #W"
       '';
     };
-    programs.tmux.plugins = with pkgs.unstable.tmuxPlugins; [
+    programs.tmux.plugins = with pkgs.tmuxPlugins; [
       {
         plugin = yank;
         extraConfig = ''

@@ -17,7 +17,7 @@
     };
   };
   clangFormat.formatter.external = {
-    command = lib.getExe' pkgs.unstable.clang-tools "clang-format";
+    command = lib.getExe' pkgs.clang-tools "clang-format";
     arguments = ["--assume-filename={buffer_path}"];
   };
   # oxfmt replaces prettier
@@ -74,7 +74,7 @@ in {
         bash-language-server
         shfmt
         # c/c++
-        clang-tools
+        pkgs.clang-tools
         # c#
         roslyn-ls
         csharpier
@@ -111,7 +111,7 @@ in {
         terraform
         terraform-ls
         # toml
-        taplo
+        pkgs.taplo
         # xml
         lemminx
         # yaml
