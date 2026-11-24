@@ -9,6 +9,10 @@
   cfg = config.modules.homelab.immich;
   container_subnet = "192.168.100";
 in {
+  imports = [
+    ./auth.nix
+  ];
+
   options.modules.homelab.immich = {
     enable = lib.mkEnableOption "Enable immich";
     name = lib.mkOption {

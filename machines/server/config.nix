@@ -27,7 +27,10 @@
       enable = true;
       tailscaleServe.enable = true;
     };
-    immich.enable = true;
+    immich = {
+      enable = true;
+      auth.enable = true;
+    };
     jellyfin = {
       enable = true;
       auth.enable = true;
