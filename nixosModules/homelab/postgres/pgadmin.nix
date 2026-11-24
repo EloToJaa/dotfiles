@@ -8,6 +8,8 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres.pgadmin;
 in {
+  imports = [./pgadmin-auth.nix];
+
   options.modules.homelab.postgres.pgadmin = {
     enable = lib.mkEnableOption "Enable pgadmin";
     name = lib.mkOption {

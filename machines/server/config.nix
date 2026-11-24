@@ -55,7 +55,10 @@
     };
     postgres = {
       enable = true;
-      pgadmin.enable = true;
+      pgadmin = {
+        enable = true;
+        auth.enable = true;
+      };
     };
     prometheus = {
       enable = true;
