@@ -109,10 +109,21 @@ in {
             pgpassword.deploy = false;
             admintoken.deploy = false;
           };
-          runtimeInputs = [pkgs.pwgen];
+          runtimeInputs = [
+            pkgs.pwgen
+            pkgs.libargon2
+            pkgs.coreutils
+          ];
           script = ''
             pwgen -s 64 1 > "$out/pgpassword"
-            pwgen -s 64 1 > "$out/admintoken"
+
+            admin_password=$(pwgen -s 64 1)
+            salt=$(head -c 16 /dev/urandom | base64 -w0 | tr -d '=')
+            printf '%s' "$admin_password" \
+              | argon2 "$salt" -id -k 19456 -t 2 -p 1 -e \
+              | tr -d '\n' > "$out/admintoken"
+
+            printf 'Vaultwarden admin password (shown once, store it in your password manager): %s\n' "$admin_password" >&2
           '';
         };
         "${cfg.name}-env" = {
