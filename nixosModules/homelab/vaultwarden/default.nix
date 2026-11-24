@@ -105,15 +105,9 @@ in {
 
       clan.core.vars.generators = {
         ${cfg.name} = {
-          prompts.client_secret = {
-            description = "Vaultwarden OIDC client secret (must match the authelia client)";
-            type = "hidden";
-            persist = true;
-          };
           files = {
             pgpassword.deploy = false;
             admintoken.deploy = false;
-            client_secret.deploy = false;
           };
           runtimeInputs = [pkgs.pwgen];
           script = ''
@@ -122,13 +116,13 @@ in {
           '';
         };
         "${cfg.name}-env" = {
-          dependencies = [cfg.name];
+          dependencies = [cfg.name] ++ lib.optional cfg.auth.enable "${cfg.name}-oidc";
           files.env.owner = cfg.name;
           script = ''
             {
               printf 'DATABASE_URL=postgresql://${cfg.name}:%s@127.0.0.1:${toString homelab.postgres.port}/${cfg.name}\n' "$(cat "$in/${cfg.name}/pgpassword")"
               printf 'ADMIN_TOKEN=%s\n' "$(cat "$in/${cfg.name}/admintoken")"
-              printf 'SSO_CLIENT_SECRET=%s\n' "$(cat "$in/${cfg.name}/client_secret")"
+              ${lib.optionalString cfg.auth.enable ''printf 'SSO_CLIENT_SECRET=%s\n' "$(cat "$in/${cfg.name}-oidc/client-secret")"''}
             } > "$out/env"
           '';
         };
