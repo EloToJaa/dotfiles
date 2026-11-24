@@ -18,6 +18,7 @@
       group = "monitoring";
       path = "/-/healthy";
     };
+    forwardAuth = {};
   };
   jobNames = map (target: target.job_name) cfg.scrapeTargets;
   scrapeConfigs =

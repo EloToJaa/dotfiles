@@ -3,6 +3,7 @@
   config,
   lib,
   inputs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -141,114 +142,121 @@ in {
     };
   };
 
-  config = lib.mkIf (homelab.prometheus.enable && cfg.enable) {
-    services.prometheus = {
-      webExternalUrl = "https://${homelab.prometheus.domainName}.${homelab.baseDomain}";
-      ruleFiles = [rulesFile];
-      alertmanagers = [
-        {
-          static_configs = [
-            {targets = ["127.0.0.1:${toString cfg.port}"];}
+  config = lib.mkIf (homelab.prometheus.enable && cfg.enable) (lib.mkMerge [
+    (outputs.lib.homelab.mkForwardAuth {
+      inherit lib config;
+      domains = [domain];
+      bypass = ["^/-/healthy$"];
+    })
+    {
+      services.prometheus = {
+        webExternalUrl = "https://${homelab.prometheus.domainName}.${homelab.baseDomain}";
+        ruleFiles = [rulesFile];
+        alertmanagers = [
+          {
+            static_configs = [
+              {targets = ["127.0.0.1:${toString cfg.port}"];}
+            ];
+          }
+        ];
+
+        alertmanager = {
+          enable = true;
+          package = pkgs.unstable.prometheus-alertmanager;
+          listenAddress = "127.0.0.1";
+          inherit (cfg) port;
+          webExternalUrl = "https://${domain}";
+          extraFlags = ["--cluster.listen-address="];
+          configuration = {
+            route = {
+              receiver = "ntfy";
+              group_by = ["alertname" "host"];
+              group_wait = "30s";
+              group_interval = "5m";
+              repeat_interval = "12h";
+            };
+            inhibit_rules = [
+              {
+                source_matchers = [''alertname="HostDown"''];
+                target_matchers = [''alertname!="HostDown"''];
+                equal = ["host"];
+              }
+            ];
+            receivers = [
+              {
+                name = "ntfy";
+                webhook_configs = [
+                  {
+                    url = "http://127.0.0.1:${toString cfg.ntfyBridgePort}/hook";
+                    send_resolved = true;
+                  }
+                ];
+              }
+            ];
+          };
+        };
+
+        alertmanager-ntfy = {
+          enable = true;
+          settings = {
+            http.addr = "127.0.0.1:${toString cfg.ntfyBridgePort}";
+            ntfy = {
+              baseurl = cfg.ntfy.url;
+              notification = {
+                inherit (cfg.ntfy) topic;
+                priority = ''status == "resolved" ? "default" : (labels.severity == "critical" ? "urgent" : "high")'';
+                templates.headers.X-Click = "{{ .GeneratorURL }}";
+              };
+            };
+          };
+          extraConfigFiles = [
+            config.clan.core.vars.generators.alertmanager-ntfy-config.files."config.yml".path
           ];
+        };
+      };
+
+      modules.homelab.prometheus.scrapeTargets = [
+        {
+          job_name = "alertmanager";
+          address = "127.0.0.1:${toString cfg.port}";
         }
       ];
 
-      alertmanager = {
-        enable = true;
-        package = pkgs.unstable.prometheus-alertmanager;
-        listenAddress = "127.0.0.1";
-        inherit (cfg) port;
-        webExternalUrl = "https://${domain}";
-        extraFlags = ["--cluster.listen-address="];
-        configuration = {
-          route = {
-            receiver = "ntfy";
-            group_by = ["alertname" "host"];
-            group_wait = "30s";
-            group_interval = "5m";
-            repeat_interval = "12h";
+      modules.homelab.gatus.endpoints = [
+        {
+          name = "Alertmanager";
+          group = "monitoring";
+          url = "https://${domain}/-/healthy";
+          conditions = ["[STATUS] == 200"];
+        }
+      ];
+
+      services.nginx.virtualHosts.${domain} = {
+        forceSSL = true;
+        useACMEHost = homelab.baseDomain;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
+
+      clan.core.vars.generators = {
+        alertmanager-ntfy = {
+          prompts.token = {
+            description = "ntfy access token for Alertmanager alerts (ntfy token add <user>), with write access to the ${cfg.ntfy.topic} topic";
+            type = "hidden";
+            persist = true;
           };
-          inhibit_rules = [
-            {
-              source_matchers = [''alertname="HostDown"''];
-              target_matchers = [''alertname!="HostDown"''];
-              equal = ["host"];
-            }
-          ];
-          receivers = [
-            {
-              name = "ntfy";
-              webhook_configs = [
-                {
-                  url = "http://127.0.0.1:${toString cfg.ntfyBridgePort}/hook";
-                  send_resolved = true;
-                }
-              ];
-            }
-          ];
+          files.token.deploy = false;
+        };
+        alertmanager-ntfy-config = {
+          dependencies = ["alertmanager-ntfy"];
+          files."config.yml" = {};
+          script = ''
+            printf 'ntfy:\n  auth:\n    token: "%s"\n' "$(cat "$in/alertmanager-ntfy/token")" > "$out/config.yml"
+          '';
         };
       };
-
-      alertmanager-ntfy = {
-        enable = true;
-        settings = {
-          http.addr = "127.0.0.1:${toString cfg.ntfyBridgePort}";
-          ntfy = {
-            baseurl = cfg.ntfy.url;
-            notification = {
-              inherit (cfg.ntfy) topic;
-              priority = ''status == "resolved" ? "default" : (labels.severity == "critical" ? "urgent" : "high")'';
-              templates.headers.X-Click = "{{ .GeneratorURL }}";
-            };
-          };
-        };
-        extraConfigFiles = [
-          config.clan.core.vars.generators.alertmanager-ntfy-config.files."config.yml".path
-        ];
-      };
-    };
-
-    modules.homelab.prometheus.scrapeTargets = [
-      {
-        job_name = "alertmanager";
-        address = "127.0.0.1:${toString cfg.port}";
-      }
-    ];
-
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Alertmanager";
-        group = "monitoring";
-        url = "https://${domain}/-/healthy";
-        conditions = ["[STATUS] == 200"];
-      }
-    ];
-
-    services.nginx.virtualHosts.${domain} = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-      };
-    };
-
-    clan.core.vars.generators = {
-      alertmanager-ntfy = {
-        prompts.token = {
-          description = "ntfy access token for Alertmanager alerts (ntfy token add <user>), with write access to the ${cfg.ntfy.topic} topic";
-          type = "hidden";
-          persist = true;
-        };
-        files.token.deploy = false;
-      };
-      alertmanager-ntfy-config = {
-        dependencies = ["alertmanager-ntfy"];
-        files."config.yml" = {};
-        script = ''
-          printf 'ntfy:\n  auth:\n    token: "%s"\n' "$(cat "$in/alertmanager-ntfy/token")" > "$out/config.yml"
-        '';
-      };
-    };
-  };
+    }
+  ]);
 }

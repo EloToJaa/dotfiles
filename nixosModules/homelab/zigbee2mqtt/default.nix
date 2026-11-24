@@ -18,8 +18,9 @@
     gatus = {
       name = "Zigbee2MQTT";
       group = "home";
-      conditions = ["[STATUS] < 400"];
+      path = "/index.html";
     };
+    forwardAuth = {};
   };
   mqtt = config.modules.homelab.mosquitto;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
