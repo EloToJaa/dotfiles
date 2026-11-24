@@ -9,8 +9,10 @@ let
   `modules.homelab.authelia.forwardAuth.url`.
 
   `bypass` lists Authelia resource regexes (path and query) that skip authentication on
-  `domains`, such as API-key endpoints and health checks. They are added to
-  `modules.homelab.authelia.accessControlRules`, which the Authelia host collects.
+  `domains`, such as API-key endpoints and health checks. Everything else on `domains`
+  is limited to members of `modules.homelab.authelia.adminGroup`; other users are
+  denied. The rules are added to `modules.homelab.authelia.accessControlRules`, which
+  the Authelia host collects.
   */
   mkForwardAuth = {
     lib,
@@ -19,11 +21,23 @@ let
     bypass ? [],
     locations ? ["/"],
   }: {
-    modules.homelab.authelia.accessControlRules = lib.optional (bypass != []) {
-      domain = domains;
-      resources = bypass;
-      policy = "bypass";
-    };
+    modules.homelab.authelia.accessControlRules =
+      lib.optional (bypass != []) {
+        domain = domains;
+        resources = bypass;
+        policy = "bypass";
+      }
+      ++ [
+        {
+          domain = domains;
+          subject = ["group:${config.modules.homelab.authelia.adminGroup}"];
+          policy = "two_factor";
+        }
+        {
+          domain = domains;
+          policy = "deny";
+        }
+      ];
 
     services.nginx.virtualHosts = lib.genAttrs domains (_: {
       locations =

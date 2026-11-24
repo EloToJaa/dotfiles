@@ -52,7 +52,7 @@ in {
         client_name = "pgAdmin";
         client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
         public = false;
-        authorization_policy = "two_factor";
+        authorization_policy = homelab.authelia.oidcAdminPolicy;
         require_pkce = true;
         pkce_challenge_method = "S256";
         redirect_uris = [

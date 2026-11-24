@@ -16,6 +16,7 @@
       group = "monitoring";
       path = "/ready";
     };
+    forwardAuth = {};
   };
 in {
   options.modules.homelab.loki =

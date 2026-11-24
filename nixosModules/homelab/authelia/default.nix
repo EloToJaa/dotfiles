@@ -49,6 +49,17 @@ in {
             description = "Base URL nginx uses for forward-auth requests to Authelia";
           };
         };
+      adminGroup = lib.mkOption {
+        type = lib.types.str;
+        default = "lldap_admin";
+        description = "LLDAP group whose members may use admin-only services behind forward-auth or the `oidcAdminPolicy` OIDC policy";
+      };
+      oidcAdminPolicy = lib.mkOption {
+        type = lib.types.str;
+        default = "admins";
+        readOnly = true;
+        description = "Name of the OIDC authorization policy that only lets `adminGroup` members sign in with two factors";
+      };
       accessControlRules = lib.mkOption {
         type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
         default = [];
@@ -120,6 +131,15 @@ in {
                 host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.authelia.accessControlRules
               )
               cfg.hosts;
+          };
+          identity_providers.oidc.authorization_policies.${cfg.oidcAdminPolicy} = {
+            default_policy = "deny";
+            rules = [
+              {
+                policy = "two_factor";
+                subject = "group:${cfg.adminGroup}";
+              }
+            ];
           };
           duo_api = {
             hostname = "api-9400ee3a.duosecurity.com";
