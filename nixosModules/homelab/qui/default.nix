@@ -21,6 +21,8 @@
     };
   };
 in {
+  imports = [./auth.nix];
+
   options.modules.homelab.qui = service.options;
   config = lib.mkMerge [
     service.config

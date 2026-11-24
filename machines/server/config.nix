@@ -72,7 +72,10 @@
       flaresolverr.enable = true;
     };
     qbittorrent.enable = true;
-    qui.enable = true;
+    qui = {
+      enable = true;
+      auth.enable = true;
+    };
     radarr = {
       enable = true;
       auth.enable = true;
