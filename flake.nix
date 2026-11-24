@@ -118,10 +118,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # wezterm = {
-    #   url = "github:wezterm/wezterm/main?dir=nix";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
