@@ -22,8 +22,9 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf (cfg.auth.enable && (cfg.enable || homelab.authelia.enable)) {
-      clan.core.vars.generators.${generatorName} = outputs.lib.homelab.mkSharedOidcSecret {
+      clan.core.vars.generators.${generatorName} = outputs.lib.homelab.mkOidcSecret {
         inherit pkgs;
+        share = true;
         secretOwner =
           if cfg.enable
           then "tuwunel"
@@ -64,24 +65,17 @@ in {
           "preferred_username"
         ];
         clients = [
-          {
-            client_id = clientId;
-            client_name = "Matrix";
-            client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
-            claims_policy = "tuwunel";
-            public = false;
-            authorization_policy = "two_factor";
-            redirect_uris = [callbackUrl];
-            scopes = [
-              "openid"
-              "email"
-              "profile"
-              "groups"
-            ];
-            response_types = ["code"];
-            grant_types = ["authorization_code"];
-            token_endpoint_auth_method = "client_secret_post";
-          }
+          (outputs.lib.homelab.mkOidcClient {
+            hashPath = oidcGenerator.files.client-secret-hash.path;
+            client = {
+              client_id = clientId;
+              client_name = "Matrix";
+              claims_policy = "tuwunel";
+              redirect_uris = [callbackUrl];
+              scopes = ["openid" "email" "profile" "groups"];
+              token_endpoint_auth_method = "client_secret_post";
+            };
+          })
         ];
       };
     })

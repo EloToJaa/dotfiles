@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
@@ -29,67 +30,34 @@ in {
   options.modules.homelab.postgres.pgadmin.auth = {
     enable = lib.mkEnableOption "Enable pgAdmin single sign-on through authelia";
   };
-  config = lib.mkIf (cfg.enable && cfg.auth.enable) {
-    services.pgadmin.settings = {
-      AUTHENTICATION_SOURCES = ["oauth2" "internal"];
-      OAUTH2_AUTO_CREATE_USER = true;
-    };
-
-    environment.etc."pgadmin/config_system.py".text = lib.mkAfter ''
-      import json
-      import os
-      with open(os.path.join(os.environ['CREDENTIALS_DIRECTORY'], 'oidc_client_secret')) as f:
-        OAUTH2_CONFIG = [dict(json.loads(${builtins.toJSON (builtins.toJSON oauth2Config)}), OAUTH2_CLIENT_SECRET=f.read().strip())]
-    '';
-
-    systemd.services.pgadmin.serviceConfig.LoadCredential = [
-      "oidc_client_secret:${oidcGenerator.files.client-secret.path}"
-    ];
-
-    services.authelia.instances.main.settings.identity_providers.oidc.clients = [
-      {
+  config = lib.mkIf (cfg.enable && cfg.auth.enable) (lib.mkMerge [
+    (outputs.lib.homelab.mkLocalOidcClient {
+      inherit lib config pkgs;
+      inherit (cfg) name;
+      secretOwner = "root";
+      client = {
         client_id = clientId;
         client_name = "pgAdmin";
-        client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
-        public = false;
         authorization_policy = homelab.authelia.oidcAdminPolicy;
-        require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = [
-          "https://${domain}/oauth2/authorize"
-        ];
-        scopes = [
-          "openid"
-          "profile"
-          "email"
-        ];
-        response_types = [
-          "code"
-        ];
-        grant_types = [
-          "authorization_code"
-        ];
-        access_token_signed_response_alg = "none";
-        userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = "client_secret_basic";
-      }
-    ];
-
-    clan.core.vars.generators."${cfg.name}-oidc" = {
-      runtimeInputs = [
-        pkgs.pwgen
-        pkgs.gnused
-        pkgs.unstable.authelia
-      ];
-      files = {
-        client-secret = {};
-        client-secret-hash.owner = homelab.authelia.name;
+        redirect_uris = ["https://${domain}/oauth2/authorize"];
       };
-      script = ''
-        pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
-        authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
-          | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
+    })
+    {
+      services.pgadmin.settings = {
+        AUTHENTICATION_SOURCES = ["oauth2" "internal"];
+        OAUTH2_AUTO_CREATE_USER = true;
+      };
+
+      environment.etc."pgadmin/config_system.py".text = lib.mkAfter ''
+        import json
+        import os
+        with open(os.path.join(os.environ['CREDENTIALS_DIRECTORY'], 'oidc_client_secret')) as f:
+          OAUTH2_CONFIG = [dict(json.loads(${builtins.toJSON (builtins.toJSON oauth2Config)}), OAUTH2_CLIENT_SECRET=f.read().strip())]
       '';
-    };
-  };
+
+      systemd.services.pgadmin.serviceConfig.LoadCredential = [
+        "oidc_client_secret:${oidcGenerator.files.client-secret.path}"
+      ];
+    }
+  ]);
 }

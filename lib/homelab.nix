@@ -81,8 +81,114 @@ let
         });
     });
   };
+
+  /*
+  Clan vars generator producing an Authelia OIDC `client-secret` and its pbkdf2
+  `client-secret-hash`. A null `secretOwner` keeps the plaintext secret off the
+  machine, for services that only read it through a derived generator.
+
+  With `share = true` the value lives in `vars/shared/`, for services that run on
+  another machine than Authelia. Owners may then differ per machine, but everything
+  else, including `deploy`, must be identical on every machine that declares it.
+  */
+  mkOidcSecret = {
+    pkgs,
+    secretOwner ? null,
+    hashOwner ? "root",
+    share ? false,
+  }: {
+    inherit share;
+    runtimeInputs = [
+      pkgs.pwgen
+      pkgs.gnused
+      pkgs.unstable.authelia
+    ];
+    files = {
+      client-secret =
+        if secretOwner == null
+        then {deploy = false;}
+        else {owner = secretOwner;};
+      client-secret-hash.owner = hashOwner;
+    };
+    script = ''
+      pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
+      authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
+        | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
+    '';
+  };
+
+  /*
+  Authelia OIDC client definition: a confidential authorization-code client with
+  PKCE (S256), the `openid profile email` scopes and `client_secret_basic`, whose
+  secret is read from `hashPath`. `client` adds `client_id`, `client_name` and
+  `redirect_uris` and overrides any default.
+  */
+  mkOidcClient = {
+    hashPath,
+    client,
+  }:
+    {
+      client_secret = "{{ secret \"${hashPath}\" }}";
+      public = false;
+      authorization_policy = "two_factor";
+      require_pkce = true;
+      pkce_challenge_method = "S256";
+      scopes = [
+        "openid"
+        "profile"
+        "email"
+      ];
+      response_types = ["code"];
+      grant_types = ["authorization_code"];
+      access_token_signed_response_alg = "none";
+      userinfo_signed_response_alg = "none";
+      token_endpoint_auth_method = "client_secret_basic";
+    }
+    // client;
+
+  /*
+  Config fragment for an Authelia OIDC client of a service on the Authelia machine:
+  registers `mkOidcClient` with Authelia and declares the `<name>-oidc` generator
+  (`mkOidcSecret`). `env = { var, owner }` also declares `<name>-oidc-env`, an
+  environment file setting `var` to the client secret, owned by `owner`.
+  */
+  mkLocalOidcClient = {
+    lib,
+    config,
+    pkgs,
+    name,
+    client,
+    secretOwner ? null,
+    env ? null,
+  }: let
+    generator = "${name}-oidc";
+  in {
+    services.authelia.instances.main.settings.identity_providers.oidc.clients = [
+      (mkOidcClient {
+        inherit client;
+        hashPath = config.clan.core.vars.generators.${generator}.files.client-secret-hash.path;
+      })
+    ];
+
+    clan.core.vars.generators =
+      {
+        ${generator} = mkOidcSecret {
+          inherit pkgs secretOwner;
+          hashOwner = config.modules.homelab.authelia.name;
+        };
+      }
+      // lib.optionalAttrs (env != null) {
+        "${generator}-env" = {
+          dependencies = [generator];
+          files.env.owner = env.owner;
+          script = ''
+            printf '${env.var}=%s\n' "$(cat "$in/${generator}/client-secret")" > "$out/env"
+          '';
+        };
+      };
+  };
 in {
-  inherit mkForwardAuth;
+  inherit mkForwardAuth mkOidcSecret mkOidcClient mkLocalOidcClient;
 
   /*
   Common parts of a `modules.homelab.<name>` service, returned as `{ options, config }`
@@ -199,34 +305,5 @@ in {
           };
       }
     ]);
-  };
-
-  /*
-  Clan vars generator for an Authelia OIDC client whose service runs on another
-  machine than Authelia. `share = true` keeps a single value in `vars/shared/`, so
-  the service machine reads `client-secret` and the Authelia machine reads
-  `client-secret-hash`. Owners may differ per machine; everything else must be
-  identical on every machine that declares the generator.
-  */
-  mkSharedOidcSecret = {
-    pkgs,
-    secretOwner ? "root",
-    hashOwner ? "root",
-  }: {
-    share = true;
-    runtimeInputs = [
-      pkgs.pwgen
-      pkgs.gnused
-      pkgs.unstable.authelia
-    ];
-    files = {
-      client-secret.owner = secretOwner;
-      client-secret-hash.owner = hashOwner;
-    };
-    script = ''
-      pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
-      authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
-        | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
-    '';
   };
 }

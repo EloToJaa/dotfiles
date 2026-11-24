@@ -24,8 +24,9 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf (cfg.auth.enable && (cfg.enable || homelab.authelia.enable)) {
-      clan.core.vars.generators.${generatorName} = outputs.lib.homelab.mkSharedOidcSecret {
+      clan.core.vars.generators.${generatorName} = outputs.lib.homelab.mkOidcSecret {
         inherit pkgs;
+        share = true;
         secretOwner =
           if cfg.enable
           then cfg.name
@@ -69,29 +70,15 @@ in {
 
     (lib.mkIf (homelab.authelia.enable && cfg.auth.enable) {
       services.authelia.instances.main.settings.identity_providers.oidc.clients = [
-        {
-          client_id = clientId;
-          client_name = "Forgejo";
-          client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
-          public = false;
-          authorization_policy = "two_factor";
-          require_pkce = true;
-          pkce_challenge_method = "S256";
-          redirect_uris = [
-            "https://${domain}/user/oauth2/${sourceName}/callback"
-          ];
-          scopes = [
-            "openid"
-            "email"
-            "profile"
-            "groups"
-          ];
-          response_types = ["code"];
-          grant_types = ["authorization_code"];
-          access_token_signed_response_alg = "none";
-          userinfo_signed_response_alg = "none";
-          token_endpoint_auth_method = "client_secret_basic";
-        }
+        (outputs.lib.homelab.mkOidcClient {
+          hashPath = oidcGenerator.files.client-secret-hash.path;
+          client = {
+            client_id = clientId;
+            client_name = "Forgejo";
+            redirect_uris = ["https://${domain}/user/oauth2/${sourceName}/callback"];
+            scopes = ["openid" "email" "profile" "groups"];
+          };
+        })
       ];
     })
   ];
