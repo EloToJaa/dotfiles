@@ -11,7 +11,8 @@
 
   `options` declares `enable`, `name`, `domainName`, `port` and, unless `dataDir`
   is false, `dataDir`. `config` (guarded by `enable`) adds an nginx vhost proxying
-  `<domainName>.<baseDomain>` to the loopback port, a Gatus endpoint and forces
+  `<domainName>.<baseDomain>` to the loopback port (and `<domainName>.<mainDomain>` when
+  `mainDomain` is true), a Gatus endpoint and forces
   `homelab.defaultUMask` on the systemd units in `umaskUnits`.
 
   `gatus` is `null` to skip the endpoint, otherwise `{ name, group, path ? "",
@@ -28,6 +29,7 @@
     domainName ? name,
     dataDir ? true,
     proxyWebsockets ? true,
+    mainDomain ? false,
     gatus ? null,
     umaskUnits ? [],
   }: let
@@ -71,14 +73,22 @@
         serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
       });
 
-      services.nginx.virtualHosts.${domain} = {
-        forceSSL = true;
-        useACMEHost = homelab.baseDomain;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          inherit proxyWebsockets;
+      services.nginx.virtualHosts = let
+        mkVirtualHost = acmeHost: {
+          forceSSL = true;
+          useACMEHost = acmeHost;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            inherit proxyWebsockets;
+          };
         };
-      };
+      in
+        {
+          ${domain} = mkVirtualHost homelab.baseDomain;
+        }
+        // lib.optionalAttrs mainDomain {
+          "${cfg.domainName}.${homelab.mainDomain}" = mkVirtualHost homelab.mainDomain;
+        };
     };
   };
 }
