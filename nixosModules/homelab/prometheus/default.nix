@@ -2,11 +2,23 @@
   pkgs,
   config,
   lib,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   inherit (config.networking) hostName;
   cfg = config.modules.homelab.prometheus;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "prometheus";
+    port = 9090;
+    dataDir = false;
+    gatus = {
+      name = "Prometheus";
+      group = "monitoring";
+      path = "/-/healthy";
+    };
+  };
   jobNames = map (target: target.job_name) cfg.scrapeTargets;
   scrapeConfigs =
     [
@@ -50,85 +62,75 @@ in {
     ./exporters.nix
   ];
 
-  options.modules.homelab.prometheus = {
-    enable = lib.mkEnableOption "Enable prometheus";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "prometheus";
-    };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "prometheus";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.main;
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 9090;
-    };
-    stateDir = lib.mkOption {
-      type = lib.types.str;
-      default = cfg.name;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.stateDir}";
-    };
-    retention = lib.mkOption {
-      type = lib.types.str;
-      default = "90d";
-      description = "How long Prometheus keeps samples";
-    };
-    retentionSize = lib.mkOption {
-      type = lib.types.str;
-      default = "10GB";
-      description = "Upper bound for the TSDB on disk, oldest blocks are dropped first when it is exceeded";
-    };
-    nodeExporterPort = lib.mkOption {
-      type = lib.types.port;
-      default = 9100;
-    };
-    nodeCollectors = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = ["systemd"];
-      description = "Extra node exporter collectors, shared by the node exporter on the Prometheus host and Alloy's embedded one on the other hosts.";
-    };
-    outOfOrderTimeWindow = lib.mkOption {
-      type = lib.types.str;
-      default = "30m";
-      description = "How far behind the newest sample of a series Prometheus still accepts samples, so remote-writing hosts can replay their buffer after a network outage. Written as storage.tsdb.out_of_order_time_window in the generated config, because the NixOS module has no option for it and a flag does not exist.";
-    };
-    scrapeTargets = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
-        options = {
-          job_name = lib.mkOption {
-            type = lib.types.str;
-            description = "Prometheus job name, unique per host.";
+  options.modules.homelab.prometheus =
+    service.options
+    // {
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = homelab.groups.main;
+      };
+      stateDir = lib.mkOption {
+        type = lib.types.str;
+        default = cfg.name;
+      };
+      dataDir = lib.mkOption {
+        type = lib.types.path;
+        default = "${homelab.varDataDir}${cfg.stateDir}";
+      };
+      retention = lib.mkOption {
+        type = lib.types.str;
+        default = "90d";
+        description = "How long Prometheus keeps samples";
+      };
+      retentionSize = lib.mkOption {
+        type = lib.types.str;
+        default = "10GB";
+        description = "Upper bound for the TSDB on disk, oldest blocks are dropped first when it is exceeded";
+      };
+      nodeExporterPort = lib.mkOption {
+        type = lib.types.port;
+        default = 9100;
+      };
+      nodeCollectors = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = ["systemd"];
+        description = "Extra node exporter collectors, shared by the node exporter on the Prometheus host and Alloy's embedded one on the other hosts.";
+      };
+      outOfOrderTimeWindow = lib.mkOption {
+        type = lib.types.str;
+        default = "30m";
+        description = "How far behind the newest sample of a series Prometheus still accepts samples, so remote-writing hosts can replay their buffer after a network outage. Written as storage.tsdb.out_of_order_time_window in the generated config, because the NixOS module has no option for it and a flag does not exist.";
+      };
+      scrapeTargets = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            job_name = lib.mkOption {
+              type = lib.types.str;
+              description = "Prometheus job name, unique per host.";
+            };
+            address = lib.mkOption {
+              type = lib.types.str;
+              example = "127.0.0.1:9187";
+              description = "host:port of the metrics endpoint.";
+            };
+            metrics_path = lib.mkOption {
+              type = lib.types.str;
+              default = "/metrics";
+              description = "HTTP path of the metrics endpoint.";
+            };
+            labels = lib.mkOption {
+              type = lib.types.attrsOf lib.types.str;
+              default = {};
+              description = "Extra labels attached to every sample of the target.";
+            };
           };
-          address = lib.mkOption {
-            type = lib.types.str;
-            example = "127.0.0.1:9187";
-            description = "host:port of the metrics endpoint.";
-          };
-          metrics_path = lib.mkOption {
-            type = lib.types.str;
-            default = "/metrics";
-            description = "HTTP path of the metrics endpoint.";
-          };
-          labels = lib.mkOption {
-            type = lib.types.attrsOf lib.types.str;
-            default = {};
-            description = "Extra labels attached to every sample of the target.";
-          };
-        };
-      });
-      default = [];
-      description = "Metrics endpoints on this host. Each homelab module appends its own. Prometheus scrapes them directly on its own host, Alloy scrapes and remote-writes them on the others.";
+        });
+        default = [];
+        description = "Metrics endpoints on this host. Each homelab module appends its own. Prometheus scrapes them directly on its own host, Alloy scrapes and remote-writes them on the others.";
+      };
     };
-  };
   config = lib.mkMerge [
+    service.config
     {
       assertions = [
         {
@@ -138,15 +140,6 @@ in {
       ];
     }
     (lib.mkIf cfg.enable {
-      modules.homelab.gatus.endpoints = [
-        {
-          name = "Prometheus";
-          group = "monitoring";
-          url = "https://${cfg.domainName}.${homelab.baseDomain}/-/healthy";
-          conditions = ["[STATUS] == 200"];
-        }
-      ];
-
       services.prometheus = {
         enable = true;
         package = pkgs.unstable.prometheus;
@@ -175,19 +168,9 @@ in {
         "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       ];
 
-      services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-        forceSSL = true;
-        useACMEHost = homelab.baseDomain;
-        locations = {
-          "/" = {
-            proxyPass = "http://127.0.0.1:${toString cfg.port}";
-            proxyWebsockets = true;
-          };
-          "= /api/v1/write" = {
-            proxyPass = "http://127.0.0.1:${toString cfg.port}";
-            basicAuthFile = config.clan.core.vars.generators.alloy-ingest-htpasswd.files.htpasswd.path;
-          };
-        };
+      services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}".locations."= /api/v1/write" = {
+        proxyPass = "http://127.0.0.1:${toString cfg.port}";
+        basicAuthFile = config.clan.core.vars.generators.alloy-ingest-htpasswd.files.htpasswd.path;
       };
 
       clan.core.state.prometheus = {
