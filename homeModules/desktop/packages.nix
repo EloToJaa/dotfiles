@@ -9,17 +9,14 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages =
       (with pkgs; [
-        ## CLI utility
         pamixer # pulseaudio command line mixer
         playerctl # controller for media players
         poweralertd
         xdg-utils
 
-        ## GNOME Apps
         delfin # jellyfin client (Fisch fork, pkgs/delfin)
       ])
       ++ (with pkgs.unstable; [
-        ## Essentials
         # google-chrome
         mpv # video player
         pavucontrol # pulseaudio volume controle (GUI)
@@ -27,7 +24,6 @@ in {
         qview # minimal image viewer
         udiskie
 
-        ## Utilities
         # libreoffice
         obs-studio
         rqbit # qbittorrent
@@ -38,19 +34,15 @@ in {
         # upscayl
         teams-for-linux
 
-        ## GNOME Apps
         nocturne # navidrome client
         # newsflash # rss reader
         # zenity # gnome dialog
         # vaults # store sensitive files
 
-        ## Wayland Utilities
         # wf-recorder # record screen
         # woomer # zoomer for wayland
         tesseract # ocr
         zbar # QR code decoding
-
-        ## Gaming
       ]);
   };
 }

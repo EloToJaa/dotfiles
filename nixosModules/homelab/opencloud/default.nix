@@ -50,17 +50,14 @@ in {
           # Disable built-in IDP since we use external OIDC (Authelia)
           OC_EXCLUDE_RUN_SERVICES = "idp";
 
-          # External OIDC configuration
           OC_OIDC_ISSUER = oidcIssuer;
           PROXY_OIDC_ISSUER = oidcIssuer;
           PROXY_OIDC_REWRITE_WELLKNOWN = "false";
           PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none";
           PROXY_OIDC_SKIP_USER_INFO = "false";
 
-          # OIDC client ID for web
           WEB_OIDC_CLIENT_ID = oidcClientId;
 
-          # Auto-provision accounts from OIDC
           PROXY_AUTOPROVISION_ACCOUNTS = "true";
           PROXY_AUTOPROVISION_CLAIM_USERNAME = "preferred_username";
           PROXY_AUTOPROVISION_CLAIM_EMAIL = "email";
@@ -76,14 +73,12 @@ in {
           COLLABORATION_HTTP_ADDR = "127.0.0.1:9300";
           COLLABORATION_GRPC_ADDR = "127.0.0.1:9301";
         };
-        # OpenCloud configuration (prevents init service from running)
         settings = {
           # Main opencloud config - non-empty value prevents opencloud init from running
           opencloud = {
             graph.spaces.insecure = true;
             proxy.insecure_backends = true;
           };
-          # Proxy config
           proxy.csp_config_file_location = "/etc/opencloud/csp.yaml";
           # CSP - allow connecting to external OIDC provider
           csp.directives = {
@@ -91,7 +86,6 @@ in {
             "frame-src" = ["https://${domain}/" oidcIssuer];
             "script-src" = ["'self'" "'unsafe-inline'" "'unsafe-eval'"];
           };
-          # Web UI OIDC configuration
           web.web.config = {
             server = "https://${domain}";
             oidc = {
@@ -167,7 +161,6 @@ in {
             echo "COLLABORATION_WOPI_SECRET=$(pwgen -s 64 1)"
             echo "OC_URL_SIGNING_SECRET=$(pwgen -s 64 1)"
 
-            # LDAP bind passwords for internal services
             echo "IDM_ADMIN_PASSWORD=$ADMIN_PASSWORD"
             echo "IDM_SVC_PASSWORD=$IDM_PASSWORD"
             echo "IDM_REVASVC_PASSWORD=$REVA_PASSWORD"
