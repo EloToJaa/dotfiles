@@ -15,8 +15,10 @@
     gatus = {
       name = "qBittorrent";
       group = "media";
-      conditions = ["[STATUS] < 400"];
+      path = "/api/v2/app/version";
+      conditions = ["[STATUS] == any(200, 403)"];
     };
+    forwardAuth = {};
   };
   ns = config.services.wireguard-netns.namespace;
 in {

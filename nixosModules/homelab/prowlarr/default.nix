@@ -16,6 +16,10 @@
       group = "media";
       path = "/ping";
     };
+    forwardAuth.bypass = [
+      "^/api/"
+      "^/[0-9]+/(api|download)"
+    ];
   };
   ns = config.services.wireguard-netns.namespace;
   postgresHost =
@@ -248,7 +252,7 @@ in {
               <AllowedHosts></AllowedHosts>
               <TrustedNetworks></TrustedNetworks>
               <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
-              <AuthenticationMethod>Forms</AuthenticationMethod>
+              <AuthenticationMethod>External</AuthenticationMethod>
               <LaunchBrowser>True</LaunchBrowser>
               <Branch>master</Branch>
               <InstanceName>Prowlarr</InstanceName>

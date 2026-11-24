@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   outputs,
   ...
 }: let
@@ -34,6 +35,29 @@ in {
       group = lib.mkOption {
         type = lib.types.str;
         default = homelab.groups.main;
+      };
+      forwardAuth =
+        service.options.forwardAuth
+        // {
+          url = lib.mkOption {
+            type = lib.types.str;
+            default =
+              if cfg.enable
+              then "http://127.0.0.1:${toString cfg.port}"
+              else "https://${cfg.domainName}.${homelab.mainDomain}";
+            defaultText = lib.literalMD "the local listener when Authelia runs on this host, otherwise the public portal";
+            description = "Base URL nginx uses for forward-auth requests to Authelia";
+          };
+        };
+      accessControlRules = lib.mkOption {
+        type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
+        default = [];
+        description = "Authelia access_control rules for services on this host, collected by the Authelia host. Each forward-auth service appends its own.";
+      };
+      hosts = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = "Other hosts whose accessControlRules this Authelia instance enforces.";
       };
     };
   imports = [
@@ -88,7 +112,15 @@ in {
             base_dn = "DC=elotoja,DC=com";
             user = "UID=${username},OU=people,DC=elotoja,DC=com";
           };
-          access_control.default_policy = "two_factor";
+          access_control = {
+            default_policy = "two_factor";
+            rules =
+              cfg.accessControlRules
+              ++ lib.concatMap (
+                host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.authelia.accessControlRules
+              )
+              cfg.hosts;
+          };
           duo_api = {
             hostname = "api-9400ee3a.duosecurity.com";
             integration_key = "DID9QW95YCI6U92UIS7Q";

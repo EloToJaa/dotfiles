@@ -14,8 +14,9 @@
     gatus = {
       name = "Bazarr";
       group = "media";
-      conditions = ["[STATUS] < 400"];
+      path = "/api/system/ping";
     };
+    forwardAuth.bypass = ["^/api/"];
     umaskUnits = ["bazarr"];
   };
 in {
