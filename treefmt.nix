@@ -29,5 +29,6 @@
     "sops/**"
     # Generated or external files
     ".luacheckrc"
+    "pkgs/streamystats/bun.nix"
   ];
 }
