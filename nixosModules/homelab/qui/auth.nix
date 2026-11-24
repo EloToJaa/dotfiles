@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.qui;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "7PDzy1dcnsB2v6sZ3gXewTlUpthFJh3RhD8AMNPVBd7EZNpbGaKkWPhYZhCMCzO1";
   redirectUrl = "https://${domain}/api/auth/oidc/callback";
   oidcGenerator = config.clan.core.vars.generators."${cfg.name}-oidc";

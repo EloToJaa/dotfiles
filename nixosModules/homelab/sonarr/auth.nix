@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.sonarr;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "AxngSlpHeuHpp3rPwbS2VksnVpz2i8NjxpLLKbBNtgwhKfCimoXMoD8grgiv34jO";
 in {
   options.modules.homelab.sonarr.auth = {
