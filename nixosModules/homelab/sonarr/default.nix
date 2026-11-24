@@ -32,6 +32,9 @@ in {
         description = "Loopback port of the Exportarr instance for sonarr";
       };
     };
+  imports = [
+    ./auth.nix
+  ];
   config = lib.mkMerge [
     service.config
     (lib.mkIf cfg.enable {
