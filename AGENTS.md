@@ -222,7 +222,7 @@ Only proceed to the next step if the previous one succeeds.
 
 1. Create package definition in `pkgs/<name>/default.nix` (or add to a group such as `pkgs/ai/` or `pkgs/yazi/`)
 1. Add to `pkgs/pkgs.nix` exports
-1. Update package versions using `nurl` or `nix-update`. Nixbot updates packages automatically unless they are listed in `unmanaged` in `ci/nixbot.nix`
+1. Update package versions using `nurl` or `nix-update`. Nixbot updates packages automatically unless they are listed in `unmanaged` in `ci/workarounds.nix`
 
 ## CI/CD
 

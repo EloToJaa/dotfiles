@@ -8,31 +8,8 @@
   system = builtins.head config.systems;
   pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
   effects = inputs.nixbot.lib.effects {inherit pkgs;};
-  # Nix 2.35 no longer copies a dirty flake into the store on `nix flake metadata`,
-  # so nix-update 1.16.0 fails every version bump while prefetching hashes.
-  # Drop once https://github.com/Mic92/nix-update/pull/692 is released.
-  nix-update = pkgs.nix-update.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        (pkgs.fetchpatch {
-          url = "https://github.com/Mic92/nix-update/commit/d545c1fad667e573128cad0db55fdc77134a4d3c.patch";
-          includes = ["nix_update/options.py"];
-          hash = "sha256-SLxMCM1T5ymd3r5X7Fvz8z/LCUyQcCUvNu1+Y773Tvg=";
-        })
-      ];
-  });
-  # Yamtrack's source is a flake input; update it and package metadata together.
-  # tmux-smart-splits cannot follow its upstream: smart-splits.nvim v3.0.0 moved
-  # every multiplexer backend into a separate repository and deleted the
-  # smart-splits.tmux file this plugin loads. mkTmuxPlugin only builds an rtp
-  # path and never checks that the file exists, so such a bump would build and
-  # pass these checks while leaving tmux navigation dead at runtime.
-  # tapo-control cannot move past 7.1.25 yet: 7.2.7 requires pytapo 3.4.26 and
-  # imports modules added after the 3.4.19 nixpkgs carries, which its own guard
-  # in pkgs/tapo-control refuses to paper over. Updating it daily only produced
-  # a failing effect, so hold it until nixpkgs ships a new enough pytapo.
-  unmanaged = ["yamtrack" "tmux-smart-splits" "tapo-control"];
+  workarounds = import ./workarounds.nix {inherit lib pkgs effects;};
+  inherit (workarounds) nix-update unmanaged;
   packages = builtins.filter (name: !builtins.elem name unmanaged) (builtins.attrNames self.packages.${system});
   taggedInputs = ["clan-core" "bun2nix" "yamtrack"];
   mkUpdate = kind: name:
@@ -89,6 +66,13 @@ in {
         minute = 0;
       };
       outputs.effects.update-flake-lock = mkUpdate "lock" "flake-lock";
+    };
+    onSchedule.workaround-checks = {
+      when = {
+        hour = 6;
+        minute = 0;
+      };
+      outputs.effects.check-workarounds = workarounds.checkEffect;
     };
     onSchedule.package-updates = {
       when = {
