@@ -22,6 +22,10 @@ fmt-check:
 flake-check:
     nix flake check
 
+# Run the Neovim quickfix tests
+test:
+    nix build --no-link -L ".#checks.{{ arch() }}-{{ os() }}.review-quick-fixes"
+
 # Lint the codebase
 lint: fmt-check flake-check
     just --fmt --check
