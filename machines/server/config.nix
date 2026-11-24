@@ -13,7 +13,10 @@
     bazarr.enable = true;
     blocky.enable = true;
     nginx.enable = true;
-    cleanuparr.enable = true;
+    cleanuparr = {
+      enable = true;
+      auth.enable = true;
+    };
     cliproxyapi.enable = true;
     forgejo.auth.enable = true;
     gatus = {
