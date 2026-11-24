@@ -42,6 +42,9 @@ in {
         };
       };
     };
+  imports = [
+    ./auth.nix
+  ];
   config = lib.mkMerge [
     service.config
     (lib.mkIf cfg.enable {
