@@ -21,6 +21,9 @@
   };
   domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
+  imports = [
+    ./auth.nix
+  ];
   options.modules.homelab.paperless =
     service.options
     // {

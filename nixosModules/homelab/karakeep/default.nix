@@ -31,6 +31,9 @@
     ];
   };
 in {
+  imports = [
+    ./auth.nix
+  ];
   options.modules.homelab.karakeep =
     service.options
     // {
