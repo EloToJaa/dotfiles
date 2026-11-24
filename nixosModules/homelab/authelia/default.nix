@@ -176,8 +176,8 @@ in {
             cookies = [
               {
                 domain = homelab.mainDomain;
-                authelia_url = "https://${cfg.domainName}.${homelab.mainDomain}";
-                default_redirection_url = "https://${cfg.domainName}.${homelab.mainDomain}/settings";
+                authelia_url = cfg.url;
+                default_redirection_url = "${cfg.url}/settings";
               }
             ];
             redis.host = redisServer.unixSocket;

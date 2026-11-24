@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = homelab.forgejo;
   domain = "${cfg.domainName}.${homelab.mainDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.mainDomain}";
+  issuer = homelab.authelia.url;
   clientId = "jRuwws4w2WzHO1m2w9ytASAFgqsLPTTBcfqNH4UhKPzsR4puEXC08TiyDVwuETN0";
   sourceName = "authelia";
   generatorName = "${cfg.name}-oidc";
