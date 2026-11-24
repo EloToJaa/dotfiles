@@ -14,7 +14,10 @@
   modules.homelab = {
     alloy.enable = true;
     nginx.enable = true;
-    matrix.enable = true;
+    matrix = {
+      enable = true;
+      auth.enable = true;
+    };
     forgejo = {
       enable = true;
       auth.enable = true;

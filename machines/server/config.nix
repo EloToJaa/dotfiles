@@ -37,6 +37,7 @@
     karakeep.enable = true;
     kerberos.enable = false;
     lidarr.enable = false;
+    matrix.auth.enable = true;
     loki.enable = true;
     tempo.enable = true;
     mosquitto.enable = true;
