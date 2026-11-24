@@ -64,9 +64,15 @@
     };
     qbittorrent.enable = true;
     qui.enable = true;
-    radarr.enable = true;
+    radarr = {
+      enable = true;
+      auth.enable = true;
+    };
     rustdesk.enable = true;
-    sonarr.enable = true;
+    sonarr = {
+      enable = true;
+      auth.enable = true;
+    };
     streamystats.enable = false;
     vaultwarden = {
       enable = true;
