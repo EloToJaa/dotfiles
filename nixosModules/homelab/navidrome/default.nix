@@ -13,6 +13,11 @@
     port = 4533;
     domainName = "music";
     mainDomain = true;
+    gatus = {
+      name = "Navidrome";
+      group = "media";
+      path = "/ping";
+    };
     umaskUnits = ["navidrome"];
   };
 in {

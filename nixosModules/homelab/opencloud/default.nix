@@ -13,6 +13,11 @@
     port = 9200;
     description = "Enable OpenCloud";
     domainName = "cloud";
+    gatus = {
+      name = "OpenCloud";
+      group = "apps";
+      path = "/status.php";
+    };
   };
   domain = "${cfg.domainName}.${homelab.baseDomain}";
   oidcIssuer = "https://auth.${homelab.baseDomain}";

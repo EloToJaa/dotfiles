@@ -11,6 +11,11 @@
     inherit lib config;
     name = "lidarr";
     port = 8686;
+    gatus = {
+      name = "Lidarr";
+      group = "media";
+      path = "/ping";
+    };
     umaskUnits = ["lidarr"];
   };
 in {

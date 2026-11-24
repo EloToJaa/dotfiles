@@ -13,6 +13,11 @@
     port = 3009;
     description = "Enable Streamystats";
     domainName = "stats";
+    gatus = {
+      name = "Streamystats";
+      group = "media";
+      path = "/api/health";
+    };
   };
   environmentFile = "${cfg.dataDir}/environment";
 in {

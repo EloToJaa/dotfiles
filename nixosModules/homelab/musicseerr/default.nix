@@ -13,6 +13,11 @@
     port = 8688;
     description = "Enable MusicSeerr";
     domainName = "ms";
+    gatus = {
+      name = "MusicSeerr";
+      group = "media";
+      path = "/health";
+    };
   };
 in {
   imports = [
