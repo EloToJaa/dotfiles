@@ -57,7 +57,10 @@
     };
     postgres = {
       enable = true;
-      pgadmin.enable = true;
+      pgadmin = {
+        enable = true;
+        auth.enable = true;
+      };
     };
     prometheus = {
       enable = true;
@@ -71,7 +74,10 @@
       flaresolverr.enable = true;
     };
     qbittorrent.enable = true;
-    qui.enable = true;
+    qui = {
+      enable = true;
+      auth.enable = true;
+    };
     radarr = {
       enable = true;
       auth.enable = true;
@@ -88,7 +94,10 @@
     };
     wireguard.enable = true;
     xandikos.enable = true;
-    yamtrack.enable = true;
+    yamtrack = {
+      enable = true;
+      auth.enable = true;
+    };
     zigbee2mqtt.enable = true;
   };
 }
