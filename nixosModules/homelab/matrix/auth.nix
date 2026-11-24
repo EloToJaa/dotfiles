@@ -7,7 +7,7 @@
 }: let
   inherit (config.modules) homelab;
   cfg = homelab.matrix;
-  issuer = "https://${homelab.authelia.domainName}.${homelab.mainDomain}";
+  issuer = homelab.authelia.url;
   clientId = "MOJkxDPjHOStC2miPgG6dHMoLhx0anQ1Zh5O5KZ9TKQHut1IXp4GCAiS1aMz2GTT";
   callbackUrl = "https://${cfg.endpointDomain}/_matrix/client/unstable/login/sso/callback/${clientId}";
   generatorName = "matrix-oidc";
