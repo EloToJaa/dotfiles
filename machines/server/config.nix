@@ -21,6 +21,7 @@
     forgejo.auth.enable = true;
     gatus = {
       enable = true;
+      auth.enable = true;
       hosts = ["worker"];
     };
     grafana = {
