@@ -148,11 +148,11 @@ in {
           customDNS = {
             customTTL = "1h";
             mapping = {
-              "kvm.${homelab.mainDomain}" = "10.11.0.31";
-              "server.${homelab.mainDomain}" = "10.11.0.32";
-              "worker.${homelab.mainDomain}" = "10.11.0.36";
-              "nas.${homelab.mainDomain}" = "10.11.0.34";
-              "pve.${homelab.mainDomain}" = "10.11.0.33";
+              "kvm.${homelab.mainDomain}" = homelab.hosts.kvm;
+              "server.${homelab.mainDomain}" = homelab.hosts.server;
+              "worker.${homelab.mainDomain}" = homelab.hosts.worker;
+              "nas.${homelab.mainDomain}" = homelab.hosts.nas;
+              "pve.${homelab.mainDomain}" = homelab.hosts.pve;
             };
           };
         };

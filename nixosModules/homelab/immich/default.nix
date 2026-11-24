@@ -7,6 +7,7 @@
   inherit (config.settings) stateVersion;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.immich;
+  container_subnet = "192.168.100";
 in {
   options.modules.homelab.immich = {
     enable = lib.mkEnableOption "Enable immich";
@@ -32,7 +33,7 @@ in {
     };
     host = lib.mkOption {
       type = lib.types.str;
-      default = "192.168.100.11";
+      default = "${container_subnet}.11";
     };
     apiMetricsPort = lib.mkOption {
       type = lib.types.port;
@@ -69,7 +70,7 @@ in {
     containers.immich = {
       autoStart = true;
       privateNetwork = true;
-      hostAddress = "192.168.100.10";
+      hostAddress = "${container_subnet}.10";
       localAddress = cfg.host;
       hostAddress6 = "fc00::1";
       localAddress6 = "fc00::2";

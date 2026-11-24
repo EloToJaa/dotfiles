@@ -33,7 +33,7 @@ in {
       };
       serialPort = lib.mkOption {
         type = lib.types.str;
-        default = "tcp://10.11.0.35:6638";
+        default = "tcp://${homelab.hosts.slzb}:6638";
       };
       permitJoin = lib.mkOption {
         type = lib.types.bool;
