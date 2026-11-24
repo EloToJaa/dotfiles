@@ -20,7 +20,7 @@
     };
   };
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  oidcIssuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  oidcIssuer = homelab.authelia.url;
   oidcClientId = "web";
 in {
   options.modules.homelab.opencloud = service.options;

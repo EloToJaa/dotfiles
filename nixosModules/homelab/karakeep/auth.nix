@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.karakeep;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "JmOEKhsromX9mEQMmJReosFfa73tolCkpK4ITJfzTWkHvCplOx0h8PVo1hbfzSsG";
 in {
   options.modules.homelab.karakeep.auth = {

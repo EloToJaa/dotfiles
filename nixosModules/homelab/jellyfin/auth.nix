@@ -21,7 +21,7 @@ in {
       client = {
         client_id = "42VeHabCU9UyRptuVpwJlfd0wKqkpC0mddyY0qDihVhdyeox8wPxA4Tx9X0C30slzEAZOAPo";
         client_name = "Jellyfin";
-        redirect_uris = ["https://${cfg.domainName}.${homelab.mainDomain}/sso/OID/redirect/authelia"];
+        redirect_uris = ["https://${cfg.domainName}.${homelab.baseDomain}/sso/OID/redirect/authelia"];
         scopes = ["openid" "profile" "groups"];
         token_endpoint_auth_method = "client_secret_post";
       };

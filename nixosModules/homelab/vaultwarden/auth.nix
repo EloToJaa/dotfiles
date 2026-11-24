@@ -35,7 +35,7 @@ in {
       services.vaultwarden.config = {
         ssoEnabled = true;
         ssoOnly = false;
-        ssoAuthority = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+        ssoAuthority = homelab.authelia.url;
         ssoScopes = "openid email profile offline_access";
         ssoPkce = true;
         ssoClientId = clientId;

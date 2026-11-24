@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.radarr;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "arYY6TpVj0RYcfhpdC0zqbULh2o8xw47LvjQZEZqodcqR6I8tmnZvmB9Cbr3Epci";
 in {
   options.modules.homelab.radarr.auth = {

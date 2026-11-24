@@ -12,7 +12,6 @@
     name = "jellyfin";
     port = 8096;
     domainName = "watch";
-    mainDomain = true;
     gatus = {
       name = "Jellyfin";
       group = "media";

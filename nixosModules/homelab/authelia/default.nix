@@ -36,6 +36,12 @@ in {
         type = lib.types.str;
         default = homelab.groups.main;
       };
+      url = lib.mkOption {
+        type = lib.types.str;
+        default = "https://${cfg.domainName}.server.${homelab.mainDomain}";
+        defaultText = lib.literalExpression ''"https://''${domainName}.server.''${mainDomain}"'';
+        description = "Authelia portal and OIDC issuer URL that services on server and worker use, pinned to the server host instead of the public portal";
+      };
       forwardAuth =
         service.options.forwardAuth
         // {
@@ -44,8 +50,8 @@ in {
             default =
               if cfg.enable
               then "http://127.0.0.1:${toString cfg.port}"
-              else "https://${cfg.domainName}.${homelab.mainDomain}";
-            defaultText = lib.literalMD "the local listener when Authelia runs on this host, otherwise the public portal";
+              else cfg.url;
+            defaultText = lib.literalMD "the local listener when Authelia runs on this host, otherwise `url`";
             description = "Base URL nginx uses for forward-auth requests to Authelia";
           };
         };

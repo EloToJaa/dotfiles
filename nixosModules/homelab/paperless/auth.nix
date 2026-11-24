@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.paperless;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "AbSuaWOfsZfDjQFd6viSYt9g8TselL0RQVWNqMx4FYk19wjk0laCylGxR0UXn8uW";
   providerId = "authelia";
 in {

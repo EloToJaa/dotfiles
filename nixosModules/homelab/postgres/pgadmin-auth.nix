@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.postgres.pgadmin;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "j22zgFGXyvANoYyNl7d80YYAd8PDgju6OFl4D8TSDy3KQ0inumKdl0JPzIXDCRk3";
   oidcGenerator = config.clan.core.vars.generators."${cfg.name}-oidc";
   oauth2Config = {

@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.yamtrack;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "ncoHLrQqBY0PdmH0yx6GnP7nkcNvoRKDZcyCNX0IFwVVmGKyaYqa1X6QxkfaD9Wl";
   providerId = "authelia";
   providersGenerator = config.clan.core.vars.generators."${cfg.name}-oidc-providers";

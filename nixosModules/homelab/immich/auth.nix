@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.immich;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "hkBXBzttPNGdxwlmGfE5BOHUypTv5LTHt0nlRS5WQVeF2Ubj1HeIQaZpyPduVedP";
   clientSecretPath = config.clan.core.vars.generators."${cfg.name}-oidc".files.client-secret.path;
 in {

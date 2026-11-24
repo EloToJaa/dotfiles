@@ -8,7 +8,7 @@
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.grafana;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
-  issuer = "https://${homelab.authelia.domainName}.${homelab.baseDomain}";
+  issuer = homelab.authelia.url;
   clientId = "Qm7xVr2NfLk9TdYw4HsA8eZpJc3UbGn6XoR5tKiW1vDyMhE0aSqCuPlFjBgZ7N2x";
   oidcGenerator = config.clan.core.vars.generators."${cfg.name}-oidc";
 in {
