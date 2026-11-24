@@ -2,158 +2,139 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.bazarr;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "bazarr";
+    port = 6767;
+    gatus = {
+      name = "Bazarr";
+      group = "media";
+      conditions = ["[STATUS] < 400"];
+    };
+    umaskUnits = ["bazarr"];
+  };
 in {
-  options.modules.homelab.bazarr = {
-    enable = lib.mkEnableOption "Enable bazarr";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "bazarr";
-    };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "bazarr";
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 6767;
-    };
-    exporterPort = lib.mkOption {
-      type = lib.types.port;
-      default = 9714;
-      description = "Loopback port of the Exportarr instance for bazarr";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.media;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
-    };
-  };
-  config = lib.mkIf cfg.enable {
-    modules.homelab.prometheus.exportarr.bazarr = {
-      port = cfg.exporterPort;
-      url = "http://127.0.0.1:${toString cfg.port}";
-      apiKeyFile = config.clan.core.vars.generators."${cfg.name}-apikey".files.apikey.path;
-    };
-
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Bazarr";
-        group = "media";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
-      }
-    ];
-
-    services.bazarr = {
-      inherit (cfg) group dataDir;
-      enable = true;
-      package = pkgs.unstable.bazarr;
-      user = cfg.name;
-      listenPort = cfg.port;
-    };
-    systemd.services.bazarr = {
-      environment = {
-        POSTGRES_ENABLED = "true";
-        POSTGRES_HOST = "127.0.0.1";
-        POSTGRES_PORT = toString homelab.postgres.port;
-        POSTGRES_USERNAME = cfg.name;
-        POSTGRES_DATABASE = cfg.name;
+  options.modules.homelab.bazarr =
+    service.options
+    // {
+      exporterPort = lib.mkOption {
+        type = lib.types.port;
+        default = 9714;
+        description = "Loopback port of the Exportarr instance for bazarr";
       };
-      serviceConfig = {
-        EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
-        UMask = lib.mkForce homelab.defaultUMask;
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = homelab.groups.media;
       };
     };
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-    ];
-
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      modules.homelab.prometheus.exportarr.bazarr = {
+        port = cfg.exporterPort;
+        url = "http://127.0.0.1:${toString cfg.port}";
+        apiKeyFile = config.clan.core.vars.generators."${cfg.name}-apikey".files.apikey.path;
       };
-    };
 
-    clan.core.state.bazarr = {
-      folders = [
-        cfg.dataDir
+      services.bazarr = {
+        inherit (cfg) group dataDir;
+        enable = true;
+        package = pkgs.unstable.bazarr;
+        user = cfg.name;
+        listenPort = cfg.port;
+      };
+      systemd.services.bazarr = {
+        environment = {
+          POSTGRES_ENABLED = "true";
+          POSTGRES_HOST = "127.0.0.1";
+          POSTGRES_PORT = toString homelab.postgres.port;
+          POSTGRES_USERNAME = cfg.name;
+          POSTGRES_DATABASE = cfg.name;
+        };
+        serviceConfig = {
+          EnvironmentFile = config.clan.core.vars.generators."${cfg.name}-env".files.env.path;
+        };
+      };
+      systemd.tmpfiles.rules = [
+        "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
       ];
-      preBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
 
-        systemctl stop bazarr.service
-      '';
+      clan.core.state.bazarr = {
+        folders = [
+          cfg.dataDir
+        ];
+        preBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-      postBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
+          systemctl stop bazarr.service
+        '';
 
-        systemctl start bazarr.service
-      '';
-    };
-    clan.core.postgresql = {
-      databases.${cfg.name} = {
-        create = {
-          enable = true;
-          options = {
-            LC_COLLATE = "C";
-            LC_CTYPE = "C";
-            ENCODING = "UTF8";
-            OWNER = cfg.name;
-            TEMPLATE = "template0";
+        postBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
+
+          systemctl start bazarr.service
+        '';
+      };
+      clan.core.postgresql = {
+        databases.${cfg.name} = {
+          create = {
+            enable = true;
+            options = {
+              LC_COLLATE = "C";
+              LC_CTYPE = "C";
+              ENCODING = "UTF8";
+              OWNER = cfg.name;
+              TEMPLATE = "template0";
+            };
           };
+          restore.stopOnRestore = ["bazarr.service"];
         };
-        restore.stopOnRestore = ["bazarr.service"];
+        users.${cfg.name} = {};
       };
-      users.${cfg.name} = {};
-    };
 
-    users.users.${cfg.name} = {
-      inherit (cfg) group;
-      isSystemUser = true;
-      description = cfg.name;
-    };
-
-    clan.core.vars.generators = {
-      ${cfg.name} = {
-        files.pgpassword.deploy = false;
-        runtimeInputs = [pkgs.pwgen];
-        script = ''
-          pwgen -s 64 1 > "$out/pgpassword"
-        '';
+      users.users.${cfg.name} = {
+        inherit (cfg) group;
+        isSystemUser = true;
+        description = cfg.name;
       };
-      "${cfg.name}-apikey" = {
-        prompts.apikey = {
-          description = "Bazarr API key for Exportarr (Settings > General > Security)";
-          type = "hidden";
-          persist = true;
+
+      clan.core.vars.generators = {
+        ${cfg.name} = {
+          files.pgpassword.deploy = false;
+          runtimeInputs = [pkgs.pwgen];
+          script = ''
+            pwgen -s 64 1 > "$out/pgpassword"
+          '';
         };
-        files.apikey = {};
+        "${cfg.name}-apikey" = {
+          prompts.apikey = {
+            description = "Bazarr API key for Exportarr (Settings > General > Security)";
+            type = "hidden";
+            persist = true;
+          };
+          files.apikey = {};
+        };
+        "${cfg.name}-env" = {
+          dependencies = [cfg.name];
+          files.env.owner = cfg.name;
+          script = ''
+            printf 'POSTGRES_PASSWORD=%s\n' "$(cat "$in/${cfg.name}/pgpassword")" > "$out/env"
+          '';
+        };
       };
-      "${cfg.name}-env" = {
-        dependencies = [cfg.name];
-        files.env.owner = cfg.name;
-        script = ''
-          printf 'POSTGRES_PASSWORD=%s\n' "$(cat "$in/${cfg.name}/pgpassword")" > "$out/env"
-        '';
-      };
-    };
-  };
+    })
+  ];
 }

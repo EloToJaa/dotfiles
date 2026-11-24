@@ -143,5 +143,6 @@
 in {
   flake.lib = {
     inherit toTOML;
+    homelab = import ./homelab.nix;
   };
 }
