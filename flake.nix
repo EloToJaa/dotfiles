@@ -19,6 +19,7 @@
         ./machines/flake-module.nix
         ./pkgs
         ./overlays.nix
+        ./tests/flake-module.nix
       ];
 
       perSystem = {
