@@ -33,7 +33,10 @@
       auth.enable = true;
     };
     seerr.enable = true;
-    karakeep.enable = true;
+    karakeep = {
+      enable = true;
+      auth.enable = true;
+    };
     kerberos.enable = false;
     lidarr.enable = false;
     loki.enable = true;
