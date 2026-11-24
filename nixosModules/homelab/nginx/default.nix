@@ -91,6 +91,12 @@ in {
       '';
       appendHttpConfig = lib.mkMerge [
         ''
+          add_header X-Frame-Options SAMEORIGIN always;
+          add_header X-Content-Type-Options nosniff always;
+          add_header Referrer-Policy strict-origin-when-cross-origin always;
+          add_header Strict-Transport-Security "max-age=31536000" always;
+        ''
+        ''
           map $uri $access_log_path {
             "~*^(?<access_log_path_prefix>.*?(?:${secretPathsRegex}))" "$access_log_path_prefix<redacted>";
             default $uri;
@@ -156,11 +162,6 @@ in {
                 forceSSL = true;
                 useACMEHost = domain;
                 locations."/".return = "444";
-                extraConfig = ''
-                  add_header X-Frame-Options SAMEORIGIN always;
-                  add_header X-Content-Type-Options nosniff always;
-                  add_header X-XSS-Protection "1; mode=block" always;
-                '';
               };
             }
           ])
