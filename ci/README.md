@@ -87,6 +87,19 @@ not create PRs. It keeps the input URLs in `flake.nix`; the 05:00 release effect
 select newer release references and lock those individual inputs. No submodule
 update is scheduled.
 
+## Temporary workarounds
+
+`ci/workarounds.nix` holds every CI workaround: the patched `nix-update` and the
+`unmanaged` packages that the 05:00 effects skip. Each entry has a `reason` and a
+`removeWhen` condition. Entries with a `check` are verified by the
+`check-workarounds` effect, which runs daily at 06:00 UTC and fails with the list
+of workarounds whose condition is met (nix-update PR merged, nixpkgs ships a new
+enough pytapo). Entries without a `check` are reviewed by hand.
+
+To retire one, delete its entry; for `nix-update` also drop the patch and use
+`pkgs.nix-update` directly. Remove a package from `unmanaged` and the next 05:00
+run updates it again.
+
 ## Auto-merge
 
 Every update PR is labelled `dependencies` and `auto-merge`. On
