@@ -8,6 +8,10 @@
   cfg = config.modules.homelab.forgejo;
   domain = "${cfg.domainName}.${homelab.mainDomain}";
 in {
+  imports = [
+    ./auth.nix
+  ];
+
   options.modules.homelab.forgejo = {
     enable = lib.mkEnableOption "Enable forgejo";
     name = lib.mkOption {

@@ -15,6 +15,7 @@
     nginx.enable = true;
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
+    forgejo.auth.enable = true;
     gatus = {
       enable = true;
       hosts = ["worker"];

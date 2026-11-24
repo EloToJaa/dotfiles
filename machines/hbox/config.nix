@@ -15,7 +15,10 @@
     alloy.enable = true;
     nginx.enable = true;
     matrix.enable = true;
-    forgejo.enable = true;
+    forgejo = {
+      enable = true;
+      auth.enable = true;
+    };
     stalwart.enable = true;
   };
 }
