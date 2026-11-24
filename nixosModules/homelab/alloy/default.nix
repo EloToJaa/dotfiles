@@ -45,9 +45,7 @@
   '';
 in {
   options.modules.homelab.alloy = {
-    enable =
-      lib.mkEnableOption "Grafana Alloy, shipping the systemd journal to Loki, host metrics to Prometheus and OTLP traces to Tempo"
-      // {default = homelab.enable;};
+    enable = lib.mkEnableOption "Grafana Alloy, shipping the systemd journal to Loki, host metrics to Prometheus and OTLP traces to Tempo";
     lokiUrl = lib.mkOption {
       type = lib.types.str;
       default =

@@ -3,6 +3,7 @@
     ./../../nixosModules/server.nix
   ];
   modules.homelab = {
+    alloy.enable = true;
     enable = true;
     blocky.enable = true;
     nginx.enable = true;

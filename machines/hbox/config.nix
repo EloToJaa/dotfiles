@@ -12,6 +12,7 @@
   };
 
   modules.homelab = {
+    alloy.enable = true;
     nginx.enable = true;
     matrix.enable = true;
     forgejo.enable = true;

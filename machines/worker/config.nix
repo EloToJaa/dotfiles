@@ -2,6 +2,7 @@
   imports = [../../nixosModules/server.nix];
 
   modules.homelab = {
+    alloy.enable = true;
     harmonia.enable = true;
     nixbot.enable = true;
     t3-code.enable = true;

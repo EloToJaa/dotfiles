@@ -4,6 +4,7 @@
   ];
 
   modules.homelab = {
+    alloy.enable = true;
     enable = true;
     ai-memory.enable = true;
     atuin.enable = true;
