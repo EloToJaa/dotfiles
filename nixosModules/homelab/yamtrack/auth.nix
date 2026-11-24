@@ -44,12 +44,13 @@ in {
       systemd.services = lib.genAttrs ["yamtrack-migrate" "yamtrack" "yamtrack-worker" "yamtrack-beat"] (_: {
         environment = {
           SOCIAL_PROVIDERS = "allauth.socialaccount.providers.openid_connect";
-          SOCIALACCOUNT_PROVIDERS_FILE = providersGenerator.files.providers.path;
+          SOCIALACCOUNT_PROVIDERS_FILE = "%d/providers";
         };
+        serviceConfig.LoadCredential = "providers:${providersGenerator.files.providers.path}";
       });
 
-      # Yamtrack's secret loader reads every file in the secret's directory,
-      # so the providers file lives in its own generator.
+      # Yamtrack lists the file's parent directory, which is unreadable under
+      # /run/secrets, so the file is passed through a service credential.
       clan.core.vars.generators."${cfg.name}-oidc-providers" = {
         dependencies = ["${cfg.name}-oidc"];
         runtimeInputs = [pkgs.jq];
