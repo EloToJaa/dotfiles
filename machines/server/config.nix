@@ -15,6 +15,7 @@
     nginx.enable = true;
     cleanuparr.enable = true;
     cliproxyapi.enable = true;
+    forgejo.auth.enable = true;
     gatus = {
       enable = true;
       hosts = ["worker"];
@@ -42,6 +43,7 @@
     };
     kerberos.enable = false;
     lidarr.enable = false;
+    matrix.auth.enable = true;
     loki.enable = true;
     tempo.enable = true;
     mosquitto.enable = true;

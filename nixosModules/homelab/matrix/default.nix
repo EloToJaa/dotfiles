@@ -22,6 +22,10 @@
     add_header Strict-Transport-Security "max-age=31536000" always;
   '';
 in {
+  imports = [
+    ./auth.nix
+  ];
+
   options.modules.homelab.matrix = {
     enable = lib.mkEnableOption "Enable the Tuwunel Matrix homeserver";
     domainName = lib.mkOption {

@@ -186,4 +186,33 @@ in {
       }
     ]);
   };
+
+  /*
+  Clan vars generator for an Authelia OIDC client whose service runs on another
+  machine than Authelia. `share = true` keeps a single value in `vars/shared/`, so
+  the service machine reads `client-secret` and the Authelia machine reads
+  `client-secret-hash`. Owners may differ per machine; everything else must be
+  identical on every machine that declares the generator.
+  */
+  mkSharedOidcSecret = {
+    pkgs,
+    secretOwner ? "root",
+    hashOwner ? "root",
+  }: {
+    share = true;
+    runtimeInputs = [
+      pkgs.pwgen
+      pkgs.gnused
+      pkgs.unstable.authelia
+    ];
+    files = {
+      client-secret.owner = secretOwner;
+      client-secret-hash.owner = hashOwner;
+    };
+    script = ''
+      pwgen -s 64 1 | tr -d '\n' > "$out/client-secret"
+      authelia crypto hash generate pbkdf2 --no-confirm --password "$(cat "$out/client-secret")" \
+        | sed 's/^Digest: //' | tr -d '\n' > "$out/client-secret-hash"
+    '';
+  };
 }
