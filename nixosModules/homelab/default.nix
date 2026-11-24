@@ -98,7 +98,6 @@ in {
     ./matrix
     ./minecraft
     ./mosquitto
-    ./musicseerr
     ./mysql
     ./navidrome
     ./nginx

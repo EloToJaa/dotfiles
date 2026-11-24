@@ -13,7 +13,6 @@
   computer-use-linux = pkgs.unstable.callPackage ./computer-use-linux {};
   delfin = pkgs.unstable.callPackage ./delfin {};
   energa-my-meter = pkgs.unstable.callPackage ./energa-my-meter {};
-  musicseerr = pkgs.callPackage ./musicseerr {};
   stack-in-card = pkgs.callPackage ./stack-in-card {};
   streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};

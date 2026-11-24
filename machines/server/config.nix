@@ -51,7 +51,6 @@
     loki.enable = true;
     tempo.enable = true;
     mosquitto.enable = true;
-    musicseerr.enable = false;
     navidrome.enable = false;
     opencloud.enable = false;
     ntfy.enable = true;
