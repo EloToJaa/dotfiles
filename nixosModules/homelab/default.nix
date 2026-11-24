@@ -32,6 +32,18 @@ in {
       type = lib.types.str;
       default = "027";
     };
+    hosts = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = {
+        kvm = "10.11.0.31";
+        server = "10.11.0.32";
+        pve = "10.11.0.33";
+        nas = "10.11.0.34";
+        slzb = "10.11.0.35";
+        worker = "10.11.0.36";
+      };
+      description = "LAN IP addresses of homelab devices, keyed by name";
+    };
   };
   options.modules.homelab.groups = {
     main = lib.mkOption {
