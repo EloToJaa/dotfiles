@@ -43,7 +43,10 @@
     navidrome.enable = false;
     opencloud.enable = false;
     ntfy.enable = true;
-    paperless.enable = true;
+    paperless = {
+      enable = true;
+      auth.enable = true;
+    };
     postgres = {
       enable = true;
       pgadmin.enable = true;
