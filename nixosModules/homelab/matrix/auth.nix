@@ -79,7 +79,6 @@ in {
               "groups"
             ];
             response_types = ["code"];
-            response_modes = ["form_post"];
             grant_types = ["authorization_code"];
             token_endpoint_auth_method = "client_secret_post";
           }

@@ -37,7 +37,7 @@ in {
         client_name = "Radarr";
         client_secret = "{{ secret \"${oidcGenerator.files.client-secret-hash.path}\" }}";
         public = false;
-        authorization_policy = "two_factor";
+        authorization_policy = homelab.authelia.oidcAdminPolicy;
         require_pkce = true;
         pkce_challenge_method = "S256";
         redirect_uris = [
@@ -68,7 +68,7 @@ in {
           pkgs.unstable.authelia
         ];
         files = {
-          client-secret.owner = cfg.name;
+          client-secret.deploy = false;
           client-secret-hash.owner = homelab.authelia.name;
         };
         script = ''

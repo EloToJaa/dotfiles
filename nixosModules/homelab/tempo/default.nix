@@ -19,6 +19,7 @@
       group = "monitoring";
       path = "/ready";
     };
+    forwardAuth = {};
   };
   configFile = (pkgs.formats.yaml {}).generate "tempo.yaml" {
     stream_over_http_enabled = true;
