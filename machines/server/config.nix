@@ -92,7 +92,10 @@
     };
     wireguard.enable = true;
     xandikos.enable = true;
-    yamtrack.enable = true;
+    yamtrack = {
+      enable = true;
+      auth.enable = true;
+    };
     zigbee2mqtt.enable = true;
   };
 }

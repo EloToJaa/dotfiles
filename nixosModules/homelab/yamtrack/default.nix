@@ -24,7 +24,10 @@
   redisServer = config.services.redis.servers.yamtrack;
   serviceNames = ["yamtrack" "yamtrack-worker" "yamtrack-beat"];
 in {
-  imports = [./service.nix];
+  imports = [
+    ./auth.nix
+    ./service.nix
+  ];
 
   options.modules.homelab.yamtrack =
     service.options;
