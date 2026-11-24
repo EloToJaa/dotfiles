@@ -151,7 +151,7 @@ in {
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
           useHostResolvConf = lib.mkForce false;
           # The container resolves through public DNS only, which has no record for the Authelia host
-          hosts.${config.containers.immich.hostAddress} = [(lib.removePrefix "https://" homelab.authelia.url)];
+          hosts.${config.containers.immich.hostAddress} = [(builtins.head (builtins.match "https?://([^/:]+).*" homelab.authelia.url))];
         };
 
         users.users.${cfg.name} = {
