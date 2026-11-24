@@ -2,108 +2,87 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.jellyfin;
-in {
-  options.modules.homelab.jellyfin = {
-    enable = lib.mkEnableOption "Enable jellyfin";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "jellyfin";
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "jellyfin";
+    port = 8096;
+    domainName = "watch";
+    mainDomain = true;
+    gatus = {
+      name = "Jellyfin";
+      group = "media";
+      path = "/health";
     };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "watch";
-    };
-    openFirewall = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.media;
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 8096;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
-    };
-    logDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.logDir}${cfg.name}";
-    };
+    umaskUnits = ["jellyfin"];
   };
+in {
+  options.modules.homelab.jellyfin =
+    service.options
+    // {
+      openFirewall = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = homelab.groups.media;
+      };
+      logDir = lib.mkOption {
+        type = lib.types.path;
+        default = "${homelab.logDir}${cfg.name}";
+      };
+    };
   imports = [
     ./auth.nix
   ];
-  config = lib.mkIf cfg.enable {
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Jellyfin";
-        group = "media";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}/health";
-        conditions = ["[STATUS] == 200"];
-      }
-    ];
-
-    services.jellyfin = {
-      enable = true;
-      package = pkgs.unstable.jellyfin;
-      user = cfg.name;
-      inherit (cfg) group dataDir logDir openFirewall;
-    };
-    systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce homelab.defaultUMask;
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
-      "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
-    ];
-    clan.core.state.jellyfin = {
-      folders = [
-        cfg.dataDir
-      ];
-      preBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
-
-        systemctl stop jellyfin.service
-      '';
-
-      postBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
-
-        systemctl start jellyfin.service
-      '';
-    };
-
-    services.nginx.virtualHosts = let
-      proxyConfig = {
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          proxyWebsockets = true;
-        };
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      services.jellyfin = {
+        enable = true;
+        package = pkgs.unstable.jellyfin;
+        user = cfg.name;
+        inherit (cfg) group dataDir logDir openFirewall;
       };
-    in {
-      "${cfg.domainName}.${homelab.baseDomain}" = proxyConfig // {useACMEHost = homelab.baseDomain;};
-      "${cfg.domainName}.${homelab.mainDomain}" = proxyConfig // {useACMEHost = homelab.mainDomain;};
-    };
+      systemd.tmpfiles.rules = [
+        "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+        "d ${cfg.logDir} 750 ${cfg.name} ${cfg.group} - -"
+      ];
+      clan.core.state.jellyfin = {
+        folders = [
+          cfg.dataDir
+        ];
+        preBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-    users.users.${cfg.name} = {
-      isSystemUser = true;
-      description = cfg.name;
-      inherit (cfg) group;
-    };
-  };
+          systemctl stop jellyfin.service
+        '';
+
+        postBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
+
+          systemctl start jellyfin.service
+        '';
+      };
+
+      users.users.${cfg.name} = {
+        isSystemUser = true;
+        description = cfg.name;
+        inherit (cfg) group;
+      };
+    })
+  ];
 }

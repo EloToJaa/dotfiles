@@ -2,140 +2,133 @@
   config,
   lib,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.zigbee2mqtt;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "zigbee2mqtt";
+    port = 3007;
+    serviceName = null;
+    description = "Enable Zigbee2MQTT";
+    domainName = "z2m";
+    dataDir = false;
+    gatus = {
+      name = "Zigbee2MQTT";
+      group = "home";
+      conditions = ["[STATUS] < 400"];
+    };
+  };
   mqtt = config.modules.homelab.mosquitto;
   domain = "${cfg.domainName}.${homelab.baseDomain}";
 in {
-  options.modules.homelab.zigbee2mqtt = {
-    enable = lib.mkEnableOption "Enable Zigbee2MQTT";
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "z2m";
+  options.modules.homelab.zigbee2mqtt =
+    service.options
+    // {
+      dataDir = lib.mkOption {
+        type = lib.types.path;
+        default = "${homelab.varDataDir}zigbee2mqtt";
+      };
+      serialPort = lib.mkOption {
+        type = lib.types.str;
+        default = "tcp://10.11.0.35:6638";
+      };
+      permitJoin = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      serialAdapter = lib.mkOption {
+        type = lib.types.enum [
+          "zstack"
+          "ember"
+        ];
+        default = "zstack";
+        description = "Zigbee2MQTT serial adapter type. Use zstack for SLZB-06/CC2652P and ember for SLZB-06M/EFR32.";
+      };
+      baseTopic = lib.mkOption {
+        type = lib.types.str;
+        default = "zigbee2mqtt";
+      };
+      mqttServer = lib.mkOption {
+        type = lib.types.str;
+        default = "mqtt://127.0.0.1:${toString mqtt.port}";
+      };
     };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 3007;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}zigbee2mqtt";
-    };
-    serialPort = lib.mkOption {
-      type = lib.types.str;
-      default = "tcp://10.11.0.35:6638";
-    };
-    permitJoin = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-    serialAdapter = lib.mkOption {
-      type = lib.types.enum [
-        "zstack"
-        "ember"
+
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      modules.homelab.mosquitto.users.zigbee2mqtt = lib.mkIf mqtt.enable {
+        acl = [
+          "readwrite zigbee2mqtt/#"
+          # read is needed for HA's birth message on homeassistant/status, which
+          # makes Z2M republish device states after HA restarts
+          "readwrite homeassistant/#"
+        ];
+        environment = ["ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD"];
+      };
+
+      services.zigbee2mqtt = {
+        enable = true;
+        package = pkgs.unstable.zigbee2mqtt;
+        inherit (cfg) dataDir;
+        settings = {
+          homeassistant.enabled = config.services.home-assistant.enable;
+          permit_join = cfg.permitJoin;
+          availability.enabled = true;
+          mqtt = {
+            base_topic = cfg.baseTopic;
+            server = cfg.mqttServer;
+            user = "zigbee2mqtt";
+          };
+          serial = {
+            port = cfg.serialPort;
+            adapter = cfg.serialAdapter;
+            disable_led = true;
+            baudrate = 115200;
+          };
+          advanced = {
+            transmit_power = 20;
+            cache_state_send_on_startup = false;
+          };
+          frontend = {
+            enabled = true;
+            host = "127.0.0.1";
+            inherit (cfg) port;
+            url = "https://${domain}";
+            package = "zigbee2mqtt-windfront";
+          };
+        };
+      };
+
+      systemd.services.zigbee2mqtt = {
+        after = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
+        wants = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
+        serviceConfig.EnvironmentFile =
+          [
+            config.clan.core.vars.generators.zigbee2mqtt.files.frontend-auth-token-env.path
+          ]
+          ++ lib.optional mqtt.enable
+          config.clan.core.vars.generators.mosquitto-passwords.files.zigbee2mqtt-env.path;
+      };
+
+      clan.core.vars.generators.zigbee2mqtt = {
+        files.frontend-auth-token-env = {
+          owner = "root";
+          group = "root";
+        };
+        runtimeInputs = [pkgs.pwgen];
+        script = ''
+          mkdir -p "$out"
+          printf 'ZIGBEE2MQTT_CONFIG_FRONTEND_AUTH_TOKEN=%s\n' "$(pwgen -s 128 1)" > "$out/frontend-auth-token-env"
+        '';
+      };
+
+      clan.core.state.zigbee2mqtt.folders = [
+        cfg.dataDir
       ];
-      default = "zstack";
-      description = "Zigbee2MQTT serial adapter type. Use zstack for SLZB-06/CC2652P and ember for SLZB-06M/EFR32.";
-    };
-    baseTopic = lib.mkOption {
-      type = lib.types.str;
-      default = "zigbee2mqtt";
-    };
-    mqttServer = lib.mkOption {
-      type = lib.types.str;
-      default = "mqtt://127.0.0.1:${toString mqtt.port}";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Zigbee2MQTT";
-        group = "home";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
-      }
-    ];
-
-    modules.homelab.mosquitto.users.zigbee2mqtt = lib.mkIf mqtt.enable {
-      acl = [
-        "readwrite zigbee2mqtt/#"
-        # read is needed for HA's birth message on homeassistant/status, which
-        # makes Z2M republish device states after HA restarts
-        "readwrite homeassistant/#"
-      ];
-      environment = ["ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD"];
-    };
-
-    services.zigbee2mqtt = {
-      enable = true;
-      package = pkgs.unstable.zigbee2mqtt;
-      inherit (cfg) dataDir;
-      settings = {
-        homeassistant.enabled = config.services.home-assistant.enable;
-        permit_join = cfg.permitJoin;
-        availability.enabled = true;
-        mqtt = {
-          base_topic = cfg.baseTopic;
-          server = cfg.mqttServer;
-          user = "zigbee2mqtt";
-        };
-        serial = {
-          port = cfg.serialPort;
-          adapter = cfg.serialAdapter;
-          disable_led = true;
-          baudrate = 115200;
-        };
-        advanced = {
-          transmit_power = 20;
-          cache_state_send_on_startup = false;
-        };
-        frontend = {
-          enabled = true;
-          host = "127.0.0.1";
-          inherit (cfg) port;
-          url = "https://${domain}";
-          package = "zigbee2mqtt-windfront";
-        };
-      };
-    };
-
-    systemd.services.zigbee2mqtt = {
-      after = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
-      wants = ["network-online.target"] ++ lib.optional mqtt.enable "mosquitto.service";
-      serviceConfig.EnvironmentFile =
-        [
-          config.clan.core.vars.generators.zigbee2mqtt.files.frontend-auth-token-env.path
-        ]
-        ++ lib.optional mqtt.enable
-        config.clan.core.vars.generators.mosquitto-passwords.files.zigbee2mqtt-env.path;
-    };
-
-    clan.core.vars.generators.zigbee2mqtt = {
-      files.frontend-auth-token-env = {
-        owner = "root";
-        group = "root";
-      };
-      runtimeInputs = [pkgs.pwgen];
-      script = ''
-        mkdir -p "$out"
-        printf 'ZIGBEE2MQTT_CONFIG_FRONTEND_AUTH_TOKEN=%s\n' "$(pwgen -s 128 1)" > "$out/frontend-auth-token-env"
-      '';
-    };
-
-    services.nginx.virtualHosts.${domain} = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-      };
-    };
-
-    clan.core.state.zigbee2mqtt.folders = [
-      cfg.dataDir
-    ];
-  };
+    })
+  ];
 }

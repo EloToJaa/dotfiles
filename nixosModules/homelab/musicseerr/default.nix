@@ -2,79 +2,66 @@
   config,
   lib,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.musicseerr;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "musicseerr";
+    port = 8688;
+    description = "Enable MusicSeerr";
+    domainName = "ms";
+  };
 in {
   imports = [
     ./service.nix
   ];
 
-  options.modules.homelab.musicseerr = {
-    enable = lib.mkEnableOption "Enable MusicSeerr";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "musicseerr";
-    };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "ms";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.media;
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 8688;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-    services.musicseerr = {
-      inherit (cfg) port dataDir group;
-      package = pkgs.musicseerr;
-      enable = true;
-      user = cfg.name;
-    };
-
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
+  options.modules.homelab.musicseerr =
+    service.options
+    // {
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = homelab.groups.media;
       };
     };
 
-    clan.core.state.musicseerr = {
-      folders = [
-        cfg.dataDir
-      ];
-      preBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      services.musicseerr = {
+        inherit (cfg) port dataDir group;
+        package = pkgs.musicseerr;
+        enable = true;
+        user = cfg.name;
+      };
 
-        systemctl stop musicseerr.service
-      '';
+      clan.core.state.musicseerr = {
+        folders = [
+          cfg.dataDir
+        ];
+        preBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-      postBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
+          systemctl stop musicseerr.service
+        '';
 
-        systemctl start musicseerr.service
-      '';
-    };
-  };
+        postBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
+
+          systemctl start musicseerr.service
+        '';
+      };
+    })
+  ];
 }

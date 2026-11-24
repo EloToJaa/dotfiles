@@ -2,44 +2,40 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: let
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.prowlarr;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "prowlarr";
+    port = 9696;
+    gatus = {
+      name = "Prowlarr";
+      group = "media";
+      path = "/ping";
+    };
+  };
   ns = config.services.wireguard-netns.namespace;
   postgresHost =
     if config.services.wireguard-netns.enable
     then config.services.wireguard-netns.hostAddress
     else "127.0.0.1";
 in {
-  options.modules.homelab.prowlarr = {
-    enable = lib.mkEnableOption "Enable prowlarr";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "prowlarr";
+  options.modules.homelab.prowlarr =
+    service.options
+    // {
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = homelab.groups.main;
+      };
+      exporterPort = lib.mkOption {
+        type = lib.types.port;
+        default = 9713;
+        description = "Loopback port of the Exportarr instance for prowlarr";
+      };
     };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "prowlarr";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = homelab.groups.main;
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 9696;
-    };
-    exporterPort = lib.mkOption {
-      type = lib.types.port;
-      default = 9713;
-      description = "Loopback port of the Exportarr instance for prowlarr";
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
-    };
-  };
   disabledModules = [
     "services/misc/servarr/prowlarr.nix"
   ];
@@ -47,250 +43,235 @@ in {
     ./service.nix
     ./flaresolverr.nix
   ];
-  config = lib.mkIf cfg.enable {
-    modules.homelab.prometheus.exportarr.prowlarr = {
-      port = cfg.exporterPort;
-      url = "http://127.0.0.1:${toString cfg.port}";
-      apiKeyFile = config.clan.core.vars.generators.${cfg.name}.files.apikey.path;
-    };
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      modules.homelab.prometheus.exportarr.prowlarr = {
+        port = cfg.exporterPort;
+        url = "http://127.0.0.1:${toString cfg.port}";
+        apiKeyFile = config.clan.core.vars.generators.${cfg.name}.files.apikey.path;
+      };
 
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Prowlarr";
-        group = "media";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}/ping";
-        conditions = ["[STATUS] == 200"];
-      }
-    ];
+      services.prowlarr = {
+        enable = true;
+        package = pkgs.unstable.prowlarr;
+        user = cfg.name;
+        inherit (cfg) group dataDir;
+      };
 
-    services.prowlarr = {
-      enable = true;
-      package = pkgs.unstable.prowlarr;
-      user = cfg.name;
-      inherit (cfg) group dataDir;
-    };
-
-    systemd = lib.mkMerge [
-      {
-        tmpfiles.rules = [
-          "L+ ${cfg.dataDir}/config.xml - - - - ${config.clan.core.vars.generators."${cfg.name}-config".files.config.path}"
-        ];
-      }
-      (
+      systemd = lib.mkMerge [
         {
-          services.${cfg.name}.serviceConfig = {
-            UMask = lib.mkForce homelab.defaultUMask;
-          };
           tmpfiles.rules = [
-            "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+            "L+ ${cfg.dataDir}/config.xml - - - - ${config.clan.core.vars.generators."${cfg.name}-config".files.config.path}"
           ];
         }
-        // (lib.mkIf config.services.wireguard-netns.enable {
-          services =
-            {
-              ${cfg.name} = {
-                bindsTo = ["netns@${ns}.service"];
-                requires = [
-                  "network-online.target"
-                  "${ns}.service"
-                ];
-                serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
-              };
-              "${cfg.name}-proxy" = {
-                enable = true;
-                description = "Proxy to ${cfg.name} in Network Namespace";
-                requires = ["${cfg.name}-proxy.socket"];
-                after = [
-                  "${cfg.name}.service"
-                  "${cfg.name}-proxy.socket"
-                ];
-                unitConfig = {
-                  JoinsNamespaceOf = "${cfg.name}.service";
-                  Requisite = "${cfg.name}.service";
+        (
+          {
+            services.${cfg.name}.serviceConfig = {
+              UMask = lib.mkForce homelab.defaultUMask;
+            };
+            tmpfiles.rules = [
+              "d ${cfg.dataDir} 750 ${cfg.name} ${cfg.group} - -"
+            ];
+          }
+          // (lib.mkIf config.services.wireguard-netns.enable {
+            services =
+              {
+                ${cfg.name} = {
+                  bindsTo = ["netns@${ns}.service"];
+                  requires = [
+                    "network-online.target"
+                    "${ns}.service"
+                  ];
+                  serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
                 };
-                serviceConfig = {
-                  User = cfg.name;
-                  Group = cfg.group;
-                  ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
-                  PrivateNetwork = "yes";
+                "${cfg.name}-proxy" = {
+                  enable = true;
+                  description = "Proxy to ${cfg.name} in Network Namespace";
+                  requires = ["${cfg.name}-proxy.socket"];
+                  after = [
+                    "${cfg.name}.service"
+                    "${cfg.name}-proxy.socket"
+                  ];
+                  unitConfig = {
+                    JoinsNamespaceOf = "${cfg.name}.service";
+                    Requisite = "${cfg.name}.service";
+                  };
+                  serviceConfig = {
+                    User = cfg.name;
+                    Group = cfg.group;
+                    ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString cfg.port}";
+                    PrivateNetwork = "yes";
+                  };
+                };
+              }
+              // lib.optionalAttrs homelab.radarr.enable {
+                "${cfg.name}-radarr-proxy" = {
+                  enable = true;
+                  description = "Proxy from ${cfg.name} namespace to radarr";
+                  requires = ["${cfg.name}-radarr-proxy.socket"];
+                  after = ["${cfg.name}-radarr-proxy.socket"];
+                  serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.radarr.port}";
+                };
+              }
+              // lib.optionalAttrs homelab.sonarr.enable {
+                "${cfg.name}-sonarr-proxy" = {
+                  enable = true;
+                  description = "Proxy from ${cfg.name} namespace to sonarr";
+                  requires = ["${cfg.name}-sonarr-proxy.socket"];
+                  after = ["${cfg.name}-sonarr-proxy.socket"];
+                  serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.sonarr.port}";
+                };
+              }
+              // lib.optionalAttrs homelab.lidarr.enable {
+                "${cfg.name}-lidarr-proxy" = {
+                  enable = true;
+                  description = "Proxy from ${cfg.name} namespace to lidarr";
+                  requires = ["${cfg.name}-lidarr-proxy.socket"];
+                  after = ["${cfg.name}-lidarr-proxy.socket"];
+                  serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.lidarr.port}";
                 };
               };
-            }
-            // lib.optionalAttrs homelab.radarr.enable {
-              "${cfg.name}-radarr-proxy" = {
-                enable = true;
-                description = "Proxy from ${cfg.name} namespace to radarr";
-                requires = ["${cfg.name}-radarr-proxy.socket"];
-                after = ["${cfg.name}-radarr-proxy.socket"];
-                serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.radarr.port}";
+            sockets =
+              {
+                "${cfg.name}-proxy" = {
+                  enable = true;
+                  description = "Socket for Proxy to ${cfg.name}";
+                  listenStreams = [(toString cfg.port)];
+                  wantedBy = ["sockets.target"];
+                };
+              }
+              // lib.optionalAttrs homelab.radarr.enable {
+                "${cfg.name}-radarr-proxy" = {
+                  enable = true;
+                  description = "Socket for ${cfg.name} namespace access to radarr";
+                  listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.radarr.port}"];
+                  wantedBy = ["sockets.target"];
+                  socketConfig.FreeBind = true;
+                };
+              }
+              // lib.optionalAttrs homelab.sonarr.enable {
+                "${cfg.name}-sonarr-proxy" = {
+                  enable = true;
+                  description = "Socket for ${cfg.name} namespace access to sonarr";
+                  listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.sonarr.port}"];
+                  wantedBy = ["sockets.target"];
+                  socketConfig.FreeBind = true;
+                };
+              }
+              // lib.optionalAttrs homelab.lidarr.enable {
+                "${cfg.name}-lidarr-proxy" = {
+                  enable = true;
+                  description = "Socket for ${cfg.name} namespace access to lidarr";
+                  listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.lidarr.port}"];
+                  wantedBy = ["sockets.target"];
+                  socketConfig.FreeBind = true;
+                };
               };
-            }
-            // lib.optionalAttrs homelab.sonarr.enable {
-              "${cfg.name}-sonarr-proxy" = {
-                enable = true;
-                description = "Proxy from ${cfg.name} namespace to sonarr";
-                requires = ["${cfg.name}-sonarr-proxy.socket"];
-                after = ["${cfg.name}-sonarr-proxy.socket"];
-                serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.sonarr.port}";
-              };
-            }
-            // lib.optionalAttrs homelab.lidarr.enable {
-              "${cfg.name}-lidarr-proxy" = {
-                enable = true;
-                description = "Proxy from ${cfg.name} namespace to lidarr";
-                requires = ["${cfg.name}-lidarr-proxy.socket"];
-                after = ["${cfg.name}-lidarr-proxy.socket"];
-                serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:${toString homelab.lidarr.port}";
+          })
+        )
+      ];
+
+      networking.firewall.interfaces.wg-host.allowedTCPPorts = lib.mkIf config.services.wireguard-netns.enable (
+        lib.optionals homelab.radarr.enable [homelab.radarr.port]
+        ++ lib.optionals homelab.sonarr.enable [homelab.sonarr.port]
+        ++ lib.optionals homelab.lidarr.enable [homelab.lidarr.port]
+      );
+
+      services.postgresql.authentication = lib.mkIf config.services.wireguard-netns.enable ''
+        host ${cfg.name}-main,${cfg.name}-log ${cfg.name} ${config.services.wireguard-netns.namespaceVethAddress} md5
+      '';
+
+      clan.core.postgresql = {
+        databases = {
+          "${cfg.name}-main" = {
+            create = {
+              enable = true;
+              options = {
+                LC_COLLATE = "C";
+                LC_CTYPE = "C";
+                ENCODING = "UTF8";
+                OWNER = cfg.name;
+                TEMPLATE = "template0";
               };
             };
-          sockets =
-            {
-              "${cfg.name}-proxy" = {
-                enable = true;
-                description = "Socket for Proxy to ${cfg.name}";
-                listenStreams = [(toString cfg.port)];
-                wantedBy = ["sockets.target"];
-              };
-            }
-            // lib.optionalAttrs homelab.radarr.enable {
-              "${cfg.name}-radarr-proxy" = {
-                enable = true;
-                description = "Socket for ${cfg.name} namespace access to radarr";
-                listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.radarr.port}"];
-                wantedBy = ["sockets.target"];
-                socketConfig.FreeBind = true;
-              };
-            }
-            // lib.optionalAttrs homelab.sonarr.enable {
-              "${cfg.name}-sonarr-proxy" = {
-                enable = true;
-                description = "Socket for ${cfg.name} namespace access to sonarr";
-                listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.sonarr.port}"];
-                wantedBy = ["sockets.target"];
-                socketConfig.FreeBind = true;
-              };
-            }
-            // lib.optionalAttrs homelab.lidarr.enable {
-              "${cfg.name}-lidarr-proxy" = {
-                enable = true;
-                description = "Socket for ${cfg.name} namespace access to lidarr";
-                listenStreams = ["${config.services.wireguard-netns.hostAddress}:${toString homelab.lidarr.port}"];
-                wantedBy = ["sockets.target"];
-                socketConfig.FreeBind = true;
-              };
-            };
-        })
-      )
-    ];
-
-    networking.firewall.interfaces.wg-host.allowedTCPPorts = lib.mkIf config.services.wireguard-netns.enable (
-      lib.optionals homelab.radarr.enable [homelab.radarr.port]
-      ++ lib.optionals homelab.sonarr.enable [homelab.sonarr.port]
-      ++ lib.optionals homelab.lidarr.enable [homelab.lidarr.port]
-    );
-
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-      };
-    };
-
-    services.postgresql.authentication = lib.mkIf config.services.wireguard-netns.enable ''
-      host ${cfg.name}-main,${cfg.name}-log ${cfg.name} ${config.services.wireguard-netns.namespaceVethAddress} md5
-    '';
-
-    clan.core.postgresql = {
-      databases = {
-        "${cfg.name}-main" = {
-          create = {
-            enable = true;
-            options = {
-              LC_COLLATE = "C";
-              LC_CTYPE = "C";
-              ENCODING = "UTF8";
-              OWNER = cfg.name;
-              TEMPLATE = "template0";
-            };
+            restore.stopOnRestore = ["prowlarr.service"];
           };
-          restore.stopOnRestore = ["prowlarr.service"];
-        };
-        "${cfg.name}-log" = {
-          create = {
-            enable = true;
-            options = {
-              LC_COLLATE = "C";
-              LC_CTYPE = "C";
-              ENCODING = "UTF8";
-              OWNER = cfg.name;
-              TEMPLATE = "template0";
+          "${cfg.name}-log" = {
+            create = {
+              enable = true;
+              options = {
+                LC_COLLATE = "C";
+                LC_CTYPE = "C";
+                ENCODING = "UTF8";
+                OWNER = cfg.name;
+                TEMPLATE = "template0";
+              };
             };
+            restore.stopOnRestore = ["prowlarr.service"];
           };
-          restore.stopOnRestore = ["prowlarr.service"];
+        };
+        users.${cfg.name} = {};
+      };
+
+      users.users.${cfg.name} = {
+        isSystemUser = true;
+        description = cfg.name;
+        group = lib.mkForce cfg.group;
+      };
+
+      clan.core.vars.generators = {
+        ${cfg.name} = {
+          files = {
+            apikey = {};
+            pgpassword.deploy = false;
+          };
+          runtimeInputs = with pkgs; [
+            openssl
+            pwgen
+          ];
+          script = ''
+            openssl rand -hex 16 | tr -d '\n' > $out/apikey
+            pwgen -s 32 1 | tr -d '\n' > $out/pgpassword
+          '';
+        };
+        "${cfg.name}-config" = let
+          script = ''
+            cat > $out/config <<EOF
+            <Config>
+              <LogLevel>info</LogLevel>
+              <EnableSsl>False</EnableSsl>
+              <Port>${toString cfg.port}</Port>
+              <SslPort>6969</SslPort>
+              <UrlBase></UrlBase>
+              <BindAddress>127.0.0.1</BindAddress>
+              <AllowedHosts></AllowedHosts>
+              <TrustedNetworks></TrustedNetworks>
+              <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
+              <AuthenticationMethod>Forms</AuthenticationMethod>
+              <LaunchBrowser>True</LaunchBrowser>
+              <Branch>master</Branch>
+              <InstanceName>Prowlarr</InstanceName>
+              <AuthenticationRequired>Enabled</AuthenticationRequired>
+              <SslCertPath></SslCertPath>
+              <SslCertPassword></SslCertPassword>
+              <PostgresUser>${cfg.name}</PostgresUser>
+              <PostgresPassword>$(cat $in/${cfg.name}/pgpassword)</PostgresPassword>
+              <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
+              <PostgresHost>${postgresHost}</PostgresHost>
+              <AnalyticsEnabled>False</AnalyticsEnabled>
+              <Theme>auto</Theme>
+            </Config>
+            EOF
+          '';
+        in {
+          dependencies = [cfg.name];
+          files.config.owner = cfg.name;
+          inherit script;
+          # Re-run the generator whenever the config template changes.
+          validation = {inherit script;};
         };
       };
-      users.${cfg.name} = {};
-    };
-
-    users.users.${cfg.name} = {
-      isSystemUser = true;
-      description = cfg.name;
-      group = lib.mkForce cfg.group;
-    };
-
-    clan.core.vars.generators = {
-      ${cfg.name} = {
-        files = {
-          apikey = {};
-          pgpassword.deploy = false;
-        };
-        runtimeInputs = with pkgs; [
-          openssl
-          pwgen
-        ];
-        script = ''
-          openssl rand -hex 16 | tr -d '\n' > $out/apikey
-          pwgen -s 32 1 | tr -d '\n' > $out/pgpassword
-        '';
-      };
-      "${cfg.name}-config" = let
-        script = ''
-          cat > $out/config <<EOF
-          <Config>
-            <LogLevel>info</LogLevel>
-            <EnableSsl>False</EnableSsl>
-            <Port>${toString cfg.port}</Port>
-            <SslPort>6969</SslPort>
-            <UrlBase></UrlBase>
-            <BindAddress>127.0.0.1</BindAddress>
-            <AllowedHosts></AllowedHosts>
-            <TrustedNetworks></TrustedNetworks>
-            <ApiKey>$(cat $in/${cfg.name}/apikey)</ApiKey>
-            <AuthenticationMethod>Forms</AuthenticationMethod>
-            <LaunchBrowser>True</LaunchBrowser>
-            <Branch>master</Branch>
-            <InstanceName>Prowlarr</InstanceName>
-            <AuthenticationRequired>Enabled</AuthenticationRequired>
-            <SslCertPath></SslCertPath>
-            <SslCertPassword></SslCertPassword>
-            <PostgresUser>${cfg.name}</PostgresUser>
-            <PostgresPassword>$(cat $in/${cfg.name}/pgpassword)</PostgresPassword>
-            <PostgresPort>${toString homelab.postgres.port}</PostgresPort>
-            <PostgresHost>${postgresHost}</PostgresHost>
-            <AnalyticsEnabled>False</AnalyticsEnabled>
-            <Theme>auto</Theme>
-          </Config>
-          EOF
-        '';
-      in {
-        dependencies = [cfg.name];
-        files.config.owner = cfg.name;
-        inherit script;
-        # Re-run the generator whenever the config template changes.
-        validation = {inherit script;};
-      };
-    };
-  };
+    })
+  ];
 }
