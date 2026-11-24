@@ -1,10 +1,11 @@
 {
   lib,
+  config,
   inputs,
   self,
   ...
 }: let
-  system = "x86_64-linux";
+  system = builtins.head config.systems;
   pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
   effects = inputs.nixbot.lib.effects {inherit pkgs;};
   # Nix 2.35 no longer copies a dirty flake into the store on `nix flake metadata`,
