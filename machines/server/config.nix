@@ -67,7 +67,7 @@
     streamystats.enable = false;
     vaultwarden = {
       enable = true;
-      auth.enable = false;
+      auth.enable = true;
     };
     wireguard.enable = true;
     xandikos.enable = true;
