@@ -1,6 +1,4 @@
-# This file defines overlays
 {inputs, ...}: let
-  # Individual overlay definitions
   localPackages = final: _prev:
     import ./pkgs/pkgs.nix {
       pkgs = final;
@@ -106,7 +104,6 @@
     };
   };
 in {
-  # For internal use in perSystem
   _module.args.overlaysList = [
     inputs.bun2nix.overlays.default
     inputs.helium.overlays.default
@@ -115,7 +112,6 @@ in {
     unstablePackages
   ];
 
-  # For external access via outputs.overlays
   flake.overlays = {
     inherit localPackages modifiedPackages unstablePackages;
     bun2nix = inputs.bun2nix.overlays.default;

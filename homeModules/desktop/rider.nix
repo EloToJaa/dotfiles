@@ -13,7 +13,6 @@
   ];
 
   extra-lib = with pkgs; [
-    # Personal development stuff
     libx11
 
     # Rider Unity debugging
@@ -25,7 +24,6 @@
   _rider = pkgs.unstable.jetbrains.rider.overrideAttrs (attrs: {
     postInstall =
       ''
-        # Wrap rider with extra tools and libraries
         mv $out/bin/rider $out/bin/.rider-toolless
         makeWrapper $out/bin/.rider-toolless $out/bin/rider \
           --argv0 rider \
