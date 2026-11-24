@@ -5,6 +5,10 @@
   `config`. Merging in place, not importing a separate module, keeps the
   service's Gatus endpoint at the same position in the merged endpoint list.
 
+  `name` is the option namespace and the default of `serviceName`, the `name` option
+  default (user, unit and state directory name). `serviceName = null` omits the `name`
+  option for services that have none.
+
   `options` declares `enable`, `name`, `domainName`, `port` and, unless `dataDir`
   is false, `dataDir`. `config` (guarded by `enable`) adds an nginx vhost proxying
   `<domainName>.<baseDomain>` to the loopback port, a Gatus endpoint and forces
@@ -19,6 +23,7 @@
     config,
     name,
     port,
+    serviceName ? name,
     description ? "Enable ${name}",
     domainName ? name,
     dataDir ? true,
@@ -33,10 +38,6 @@
     options =
       {
         enable = lib.mkEnableOption description;
-        name = lib.mkOption {
-          type = lib.types.str;
-          default = name;
-        };
         domainName = lib.mkOption {
           type = lib.types.str;
           default = domainName;
@@ -44,6 +45,12 @@
         port = lib.mkOption {
           type = lib.types.port;
           default = port;
+        };
+      }
+      // lib.optionalAttrs (serviceName != null) {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = serviceName;
         };
       }
       // lib.optionalAttrs dataDir {

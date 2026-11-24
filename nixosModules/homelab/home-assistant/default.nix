@@ -2,208 +2,193 @@
   pkgs,
   config,
   lib,
+  outputs,
   ...
 }: let
   inherit (config.settings) timezone;
   inherit (config.modules) homelab;
   cfg = config.modules.homelab.home-assistant;
+  service = outputs.lib.homelab.mkHomelabService {
+    inherit lib config;
+    name = "home-assistant";
+    port = 8123;
+    serviceName = "hass";
+    description = "Enable Home Assistant";
+    domainName = "hass";
+    gatus = {
+      name = "Home Assistant";
+      group = "home";
+      conditions = ["[STATUS] < 400"];
+    };
+  };
   mqtt = config.modules.homelab.mosquitto;
 in {
-  options.modules.homelab.home-assistant = {
-    enable = lib.mkEnableOption "Enable Home Assistant";
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "hass";
-    };
-    domainName = lib.mkOption {
-      type = lib.types.str;
-      default = "hass";
-    };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 8123;
-    };
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "${homelab.varDataDir}${cfg.name}";
-    };
-    tailscaleServe = {
-      enable = lib.mkEnableOption "Expose Home Assistant on the node's MagicDNS name via Tailscale Serve";
-      port = lib.mkOption {
-        type = lib.types.port;
-        default = 8443;
-        description = "HTTPS port Tailscale Serve listens on";
+  options.modules.homelab.home-assistant =
+    service.options
+    // {
+      tailscaleServe = {
+        enable = lib.mkEnableOption "Expose Home Assistant on the node's MagicDNS name via Tailscale Serve";
+        port = lib.mkOption {
+          type = lib.types.port;
+          default = 8443;
+          description = "HTTPS port Tailscale Serve listens on";
+        };
       };
     };
-  };
-  config = lib.mkIf cfg.enable {
-    modules.homelab.gatus.endpoints = [
-      {
-        name = "Home Assistant";
-        group = "home";
-        url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        conditions = ["[STATUS] < 400"];
-      }
-    ];
+  config = lib.mkMerge [
+    service.config
+    (lib.mkIf cfg.enable {
+      modules.homelab.mosquitto.users.hass = lib.mkIf mqtt.enable {
+        acl = [
+          "readwrite #"
+        ];
+      };
+      services.home-assistant = {
+        enable = true;
+        package = pkgs.unstable.home-assistant.overrideAttrs (_: {
+          doInstallCheck = false;
+        });
+        configDir = cfg.dataDir;
+        configWritable = true;
+        config = {
+          automation = "!include automations.yaml";
+          homeassistant = let
+            external_url = "https://${cfg.domainName}.${homelab.baseDomain}";
+          in {
+            name = "Home";
+            unit_system = "metric";
+            temperature_unit = "C";
+            time_zone = timezone;
+            language = "en-GB";
+            country = "PL";
+            inherit external_url;
+            internal_url = external_url;
+          };
+          http = {
+            server_host = "127.0.0.1";
+            server_port = cfg.port;
+            use_x_forwarded_for = true;
+            trusted_proxies = ["127.0.0.1"];
+          };
+          default_config = {};
+          mobile_app = {};
+        };
+        customComponents = [
+          pkgs.energa-my-meter
+          pkgs.dreame-vacuum
+          pkgs.tapo-control
+          pkgs.webrtc
+        ];
+        customLovelaceModules = [
+          pkgs.stack-in-card
+          pkgs.webrtc-camera
+        ];
 
-    modules.homelab.mosquitto.users.hass = lib.mkIf mqtt.enable {
-      acl = [
-        "readwrite #"
-      ];
-    };
-    services.home-assistant = {
-      enable = true;
-      package = pkgs.unstable.home-assistant.overrideAttrs (_: {
-        doInstallCheck = false;
+        extraComponents = [
+          # Components required to complete the onboarding
+          "analytics"
+          "google_translate"
+          "met"
+          # "radio_browser"
+          "shopping_list"
+          # Recommended for fast zlib compression
+          # https://www.home-assistant.io/integrations/isal
+          "isal"
+
+          "mobile_app"
+          # MCP server for LLM clients; config flow only, so it is added from the UI
+          "mcp_server"
+
+          # Tapo camera control
+          "ffmpeg"
+          "network"
+          "onvif"
+          "stream"
+
+          # WebRTC camera
+          "http"
+          "lovelace"
+
+          # Devices
+          "roomba"
+          "cookidoo"
+          "home_connect"
+          "samsungtv"
+          "androidtv_remote"
+          "switchbot"
+          "shelly"
+          "unifi"
+          "unifi_discovery"
+
+          "bluetooth"
+          "mqtt"
+
+          # Homelab services
+          "jellyfin"
+          "sonarr"
+          "radarr"
+          "immich"
+          "qbittorrent"
+          "ntfy"
+          "paperless_ngx"
+        ];
+      };
+      systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];
+
+      # Serve proxies from loopback, which http.trusted_proxies already trusts.
+      systemd.services.home-assistant-tailscale-serve = lib.mkIf cfg.tailscaleServe.enable (let
+        tailscale = lib.getExe config.services.tailscale.package;
+        port = toString cfg.tailscaleServe.port;
+      in {
+        description = "Expose Home Assistant via Tailscale Serve";
+        after = ["tailscaled.service" "home-assistant.service"];
+        wants = ["tailscaled.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          TimeoutStartSec = 120;
+          ExecStartPre = "${tailscale} wait --timeout=60s";
+          ExecStart = "${tailscale} serve --bg --https=${port} http://127.0.0.1:${toString cfg.port}";
+          ExecStop = "${tailscale} serve --https=${port} off";
+        };
       });
-      configDir = cfg.dataDir;
-      configWritable = true;
-      config = {
-        automation = "!include automations.yaml";
-        homeassistant = let
-          external_url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        in {
-          name = "Home";
-          unit_system = "metric";
-          temperature_unit = "C";
-          time_zone = timezone;
-          language = "en-GB";
-          country = "PL";
-          inherit external_url;
-          internal_url = external_url;
-        };
-        http = {
-          server_host = "127.0.0.1";
-          server_port = cfg.port;
-          use_x_forwarded_for = true;
-          trusted_proxies = ["127.0.0.1"];
-        };
-        default_config = {};
-        mobile_app = {};
+
+      networking.firewall = {
+        allowedTCPPorts = [8555];
+        allowedUDPPorts = [8555];
       };
-      customComponents = [
-        pkgs.energa-my-meter
-        pkgs.dreame-vacuum
-        pkgs.tapo-control
-        pkgs.webrtc
-      ];
-      customLovelaceModules = [
-        pkgs.stack-in-card
-        pkgs.webrtc-camera
-      ];
 
-      extraComponents = [
-        # Components required to complete the onboarding
-        "analytics"
-        "google_translate"
-        "met"
-        # "radio_browser"
-        "shopping_list"
-        # Recommended for fast zlib compression
-        # https://www.home-assistant.io/integrations/isal
-        "isal"
+      clan.core.state.home-assistant = {
+        folders = [
+          cfg.dataDir
+        ];
+        preBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-        "mobile_app"
-        # MCP server for LLM clients; config flow only, so it is added from the UI
-        "mcp_server"
+          systemctl stop home-assistant.service
+        '';
 
-        # Tapo camera control
-        "ffmpeg"
-        "network"
-        "onvif"
-        "stream"
+        postBackupScript = ''
+          export PATH=${
+            lib.makeBinPath [
+              config.systemd.package
+            ]
+          }
 
-        # WebRTC camera
-        "http"
-        "lovelace"
-
-        # Devices
-        "roomba"
-        "cookidoo"
-        "home_connect"
-        "samsungtv"
-        "androidtv_remote"
-        "switchbot"
-        "shelly"
-        "unifi"
-        "unifi_discovery"
-
-        "bluetooth"
-        "mqtt"
-
-        # Homelab services
-        "jellyfin"
-        "sonarr"
-        "radarr"
-        "immich"
-        "qbittorrent"
-        "ntfy"
-        "paperless_ngx"
-      ];
-    };
-    systemd.services.home-assistant.path = [pkgs.ffmpeg-headless];
-
-    # Serve proxies from loopback, which http.trusted_proxies already trusts.
-    systemd.services.home-assistant-tailscale-serve = lib.mkIf cfg.tailscaleServe.enable (let
-      tailscale = lib.getExe config.services.tailscale.package;
-      port = toString cfg.tailscaleServe.port;
-    in {
-      description = "Expose Home Assistant via Tailscale Serve";
-      after = ["tailscaled.service" "home-assistant.service"];
-      wants = ["tailscaled.service"];
-      wantedBy = ["multi-user.target"];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        TimeoutStartSec = 120;
-        ExecStartPre = "${tailscale} wait --timeout=60s";
-        ExecStart = "${tailscale} serve --bg --https=${port} http://127.0.0.1:${toString cfg.port}";
-        ExecStop = "${tailscale} serve --https=${port} off";
-      };
-    });
-
-    networking.firewall = {
-      allowedTCPPorts = [8555];
-      allowedUDPPorts = [8555];
-    };
-
-    clan.core.state.home-assistant = {
-      folders = [
-        cfg.dataDir
-      ];
-      preBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
-
-        systemctl stop home-assistant.service
-      '';
-
-      postBackupScript = ''
-        export PATH=${
-          lib.makeBinPath [
-            config.systemd.package
-          ]
-        }
-
-        systemctl start home-assistant.service
-      '';
-    };
-
-    services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}" = {
-      forceSSL = true;
-      useACMEHost = homelab.baseDomain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_buffering off;
-          proxy_read_timeout 3600s;
-          proxy_send_timeout 3600s;
+          systemctl start home-assistant.service
         '';
       };
-    };
-  };
+
+      services.nginx.virtualHosts."${cfg.domainName}.${homelab.baseDomain}".locations."/".extraConfig = ''
+        proxy_buffering off;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+      '';
+    })
+  ];
 }
