@@ -6,14 +6,43 @@
   START = "<!-- services:start -->";
   END = "<!-- services:end -->";
 
-  hostSites = host: map (site: site // {inherit host;}) (self.nixosConfigurations.${host}.config.modules.homelab.glance.sites or []);
+  glanceConfig = host: self.nixosConfigurations.${host}.config.modules.homelab.glance;
 
-  sites = lib.sortOn (site: [site.group (lib.toLower site.title)]) (
-    lib.concatMap hostSites (lib.attrNames self.nixosConfigurations)
+  dashboardHosts = lib.unique (
+    lib.concatMap (host: [host] ++ (glanceConfig host).hosts) (
+      lib.filter (host: (glanceConfig host).enable) (lib.attrNames self.nixosConfigurations)
+    )
   );
 
-  header = ["Service" "Group" "Host"];
-  rows = map (site: ["[${site.title}](${site.url})" site.group "`${site.host}`"]) sites;
+  hostSites = host: map (site: site // {inherit host;}) (glanceConfig host).sites;
+
+  sites = lib.sortOn (site: [site.group (lib.toLower site.title)]) (
+    lib.concatMap hostSites dashboardHosts
+  );
+
+  # Glance icon prefixes, see https://github.com/glanceapp/glance/blob/main/docs/configuration.md#icons
+  iconUrl = icon: let
+    prefix = lib.head (lib.splitString ":" icon);
+    name = lib.removePrefix "${prefix}:" icon;
+    extension = lib.last (lib.splitString "." name);
+  in
+    {
+      di =
+        if lib.hasInfix "." name
+        then "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/${extension}/${name}"
+        else "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${name}.svg";
+      mdi = "https://api.iconify.design/mdi/${name}.svg?color=%23888888";
+      si = "https://cdn.jsdelivr.net/npm/simple-icons/icons/${name}.svg";
+    }
+    .${
+      prefix
+    }
+    or icon;
+
+  iconCell = site: lib.optionalString (site.icon != null) ''<img src="${iconUrl site.icon}" width="20" height="20">'';
+
+  header = ["" "Service" "Group" "Host"];
+  rows = map (site: [(iconCell site) "[${site.title}](${site.url})" site.group "`${site.host}`"]) sites;
 
   widths = lib.genList (
     column: lib.foldl' lib.max 3 (map (row: lib.stringLength (lib.elemAt row column)) ([header] ++ rows))
