@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   settings,
   host,
   ...
@@ -35,6 +36,18 @@
     ++ lintServers
     ++ ["..."];
   flake = ''(builtins.getFlake "${dotfilesDirectory}")'';
+
+  ssh_connections = lib.pipe inputs.self.clan.inventory.machines [
+    (lib.filterAttrs (_: machine: lib.elem "server" (machine.tags or [])))
+    (lib.mapAttrsToList (name: machine: let
+      target = lib.splitString "@" machine.deploy.targetHost;
+    in {
+      nickname = name;
+      host = lib.last target;
+      username = lib.head target;
+      projects = [];
+    }))
+  ];
 in {
   options.modules.dev.zed = {
     enable = lib.mkEnableOption "Enable Zed editor";
@@ -55,6 +68,8 @@ in {
         "astro"
         "basher"
         "csharp"
+        "dockerfile"
+        "git-firefly"
         "html"
         "just"
         "lua"
@@ -62,9 +77,11 @@ in {
         "nix"
         "oxc"
         "svelte"
+        "sql"
         "terraform"
         "toml"
         "tsgo"
+        "typos"
         "xml"
         "zig"
       ];
@@ -78,6 +95,8 @@ in {
         # c#
         roslyn-ls
         csharpier
+        # docker
+        dockerfile-language-server
         # go
         gopls
         gofumpt
@@ -114,6 +133,8 @@ in {
         taplo
         # xml
         lemminx
+        # spelling
+        typos-lsp
         # yaml
         yaml-language-server
         # zig
@@ -128,14 +149,40 @@ in {
         format_on_save = "on";
         soft_wrap = "editor_width";
         load_direnv = "direct";
+        disable_ai = true;
+        telemetry = {
+          diagnostics = false;
+          metrics = false;
+        };
+
+        relative_line_numbers = true;
+        diagnostics.inline.enabled = true;
+        vim = {
+          use_system_clipboard = "on_yank";
+          use_smartcase_find = true;
+        };
+
+        # zed's defaults plus nix artifacts
+        file_scan_exclusions = [
+          "**/.git"
+          "**/.svn"
+          "**/.hg"
+          "**/.jj"
+          "**/CVS"
+          "**/.DS_Store"
+          "**/Thumbs.db"
+          "**/.classpath"
+          "**/.settings"
+          "**/.direnv"
+          "**/result"
+          "**/result-*"
+        ];
+
+        inherit ssh_connections;
 
         project_panel.dock = "left";
         outline_panel.dock = "left";
         git_panel.dock = "left";
-        agent = {
-          dock = "right";
-          button = false;
-        };
 
         languages =
           lib.genAttrs [
@@ -237,7 +284,38 @@ in {
             "space d s" = "editor::Hover";
             "space r s" = "editor::RestartLanguageServer";
             "g D" = "editor::GoToDeclaration";
+            "space f f" = "file_finder::Toggle";
+            "space f s" = "pane::DeploySearch";
+            "space g b" = "git::Branch";
+            "space g g" = ["task::Spawn" {task_name = "lazygit";}];
           };
+        }
+      ];
+
+      userTasks = [
+        {
+          label = "lazygit";
+          command = "lazygit";
+          cwd = "$ZED_WORKTREE_ROOT";
+          use_new_terminal = true;
+          allow_concurrent_runs = true;
+          reveal_target = "center";
+          hide = "on_success";
+        }
+        {
+          label = "nix fmt";
+          command = "nix fmt";
+          cwd = "$ZED_WORKTREE_ROOT";
+        }
+        {
+          label = "nix flake check";
+          command = "nix flake check";
+          cwd = "$ZED_WORKTREE_ROOT";
+        }
+        {
+          label = "just";
+          command = "just";
+          cwd = "$ZED_WORKTREE_ROOT";
         }
       ];
     };
