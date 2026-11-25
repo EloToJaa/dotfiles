@@ -15,7 +15,7 @@
     glance.icon = "di:atuin";
     gatus = {
       name = "Atuin";
-      group = "apps";
+      group = "services";
       path = "/healthz";
     };
   };

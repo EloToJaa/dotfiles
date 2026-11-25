@@ -16,7 +16,7 @@
     glance.icon = "mdi:calendar-sync";
     gatus = {
       name = "Xandikos";
-      group = "apps";
+      group = "services";
       conditions = ["[STATUS] == any(200, 401)"];
     };
   };
