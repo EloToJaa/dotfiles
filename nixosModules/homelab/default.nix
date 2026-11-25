@@ -87,6 +87,7 @@ in {
     ./cliproxyapi
     ./forgejo
     ./gatus
+    ./glance
     ./grafana
     ./harmonia
     ./home-assistant

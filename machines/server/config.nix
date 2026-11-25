@@ -28,6 +28,7 @@
       auth.enable = true;
       hosts = ["worker"];
     };
+    glance.enable = true;
     grafana = {
       enable = true;
       auth.enable = true;
