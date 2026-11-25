@@ -1076,6 +1076,7 @@
         "srvos": "srvos",
         "treefmt-nix": "treefmt-nix_4",
         "umbriel": "umbriel",
+        "unifi-mcp": "unifi-mcp",
         "uv2nix": "uv2nix_2",
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel",
         "yamtrack": "yamtrack",
@@ -1368,6 +1369,23 @@
       "original": {
         "owner": "noctalia-dev",
         "repo": "umbriel",
+        "type": "github"
+      }
+    },
+    "unifi-mcp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795551761,
+        "narHash": "sha256-D7jNmKi00Ss+qD9rH8cYsSGuw1BZALtkwopNWgguQjU=",
+        "owner": "sirkirby",
+        "repo": "unifi-mcp",
+        "rev": "11354d57b9a67616a0485e5346ad49fa2c909e5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sirkirby",
+        "ref": "network/v0.50.3",
+        "repo": "unifi-mcp",
         "type": "github"
       }
     },

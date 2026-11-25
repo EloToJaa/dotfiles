@@ -185,6 +185,10 @@
       url = "github:nix-community/bun2nix/2.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    unifi-mcp = {
+      url = "github:sirkirby/unifi-mcp/network/v0.50.3";
+      flake = false;
+    };
     yamtrack = {
       url = "github:FuzzyGrim/Yamtrack/v0.26.3";
       flake = false;
