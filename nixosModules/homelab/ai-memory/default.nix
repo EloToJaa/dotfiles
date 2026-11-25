@@ -16,7 +16,7 @@
     glance.icon = "mdi:brain";
     gatus = {
       name = "ai-memory";
-      group = "apps";
+      group = "ai";
       path = "/healthz";
     };
   };
