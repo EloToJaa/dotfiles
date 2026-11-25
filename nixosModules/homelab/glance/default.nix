@@ -53,12 +53,13 @@
     };
   };
 
+  hostGlance = host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.glance;
+
   sites =
     cfg.sites
-    ++ lib.concatMap (
-      host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.glance.sites
-    )
-    cfg.hosts;
+    ++ lib.concatMap (host: (hostGlance host).sites) (
+      lib.filter (host: (hostGlance host).listed) cfg.hosts
+    );
 
   toGlanceSite = site:
     {
@@ -84,6 +85,11 @@ in {
         type = types.listOf types.str;
         default = [];
         description = "Other hosts whose Glance sites are shown on this dashboard.";
+      };
+      listed = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether this host's sites are shown on other hosts' dashboards and in the README service list. Disable while the host is offline.";
       };
       sites = mkOption {
         type = types.listOf siteType;

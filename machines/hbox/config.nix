@@ -23,5 +23,6 @@
       auth.enable = true;
     };
     stalwart.enable = true;
+    glance.listed = false;
   };
 }
