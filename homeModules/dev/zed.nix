@@ -126,6 +126,8 @@ in {
         ui_font_family = "JetBrains Mono";
         vim_mode = true;
         format_on_save = "on";
+        soft_wrap = "editor_width";
+        load_direnv = "direct";
 
         project_panel.dock = "left";
         outline_panel.dock = "left";
