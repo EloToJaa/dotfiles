@@ -13,7 +13,7 @@
   platform = builtins.getAttr stdenv.hostPlatform.system {
     x86_64-linux = {
       suffix = "linux-amd64";
-      hash = "sha256-8QlUVETCl7UYf9kJIYFASGZIj7EU/4cjM3dOCcPLToM=";
+      hash = "sha256-wiJtMbhIt5hUHJQ/08fGeExldg8jzpgcrWvDe9q9te4=";
     };
     aarch64-linux = {
       suffix = "linux-arm64";
@@ -23,7 +23,7 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "cleanuparr";
-    version = "2.11.1";
+    version = "2.11.2";
 
     src = fetchurl {
       url = "https://github.com/Cleanuparr/Cleanuparr/releases/download/v${finalAttrs.version}/Cleanuparr-${finalAttrs.version}-${platform.suffix}.zip";
