@@ -77,6 +77,7 @@ in {
   };
   imports = [
     ./ai-memory
+    ./backup.nix
     ./alloy
     ./atuin
     ./authelia
