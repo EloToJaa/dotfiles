@@ -17,12 +17,9 @@ Homelab services, also shown on the [Glance dashboard](https://home.server.eloto
 | <img src="https://api.iconify.design/mdi/brain.svg?color=%23888888" width="20" height="20">                       | [ai-memory](https://memory.server.elotoja.com)          | apps           | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/atuin.svg" width="20" height="20">          | [Atuin](https://atuin.server.elotoja.com)               | apps           | `server` |
 | <img src="https://api.iconify.design/mdi/api.svg?color=%23888888" width="20" height="20">                         | [CLI Proxy API](https://hub.server.elotoja.com)         | apps           | `server` |
-| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/forgejo.svg" width="20" height="20">        | [Forgejo](https://git.elotoja.com)                      | apps           | `hbox`   |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/immich.svg" width="20" height="20">         | [Immich](https://photos.server.elotoja.com)             | apps           | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/karakeep.svg" width="20" height="20">       | [Karakeep](https://hoarder.server.elotoja.com)          | apps           | `server` |
-| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/matrix.svg" width="20" height="20">         | [Matrix](https://matrix.elotoja.com)                    | apps           | `hbox`   |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/paperless-ngx.svg" width="20" height="20">  | [Paperless-ngx](https://docs.server.elotoja.com)        | apps           | `server` |
-| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/stalwart.svg" width="20" height="20">       | [Stalwart](https://mail.elotoja.com)                    | apps           | `hbox`   |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/vaultwarden.svg" width="20" height="20">    | [Vaultwarden](https://pwd.server.elotoja.com)           | apps           | `server` |
 | <img src="https://api.iconify.design/mdi/calendar-sync.svg?color=%23888888" width="20" height="20">               | [Xandikos](https://dav.server.elotoja.com)              | apps           | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/yamtrack.svg" width="20" height="20">       | [Yamtrack](https://track.server.elotoja.com)            | apps           | `server` |

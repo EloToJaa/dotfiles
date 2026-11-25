@@ -30,7 +30,7 @@
     };
     glance = {
       enable = true;
-      hosts = ["worker" "hbox"];
+      hosts = ["worker"];
     };
     grafana = {
       enable = true;
