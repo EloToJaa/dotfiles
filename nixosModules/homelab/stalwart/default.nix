@@ -83,6 +83,16 @@ in {
       };
     };
 
+    modules.homelab.glance.sites = [
+      {
+        title = "Stalwart";
+        group = "apps";
+        url = "https://${domain}";
+        checkUrl = "https://${domain}/healthz/ready";
+        icon = "di:stalwart";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Stalwart";

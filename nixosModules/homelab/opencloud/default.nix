@@ -13,6 +13,7 @@
     port = 9200;
     description = "Enable OpenCloud";
     domainName = "cloud";
+    glance.icon = "di:open-cloud";
     gatus = {
       name = "OpenCloud";
       group = "apps";

@@ -26,6 +26,16 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.glance.sites = [
+      {
+        title = "pgAdmin";
+        group = "infrastructure";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        checkUrl = "https://${cfg.domainName}.${homelab.baseDomain}/misc/ping";
+        icon = "di:pgadmin";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "pgAdmin";

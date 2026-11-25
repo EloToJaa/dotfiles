@@ -11,6 +11,7 @@
     inherit lib config;
     name = "radarr";
     port = 7878;
+    glance.icon = "di:radarr";
     gatus = {
       name = "Radarr";
       group = "media";

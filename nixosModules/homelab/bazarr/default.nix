@@ -11,6 +11,7 @@
     inherit lib config;
     name = "bazarr";
     port = 6767;
+    glance.icon = "di:bazarr";
     gatus = {
       name = "Bazarr";
       group = "media";

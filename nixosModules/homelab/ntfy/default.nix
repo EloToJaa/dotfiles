@@ -12,6 +12,7 @@
     name = "ntfy";
     port = 3005;
     serviceName = "ntfy-sh";
+    glance.icon = "di:ntfy";
     gatus = {
       name = "ntfy";
       group = "monitoring";

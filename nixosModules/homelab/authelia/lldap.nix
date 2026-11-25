@@ -28,6 +28,16 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.glance.sites = [
+      {
+        title = "lldap";
+        group = "auth";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        checkUrl = "https://${cfg.domainName}.${homelab.baseDomain}/health";
+        icon = "di:lldap";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "lldap";

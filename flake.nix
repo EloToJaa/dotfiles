@@ -14,6 +14,7 @@
         inputs.devshell.flakeModule
         inputs.treefmt-nix.flakeModule
         ./ci/nixbot.nix
+        ./ci/readme.nix
         ./lib
         ./settings.nix
         ./machines/flake-module.nix

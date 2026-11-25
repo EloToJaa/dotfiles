@@ -13,6 +13,7 @@
     description = "Enable ai-memory, the shared long-term memory server for AI agents";
     domainName = "memory";
     proxyWebsockets = false;
+    glance.icon = "mdi:brain";
     gatus = {
       name = "ai-memory";
       group = "apps";

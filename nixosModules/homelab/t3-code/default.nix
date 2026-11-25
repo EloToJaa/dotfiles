@@ -22,6 +22,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.homelab.glance.sites = [
+      {
+        title = "T3 Code";
+        group = "ci";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        icon = "di:t3-chat.png";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "T3 Code";

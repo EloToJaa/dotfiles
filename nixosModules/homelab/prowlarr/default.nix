@@ -11,6 +11,7 @@
     inherit lib config;
     name = "prowlarr";
     port = 9696;
+    glance.icon = "di:prowlarr";
     gatus = {
       name = "Prowlarr";
       group = "media";

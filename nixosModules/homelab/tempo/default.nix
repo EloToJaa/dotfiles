@@ -14,6 +14,7 @@
     port = 3200;
     description = "Grafana Tempo, storing traces and deriving span metrics into Prometheus";
     proxyWebsockets = false;
+    glance.icon = "di:tempo";
     gatus = {
       name = "Tempo";
       group = "monitoring";

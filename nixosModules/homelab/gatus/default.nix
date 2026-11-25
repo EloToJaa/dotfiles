@@ -14,6 +14,11 @@
     port = 3011;
     domainName = "status";
     dataDir = false;
+    glance = {
+      title = "Gatus";
+      group = "monitoring";
+      icon = "di:gatus";
+    };
   };
 in {
   options.modules.homelab.gatus =

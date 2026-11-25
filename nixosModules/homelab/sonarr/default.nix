@@ -11,6 +11,7 @@
     inherit lib config;
     name = "sonarr";
     port = 8989;
+    glance.icon = "di:sonarr";
     gatus = {
       name = "Sonarr";
       group = "media";

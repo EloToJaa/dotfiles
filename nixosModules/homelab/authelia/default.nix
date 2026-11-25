@@ -16,6 +16,7 @@
     domainName = "auth";
     dataDir = false;
     mainDomain = true;
+    glance.icon = "di:authelia";
     gatus = {
       name = "Authelia";
       group = "auth";

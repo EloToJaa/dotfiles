@@ -214,6 +214,10 @@ in {
   to put it behind Authelia (see `mkForwardAuth`). Either way the service gets
   `forwardAuth.enable` and `forwardAuth.bypass` options. A non-empty Gatus `path` is
   bypassed too, so the health check keeps reaching the service.
+
+  `glance` is `null` to leave the service off the Glance dashboard, otherwise
+  `{ icon ? null, title ? gatus.name, group ? gatus.group, description ? null }`,
+  added to `modules.homelab.glance.sites` with the Gatus URL as its status check.
   */
   mkHomelabService = {
     lib,
@@ -229,6 +233,7 @@ in {
     gatus ? null,
     umaskUnits ? [],
     forwardAuth ? null,
+    glance ? null,
   }: let
     inherit (config.modules) homelab;
     cfg = homelab.${name};
@@ -281,6 +286,15 @@ in {
           inherit (gatus) name group;
           url = "https://${domain}${gatus.path or ""}";
           conditions = gatus.conditions or ["[STATUS] == 200"];
+        };
+
+        modules.homelab.glance.sites = lib.optional (glance != null) {
+          title = glance.title or gatus.name;
+          group = glance.group or gatus.group;
+          url = "https://${domain}";
+          checkUrl = "https://${domain}${gatus.path or ""}";
+          icon = glance.icon or null;
+          description = glance.description or null;
         };
 
         systemd.services = lib.genAttrs umaskUnits (_: {

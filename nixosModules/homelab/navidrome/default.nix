@@ -13,6 +13,7 @@
     port = 4533;
     domainName = "music";
     mainDomain = true;
+    glance.icon = "di:navidrome";
     gatus = {
       name = "Navidrome";
       group = "media";

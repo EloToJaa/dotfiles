@@ -12,6 +12,7 @@
     name = "qbittorrent";
     port = 8181;
     domainName = "qbit";
+    glance.icon = "di:qbittorrent";
     gatus = {
       name = "qBittorrent";
       group = "media";

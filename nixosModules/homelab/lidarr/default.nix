@@ -11,6 +11,7 @@
     inherit lib config;
     name = "lidarr";
     port = 8686;
+    glance.icon = "di:lidarr";
     gatus = {
       name = "Lidarr";
       group = "media";

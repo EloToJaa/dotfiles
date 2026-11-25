@@ -28,6 +28,10 @@
       auth.enable = true;
       hosts = ["worker"];
     };
+    glance = {
+      enable = true;
+      hosts = ["worker" "hbox"];
+    };
     grafana = {
       enable = true;
       auth.enable = true;

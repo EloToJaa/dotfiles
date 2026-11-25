@@ -54,6 +54,16 @@ in {
         session.COOKIE_SECURE = true;
       };
     };
+    modules.homelab.glance.sites = [
+      {
+        title = "Forgejo";
+        group = "apps";
+        url = "https://${domain}";
+        checkUrl = "https://${domain}/api/healthz";
+        icon = "di:forgejo";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Forgejo";

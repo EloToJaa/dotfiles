@@ -12,6 +12,7 @@
     name = "vaultwarden";
     port = 8222;
     domainName = "pwd";
+    glance.icon = "di:vaultwarden";
     gatus = {
       name = "Vaultwarden";
       group = "apps";
