@@ -16,6 +16,7 @@
     domainName = "cache";
     dataDir = false;
     proxyWebsockets = false;
+    glance.icon = "di:nixos";
     gatus = {
       name = "Harmonia";
       group = "ci";

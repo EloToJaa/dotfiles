@@ -14,6 +14,7 @@
     description = "Enable qui, a qBittorrent web UI";
     domainName = "download";
     dataDir = false;
+    glance.icon = "di:qui";
     gatus = {
       name = "qui";
       group = "media";

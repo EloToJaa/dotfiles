@@ -13,6 +13,7 @@
     port = 3009;
     description = "Enable Streamystats";
     domainName = "stats";
+    glance.icon = "di:streamystats";
     gatus = {
       name = "Streamystats";
       group = "media";

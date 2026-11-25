@@ -222,6 +222,16 @@ in {
         }
       ];
 
+      modules.homelab.glance.sites = [
+        {
+          title = "Alertmanager";
+          group = "monitoring";
+          url = "https://${domain}";
+          checkUrl = "https://${domain}/-/healthy";
+          icon = "di:alertmanager";
+        }
+      ];
+
       modules.homelab.gatus.endpoints = [
         {
           name = "Alertmanager";

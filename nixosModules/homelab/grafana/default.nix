@@ -11,6 +11,7 @@
     inherit lib config;
     name = "grafana";
     port = 3002;
+    glance.icon = "di:grafana";
     gatus = {
       name = "Grafana";
       group = "monitoring";

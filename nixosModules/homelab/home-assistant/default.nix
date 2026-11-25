@@ -15,6 +15,7 @@
     serviceName = "hass";
     description = "Enable Home Assistant";
     domainName = "hass";
+    glance.icon = "di:home-assistant";
     gatus = {
       name = "Home Assistant";
       group = "home";

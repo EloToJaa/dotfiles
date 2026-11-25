@@ -15,6 +15,7 @@
     description = "Enable Zigbee2MQTT";
     domainName = "z2m";
     dataDir = false;
+    glance.icon = "di:zigbee2mqtt";
     gatus = {
       name = "Zigbee2MQTT";
       group = "home";

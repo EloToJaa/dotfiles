@@ -57,3 +57,7 @@ deploy +hosts:
 # Deploy all hosts
 deploy-all:
     clan machines update
+
+# Regenerate the homelab service list in README.md
+readme:
+    nix run .#readme-services -- README.md

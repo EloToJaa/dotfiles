@@ -13,6 +13,7 @@
     port = 5055;
     domainName = "request";
     dataDir = false;
+    glance.icon = "di:jellyseerr";
     gatus = {
       name = "Seerr";
       group = "media";

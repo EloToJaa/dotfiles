@@ -12,6 +12,7 @@
     name = "jellyfin";
     port = 8096;
     domainName = "watch";
+    glance.icon = "di:jellyfin";
     gatus = {
       name = "Jellyfin";
       group = "media";

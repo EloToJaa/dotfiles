@@ -12,6 +12,7 @@
     inherit lib config;
     name = "cleanuparr";
     port = 11011;
+    glance.icon = "di:cleanuparr.png";
     gatus = {
       name = "Cleanuparr";
       group = "media";

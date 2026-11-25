@@ -11,6 +11,7 @@
     inherit lib config;
     name = "loki";
     port = 3100;
+    glance.icon = "di:loki";
     gatus = {
       name = "Loki";
       group = "monitoring";

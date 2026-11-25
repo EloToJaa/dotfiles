@@ -13,6 +13,7 @@
     name = "xandikos";
     port = 3006;
     domainName = "dav";
+    glance.icon = "mdi:calendar-sync";
     gatus = {
       name = "Xandikos";
       group = "apps";

@@ -28,6 +28,16 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
+      modules.homelab.glance.sites = [
+        {
+          title = "Nixbot";
+          group = "ci";
+          url = "https://${cfg.domainName}.${homelab.mainDomain}";
+          checkUrl = "https://${cfg.domainName}.${homelab.mainDomain}/health";
+          icon = "di:nixos";
+        }
+      ];
+
       modules.homelab.gatus.endpoints = [
         {
           name = "Nixbot";

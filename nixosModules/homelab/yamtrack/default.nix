@@ -14,6 +14,7 @@
     port = 3008;
     description = "Enable Yamtrack";
     domainName = "track";
+    glance.icon = "di:yamtrack";
     gatus = {
       name = "Yamtrack";
       group = "apps";

@@ -13,6 +13,7 @@
     port = 8317;
     description = "Enable CLIProxyAPI";
     domainName = "hub";
+    glance.icon = "mdi:api";
     gatus = {
       name = "CLI Proxy API";
       group = "apps";

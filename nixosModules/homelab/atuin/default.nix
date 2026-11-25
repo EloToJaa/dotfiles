@@ -12,6 +12,7 @@
     name = "atuin";
     port = 8888;
     dataDir = false;
+    glance.icon = "di:atuin";
     gatus = {
       name = "Atuin";
       group = "apps";

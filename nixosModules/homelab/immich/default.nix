@@ -51,6 +51,16 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    modules.homelab.glance.sites = [
+      {
+        title = "Immich";
+        group = "apps";
+        url = "https://${cfg.domainName}.${homelab.baseDomain}";
+        checkUrl = "https://${cfg.domainName}.${homelab.baseDomain}/api/server/ping";
+        icon = "di:immich";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Immich";

@@ -13,6 +13,7 @@
     name = "prometheus";
     port = 9090;
     dataDir = false;
+    glance.icon = "di:prometheus";
     gatus = {
       name = "Prometheus";
       group = "monitoring";

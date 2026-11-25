@@ -12,6 +12,7 @@
     name = "karakeep";
     port = 3003;
     domainName = "hoarder";
+    glance.icon = "di:karakeep";
     gatus = {
       name = "Karakeep";
       group = "apps";

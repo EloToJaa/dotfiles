@@ -67,6 +67,16 @@ in {
       }
     ];
 
+    modules.homelab.glance.sites = [
+      {
+        title = "Matrix";
+        group = "apps";
+        url = "https://${domain}";
+        checkUrl = "https://${domain}/_matrix/client/versions";
+        icon = "di:matrix";
+      }
+    ];
+
     modules.homelab.gatus.endpoints = [
       {
         name = "Matrix";

@@ -12,6 +12,7 @@
     name = "paperless";
     port = 28981;
     domainName = "docs";
+    glance.icon = "di:paperless-ngx";
     gatus = {
       name = "Paperless-ngx";
       group = "apps";
