@@ -9,6 +9,10 @@
     ai-memory.enable = true;
     atuin.enable = true;
     authelia.enable = true;
+    backup.snapshots = {
+      enable = true;
+      jobs = ["storagebox"];
+    };
     lldap.enable = true;
     bazarr.enable = true;
     blocky.enable = true;
