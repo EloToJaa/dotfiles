@@ -102,6 +102,44 @@ in {
       };
       files.token = {inherit owner group;};
     };
+    truenas-mcp = lib.mkIf hm.modules.ai.truenas.enable {
+      share = true;
+      prompts.api-key = {
+        description = "TrueNAS API key (Read-Only Administrator) for the TrueNAS MCP server";
+        type = "hidden";
+        persist = true;
+      };
+      files.api-key = {inherit owner group;};
+    };
+    unifi-mcp = lib.mkIf hm.modules.ai.unifi.enable {
+      share = true;
+      prompts = {
+        username = {
+          description = "UniFi OS local admin username for the UniFi Network MCP server";
+          persist = true;
+        };
+        password = {
+          description = "UniFi OS local admin password for the UniFi Network MCP server";
+          type = "hidden";
+          persist = true;
+        };
+      };
+      files = {
+        username.deploy = false;
+        password.deploy = false;
+      };
+    };
+    unifi-mcp-settings = lib.mkIf hm.modules.ai.unifi.enable {
+      share = true;
+      dependencies = ["unifi-mcp"];
+      files."settings.env" = {inherit owner group;};
+      script = ''
+        {
+          printf 'UNIFI_NETWORK_USERNAME=%s\n' "$(cat "$in/unifi-mcp/username")"
+          printf 'UNIFI_NETWORK_PASSWORD=%s\n' "$(cat "$in/unifi-mcp/password")"
+        } > "$out/settings.env"
+      '';
+    };
     t3code-hub = lib.mkIf hm.modules.ai.t3-code.enable {
       share = true;
       prompts.management-key = {

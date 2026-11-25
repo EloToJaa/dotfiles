@@ -29,6 +29,12 @@ elif [[ $kind == input ]]; then
     prefix=github:nix-community/bun2nix/
     suffix=
     ;;
+  unifi-mcp)
+    upstream=https://github.com/sirkirby/unifi-mcp.git
+    pattern='^network/v[0-9]+\.[0-9]+\.[0-9]+$'
+    prefix=github:sirkirby/unifi-mcp/
+    suffix=
+    ;;
   yamtrack)
     upstream=https://github.com/FuzzyGrim/Yamtrack.git
     pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
@@ -43,14 +49,19 @@ elif [[ $kind == input ]]; then
   old_version=$(grep -oE "${prefix}[^\"]+" flake.nix | head -1)
   old_version=${old_version#"$prefix"}
   old_version=${old_version%"$suffix"}
+  old_version=${old_version#network/}
   old_version=${old_version#v}
   # Only stable release references, never development branches or prereleases.
   tag=$(git ls-remote --refs "--$ref_kind" "$upstream" | sed "s|.*refs/$ref_kind/||" | grep -E "$pattern" | sort -V | tail -1)
   test -n "$tag"
-  new_version=${tag#v}
+  new_version=${tag#network/}
+  new_version=${new_version#v}
   url="$prefix$tag$suffix"
   if [[ $name == clan-core ]]; then
     sed -i -E "s|https://git.clan.lol/clan/clan-core/archive/[^\"]+|$url|" flake.nix
+  elif [[ $name == unifi-mcp ]]; then
+    sed -i -E "s|github:sirkirby/unifi-mcp/[^\"]+|$url|" flake.nix
+    sed -i -E "s|version = \"[^\"]+\";|version = \"$new_version\";|" pkgs/unifi-network-mcp/default.nix
   elif [[ $name == bun2nix ]]; then
     sed -i -E "s|github:nix-community/bun2nix/[^\"]+|$url|" flake.nix
   else
@@ -127,6 +138,8 @@ elif [[ $kind == package ]]; then
   nix build --no-link ".#$name"
 elif [[ $name == yamtrack ]]; then
   nix build --no-link .#yamtrack
+elif [[ $name == unifi-mcp ]]; then
+  nix build --no-link .#unifi-network-mcp
 elif [[ $name == bun2nix ]]; then
   nix build --no-link .#streamystats .#nixosConfigurations.server.config.system.build.toplevel .#nixosConfigurations.desktop.config.system.build.toplevel .#nixosConfigurations.laptop.config.system.build.toplevel
 else

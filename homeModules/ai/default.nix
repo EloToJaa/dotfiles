@@ -26,6 +26,8 @@
     ./pi.nix
     ./skills.nix
     ./t3-code
+    ./truenas.nix
+    ./unifi.nix
     ./virtual-display.nix
     ./workmux.nix
   ];

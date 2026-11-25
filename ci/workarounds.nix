@@ -12,6 +12,10 @@
   };
 
   unmanaged = {
+    unifi-network-mcp = {
+      reason = "Its source is the unifi-mcp flake input, so the input update bumps the source and package metadata together.";
+      removeWhen = "Never, while its source stays a flake input.";
+    };
     yamtrack = {
       reason = "Its source is a flake input, so the input update bumps the source and package metadata together.";
       removeWhen = "Never, while its source stays a flake input.";

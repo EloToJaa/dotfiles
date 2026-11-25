@@ -3,6 +3,7 @@
   pyproject-build-systems,
   pyproject-nix,
   uv2nix,
+  unifi-mcp-src,
   yamtrack-src,
   ...
 }:
@@ -17,6 +18,10 @@
   streamystats = pkgs.callPackage ./streamystats {};
   tapo-control = pkgs.unstable.callPackage ./tapo-control {};
   tmux-smart-splits = pkgs.callPackage ./tmux-smart-splits {};
+  truenas-mcp = pkgs.master.callPackage ./truenas-mcp {};
+  unifi-network-mcp = pkgs.callPackage ./unifi-network-mcp {
+    inherit pyproject-build-systems pyproject-nix uv2nix unifi-mcp-src;
+  };
   dreame-vacuum = pkgs.unstable.callPackage ./dreame-vacuum {};
   zsh-auto-notify = pkgs.callPackage ./zsh-auto-notify {};
   webrtc = pkgs.unstable.callPackage ./webrtc {};

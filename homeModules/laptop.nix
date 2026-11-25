@@ -37,6 +37,8 @@
       enable = lib.mkDefault true;
       memory.enable = lib.mkDefault true;
       grafana.enable = lib.mkDefault true;
+      truenas.enable = lib.mkDefault true;
+      unifi.enable = lib.mkDefault true;
       t3-code.enable = lib.mkDefault true;
       workmux.enable = lib.mkDefault true;
       crash.enable = lib.mkDefault true;
