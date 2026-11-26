@@ -28,6 +28,8 @@ Homelab services, also shown on the [Glance dashboard](https://home.server.eloto
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/home-assistant.svg" width="20" height="20">     | [Home Assistant](https://hass.server.elotoja.com)       | home           | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/zigbee2mqtt.svg" width="20" height="20">        | [Zigbee2MQTT](https://z2m.server.elotoja.com)           | home           | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/pgadmin.svg" width="20" height="20">            | [pgAdmin](https://pgadmin.server.elotoja.com)           | infrastructure | `server` |
+| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/truenas-scale.svg" width="20" height="20">      | [TrueNAS](https://nas.elotoja.com)                      | infrastructure | `server` |
+| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/unifi.svg" width="20" height="20">              | [UniFi](https://unifi.elotoja.com)                      | infrastructure | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/bazarr.svg" width="20" height="20">             | [Bazarr](https://bazarr.server.elotoja.com)             | media          | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/cleanuparr.png" width="20" height="20">         | [Cleanuparr](https://cleanuparr.server.elotoja.com)     | media          | `server` |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg" width="20" height="20">           | [Jellyfin](https://watch.server.elotoja.com)            | media          | `server` |

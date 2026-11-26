@@ -40,6 +40,11 @@
         default = null;
         description = "URL Glance requests for the up/down status, `url` when null";
       };
+      allowInsecure = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Skip TLS certificate verification for the status check";
+      };
       icon = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -66,6 +71,7 @@
       inherit (site) title url;
     }
     // lib.optionalAttrs (site.checkUrl != null) {check-url = site.checkUrl;}
+    // lib.optionalAttrs site.allowInsecure {allow-insecure = true;}
     // lib.optionalAttrs (site.icon != null) {inherit (site) icon;}
     // lib.optionalAttrs (site.description != null) {inherit (site) description;};
 
