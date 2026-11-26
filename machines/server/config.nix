@@ -27,10 +27,41 @@
       enable = true;
       auth.enable = true;
       hosts = ["worker"];
+      endpoints = [
+        {
+          name = "TrueNAS";
+          group = "infrastructure";
+          url = "https://nas.elotoja.com";
+          conditions = ["[STATUS] < 400"];
+        }
+        {
+          name = "UniFi";
+          group = "infrastructure";
+          url = "https://unifi.elotoja.com/api/ping";
+          client.insecure = true;
+          conditions = ["[STATUS] == 204"];
+        }
+      ];
     };
     glance = {
       enable = true;
       hosts = ["worker" "hbox"];
+      sites = [
+        {
+          title = "TrueNAS";
+          group = "infrastructure";
+          url = "https://nas.elotoja.com";
+          icon = "di:truenas-scale";
+        }
+        {
+          title = "UniFi";
+          group = "infrastructure";
+          url = "https://unifi.elotoja.com";
+          checkUrl = "https://unifi.elotoja.com/api/ping";
+          allowInsecure = true;
+          icon = "di:unifi";
+        }
+      ];
     };
     grafana = {
       enable = true;

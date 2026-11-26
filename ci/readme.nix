@@ -8,9 +8,11 @@
 
   glanceConfig = host: self.nixosConfigurations.${host}.config.modules.homelab.glance;
 
-  dashboardHosts = lib.unique (
-    lib.concatMap (host: [host] ++ (glanceConfig host).hosts) (
-      lib.filter (host: (glanceConfig host).enable) (lib.attrNames self.nixosConfigurations)
+  dashboardHosts = lib.filter (host: (glanceConfig host).listed) (
+    lib.unique (
+      lib.concatMap (host: [host] ++ (glanceConfig host).hosts) (
+        lib.filter (host: (glanceConfig host).enable) (lib.attrNames self.nixosConfigurations)
+      )
     )
   );
 

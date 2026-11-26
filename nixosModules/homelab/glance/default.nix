@@ -40,6 +40,11 @@
         default = null;
         description = "URL Glance requests for the up/down status, `url` when null";
       };
+      allowInsecure = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Skip TLS certificate verification for the status check";
+      };
       icon = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -53,18 +58,20 @@
     };
   };
 
+  hostGlance = host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.glance;
+
   sites =
     cfg.sites
-    ++ lib.concatMap (
-      host: inputs.self.nixosConfigurations.${host}.config.modules.homelab.glance.sites
-    )
-    cfg.hosts;
+    ++ lib.concatMap (host: (hostGlance host).sites) (
+      lib.filter (host: (hostGlance host).listed) cfg.hosts
+    );
 
   toGlanceSite = site:
     {
       inherit (site) title url;
     }
     // lib.optionalAttrs (site.checkUrl != null) {check-url = site.checkUrl;}
+    // lib.optionalAttrs site.allowInsecure {allow-insecure = true;}
     // lib.optionalAttrs (site.icon != null) {inherit (site) icon;}
     // lib.optionalAttrs (site.description != null) {inherit (site) description;};
 
@@ -84,6 +91,11 @@ in {
         type = types.listOf types.str;
         default = [];
         description = "Other hosts whose Glance sites are shown on this dashboard.";
+      };
+      listed = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether this host's sites are shown on other hosts' dashboards and in the README service list. Disable while the host is offline.";
       };
       sites = mkOption {
         type = types.listOf siteType;

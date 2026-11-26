@@ -17,7 +17,7 @@
     glance.icon = "di:yamtrack";
     gatus = {
       name = "Yamtrack";
-      group = "apps";
+      group = "media";
       conditions = ["[STATUS] < 400"];
     };
   };

@@ -16,7 +16,7 @@
     glance.icon = "mdi:api";
     gatus = {
       name = "CLI Proxy API";
-      group = "apps";
+      group = "ai";
       conditions = ["[STATUS] < 400"];
     };
   };

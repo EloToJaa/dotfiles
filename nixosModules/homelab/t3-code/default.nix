@@ -25,16 +25,16 @@ in {
     modules.homelab.glance.sites = [
       {
         title = "T3 Code";
-        group = "ci";
+        group = "ai";
         url = "https://${cfg.domainName}.${homelab.baseDomain}";
-        icon = "di:t3-chat.png";
+        icon = "https://cdn.jsdelivr.net/gh/pingdotgg/t3code@main/apps/web/public/icon-192x192.png";
       }
     ];
 
     modules.homelab.gatus.endpoints = [
       {
         name = "T3 Code";
-        group = "ci";
+        group = "ai";
         url = "https://${cfg.domainName}.${homelab.baseDomain}";
         conditions = ["[STATUS] < 400"];
       }
