@@ -41,6 +41,7 @@ in {
         nas = "10.11.0.34";
         slzb = "10.11.0.35";
         worker = "10.11.0.36";
+        unifi = "10.11.0.1";
       };
       description = "LAN IP addresses of homelab devices, keyed by name";
     };

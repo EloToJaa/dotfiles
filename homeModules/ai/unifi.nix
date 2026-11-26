@@ -11,7 +11,8 @@ in {
     enable = lib.mkEnableOption "UniFi Network MCP server, giving agents access to the UniFi gateway, devices and clients (writes stay denied by its default policy gates)";
     host = lib.mkOption {
       type = lib.types.str;
-      default = "10.11.0.1";
+      default = osConfig.modules.homelab.hosts.unifi;
+      defaultText = lib.literalExpression "osConfig.modules.homelab.hosts.unifi";
       description = "UniFi OS console the MCP server connects to";
     };
   };
