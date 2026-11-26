@@ -84,6 +84,10 @@
       url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    luciole = {
+      url = "github:noctalia-dev/luciole";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     rex = {
       url = "https://pkgs.superlogical.com/rex/nix/preview.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

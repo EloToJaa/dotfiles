@@ -12,7 +12,13 @@ with lib; let
     image = ["com.interversehq.qView.desktop"];
     audio = ["mpv.desktop"];
     video = ["mpv.desktop"];
-    directory = ["org.gnome.Nautilus.desktop"];
+    directory = [
+      (
+        if config.modules.desktop.luciole.enable
+        then "dev.noctalia.luciole.desktop"
+        else "org.gnome.Nautilus.desktop"
+      )
+    ];
     office = ["libreoffice.desktop"];
     pdf = ["org.gnome.Papers.desktop"];
     terminal = ["${terminal}.desktop"];

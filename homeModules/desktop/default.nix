@@ -13,6 +13,7 @@
     ./ghostty.nix
     ./gnome.nix # gnome apps
     ./helium.nix # chromium-based browser
+    ./luciole.nix # file manager
     ./gtk.nix # gtk theme
     ./nautilus.nix # file manager
     ./noctalia-shell.nix # desktop shell, launcher and clipboard history

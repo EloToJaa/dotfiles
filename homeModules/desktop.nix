@@ -29,6 +29,7 @@
         enable = lib.mkDefault true;
         applyTheme = lib.mkDefault true;
       };
+      luciole.enable = lib.mkDefault true;
       nautilus.enable = lib.mkDefault true;
       notifications.enable = lib.mkDefault true;
       omnissa-horizon.enable = lib.mkDefault true;
