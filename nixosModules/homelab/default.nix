@@ -37,10 +37,10 @@ in {
       default = {
         kvm = "10.11.0.31";
         server = "10.11.0.32";
-        pve = "10.11.0.33";
         nas = "10.11.0.34";
         slzb = "10.11.0.35";
         worker = "10.11.0.36";
+        unifi = "10.11.0.1";
       };
       description = "LAN IP addresses of homelab devices, keyed by name";
     };

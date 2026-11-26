@@ -152,7 +152,7 @@ in {
               "server.${homelab.mainDomain}" = homelab.hosts.server;
               "worker.${homelab.mainDomain}" = homelab.hosts.worker;
               "nas.${homelab.mainDomain}" = homelab.hosts.nas;
-              "pve.${homelab.mainDomain}" = homelab.hosts.pve;
+              "unifi.${homelab.mainDomain}" = homelab.hosts.unifi;
             };
           };
         };
