@@ -41,6 +41,24 @@ elif [[ $kind == input ]]; then
     prefix=github:FuzzyGrim/Yamtrack/
     suffix=
     ;;
+  agent-browser-skills)
+    upstream=https://github.com/vercel-labs/agent-browser.git
+    pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
+    prefix=github:vercel-labs/agent-browser/
+    suffix=
+    ;;
+  mattpocock-skills)
+    upstream=https://github.com/mattpocock/skills.git
+    pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
+    prefix=github:mattpocock/skills/
+    suffix=
+    ;;
+  workmux-skills)
+    upstream=https://github.com/raine/workmux.git
+    pattern='^v[0-9]+\.[0-9]+\.[0-9]+$'
+    prefix=github:raine/workmux/
+    suffix=
+    ;;
   *)
     echo "Unsupported tagged input: $name" >&2
     exit 1
@@ -64,9 +82,11 @@ elif [[ $kind == input ]]; then
     sed -i -E "s|version = \"[^\"]+\";|version = \"$new_version\";|" pkgs/unifi-network-mcp/default.nix
   elif [[ $name == bun2nix ]]; then
     sed -i -E "s|github:nix-community/bun2nix/[^\"]+|$url|" flake.nix
-  else
+  elif [[ $name == yamtrack ]]; then
     sed -i -E "s|github:FuzzyGrim/Yamtrack/[^\"]+|$url|" flake.nix
     sed -i -E "s|version = \"[^\"]+\";|version = \"${tag#v}\";|; s|/releases/tag/[^\"]+|/releases/tag/$tag|" pkgs/yamtrack/default.nix
+  else
+    sed -i -E "s|${prefix}[^\"]+|$url|" flake.nix
   fi
   # Only refresh the selected release input when its reference changes.
   if git diff --quiet; then exit 0; fi
@@ -85,7 +105,7 @@ else
   dreame-vacuum)
     "${update[@]}" --version=stable --version-regex '^v(2\.[0-9]+\.[0-9]+)$'
     ;;
-  ai-workmux-skills | ai-agent-browser-skills | ai-mattpocock-skills | ai-pi-vim | yazi-ouch)
+  ai-pi-vim | yazi-ouch)
     # Pinned to stable release tags; skip development commits between releases.
     "${update[@]}" --version=stable --version-regex '^v([0-9]+\.[0-9]+\.[0-9]+)$'
     ;;

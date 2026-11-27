@@ -1,5 +1,38 @@
 {
   "nodes": {
+    "agent-browser-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795577151,
+        "narHash": "sha256-KS1GdQJS08DVbnzSGN2py28Sgey6E7ohkBPZU4q6rho=",
+        "owner": "vercel-labs",
+        "repo": "agent-browser",
+        "rev": "f0a98351ec920bd826b22c98dacf8414f04b9832",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vercel-labs",
+        "ref": "v0.45.0",
+        "repo": "agent-browser",
+        "type": "github"
+      }
+    },
+    "anthropic-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794838967,
+        "narHash": "sha256-Gr9LatjawHHK9uKpoclWoiDHZ0NTpP3/4Pmeatl8p/Q=",
+        "owner": "anthropics",
+        "repo": "skills",
+        "rev": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anthropics",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "bun2nix": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -505,6 +538,23 @@
       "original": {
         "owner": "noctalia-dev",
         "repo": "luciole",
+        "type": "github"
+      }
+    },
+    "mattpocock-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793269649,
+        "narHash": "sha256-ej0ATi0BWaAx+83dBwgCQxr9J2L2qEwKhUIeIRJ03Go=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "d1478fcb140db0b93c0c8df17bcfd311844749d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "ref": "v1.3.2",
+        "repo": "skills",
         "type": "github"
       }
     },
@@ -1064,6 +1114,8 @@
     },
     "root": {
       "inputs": {
+        "agent-browser-skills": "agent-browser-skills",
+        "anthropic-skills": "anthropic-skills",
         "bun2nix": "bun2nix",
         "catppuccin": "catppuccin",
         "clan-core": "clan-core",
@@ -1075,6 +1127,7 @@
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
         "luciole": "luciole",
+        "mattpocock-skills": "mattpocock-skills",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
         "nixbot": "nixbot",
@@ -1096,9 +1149,11 @@
         "spicetify-nix": "spicetify-nix",
         "srvos": "srvos",
         "treefmt-nix": "treefmt-nix_4",
+        "tstack-skills": "tstack-skills",
         "umbriel": "umbriel",
         "unifi-mcp": "unifi-mcp",
         "uv2nix": "uv2nix_2",
+        "workmux-skills": "workmux-skills",
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel",
         "yamtrack": "yamtrack",
         "zen-browser": "zen-browser"
@@ -1370,6 +1425,22 @@
         "type": "github"
       }
     },
+    "tstack-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794396782,
+        "narHash": "sha256-1N0fxvcM44NcGOZeYJiX/EAJuI9GoAj5rEXmu7mJc3w=",
+        "owner": "t3dotgg",
+        "repo": "tstack",
+        "rev": "11e37a74d0a6868c121cd0910ab2b3bd9873b92a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "t3dotgg",
+        "repo": "tstack",
+        "type": "github"
+      }
+    },
     "umbriel": {
       "inputs": {
         "nixpkgs": [
@@ -1473,6 +1544,23 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
+        "type": "github"
+      }
+    },
+    "workmux-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795273019,
+        "narHash": "sha256-UHfMPyxXVB+aSwKiQ6LJnW+giXKaXpDAounPlXlfE6g=",
+        "owner": "raine",
+        "repo": "workmux",
+        "rev": "748997d6e9a6cf4d8f25035ee996f85251bd65a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "raine",
+        "ref": "v0.1.284",
+        "repo": "workmux",
         "type": "github"
       }
     },

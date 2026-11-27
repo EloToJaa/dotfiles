@@ -156,6 +156,14 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    anthropic-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
+    };
+    tstack-skills = {
+      url = "github:t3dotgg/tstack";
+      flake = false;
+    };
 
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
@@ -196,6 +204,18 @@
     };
     yamtrack = {
       url = "github:FuzzyGrim/Yamtrack/v0.26.3";
+      flake = false;
+    };
+    agent-browser-skills = {
+      url = "github:vercel-labs/agent-browser/v0.45.0";
+      flake = false;
+    };
+    mattpocock-skills = {
+      url = "github:mattpocock/skills/v1.3.2";
+      flake = false;
+    };
+    workmux-skills = {
+      url = "github:raine/workmux/v0.1.284";
       flake = false;
     };
   };
