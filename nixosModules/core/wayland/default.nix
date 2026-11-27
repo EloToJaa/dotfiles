@@ -7,12 +7,14 @@
 in {
   imports = [
     ./greeter.nix
+    ./luciole.nix
     ./umbriel.nix
   ];
 
   options.modules.core.wayland = {
     enable = lib.mkEnableOption "Enable wayland module";
     umbriel.enable = lib.mkEnableOption "Enable umbriel";
+    luciole.enable = lib.mkEnableOption "Register the Luciole file picker portal";
   };
 
   config = lib.mkIf (config.modules.core.enable && cfg.enable) {

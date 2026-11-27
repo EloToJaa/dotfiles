@@ -6,6 +6,7 @@
     inputs.zen-browser.homeModules.default
 
     inputs.noctalia.homeModules.default
+    inputs.luciole.homeModules.default
     inputs.umbriel.homeModules.default
     inputs.noctalia-monitors.homeModules.default
     inputs.rex.homeManagerModules.default

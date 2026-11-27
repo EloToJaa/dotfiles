@@ -123,7 +123,13 @@
     "Mod+d" = spawn [discord];
     "Mod+b" = spawn ["zen-beta"];
     "Mod+Shift+b" = spawn ["bar-visibility" "cycle"];
-    "Mod+e" = spawn ["nautilus"];
+    "Mod+e" = spawn [
+      (
+        if config.modules.desktop.luciole.enable
+        then "luciole"
+        else "nautilus"
+      )
+    ];
     "Mod+s" = spawn ["spotify"];
     "Mod+Return" = once (spawn ["ghostty" "+new-window"]);
     "Mod+Shift+n" = spawn ["gnome-text-editor"];

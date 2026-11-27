@@ -51,6 +51,7 @@
       wayland = {
         enable = lib.mkDefault true;
         umbriel.enable = lib.mkDefault true;
+        luciole.enable = lib.mkDefault true;
       };
     };
     homelab.groups.enable = lib.mkDefault true;
