@@ -21,7 +21,10 @@ in {
       cache.enable = true;
       # https://github.com/catppuccin/nix/issues/1012
       sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (_: _: {
-        whiskers = pkgs.unstable.catppuccin-whiskers;
+        whiskers = with pkgs;
+          if lib.versionOlder unstable.catppuccin-whiskers.version master.catppuccin-whiskers.version
+          then master.catppuccin-whiskers
+          else unstable.catppuccin-whiskers;
       });
     };
   };
