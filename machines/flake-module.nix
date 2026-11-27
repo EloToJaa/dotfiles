@@ -5,6 +5,10 @@
   ...
 }: let
   inherit (config.settings) username;
+  storagebox = directory: {
+    repo = "u441859-sub1@u441859-sub1.your-storagebox.de:/./${directory}";
+    rsh = "ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh";
+  };
 in {
   flake.clan = {
     meta = {
@@ -60,12 +64,18 @@ in {
             name = "borgbackup";
             input = "clan-core";
           };
-          roles.client.machines.server.settings = {
-            destinations.storagebox = {
-              repo = "u441859-sub1@u441859-sub1.your-storagebox.de:/./borgbackup";
-              rsh = ''ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh'';
+          roles.client = {
+            extraModules = [./borgbackup.nix];
+            machines = {
+              server.settings = {
+                destinations.storagebox = storagebox "borgbackup";
+                startAt = "*-*-* 03:00:00";
+              };
+              worker.settings = {
+                destinations.storagebox = storagebox "borgbackup-worker";
+                startAt = "*-*-* 03:30:00";
+              };
             };
-            startAt = "*-*-* 03:00:00";
           };
         };
 
