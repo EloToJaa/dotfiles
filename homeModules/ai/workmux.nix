@@ -1,11 +1,12 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.modules.ai.workmux;
-  workmux = pkgs.ai-workmux-skills;
+  workmux = inputs.workmux-skills;
   agent = "claude";
   yaml = pkgs.formats.yaml {};
 in {
@@ -21,17 +22,17 @@ in {
     };
 
     xdg.configFile = {
-      "opencode/plugins/workmux-status.ts".source = "${workmux}/opencode/plugins/workmux-status.ts";
-      "opencode/package.json".source = "${workmux}/opencode/package.json";
+      "opencode/plugins/workmux-status.ts".source = "${workmux}/resources/opencode/plugins/workmux-status.ts";
+      "opencode/package.json".source = "${workmux}/resources/opencode/package.json";
     };
-    modules.ai.skills = {
-      coordinator = "${workmux}/skills/coordinator/";
-      merge = "${workmux}/skills/merge/";
-      open-pr = "${workmux}/skills/open-pr/";
-      rebase = "${workmux}/skills/rebase/";
-      workmux = "${workmux}/skills/workmux/";
-      worktree = "${workmux}/skills/worktree/";
-    };
+    modules.ai.skills = lib.genAttrs [
+      "coordinator"
+      "merge"
+      "open-pr"
+      "rebase"
+      "workmux"
+      "worktree"
+    ] (name: "${workmux}/skills/${name}");
 
     xdg.configFile."workmux/config.yaml".source = yaml.generate "workmux-config.yaml" {
       merge_strategy = "rebase";

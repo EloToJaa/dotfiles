@@ -11,7 +11,7 @@
   workarounds = import ./workarounds.nix {inherit lib pkgs effects;};
   inherit (workarounds) nix-update unmanaged;
   packages = builtins.filter (name: !builtins.elem name unmanaged) (builtins.attrNames self.packages.${system});
-  taggedInputs = ["clan-core" "bun2nix" "unifi-mcp" "yamtrack"];
+  taggedInputs = ["clan-core" "bun2nix" "unifi-mcp" "yamtrack" "agent-browser-skills" "mattpocock-skills" "workmux-skills"];
   mkUpdate = kind: name:
     effects.mkEffect {
       name = "update-${kind}-${name}";

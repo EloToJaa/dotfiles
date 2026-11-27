@@ -1,27 +1,12 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: let
   cfg = config.modules.ai.skills;
-  upstreamSkills = {
-    anthropic = pkgs.ai-anthropics-skills;
-    agent-browser = pkgs.ai-agent-browser-skills;
-    matt = pkgs.ai-mattpocock-skills;
-    tstack = pkgs.ai-tstack-skills;
-  };
-  tstackSkills = lib.genAttrs [
-    "babysit-pr"
-    "council"
-    "file-pr"
-    "full-send"
-    "full-stop"
-    "leaving-pr-comments"
-    "modernize"
-    "sol-loop"
-    "takeover"
-  ] (name: "${upstreamSkills.tstack}/skills/${name}");
+  fromDir = dir: names: lib.genAttrs names (name: "${dir}/${name}");
   piSkillFiles =
     lib.mapAttrs' (
       name: source:
@@ -31,12 +16,27 @@
 in {
   config = {
     modules.ai.skills =
-      {
-        frontend-design = "${upstreamSkills.anthropic}/skills/frontend-design/";
-        agent-browser = "${upstreamSkills.agent-browser}/skills/agent-browser/";
-        grill-with-docs = "${upstreamSkills.matt}/skills/engineering/grill-with-docs";
-      }
-      // tstackSkills;
+      fromDir "${inputs.anthropic-skills}/skills" ["frontend-design"]
+      // fromDir "${inputs.agent-browser-skills}/skills" ["agent-browser"]
+      // fromDir "${inputs.mattpocock-skills}/skills/engineering" ["grill-with-docs"]
+      // fromDir "${inputs.tstack-skills}/skills" [
+        "babysit-pr"
+        "council"
+        "file-pr"
+        "full-send"
+        "full-stop"
+        "leaving-pr-comments"
+        "modernize"
+        "sol-loop"
+        "takeover"
+      ];
+
+    assertions =
+      lib.mapAttrsToList (name: path: {
+        assertion = builtins.pathExists path;
+        message = "modules.ai.skills.${name}: ${toString path} does not exist";
+      })
+      cfg;
 
     home.packages = with pkgs; [
       llm-agents.agent-browser
