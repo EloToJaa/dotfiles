@@ -10,7 +10,7 @@
   service = outputs.lib.homelab.mkHomelabService {
     inherit lib config;
     name = "karakeep";
-    port = 3003;
+    port = 3004;
     domainName = "hoarder";
     glance.icon = "di:karakeep";
     gatus = {
