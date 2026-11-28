@@ -31,25 +31,18 @@ in {
       };
     })
     {
-      containers.immich = {
-        bindMounts.oidcSecret = {
-          isReadOnly = true;
-          hostPath = clientSecretPath;
-          mountPoint = clientSecretPath;
-        };
-        config.services.immich.settings = {
-          passwordLogin.enabled = true;
-          oauth = {
-            enabled = true;
-            issuerUrl = issuer;
-            inherit clientId;
-            clientSecret._secret = clientSecretPath;
-            scope = "openid profile email";
-            tokenEndpointAuthMethod = "client_secret_basic";
-            buttonText = "Login with Authelia";
-            autoRegister = true;
-            autoLaunch = false;
-          };
+      services.immich.settings = {
+        passwordLogin.enabled = true;
+        oauth = {
+          enabled = true;
+          issuerUrl = issuer;
+          inherit clientId;
+          clientSecret._secret = clientSecretPath;
+          scope = "openid profile email";
+          tokenEndpointAuthMethod = "client_secret_basic";
+          buttonText = "Login with Authelia";
+          autoRegister = true;
+          autoLaunch = false;
         };
       };
     }
