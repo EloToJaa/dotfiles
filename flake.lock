@@ -1467,16 +1467,16 @@
     "unifi-mcp": {
       "flake": false,
       "locked": {
-        "lastModified": 1795551761,
-        "narHash": "sha256-D7jNmKi00Ss+qD9rH8cYsSGuw1BZALtkwopNWgguQjU=",
+        "lastModified": 1795831905,
+        "narHash": "sha256-tQsPbruTFZWs38ThLnHL0ZgNRqzka7VpUVVx4Kx2LWY=",
         "owner": "sirkirby",
         "repo": "unifi-mcp",
-        "rev": "11354d57b9a67616a0485e5346ad49fa2c909e5b",
+        "rev": "309747cef4ccc4a864621094e252f57f44e68fcb",
         "type": "github"
       },
       "original": {
         "owner": "sirkirby",
-        "ref": "network/v0.50.3",
+        "ref": "network/v0.51.0",
         "repo": "unifi-mcp",
         "type": "github"
       }

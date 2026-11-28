@@ -199,7 +199,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     unifi-mcp = {
-      url = "github:sirkirby/unifi-mcp/network/v0.50.3";
+      url = "github:sirkirby/unifi-mcp/network/v0.51.0";
       flake = false;
     };
     yamtrack = {

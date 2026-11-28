@@ -8,7 +8,7 @@
   uv2nix,
   unifi-mcp-src,
 }: let
-  version = "0.50.3";
+  version = "0.51.0";
   workspace = uv2nix.lib.workspace.loadWorkspace {
     workspaceRoot = unifi-mcp-src;
   };
