@@ -10,7 +10,8 @@
   cfg = config.modules.home.rex;
   # Upstream's preCheck runs clippy with -D warnings and src/platform/fs.rs trips
   # clippy::byte_char_slices; the skipped tests shell out to /bin/ps, which the
-  # build sandbox lacks.
+  # build sandbox lacks; the toolbar reveal test races other tests on a shared
+  # settings file.
   rexRunePackage = inputs.rex-rune.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
     preCheck = builtins.replaceStrings ["-- -D warnings"] ["-- -D warnings -A clippy::byte_char_slices"] old.preCheck;
     checkFlags =
@@ -18,6 +19,7 @@
       ++ [
         "--skip=ssh::install::tests::stop_kills_group_and_drop_kills_without_waiting_for_a_question"
         "--skip=ssh::install::tests::stop_sweeps_a_term_ignoring_group_member_without_terminal_fds"
+        "--skip=app::tests::toolbar_reveal_tests::reveal_toolbar_floats_it_from_the_keyboard_to_move_or_close_the_window"
       ];
   });
   workspace_path = "${config.xdg.configHome}/rex-rune/workspace.json";
